@@ -19,6 +19,7 @@ export function Reveal({
   className?: string;
   id?: string;
   "aria-labelledby"?: string;
+  "aria-label"?: string;
 }) {
   const ref = React.useRef<HTMLElement | null>(null);
   const [revealed, setRevealed] = React.useState(false);

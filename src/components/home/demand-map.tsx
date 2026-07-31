@@ -33,9 +33,17 @@ function buildLinks(nodes: DemandNode[]) {
 
 const LINKS = buildLinks(demandNodes);
 
-export function DemandMap({ className }: { className?: string }) {
+export function DemandMap({
+  className,
+  visibleIds,
+}: {
+  className?: string;
+  /** When set, nodes outside this list are dimmed (filter state). */
+  visibleIds?: string[];
+}) {
   const [activeId, setActiveId] = React.useState(demandNodes[0]!.id);
   const active = demandNodes.find((n) => n.id === activeId) ?? demandNodes[0]!;
+
 
   return (
     <div className={cn("grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-center", className)}>
@@ -74,17 +82,21 @@ export function DemandMap({ className }: { className?: string }) {
 
           {demandNodes.map((node, i) => {
             const isActive = node.id === activeId;
+            const dimmed = visibleIds ? !visibleIds.includes(node.id) : false;
             return (
-              <g key={node.id}>
-                <circle cx={node.x} cy={node.y} r="11" fill="url(#demand-glow)" />
+              <g key={node.id} opacity={dimmed ? 0.22 : 1}>
+                {dimmed ? null : (
+                  <circle cx={node.x} cy={node.y} r="11" fill="url(#demand-glow)" />
+                )}
                 <circle
                   cx={node.x}
                   cy={node.y}
-                  r={isActive ? 5 : 3}
+                  r={isActive && !dimmed ? 5 : 3}
                   fill="var(--color-orange-500)"
                   className="demand-node"
                   style={{ animationDelay: `${(i % 6) * 380}ms` }}
                 />
+
                 {/* 44px hit area, keyboard reachable */}
                 <circle
                   cx={node.x}

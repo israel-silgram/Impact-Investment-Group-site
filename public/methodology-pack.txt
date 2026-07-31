@@ -1,0 +1,9 @@
+The Impact Investment Platform — Methodology Pack (stub)
+
+This is a placeholder file. The published methodology pack will describe:
+- how a brief is turned into a ranked set of candidate homes
+- the factors used in a match and how each is weighted
+- the public data sources used and the licence each is used under
+- the audit record kept for every match, confirmation and placement
+
+No statistics are included in this stub.
