@@ -1,5 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { DemandMap } from "@/components/home/demand-map";
 import { PageShell } from "@/components/page-shell";
+import { SectionHeader } from "@/components/ui/section-header";
+import { Reveal } from "@/components/ui/reveal";
+import { demandMapNote } from "@/content/home";
+
 
 export const Route = createFileRoute("/the-problem")({
   component: TheProblemPage,
