@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { PageShell } from "@/components/page-shell";
 
 export const Route = createFileRoute("/solutions")({
   component: SolutionsPage,
@@ -26,8 +27,11 @@ export const Route = createFileRoute("/solutions")({
 
 function SolutionsPage() {
   return (
-    <main>
-      <h1>Our Solutions</h1>
-    </main>
+    <PageShell
+      eyebrow="Our Solutions"
+      title="One route for every party in a supported housing placement"
+      lead="Commissioners, providers, landlords, developers and capital partners each need a different entry point into the same evidenced process."
+      primaryAction={{ label: "Speak to our team", enquiry: "sales" }}
+    />
   );
 }

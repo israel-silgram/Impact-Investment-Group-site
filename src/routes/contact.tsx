@@ -1,7 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod";
+import { PageShell } from "@/components/page-shell";
+
+const enquiryTypes = [
+  "demo",
+  "sales",
+  "partner",
+  "investor",
+  "media",
+  "support",
+] as const;
+
+/** Footer and header deep-links pre-select the enquiry type via ?enquiry=. */
+const searchSchema = z.object({
+  enquiry: z.enum(enquiryTypes).catch("demo"),
+});
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
+  validateSearch: (search) => searchSchema.parse(search),
   head: () => ({
     meta: [
       { title: "Contact — The Impact Investment Platform" },
@@ -25,9 +42,13 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
+  const { enquiry } = Route.useSearch();
   return (
-    <main>
-      <h1>Contact</h1>
-    </main>
+    <PageShell
+      eyebrow={`Contact · ${enquiry}`}
+      title="Tell us which conversation you need"
+      lead="The enquiry form validates in the browser and routes to the right team. Enquiry type is pre-selected from the link you followed."
+      primaryAction={{ label: "Book a demo", enquiry: "demo" }}
+    />
   );
 }

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { PageShell } from "@/components/page-shell";
 
 export const Route = createFileRoute("/the-problem")({
   component: TheProblemPage,
@@ -16,7 +17,6 @@ export const Route = createFileRoute("/the-problem")({
         content:
           "Why supported housing placement, compliance and capital allocation break down across UK local authorities and providers.",
       },
-
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/the-problem" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -27,8 +27,11 @@ export const Route = createFileRoute("/the-problem")({
 
 function TheProblemPage() {
   return (
-    <main>
-      <h1>The Problem</h1>
-    </main>
+    <PageShell
+      eyebrow="The Problem"
+      title="Supply, support and capital do not currently meet in the same place"
+      lead="The evidenced case for change, built only from sourced figures. No statistic appears on this page without its origin."
+      primaryAction={{ label: "Register your interest today", enquiry: "demo" }}
+    />
   );
 }

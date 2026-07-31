@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { PageShell } from "@/components/page-shell";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -26,8 +27,11 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <main>
-      <h1>About Us</h1>
-    </main>
+    <PageShell
+      eyebrow="About Us"
+      title="A property business built to be checked"
+      lead="Registrations, redress and indemnity are published in the footer of every page. Case studies appear here only when the partner has approved them."
+      primaryAction={{ label: "Become a partner", enquiry: "partner" }}
+    />
   );
 }
