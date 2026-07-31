@@ -57,7 +57,17 @@ const FEATURES_BY_DISTRICT = new Map(
   COLLECTION.features.map((feature) => [feature.properties.LAD13NM, feature]),
 );
 
-/** Area-weighted centroid of each authority's constituent districts. */
+/**
+ * Area-weighted centroid of each authority's constituent districts, projected
+ * to pixel space with the same projection react-simple-maps builds internally
+ * and rounded — floating-point drift between server and client renders would
+ * otherwise trip a hydration mismatch on the marker transforms.
+ */
+const markerProjection = geoMercator()
+  .center(MAP_CENTER)
+  .scale(MAP_SCALE)
+  .translate([WIDTH / 2, HEIGHT / 2]);
+
 const CENTROIDS = new Map<string, [number, number]>();
 const UNMATCHED: { authority: string; districts: string[] }[] = [];
 for (const authority of commissioningAuthorities) {
@@ -69,12 +79,17 @@ for (const authority of commissioningAuthorities) {
   if (missing.length > 0) UNMATCHED.push({ authority: authority.name, districts: missing });
 
   if (geometries.length > 0) {
-    CENTROIDS.set(
-      authority.id,
-      geoCentroid({ type: "GeometryCollection", geometries } as never) as [number, number],
-    );
+    const lonLat = geoCentroid({ type: "GeometryCollection", geometries } as never);
+    const point = markerProjection(lonLat as [number, number]);
+    if (point) {
+      CENTROIDS.set(authority.id, [
+        Math.round(point[0] * 100) / 100,
+        Math.round(point[1] * 100) / 100,
+      ]);
+    }
   }
 }
+
 
 if (UNMATCHED.length > 0) {
   // Never silently dropped: surfaced so the alias map can be corrected.
