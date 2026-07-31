@@ -1,13 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import * as Icons from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-import heroTerraceSky from "@/assets/hero-terrace-sky.jpg";
-import heroStreetWarm from "@/assets/hero-street-warm.jpg";
-import heroCityGreen from "@/assets/hero-city-green.jpg";
+import cardHomes from "@/assets/card-homes.jpg";
+import cardSupport from "@/assets/card-support.jpg";
+import cardLives from "@/assets/card-lives.jpg";
 import { Button } from "@/components/ui/button";
-import { ImageFillHeadline } from "@/components/ui/image-fill-headline";
+import { IconCircle } from "@/components/ui/icon-circle";
 import { ProcessRail } from "@/components/ui/process-rail";
 import { Reveal } from "@/components/ui/reveal";
+import { pillarCards, registerRoles } from "@/content/audiences";
 import { deliverySteps } from "@/content/process";
+
+const pillarImages: Record<string, string> = {
+  homes: cardHomes,
+  support: cardSupport,
+  lives: cardLives,
+};
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -40,42 +49,103 @@ function HomePage() {
   return (
     <>
       <section aria-labelledby="hero-heading" className="relative overflow-hidden bg-navy-900">
-        <div className="mx-auto w-full max-w-[1440px] px-5 pb-16 pt-12 sm:px-8 lg:pb-24 lg:pt-16">
-          <ImageFillHeadline
-            lines={[
-              { text: "Building Homes", image: heroTerraceSky, tone: "neutral" },
-              { text: "Delivering Support", image: heroStreetWarm, tone: "orange" },
-              { text: "Transforming Futures", image: heroCityGreen, tone: "neutral" },
-            ]}
-            className="mx-auto max-w-[18ch] sm:max-w-none"
-          />
-          <span id="hero-heading" className="sr-only">
-            Building homes, delivering support, transforming futures
-          </span>
+        <div className="mx-auto w-full max-w-[1440px] px-5 pb-14 pt-10 sm:px-8 lg:pb-20 lg:pt-14">
+          <h1 id="hero-heading" className="sr-only">
+            Providing homes, delivering support, transforming lives
+          </h1>
 
-          <div className="mt-10 flex justify-center">
+          {/* Three pillars: headline above a photograph, divided by hairlines. */}
+          <div className="grid gap-10 lg:grid-cols-3 lg:gap-0">
+            {pillarCards.map((card, i) => (
+              <Reveal
+                key={card.id}
+                delay={i * 90}
+                className={
+                  i > 0
+                    ? "lg:border-l lg:border-navy-600/70 lg:pl-8 xl:pl-10"
+                    : "lg:pr-8 xl:pr-10"
+                }
+              >
+                <div className={i > 0 && i < 2 ? "lg:pr-8 xl:pr-10" : undefined}>
+                  <h2
+                    className={`heading-tight text-center text-[clamp(1.75rem,5vw,2.75rem)] font-bold ${
+                      card.tone === "orange" ? "text-orange-500" : "text-white"
+                    }`}
+                  >
+                    {card.title}
+                  </h2>
+                  <div className="mt-6 overflow-hidden rounded-panel border border-navy-600/70 shadow-panel">
+                    <img
+                      src={pillarImages[card.id]}
+                      alt={card.alt}
+                      width={1024}
+                      height={768}
+                      sizes="(min-width: 1024px) 33vw, 100vw"
+                      {...(i === 0 ? { loading: "eager" as const } : { loading: "lazy" as const })}
+                      className="aspect-[4/3] w-full object-cover"
+                    />
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Register as */}
+          <div className="mt-14 flex items-center justify-center gap-4">
+            <span aria-hidden="true" className="h-px w-16 bg-orange-500 sm:w-24" />
+            <h2 id="register-as" className="text-base text-mist sm:text-lg">
+              Register as
+            </h2>
+            <span aria-hidden="true" className="h-px w-16 bg-orange-500 sm:w-24" />
+          </div>
+
+          <Reveal className="mt-8">
+            <ul
+              aria-labelledby="register-as"
+              className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-10"
+            >
+              {registerRoles.map((role) => {
+                const Icon = (Icons as unknown as Record<string, LucideIcon>)[role.icon];
+                return (
+                  <li key={role.id}>
+                    <Link
+                      to="/contact"
+                      search={{ enquiry: role.enquiry }}
+                      className="group flex h-full min-h-[44px] flex-col items-center gap-3 rounded-panel border border-navy-600/70 bg-navy-800/40 px-3 py-5 text-center transition-colors duration-200 hover:border-teal-400 hover:bg-navy-800"
+                    >
+                      <IconCircle icon={Icon} size="md" tone="white" />
+                      <span className="heading-tight text-sm font-bold text-white">
+                        {role.label}
+                      </span>
+                      <span className="text-xs leading-snug text-slate-muted">{role.detail}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </Reveal>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="delivery-heading"
+        className="border-t border-navy-700 bg-navy-950"
+      >
+        <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-20">
+          <h2 id="delivery-heading" className="eyebrow text-center text-slate-muted">
+            How delivery works
+          </h2>
+          <Reveal className="mt-10">
+            <ProcessRail steps={deliverySteps} />
+          </Reveal>
+
+          <div className="mt-14 flex justify-center">
             <Button variant="primary" size="lg" asChild>
               <Link to="/contact" search={{ enquiry: "demo" }}>
                 Register your interest today
               </Link>
             </Button>
           </div>
-
-          <Reveal className="mt-16 lg:mt-20">
-            <ProcessRail steps={deliverySteps} />
-          </Reveal>
-        </div>
-      </section>
-
-      <section aria-labelledby="home-slots" className="border-t border-navy-700 bg-navy-950">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8">
-          <h2 id="home-slots" className="eyebrow text-slate-muted">
-            Remaining home sections
-          </h2>
-          <p className="measure mt-4 text-sm text-mist">
-            Chrome, tokens and components are live. Home sections will be assembled from typed
-            content files once copy and sourced figures are approved.
-          </p>
         </div>
       </section>
     </>
