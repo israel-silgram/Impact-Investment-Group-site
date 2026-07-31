@@ -70,7 +70,7 @@ function ContactPage() {
   const selected = toRouteId(type ?? enquiry);
 
   const select = (id: EnquiryRouteId) => {
-    void navigate({ search: (prev) => ({ ...prev, enquiry: id, type: id }) });
+    void navigate({ search: { ...{ enquiry: id, type: id }, ...(role ? { role } : {}) } });
   };
 
   return (
