@@ -36,7 +36,7 @@ export const Route = createFileRoute("/platform")({
       {
         name: "description",
         content:
-          "AI matching with a visible evidence breakdown, demand heat maps, sourced property reports, four role portals, board-ready analytics and an integration API.",
+          "Petra, Peter and Pippa run the analysis behind every deal — plus demand heat maps, sourced property reports, four role portals, board-ready analytics and an integration API.",
       },
       { property: "og:title", content: "The Platform — matching on evidence, not guesswork" },
       {

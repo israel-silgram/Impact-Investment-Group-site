@@ -27,10 +27,7 @@ export function AiTeam() {
                 <div className="flex flex-1 flex-col gap-4 p-6">
                   <IconCircle icon={Icon} size="lg" tone="teal" />
                   <h3 className="heading-tight text-xl font-bold text-white">
-                    {person.name}
-                    <span aria-hidden="true"> · </span>
-                    <span className="sr-only"> </span>
-                    {person.role}
+                    {person.name} · {person.role}
                   </h3>
                   <p className="text-sm leading-relaxed text-mist">{person.body}</p>
                 </div>
