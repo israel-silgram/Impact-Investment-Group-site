@@ -102,7 +102,7 @@ function PlatformPage() {
             <Reveal
               as="section"
               id="ai-matching"
-              aria-labelledby="ai-matching-heading"
+              aria-label="AI matching"
               className="scroll-mt-32 border-b border-navy-800 py-16 lg:py-20"
             >
               <SectionHeader eyebrow="AI matching" title="Brief in, ranked homes out" />
@@ -123,22 +123,18 @@ function PlatformPage() {
                 </ul>
                 <MatchPanel />
               </div>
-              <span id="ai-matching-heading" className="sr-only">
-                AI matching
-              </span>
             </Reveal>
 
             {/* 4 · Demand heat maps & property intelligence */}
             <Reveal
               as="section"
               id="demand-heat-maps"
-              aria-labelledby="demand-heading"
+              aria-label="Demand heat maps and property intelligence"
               className="scroll-mt-32 border-b border-navy-800 py-16 lg:py-20"
             >
               <SectionHeader
                 eyebrow="Demand heat maps & property intelligence"
                 title="Where the need is, and what the property actually is"
-                className="[&_h2]:sr-only-none"
               />
               <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:items-start">
                 <div>
@@ -173,32 +169,26 @@ function PlatformPage() {
                   <PropertyReport />
                 </div>
               </div>
-              <span id="demand-heading" className="sr-only">
-                Demand heat maps and property intelligence
-              </span>
             </Reveal>
 
             {/* 5 · Four portals, one platform */}
             <Reveal
               as="section"
               id="portals"
-              aria-labelledby="portals-heading"
+              aria-label="Portals"
               className="scroll-mt-32 border-b border-navy-800 py-16 lg:py-20"
             >
               <SectionHeader eyebrow="Portals" title="Four portals, one platform" />
               <div className="mt-10">
                 <PortalTabs />
               </div>
-              <span id="portals-heading" className="sr-only">
-                Portals
-              </span>
             </Reveal>
 
             {/* 6 · Analytics */}
             <Reveal
               as="section"
               id="analytics"
-              aria-labelledby="analytics-heading"
+              aria-label="Analytics"
               className="scroll-mt-32 border-b border-navy-800 py-16 lg:py-20"
             >
               <SectionHeader
@@ -217,16 +207,13 @@ function PlatformPage() {
                 ))}
               </div>
               <p className="mt-6 text-sm leading-relaxed text-mist">{analyticsNote}</p>
-              <span id="analytics-heading" className="sr-only">
-                Analytics
-              </span>
             </Reveal>
 
             {/* 7 · API integrations */}
             <Reveal
               as="section"
               id="api"
-              aria-labelledby="api-heading"
+              aria-label="API integrations"
               className="scroll-mt-32 border-b border-navy-800 py-16 lg:py-20"
             >
               <SectionHeader eyebrow="API" title="Integrations, not re-keying" />
@@ -246,9 +233,6 @@ function PlatformPage() {
                 </ul>
               </div>
               <p className="mt-5 text-sm text-mist">{apiNote}</p>
-              <span id="api-heading" className="sr-only">
-                API
-              </span>
             </Reveal>
           </div>
         </div>
