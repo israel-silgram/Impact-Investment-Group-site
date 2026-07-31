@@ -61,11 +61,14 @@ function HomePage() {
                 key={card.id}
                 index={i}
                 className={
-                  i > 0
-                    ? "lg:border-l lg:border-navy-600/70 lg:px-8 xl:px-10"
-                    : "lg:pr-8 xl:pr-10"
+                  i === 0
+                    ? "lg:pr-8 xl:pr-10"
+                    : i === 1
+                      ? "lg:border-l lg:border-navy-600/70 lg:px-8 xl:px-10"
+                      : "lg:border-l lg:border-navy-600/70 lg:pl-8 xl:pl-10"
                 }
               >
+
                 <div>
 
                   <h2
