@@ -245,9 +245,10 @@ export function DemandMap({
                   className="demand-node"
                   style={{ animationDelay: `${(i % 6) * 380}ms` }}
                 />
-                {/* Generous hit area for touch and keyboard. */}
+                {/* Hit area for touch and keyboard; kept tight so adjacent
+                    authorities such as Liverpool and Wirral stay reachable. */}
                 <circle
-                  r="16"
+                  r="8"
                   fill="transparent"
                   role="button"
                   tabIndex={0}
