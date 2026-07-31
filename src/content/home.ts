@@ -79,6 +79,8 @@ export interface GroupSolution {
   entity: string;
   summary: string;
   icon: string;
+  /** Muted qualifier that must always travel with a care claim. */
+  qualifier?: string;
 }
 
 export const groupSolutions: GroupSolution[] = [
@@ -93,14 +95,17 @@ export const groupSolutions: GroupSolution[] = [
     id: "lease",
     title: "Lease & manage",
     entity: "Rhema Social Impact Group",
-    summary: "Holds the lease and manages the home to safe, decent standards.",
+    summary:
+      "Holds the head lease — 5 year+ FRI, CPI or internal repairing — and under-leases each home to a UK Registered Provider.",
     icon: "FileCheck2",
   },
   {
     id: "support",
     title: "Care & support",
     entity: "Elevate Supported Living",
-    summary: "Delivers the support around the household, day to day.",
+    summary:
+      "Delivers the care and support around the household, and runs a human allocation gate at the centre of every placement.",
+    qualifier: "Care Quality Commission registration is currently in progress.",
     icon: "HeartHandshake",
   },
 ];

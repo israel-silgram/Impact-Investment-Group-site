@@ -219,6 +219,11 @@ function HomePage() {
                     <h3 className="heading-tight text-xl font-bold text-white">{item.title}</h3>
                     <p className="eyebrow text-teal-400">{item.entity}</p>
                     <p className="text-sm leading-relaxed text-mist">{item.summary}</p>
+                    {item.qualifier ? (
+                      <p className="mt-auto text-[12px] leading-relaxed text-slate-muted">
+                        {item.qualifier}
+                      </p>
+                    ) : null}
                   </div>
                 </Reveal>
               );
