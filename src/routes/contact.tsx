@@ -185,7 +185,7 @@ function ContactPage() {
             </p>
             <div className="mt-6">
               <Button variant="secondary" asChild>
-                <Link to="/solutions" hash="looking-for-a-home">
+                <Link to="/solutions" hash="find-a-home-heading">
                   {lookingForHome.action}
                 </Link>
               </Button>
