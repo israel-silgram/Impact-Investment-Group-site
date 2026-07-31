@@ -191,11 +191,11 @@
   font-family: var(--font-display);
   text-transform: uppercase;
   letter-spacing: -0.02em;
-  line-height: 0.88;
-  font-size: clamp(2.75rem, 9vw, 8rem);
+  line-height: 1.02;
+  font-size: clamp(2.5rem, 9vw, 8rem);
   font-weight: 400;
-  @media (max-width: 640px) {
-    line-height: 0.98;
+  @media (min-width: 640px) {
+    line-height: 0.88;
   }
 }
 
