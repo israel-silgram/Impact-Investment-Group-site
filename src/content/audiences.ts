@@ -12,12 +12,12 @@ export interface AudienceRole {
 export const registerRoles: AudienceRole[] = [
   { id: "investor", label: "Investor", detail: "Fund homes, earn returns", icon: "CircleDollarSign", enquiry: "investor" },
   { id: "landlord", label: "Landlord", detail: "Lease homes securely", icon: "Home", enquiry: "partner" },
-  { id: "developer", label: "Developer", detail: "Build homes nationally", icon: "Crane", enquiry: "partner" },
+  { id: "developer", label: "Developer", detail: "Build homes nationally", icon: "Construction", enquiry: "partner" },
   { id: "housing-association", label: "Housing Association", detail: "Buy, sell & lease homes", icon: "Building2", enquiry: "sales" },
   { id: "local-authority", label: "Local Authority", detail: "Access housing supply", icon: "Landmark", enquiry: "sales" },
   { id: "care-provider", label: "Care Provider", detail: "Access housing", icon: "HeartHandshake", enquiry: "sales" },
   { id: "support-provider", label: "Support Provider", detail: "Access housing", icon: "Users", enquiry: "sales" },
-  { id: "social-worker", label: "Social Worker", detail: "Access housing and support", icon: "UserHeart", enquiry: "support" },
+  { id: "social-worker", label: "Social Worker", detail: "Access housing and support", icon: "UserRoundCheck", enquiry: "support" },
   { id: "broker", label: "Broker", detail: "Partner and provide services", icon: "Handshake", enquiry: "partner" },
   { id: "resident", label: "Resident", detail: "Find suitable homes", icon: "User", enquiry: "support" },
 ];
