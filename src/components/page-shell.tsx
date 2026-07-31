@@ -1,0 +1,46 @@
+import { Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { SectionHeader } from "@/components/ui/section-header";
+import { Reveal } from "@/components/ui/reveal";
+
+/**
+ * Titled shell for routes whose content has not been signed off yet.
+ * Chrome is live; the body is a deliberate empty state, not filler copy.
+ */
+export function PageShell({
+  eyebrow,
+  title,
+  lead,
+  primaryAction,
+}: {
+  eyebrow: string;
+  title: string;
+  lead: string;
+  primaryAction: { label: string; enquiry: string };
+}) {
+  return (
+    <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
+      <Reveal>
+        <SectionHeader as="h1" eyebrow={eyebrow} title={title} lead={lead} />
+      </Reveal>
+      <Reveal index={1} className="mt-10">
+        <Button variant="primary" asChild>
+          <Link to="/contact" search={{ enquiry: primaryAction.enquiry }}>
+            {primaryAction.label}
+          </Link>
+        </Button>
+      </Reveal>
+      <Reveal index={2} className="mt-14">
+        <div className="rounded-[var(--radius-panel)] border border-dashed border-navy-600 p-8">
+          <p className="font-heading text-sm font-semibold uppercase tracking-[0.14em] text-slate-muted">
+            Section content slot · empty until approved
+          </p>
+          <p className="measure mt-3 text-sm text-mist">
+            Design system and global chrome are in place. Page sections will be built from typed
+            content files once copy and sourced figures are signed off.
+          </p>
+        </div>
+      </Reveal>
+    </div>
+  );
+}
