@@ -62,11 +62,11 @@ function AboutPage() {
           alt="A UK residential street at dusk with warm lit windows"
           width={1920}
           height={1088}
-          className="absolute inset-0 -z-10 size-full object-cover opacity-25"
+          className="absolute inset-0 -z-10 size-full object-cover opacity-45"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-linear-to-b from-navy-950/85 via-navy-900/80 to-navy-900"
+          className="absolute inset-0 -z-10 bg-linear-to-b from-navy-950/70 via-navy-900/65 to-navy-900"
         />
         <div className="mx-auto w-full max-w-[1440px] px-5 py-24 sm:px-8 lg:py-32">
           <Reveal>
