@@ -5,13 +5,14 @@ import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SourceLine } from "@/components/ui/source-line";
 import { GroupDiagram } from "@/components/about/group-diagram";
-import { LeaderCard } from "@/components/about/leader-card";
+import { DirectorCard } from "@/components/about/director-card";
 import streetDusk from "@/assets/about-street-dusk.jpg";
 import {
   aboutHero,
   commissioningContext,
-  leadership,
-  leadershipNote,
+  director,
+  teamContext,
+  teamNote,
   partnerAsk,
   partnerTypes,
   partnershipSteps,
@@ -138,24 +139,23 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* 4 · Leadership team */}
-      <section aria-label="Leadership team" className="border-t border-navy-700">
+      {/* 4 · Leadership */}
+      <section aria-label="Leadership" className="border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
           <SectionHeader
             eyebrow="Leadership"
             title="Who you would be contracting with"
             lead="Named people, named responsibilities."
           />
-          <ul className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-            {leadership.map((leader, i) => (
-              <Reveal key={leader.id} index={i} as="li">
-                <LeaderCard leader={leader} />
-              </Reveal>
-            ))}
-          </ul>
-          <p className="measure mt-6 text-[12px] leading-relaxed text-slate-muted">
-            {leadershipNote}
-          </p>
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.6fr_1fr] lg:items-start">
+            <Reveal>
+              <DirectorCard director={director} />
+            </Reveal>
+            <Reveal index={1} className="flex flex-col gap-4">
+              <p className="text-base leading-relaxed text-mist">{teamContext}</p>
+              <p className="text-[12px] leading-relaxed text-slate-muted">{teamNote}</p>
+            </Reveal>
+          </div>
         </div>
       </section>
 

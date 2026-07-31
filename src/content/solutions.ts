@@ -48,10 +48,14 @@ export interface RoleSection {
   portal: PortalState;
   /** Rendered verbatim in slate-muted beneath the bullets. Investors only. */
   riskLine?: string;
+  /** Commercial terms paragraph, rendered beneath the bullets. */
+  terms?: string;
+  /** Muted qualifier that must always travel with a care claim. */
+  qualifier?: string;
   /** Compact, expand-on-click treatment for the supply side. */
   compact?: boolean;
   /** Enquiry type this role's closing routes carry. */
-  enquiry: "sales" | "partner" | "investor";
+  enquiry: "team" | "partner" | "investor";
 }
 
 export const riskLine =
@@ -81,7 +85,7 @@ export const roleSections: RoleSection[] = [
       footnote: "Every match carries its evidence pack",
       linkLabel: "Open the Local Authority portal",
     },
-    enquiry: "sales",
+    enquiry: "team",
   },
   {
     slug: "housing-associations",
@@ -95,6 +99,8 @@ export const roleSections: RoleSection[] = [
       "Stock and condition visible across the portfolio.",
       "Support provider named against every home.",
     ],
+    terms:
+      "Take on block stock with nomination rights built in. The platform sources, underwrites and refurbishes block stock that fits the supported-housing brief, then leases it to your registered provider on a 5 year+ FRI, CPI or internal repairing lease, paid monthly in advance, with nomination rights into the placements pipeline you already run.",
     portal: {
       state: "lease & stock view",
       columns: ["Home", "Lease"],
@@ -120,6 +126,9 @@ export const roleSections: RoleSection[] = [
       "Referral to room with the evidence attached.",
       "Hours, visits and outcomes recorded against the household.",
     ],
+    terms:
+      "Elevate Supported Living delivers the care and support and runs a human allocation gate at the centre of every placement.",
+    qualifier: "Care Quality Commission registration is currently in progress.",
     portal: {
       state: "placements & rotas",
       columns: ["Placement", "Cover"],
@@ -131,7 +140,7 @@ export const roleSections: RoleSection[] = [
       footnote: "Rota gaps surface against the home, not a spreadsheet",
       linkLabel: "Open the Provider portal",
     },
-    enquiry: "sales",
+    enquiry: "team",
   },
   {
     slug: "investors",
@@ -145,6 +154,8 @@ export const roleSections: RoleSection[] = [
       "Income and impact reported from the same record.",
       "Sourcing and packaging handled end to end.",
     ],
+    terms:
+      "Rhema Social Impact Group holds the head lease — a 5 year+ FRI, CPI or internal repairing lease — and under-leases each home to a UK Registered Provider.",
     riskLine,
     portal: {
       state: "income & impact",

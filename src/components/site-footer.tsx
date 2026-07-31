@@ -105,6 +105,11 @@ export function SiteFooter() {
               <p className="eyebrow text-slate-muted">{reg.category}</p>
               <p className="font-heading text-base font-semibold text-white">{reg.label}</p>
               <p className="font-mono text-xs text-mist">{reg.reference}</p>
+              {reg.details?.map((detail) => (
+                <p key={detail} className="text-[11px] leading-snug text-slate-muted">
+                  {detail}
+                </p>
+              ))}
               <a
                 href={reg.verifyHref}
                 target="_blank"

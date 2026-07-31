@@ -16,6 +16,7 @@ import { EmptySlot } from "@/components/ui/empty-slot";
 import { IconCircle } from "@/components/ui/icon-circle";
 import { ImageFillHeadline } from "@/components/ui/image-fill-headline";
 import { LiveWindow } from "@/components/ui/live-window";
+import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { ProcessRail } from "@/components/ui/process-rail";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -26,6 +27,7 @@ import {
   groupSolutions,
   heroCounts,
   heroCountsSource,
+  bnbSpendPanel,
   matchRows,
   nhsCostPanel,
   platformCapabilities,
@@ -41,7 +43,7 @@ const pillarImages: Record<string, string> = {
 };
 
 /** The single orange action this page exists to get. Hero + closing band only. */
-const PRIMARY_LABEL = "Register your interest today";
+const PRIMARY_LABEL = "Register to join the wait list";
 
 const icon = (name: string): LucideIcon =>
   (Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle;
@@ -98,9 +100,11 @@ function HomePage() {
 
           <p className="eyebrow mt-8 text-center text-teal-400">The Impact Investment Platform</p>
 
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+          <PreReleaseBadge className="mt-6 justify-center" />
+
+          <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Button variant="primary" size="lg" asChild>
-              <Link to="/contact" search={{ enquiry: "demo" }}>
+              <Link to="/contact" search={{ enquiry: "waitlist" }}>
                 {PRIMARY_LABEL}
               </Link>
             </Button>
@@ -125,7 +129,7 @@ function HomePage() {
         </div>
 
         <Reveal className="mx-auto w-full max-w-[1440px] px-5 pb-12 pt-16 sm:px-8">
-          <ProcessRail steps={deliverySteps} />
+          <ProcessRail steps={deliverySteps} compact />
         </Reveal>
       </section>
 
@@ -174,6 +178,16 @@ function HomePage() {
               </p>
               <p className="font-heading text-base font-semibold text-mist">{nhsCostPanel.label}</p>
               <SourceLine source={nhsCostPanel.source} />
+
+              <div className="mt-4 border-t border-navy-700 pt-4">
+                <p className="font-heading text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-none text-white">
+                  {bnbSpendPanel.value}
+                </p>
+                <p className="mt-2 font-heading text-sm font-semibold text-mist">
+                  {bnbSpendPanel.label}
+                </p>
+                <SourceLine className="mt-2" source={bnbSpendPanel.source} />
+              </div>
             </Reveal>
           </div>
 
@@ -205,6 +219,11 @@ function HomePage() {
                     <h3 className="heading-tight text-xl font-bold text-white">{item.title}</h3>
                     <p className="eyebrow text-teal-400">{item.entity}</p>
                     <p className="text-sm leading-relaxed text-mist">{item.summary}</p>
+                    {item.qualifier ? (
+                      <p className="mt-auto text-[12px] leading-relaxed text-slate-muted">
+                        {item.qualifier}
+                      </p>
+                    ) : null}
                   </div>
                 </Reveal>
               );
@@ -269,7 +288,7 @@ function HomePage() {
 
               <div>
                 <Button variant="ghost" asChild>
-                  <Link to="/contact" search={{ enquiry: "demo" }}>
+                  <Link to="/contact" search={{ enquiry: "waitlist" }}>
                     {PRIMARY_LABEL}
                   </Link>
                 </Button>
@@ -459,9 +478,10 @@ function HomePage() {
           >
             More Than Property · An Investment in Lives
           </h2>
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+          <PreReleaseBadge className="mt-8 justify-center" />
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Button variant="primary" size="lg" asChild>
-              <Link to="/contact" search={{ enquiry: "demo" }}>
+              <Link to="/contact" search={{ enquiry: "waitlist" }}>
                 {PRIMARY_LABEL}
               </Link>
             </Button>

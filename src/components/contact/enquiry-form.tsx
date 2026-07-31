@@ -6,7 +6,7 @@ import { CalendarClock, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
-  demoSlots,
+  previewSlots,
   entityTypeOptions,
   enquiryRoutes,
   investorAcknowledgement,
@@ -65,7 +65,7 @@ function schemaFor(route: EnquiryRouteId) {
         message,
         deadline: z.string().trim().min(1, "Please give your deadline"),
       });
-    case "demo":
+    case "waitlist":
       return z.object({ ...base, message, slot: z.string().optional() });
     default:
       return z.object({ ...base, message });
@@ -114,7 +114,7 @@ export function EnquiryForm({
   prefilledRole,
 }: {
   route: EnquiryRouteId;
-  prefilledRole?: string;
+  prefilledRole?: string | undefined;
 }) {
   const config = enquiryRoutes.find((r) => r.id === route) ?? enquiryRoutes[0]!;
   const [sent, setSent] = React.useState(false);
@@ -310,12 +310,12 @@ export function EnquiryForm({
         <div
           className={cn(
             "mt-6 grid gap-6",
-            route === "demo" && "lg:grid-cols-[1.4fr_1fr] lg:items-start",
+            route === "waitlist" && "lg:grid-cols-[1.4fr_1fr] lg:items-start",
           )}
         >
           <div className="flex flex-col gap-2">
             <Label htmlFor="message">
-              {route === "demo" ? "What would you like to see?" : "Message"}
+              {route === "waitlist" ? "What would you like to see?" : "Message"}
             </Label>
             <textarea
               id="message"
@@ -328,13 +328,13 @@ export function EnquiryForm({
             <ErrorText id="message-error">{errors.message?.message}</ErrorText>
           </div>
 
-          {route === "demo" ? (
+          {route === "waitlist" ? (
             <fieldset className="rounded-[var(--radius-panel)] border border-navy-600 bg-navy-950 p-5">
               <legend className="px-1 font-heading text-sm font-semibold uppercase tracking-[0.08em] text-mist">
                 Or pick a slot
               </legend>
               <div className="mt-3 flex flex-col gap-2">
-                {demoSlots.map((slot) => (
+                {previewSlots.map((slot) => (
                   <label
                     key={slot}
                     className="flex min-h-11 cursor-pointer items-center gap-3 rounded-[10px] border border-navy-700 px-4 text-sm text-mist transition-colors hover:border-teal-500 has-checked:border-teal-500 has-checked:bg-teal-950"
@@ -398,7 +398,11 @@ export function EnquiryForm({
       <div className="mt-8 flex flex-col gap-3">
         <div>
           <Button type="submit" variant="primary" disabled={isSubmitting}>
-            {isSubmitting ? "Sending…" : "Send enquiry"}
+            {isSubmitting
+              ? "Sending…"
+              : route === "waitlist"
+                ? "Join the wait list"
+                : "Send enquiry"}
           </Button>
         </div>
         <p className="font-heading text-sm font-semibold text-mist">{config.reply}</p>

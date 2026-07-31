@@ -1,8 +1,8 @@
 /** Copy and field configuration for /contact. */
 
 export const enquiryRouteIds = [
-  "demo",
-  "sales",
+  "waitlist",
+  "team",
   "partner",
   "investor",
   "media",
@@ -23,15 +23,15 @@ export interface EnquiryRoute {
 
 export const enquiryRoutes: EnquiryRoute[] = [
   {
-    id: "demo",
-    label: "Book a demo",
-    subline: "See the platform on your own caseload · 30 min",
+    id: "waitlist",
+    label: "Join the wait list",
+    subline: "Pre-release access · invitation only · 30 min preview",
     reply: "We reply within one working day",
     routedTo: "Platform team",
   },
   {
-    id: "sales",
-    label: "Speak to sales",
+    id: "team",
+    label: "Speak to the team",
     subline: "Pricing, contracts, procurement routes",
     reply: "We reply within one working day",
     routedTo: "Commercial team",
@@ -45,7 +45,7 @@ export const enquiryRoutes: EnquiryRoute[] = [
   },
   {
     id: "investor",
-    label: "Investor enquiry",
+    label: "Investor pre-release access",
     subline: "Pre-release access · capital at risk",
     reply: "We reply within one working day",
     routedTo: "Investor relations",
@@ -99,7 +99,7 @@ export const ticketSizeOptions = [
   "Not yet decided",
 ];
 
-export const demoSlots = [
+export const previewSlots = [
   "Tuesday · 10:00",
   "Wednesday · 14:30",
   "Friday · 09:30",

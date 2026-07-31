@@ -29,10 +29,10 @@ export const footerSiteLinks: NavItem[] = [
 
 /** Each deep-links to /contact with the enquiry type pre-selected. */
 export const contactRoutes: { label: string; enquiry: string }[] = [
-  { label: "Book a demo", enquiry: "demo" },
-  { label: "Speak to sales", enquiry: "sales" },
+  { label: "Join the wait list", enquiry: "waitlist" },
+  { label: "Speak to the team", enquiry: "team" },
   { label: "Become a partner", enquiry: "partner" },
-  { label: "Investor enquiry", enquiry: "investor" },
+  { label: "Investor pre-release access", enquiry: "investor" },
   { label: "Media", enquiry: "media" },
   { label: "Support", enquiry: "support" },
 ];
@@ -52,6 +52,8 @@ export interface TrustRegistration {
   reference: string;
   verifyLabel: string;
   verifyHref: string;
+  /** Extra published terms shown beneath the reference. Never abbreviate. */
+  details?: string[];
 }
 
 export const trustRegistrations: TrustRegistration[] = [
@@ -70,6 +72,7 @@ export const trustRegistrations: TrustRegistration[] = [
     reference: "PRS053648",
     verifyLabel: "Verify with the scheme",
     verifyHref: "https://www.theprs.co.uk/Membership/Search",
+    details: ["Provider: HF Resolution Ltd t/a PRS", "Scheme phone: 0333 321 9418"],
   },
   {
     id: "insurance",
@@ -78,6 +81,11 @@ export const trustRegistrations: TrustRegistration[] = [
     reference: "FCA broker FRN 305402",
     verifyLabel: "Verify the broker on the FCA register",
     verifyHref: "https://register.fca.org.uk/s/",
+    details: [
+      "PI limit £100,000 · PL limit £10,000,000",
+      "Cover 13 Aug 2025 – 12 Aug 2026",
+      "Underwritten by Victor Insurance / MS Amlin via Insurance-Desk Services",
+    ],
   },
 ];
 

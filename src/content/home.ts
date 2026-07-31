@@ -11,12 +11,12 @@ export interface LiveCount {
 
 /** The quiet single line under the hero buttons. */
 export const heroCounts: LiveCount[] = [
-  { id: "homes", value: "179,000+", label: "homes" },
-  { id: "rooms", value: "591,000+", label: "rooms" },
-  { id: "areas", value: "1,688", label: "areas" },
+  { id: "homes", value: "188,000+", label: "homes sourced & analysed" },
+  { id: "rooms", value: "618,000+", label: "potential homing opportunities" },
+  { id: "areas", value: "1,693", label: "towns & areas covered" },
 ];
 
-export const heroCountsSource = "Live from the platform";
+export const heroCountsSource = "live from our platform";
 
 export interface ProblemBar {
   id: string;
@@ -31,34 +31,46 @@ export interface ProblemBar {
 export const problemBars: ProblemBar[] = [
   {
     id: "children-ta",
-    label: "Children in temporary accommodation",
+    label: "Children in temporary accommodation in England",
     value: 176130,
     display: "176,130",
-    source: "gov.uk",
+    source:
+      "gov.uk · Statutory homelessness in England: Oct–Dec 2025 · at 31 December 2025",
     tone: "teal",
   },
   {
     id: "homelessness-duty",
-    label: "Households owed a homelessness duty",
+    label: "Households owed a homelessness duty in England, 2024–25",
     value: 330410,
     display: "330,410",
-    source: "gov.uk",
+    source:
+      "gov.uk · Statutory homelessness in England: financial year 2024-25 · full year 2024–25",
     tone: "teal",
   },
   {
     id: "supported-2040",
-    label: "Supported homes needed by 2040",
+    label: "Supported homes England is projected to need by 2040",
     value: 677202,
     display: "677,202",
-    source: "National Housing Federation",
+    source:
+      "National Housing Federation · How much supported housing will we need by 2040? · projection published 17 April 2024",
     tone: "orange",
   },
 ];
 
 export const nhsCostPanel = {
   value: "£102m / yr",
-  label: "NHS cost of people waiting in hospital for supported housing",
-  source: "Inside Housing · April 2026",
+  label:
+    "The annual NHS cost of people waiting in hospital for supported housing to be available",
+  source:
+    "Inside Housing · Lack of supported housing places costs NHS £102m per year · as reported April 2026",
+} as const;
+
+export const bnbSpendPanel = {
+  value: "430%",
+  label:
+    "Rise in council spend on B&B emergency accommodation for homeless households, 2010/11 to 2019/20",
+  source: "Local Government Association · released July 2021",
 } as const;
 
 export interface GroupSolution {
@@ -67,6 +79,8 @@ export interface GroupSolution {
   entity: string;
   summary: string;
   icon: string;
+  /** Muted qualifier that must always travel with a care claim. */
+  qualifier?: string;
 }
 
 export const groupSolutions: GroupSolution[] = [
@@ -81,14 +95,17 @@ export const groupSolutions: GroupSolution[] = [
     id: "lease",
     title: "Lease & manage",
     entity: "Rhema Social Impact Group",
-    summary: "Holds the lease and manages the home to safe, decent standards.",
+    summary:
+      "Holds the head lease — 5 year+ FRI, CPI or internal repairing — and under-leases each home to a UK Registered Provider.",
     icon: "FileCheck2",
   },
   {
     id: "support",
     title: "Care & support",
     entity: "Elevate Supported Living",
-    summary: "Delivers the support around the household, day to day.",
+    summary:
+      "Delivers the care and support around the household, and runs a human allocation gate at the centre of every placement.",
+    qualifier: "Care Quality Commission registration is currently in progress.",
     icon: "HeartHandshake",
   },
 ];
@@ -159,7 +176,6 @@ export interface DemandNode {
 }
 
 export const demandNodes: DemandNode[] = [
-  { id: "glasgow", name: "Glasgow", x: 150, y: 178, homesSourced: 210, potentialRooms: 690, intensity: 54 },
   { id: "edinburgh", name: "Edinburgh", x: 195, y: 168, homesSourced: 168, potentialRooms: 552, intensity: 48 },
   { id: "newcastle", name: "Newcastle", x: 245, y: 215, homesSourced: 240, potentialRooms: 790, intensity: 61 },
   { id: "leeds", name: "Leeds", x: 255, y: 285, homesSourced: 380, potentialRooms: 1240, intensity: 74 },

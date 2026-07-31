@@ -41,7 +41,9 @@ export function DemandMap({
   /** When set, nodes outside this list are dimmed (filter state). */
   visibleIds?: string[];
 }) {
-  const [activeId, setActiveId] = React.useState(demandNodes[0]!.id);
+  const [activeId, setActiveId] = React.useState(
+    demandNodes.find((n) => n.id === "manchester")?.id ?? demandNodes[0]!.id,
+  );
   const active = demandNodes.find((n) => n.id === activeId) ?? demandNodes[0]!;
 
 

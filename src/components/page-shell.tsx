@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/ui/section-header";
+import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { Reveal } from "@/components/ui/reveal";
 
 /**
@@ -24,6 +25,7 @@ export function PageShell({
         <SectionHeader as="h1" eyebrow={eyebrow} title={title} lead={lead} />
       </Reveal>
       <Reveal index={1} className="mt-10">
+        <PreReleaseBadge className="mb-5" />
         <Button variant="primary" asChild>
           <Link to="/contact" search={{ enquiry: primaryAction.enquiry }}>
             {primaryAction.label}
