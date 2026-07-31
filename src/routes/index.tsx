@@ -62,11 +62,12 @@ function HomePage() {
                 index={i}
                 className={
                   i > 0
-                    ? "lg:border-l lg:border-navy-600/70 lg:pl-8 xl:pl-10"
+                    ? "lg:border-l lg:border-navy-600/70 lg:px-8 xl:px-10"
                     : "lg:pr-8 xl:pr-10"
                 }
               >
-                <div className={i > 0 && i < 2 ? "lg:pr-8 xl:pr-10" : undefined}>
+                <div>
+
                   <h2
                     className={`heading-tight text-center text-[clamp(1.75rem,5vw,2.75rem)] font-bold ${
                       card.tone === "orange" ? "text-orange-500" : "text-white"
