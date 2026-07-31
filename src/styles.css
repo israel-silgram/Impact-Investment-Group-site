@@ -293,3 +293,30 @@
     opacity: 1;
   }
 }
+
+/* ---------- Signature hero: photography through the letterforms ---------- */
+
+.image-fill-line {
+  display: inline-block;
+  /* Fallback: solid colour inherited from the line's tone class. */
+  text-shadow: var(--glow-headline);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .image-fill-line {
+    background-image: var(--fill-image);
+    background-size: cover;
+    background-position: center 40%;
+    background-repeat: no-repeat;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(255 255 255 / 0.18);
+    filter: drop-shadow(0 12px 30px rgb(0 11 28 / 0.7));
+  }
+
+  .image-fill-line[data-tone="orange"] {
+    background-image: var(--gradient-action), var(--fill-image);
+    background-blend-mode: color, normal;
+    -webkit-text-stroke: 1px color-mix(in oklab, var(--color-orange-400) 55%, transparent);
+  }
+}
