@@ -180,8 +180,8 @@ function SolutionsPage() {
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Button variant="primary" asChild>
-                <Link to="/contact" search={{ enquiry: "demo", role: readingRole }}>
-                  Book a demo
+                <Link to="/contact" search={{ enquiry: "waitlist", role: readingRole }}>
+                  Register to join the wait list
                 </Link>
               </Button>
               <Button variant="secondary" asChild>

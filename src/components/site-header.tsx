@@ -103,8 +103,8 @@ export function SiteHeader() {
             Log in
           </Link>
           <Button variant="primary" size="sm" asChild>
-            <Link to="/contact" search={{ enquiry: "demo" }}>
-              Book a demo
+            <Link to="/contact" search={{ enquiry: "waitlist" }}>
+              Join the wait list
             </Link>
           </Button>
         </div>
@@ -170,8 +170,8 @@ export function SiteHeader() {
           </nav>
 
           <Button variant="primary" asChild className="w-full">
-            <Link to="/contact" search={{ enquiry: "demo" }}>
-              Book a demo
+            <Link to="/contact" search={{ enquiry: "waitlist" }}>
+              Join the wait list
             </Link>
           </Button>
         </div>

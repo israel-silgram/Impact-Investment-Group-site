@@ -41,7 +41,7 @@ const pillarImages: Record<string, string> = {
 };
 
 /** The single orange action this page exists to get. Hero + closing band only. */
-const PRIMARY_LABEL = "Register your interest today";
+const PRIMARY_LABEL = "Register to join the wait list";
 
 const icon = (name: string): LucideIcon =>
   (Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle;
@@ -100,7 +100,7 @@ function HomePage() {
 
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Button variant="primary" size="lg" asChild>
-              <Link to="/contact" search={{ enquiry: "demo" }}>
+              <Link to="/contact" search={{ enquiry: "waitlist" }}>
                 {PRIMARY_LABEL}
               </Link>
             </Button>
@@ -269,7 +269,7 @@ function HomePage() {
 
               <div>
                 <Button variant="ghost" asChild>
-                  <Link to="/contact" search={{ enquiry: "demo" }}>
+                  <Link to="/contact" search={{ enquiry: "waitlist" }}>
                     {PRIMARY_LABEL}
                   </Link>
                 </Button>
@@ -461,7 +461,7 @@ function HomePage() {
           </h2>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Button variant="primary" size="lg" asChild>
-              <Link to="/contact" search={{ enquiry: "demo" }}>
+              <Link to="/contact" search={{ enquiry: "waitlist" }}>
                 {PRIMARY_LABEL}
               </Link>
             </Button>

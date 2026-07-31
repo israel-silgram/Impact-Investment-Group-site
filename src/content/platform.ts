@@ -25,7 +25,8 @@ export const heroSummary = {
   eyebrow: "The Platform",
   title: "Every home matched on evidence, not guesswork.",
   lead: "One record holds the brief, the property, the compliance evidence and the placement decision — so the match can be explained to a committee, line by line.",
-  caption: "A clickable teaser of the real interface.",
+  caption:
+    "A preview of the platform. Pre-release, invitation only — join the wait list for access.",
   tabs: [
     { id: "summary", label: "Summary" },
     { id: "matches", label: "Matches" },
@@ -86,7 +87,7 @@ export const filterNodeIds: Record<string, string[]> = {
     "newcastle",
     "sheffield",
   ],
-  "mental-health": ["london", "liverpool", "bristol", "nottingham", "glasgow", "brighton"],
+  "mental-health": ["london", "liverpool", "bristol", "nottingham", "brighton"],
   "young-people": ["london", "manchester", "leicester", "southampton", "norwich", "edinburgh"],
   homelessness: ["london", "birmingham", "manchester", "liverpool", "plymouth", "reading"],
 };
@@ -102,6 +103,8 @@ export const propertyReportRows: ReportRow[] = [
   { id: "rent", row: "Rent trend", source: "ONS" },
   { id: "epc", row: "EPC · floor area", source: "EPC Register" },
   { id: "amenities", row: "Walkable amenities", source: "OpenStreetMap" },
+  { id: "flood", row: "Flood risk", source: "Environment Agency" },
+  { id: "crime", row: "Neighbourhood crime", source: "Police.uk" },
 ];
 
 export const propertyReportNote =

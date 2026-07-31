@@ -31,7 +31,7 @@ function TheProblemPage() {
       eyebrow="The Problem"
       title="Supply, support and capital do not currently meet in the same place"
       lead="The evidenced case for change, built only from sourced figures. No statistic appears on this page without its origin."
-      primaryAction={{ label: "Register your interest today", enquiry: "demo" }}
+      primaryAction={{ label: "Register to join the wait list", enquiry: "waitlist" }}
     />
   );
 }

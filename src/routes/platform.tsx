@@ -73,8 +73,8 @@ function PlatformPage() {
             <p className="measure mt-5 text-base leading-relaxed text-mist">{heroSummary.lead}</p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Button variant="primary" asChild>
-                <Link to="/contact" search={{ enquiry: "demo" }}>
-                  Book a demo
+                <Link to="/contact" search={{ enquiry: "waitlist" }}>
+                  Register to join the wait list
                 </Link>
               </Button>
               <Button variant="secondary" onClick={() => scrollTo("api")}>
@@ -289,8 +289,8 @@ function PlatformPage() {
             </p>
             <div className="mt-8">
               <Button variant="primary" asChild>
-                <Link to="/contact" search={{ enquiry: "demo" }}>
-                  Book a demo
+                <Link to="/contact" search={{ enquiry: "waitlist" }}>
+                  Register to join the wait list
                 </Link>
               </Button>
             </div>

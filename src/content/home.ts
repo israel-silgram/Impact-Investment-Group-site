@@ -171,7 +171,6 @@ export interface DemandNode {
 }
 
 export const demandNodes: DemandNode[] = [
-  { id: "glasgow", name: "Glasgow", x: 150, y: 178, homesSourced: 210, potentialRooms: 690, intensity: 54 },
   { id: "edinburgh", name: "Edinburgh", x: 195, y: 168, homesSourced: 168, potentialRooms: 552, intensity: 48 },
   { id: "newcastle", name: "Newcastle", x: 245, y: 215, homesSourced: 240, potentialRooms: 790, intensity: 61 },
   { id: "leeds", name: "Leeds", x: 255, y: 285, homesSourced: 380, potentialRooms: 1240, intensity: 74 },

@@ -51,7 +51,7 @@ export interface RoleSection {
   /** Compact, expand-on-click treatment for the supply side. */
   compact?: boolean;
   /** Enquiry type this role's closing routes carry. */
-  enquiry: "sales" | "partner" | "investor";
+  enquiry: "team" | "partner" | "investor";
 }
 
 export const riskLine =
@@ -81,7 +81,7 @@ export const roleSections: RoleSection[] = [
       footnote: "Every match carries its evidence pack",
       linkLabel: "Open the Local Authority portal",
     },
-    enquiry: "sales",
+    enquiry: "team",
   },
   {
     slug: "housing-associations",
@@ -131,7 +131,7 @@ export const roleSections: RoleSection[] = [
       footnote: "Rota gaps surface against the home, not a spreadsheet",
       linkLabel: "Open the Provider portal",
     },
-    enquiry: "sales",
+    enquiry: "team",
   },
   {
     slug: "investors",
