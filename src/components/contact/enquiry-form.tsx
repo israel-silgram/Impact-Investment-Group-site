@@ -114,7 +114,7 @@ export function EnquiryForm({
   prefilledRole,
 }: {
   route: EnquiryRouteId;
-  prefilledRole?: string;
+  prefilledRole?: string | undefined;
 }) {
   const config = enquiryRoutes.find((r) => r.id === route) ?? enquiryRoutes[0]!;
   const [sent, setSent] = React.useState(false);
