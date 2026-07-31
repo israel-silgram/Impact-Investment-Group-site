@@ -163,40 +163,10 @@ export const ecosystemStages: EcosystemStage[] = [
   },
 ];
 
-export interface DemandNode {
-  id: string;
-  name: string;
-  /** Percentage coordinates inside the map viewBox. */
-  x: number;
-  y: number;
-  homesSourced: number;
-  potentialRooms: number;
-  /** 0–100, drives the teal intensity bar. */
-  intensity: number;
-}
 
-export const demandNodes: DemandNode[] = [
-  { id: "edinburgh", name: "Edinburgh", x: 195, y: 168, homesSourced: 168, potentialRooms: 552, intensity: 48 },
-  { id: "newcastle", name: "Newcastle", x: 245, y: 215, homesSourced: 240, potentialRooms: 790, intensity: 61 },
-  { id: "leeds", name: "Leeds", x: 255, y: 285, homesSourced: 380, potentialRooms: 1240, intensity: 74 },
-  { id: "manchester", name: "Manchester", x: 215, y: 305, homesSourced: 1240, potentialRooms: 4090, intensity: 92 },
-  { id: "liverpool", name: "Liverpool", x: 193, y: 318, homesSourced: 520, potentialRooms: 1710, intensity: 78 },
-  { id: "sheffield", name: "Sheffield", x: 265, y: 300, homesSourced: 305, potentialRooms: 1000, intensity: 68 },
-  { id: "nottingham", name: "Nottingham", x: 280, y: 322, homesSourced: 264, potentialRooms: 866, intensity: 63 },
-  { id: "birmingham", name: "Birmingham", x: 240, y: 355, homesSourced: 910, potentialRooms: 2980, intensity: 88 },
-  { id: "leicester", name: "Leicester", x: 275, y: 345, homesSourced: 198, potentialRooms: 650, intensity: 57 },
-  { id: "cardiff", name: "Cardiff", x: 200, y: 405, homesSourced: 226, potentialRooms: 742, intensity: 60 },
-  { id: "bristol", name: "Bristol", x: 225, y: 403, homesSourced: 288, potentialRooms: 944, intensity: 66 },
-  { id: "london", name: "London", x: 300, y: 395, homesSourced: 1180, potentialRooms: 3870, intensity: 96 },
-  { id: "reading", name: "Reading", x: 275, y: 402, homesSourced: 142, potentialRooms: 466, intensity: 44 },
-  { id: "brighton", name: "Brighton", x: 290, y: 420, homesSourced: 120, potentialRooms: 394, intensity: 41 },
-  { id: "southampton", name: "Southampton", x: 255, y: 420, homesSourced: 156, potentialRooms: 512, intensity: 47 },
-  { id: "plymouth", name: "Plymouth", x: 195, y: 440, homesSourced: 98, potentialRooms: 322, intensity: 36 },
-  { id: "norwich", name: "Norwich", x: 330, y: 345, homesSourced: 134, potentialRooms: 440, intensity: 43 },
-];
 
 export const demandMapNote =
-  "Built from published commissioning briefs and platform sourcing data · 18 of ~296 authorities today.";
+  "Built from published commissioning briefs · 18 of ~296 English local authorities · their briefs shape what we source, which is not a partnership, endorsement or approval by any council.";
 
 export interface PlatformCapability {
   id: string;

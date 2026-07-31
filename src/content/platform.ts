@@ -173,19 +173,41 @@ export const supportFilters = [
 ];
 
 /** Illustrative segmentation, used only to demonstrate the filter behaviour. */
+/** Ids reference commissioningAuthorities in src/content/demand.ts. */
 export const filterNodeIds: Record<string, string[]> = {
   "learning-disability": [
     "manchester",
-    "birmingham",
-    "leeds",
-    "cardiff",
-    "newcastle",
-    "sheffield",
+    "salford",
+    "county-durham",
+    "lancashire",
+    "newcastle-upon-tyne",
+    "derby",
   ],
-  "mental-health": ["london", "liverpool", "bristol", "nottingham", "brighton"],
-  "young-people": ["london", "manchester", "leicester", "southampton", "norwich", "edinburgh"],
-  homelessness: ["london", "birmingham", "manchester", "liverpool", "plymouth", "reading"],
+  "mental-health": [
+    "liverpool",
+    "wirral",
+    "nottingham",
+    "middlesbrough",
+    "sunderland",
+    "lincolnshire",
+  ],
+  "young-people": [
+    "manchester",
+    "hartlepool",
+    "stockton-on-tees",
+    "north-east-lincolnshire",
+    "cumberland",
+  ],
+  homelessness: [
+    "manchester",
+    "liverpool",
+    "salford",
+    "east-riding-of-yorkshire",
+    "westmorland-and-furness",
+    "lancashire",
+  ],
 };
+
 
 export interface ReportRow {
   id: string;
