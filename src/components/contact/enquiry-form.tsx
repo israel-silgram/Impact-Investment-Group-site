@@ -100,7 +100,7 @@ function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNo
   );
 }
 
-function ErrorText({ id, children }: { id: string; children?: string }) {
+function ErrorText({ id, children }: { id: string; children?: string | undefined }) {
   if (!children) return null;
   return (
     <p id={id} role="alert" className="text-[13px] font-medium text-orange-400">
@@ -116,7 +116,7 @@ export function EnquiryForm({
   route: EnquiryRouteId;
   prefilledRole?: string;
 }) {
-  const config = enquiryRoutes.find((r) => r.id === route) ?? enquiryRoutes[0];
+  const config = enquiryRoutes.find((r) => r.id === route) ?? enquiryRoutes[0]!;
   const [sent, setSent] = React.useState(false);
   const [failed, setFailed] = React.useState(false);
 
