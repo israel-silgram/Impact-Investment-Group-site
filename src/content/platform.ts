@@ -11,7 +11,8 @@ export interface CapabilityLink {
 }
 
 export const capabilityLinks: CapabilityLink[] = [
-  { id: "ai-matching", label: "AI matching" },
+  { id: "what-we-do", label: "What we do for you" },
+  { id: "ai-team", label: "Your AI investment team" },
   { id: "demand-heat-maps", label: "Demand heat maps" },
   { id: "property-intelligence", label: "Property intelligence" },
   { id: "portals", label: "Portals" },
@@ -43,13 +44,107 @@ export const heroSummary = {
   ],
 };
 
-/* 3 · AI matching --------------------------------------------------------- */
+/* 3a · What we do for you -------------------------------------------------- */
 
-export const matchingLines = [
-  "Brief in, ranked homes out",
-  "Every match carries its evidence",
-  "A human confirms every placement",
-];
+export interface DeliveryStep {
+  id: string;
+  spine: string;
+  title: string;
+  meta: string;
+  detail: string;
+  tone: "teal" | "orange";
+}
+
+export const whatWeDo = {
+  eyebrow: "What we do for you",
+  title: "Sourced data, managed people, a leased home, real support",
+  lead: "Four steps, in order. Hover or tap a step.",
+  steps: [
+    {
+      id: "data",
+      spine: "Data",
+      title: "We source the data",
+      meta: "Land Registry \u00b7 ONS \u00b7 Environment Agency \u00b7 Police.uk",
+      detail:
+        "A live feed of sourced listings, scored against your strategy, from a market scanned whole \u2014 every analytical figure travelling with its source, date and licence.",
+      tone: "teal",
+    },
+    {
+      id: "people",
+      spine: "People",
+      title: "We bring the people in",
+      meta: "A managed service, not a directory you browse",
+      detail:
+        "We appoint the vetted contractors, valuers and partners that turn a house into a leased supported home, and we manage them \u2014 you never have to find them.",
+      tone: "teal",
+    },
+    {
+      id: "lease",
+      spine: "Lease",
+      title: "The home is leased",
+      meta: "5 year+ institutional lease",
+      detail:
+        "5 year+ FRI, CPI or internal repairing lease, paid monthly in advance. Income is lease-backed: the lease is a commitment, not a promise of any particular return \u2014 capital remains at risk.",
+      tone: "teal",
+    },
+    {
+      id: "support",
+      spine: "Support",
+      title: "The people living there are supported",
+      meta: "Elevate Supported Living",
+      detail:
+        "Elevate delivers the care and support, with safeguarding at the centre of every placement. A human housing officer confirms every match. Care Quality Commission registration is currently in progress.",
+      tone: "orange",
+    },
+  ] satisfies DeliveryStep[],
+};
+
+/* 3b · Your AI investment team --------------------------------------------- */
+
+export interface Specialist {
+  id: string;
+  name: string;
+  role: string;
+  icon: "search" | "calculator" | "heart-handshake";
+  body: string;
+}
+
+export const aiTeam = {
+  eyebrow: "Your AI investment team",
+  title: "Not a chatbot \u2014 a team that does the work.",
+  lead: "Three specialists run the analysis behind every deal \u2014 Petra finds the right homes, Peter prices them, and Pippa scores their impact, with every figure traceable to a named public dataset. And you can talk to them directly inside the platform.",
+  specialists: [
+    {
+      id: "petra",
+      name: "Petra",
+      role: "Finds the deals",
+      icon: "search",
+      body: "Scans the whole market for the best-fit opportunities \u2014 strong equity, the right type, high verified tenant demand \u2014 and flags red flags and oversupply before you commit.",
+    },
+    {
+      id: "peter",
+      name: "Peter",
+      role: "Runs the numbers",
+      icon: "calculator",
+      body: "Valuation and comparables, net yield, a single sourced all-in cost estimate, financing, stress tests and 10-year projections \u2014 with the downside shown via a financing stress test.",
+    },
+    {
+      id: "pippa",
+      name: "Pippa",
+      role: "Scores the impact",
+      icon: "heart-handshake",
+      body: "Puts a number on the good: lives housed, social impact and impact-per-pound \u2014 so you can choose the home that changes the most lives, not just the balance sheet.",
+    },
+  ] satisfies Specialist[],
+  flow: [
+    { id: "finds", label: "Petra finds it", tone: "teal" as const },
+    { id: "prices", label: "Peter prices it", tone: "teal" as const },
+    { id: "proves", label: "Pippa proves it", tone: "orange" as const },
+  ],
+  workedExampleLabel: "Peter\u2019s worked example",
+  disclaimer:
+    "The team surfaces analysis to help you decide \u2014 it isn\u2019t financial, legal or tax advice, and a real human team is always on hand. Every figure is drawn from a named dataset or shown as a clearly-labelled estimate.",
+};
 
 export interface MatchFactor {
   id: string;

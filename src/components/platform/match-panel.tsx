@@ -4,11 +4,11 @@ import { DotMeter } from "@/components/platform/dot-meter";
 import { matchFactors, matchOverall } from "@/content/platform";
 
 /** Match-detail state. The evidence breakdown carries more weight than the score. */
-export function MatchPanel() {
+export function MatchPanel({ tabLabel = "Match detail" }: { tabLabel?: string }) {
   return (
     <LiveWindow
       ariaLabel="Match detail interface preview"
-      tabs={[{ id: "match", label: "Match detail" }]}
+      tabs={[{ id: "match", label: tabLabel }]}
     >
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
