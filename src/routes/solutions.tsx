@@ -48,7 +48,8 @@ function SolutionsPage() {
     }
   }, [scrollTo]);
 
-  const readingRole = roleSections.find((section) => section.slug === active) ?? roleSections[0];
+  const readingRole =
+    roleSections.find((section) => section.slug === active)?.slug ?? "local-authorities";
 
   return (
     <main className="bg-navy-900">
@@ -179,12 +180,12 @@ function SolutionsPage() {
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Button variant="primary" asChild>
-                <Link to="/contact" search={{ enquiry: "demo", role: readingRole.slug }}>
+                <Link to="/contact" search={{ enquiry: "demo", role: readingRole }}>
                   Book a demo
                 </Link>
               </Button>
               <Button variant="secondary" asChild>
-                <Link to="/contact" search={{ enquiry: "investor", role: readingRole.slug }}>
+                <Link to="/contact" search={{ enquiry: "investor", role: readingRole }}>
                   Investor enquiry
                 </Link>
               </Button>
