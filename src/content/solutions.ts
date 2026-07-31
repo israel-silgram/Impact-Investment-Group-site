@@ -48,6 +48,10 @@ export interface RoleSection {
   portal: PortalState;
   /** Rendered verbatim in slate-muted beneath the bullets. Investors only. */
   riskLine?: string;
+  /** Commercial terms paragraph, rendered beneath the bullets. */
+  terms?: string;
+  /** Muted qualifier that must always travel with a care claim. */
+  qualifier?: string;
   /** Compact, expand-on-click treatment for the supply side. */
   compact?: boolean;
   /** Enquiry type this role's closing routes carry. */
@@ -95,6 +99,8 @@ export const roleSections: RoleSection[] = [
       "Stock and condition visible across the portfolio.",
       "Support provider named against every home.",
     ],
+    terms:
+      "Take on block stock with nomination rights built in. The platform sources, underwrites and refurbishes block stock that fits the supported-housing brief, then leases it to your registered provider on a 5 year+ FRI, CPI or internal repairing lease, paid monthly in advance, with nomination rights into the placements pipeline you already run.",
     portal: {
       state: "lease & stock view",
       columns: ["Home", "Lease"],
@@ -145,6 +151,8 @@ export const roleSections: RoleSection[] = [
       "Income and impact reported from the same record.",
       "Sourcing and packaging handled end to end.",
     ],
+    terms:
+      "Rhema Social Impact Group holds the head lease — a 5 year+ FRI, CPI or internal repairing lease — and under-leases each home to a UK Registered Provider.",
     riskLine,
     portal: {
       state: "income & impact",

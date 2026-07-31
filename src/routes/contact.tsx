@@ -34,7 +34,7 @@ const searchSchema = z.object({
 function toRouteId(value: string | undefined): EnquiryRouteId {
   return enquiryRouteIds.includes(value as EnquiryRouteId)
     ? (value as EnquiryRouteId)
-    : "demo";
+    : "waitlist";
 }
 
 export const Route = createFileRoute("/contact")({
@@ -46,7 +46,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "One form, six routes: book a demo, speak to sales, become a partner, investor enquiries, media and support. Email hello@impactig.co.uk or call +44 7539 088373.",
+          "One form, six routes: join the wait list, speak to the team, become a partner, investor pre-release access, media and support. Email hello@impactig.co.uk or call +44 7539 088373.",
       },
       { property: "og:title", content: "Contact — The Impact Investment Platform" },
       {

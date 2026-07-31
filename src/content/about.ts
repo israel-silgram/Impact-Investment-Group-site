@@ -51,51 +51,34 @@ export const values = [
   },
 ];
 
-export type Leader = {
-  id: string;
+export interface Director {
   name: string;
   role: string;
   initials: string;
-  /** Real portrait only. Left undefined until a real image is supplied. */
+  /** Real photograph only. Left undefined until one is supplied. */
   portrait?: string;
-  focus: string;
+  bio: string;
+}
+
+export const director: Director = {
+  name: "Israel Silgram",
+  role: "Director",
+  initials: "IS",
+  bio: "Israel Silgram is a passionate motivated leader and is committed to seeing the quality of vulnerable people's lives improve. He is a dynamic and highly skilled social entrepreneur with proven experience in both children and adult social care. A business leader with significant strategic and operational success within children and adult services, across commercial businesses and charities.",
 };
 
-export const leadership: Leader[] = [
-  {
-    id: "founder",
-    name: "Name to be confirmed",
-    role: "Founder & Chief Executive",
-    initials: "—",
-    focus: "Group strategy, investor relationships",
-  },
-  {
-    id: "housing",
-    name: "Name to be confirmed",
-    role: "Director of Housing",
-    initials: "—",
-    focus: "Leases, housing association partnerships",
-  },
-  {
-    id: "care",
-    name: "Name to be confirmed",
-    role: "Director of Care & Support",
-    initials: "—",
-    focus: "Regulated support delivery, safeguarding",
-  },
-  {
-    id: "platform",
-    name: "Name to be confirmed",
-    role: "Director of Technology",
-    initials: "—",
-    focus: "Matching platform, data and reporting",
-  },
-];
+export const teamContext =
+  "The team works across property, investment and care: Impact Investment Group sources and packages the homes, Rhema Social Impact Group holds the lease and manages compliance and repairs, and Elevate Supported Living delivers the care with a human allocation gate at the centre of every placement.";
 
-export const leadershipNote =
-  "Portraits and full biographies are published here once each appointment is confirmed in writing. Until then the card shows an initials mark — we do not use stand-in photography for real people.";
+export const teamNote = "Further team details to follow.";
 
-export const groupStructure = [
+export const groupStructure: {
+  id: string;
+  name: string;
+  role: string;
+  body: string;
+  qualifier?: string;
+}[] = [
   {
     id: "iig",
     name: "Impact Investment Group",
@@ -105,14 +88,15 @@ export const groupStructure = [
   {
     id: "rhema",
     name: "Rhema Social Impact Group",
-    role: "Holds the lease · manages the home",
-    body: "The counterparty on the lease and the party responsible for the condition and management of the property.",
+    role: "Holds the head lease · manages the home",
+    body: "Holds the head lease — a 5 year+ FRI, CPI or internal repairing lease — and under-leases each home to a UK Registered Provider. Responsible for condition, compliance and repairs.",
   },
   {
     id: "elevate",
     name: "Elevate Supported Living",
     role: "Delivers the care & support",
-    body: "The regulated support provider working with the household and the commissioning authority.",
+    body: "Delivers the care and support, and runs a human allocation gate at the centre of every placement.",
+    qualifier: "Care Quality Commission registration is currently in progress.",
   },
 ];
 
@@ -141,7 +125,7 @@ export const partnerTypes = [
 export const technologyPartners = {
   partner: "Technology partners",
   detail:
-    "Data providers and case-management systems the platform connects to — HM Land Registry · ONS · EPC Register · postcodes.io · OpenStreetMap",
+    "Data providers and case-management systems the platform connects to — HM Land Registry · ONS · EPC Register · postcodes.io · OpenStreetMap · Environment Agency · Police.uk",
   note: "Public data used under licence. These publishers do not endorse this platform.",
 };
 
