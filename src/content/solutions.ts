@@ -126,6 +126,9 @@ export const roleSections: RoleSection[] = [
       "Referral to room with the evidence attached.",
       "Hours, visits and outcomes recorded against the household.",
     ],
+    terms:
+      "Elevate Supported Living delivers the care and support and runs a human allocation gate at the centre of every placement.",
+    qualifier: "Care Quality Commission registration is currently in progress.",
     portal: {
       state: "placements & rotas",
       columns: ["Placement", "Cover"],
