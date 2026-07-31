@@ -66,6 +66,14 @@ function RoleBody({ role }: { role: RoleSection }) {
               </li>
             ))}
           </ul>
+          {role.terms ? (
+            <p className="measure mt-5 text-sm leading-relaxed text-mist">{role.terms}</p>
+          ) : null}
+          {role.qualifier ? (
+            <p className="measure mt-3 text-[12px] leading-relaxed text-slate-muted">
+              {role.qualifier}
+            </p>
+          ) : null}
           {role.riskLine ? (
             <p className="measure mt-4 text-[12px] leading-relaxed text-slate-muted">
               {role.riskLine}

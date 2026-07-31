@@ -18,9 +18,12 @@ export interface ProcessStep {
 export function ProcessRail({
   steps,
   className,
+  compact,
 }: {
   steps: ProcessStep[];
   className?: string;
+  /** Icon and title only — used where the stages are explained again below. */
+  compact?: boolean;
 }) {
   return (
     <ol
@@ -60,7 +63,9 @@ export function ProcessRail({
           />
           <div className="min-w-0 md:px-3">
             <h3 className="font-heading text-base font-semibold text-white">{step.title}</h3>
-            <p className="mt-1 text-sm leading-snug text-mist">{step.description}</p>
+            {compact ? null : (
+              <p className="mt-1 text-sm leading-snug text-mist">{step.description}</p>
+            )}
           </div>
         </li>
       ))}

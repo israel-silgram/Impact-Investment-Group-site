@@ -13,6 +13,11 @@ export function GroupDiagram() {
               <h3 className="font-heading text-lg font-bold text-white">{entity.name}</h3>
               <p className="font-heading text-sm font-semibold text-mist">{entity.role}</p>
               <p className="text-sm leading-relaxed text-slate-muted">{entity.body}</p>
+              {entity.qualifier ? (
+                <p className="mt-auto text-[12px] leading-relaxed text-slate-muted">
+                  {entity.qualifier}
+                </p>
+              ) : null}
             </div>
             {i < groupStructure.length - 1 ? (
               <span

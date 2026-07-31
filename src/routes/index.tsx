@@ -16,6 +16,7 @@ import { EmptySlot } from "@/components/ui/empty-slot";
 import { IconCircle } from "@/components/ui/icon-circle";
 import { ImageFillHeadline } from "@/components/ui/image-fill-headline";
 import { LiveWindow } from "@/components/ui/live-window";
+import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { ProcessRail } from "@/components/ui/process-rail";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -26,6 +27,7 @@ import {
   groupSolutions,
   heroCounts,
   heroCountsSource,
+  bnbSpendPanel,
   matchRows,
   nhsCostPanel,
   platformCapabilities,
@@ -98,7 +100,9 @@ function HomePage() {
 
           <p className="eyebrow mt-8 text-center text-teal-400">The Impact Investment Platform</p>
 
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+          <PreReleaseBadge className="mt-6 justify-center" />
+
+          <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Button variant="primary" size="lg" asChild>
               <Link to="/contact" search={{ enquiry: "waitlist" }}>
                 {PRIMARY_LABEL}
@@ -125,7 +129,7 @@ function HomePage() {
         </div>
 
         <Reveal className="mx-auto w-full max-w-[1440px] px-5 pb-12 pt-16 sm:px-8">
-          <ProcessRail steps={deliverySteps} />
+          <ProcessRail steps={deliverySteps} compact />
         </Reveal>
       </section>
 

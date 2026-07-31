@@ -243,6 +243,11 @@ function ContactPage() {
                   <p className="eyebrow text-slate-muted">{reg.category}</p>
                   <p className="font-heading text-lg font-bold text-white">{reg.label}</p>
                   <p className="font-mono text-sm text-mist">{reg.reference}</p>
+                  {reg.details?.map((detail) => (
+                    <p key={detail} className="text-[12px] leading-snug text-slate-muted">
+                      {detail}
+                    </p>
+                  ))}
                   <a
                     href={reg.verifyHref}
                     target="_blank"
