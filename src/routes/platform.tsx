@@ -105,7 +105,10 @@ function PlatformPage() {
               aria-label="AI matching"
               className="scroll-mt-32 border-b border-navy-800 py-16 lg:py-20"
             >
-              <SectionHeader eyebrow="AI matching" title="Brief in, ranked homes out" />
+              <SectionHeader
+                eyebrow="AI matching"
+                title="Ranked matches, with the evidence attached"
+              />
               <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:items-start">
                 <ul className="space-y-5">
                   {matchingLines.map((line) => (
@@ -160,7 +163,7 @@ function PlatformPage() {
                     })}
                   </ul>
                   <DemandMap
-                    className="mt-8 lg:grid-cols-1"
+                    className="mt-8 lg:grid-cols-1 lg:items-start [&>div:first-child]:max-w-[19rem]"
                     {...(visibleIds ? { visibleIds } : {})}
                   />
                 </div>
