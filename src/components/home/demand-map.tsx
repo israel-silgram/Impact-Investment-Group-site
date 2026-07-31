@@ -45,7 +45,7 @@ export function DemandMap({ className }: { className?: string }) {
           className="pointer-events-none absolute inset-0 rounded-[36px] bg-teal-950/40 blur-2xl"
         />
         <svg
-          viewBox="90 0 260 580"
+          viewBox="85 0 285 485"
           role="group"
           aria-label="Map of the United Kingdom showing areas of supported housing demand"
           className="relative w-full"
@@ -76,7 +76,7 @@ export function DemandMap({ className }: { className?: string }) {
             const isActive = node.id === activeId;
             return (
               <g key={node.id}>
-                <circle cx={node.x} cy={node.y} r="16" fill="url(#demand-glow)" />
+                <circle cx={node.x} cy={node.y} r="11" fill="url(#demand-glow)" />
                 <circle
                   cx={node.x}
                   cy={node.y}
@@ -89,7 +89,7 @@ export function DemandMap({ className }: { className?: string }) {
                 <circle
                   cx={node.x}
                   cy={node.y}
-                  r="22"
+                  r="16"
                   fill="transparent"
                   tabIndex={0}
                   role="button"
