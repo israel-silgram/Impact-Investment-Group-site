@@ -57,25 +57,35 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, withArrow, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     const showArrow = withArrow ?? variant === "primary";
+    const arrow = showArrow ? (
+      <ArrowRight
+        aria-hidden="true"
+        className="transition-transform duration-200 ease-out group-hover:translate-x-1"
+      />
+    ) : null;
+
+    // In asChild mode Slot accepts exactly one child, so the arrow is appended
+    // inside that child rather than beside it.
+    const content =
+      asChild && arrow && React.isValidElement<{ children?: React.ReactNode }>(children)
+        ? React.cloneElement(children, undefined, children.props.children, arrow)
+        : children;
+
     return (
       <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props}>
         {asChild ? (
-          children
+          content
         ) : (
           <>
             {children}
-            {showArrow ? (
-              <ArrowRight
-                aria-hidden="true"
-                className="transition-transform duration-200 ease-out group-hover:translate-x-1"
-              />
-            ) : null}
+            {arrow}
           </>
         )}
       </Comp>
     );
   },
 );
+
 Button.displayName = "Button";
 
 export { Button, buttonVariants };
