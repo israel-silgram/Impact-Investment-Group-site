@@ -34,7 +34,7 @@ export function LiveWindow({
   return (
     <figure
       aria-label={ariaLabel}
-      className={cn("panel overflow-hidden not-prose m-0", className)}
+      className={cn("section-dark panel overflow-hidden not-prose m-0", className)}
     >
       {tabs?.length ? (
         <div

@@ -119,7 +119,7 @@ function ContactPage() {
       </section>
 
       {/* 2 · Route selector */}
-      <section aria-labelledby="routes-heading" className="border-b border-navy-700 bg-navy-950">
+      <section aria-labelledby="routes-heading" className="section-light border-b border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-14 sm:px-8 lg:py-16">
           <h2
             id="routes-heading"
@@ -164,16 +164,16 @@ function ContactPage() {
       </section>
 
       {/* 3 · The form */}
-      <section aria-label="Enquiry form" className="border-b border-navy-700">
+      <section aria-label="Enquiry form" className="section-light border-b border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-14 sm:px-8 lg:py-20">
           <EnquiryForm route={selected} prefilledRole={role} />
         </div>
       </section>
 
       {/* 4 · Looking for a home? */}
-      <section aria-labelledby="home-route-heading" className="border-b border-navy-700 bg-navy-950">
+      <section aria-labelledby="home-route-heading" className="section-light border-b border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-14 sm:px-8 lg:py-16">
-          <Reveal className="rounded-[var(--radius-panel)] border border-teal-600 bg-teal-950 p-8 lg:p-10">
+          <Reveal className="panel-slate p-8 lg:p-10">
             <h2
               id="home-route-heading"
               className="heading-tight text-[clamp(1.375rem,2.4vw,2rem)] font-bold text-white"
@@ -195,9 +195,9 @@ function ContactPage() {
       </section>
 
       {/* 5 · In a crisis */}
-      <section aria-labelledby="crisis-heading" className="border-b border-navy-700">
+      <section aria-labelledby="crisis-heading" className="section-light border-b border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-14 sm:px-8 lg:py-16">
-          <div className="rounded-[var(--radius-panel)] border-2 border-orange-500/60 bg-navy-950 p-8">
+          <div className="panel-slate p-8">
             <p className="flex items-center gap-3">
               <ShieldAlert aria-hidden="true" className="size-5 shrink-0 text-orange-400" />
               <span
@@ -226,7 +226,7 @@ function ContactPage() {
       </section>
 
       {/* 6 · Registrations, redress & cover */}
-      <section aria-labelledby="trust-heading" className="border-b border-navy-700 bg-navy-950">
+      <section aria-labelledby="trust-heading" className="section-light border-b border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-14 sm:px-8 lg:py-20">
           <SectionHeader
             eyebrow="Check us"
@@ -268,7 +268,7 @@ function ContactPage() {
       </section>
 
       {/* 7 · Registered office */}
-      <section aria-labelledby="office-heading" className="border-b border-navy-700">
+      <section aria-labelledby="office-heading" className="section-light border-b border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-12 sm:px-8">
           <h2 id="office-heading" className="eyebrow text-slate-muted">
             {registeredOffice.title}

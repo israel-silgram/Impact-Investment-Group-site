@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
  * ghost     — text with an animated teal underline.
  */
 const buttonVariants = cva(
-  "group inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 whitespace-nowrap font-heading text-sm font-semibold transition-all duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+  "group inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 whitespace-nowrap font-heading text-base font-semibold transition-all duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -32,8 +32,11 @@ const buttonVariants = cva(
         link: "text-teal-400 underline-offset-4 hover:underline",
       },
       size: {
-        default: "min-h-11 px-6 text-sm",
-        sm: "min-h-11 px-4 text-xs",
+        /* Every button label stays at 16px / weight 600 minimum — white on
+           orange is 3.7:1 and only clears AA at large text. Never shrink these,
+           including on mobile. */
+        default: "min-h-11 px-6 text-base",
+        sm: "min-h-11 px-4 text-base",
         lg: "min-h-[52px] px-8 text-base",
         icon: "min-h-11 min-w-11 px-0",
       },

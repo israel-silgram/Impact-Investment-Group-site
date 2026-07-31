@@ -92,9 +92,9 @@ function PlatformPage() {
       </section>
 
       {/* 2 · Sticky capability rail + capability sections */}
-      <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8">
-        <div className="xl:grid xl:grid-cols-[220px_1fr] xl:gap-14">
-          <div className="sticky top-[72px] z-30 -mx-5 border-b border-navy-800 bg-navy-900/95 px-5 py-3 backdrop-blur sm:-mx-8 sm:px-8 xl:top-24 xl:mx-0 xl:self-start xl:border-0 xl:bg-transparent xl:px-0 xl:py-16 xl:backdrop-blur-none">
+      <div className="section-light">
+        <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 xl:grid xl:grid-cols-[220px_1fr] xl:gap-14">
+          <div className="sticky top-[72px] z-30 -mx-5 border-b border-navy-800 bg-navy-900/95 px-5 py-3 backdrop-blur sm:-mx-8 sm:px-8 xl:top-24 xl:mx-0 xl:self-start xl:border-0 xl:!bg-transparent xl:!shadow-none xl:px-0 xl:py-16 xl:backdrop-blur-none">
             <CapabilityRail links={capabilityLinks} active={active} onSelect={scrollTo} />
           </div>
 
@@ -180,7 +180,7 @@ function PlatformPage() {
               as="section"
               id="portals"
               aria-label="Portals"
-              className="scroll-mt-32 border-b border-navy-800 py-16 lg:py-20"
+              className="section-dark scroll-mt-32 my-16 px-5 py-12 sm:px-8 lg:my-20 lg:py-16"
             >
               <SectionHeader eyebrow="Portals" title="Four portals, one platform" />
               <div className="mt-10">
@@ -243,7 +243,7 @@ function PlatformPage() {
       </div>
 
       {/* 8 · Governance & audit trail */}
-      <section aria-labelledby="governance-heading" className="border-t border-navy-700 bg-navy-950">
+      <section aria-labelledby="governance-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-20">
           <Reveal>
             <p className="eyebrow text-slate-muted">{governance.eyebrow}</p>

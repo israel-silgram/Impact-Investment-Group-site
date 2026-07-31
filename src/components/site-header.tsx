@@ -14,12 +14,26 @@ export function SiteHeader() {
   const panelRef = React.useRef<HTMLDivElement | null>(null);
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
 
+  const [overLight, setOverLight] = React.useState(false);
+
   React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 8);
+      // Context-aware chrome: the header never inverts to white — the logo and
+      // the orange action need the dark ground — but it gains a slate rule when
+      // the section beneath it is a light one, so it does not float.
+      const below = document.elementFromPoint(window.innerWidth / 2, 84);
+      setOverLight(Boolean(below?.closest(".section-light")));
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
+
 
   // Close on route change.
   React.useEffect(() => {
@@ -70,7 +84,11 @@ export function SiteHeader() {
     <header
       className={cn(
         "sticky top-0 z-50 bg-navy-900/92 backdrop-blur-md transition-colors duration-200",
-        scrolled ? "border-b border-navy-700" : "border-b border-transparent",
+        overLight
+          ? "border-b border-[color-mix(in_oklab,var(--color-slate)_25%,transparent)]"
+          : scrolled
+            ? "border-b border-navy-700"
+            : "border-b border-transparent",
       )}
     >
       <div className="mx-auto flex min-h-[76px] w-full max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8">
