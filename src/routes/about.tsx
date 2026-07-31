@@ -116,12 +116,9 @@ function AboutPage() {
       </section>
 
       {/* 3 · Values */}
-      <section aria-labelledby="values-heading" className="border-t border-navy-700 bg-navy-950">
+      <section aria-label="Values" className="border-t border-navy-700 bg-navy-950">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
           <SectionHeader eyebrow="How we work" title="Values" as="h2" />
-          <h2 id="values-heading" className="sr-only">
-            Values
-          </h2>
           <ul className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {values.map((value, i) => {
               const Icon = valueIcons[value.icon];
@@ -142,16 +139,13 @@ function AboutPage() {
       </section>
 
       {/* 4 · Leadership team */}
-      <section aria-labelledby="leadership-heading" className="border-t border-navy-700">
+      <section aria-label="Leadership team" className="border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
           <SectionHeader
             eyebrow="Leadership"
             title="Who you would be contracting with"
             lead="Named people, named responsibilities."
           />
-          <h2 id="leadership-heading" className="sr-only">
-            Leadership team
-          </h2>
           <ul className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {leadership.map((leader, i) => (
               <Reveal key={leader.id} index={i} as="li">
@@ -166,30 +160,24 @@ function AboutPage() {
       </section>
 
       {/* 5 · Group structure */}
-      <section aria-labelledby="group-heading" className="border-t border-navy-700 bg-navy-950">
+      <section aria-label="Group structure" className="border-t border-navy-700 bg-navy-950">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
           <SectionHeader
             eyebrow="Group structure"
             title="Who does what"
             lead="Three companies, three jobs. The lease, the capital and the care never sit in the same pair of hands."
           />
-          <h2 id="group-heading" className="sr-only">
-            Group structure
-          </h2>
           <GroupDiagram />
         </div>
       </section>
 
       {/* 6 · Who we work with */}
-      <section aria-labelledby="partners-heading" className="border-t border-navy-700">
+      <section aria-label="Who we work with" className="border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
           <SectionHeader
             eyebrow="Who we work with"
             title="Partner types, and what each relationship actually is"
           />
-          <h2 id="partners-heading" className="sr-only">
-            Who we work with
-          </h2>
 
           {/* Part one — partner types */}
           <ul className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -287,9 +275,6 @@ function AboutPage() {
       {/* 7 · Two teasers */}
       <section aria-labelledby="teasers-heading" className="border-t border-navy-700 bg-navy-950">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-20">
-          <h2 id="teasers-heading" className="sr-only">
-            Where to go next
-          </h2>
           <ul className="grid gap-6 lg:grid-cols-2">
             {teasers.map((teaser, i) => (
               <Reveal key={teaser.id} index={i} as="li">
