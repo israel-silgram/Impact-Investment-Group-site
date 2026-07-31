@@ -55,19 +55,18 @@ function HomePage() {
           </h1>
 
           {/* Three pillars: headline above a photograph, divided by hairlines. */}
-          <div className="grid gap-10 lg:grid-cols-3 lg:gap-0">
+          <div className="grid gap-10 lg:grid-cols-3 lg:gap-8">
             {pillarCards.map((card, i) => (
               <Reveal
                 key={card.id}
                 index={i}
                 className={
-                  i === 0
-                    ? "lg:pr-8 xl:pr-10"
-                    : i === 1
-                      ? "lg:border-l lg:border-navy-600/70 lg:px-8 xl:px-10"
-                      : "lg:border-l lg:border-navy-600/70 lg:pl-8 xl:pl-10"
+                  i > 0
+                    ? "lg:relative lg:before:absolute lg:before:-left-4 lg:before:top-0 lg:before:h-full lg:before:w-px lg:before:bg-navy-600/70"
+                    : undefined
                 }
               >
+
 
                 <div>
 
