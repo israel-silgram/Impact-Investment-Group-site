@@ -553,3 +553,33 @@
   box-shadow: var(--shadow-panel);
   transform: none;
 }
+
+/* Dark islands, restated last at higher specificity: some light-mode card
+   mappings share the same specificity and would otherwise win on order. */
+.section-light .section-dark.section-dark [class*="bg-navy-950"] {
+  background-color: var(--color-navy-950);
+}
+.section-light .section-dark.section-dark [class*="bg-navy-900"] {
+  background-color: var(--color-navy-900);
+}
+.section-light .section-dark.section-dark [class*="bg-navy-800"] {
+  background-color: var(--color-navy-800);
+}
+.section-light .section-dark.section-dark [class*="bg-navy-700"] {
+  background-color: var(--color-navy-700);
+}
+.section-light .section-dark.section-dark [class*="bg-navy-"][class*="rounded"] {
+  border-color: var(--color-navy-700);
+  border-radius: var(--radius-panel);
+  box-shadow: none;
+}
+.section-light .section-dark.section-dark [class*="border-navy-600"] {
+  border-color: var(--color-navy-600);
+}
+.section-light .section-dark.section-dark :is(h1, h2, h3, h4, h5, h6),
+.section-light .section-dark.section-dark [class*="text-white"] {
+  color: var(--color-white);
+}
+.section-light .section-dark.section-dark [class*="text-mist"] {
+  color: var(--color-mist);
+}
