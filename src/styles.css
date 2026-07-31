@@ -194,6 +194,9 @@
   line-height: 0.88;
   font-size: clamp(2.75rem, 9vw, 8rem);
   font-weight: 400;
+  @media (max-width: 640px) {
+    line-height: 0.98;
+  }
 }
 
 @utility eyebrow {
@@ -298,6 +301,7 @@
 
 .image-fill-line {
   display: inline-block;
+  padding-bottom: 0.06em;
   /* Fallback: solid colour inherited from the line's tone class. */
   text-shadow: var(--glow-headline);
 }
