@@ -59,7 +59,7 @@ function HomePage() {
             {pillarCards.map((card, i) => (
               <Reveal
                 key={card.id}
-                delay={i * 90}
+                index={i}
                 className={
                   i > 0
                     ? "lg:border-l lg:border-navy-600/70 lg:pl-8 xl:pl-10"
@@ -105,7 +105,7 @@ function HomePage() {
               className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-10"
             >
               {registerRoles.map((role) => {
-                const Icon = (Icons as unknown as Record<string, LucideIcon>)[role.icon];
+                const Icon = (Icons as unknown as Record<string, LucideIcon>)[role.icon] ?? Icons.User;
                 return (
                   <li key={role.id}>
                     <Link
