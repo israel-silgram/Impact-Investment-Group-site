@@ -82,17 +82,21 @@ export function DemandMap({
 
           {demandNodes.map((node, i) => {
             const isActive = node.id === activeId;
+            const dimmed = visibleIds ? !visibleIds.includes(node.id) : false;
             return (
-              <g key={node.id}>
-                <circle cx={node.x} cy={node.y} r="11" fill="url(#demand-glow)" />
+              <g key={node.id} opacity={dimmed ? 0.22 : 1}>
+                {dimmed ? null : (
+                  <circle cx={node.x} cy={node.y} r="11" fill="url(#demand-glow)" />
+                )}
                 <circle
                   cx={node.x}
                   cy={node.y}
-                  r={isActive ? 5 : 3}
+                  r={isActive && !dimmed ? 5 : 3}
                   fill="var(--color-orange-500)"
                   className="demand-node"
                   style={{ animationDelay: `${(i % 6) * 380}ms` }}
                 />
+
                 {/* 44px hit area, keyboard reachable */}
                 <circle
                   cx={node.x}
