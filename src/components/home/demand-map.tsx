@@ -1,6 +1,6 @@
 import { geoCentroid, geoMercator } from "d3-geo";
 import * as React from "react";
-import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 import { SourceLine } from "@/components/ui/source-line";
 import {
