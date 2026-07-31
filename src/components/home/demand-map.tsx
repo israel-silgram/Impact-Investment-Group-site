@@ -33,9 +33,17 @@ function buildLinks(nodes: DemandNode[]) {
 
 const LINKS = buildLinks(demandNodes);
 
-export function DemandMap({ className }: { className?: string }) {
+export function DemandMap({
+  className,
+  visibleIds,
+}: {
+  className?: string;
+  /** When set, nodes outside this list are dimmed (filter state). */
+  visibleIds?: string[];
+}) {
   const [activeId, setActiveId] = React.useState(demandNodes[0]!.id);
   const active = demandNodes.find((n) => n.id === activeId) ?? demandNodes[0]!;
+
 
   return (
     <div className={cn("grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-center", className)}>
