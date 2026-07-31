@@ -273,7 +273,7 @@ function AboutPage() {
       </section>
 
       {/* 7 · Two teasers */}
-      <section aria-labelledby="teasers-heading" className="border-t border-navy-700 bg-navy-950">
+      <section aria-label="Where to go next" className="border-t border-navy-700 bg-navy-950">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-20">
           <ul className="grid gap-6 lg:grid-cols-2">
             {teasers.map((teaser, i) => (
