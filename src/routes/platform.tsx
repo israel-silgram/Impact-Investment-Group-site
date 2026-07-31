@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { PageShell } from "@/components/page-shell";
 
 export const Route = createFileRoute("/platform")({
   component: PlatformPage,
@@ -26,8 +27,11 @@ export const Route = createFileRoute("/platform")({
 
 function PlatformPage() {
   return (
-    <main>
-      <h1>The Platform</h1>
-    </main>
+    <PageShell
+      eyebrow="The Platform"
+      title="Matching, evidence and reporting in one auditable workflow"
+      lead="Built as real interface, not screenshots. Every sample figure shown inside a live panel is labelled as illustrative interface data."
+      primaryAction={{ label: "Book a demo", enquiry: "demo" }}
+    />
   );
 }
