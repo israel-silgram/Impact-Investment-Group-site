@@ -63,8 +63,9 @@ function HomePage() {
                 className={
                   i > 0
                     ? "lg:relative lg:before:absolute lg:before:-left-4 lg:before:top-0 lg:before:h-full lg:before:w-px lg:before:bg-navy-600/70"
-                    : undefined
+                    : ""
                 }
+
               >
 
 
