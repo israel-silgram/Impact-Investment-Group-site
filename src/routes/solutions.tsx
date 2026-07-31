@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { IconCircle } from "@/components/ui/icon-circle";
+import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionRail } from "@/components/solutions/section-rail";
 import { RoleSectionBlock } from "@/components/solutions/role-section";
@@ -178,7 +179,8 @@ function SolutionsPage() {
             <p className="measure mt-4 text-base leading-relaxed text-mist">
               We will walk the platform through the role you have been reading — no generic tour.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <PreReleaseBadge className="mt-8" />
+            <div className="mt-5 flex flex-wrap items-center gap-4">
               <Button variant="primary" asChild>
                 <Link to="/contact" search={{ enquiry: "waitlist", role: readingRole }}>
                   Register to join the wait list

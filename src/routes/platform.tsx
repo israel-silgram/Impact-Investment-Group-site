@@ -2,6 +2,7 @@ import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check, Download, FileText, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
 import { StatBlock } from "@/components/ui/stat-block";
@@ -287,7 +288,8 @@ function PlatformPage() {
               Bring a live brief. We will run it through the platform with you and show the evidence
               behind every match it returns.
             </p>
-            <div className="mt-8">
+            <PreReleaseBadge className="mt-8" />
+            <div className="mt-5">
               <Button variant="primary" asChild>
                 <Link to="/contact" search={{ enquiry: "waitlist" }}>
                   Register to join the wait list

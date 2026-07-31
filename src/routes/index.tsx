@@ -178,6 +178,16 @@ function HomePage() {
               </p>
               <p className="font-heading text-base font-semibold text-mist">{nhsCostPanel.label}</p>
               <SourceLine source={nhsCostPanel.source} />
+
+              <div className="mt-4 border-t border-navy-700 pt-4">
+                <p className="font-heading text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-none text-white">
+                  {bnbSpendPanel.value}
+                </p>
+                <p className="mt-2 font-heading text-sm font-semibold text-mist">
+                  {bnbSpendPanel.label}
+                </p>
+                <SourceLine className="mt-2" source={bnbSpendPanel.source} />
+              </div>
             </Reveal>
           </div>
 
@@ -463,7 +473,8 @@ function HomePage() {
           >
             More Than Property · An Investment in Lives
           </h2>
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+          <PreReleaseBadge className="mt-8 justify-center" />
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Button variant="primary" size="lg" asChild>
               <Link to="/contact" search={{ enquiry: "waitlist" }}>
                 {PRIMARY_LABEL}
