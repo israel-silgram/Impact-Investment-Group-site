@@ -248,6 +248,25 @@
   }
 }
 
+/* Demand-map node pulse. Stilled under prefers-reduced-motion below. */
+@keyframes node-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+.demand-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: node-pulse 2600ms var(--ease-out-soft) infinite;
+}
+
 @utility reveal {
   opacity: 0;
   &[data-revealed="true"] {
