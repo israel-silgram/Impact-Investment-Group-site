@@ -69,11 +69,12 @@ function StatValue({
   className,
 }: {
   value: string;
-  countTo?: number;
-  prefix?: string;
-  suffix?: string;
+  countTo?: number | undefined;
+  prefix?: string | undefined;
+  suffix?: string | undefined;
   className: string;
 }) {
+
   const { ref, display } = useCountUp(countTo ?? 0);
   if (countTo === undefined) {
     return <span className={className}>{value}</span>;
