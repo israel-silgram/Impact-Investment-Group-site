@@ -11,11 +11,14 @@ export function Reveal({
   index = 0,
   as: Tag = "div",
   className,
+  ...rest
 }: {
   children: React.ReactNode;
   index?: number;
   as?: "div" | "section" | "li" | "article" | "header" | "span";
   className?: string;
+  id?: string;
+  "aria-labelledby"?: string;
 }) {
   const ref = React.useRef<HTMLElement | null>(null);
   const [revealed, setRevealed] = React.useState(false);
@@ -48,6 +51,7 @@ export function Reveal({
       data-revealed={revealed}
       style={{ "--reveal-delay": `${index * 60}ms` } as React.CSSProperties}
       className={cn("reveal", className)}
+      {...rest}
     >
       {children}
     </Tag>
