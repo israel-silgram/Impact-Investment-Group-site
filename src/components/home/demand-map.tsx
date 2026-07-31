@@ -227,39 +227,38 @@ export function DemandMap({
             if (!centroid) return null;
             const isActive = authority.id === activeId;
             const dimmed = isDimmed(authority.id);
+            const select = () => setActiveId(authority.id);
 
             return (
-              <Marker
+              <g
                 key={authority.id}
-                coordinates={centroid}
-                onMouseEnter={() => setActiveId(authority.id)}
-                onFocus={() => setActiveId(authority.id)}
-                onClick={() => setActiveId(authority.id)}
-                onTouchStart={() => setActiveId(authority.id)}
-                style={{ default: { cursor: "pointer" } }}
+                transform={`translate(${centroid[0]} ${centroid[1]})`}
+                opacity={dimmed ? 0.22 : 1}
+                onMouseEnter={select}
+                onFocus={select}
+                onClick={select}
               >
-                <g opacity={dimmed ? 0.22 : 1}>
-                  {dimmed ? null : <circle r={isActive ? 14 : 11} fill="url(#demand-glow)" />}
-                  <circle
-                    r={isActive && !dimmed ? 5.5 : 3.5}
-                    fill={isActive ? "var(--color-orange-400)" : "var(--color-orange-500)"}
-                    className="demand-node"
-                    style={{ animationDelay: `${(i % 6) * 380}ms` }}
-                  />
-                  {/* Generous hit area for touch. */}
-                  <circle
-                    r="16"
-                    fill="transparent"
-                    role="button"
-                    tabIndex={0}
-                    aria-label={`${authority.name} commissioning detail`}
-                    aria-pressed={isActive}
-                    className="cursor-pointer outline-none focus-visible:stroke-teal-400 focus-visible:[stroke-width:2]"
-                  />
-                </g>
-              </Marker>
+                {dimmed ? null : <circle r={isActive ? 14 : 11} fill="url(#demand-glow)" />}
+                <circle
+                  r={isActive && !dimmed ? 5.5 : 3.5}
+                  fill={isActive ? "var(--color-orange-400)" : "var(--color-orange-500)"}
+                  className="demand-node"
+                  style={{ animationDelay: `${(i % 6) * 380}ms` }}
+                />
+                {/* Generous hit area for touch and keyboard. */}
+                <circle
+                  r="16"
+                  fill="transparent"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${authority.name} commissioning detail`}
+                  aria-pressed={isActive}
+                  className="cursor-pointer outline-none focus-visible:stroke-teal-400 focus-visible:[stroke-width:2]"
+                />
+              </g>
             );
           })}
+
         </ComposableMap>
       </div>
 
