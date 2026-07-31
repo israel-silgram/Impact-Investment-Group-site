@@ -14,6 +14,8 @@ const enquiryTypes = [
 /** Footer and header deep-links pre-select the enquiry type via ?enquiry=. */
 const searchSchema = z.object({
   enquiry: z.enum(enquiryTypes).catch("demo"),
+  /** Role the visitor was reading on /solutions, pre-selected in the form. */
+  role: z.string().optional().catch(undefined),
 });
 
 export const Route = createFileRoute("/contact")({
@@ -42,10 +44,10 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
-  const { enquiry } = Route.useSearch();
+  const { enquiry, role } = Route.useSearch();
   return (
     <PageShell
-      eyebrow={`Contact · ${enquiry}`}
+      eyebrow={role ? `Contact · ${enquiry} · ${role}` : `Contact · ${enquiry}`}
       title="Tell us which conversation you need"
       lead="The enquiry form validates in the browser and routes to the right team. Enquiry type is pre-selected from the link you followed."
       primaryAction={{ label: "Book a demo", enquiry: "demo" }}
