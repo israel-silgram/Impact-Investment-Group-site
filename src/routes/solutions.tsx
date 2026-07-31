@@ -102,9 +102,9 @@ function SolutionsPage() {
       </section>
 
       {/* 2 · Sticky rail + 3 · the eight sections */}
-      <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8">
-        <div className="lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
-          <div className="sticky top-[72px] z-30 -mx-5 bg-navy-900/95 py-3 backdrop-blur sm:-mx-8 sm:px-8 lg:top-24 lg:mx-0 lg:self-start lg:bg-transparent lg:px-0 lg:py-12 lg:backdrop-blur-none">
+      <div className="section-light">
+        <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
+          <div className="sticky top-[72px] z-30 -mx-5 bg-navy-900/95 py-3 backdrop-blur sm:-mx-8 sm:px-8 lg:top-24 lg:mx-0 lg:self-start lg:!bg-transparent lg:!shadow-none lg:px-0 lg:py-12 lg:backdrop-blur-none">
             <div className="px-5 sm:px-0 lg:px-0">
               <SectionRail sections={roleSections} active={active} onSelect={scrollTo} />
             </div>
@@ -119,9 +119,9 @@ function SolutionsPage() {
       </div>
 
       {/* 4 · Not an organisation? */}
-      <section aria-labelledby="find-a-home-heading" className="border-t border-navy-700">
+      <section aria-labelledby="find-a-home-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-20">
-          <Reveal className="rounded-[var(--radius-panel)] border border-teal-600 bg-teal-950 p-8 lg:p-10">
+          <Reveal className="panel-slate p-8 lg:p-10">
             <h2
               id="find-a-home-heading"
               className="heading-tight text-[clamp(1.5rem,2.6vw,2.25rem)] font-bold text-white"

@@ -48,7 +48,10 @@ export function DemandMap({
 
 
   return (
-    <div className={cn("grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-center", className)}>
+    <div className={cn(
+        "section-dark grid gap-8 p-5 sm:p-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-center",
+        className,
+      )}>
       <div className="relative mx-auto w-full max-w-[26rem]">
         <div
           aria-hidden="true"

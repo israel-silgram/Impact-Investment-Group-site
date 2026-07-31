@@ -45,6 +45,12 @@
   --color-mist: #c6d2e4;
   --color-slate-muted: #7f91ac;
 
+  /* Light mode — evidence and detail. Alternated with the navy. */
+  --color-mist-bg: #ebf1f8; /* light section background */
+  --color-surface: #ffffff; /* card and content surfaces, only ever on mist-bg */
+  --color-slate: #647289; /* borders, rules, small caps, body copy on white cards */
+  --color-slate-ink: #4e5a6e; /* body copy directly on mist-bg — 6.1:1 */
+
   /* Type */
   --font-display: "Anton", "Barlow", system-ui, sans-serif;
   --font-heading: "Barlow", system-ui, sans-serif;
@@ -102,6 +108,11 @@
   --shadow-panel: 0 24px 60px -28px rgb(0 0 0 / 0.75);
   --shadow-action: 0 10px 26px -12px color-mix(in oklab, var(--color-orange-500) 65%, transparent);
   --glow-headline: 0 0 44px rgb(0 11 28 / 0.85);
+
+  /* Light-section composites */
+  --slate-20: color-mix(in oklab, var(--color-slate) 20%, transparent);
+  --shadow-card: 0 1px 2px rgb(0 17 43 / 0.04), 0 8px 24px rgb(0 17 43 / 0.06);
+  --shadow-card-hover: 0 2px 4px rgb(0 17 43 / 0.06), 0 16px 40px rgb(0 17 43 / 0.12);
 }
 
 @theme inline {
@@ -348,4 +359,197 @@
     background-blend-mode: normal, normal;
     -webkit-text-stroke: 1px color-mix(in oklab, var(--color-orange-400) 55%, transparent);
   }
+}
+
+/* =====================================================================
+ * LIGHT SECTIONS
+ *
+ * Dark navy carries emotion and product. Light grey carries evidence
+ * and detail. A section marked `.section-light` sits on mist-bg and
+ * re-points the dark palette used inside it onto the light one, so the
+ * same components read correctly on both grounds.
+ *
+ * Contrast rules that must not break:
+ *   slate (#647289) on mist-bg is 4.29:1 — fails AA for body copy.
+ *   Body copy directly on mist-bg is therefore slate-ink (6.1:1).
+ *   slate is only for body copy on white cards (4.87:1), plus borders,
+ *   rules and small caps labels.
+ *
+ * Written unlayered so it outranks Tailwind's layered utilities. The
+ * boundary between a light and a dark section is always a hard edge:
+ * no gradients, no fades.
+ * ===================================================================== */
+
+.section-light {
+  background-color: var(--color-mist-bg);
+  /* Body copy directly on mist-bg. */
+  color: var(--color-slate-ink);
+  border-color: var(--slate-20);
+}
+
+/* Surfaces: navy panels become white cards. */
+.section-light [class*="bg-navy-"] {
+  background-color: var(--color-surface);
+}
+
+/* Borders, dividers, table rules. */
+.section-light [class*="border-navy-"] {
+  border-color: var(--slate-20);
+}
+
+.section-light [class*="border-dashed"] {
+  border-color: color-mix(in oklab, var(--color-slate) 40%, transparent);
+}
+
+/* Type. */
+.section-light :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--color-navy-900);
+}
+
+.section-light [class*="text-white"]:not([class*="orange"]) {
+  color: var(--color-navy-900);
+}
+
+.section-light [class*="text-mist"] {
+  color: var(--color-slate-ink);
+}
+
+.section-light [class*="text-slate-muted"] {
+  color: var(--color-slate);
+}
+
+/* The lighter teals do not hold on a light ground. */
+.section-light :is([class*="text-teal-400"], [class*="text-teal-500"]) {
+  color: var(--color-teal-600);
+}
+
+/* Body copy sitting on a white card may use slate. */
+.section-light .panel :is(p, li),
+.section-light [class*="bg-navy-"] [class*="text-mist"] {
+  color: var(--color-slate);
+}
+
+/* Cards: white surface, 12px radius, hairline slate rule, soft shadow.
+   This is what finally gives the cards depth. */
+.section-light .panel,
+.section-light [class*="bg-navy-"][class*="rounded"]:not([class*="rounded-full"]) {
+  background-color: var(--color-surface);
+  border: 1px solid var(--slate-20);
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+  transition:
+    transform var(--duration-hover) var(--ease-out-soft),
+    box-shadow var(--duration-hover) var(--ease-out-soft);
+}
+
+.section-light .panel:hover,
+.section-light [class*="bg-navy-"][class*="rounded"]:not([class*="rounded-full"]):hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Data and progress bars: teal-500 fill on a slate 12% track. */
+.section-light [class*="rounded-full"][class*="bg-navy-"] {
+  background-color: color-mix(in oklab, var(--color-slate) 12%, transparent);
+  box-shadow: none;
+}
+
+/* Icon circles: 1px slate stroke at 30%, icon in teal-600. */
+.section-light [class*="rounded-full"][class*="border-navy-"] {
+  background-color: var(--color-surface);
+  border-color: color-mix(in oklab, var(--color-slate) 30%, transparent);
+}
+
+/* A left-ruled accent panel keeps its accent colour, not the card rule. */
+.section-light [class*="border-l-2"],
+.section-light [class*="border-l-4"] {
+  border-left-width: 4px;
+}
+
+/* Deliberately muted, institutional panels: slate tint over mist-bg with a
+   2px slate left rule. Calm and non-promotional by design. */
+.section-light .panel-slate,
+.section-light .panel-slate:hover {
+  background-color: color-mix(in oklab, var(--color-slate) 8%, var(--color-mist-bg));
+  border: 0;
+  border-left: 2px solid var(--color-slate);
+  border-radius: 12px;
+  box-shadow: none;
+  transform: none;
+}
+
+.section-light .panel-slate :is(p, li, span, dt, dd) {
+  color: var(--color-slate-ink);
+}
+
+/* ---------- Dark islands inside a light section ----------
+ * Live product windows and the portals demo keep the navy ground even when
+ * the section around them is light: that is where orange has to pop. These
+ * rules restate the dark palette at higher specificity than the light
+ * mappings above, so they win wherever they are nested.
+ */
+
+.section-light .section-dark {
+  background-color: var(--color-navy-900);
+  border: 1px solid var(--color-navy-700);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-panel);
+  color: var(--color-mist);
+}
+
+.section-light .section-dark:hover {
+  transform: none;
+  box-shadow: var(--shadow-panel);
+}
+
+.section-light .section-dark [class*="bg-navy-950"] {
+  background-color: var(--color-navy-950);
+}
+.section-light .section-dark [class*="bg-navy-900"] {
+  background-color: var(--color-navy-900);
+}
+.section-light .section-dark [class*="bg-navy-800"] {
+  background-color: var(--color-navy-800);
+}
+.section-light .section-dark [class*="bg-navy-"][class*="rounded"] {
+  border-color: var(--color-navy-700);
+  border-radius: var(--radius-panel);
+  box-shadow: none;
+}
+.section-light .section-dark [class*="rounded-full"][class*="bg-navy-"] {
+  background-color: var(--color-navy-800);
+}
+.section-light .section-dark [class*="border-navy-"],
+.section-light .section-dark [class*="divide-navy-"] {
+  border-color: var(--color-navy-700);
+}
+.section-light .section-dark [class*="border-dashed"] {
+  border-color: var(--color-navy-600);
+}
+.section-light .section-dark :is(h1, h2, h3, h4, h5, h6),
+.section-light .section-dark [class*="text-white"] {
+  color: var(--color-white);
+}
+.section-light .section-dark [class*="text-mist"],
+.section-light .section-dark .panel :is(p, li) {
+  color: var(--color-mist);
+}
+.section-light .section-dark [class*="text-slate-muted"] {
+  color: var(--color-slate-muted);
+}
+.section-light .section-dark [class*="text-teal-400"] {
+  color: var(--color-teal-400);
+}
+.section-light .section-dark [class*="text-teal-500"] {
+  color: var(--color-teal-500);
+}
+
+/* Panels nested inside a dark island stay dark too. */
+.section-light .section-dark .panel,
+.section-light .section-dark .panel:hover {
+  background-color: var(--color-navy-800);
+  border: 1px solid var(--color-navy-700);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-panel);
+  transform: none;
 }

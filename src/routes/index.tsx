@@ -134,7 +134,7 @@ function HomePage() {
       </section>
 
       {/* 2 · The problem, in brief */}
-      <section aria-labelledby="problem-heading" className="border-t border-navy-700 bg-navy-950">
+      <section aria-labelledby="problem-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
           <SectionHeader
             eyebrow="The problem"
@@ -200,7 +200,7 @@ function HomePage() {
       </section>
 
       {/* 3 · Our solution */}
-      <section aria-labelledby="solution-heading" className="border-t border-navy-700 bg-navy-900">
+      <section aria-labelledby="solution-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
           <SectionHeader
             eyebrow="Our solution"
@@ -305,7 +305,7 @@ function HomePage() {
       </section>
 
       {/* 6 · Who we connect */}
-      <section aria-labelledby="connect-heading" className="border-t border-navy-700 bg-navy-950">
+      <section aria-labelledby="connect-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
           <h2 id="connect-heading" className="eyebrow text-center text-teal-400">
             Who we connect
@@ -447,7 +447,7 @@ function HomePage() {
       </section>
 
       {/* 9 · Success stories */}
-      <section aria-labelledby="stories-heading" className="border-t border-navy-700 bg-navy-900">
+      <section aria-labelledby="stories-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
           <SectionHeader
             eyebrow="Success stories"

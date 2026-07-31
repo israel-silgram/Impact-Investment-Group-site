@@ -86,7 +86,7 @@ function AboutPage() {
       </section>
 
       {/* 2 · Vision and mission */}
-      <section aria-labelledby="vision-heading" className="border-t border-navy-700">
+      <section aria-labelledby="vision-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
           <SectionHeader
             eyebrow="Direction"
@@ -117,7 +117,7 @@ function AboutPage() {
       </section>
 
       {/* 3 · Values */}
-      <section aria-label="Values" className="border-t border-navy-700 bg-navy-950">
+      <section aria-label="Values" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
           <SectionHeader eyebrow="How we work" title="Values" as="h2" />
           <ul className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
@@ -160,7 +160,7 @@ function AboutPage() {
       </section>
 
       {/* 5 · Group structure */}
-      <section aria-label="Group structure" className="border-t border-navy-700 bg-navy-950">
+      <section aria-label="Group structure" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
           <SectionHeader
             eyebrow="Group structure"
@@ -172,7 +172,7 @@ function AboutPage() {
       </section>
 
       {/* 6 · Who we work with */}
-      <section aria-label="Who we work with" className="border-t border-navy-700">
+      <section aria-label="Who we work with" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
           <SectionHeader
             eyebrow="Who we work with"
@@ -208,7 +208,7 @@ function AboutPage() {
 
           {/* Part two — commissioning context */}
           <Reveal className="mt-12">
-            <div className="rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/40 p-7">
+            <div className="panel-slate p-7">
               <p className="eyebrow text-slate-muted">{commissioningContext.eyebrow}</p>
               <h3 className="mt-4 font-heading text-xl font-bold text-white">
                 {commissioningContext.title}
