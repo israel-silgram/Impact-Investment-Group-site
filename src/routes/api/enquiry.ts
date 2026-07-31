@@ -1,12 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
+/** One payload shape for all six enquiry routes; fields vary by route. */
 const enquirySchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  organisation: z.string().min(1),
-  audience: z.string().min(1),
-  message: z.string().min(10),
+  route: z.enum(["demo", "sales", "partner", "investor", "media", "support"]),
+  routedTo: z.string().max(120).optional(),
+  name: z.string().trim().min(2).max(100),
+  email: z.string().trim().email().max(255),
+  organisation: z.string().trim().min(2).max(150),
+  role: z.string().trim().min(1).max(120),
+  message: z.string().trim().max(2000).optional(),
+  slot: z.string().trim().max(120).optional(),
+  ticketSize: z.string().trim().max(120).optional(),
+  acknowledgement: z.boolean().optional(),
+  holdings: z.string().trim().max(2000).optional(),
+  entityType: z.string().trim().max(120).optional(),
+  deadline: z.string().trim().max(120).optional(),
 });
 
 export const Route = createFileRoute("/api/enquiry")({
@@ -28,9 +37,10 @@ export const Route = createFileRoute("/api/enquiry")({
           );
         }
 
-        // Stub: no backend yet. Log and acknowledge.
+        // Stubbed: log routing metadata only, never the enquiry body.
         console.log("[enquiry]", {
-          ...parsed.data,
+          route: parsed.data.route,
+          routedTo: parsed.data.routedTo,
           receivedAt: new Date().toISOString(),
         });
 
