@@ -31,34 +31,46 @@ export interface ProblemBar {
 export const problemBars: ProblemBar[] = [
   {
     id: "children-ta",
-    label: "Children in temporary accommodation",
+    label: "Children in temporary accommodation in England",
     value: 176130,
     display: "176,130",
-    source: "gov.uk",
+    source:
+      "gov.uk · Statutory homelessness in England: Oct–Dec 2025 · at 31 December 2025",
     tone: "teal",
   },
   {
     id: "homelessness-duty",
-    label: "Households owed a homelessness duty",
+    label: "Households owed a homelessness duty in England, 2024–25",
     value: 330410,
     display: "330,410",
-    source: "gov.uk",
+    source:
+      "gov.uk · Statutory homelessness in England: financial year 2024-25 · full year 2024–25",
     tone: "teal",
   },
   {
     id: "supported-2040",
-    label: "Supported homes needed by 2040",
+    label: "Supported homes England is projected to need by 2040",
     value: 677202,
     display: "677,202",
-    source: "National Housing Federation",
+    source:
+      "National Housing Federation · How much supported housing will we need by 2040? · projection published 17 April 2024",
     tone: "orange",
   },
 ];
 
 export const nhsCostPanel = {
   value: "£102m / yr",
-  label: "NHS cost of people waiting in hospital for supported housing",
-  source: "Inside Housing · April 2026",
+  label:
+    "The annual NHS cost of people waiting in hospital for supported housing to be available",
+  source:
+    "Inside Housing · Lack of supported housing places costs NHS £102m per year · as reported April 2026",
+} as const;
+
+export const bnbSpendPanel = {
+  value: "430%",
+  label:
+    "Rise in council spend on B&B emergency accommodation for homeless households, 2010/11 to 2019/20",
+  source: "Local Government Association · released July 2021",
 } as const;
 
 export interface GroupSolution {
