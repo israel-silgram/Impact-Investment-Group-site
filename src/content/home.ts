@@ -196,7 +196,7 @@ export const demandNodes: DemandNode[] = [
 ];
 
 export const demandMapNote =
-  "Built from published commissioning briefs and platform sourcing data · 18 of ~296 authorities today.";
+  "Built from published commissioning briefs · 18 of ~296 English local authorities · their briefs shape what we source, which is not a partnership, endorsement or approval by any council.";
 
 export interface PlatformCapability {
   id: string;
