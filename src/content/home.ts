@@ -11,12 +11,12 @@ export interface LiveCount {
 
 /** The quiet single line under the hero buttons. */
 export const heroCounts: LiveCount[] = [
-  { id: "homes", value: "179,000+", label: "homes" },
-  { id: "rooms", value: "591,000+", label: "rooms" },
-  { id: "areas", value: "1,688", label: "areas" },
+  { id: "homes", value: "188,000+", label: "homes sourced & analysed" },
+  { id: "rooms", value: "618,000+", label: "potential homing opportunities" },
+  { id: "areas", value: "1,693", label: "towns & areas covered" },
 ];
 
-export const heroCountsSource = "Live from the platform";
+export const heroCountsSource = "live from our platform";
 
 export interface ProblemBar {
   id: string;
