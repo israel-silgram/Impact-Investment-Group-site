@@ -41,13 +41,12 @@ function TheProblemPage() {
       />
 
       <section
-        aria-labelledby="problem-demand-heading"
+aria-label="Demand comparison by local authority"
         className="border-t border-navy-700 bg-navy-950"
       >
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
           <Reveal>
             <SectionHeader
-              id="problem-demand-heading"
               eyebrow="Where the demand sits"
               title="Compare demand authority by authority"
               lead="Every highlighted authority has a published commissioning brief. Select one to compare its sourced homes, potential rooms and demand intensity against the others."
