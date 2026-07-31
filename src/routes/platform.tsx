@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, Download, FileText, ShieldCheck } from "lucide-react";
+import { Download, FileText, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { Reveal } from "@/components/ui/reveal";
@@ -9,7 +9,8 @@ import { StatBlock } from "@/components/ui/stat-block";
 import { DemandMap } from "@/components/home/demand-map";
 import { CapabilityRail } from "@/components/platform/capability-rail";
 import { HeroWindow } from "@/components/platform/hero-window";
-import { MatchPanel } from "@/components/platform/match-panel";
+import { AiTeam } from "@/components/platform/ai-team";
+import { DeliverySpine } from "@/components/platform/delivery-spine";
 import { PortalTabs } from "@/components/platform/portal-tabs";
 import { PropertyReport } from "@/components/platform/property-report";
 import { useActiveSection, useAnchorScroll } from "@/components/solutions/role-utils";
@@ -22,7 +23,8 @@ import {
   filterNodeIds,
   governance,
   heroSummary,
-  matchingLines,
+  aiTeam,
+  whatWeDo,
   supportFilters,
 } from "@/content/platform";
 
@@ -99,34 +101,30 @@ function PlatformPage() {
           </div>
 
           <div>
-            {/* 3 · AI matching */}
+            {/* 3a · What we do for you */}
             <Reveal
               as="section"
-              id="ai-matching"
-              aria-label="AI matching"
+              id="what-we-do"
+              aria-label="What we do for you"
               className="scroll-mt-32 border-b border-navy-800 py-16 lg:py-20"
             >
               <SectionHeader
-                eyebrow="AI matching"
-                title="Ranked matches, with the evidence attached"
+                eyebrow={whatWeDo.eyebrow}
+                title={whatWeDo.title}
+                lead={whatWeDo.lead}
               />
-              <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:items-start">
-                <ul className="space-y-5">
-                  {matchingLines.map((line) => (
-                    <li key={line} className="flex items-start gap-3">
-                      <Check aria-hidden="true" className="mt-1 size-5 shrink-0 text-teal-400" />
-                      <span className="heading-tight text-[clamp(1.125rem,1.8vw,1.5rem)] font-semibold text-white">
-                        {line}
-                      </span>
-                    </li>
-                  ))}
-                  <li className="measure pt-2 text-base leading-relaxed text-mist">
-                    The score is the summary. The breakdown is the argument — a commissioner can see
-                    which factors carried the match and challenge any of them.
-                  </li>
-                </ul>
-                <MatchPanel />
-              </div>
+              <DeliverySpine className="mt-10" />
+            </Reveal>
+
+            {/* 3b · Your AI investment team */}
+            <Reveal
+              as="section"
+              id="ai-team"
+              aria-label="Your AI investment team"
+              className="scroll-mt-32 border-b border-navy-800 py-16 lg:py-20"
+            >
+              <SectionHeader eyebrow={aiTeam.eyebrow} title={aiTeam.title} lead={aiTeam.lead} />
+              <AiTeam />
             </Reveal>
 
             {/* 4 · Demand heat maps & property intelligence */}
