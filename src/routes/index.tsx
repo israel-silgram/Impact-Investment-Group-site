@@ -5,13 +5,10 @@ import { HeartHandshake, Home as HomeIcon, Users } from "lucide-react";
 
 import challengeAerial from "@/assets/challenge-estate-aerial.jpg";
 import purposeTerrace from "@/assets/purpose-terrace-morning.jpg";
-import heroCityGreen from "@/assets/hero-city-green.jpg";
-import heroStreetWarm from "@/assets/hero-street-warm.jpg";
-import heroTerraceSky from "@/assets/hero-terrace-sky.jpg";
 import { DemandMap } from "@/components/home/demand-map";
+import { HomeHero } from "@/components/home/hero";
 import { Button } from "@/components/ui/button";
 import { IconCircle } from "@/components/ui/icon-circle";
-import { ImageFillHeadline } from "@/components/ui/image-fill-headline";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -25,8 +22,6 @@ import {
   purposeCopy,
   solutionCopy,
   groupSolutions,
-  heroCounts,
-  heroCountsSource,
   bnbSpendPanel,
   nhsCostPanel,
   problemBars,
