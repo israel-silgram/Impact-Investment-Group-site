@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SourceLine } from "@/components/ui/source-line";
+import { IconCircle, cycleTone } from "@/components/ui/icon-circle";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { GroupDiagram } from "@/components/about/group-diagram";
 import { DirectorCard } from "@/components/about/director-card";
@@ -127,9 +128,7 @@ function AboutPage() {
               return (
                 <Reveal key={value.id} index={i} as="li">
                   <div className="h-full rounded-[var(--radius-panel)] border border-navy-700 bg-navy-900 p-6">
-                    <span className="grid size-11 place-items-center rounded-full border border-navy-600">
-                      <Icon aria-hidden="true" className="size-5 text-teal-400" />
-                    </span>
+                    <IconCircle icon={Icon} size="md" tone={cycleTone(i)} />
                     <h3 className="mt-5 font-heading text-lg font-bold text-white">{value.title}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-mist">{value.body}</p>
                   </div>
