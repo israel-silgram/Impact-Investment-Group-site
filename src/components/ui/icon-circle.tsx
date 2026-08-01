@@ -9,11 +9,25 @@ const sizes = {
 } as const;
 
 const tones = {
-  teal: "text-teal-400",
-  white: "text-white",
+  teal: "icon-tone-teal",
+  white: "icon-tone-white",
   /** Orange only when this circle marks the active or primary item. */
-  orange: "text-orange-500",
+  orange: "icon-tone-orange",
+  slate: "icon-tone-slate",
+  navy: "icon-tone-navy",
 } as const;
+
+/**
+ * Cycles a grid's icon circles through teal, slate and navy so the grid has
+ * life in it. Exactly one item per grid gets orange — the accent stays scarce.
+ */
+const cycleOrder = ["teal", "slate", "navy"] as const;
+
+export function cycleTone(index: number, orangeIndex = 1): keyof typeof tones {
+  if (index === orangeIndex) return "orange";
+  const offset = index > orangeIndex ? index - 1 : index;
+  return cycleOrder[offset % cycleOrder.length]!;
+}
 
 export function IconCircle({
   icon: Icon,
@@ -34,12 +48,13 @@ export function IconCircle({
     <span
       {...(label ? { role: "img", "aria-label": label } : { "aria-hidden": "true" })}
       className={cn(
-        "inline-grid shrink-0 place-items-center rounded-full border border-navy-600 bg-navy-900/60 transition-colors duration-200",
+        "icon-tone inline-grid shrink-0 place-items-center rounded-full transition-colors duration-200",
+        tones[tone],
         s.box,
         className,
       )}
     >
-      <Icon className={cn(s.icon, tones[tone])} strokeWidth={1.5} />
+      <Icon className={s.icon} strokeWidth={1.5} />
     </span>
   );
 }

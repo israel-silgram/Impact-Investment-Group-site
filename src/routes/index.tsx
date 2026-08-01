@@ -13,7 +13,7 @@ import { DemandMap } from "@/components/home/demand-map";
 import { EcosystemSpine } from "@/components/home/ecosystem-spine";
 import { Button } from "@/components/ui/button";
 import { EmptySlot } from "@/components/ui/empty-slot";
-import { IconCircle } from "@/components/ui/icon-circle";
+import { IconCircle, cycleTone } from "@/components/ui/icon-circle";
 import { ImageFillHeadline } from "@/components/ui/image-fill-headline";
 import { LiveWindow } from "@/components/ui/live-window";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
@@ -409,7 +409,7 @@ function HomePage() {
               aria-labelledby="register-as"
               className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5"
             >
-              {registerRoles.map((role) => {
+              {registerRoles.map((role, i) => {
                 const Icon = icon(role.icon);
                 const routeOut = role.tone === "route-out";
                 const className = cn(
@@ -420,7 +420,7 @@ function HomePage() {
                 );
                 const body = (
                   <>
-                    <IconCircle icon={Icon} size="md" tone={routeOut ? "teal" : "white"} />
+                    <IconCircle icon={Icon} size="md" tone={cycleTone(i)} />
                     <span className="heading-tight text-sm font-bold text-white">{role.label}</span>
                     <span className="text-xs leading-snug text-slate-muted">{role.detail}</span>
                   </>
