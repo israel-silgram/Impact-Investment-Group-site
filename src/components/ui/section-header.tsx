@@ -2,6 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export function SectionHeader({
+  id,
   eyebrow,
   title,
   lead,
@@ -10,6 +11,7 @@ export function SectionHeader({
   as: Heading = "h2",
   className,
 }: {
+  id?: string;
   eyebrow?: string;
   title: string;
   lead?: string;
@@ -31,7 +33,7 @@ export function SectionHeader({
           </span>
         </div>
       ) : null}
-      <Heading className="heading-tight text-balance text-[clamp(1.75rem,3.2vw,2.75rem)] font-bold text-white">
+      <Heading id={id} className="heading-tight text-balance text-[clamp(1.75rem,3.2vw,2.75rem)] font-bold text-white">
         {title}
       </Heading>
       {lead ? (

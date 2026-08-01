@@ -150,7 +150,7 @@ function HomePage() {
             title={purposeCopy.title}
             className="max-w-3xl"
           />
-          <p className="measure-wide mt-6 text-base leading-relaxed text-mist">{purposeCopy.body}</p>
+          <p className="measure mt-6 text-base leading-relaxed text-mist">{purposeCopy.body}</p>
         </div>
       </section>
 
@@ -164,7 +164,7 @@ function HomePage() {
             className="max-w-3xl"
           />
 
-          <ul className="measure-wide mt-8 flex flex-col gap-3">
+          <ul className="measure mt-8 flex flex-col gap-3">
             {challengeCopy.points.map((point) => (
               <li key={point} className="flex items-start gap-3 text-base leading-relaxed text-mist">
                 <Icons.Minus aria-hidden="true" className="mt-1.5 size-4 shrink-0 text-teal-500" />
@@ -172,7 +172,7 @@ function HomePage() {
               </li>
             ))}
           </ul>
-          <p className="measure-wide mt-6 text-base leading-relaxed text-mist">
+          <p className="measure mt-6 text-base leading-relaxed text-mist">
             {challengeCopy.close}
           </p>
 
@@ -289,7 +289,7 @@ function HomePage() {
           <Reveal className="mt-12">
             <EcosystemSpine />
           </Reveal>
-          <p className="measure-wide mt-8 text-base leading-relaxed text-mist">
+          <p className="measure mt-8 text-base leading-relaxed text-mist">
             {ecosystemCopy.close}
           </p>
         </div>
@@ -443,10 +443,10 @@ function HomePage() {
             </ul>
           </Reveal>
 
-          <p className="measure-wide mx-auto mt-10 text-center text-sm leading-relaxed text-mist">
+          <p className="measure mx-auto mt-10 text-center text-sm leading-relaxed text-mist">
             {connectCopy.extras}
           </p>
-          <p className="measure-wide mx-auto mt-4 text-center text-sm leading-relaxed text-slate-muted">
+          <p className="measure mx-auto mt-4 text-center text-sm leading-relaxed text-slate-muted">
             {connectCopy.close}
           </p>
         </div>
@@ -577,7 +577,7 @@ function HomePage() {
           >
             {closingCopy.title}
           </h2>
-          <p className="measure-wide mx-auto mt-6 text-base leading-relaxed text-mist">
+          <p className="measure mx-auto mt-6 text-base leading-relaxed text-mist">
             {closingCopy.lead}
           </p>
           <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-x-3 gap-y-2">
