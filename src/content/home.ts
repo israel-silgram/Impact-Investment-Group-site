@@ -218,7 +218,7 @@ export const purposeCopy = {
 };
 
 export const challengeCopy = {
-  eyebrow: "The challenge",
+  eyebrow: "The problem",
   title: "The housing system is fragmented",
   lead: "Local Authorities understand demand. Housing Associations manage housing. Care and Support Providers deliver services. Investors provide capital. Property Owners own housing. Developers build homes. Each organisation has valuable information, yet much of it remains disconnected.",
   points: [
