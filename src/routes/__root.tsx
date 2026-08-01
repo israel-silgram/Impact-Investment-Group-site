@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { siteDescription } from "@/content/site";
 
 
 function NotFoundComponent() {
@@ -84,7 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "A UK social-impact property platform for supported housing: sourcing, compliance evidence and long-term capital.",
+          siteDescription,
       },
       { property: "og:site_name", content: "The Impact Investment Platform" },
       { property: "og:type", content: "website" },

@@ -182,13 +182,24 @@ function SolutionsPage() {
             <PreReleaseBadge className="mt-8" />
             <div className="mt-5 flex flex-wrap items-center gap-4">
               <Button variant="primary" asChild>
-                <Link to="/contact" search={{ enquiry: "waitlist", role: readingRole }}>
-                  Register to join the wait list
+                <Link to="/contact" search={{ enquiry: "demo", type: "demo", role: readingRole }}>
+                  Book a Demo
                 </Link>
               </Button>
-              <Button variant="secondary" asChild>
-                <Link to="/contact" search={{ enquiry: "investor", role: readingRole }}>
-                  Investor enquiry
+              <Button variant="secondary" asChild withArrow={false}>
+                <Link
+                  to="/contact"
+                  search={{ enquiry: "waitlist", type: "waitlist", role: readingRole }}
+                >
+                  Register Your Interest
+                </Link>
+              </Button>
+              <Button variant="ghost" asChild>
+                <Link
+                  to="/contact"
+                  search={{ enquiry: "partner", type: "partner", role: readingRole }}
+                >
+                  Become a Partner
                 </Link>
               </Button>
             </div>

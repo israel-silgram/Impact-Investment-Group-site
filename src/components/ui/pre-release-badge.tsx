@@ -13,7 +13,7 @@ export function PreReleaseBadge({ className }: { className?: string }) {
       )}
     >
       <span aria-hidden="true" className="h-px w-6 bg-teal-600 sm:w-10" />
-      <span>Coming soon · Invitation only · Pre-release access</span>
+      <span>Coming soon · Register your interest</span>
       <span aria-hidden="true" className="h-px w-6 bg-teal-600 sm:w-10" />
     </p>
   );

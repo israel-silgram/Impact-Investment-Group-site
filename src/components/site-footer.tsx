@@ -9,6 +9,7 @@ import {
   crisisNote,
   footerSiteLinks,
   legalNotice,
+  siteDescription,
   trustRegistrations,
 } from "@/content/site";
 
@@ -20,6 +21,9 @@ export function SiteFooter() {
           {/* Logo + contact */}
           <div className="flex flex-col gap-6">
             <Logo />
+            <p className="max-w-[46ch] text-[13px] leading-relaxed text-slate-muted">
+              {siteDescription}
+            </p>
             <ul className="flex flex-col gap-3 text-sm text-mist">
               <li className="flex items-center gap-2">
                 <Mail aria-hidden="true" className="size-4 shrink-0 text-teal-500" />
@@ -65,7 +69,7 @@ export function SiteFooter() {
                 <li key={item.enquiry}>
                   <Link
                     to="/contact"
-                    search={{ enquiry: item.enquiry }}
+                    search={{ enquiry: item.enquiry, type: item.enquiry }}
                     className="inline-flex min-h-11 items-center text-mist transition-colors duration-200 hover:text-white"
                   >
                     {item.label}
@@ -73,6 +77,14 @@ export function SiteFooter() {
                 </li>
               ))}
             </ul>
+            <Link
+              to="/contact"
+              search={{ enquiry: "partner", type: "partner" }}
+              className="inline-flex min-h-11 items-center gap-1 font-heading text-sm font-semibold text-teal-400 transition-colors duration-200 hover:text-white"
+            >
+              Become a Partner
+              <ArrowUpRight aria-hidden="true" className="size-4" />
+            </Link>
           </nav>
 
           {/* In a crisis — care information, not marketing */}

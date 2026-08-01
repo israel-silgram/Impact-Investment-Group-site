@@ -1,8 +1,8 @@
 /** Copy and field configuration for /contact. */
 
 export const enquiryRouteIds = [
+  "demo",
   "waitlist",
-  "team",
   "partner",
   "investor",
   "media",
@@ -23,18 +23,18 @@ export interface EnquiryRoute {
 
 export const enquiryRoutes: EnquiryRoute[] = [
   {
-    id: "waitlist",
-    label: "Join the wait list",
-    subline: "Pre-release access · invitation only · 30 min preview",
+    id: "demo",
+    label: "Book a demo",
+    subline: "A walkthrough of the platform with the team · 30 min",
     reply: "We reply within one working day",
     routedTo: "Platform team",
   },
   {
-    id: "team",
-    label: "Speak to the team",
-    subline: "Pricing, contracts, procurement routes",
+    id: "waitlist",
+    label: "Register your interest",
+    subline: "Join the wait list and be first in when the platform opens",
     reply: "We reply within one working day",
-    routedTo: "Commercial team",
+    routedTo: "Platform team",
   },
   {
     id: "partner",
@@ -45,8 +45,8 @@ export const enquiryRoutes: EnquiryRoute[] = [
   },
   {
     id: "investor",
-    label: "Investor pre-release access",
-    subline: "Pre-release access · capital at risk",
+    label: "Investor enquiry",
+    subline: "Demand-led opportunities · capital at risk",
     reply: "We reply within one working day",
     routedTo: "Investor relations",
   },

@@ -122,48 +122,194 @@ export interface EcosystemStage {
 
 export const ecosystemStages: EcosystemStage[] = [
   {
-    id: "source",
-    spine: "Source",
-    title: "Source property",
-    detail: "Stock identified against published commissioning demand.",
+    id: "demand",
+    spine: "Demand",
+    title: "Verified demand is identified",
+    detail: "Published commissioning need, confirmed before anything is sourced.",
+    owner: "Local authorities & NHS",
+    tone: "teal",
+  },
+  {
+    id: "analyse",
+    spine: "Analyse",
+    title: "The platform analyses property options",
+    detail: "The most appropriate options are scored against that demand.",
     owner: "Impact Investment Group",
     tone: "teal",
   },
   {
-    id: "verify",
-    spine: "Verify",
-    title: "Verify property",
-    detail: "Due diligence, condition and compliance checks completed.",
+    id: "ha",
+    spine: "Provider",
+    title: "Suitable housing associations are identified",
+    detail: "Registered providers matched to the brief and the area.",
+    owner: "Rhema Social Impact Group",
+    tone: "teal",
+  },
+  {
+    id: "capital",
+    spine: "Capital",
+    title: "Investors and owners are matched to opportunities",
+    detail: "Demand-led opportunities, not speculative stock.",
     owner: "Impact Investment Group",
     tone: "teal",
   },
   {
-    id: "lease",
-    spine: "Lease",
-    title: "Secure leases",
-    detail: "Lease held with a trusted, accountable counterparty.",
+    id: "secure",
+    spine: "Secure",
+    title: "Properties are secured through long-term arrangements",
+    detail: "Held on a 5 year+ FRI, CPI or internal repairing lease.",
     owner: "Rhema Social Impact Group",
     tone: "teal",
   },
   {
-    id: "home",
-    spine: "Home",
-    title: "Deliver homes",
-    detail: "Home brought to safe, decent standard and let.",
-    owner: "Rhema Social Impact Group",
+    id: "prepare",
+    spine: "Prepare",
+    title: "Care and support providers prepare the placement",
+    detail: "Support planned around the household before anyone moves.",
+    owner: "Elevate Supported Living",
+    tone: "teal",
+  },
+  {
+    id: "move",
+    spine: "Move",
+    title: "Individuals move into suitable accommodation",
+    detail: "A human housing officer confirms every match.",
+    owner: "Elevate Supported Living",
     tone: "orange",
   },
   {
     id: "support",
     spine: "Support",
-    title: "Support provided",
+    title: "Support is delivered",
     detail: "Care and support wrapped around the household.",
     owner: "Elevate Supported Living",
     tone: "orange",
   },
+  {
+    id: "measure",
+    spine: "Measure",
+    title: "Outcomes are monitored and measured",
+    detail: "Placements, tenancies sustained and voids recorded over time.",
+    owner: "Impact Investment Platform",
+    tone: "orange",
+  },
+  {
+    id: "community",
+    spine: "Community",
+    title: "Communities benefit from housing stability",
+    detail: "Fewer moves, fewer emergency placements, steadier neighbourhoods.",
+    owner: "Every partner in the chain",
+    tone: "orange",
+  },
 ];
 
+export const ecosystemCopy = {
+  eyebrow: "How the ecosystem works",
+  title: "One Connection Creates Many Outcomes",
+  lead: "Ten connected stages, with the responsible party revealed at each one. Hover or tap a stage.",
+  close:
+    "This journey transforms what has traditionally been a fragmented process into one connected pathway.",
+};
 
+export const purposeCopy = {
+  eyebrow: "Our purpose",
+  title: "Housing is more than bricks and mortar",
+  body: "Every home creates the opportunity for stability, independence and a better future. Across the UK, millions of people are affected by housing challenges — from families living in temporary accommodation and care leavers moving into adulthood, to people leaving hospital, older people requiring specialist accommodation and individuals needing ongoing care and support. At the same time, investors, landlords, developers and housing providers are looking for opportunities to deliver long-term value and positive social impact. Our mission is to connect these two worlds.",
+};
+
+export const challengeCopy = {
+  eyebrow: "The challenge",
+  title: "The housing system is fragmented",
+  lead: "Local Authorities understand demand. Housing Associations manage housing. Care and Support Providers deliver services. Investors provide capital. Property Owners own housing. Developers build homes. Each organisation has valuable information, yet much of it remains disconnected.",
+  points: [
+    "Suitable properties remain empty while demand grows",
+    "Housing opportunities are identified too late",
+    "Investment isn't always directed where it creates the greatest impact",
+    "Providers spend valuable time searching for accommodation",
+    "Families and individuals wait longer than necessary for safe, suitable homes",
+  ],
+  close:
+    "This isn't because organisations don't want to collaborate. It's because the systems available to them weren't designed to connect everyone together.",
+};
+
+export const solutionCopy = {
+  eyebrow: "Our solution",
+  title: "One Platform. One Network. One Shared Purpose.",
+  lead: "Impact Investment Platform has been designed to become the digital infrastructure connecting the UK's housing, care and support ecosystem. Rather than replacing existing organisations, we help them collaborate more effectively.",
+  points: [
+    "Share verified housing demand",
+    "Identify suitable properties",
+    "Connect with Housing Associations",
+    "Match Care and Support Providers with available accommodation",
+    "Introduce investors to demand-led opportunities",
+    "Track placements",
+    "Measure outcomes",
+    "Demonstrate social impact",
+  ],
+  subBlockTitle: "The accountable chain behind it",
+};
+
+export const demandMapCopy = {
+  eyebrow: "Live UK demand",
+  title: "Visualising Housing Need Across the Nation",
+  lead: "Understanding demand is the first step towards solving it. The platform includes a live demand intelligence map that helps partners identify where housing is needed most.",
+  filtersLabel: "Demand categories",
+  filters: [
+    "Temporary accommodation",
+    "Supported housing",
+    "Care leavers",
+    "Hospital discharge",
+    "Mental health",
+    "Learning disabilities",
+    "Older people",
+    "Families",
+    "Domestic abuse",
+    "Homelessness",
+  ],
+  selectors: [
+    { id: "region", label: "Region", value: "England · all regions" },
+    { id: "authority", label: "Local authority", value: "All commissioning authorities" },
+  ],
+};
+
+export const connectCopy = {
+  eyebrow: "Who we connect",
+  title: "Every Organisation. One Platform.",
+  extras:
+    "We also connect Mortgage Brokers, Solicitors, Surveyors, Contractors, Technology Partners and the communities these homes sit in.",
+  close:
+    "Each organisation has its own dedicated experience while remaining connected to the wider ecosystem.",
+};
+
+export const aiPlatformCopy = {
+  eyebrow: "AI platform",
+  title: "Intelligence That Supports Better Decisions",
+  lead: "Artificial Intelligence sits at the centre of the platform. Rather than replacing professional judgement, AI enhances decision-making.",
+  points: [
+    "Match people with suitable homes",
+    "Identify the right investment opportunities",
+    "Forecast housing demand",
+    "Recommend suitable delivery partners",
+    "Reduce property voids",
+    "Increase placement speed",
+    "Improve occupancy",
+    "Monitor social impact",
+  ],
+};
+
+export const closingCopy = {
+  title: "Join the UK's Housing, Care and Support Ecosystem",
+  lead: "Whether you are seeking housing, investing in communities, developing homes, commissioning services or delivering care and support, there is a place for you within the platform.",
+  points: [
+    "Build more homes",
+    "Deliver better support",
+    "Connect investment with verified need",
+    "Strengthen communities",
+    "Improve outcomes",
+    "Create lasting social impact",
+    "Transform lives",
+  ],
+};
 
 export const demandMapNote =
   "Built from published commissioning briefs · 18 of ~296 English local authorities · their briefs shape what we source, which is not a partnership, endorsement or approval by any council.";

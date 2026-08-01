@@ -12,12 +12,10 @@ export function PageShell({
   eyebrow,
   title,
   lead,
-  primaryAction,
 }: {
   eyebrow: string;
   title: string;
   lead: string;
-  primaryAction: { label: string; enquiry: string };
 }) {
   return (
     <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
@@ -26,11 +24,18 @@ export function PageShell({
       </Reveal>
       <Reveal index={1} className="mt-10">
         <PreReleaseBadge className="mb-5" />
-        <Button variant="primary" asChild>
-          <Link to="/contact" search={{ enquiry: primaryAction.enquiry }}>
-            {primaryAction.label}
-          </Link>
-        </Button>
+        <div className="flex flex-wrap items-center gap-4">
+          <Button variant="primary" asChild>
+            <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
+              Book a Demo
+            </Link>
+          </Button>
+          <Button variant="secondary" asChild withArrow={false}>
+            <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
+              Register Your Interest
+            </Link>
+          </Button>
+        </div>
       </Reveal>
       <Reveal index={2} className="mt-14">
         <div className="rounded-[var(--radius-panel)] border border-dashed border-navy-600 p-8">

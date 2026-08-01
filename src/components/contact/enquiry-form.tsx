@@ -65,7 +65,7 @@ function schemaFor(route: EnquiryRouteId) {
         message,
         deadline: z.string().trim().min(1, "Please give your deadline"),
       });
-    case "waitlist":
+    case "demo":
       return z.object({ ...base, message, slot: z.string().optional() });
     default:
       return z.object({ ...base, message });
@@ -310,12 +310,12 @@ export function EnquiryForm({
         <div
           className={cn(
             "mt-6 grid gap-6",
-            route === "waitlist" && "lg:grid-cols-[1.4fr_1fr] lg:items-start",
+            route === "demo" && "lg:grid-cols-[1.4fr_1fr] lg:items-start",
           )}
         >
           <div className="flex flex-col gap-2">
             <Label htmlFor="message">
-              {route === "waitlist" ? "What would you like to see?" : "Message"}
+              {route === "demo" ? "What would you like to see?" : "Message"}
             </Label>
             <textarea
               id="message"
@@ -328,7 +328,7 @@ export function EnquiryForm({
             <ErrorText id="message-error">{errors.message?.message}</ErrorText>
           </div>
 
-          {route === "waitlist" ? (
+          {route === "demo" ? (
             <fieldset className="rounded-[var(--radius-panel)] border border-navy-600 bg-navy-950 p-5">
               <legend className="px-1 font-heading text-sm font-semibold uppercase tracking-[0.08em] text-mist">
                 Or pick a slot
@@ -400,9 +400,11 @@ export function EnquiryForm({
           <Button type="submit" variant="primary" disabled={isSubmitting}>
             {isSubmitting
               ? "Sending…"
-              : route === "waitlist"
-                ? "Join the wait list"
-                : "Send enquiry"}
+              : route === "demo"
+                ? "Book a demo"
+                : route === "waitlist"
+                  ? "Register your interest"
+                  : "Send enquiry"}
           </Button>
         </div>
         <p className="font-heading text-sm font-semibold text-mist">{config.reply}</p>
