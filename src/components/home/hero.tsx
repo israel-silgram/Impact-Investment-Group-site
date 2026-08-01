@@ -49,7 +49,7 @@ const roleIcons: Record<
 > = {
   investor: { base: "HandCoins", accent: "PoundSterling" },
   landlord: { base: "House" },
-  developer: { base: "Crane" },
+  developer: { base: "Construction" },
   "housing-association": { base: "House", accent: "Users" },
   "local-authority": { base: "Landmark", accent: "Flag" },
   "care-provider": { base: "HandHeart", accent: "Heart" },
