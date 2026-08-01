@@ -9,12 +9,12 @@ const sizes = {
 } as const;
 
 const tones = {
-  teal: { icon: "text-teal-400", ring: "border-teal-500/70 bg-teal-950/40" },
-  white: { icon: "text-white", ring: "border-navy-600 bg-navy-900/60" },
+  teal: "icon-tone-teal",
+  white: "icon-tone-white",
   /** Orange only when this circle marks the active or primary item. */
-  orange: { icon: "text-orange-500", ring: "border-orange-500/70 bg-orange-600/10" },
-  slate: { icon: "text-slate", ring: "border-slate/60 bg-slate/10" },
-  navy: { icon: "text-mist", ring: "border-navy-600 bg-navy-600/30" },
+  orange: "icon-tone-orange",
+  slate: "icon-tone-slate",
+  navy: "icon-tone-navy",
 } as const;
 
 /**
@@ -48,13 +48,13 @@ export function IconCircle({
     <span
       {...(label ? { role: "img", "aria-label": label } : { "aria-hidden": "true" })}
       className={cn(
-        "inline-grid shrink-0 place-items-center rounded-full border transition-colors duration-200",
-        tones[tone].ring,
+        "icon-tone inline-grid shrink-0 place-items-center rounded-full transition-colors duration-200",
+        tones[tone],
         s.box,
         className,
       )}
     >
-      <Icon className={cn(s.icon, tones[tone].icon)} strokeWidth={1.5} />
+      <Icon className={s.icon} strokeWidth={1.5} />
     </span>
   );
 }
