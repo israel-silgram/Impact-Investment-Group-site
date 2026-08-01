@@ -72,56 +72,8 @@ function HomePage() {
   return (
     <>
       {/* 1 · Hero */}
-      <section
-        aria-labelledby="hero-heading"
-        className="relative flex min-h-[calc(100svh-72px)] flex-col justify-between overflow-hidden bg-navy-900"
-      >
-        <div className="mx-auto w-full max-w-[1440px] px-5 pb-16 pt-10 sm:px-8 lg:pt-14">
-          <ImageFillHeadline
-            lines={[
-              { text: "Building Homes", image: heroTerraceSky, tone: "neutral" },
-              { text: "Delivering Support", image: heroStreetWarm, tone: "orange" },
-              { text: "Transforming Lives", image: heroCityGreen, tone: "neutral" },
-            ]}
-            className="mx-auto max-w-[18ch] sm:max-w-none"
-          />
-          <span id="hero-heading" className="sr-only">
-            Building homes, delivering support, transforming lives
-          </span>
+      <HomeHero />
 
-          <p className="eyebrow mt-8 text-center text-teal-400">The Impact Investment Platform</p>
-          <p className="measure mx-auto mt-4 text-center text-base leading-relaxed text-mist">
-            The UK&rsquo;s intelligent infrastructure for housing, care and support.
-          </p>
-
-          <PreReleaseBadge className="mt-6 justify-center" />
-
-          <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-            <Button variant="primary" size="lg" asChild>
-              <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
-                {PRIMARY_LABEL}
-              </Link>
-            </Button>
-            <Button variant="secondary" size="lg" asChild withArrow={false}>
-              <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
-                Register Your Interest
-              </Link>
-            </Button>
-          </div>
-
-          <div className="mt-8 flex flex-col items-center gap-1">
-            <p className="font-heading text-sm font-semibold text-mist sm:text-base">
-              {heroCounts.map((count, i) => (
-                <span key={count.id}>
-                  {i > 0 ? <span className="px-2 text-slate-muted">·</span> : null}
-                  <span className="text-white">{count.value}</span> {count.label}
-                </span>
-              ))}
-            </p>
-            <SourceLine source={heroCountsSource} />
-          </div>
-        </div>
-      </section>
 
       {/* 2 · Our purpose | The problem */}
       <section aria-labelledby="purpose-heading" className="section-light border-t border-navy-700">
