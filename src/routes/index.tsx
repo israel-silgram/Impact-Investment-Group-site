@@ -362,24 +362,36 @@ function HomePage() {
                 {demandMapCopy.filters.map((filter) => (
                   <li
                     key={filter}
-                    className="rounded-full border border-navy-600/70 bg-navy-800/50 px-3 py-1.5 text-[13px] font-semibold text-mist"
+                    className="inline-flex min-h-11 items-center rounded-full border border-teal-500/70 bg-teal-950/40 px-4 text-[13px] font-semibold text-teal-400"
                   >
                     {filter}
                   </li>
                 ))}
               </ul>
             </div>
-            <dl className="flex shrink-0 flex-col gap-4 sm:flex-row lg:flex-col">
+            <div className="flex shrink-0 flex-col gap-4 sm:flex-row lg:flex-col">
               {demandMapCopy.selectors.map((sel) => (
-                <div
-                  key={sel.id}
-                  className="rounded-panel border border-navy-600/70 bg-navy-800/50 px-4 py-3"
-                >
-                  <dt className="eyebrow text-slate-muted">{sel.label}</dt>
-                  <dd className="mt-1 font-heading text-sm font-semibold text-white">{sel.value}</dd>
+                <div key={sel.id} className="min-w-[16rem]">
+                  <label
+                    htmlFor={`demand-${sel.id}`}
+                    className="eyebrow block text-slate-muted"
+                  >
+                    {sel.label}
+                  </label>
+                  <select
+                    id={`demand-${sel.id}`}
+                    defaultValue={sel.options[0]}
+                    className="mt-2 min-h-11 w-full cursor-pointer rounded-panel border border-teal-600/60 bg-navy-800/60 px-4 font-heading text-sm font-semibold text-white transition-colors duration-200 hover:border-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
+                  >
+                    {sel.options.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               ))}
-            </dl>
+            </div>
           </div>
 
           <p className="mt-8 text-[12px] leading-snug text-slate-muted">{demandMapNote}</p>
