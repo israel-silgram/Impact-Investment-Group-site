@@ -45,7 +45,7 @@ export function Logo({ className }: { className?: string }) {
             className="text-white"
           />
           <path
-            d="M40.6 21.5v-3.4h3.2V25.4"
+            d="M41 22.4v-4h3.1v9.4"
             stroke="currentColor"
             strokeWidth="2.2"
             strokeLinecap="round"
