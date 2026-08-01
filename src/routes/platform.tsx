@@ -9,6 +9,7 @@ import { DemandMap } from "@/components/home/demand-map";
 import { CapabilityRail } from "@/components/platform/capability-rail";
 import { HeroWindow } from "@/components/platform/hero-window";
 import { AiTeam } from "@/components/platform/ai-team";
+import { DataLayers } from "@/components/platform/data-layers";
 import { DeliverySpine } from "@/components/platform/delivery-spine";
 import { PortalTabs } from "@/components/platform/portal-tabs";
 import { PropertyReport } from "@/components/platform/property-report";
@@ -19,6 +20,7 @@ import {
   governance,
   heroSummary,
   aiTeam,
+  dataLayers,
   whatWeDo,
   supportFilters,
 } from "@/content/platform";
@@ -122,6 +124,21 @@ function PlatformPage() {
             >
               <SectionHeader eyebrow={aiTeam.eyebrow} title={aiTeam.title} lead={aiTeam.lead} />
               <AiTeam />
+            </Reveal>
+
+            {/* 3c · Five data layers, one question */}
+            <Reveal
+              as="section"
+              id="data-layers"
+              aria-label="The data layers"
+              className="scroll-mt-32 border-b border-navy-800 py-16 lg:py-20"
+            >
+              <SectionHeader
+                eyebrow={dataLayers.eyebrow}
+                title={dataLayers.title}
+                lead={dataLayers.lead}
+              />
+              <DataLayers />
             </Reveal>
 
             {/* 4 · Demand heat maps & property intelligence */}

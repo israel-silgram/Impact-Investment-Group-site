@@ -13,6 +13,7 @@ export interface CapabilityLink {
 export const capabilityLinks: CapabilityLink[] = [
   { id: "what-we-do", label: "What we do for you" },
   { id: "ai-team", label: "Your AI investment team" },
+  { id: "data-layers", label: "The data layers" },
   { id: "demand-heat-maps", label: "Demand heat maps" },
   { id: "property-intelligence", label: "Property intelligence" },
   { id: "portals", label: "Portals" },
@@ -139,9 +140,60 @@ export const aiTeam = {
     { id: "prices", label: "Peter prices it", tone: "teal" as const },
     { id: "proves", label: "Pippa proves it", tone: "orange" as const },
   ],
-  workedExampleLabel: "Peter\u2019s worked example",
+  workedExampleLabel: "Peter\u2019s analysis",
   disclaimer:
     "The team surfaces analysis to help you decide \u2014 it isn\u2019t financial, legal or tax advice, and a real human team is always on hand. Every figure is drawn from a named dataset or shown as a clearly-labelled estimate.",
+};
+
+/* 3c · Five data layers ---------------------------------------------------- */
+
+export interface DataLayer {
+  id: string;
+  layer: string;
+  /** Named providers only — no unsourced claims. */
+  sources: string[];
+  gives: string;
+}
+
+export const dataLayers = {
+  eyebrow: "The data layers",
+  title: "Five data layers, one question",
+  lead: "Most property platforms hold one layer: listings. We hold five, joined together — which is what makes the question below answerable at all.",
+  layers: [
+    {
+      id: "listings",
+      layer: "Property listings",
+      sources: ["Estate agent feeds and listing providers"],
+      gives: "Address, price, bedrooms, description, images, status",
+    },
+    {
+      id: "planning",
+      layer: "Planning intelligence",
+      sources: ["Planning Portal", "Council planning APIs"],
+      gives: "C2, C3 and HMO use classes, applications, refusals, conversions",
+    },
+    {
+      id: "land-registry",
+      layer: "Land Registry",
+      sources: ["HM Land Registry"],
+      gives: "Owner, purchase price, date purchased, title number, tenure",
+    },
+    {
+      id: "care-quality",
+      layer: "Care quality",
+      sources: ["CQC", "Ofsted"],
+      gives: "Registered services, ratings, provider, capacity, operator",
+    },
+    {
+      id: "company",
+      layer: "Company data",
+      sources: ["Companies House"],
+      gives: "Entity, directors, filings, group structure",
+    },
+  ] satisfies DataLayer[],
+  query: "Show me houses within three miles of an Outstanding CQC care home.",
+  answer:
+    "No property portal can answer that. Ours can, because the layers are joined.",
 };
 
 export interface MatchFactor {
