@@ -98,15 +98,18 @@ function HomePage() {
             lines={[
               { text: "Building Homes", image: heroTerraceSky, tone: "neutral" },
               { text: "Delivering Support", image: heroStreetWarm, tone: "orange" },
-              { text: "Transforming Futures", image: heroCityGreen, tone: "neutral" },
+              { text: "Transforming Lives", image: heroCityGreen, tone: "neutral" },
             ]}
             className="mx-auto max-w-[18ch] sm:max-w-none"
           />
           <span id="hero-heading" className="sr-only">
-            Building homes, delivering support, transforming futures
+            Building homes, delivering support, transforming lives
           </span>
 
           <p className="eyebrow mt-8 text-center text-teal-400">The Impact Investment Platform</p>
+          <p className="measure mx-auto mt-4 text-center text-base leading-relaxed text-mist">
+            The UK&rsquo;s intelligent infrastructure for housing, care and support.
+          </p>
 
           <PreReleaseBadge className="mt-6 justify-center" />
 
