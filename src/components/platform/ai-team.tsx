@@ -1,6 +1,7 @@
 import { ArrowRight, Calculator, HeartHandshake, Search } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+import terraceSubject from "@/assets/platform-terrace-subject.jpg";
 import { IconCircle } from "@/components/ui/icon-circle";
 import { Reveal } from "@/components/ui/reveal";
 import { MatchPanel } from "@/components/platform/match-panel";
@@ -39,7 +40,16 @@ export function AiTeam() {
 
       {/* Peter's worked example — sits beside his card */}
       <div className="mt-6 grid gap-6 md:grid-cols-3">
-        <div className="hidden md:block" aria-hidden="true" />
+        <Reveal className="hidden md:block">
+          <img
+            src={terraceSubject}
+            alt="Red-brick British terraced house of the kind assessed in the analysis"
+            width={1024}
+            height={1280}
+            loading="lazy"
+            className="h-full w-full rounded-xl object-cover ring-1 ring-navy-700/20"
+          />
+        </Reveal>
         <Reveal className="md:col-span-2">
           <p className="eyebrow text-teal-400">{aiTeam.workedExampleLabel}</p>
           <div className="mt-3">
@@ -47,6 +57,7 @@ export function AiTeam() {
           </div>
         </Reveal>
       </div>
+
 
       {/* Flow strip — only the final step is orange */}
       <Reveal className="mt-10">
