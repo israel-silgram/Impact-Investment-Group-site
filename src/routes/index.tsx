@@ -69,7 +69,6 @@ function HomePage() {
       {/* 1 · Hero */}
       <HomeHero />
 
-
       {/* 2 · Our purpose | The problem */}
       <section aria-labelledby="purpose-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
@@ -203,7 +202,10 @@ function HomePage() {
 
           <ul className="mt-10 grid gap-3 sm:grid-cols-2">
             {solutionCopy.points.map((point) => (
-              <li key={point} className="flex items-start gap-3 text-base leading-relaxed text-mist">
+              <li
+                key={point}
+                className="flex items-start gap-3 text-base leading-relaxed text-mist"
+              >
                 <Icons.Check aria-hidden="true" className="mt-1 size-5 shrink-0 text-teal-500" />
                 {point}
               </li>
@@ -257,14 +259,24 @@ function HomePage() {
             <div className="flex flex-col gap-8">
               <ul className="flex flex-col gap-6">
                 {[
-                  { id: "homes", Icon: HomeIcon, label: "Providing Homes", tone: "neutral" as const },
+                  {
+                    id: "homes",
+                    Icon: HomeIcon,
+                    label: "Providing Homes",
+                    tone: "neutral" as const,
+                  },
                   {
                     id: "support",
                     Icon: HeartHandshake,
                     label: "Delivering Support",
                     tone: "orange" as const,
                   },
-                  { id: "lives", Icon: Users, label: "Transforming Lives", tone: "neutral" as const },
+                  {
+                    id: "lives",
+                    Icon: Users,
+                    label: "Transforming Lives",
+                    tone: "neutral" as const,
+                  },
                 ].map(({ id, Icon, label, tone }) => (
                   <li key={id} className="flex items-center gap-4">
                     <Icon

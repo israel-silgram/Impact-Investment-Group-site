@@ -60,7 +60,7 @@ const roleIcons: Record<
 };
 
 const icon = (name?: keyof typeof Icons): LucideIcon =>
-  (name ? ((Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle) : Icons.Circle);
+  name ? ((Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle) : Icons.Circle;
 
 function RoleIcon({ roleId }: { roleId: string }) {
   const spec = roleIcons[roleId] ?? { base: "Circle" as const };
