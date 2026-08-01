@@ -3,7 +3,7 @@ import { z } from "zod";
 
 /** One payload shape for all six enquiry routes; fields vary by route. */
 const enquirySchema = z.object({
-  route: z.enum(["waitlist", "team", "partner", "investor", "media", "support"]),
+  route: z.enum(["demo", "waitlist", "partner", "investor", "media", "support"]),
   routedTo: z.string().max(120).optional(),
   name: z.string().trim().min(2).max(100),
   email: z.string().trim().email().max(255),

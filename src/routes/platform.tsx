@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
-import { StatBlock } from "@/components/ui/stat-block";
 import { DemandMap } from "@/components/home/demand-map";
 import { CapabilityRail } from "@/components/platform/capability-rail";
 import { HeroWindow } from "@/components/platform/hero-window";
@@ -15,10 +14,6 @@ import { PortalTabs } from "@/components/platform/portal-tabs";
 import { PropertyReport } from "@/components/platform/property-report";
 import { useActiveSection, useAnchorScroll } from "@/components/solutions/role-utils";
 import {
-  analyticsNote,
-  analyticsTiles,
-  apiEndpoints,
-  apiNote,
   capabilityLinks,
   filterNodeIds,
   governance,
@@ -36,7 +31,7 @@ export const Route = createFileRoute("/platform")({
       {
         name: "description",
         content:
-          "Petra, Peter and Pippa run the analysis behind every deal — plus demand heat maps, sourced property reports, four role portals, board-ready analytics and an integration API.",
+          "Petra, Peter and Pippa run the analysis behind every deal — plus demand heat maps, sourced property reports, four role portals and a logged, exportable audit trail.",
       },
       { property: "og:title", content: "The Platform — matching on evidence, not guesswork" },
       {
@@ -76,12 +71,14 @@ function PlatformPage() {
             <p className="measure mt-5 text-base leading-relaxed text-mist">{heroSummary.lead}</p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Button variant="primary" asChild>
-                <Link to="/contact" search={{ enquiry: "waitlist" }}>
-                  Register to join the wait list
+                <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
+                  Book a Demo
                 </Link>
               </Button>
-              <Button variant="secondary" onClick={() => scrollTo("api")}>
-                See the API
+              <Button variant="secondary" asChild withArrow={false}>
+                <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
+                  Register Your Interest
+                </Link>
               </Button>
             </div>
           </Reveal>
@@ -186,56 +183,6 @@ function PlatformPage() {
               </div>
             </Reveal>
 
-            {/* 6 · Analytics */}
-            <Reveal
-              as="section"
-              id="analytics"
-              aria-label="Analytics"
-              className="scroll-mt-32 border-b border-navy-800 py-16 lg:py-20"
-            >
-              <SectionHeader
-                eyebrow="Analytics"
-                title="Numbers appear when they are real"
-                lead="These two tiles stay empty until the platform produces the figures itself."
-              />
-              <div className="mt-10 grid gap-5 sm:grid-cols-2">
-                {analyticsTiles.map((tile) => (
-                  <StatBlock
-                    key={tile.id}
-                    variant="empty"
-                    label={tile.label}
-                    condition={tile.condition}
-                  />
-                ))}
-              </div>
-              <p className="mt-6 text-sm leading-relaxed text-mist">{analyticsNote}</p>
-            </Reveal>
-
-            {/* 7 · API integrations */}
-            <Reveal
-              as="section"
-              id="api"
-              aria-label="API integrations"
-              className="scroll-mt-32 border-b border-navy-800 py-16 lg:py-20"
-            >
-              <SectionHeader eyebrow="API" title="Integrations, not re-keying" />
-              <div className="mt-10 rounded-[var(--radius-panel)] border-l-2 border-teal-500 bg-navy-950 p-5 sm:p-6">
-                <ul className="space-y-3">
-                  {apiEndpoints.map((endpoint) => (
-                    <li
-                      key={endpoint.id}
-                      className="flex flex-wrap items-baseline gap-x-4 gap-y-1 font-mono text-sm"
-                    >
-                      <span className="w-14 shrink-0 font-semibold text-teal-400">
-                        {endpoint.method}
-                      </span>
-                      <span className="min-w-0 break-all text-mist">{endpoint.path}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <p className="mt-5 text-sm text-mist">{apiNote}</p>
-            </Reveal>
           </div>
         </div>
       </div>
@@ -287,10 +234,20 @@ function PlatformPage() {
               behind every match it returns.
             </p>
             <PreReleaseBadge className="mt-8" />
-            <div className="mt-5">
+            <div className="mt-5 flex flex-wrap items-center gap-4">
               <Button variant="primary" asChild>
-                <Link to="/contact" search={{ enquiry: "waitlist" }}>
-                  Register to join the wait list
+                <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
+                  Book a Demo
+                </Link>
+              </Button>
+              <Button variant="secondary" asChild withArrow={false}>
+                <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
+                  Register Your Interest
+                </Link>
+              </Button>
+              <Button variant="ghost" asChild>
+                <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
+                  Become a Partner
                 </Link>
               </Button>
             </div>

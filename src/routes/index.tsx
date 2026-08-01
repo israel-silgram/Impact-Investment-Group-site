@@ -23,7 +23,15 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { SourceLine } from "@/components/ui/source-line";
 import { pillarCards, registerRoles } from "@/content/audiences";
 import {
+  aiPlatformCopy,
+  challengeCopy,
+  closingCopy,
+  connectCopy,
+  demandMapCopy,
   demandMapNote,
+  ecosystemCopy,
+  purposeCopy,
+  solutionCopy,
   groupSolutions,
   heroCounts,
   heroCountsSource,
@@ -43,7 +51,7 @@ const pillarImages: Record<string, string> = {
 };
 
 /** The single orange action this page exists to get. Hero + closing band only. */
-const PRIMARY_LABEL = "Register to join the wait list";
+const PRIMARY_LABEL = "Book a Demo";
 
 const icon = (name: string): LucideIcon =>
   (Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle;
@@ -90,27 +98,30 @@ function HomePage() {
             lines={[
               { text: "Building Homes", image: heroTerraceSky, tone: "neutral" },
               { text: "Delivering Support", image: heroStreetWarm, tone: "orange" },
-              { text: "Transforming Futures", image: heroCityGreen, tone: "neutral" },
+              { text: "Transforming Lives", image: heroCityGreen, tone: "neutral" },
             ]}
             className="mx-auto max-w-[18ch] sm:max-w-none"
           />
           <span id="hero-heading" className="sr-only">
-            Building homes, delivering support, transforming futures
+            Building homes, delivering support, transforming lives
           </span>
 
           <p className="eyebrow mt-8 text-center text-teal-400">The Impact Investment Platform</p>
+          <p className="measure mx-auto mt-4 text-center text-base leading-relaxed text-mist">
+            The UK&rsquo;s intelligent infrastructure for housing, care and support.
+          </p>
 
           <PreReleaseBadge className="mt-6 justify-center" />
 
           <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Button variant="primary" size="lg" asChild>
-              <Link to="/contact" search={{ enquiry: "waitlist" }}>
+              <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
                 {PRIMARY_LABEL}
               </Link>
             </Button>
             <Button variant="secondary" size="lg" asChild withArrow={false}>
-              <Link to="/contact" search={{ enquiry: "support" }}>
-                Find a home
+              <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
+                Register Your Interest
               </Link>
             </Button>
           </div>
@@ -133,15 +144,40 @@ function HomePage() {
         </Reveal>
       </section>
 
-      {/* 2 · The problem, in brief */}
+      {/* 1b · Our purpose */}
+      <section aria-labelledby="purpose-heading" className="section-light border-t border-navy-700">
+        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
+          <SectionHeader
+            id="purpose-heading"
+            eyebrow={purposeCopy.eyebrow}
+            title={purposeCopy.title}
+            className="max-w-3xl"
+          />
+          <p className="measure mt-6 text-base leading-relaxed text-mist">{purposeCopy.body}</p>
+        </div>
+      </section>
+
+      {/* 2 · The challenge */}
       <section aria-labelledby="problem-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
           <SectionHeader
-            eyebrow="The problem"
-            title="The gap is measured, published and growing"
-            lead="Every figure here is a published national statistic. Nothing on this site is estimated."
+            eyebrow={challengeCopy.eyebrow}
+            title={challengeCopy.title}
+            lead={challengeCopy.lead}
             className="max-w-3xl"
           />
+
+          <ul className="measure mt-8 flex flex-col gap-3">
+            {challengeCopy.points.map((point) => (
+              <li key={point} className="flex items-start gap-3 text-base leading-relaxed text-mist">
+                <Icons.Minus aria-hidden="true" className="mt-1.5 size-4 shrink-0 text-teal-500" />
+                {point}
+              </li>
+            ))}
+          </ul>
+          <p className="measure mt-6 text-base leading-relaxed text-mist">
+            {challengeCopy.close}
+          </p>
 
           <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:gap-12">
             <ul className="flex flex-col gap-8">
@@ -203,13 +239,24 @@ function HomePage() {
       <section aria-labelledby="solution-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
           <SectionHeader
-            eyebrow="Our solution"
-            title="Three companies, one accountable chain"
-            lead="Sourcing, tenure and support sit with named entities — so a council knows exactly who is responsible for what."
+            eyebrow={solutionCopy.eyebrow}
+            title={solutionCopy.title}
+            lead={solutionCopy.lead}
             className="max-w-3xl"
           />
 
-          <ul className="mt-12 grid gap-6 md:grid-cols-3">
+          <ul className="mt-10 grid gap-3 sm:grid-cols-2">
+            {solutionCopy.points.map((point) => (
+              <li key={point} className="flex items-start gap-3 text-base leading-relaxed text-mist">
+                <Icons.Check aria-hidden="true" className="mt-1 size-5 shrink-0 text-teal-500" />
+                {point}
+              </li>
+            ))}
+          </ul>
+
+          <h3 className="eyebrow mt-16 text-teal-400">{solutionCopy.subBlockTitle}</h3>
+
+          <ul className="mt-6 grid gap-6 md:grid-cols-3">
             {groupSolutions.map((item, i) => {
               const Icon = icon(item.icon);
               return (
@@ -236,23 +283,31 @@ function HomePage() {
       <section aria-labelledby="ecosystem-heading" className="border-t border-navy-700 bg-navy-950">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
           <SectionHeader
-            eyebrow="How the ecosystem works"
-            title="Source → Verify → Lease → Home → Support"
-            lead="The same five stages as the rail above, with the responsible entity revealed at each one. Hover or tap a stage."
+            id="ecosystem-heading"
+            eyebrow={ecosystemCopy.eyebrow}
+            title={ecosystemCopy.title}
+            lead={ecosystemCopy.lead}
             className="max-w-3xl"
           />
           <Reveal className="mt-12">
             <EcosystemSpine />
           </Reveal>
+          <p className="measure mt-8 text-base leading-relaxed text-mist">
+            {ecosystemCopy.close}
+          </p>
         </div>
       </section>
 
       {/* 5 · Live UK demand map */}
       <section aria-labelledby="demand-heading" className="border-t border-navy-700 bg-navy-900">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-24 sm:px-8 lg:py-32">
-          <h2 id="demand-heading" className="eyebrow text-teal-400">
-            Live UK demand
-          </h2>
+          <SectionHeader
+            id="demand-heading"
+            eyebrow={demandMapCopy.eyebrow}
+            title={demandMapCopy.title}
+            lead={demandMapCopy.lead}
+            className="max-w-3xl"
+          />
 
           <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:items-center">
             <div className="flex flex-col gap-8">
@@ -288,7 +343,7 @@ function HomePage() {
 
               <div>
                 <Button variant="ghost" asChild>
-                  <Link to="/contact" search={{ enquiry: "waitlist" }}>
+                  <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
                     {PRIMARY_LABEL}
                   </Link>
                 </Button>
@@ -300,7 +355,34 @@ function HomePage() {
             </Reveal>
           </div>
 
-          <p className="mt-10 text-[12px] leading-snug text-slate-muted">{demandMapNote}</p>
+          <div className="mt-10 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+            <div>
+              <p className="eyebrow text-slate-muted">{demandMapCopy.filtersLabel}</p>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {demandMapCopy.filters.map((filter) => (
+                  <li
+                    key={filter}
+                    className="rounded-full border border-navy-600/70 bg-navy-800/50 px-3 py-1.5 text-[13px] font-semibold text-mist"
+                  >
+                    {filter}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <dl className="flex shrink-0 flex-col gap-4 sm:flex-row lg:flex-col">
+              {demandMapCopy.selectors.map((sel) => (
+                <div
+                  key={sel.id}
+                  className="rounded-panel border border-navy-600/70 bg-navy-800/50 px-4 py-3"
+                >
+                  <dt className="eyebrow text-slate-muted">{sel.label}</dt>
+                  <dd className="mt-1 font-heading text-sm font-semibold text-white">{sel.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          <p className="mt-8 text-[12px] leading-snug text-slate-muted">{demandMapNote}</p>
         </div>
       </section>
 
@@ -308,8 +390,11 @@ function HomePage() {
       <section aria-labelledby="connect-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
           <h2 id="connect-heading" className="eyebrow text-center text-teal-400">
-            Who we connect
+            {connectCopy.eyebrow}
           </h2>
+          <p className="mt-4 text-center font-heading text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-tight text-white">
+            {connectCopy.title}
+          </p>
 
           <div className="mt-8 flex items-center justify-center gap-4">
             <span aria-hidden="true" className="h-px w-16 bg-orange-500 sm:w-24" />
@@ -360,6 +445,13 @@ function HomePage() {
               })}
             </ul>
           </Reveal>
+
+          <p className="measure mx-auto mt-10 text-center text-sm leading-relaxed text-mist">
+            {connectCopy.extras}
+          </p>
+          <p className="measure mx-auto mt-4 text-center text-sm leading-relaxed text-slate-muted">
+            {connectCopy.close}
+          </p>
         </div>
       </section>
 
@@ -415,8 +507,10 @@ function HomePage() {
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div>
               <SectionHeader
-                eyebrow="AI platform"
-                title="The matching engine behind every placement"
+                id="platform-heading"
+                eyebrow={aiPlatformCopy.eyebrow}
+                title={aiPlatformCopy.title}
+                lead={aiPlatformCopy.lead}
               />
               <ul className="mt-8 flex flex-col gap-5">
                 {platformCapabilities.map((cap) => {
@@ -431,6 +525,14 @@ function HomePage() {
                     </li>
                   );
                 })}
+              </ul>
+              <ul className="mt-8 grid gap-2 sm:grid-cols-2">
+                {aiPlatformCopy.points.map((point) => (
+                  <li key={point} className="flex items-start gap-2 text-sm leading-snug text-mist">
+                    <Icons.Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-teal-500" />
+                    {point}
+                  </li>
+                ))}
               </ul>
               <div className="mt-8">
                 <Button variant="secondary" asChild>
@@ -476,18 +578,37 @@ function HomePage() {
             id="closing-heading"
             className="heading-tight mx-auto max-w-4xl text-balance text-[clamp(2rem,5vw,3.5rem)] font-bold text-white"
           >
-            More Than Property · An Investment in Lives
+            {closingCopy.title}
           </h2>
-          <PreReleaseBadge className="mt-8 justify-center" />
+          <p className="measure mx-auto mt-6 text-base leading-relaxed text-mist">
+            {closingCopy.lead}
+          </p>
+          <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-x-3 gap-y-2">
+            {closingCopy.points.map((point) => (
+              <li
+                key={point}
+                className="flex items-center gap-2 font-heading text-sm font-semibold text-mist"
+              >
+                <Icons.Check aria-hidden="true" className="size-4 shrink-0 text-teal-500" />
+                {point}
+              </li>
+            ))}
+          </ul>
+          <PreReleaseBadge className="mt-10 justify-center" />
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Button variant="primary" size="lg" asChild>
-              <Link to="/contact" search={{ enquiry: "waitlist" }}>
+              <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
                 {PRIMARY_LABEL}
               </Link>
             </Button>
             <Button variant="secondary" size="lg" asChild withArrow={false}>
-              <Link to="/contact" search={{ enquiry: "partner" }}>
-                Become a partner
+              <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
+                Register Your Interest
+              </Link>
+            </Button>
+            <Button variant="ghost" size="lg" asChild>
+              <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
+                Become a Partner
               </Link>
             </Button>
           </div>

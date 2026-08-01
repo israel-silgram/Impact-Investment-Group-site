@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SourceLine } from "@/components/ui/source-line";
+import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { GroupDiagram } from "@/components/about/group-diagram";
 import { DirectorCard } from "@/components/about/director-card";
 import streetDusk from "@/assets/about-street-dusk.jpg";
@@ -313,10 +314,21 @@ function AboutPage() {
               Bring a brief, a building or a mandate. We will tell you plainly whether we are the
               right people for it.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <PreReleaseBadge className="mt-8" />
+            <div className="mt-5 flex flex-wrap items-center gap-4">
               <Button variant="primary" asChild>
-                <Link to="/contact" search={{ enquiry: "sales" }}>
-                  Talk to the team
+                <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
+                  Book a Demo
+                </Link>
+              </Button>
+              <Button variant="secondary" asChild withArrow={false}>
+                <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
+                  Register Your Interest
+                </Link>
+              </Button>
+              <Button variant="ghost" asChild>
+                <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
+                  Become a Partner
                 </Link>
               </Button>
               <span className="flex items-center gap-2 text-sm text-slate-muted">

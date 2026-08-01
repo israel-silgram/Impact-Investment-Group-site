@@ -13,6 +13,14 @@ export const primaryNav: NavItem[] = [
 
 export const siteName = "Impact Investment Platform";
 
+/** Supporting positioning line. "Intelligent infrastructure", never "AI-powered platform". */
+export const positioningLine =
+  "Building Homes. Delivering Support. Transforming Lives. The UK's intelligent infrastructure for housing, care and support.";
+
+/** One-line description used in site metadata and in the footer. */
+export const siteDescription =
+  "We are building the UK's specialist property, care, AI and social impact platform — connecting investors, housing associations, landlords, providers and partners to create homes for families in temporary accommodation and vulnerable adults needing supported housing.";
+
 export const contactDetails = {
   email: "hello@impactig.co.uk",
   phone: "+44 7539 088373",
@@ -29,10 +37,10 @@ export const footerSiteLinks: NavItem[] = [
 
 /** Each deep-links to /contact with the enquiry type pre-selected. */
 export const contactRoutes: { label: string; enquiry: string }[] = [
-  { label: "Join the wait list", enquiry: "waitlist" },
-  { label: "Speak to the team", enquiry: "team" },
+  { label: "Book a demo", enquiry: "demo" },
+  { label: "Register your interest", enquiry: "waitlist" },
   { label: "Become a partner", enquiry: "partner" },
-  { label: "Investor pre-release access", enquiry: "investor" },
+  { label: "Investor enquiry", enquiry: "investor" },
   { label: "Media", enquiry: "media" },
   { label: "Support", enquiry: "support" },
 ];

@@ -16,8 +16,6 @@ export const capabilityLinks: CapabilityLink[] = [
   { id: "demand-heat-maps", label: "Demand heat maps" },
   { id: "property-intelligence", label: "Property intelligence" },
   { id: "portals", label: "Portals" },
-  { id: "analytics", label: "Analytics" },
-  { id: "api", label: "API" },
 ];
 
 /* 1 · Hero summary state -------------------------------------------------- */
@@ -291,27 +289,7 @@ export const portals: Portal[] = [
   },
 ];
 
-/* 6 · Analytics ----------------------------------------------------------- */
-
-export const analyticsTiles = [
-  { id: "placements", label: "Placements", condition: "Fills at first placement." },
-  { id: "void-days", label: "Void days", condition: "Fills once homes are live." },
-];
-
-export const analyticsNote =
-  "Board-ready exports · social value reporting (HACT model, once live).";
-
-/* 7 · API ----------------------------------------------------------------- */
-
-export const apiEndpoints = [
-  { id: "demand", method: "GET", path: "/demand?authority=…" },
-  { id: "placements", method: "POST", path: "/placements" },
-  { id: "report", method: "GET", path: "/properties/{id}/report" },
-];
-
-export const apiNote = "Case-management systems · CRM · finance.";
-
-/* 8 · Governance ---------------------------------------------------------- */
+/* 6 · Governance ---------------------------------------------------------- */
 
 export const governance = {
   eyebrow: "Governance & audit trail",
@@ -320,5 +298,6 @@ export const governance = {
     "Each match records the factors that produced it, the version of the model that ranked it and the officer who confirmed it.",
     "Nothing is deleted. A rejected match keeps its reason, so a pattern of rejections can be examined rather than lost.",
     "Exports are produced in a fixed schema for case-management systems and for committee papers.",
+    "Board-ready exports · social value reporting (HACT model, once live).",
   ],
 };

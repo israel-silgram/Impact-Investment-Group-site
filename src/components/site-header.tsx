@@ -115,14 +115,14 @@ export function SiteHeader() {
         <div className="hidden items-center gap-5 lg:flex">
           <Link
             to="/contact"
-            search={{ enquiry: "support" }}
+            search={{ enquiry: "waitlist", type: "waitlist" }}
             className="nav-underline inline-flex min-h-11 items-center font-heading text-sm font-medium text-white"
           >
             Log in
           </Link>
           <Button variant="primary" size="sm" asChild>
-            <Link to="/contact" search={{ enquiry: "waitlist" }}>
-              Join the wait list
+            <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
+              Book a Demo
             </Link>
           </Button>
         </div>
@@ -187,11 +187,18 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <Button variant="primary" asChild className="w-full">
-            <Link to="/contact" search={{ enquiry: "waitlist" }}>
-              Join the wait list
-            </Link>
-          </Button>
+          <div className="flex flex-col gap-3">
+            <Button variant="primary" asChild className="w-full">
+              <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
+                Book a Demo
+              </Link>
+            </Button>
+            <Button variant="secondary" asChild className="w-full" withArrow={false}>
+              <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
+                Register Your Interest
+              </Link>
+            </Button>
+          </div>
         </div>
       ) : null}
     </header>
