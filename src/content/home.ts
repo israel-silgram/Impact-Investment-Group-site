@@ -266,9 +266,32 @@ export const demandMapCopy = {
     "Domestic abuse",
     "Homelessness",
   ],
+  /**
+   * Placeholder selectors — the region/authority datasets are not wired yet, so
+   * the controls carry their labels and options but no filtering behaviour.
+   */
   selectors: [
-    { id: "region", label: "Region", value: "England · all regions" },
-    { id: "authority", label: "Local authority", value: "All commissioning authorities" },
+    {
+      id: "region",
+      label: "Region",
+      options: [
+        "England \u00b7 all regions",
+        "North West",
+        "North East",
+        "Yorkshire and the Humber",
+        "West Midlands",
+        "East Midlands",
+        "East of England",
+        "London",
+        "South East",
+        "South West",
+      ],
+    },
+    {
+      id: "authority",
+      label: "Local authority",
+      options: ["All commissioning authorities"],
+    },
   ],
 };
 
