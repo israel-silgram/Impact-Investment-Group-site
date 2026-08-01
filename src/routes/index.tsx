@@ -5,13 +5,10 @@ import { HeartHandshake, Home as HomeIcon, Users } from "lucide-react";
 
 import challengeAerial from "@/assets/challenge-estate-aerial.jpg";
 import purposeTerrace from "@/assets/purpose-terrace-morning.jpg";
-import heroCityGreen from "@/assets/hero-city-green.jpg";
-import heroStreetWarm from "@/assets/hero-street-warm.jpg";
-import heroTerraceSky from "@/assets/hero-terrace-sky.jpg";
 import { DemandMap } from "@/components/home/demand-map";
+import { HomeHero } from "@/components/home/hero";
 import { Button } from "@/components/ui/button";
 import { IconCircle } from "@/components/ui/icon-circle";
-import { ImageFillHeadline } from "@/components/ui/image-fill-headline";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -25,8 +22,6 @@ import {
   purposeCopy,
   solutionCopy,
   groupSolutions,
-  heroCounts,
-  heroCountsSource,
   bnbSpendPanel,
   nhsCostPanel,
   problemBars,
@@ -72,56 +67,7 @@ function HomePage() {
   return (
     <>
       {/* 1 · Hero */}
-      <section
-        aria-labelledby="hero-heading"
-        className="relative flex min-h-[calc(100svh-72px)] flex-col justify-between overflow-hidden bg-navy-900"
-      >
-        <div className="mx-auto w-full max-w-[1440px] px-5 pb-16 pt-10 sm:px-8 lg:pt-14">
-          <ImageFillHeadline
-            lines={[
-              { text: "Building Homes", image: heroTerraceSky, tone: "neutral" },
-              { text: "Delivering Support", image: heroStreetWarm, tone: "orange" },
-              { text: "Transforming Lives", image: heroCityGreen, tone: "neutral" },
-            ]}
-            className="mx-auto max-w-[18ch] sm:max-w-none"
-          />
-          <span id="hero-heading" className="sr-only">
-            Building homes, delivering support, transforming lives
-          </span>
-
-          <p className="eyebrow mt-8 text-center text-teal-400">The Impact Investment Platform</p>
-          <p className="measure mx-auto mt-4 text-center text-base leading-relaxed text-mist">
-            The UK&rsquo;s intelligent infrastructure for housing, care and support.
-          </p>
-
-          <PreReleaseBadge className="mt-6 justify-center" />
-
-          <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-            <Button variant="primary" size="lg" asChild>
-              <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
-                {PRIMARY_LABEL}
-              </Link>
-            </Button>
-            <Button variant="secondary" size="lg" asChild withArrow={false}>
-              <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
-                Register Your Interest
-              </Link>
-            </Button>
-          </div>
-
-          <div className="mt-8 flex flex-col items-center gap-1">
-            <p className="font-heading text-sm font-semibold text-mist sm:text-base">
-              {heroCounts.map((count, i) => (
-                <span key={count.id}>
-                  {i > 0 ? <span className="px-2 text-slate-muted">·</span> : null}
-                  <span className="text-white">{count.value}</span> {count.label}
-                </span>
-              ))}
-            </p>
-            <SourceLine source={heroCountsSource} />
-          </div>
-        </div>
-      </section>
+      <HomeHero />
 
       {/* 2 · Our purpose | The problem */}
       <section aria-labelledby="purpose-heading" className="section-light border-t border-navy-700">
@@ -256,7 +202,10 @@ function HomePage() {
 
           <ul className="mt-10 grid gap-3 sm:grid-cols-2">
             {solutionCopy.points.map((point) => (
-              <li key={point} className="flex items-start gap-3 text-base leading-relaxed text-mist">
+              <li
+                key={point}
+                className="flex items-start gap-3 text-base leading-relaxed text-mist"
+              >
                 <Icons.Check aria-hidden="true" className="mt-1 size-5 shrink-0 text-teal-500" />
                 {point}
               </li>
@@ -310,14 +259,24 @@ function HomePage() {
             <div className="flex flex-col gap-8">
               <ul className="flex flex-col gap-6">
                 {[
-                  { id: "homes", Icon: HomeIcon, label: "Providing Homes", tone: "neutral" as const },
+                  {
+                    id: "homes",
+                    Icon: HomeIcon,
+                    label: "Providing Homes",
+                    tone: "neutral" as const,
+                  },
                   {
                     id: "support",
                     Icon: HeartHandshake,
                     label: "Delivering Support",
                     tone: "orange" as const,
                   },
-                  { id: "lives", Icon: Users, label: "Transforming Lives", tone: "neutral" as const },
+                  {
+                    id: "lives",
+                    Icon: Users,
+                    label: "Transforming Lives",
+                    tone: "neutral" as const,
+                  },
                 ].map(({ id, Icon, label, tone }) => (
                   <li key={id} className="flex items-center gap-4">
                     <Icon
