@@ -22,6 +22,9 @@
  */
 
 @theme {
+  /* Extra wide breakpoint — the ten-across hero role row. */
+  --breakpoint-wide: 1400px;
+
   /* Navy — the base. The site is dark by default. */
   --color-navy-950: #000b1c;
   --color-navy-900: #00112b;
