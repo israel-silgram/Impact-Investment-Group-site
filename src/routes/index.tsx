@@ -6,6 +6,8 @@ import { HeartHandshake, Home as HomeIcon, Users } from "lucide-react";
 import cardHomes from "@/assets/card-homes.jpg";
 import cardLives from "@/assets/card-lives.jpg";
 import cardSupport from "@/assets/card-support.jpg";
+import challengeAerial from "@/assets/challenge-estate-aerial.jpg";
+import purposeTerrace from "@/assets/purpose-terrace-morning.jpg";
 import heroCityGreen from "@/assets/hero-city-green.jpg";
 import heroStreetWarm from "@/assets/hero-street-warm.jpg";
 import heroTerraceSky from "@/assets/hero-terrace-sky.jpg";
@@ -146,38 +148,71 @@ function HomePage() {
 
       {/* 1b · Our purpose */}
       <section aria-labelledby="purpose-heading" className="section-light border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
-          <SectionHeader
-            id="purpose-heading"
-            eyebrow={purposeCopy.eyebrow}
-            title={purposeCopy.title}
-            className="max-w-3xl"
-          />
-          <p className="measure mt-6 text-base leading-relaxed text-mist">{purposeCopy.body}</p>
+        <div className="mx-auto grid w-full max-w-[1440px] items-center gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
+          <div>
+            <SectionHeader
+              id="purpose-heading"
+              eyebrow={purposeCopy.eyebrow}
+              title={purposeCopy.title}
+              className="max-w-3xl"
+            />
+            <p className="measure mt-6 text-base leading-relaxed text-mist">{purposeCopy.body}</p>
+          </div>
+          <Reveal>
+            <img
+              src={purposeTerrace}
+              alt="Early morning light on a row of British red-brick terraced houses"
+              width={1024}
+              height={1280}
+              loading="lazy"
+              className="aspect-[4/5] w-full rounded-xl object-cover ring-1 ring-navy-700/20"
+            />
+          </Reveal>
         </div>
       </section>
 
       {/* 2 · The challenge */}
       <section aria-labelledby="problem-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
-          <SectionHeader
-            eyebrow={challengeCopy.eyebrow}
-            title={challengeCopy.title}
-            lead={challengeCopy.lead}
-            className="max-w-3xl"
-          />
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
+            <div>
+              <SectionHeader
+                eyebrow={challengeCopy.eyebrow}
+                title={challengeCopy.title}
+                lead={challengeCopy.lead}
+                className="max-w-3xl"
+              />
 
-          <ul className="measure mt-8 flex flex-col gap-3">
-            {challengeCopy.points.map((point) => (
-              <li key={point} className="flex items-start gap-3 text-base leading-relaxed text-mist">
-                <Icons.Minus aria-hidden="true" className="mt-1.5 size-4 shrink-0 text-teal-500" />
-                {point}
-              </li>
-            ))}
-          </ul>
-          <p className="measure mt-6 text-base leading-relaxed text-mist">
-            {challengeCopy.close}
-          </p>
+              <ul className="measure mt-8 flex flex-col gap-3">
+                {challengeCopy.points.map((point) => (
+                  <li
+                    key={point}
+                    className="flex items-start gap-3 text-base leading-relaxed text-mist"
+                  >
+                    <Icons.Minus
+                      aria-hidden="true"
+                      className="mt-1.5 size-4 shrink-0 text-teal-500"
+                    />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+              <p className="measure mt-6 text-base leading-relaxed text-mist">
+                {challengeCopy.close}
+              </p>
+            </div>
+            <Reveal className="lg:self-stretch">
+              <img
+                src={challengeAerial}
+                alt="Aerial view of a dense British suburban housing estate"
+                width={1024}
+                height={1280}
+                loading="lazy"
+                className="h-full min-h-[320px] w-full rounded-xl object-cover ring-1 ring-navy-700/20"
+              />
+            </Reveal>
+          </div>
+
 
           <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:gap-12">
             <ul className="flex flex-col gap-8">
