@@ -22,16 +22,34 @@ export function Logo({ className }: { className?: string }) {
           />
           {/* split ring — lower arc */}
           <path
-            d="M6.4 26a26 26 0 0 0 51.2 0"
+            d="M5 30a27 27 0 0 0 54 0"
             stroke="currentColor"
             strokeWidth="3"
             strokeLinecap="round"
             className="text-white"
           />
-          {/* solid house with chimney */}
+          {/* house — frame in the brand neutral, interior open */}
           <path
-            d="M32 14.5 15 30h4.6v18h5.2V32.6h14.4V48h5.2V30H49l-5.1-4.7V17.6h-4.3v3.9L32 14.5Z"
-            fill="currentColor"
+            d="M15.5 30 32 15.5 48.5 30"
+            stroke="currentColor"
+            strokeWidth="3.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-white"
+          />
+          <path
+            d="M21 30.5V48M43 30.5V48"
+            stroke="currentColor"
+            strokeWidth="3.4"
+            strokeLinecap="round"
+            className="text-white"
+          />
+          <path
+            d="M40 20v-3.2h3.6V25"
+            stroke="currentColor"
+            strokeWidth="2.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="text-white"
           />
           {/* figure one — neutral */}
