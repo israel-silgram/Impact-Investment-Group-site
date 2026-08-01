@@ -110,107 +110,6 @@ export const groupSolutions: GroupSolution[] = [
   },
 ];
 
-export interface EcosystemStage {
-  id: string;
-  spine: string;
-  title: string;
-  detail: string;
-  /** Revealed on hover or tap — the hero rail deliberately withholds this. */
-  owner: string;
-  tone: "teal" | "orange";
-}
-
-export const ecosystemStages: EcosystemStage[] = [
-  {
-    id: "demand",
-    spine: "Demand",
-    title: "Verified demand is identified",
-    detail: "Published commissioning need, confirmed before anything is sourced.",
-    owner: "Local authorities & NHS",
-    tone: "teal",
-  },
-  {
-    id: "analyse",
-    spine: "Analyse",
-    title: "The platform analyses property options",
-    detail: "The most appropriate options are scored against that demand.",
-    owner: "Impact Investment Group",
-    tone: "teal",
-  },
-  {
-    id: "ha",
-    spine: "Provider",
-    title: "Suitable housing associations are identified",
-    detail: "Registered providers matched to the brief and the area.",
-    owner: "Rhema Social Impact Group",
-    tone: "teal",
-  },
-  {
-    id: "capital",
-    spine: "Capital",
-    title: "Investors and owners are matched to opportunities",
-    detail: "Demand-led opportunities, not speculative stock.",
-    owner: "Impact Investment Group",
-    tone: "teal",
-  },
-  {
-    id: "secure",
-    spine: "Secure",
-    title: "Properties are secured through long-term arrangements",
-    detail: "Held on a 5 year+ FRI, CPI or internal repairing lease.",
-    owner: "Rhema Social Impact Group",
-    tone: "teal",
-  },
-  {
-    id: "prepare",
-    spine: "Prepare",
-    title: "Care and support providers prepare the placement",
-    detail: "Support planned around the household before anyone moves.",
-    owner: "Elevate Supported Living",
-    tone: "teal",
-  },
-  {
-    id: "move",
-    spine: "Move",
-    title: "Individuals move into suitable accommodation",
-    detail: "A human housing officer confirms every match.",
-    owner: "Elevate Supported Living",
-    tone: "orange",
-  },
-  {
-    id: "support",
-    spine: "Support",
-    title: "Support is delivered",
-    detail: "Care and support wrapped around the household.",
-    owner: "Elevate Supported Living",
-    tone: "orange",
-  },
-  {
-    id: "measure",
-    spine: "Measure",
-    title: "Outcomes are monitored and measured",
-    detail: "Placements, tenancies sustained and voids recorded over time.",
-    owner: "Impact Investment Platform",
-    tone: "orange",
-  },
-  {
-    id: "community",
-    spine: "Community",
-    title: "Communities benefit from housing stability",
-    detail: "Fewer moves, fewer emergency placements, steadier neighbourhoods.",
-    owner: "Every partner in the chain",
-    tone: "orange",
-  },
-];
-
-export const ecosystemCopy = {
-  eyebrow: "How the ecosystem works",
-  title: "One Connection Creates Many Outcomes",
-  lead: "Ten connected stages, with the responsible party revealed at each one. Hover or tap a stage.",
-  close:
-    "This journey transforms what has traditionally been a fragmented process into one connected pathway.",
-};
-
 export const purposeCopy = {
   eyebrow: "Our purpose",
   title: "Housing is more than bricks and mortar",
@@ -218,7 +117,7 @@ export const purposeCopy = {
 };
 
 export const challengeCopy = {
-  eyebrow: "The challenge",
+  eyebrow: "The problem",
   title: "The housing system is fragmented",
   lead: "Local Authorities understand demand. Housing Associations manage housing. Care and Support Providers deliver services. Investors provide capital. Property Owners own housing. Developers build homes. Each organisation has valuable information, yet much of it remains disconnected.",
   points: [

@@ -3,54 +3,35 @@ import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { HeartHandshake, Home as HomeIcon, Users } from "lucide-react";
 
-import cardHomes from "@/assets/card-homes.jpg";
-import cardLives from "@/assets/card-lives.jpg";
-import cardSupport from "@/assets/card-support.jpg";
 import challengeAerial from "@/assets/challenge-estate-aerial.jpg";
 import purposeTerrace from "@/assets/purpose-terrace-morning.jpg";
 import heroCityGreen from "@/assets/hero-city-green.jpg";
 import heroStreetWarm from "@/assets/hero-street-warm.jpg";
 import heroTerraceSky from "@/assets/hero-terrace-sky.jpg";
 import { DemandMap } from "@/components/home/demand-map";
-import { EcosystemSpine } from "@/components/home/ecosystem-spine";
 import { Button } from "@/components/ui/button";
-import { EmptySlot } from "@/components/ui/empty-slot";
-import { IconCircle, cycleTone } from "@/components/ui/icon-circle";
+import { IconCircle } from "@/components/ui/icon-circle";
 import { ImageFillHeadline } from "@/components/ui/image-fill-headline";
-import { LiveWindow } from "@/components/ui/live-window";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
-import { ProcessRail } from "@/components/ui/process-rail";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SourceLine } from "@/components/ui/source-line";
-import { pillarCards, registerRoles } from "@/content/audiences";
 import {
-  aiPlatformCopy,
   challengeCopy,
   closingCopy,
   connectCopy,
   demandMapCopy,
   demandMapNote,
-  ecosystemCopy,
   purposeCopy,
   solutionCopy,
   groupSolutions,
   heroCounts,
   heroCountsSource,
   bnbSpendPanel,
-  matchRows,
   nhsCostPanel,
-  platformCapabilities,
   problemBars,
 } from "@/content/home";
-import { deliverySteps } from "@/content/process";
 import { cn } from "@/lib/utils";
-
-const pillarImages: Record<string, string> = {
-  homes: cardHomes,
-  support: cardSupport,
-  lives: cardLives,
-};
 
 /** The single orange action this page exists to get. Hero + closing band only. */
 const PRIMARY_LABEL = "Book a Demo";
@@ -95,7 +76,7 @@ function HomePage() {
         aria-labelledby="hero-heading"
         className="relative flex min-h-[calc(100svh-72px)] flex-col justify-between overflow-hidden bg-navy-900"
       >
-        <div className="mx-auto w-full max-w-[1440px] px-5 pt-10 sm:px-8 lg:pt-14">
+        <div className="mx-auto w-full max-w-[1440px] px-5 pb-16 pt-10 sm:px-8 lg:pt-14">
           <ImageFillHeadline
             lines={[
               { text: "Building Homes", image: heroTerraceSky, tone: "neutral" },
@@ -140,41 +121,34 @@ function HomePage() {
             <SourceLine source={heroCountsSource} />
           </div>
         </div>
-
-        <Reveal className="mx-auto w-full max-w-[1440px] px-5 pb-12 pt-16 sm:px-8">
-          <ProcessRail steps={deliverySteps} compact />
-        </Reveal>
       </section>
 
-      {/* 1b · Our purpose */}
+      {/* 2 · Our purpose | The problem */}
       <section aria-labelledby="purpose-heading" className="section-light border-t border-navy-700">
-        <div className="mx-auto grid w-full max-w-[1440px] items-center gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
-          <div>
-            <SectionHeader
-              id="purpose-heading"
-              eyebrow={purposeCopy.eyebrow}
-              title={purposeCopy.title}
-              className="max-w-3xl"
-            />
-            <p className="measure mt-6 text-base leading-relaxed text-mist">{purposeCopy.body}</p>
-          </div>
-          <Reveal>
-            <img
-              src={purposeTerrace}
-              alt="Early morning light on a row of British red-brick terraced houses"
-              width={1024}
-              height={1280}
-              loading="lazy"
-              className="aspect-[4/5] w-full rounded-xl object-cover ring-1 ring-navy-700/20"
-            />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 2 · The challenge */}
-      <section aria-labelledby="problem-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
+            <div>
+              <SectionHeader
+                id="purpose-heading"
+                eyebrow={purposeCopy.eyebrow}
+                title={purposeCopy.title}
+                className="max-w-3xl"
+              />
+              <p className="measure mt-6 text-base leading-relaxed text-mist">{purposeCopy.body}</p>
+            </div>
+            <Reveal>
+              <img
+                src={purposeTerrace}
+                alt="Early morning light on a row of British red-brick terraced houses"
+                width={1024}
+                height={1280}
+                loading="lazy"
+                className="aspect-[4/5] w-full rounded-xl object-cover ring-1 ring-navy-700/20"
+              />
+            </Reveal>
+          </div>
+
+          <div className="mt-20 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
             <div>
               <SectionHeader
                 eyebrow={challengeCopy.eyebrow}
@@ -212,7 +186,6 @@ function HomePage() {
               />
             </Reveal>
           </div>
-
 
           <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:gap-12">
             <ul className="flex flex-col gap-8">
@@ -271,9 +244,10 @@ function HomePage() {
       </section>
 
       {/* 3 · Our solution */}
-      <section aria-labelledby="solution-heading" className="section-light border-t border-navy-700">
+      <section aria-labelledby="solution-heading" className="border-t border-navy-700 bg-navy-950">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
           <SectionHeader
+            id="solution-heading"
             eyebrow={solutionCopy.eyebrow}
             title={solutionCopy.title}
             lead={solutionCopy.lead}
@@ -288,8 +262,15 @@ function HomePage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
 
-          <h3 className="eyebrow mt-16 text-teal-400">{solutionCopy.subBlockTitle}</h3>
+      {/* 4 · The accountable chain behind it */}
+      <section aria-labelledby="chain-heading" className="section-light border-t border-navy-700">
+        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
+          <h2 id="chain-heading" className="eyebrow text-teal-400">
+            {solutionCopy.subBlockTitle}
+          </h2>
 
           <ul className="mt-6 grid gap-6 md:grid-cols-3">
             {groupSolutions.map((item, i) => {
@@ -311,25 +292,6 @@ function HomePage() {
               );
             })}
           </ul>
-        </div>
-      </section>
-
-      {/* 4 · How the ecosystem works */}
-      <section aria-labelledby="ecosystem-heading" className="border-t border-navy-700 bg-navy-950">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
-          <SectionHeader
-            id="ecosystem-heading"
-            eyebrow={ecosystemCopy.eyebrow}
-            title={ecosystemCopy.title}
-            lead={ecosystemCopy.lead}
-            className="max-w-3xl"
-          />
-          <Reveal className="mt-12">
-            <EcosystemSpine />
-          </Reveal>
-          <p className="measure mt-8 text-base leading-relaxed text-mist">
-            {ecosystemCopy.close}
-          </p>
         </div>
       </section>
 
@@ -407,10 +369,7 @@ function HomePage() {
             <div className="flex shrink-0 flex-col gap-4 sm:flex-row lg:flex-col">
               {demandMapCopy.selectors.map((sel) => (
                 <div key={sel.id} className="min-w-[16rem]">
-                  <label
-                    htmlFor={`demand-${sel.id}`}
-                    className="eyebrow block text-slate-muted"
-                  >
+                  <label htmlFor={`demand-${sel.id}`} className="eyebrow block text-slate-muted">
                     {sel.label}
                   </label>
                   <select
@@ -433,192 +392,25 @@ function HomePage() {
         </div>
       </section>
 
-      {/* 6 · Who we connect */}
+      {/* 6 · Who we connect — condensed band */}
       <section aria-labelledby="connect-heading" className="section-light border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
+        <div className="mx-auto w-full max-w-[1440px] px-5 py-7 sm:px-8 lg:py-12">
           <h2 id="connect-heading" className="eyebrow text-center text-teal-400">
             {connectCopy.eyebrow}
           </h2>
           <p className="mt-4 text-center font-heading text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-tight text-white">
             {connectCopy.title}
           </p>
-
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <span aria-hidden="true" className="h-px w-16 bg-orange-500 sm:w-24" />
-            <p id="register-as" className="font-heading text-base font-semibold text-mist sm:text-lg">
-              Register as
-            </p>
-            <span aria-hidden="true" className="h-px w-16 bg-orange-500 sm:w-24" />
-          </div>
-
-          <Reveal className="mt-10">
-            <ul
-              aria-labelledby="register-as"
-              className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5"
-            >
-              {registerRoles.map((role, i) => {
-                const Icon = icon(role.icon);
-                const routeOut = role.tone === "route-out";
-                const className = cn(
-                  "group flex h-full min-h-11 flex-col items-center gap-3 rounded-panel bg-navy-800/40 px-3 py-6 text-center transition-colors duration-200 hover:bg-teal-950/60",
-                  routeOut
-                    ? "border-2 border-teal-500 hover:border-teal-400"
-                    : "border border-navy-600/70 hover:border-teal-500",
-                );
-                const body = (
-                  <>
-                    <IconCircle icon={Icon} size="md" tone={cycleTone(i)} />
-                    <span className="heading-tight text-sm font-bold text-white">{role.label}</span>
-                    <span className="text-xs leading-snug text-slate-muted">{role.detail}</span>
-                  </>
-                );
-                return (
-                  <li key={role.id}>
-                    {role.target.kind === "solutions" ? (
-                      <Link to="/solutions" hash={role.target.hash} className={className}>
-                        {body}
-                      </Link>
-                    ) : (
-                      <Link
-                        to="/contact"
-                        search={{ enquiry: role.target.enquiry }}
-                        className={className}
-                      >
-                        {body}
-                      </Link>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </Reveal>
-
-          <p className="measure mx-auto mt-10 text-center text-sm leading-relaxed text-mist">
+          <p className="measure mx-auto mt-6 text-center text-sm leading-relaxed text-mist">
             {connectCopy.extras}
           </p>
-          <p className="measure mx-auto mt-4 text-center text-sm leading-relaxed text-slate-muted">
+          <p className="measure mx-auto mt-3 text-center text-sm leading-relaxed text-slate-muted">
             {connectCopy.close}
           </p>
         </div>
       </section>
 
-      {/* 7 · Three-panel band */}
-      <section aria-labelledby="pillars-heading" className="border-t border-navy-700 bg-navy-900">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
-          <h2 id="pillars-heading" className="sr-only">
-            Providing homes, delivering support, transforming lives
-          </h2>
-          <div className="grid gap-10 lg:grid-cols-3 lg:gap-8">
-            {pillarCards.map((card, i) => (
-              <Reveal
-                key={card.id}
-                index={i}
-                className={
-                  i > 0
-                    ? "lg:relative lg:before:absolute lg:before:-left-4 lg:before:top-0 lg:before:h-full lg:before:w-px lg:before:bg-navy-600/70"
-                    : ""
-                }
-              >
-                <h3
-                  className={cn(
-                    "heading-tight text-center text-[clamp(1.75rem,5vw,2.75rem)] font-bold",
-                    card.tone === "orange" ? "text-orange-500" : "text-white",
-                  )}
-                >
-                  {card.title}
-                </h3>
-                <div className="relative mt-6 overflow-hidden rounded-panel border border-navy-600/70 shadow-panel">
-                  <img
-                    src={pillarImages[card.id]}
-                    alt={card.alt}
-                    loading="lazy"
-                    width={1024}
-                    height={768}
-                    sizes="(min-width: 1024px) 33vw, 100vw"
-                    className="aspect-[4/3] w-full object-cover"
-                  />
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-linear-to-t from-navy-950/60 to-transparent"
-                  />
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 8 · AI platform teaser */}
-      <section aria-labelledby="platform-heading" className="border-t border-navy-700 bg-navy-950">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div>
-              <SectionHeader
-                id="platform-heading"
-                eyebrow={aiPlatformCopy.eyebrow}
-                title={aiPlatformCopy.title}
-                lead={aiPlatformCopy.lead}
-              />
-              <ul className="mt-8 flex flex-col gap-5">
-                {platformCapabilities.map((cap) => {
-                  const Icon = icon(cap.icon);
-                  return (
-                    <li key={cap.id} className="flex items-start gap-4">
-                      <IconCircle icon={Icon} size="sm" tone="teal" />
-                      <div>
-                        <p className="heading-tight text-lg font-bold text-white">{cap.title}</p>
-                        <p className="text-sm leading-snug text-mist">{cap.detail}</p>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-              <ul className="mt-8 grid gap-2 sm:grid-cols-2">
-                {aiPlatformCopy.points.map((point) => (
-                  <li key={point} className="flex items-start gap-2 text-sm leading-snug text-mist">
-                    <Icons.Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-teal-500" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-8">
-                <Button variant="secondary" asChild>
-                  <Link to="/platform">Explore the platform</Link>
-                </Button>
-              </div>
-            </div>
-
-            <Reveal>
-              <MatchingWindow />
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* 9 · Success stories */}
-      <section aria-labelledby="stories-heading" className="section-light border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
-          <SectionHeader
-            eyebrow="Success stories"
-            title="Real stories only"
-            lead="One verified quote per page · nothing invented."
-            className="max-w-3xl"
-          />
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <EmptySlot
-              label="Resident story · consent on file"
-              detail="Publishes when a resident has given written consent."
-              initials="R"
-            />
-            <EmptySlot
-              label="Case study"
-              detail="Publishes when an authority or provider has signed off the figures."
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* 10 · Closing CTA */}
+      {/* 7 · Closing CTA */}
       <section aria-labelledby="closing-heading" className="border-t border-navy-700 bg-navy-950">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-24 text-center sm:px-8">
           <h2
@@ -662,44 +454,5 @@ function HomePage() {
         </div>
       </section>
     </>
-  );
-}
-
-/** LiveWindow in its matching state — real markup, clickable, never a screenshot. */
-function MatchingWindow() {
-  return (
-    <LiveWindow
-      tabs={[
-        { id: "matches", label: "Matches" },
-        { id: "demand", label: "Demand" },
-        { id: "placements", label: "Placements" },
-      ]}
-      ariaLabel="Platform matching preview"
-      label="illustrative interface data"
-    >
-      <ul className="flex flex-col gap-4">
-        {matchRows.map((row) => (
-          <li key={row.id} className="rounded-lg border border-navy-700 bg-navy-900/50 p-4">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <p className="font-heading text-sm font-semibold text-white">
-                {row.property} <span className="text-slate-muted">· {row.rooms}</span>
-              </p>
-              <p className="font-mono text-sm text-teal-400">{row.score}%</p>
-            </div>
-            <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-navy-700">
-              <div className="h-full rounded-full bg-teal-500" style={{ width: `${row.score}%` }} />
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <p className="mt-4 text-[12px] text-slate-muted">Every match carries its evidence</p>
-
-      <div className="mt-4 border-t border-navy-700 pt-4">
-        <Button variant="ghost" asChild>
-          <Link to="/platform">Confirm placement</Link>
-        </Button>
-      </div>
-    </LiveWindow>
   );
 }
