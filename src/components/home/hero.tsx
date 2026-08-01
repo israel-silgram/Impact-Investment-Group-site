@@ -139,7 +139,7 @@ export function HomeHero() {
         {/* Row 4 — ten role cards */}
         <ul
           aria-labelledby="register-as"
-          className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 wide:grid-cols-10"
+          className="hero-role-grid mt-6 gap-3"
         >
           {registerRoles.map((role) => {
             const className =

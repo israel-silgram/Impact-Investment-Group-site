@@ -22,9 +22,6 @@
  */
 
 @theme {
-  /* Extra wide breakpoint — the ten-across hero role row. */
-  --breakpoint-wide: 1400px;
-
   /* Navy — the base. The site is dark by default. */
   --color-navy-950: #000b1c;
   --color-navy-900: #00112b;
@@ -648,4 +645,26 @@
   border-color: color-mix(in oklab, var(--color-slate) 30%, transparent);
   background-color: var(--color-white);
   color: var(--color-navy-900);
+}
+
+/* Hero role row: 2 across on mobile, 3 on tablet, 5 from 1024px, 10 from 1400px.
+   Written as one rule so breakpoint order is explicit and cannot be re-sorted. */
+.hero-role-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 640px) {
+  .hero-role-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .hero-role-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1400px) {
+  .hero-role-grid {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+  }
 }
