@@ -208,7 +208,7 @@ function HomePage() {
                 width={1024}
                 height={1280}
                 loading="lazy"
-                className="h-full min-h-[320px] w-full rounded-xl object-cover ring-1 ring-navy-700/20"
+                className="h-full max-h-[560px] min-h-[320px] w-full rounded-xl object-cover ring-1 ring-navy-700/20"
               />
             </Reveal>
           </div>
