@@ -1,46 +1,50 @@
 /**
- * Brand logo lockup, inline SVG — a circle containing a house glyph with two
- * figures inside it (one white, one orange), then the wordmark.
+ * Brand logo lockup — matches the official Impact Investment mark: a split ring
+ * (orange upper arc, brand ring lower arc) enclosing a solid house with two
+ * figures inside it, one in the brand neutral and one in orange, then the
+ * stacked "Impact Investment / Platform" wordmark.
+ *
+ * On this site the chrome ground is navy, so the navy elements of the official
+ * artwork are rendered in white for contrast; the orange is unchanged.
  */
 export function Logo({ className }: { className?: string }) {
   return (
     <span className={className}>
       <span className="flex items-center gap-3">
-        <svg
-          viewBox="0 0 64 64"
-          aria-hidden="true"
-          className="size-10 shrink-0 sm:size-11"
-          fill="none"
-        >
-          <circle cx="32" cy="32" r="30" stroke="currentColor" strokeWidth="2" className="text-white" />
-          {/* house */}
+        <svg viewBox="0 0 64 64" aria-hidden="true" className="size-10 shrink-0 sm:size-11" fill="none">
+          {/* split ring — orange upper arc */}
           <path
-            d="M15 33 32 19l17 14"
+            d="M4.6 34A27.4 27.4 0 0 1 59.4 34"
             stroke="currentColor"
-            strokeWidth="2.4"
+            strokeWidth="3"
             strokeLinecap="round"
-            strokeLinejoin="round"
+            className="text-orange-500"
+          />
+          {/* split ring — lower arc */}
+          <path
+            d="M6.4 26a26 26 0 0 0 51.2 0"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
             className="text-white"
           />
+          {/* solid house with chimney */}
           <path
-            d="M19 33v13h26V33"
-            stroke="currentColor"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            d="M32 14.5 15 30h4.6v18h5.2V32.6h14.4V48h5.2V30H49l-5.1-4.7V17.6h-4.3v3.9L32 14.5Z"
+            fill="currentColor"
             className="text-white"
           />
-          {/* figure one — white */}
-          <circle cx="27.5" cy="35" r="2.6" fill="currentColor" className="text-white" />
+          {/* figure one — neutral */}
+          <circle cx="28.3" cy="33.6" r="3.1" fill="currentColor" className="text-white" />
           <path
-            d="M23.6 46v-4.4a3.9 3.9 0 0 1 7.8 0V46"
+            d="M23.6 48v-6.1a4.7 4.7 0 0 1 9.4 0V48h-9.4Z"
             fill="currentColor"
             className="text-white"
           />
           {/* figure two — orange */}
-          <circle cx="37" cy="37.5" r="2.2" fill="currentColor" className="text-orange-500" />
+          <circle cx="37.4" cy="36.4" r="2.7" fill="currentColor" className="text-orange-500" />
           <path
-            d="M33.6 46v-3.4a3.4 3.4 0 0 1 6.8 0V46"
+            d="M33.3 48v-5.1a4.1 4.1 0 0 1 8.2 0V48h-8.2Z"
             fill="currentColor"
             className="text-orange-500"
           />
