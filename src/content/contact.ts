@@ -121,3 +121,42 @@ export const registeredOffice = {
   title: "Registered office",
   entity: "Impact Investment Group UK Limited",
 };
+
+
+/* ══ THE REASSURANCE RAIL ════════════════════════════════════════════════ */
+
+/**
+ * The three things that stop somebody hitting send.
+ *
+ * This is not decoration and it is not marketing. The reason a form goes
+ * unfilled is almost never the layout — it is not knowing where it goes, how
+ * long it takes and what happens afterwards. These sit beside the submit
+ * button because that is the moment the doubt occurs.
+ *
+ * ⚠️ EACH LINE IS A PROMISE THE BUSINESS HAS TO KEEP. "A person reads it" and
+ * "no automated sequence" are commitments about how enquiries are handled. If
+ * an autoresponder or a drip campaign is ever switched on, these come off the
+ * page the same day — a broken promise here is worse than no promise.
+ *
+ * The reply times must match the `reply` values on `enquiryRoutes` above. If
+ * one changes, change both.
+ */
+export const whatHappensNext = [
+  {
+    title: "A person reads it",
+    body: "Not a bot, and not a shared inbox nobody checks.",
+  },
+  {
+    title: "One working day",
+    body: "Two for partnership enquiries. Same day for media on a deadline.",
+  },
+  {
+    title: "Then a real conversation",
+    body: "No automated sequence, no drip campaign.",
+  },
+];
+
+export const contactHero = {
+  eyebrow: "Talk to us",
+  title: "Tell us what you need.",
+};

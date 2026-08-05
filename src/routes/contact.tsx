@@ -1,49 +1,51 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
-import { Clock, Mail, Phone, Plus } from "lucide-react";
+import { Clock, LifeBuoy, Mail, Phone, Plus } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { EnquiryForm } from "@/components/contact/enquiry-form";
 import {
+  contactHero,
   enquiryRouteIds,
   enquiryRoutes,
+  whatHappensNext,
   type EnquiryRouteId,
 } from "@/content/contact";
 import { faq, faqEyebrow, faqHeading } from "@/content/faq";
-import { contactDetails } from "@/content/site";
+import { contactDetails, crisisLines, crisisNote } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 /**
- * /contact — three sections, deliberately.
+ * /contact — three sections.
  *
- *   1 · Talk to us   navy    heading, email, phone, hours
- *   2 · The form     cream   route chips + the enquiry form
- *   3 · FAQ          navy    the old site's accordion, verbatim
+ *   1 · Talk to us      cream   heading, the direct routes, the trio waving
+ *   2 · The form        cream   route chips + form, with the reassurance rail
+ *   3 · FAQ             navy    the old site's accordion, verbatim
+ *
+ * ── WHY THE RAIL EXISTS ───────────────────────────────────────────────────
+ *
+ * This is the only page on the site where the visitor is trying to DO
+ * something rather than read something, so the job is removing doubt, not
+ * adding interest. What stops a form being completed is not the layout — it is
+ * not knowing who reads it, how long it takes, and what happens next. Those
+ * three answers sit in the right-hand column, level with the submit button,
+ * because that is where the hesitation happens.
+ *
+ * ⚠️ THE CRISIS NUMBERS ARE ON THE PAGE, not only in the footer. That is
+ * deliberate. The FAQ below openly asks "I'm looking for a home — can this
+ * help me?", so people in difficulty do land here, and a number they have to
+ * scroll to the footer to find is a number they may not find. They stay
+ * duplicated. This is one of the few places where repetition is correct.
  *
  * ── What came off this page, and where it went ────────────────────────────
  *
- * It used to run seven sections. Four are gone:
+ * The seven-section version's "Looking for a home", "Registrations" and
+ * "Registered office" blocks are all still in the site footer, on every page.
+ * The route selector survives as the chip row above the form — every CTA on
+ * the site deep-links here with ?enquiry=, so without a control a visitor
+ * arriving cold could only ever send a wait-list enquiry.
  *
- *   Route selector      not deleted — collapsed into a chip row directly above
- *                       the form. It still has to exist: every CTA on the site
- *                       deep-links here with ?enquiry=, and without a control a
- *                       visitor arriving cold could only ever send a wait-list
- *                       enquiry.
- *   Looking for a home  the FAQ answers it — "I'm looking for a home — can this
- *                       help me?" carries the same signpost AND the crisis
- *                       numbers.
- *   In a crisis         still in the site footer, on every page, with tel:
- *                       links. Not lost.
- *   Registrations,
- *     registered office  also in the footer, on every page, with their verify
- *                        links. Not lost.
- *
- * ⚠️ That last point is the load-bearing one: the crisis numbers and the
- * registrations are only safe to have removed from here BECAUSE the footer
- * carries them site-wide. If the footer is ever trimmed, they come back here.
- *
- * The FAQ is verbatim from the old production site — see the note in
- * content/faq.ts for why those answers are not summarised like the rest of the
- * site's copy.
+ * The FAQ is verbatim from the old production site — see content/faq.ts for
+ * why those answers are not summarised like the rest of the site's copy.
  */
 
 const searchSchema = z.object({
@@ -67,13 +69,12 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Talk to the team, join the wait list, become a partner or ask about investor access. Email hello@impactig.co.uk or call +44 7539 088373.",
+          "Tell us what you need and a person replies within one working day. Email hello@impactig.co.uk or call +44 7539 088373.",
       },
       { property: "og:title", content: "Contact — The Impact Investment Platform" },
       {
         property: "og:description",
-        content:
-          "One form and the questions people ask us most. We reply within one working day.",
+        content: "One form, six routes, and the questions people ask us most.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/contact" },
@@ -95,89 +96,154 @@ function ContactPage() {
   };
 
   return (
-    <main className="bg-navy-900">
-      {/* ── 1 · Talk to us ─────────────────────────────────────────────── */}
-      <section aria-labelledby="contact-heading" className="border-b border-navy-700">
-        <div className="mx-auto w-full max-w-[1200px] px-5 py-14 sm:px-8 lg:py-16">
-          <Reveal>
-            <p className="eyebrow text-teal-400">Talk to us</p>
-            <h1
-              id="contact-heading"
-              className="heading-tight mt-3 text-[clamp(2rem,4.6vw,3.25rem)] font-extrabold tracking-[-0.02em] text-white"
-            >
-              Contact
-            </h1>
-            <p className="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-mist">
-              Tell us what you need and we reply within one working day.
-            </p>
-            <ul className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-8">
-              <li>
-                <a
-                  href={`mailto:${contactDetails.email}`}
-                  className="flex min-h-11 items-center gap-3 font-heading text-[clamp(1.0625rem,1.8vw,1.375rem)] font-bold text-white transition-colors duration-200 hover:text-teal-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
-                >
-                  <Mail aria-hidden="true" className="size-5 shrink-0 text-teal-500" />
-                  {contactDetails.email}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={telHref(contactDetails.phone)}
-                  className="flex min-h-11 items-center gap-3 font-heading text-[clamp(1.0625rem,1.8vw,1.375rem)] font-bold text-white transition-colors duration-200 hover:text-teal-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
-                >
-                  <Phone aria-hidden="true" className="size-5 shrink-0 text-teal-500" />
-                  {contactDetails.phone}
-                </a>
-              </li>
-              <li className="flex min-h-11 items-center gap-3 text-sm text-slate-muted">
-                <Clock aria-hidden="true" className="size-4 shrink-0 text-teal-500" />
-                {contactDetails.hours}
-              </li>
-            </ul>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── 2 · The form ───────────────────────────────────────────────── */}
-      <section aria-label="Enquiry form" className="section-light border-b border-navy-700">
-        <div className="mx-auto w-full max-w-[1200px] px-5 py-12 sm:px-8 lg:py-14">
-          {/* The route still has to be choosable — it changes the fields, the
-              team and the reply time. It is a chip row rather than the grid of
-              six cards it used to be. */}
-          <p className="eyebrow text-teal-400">What do you need?</p>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {enquiryRoutes.map((option) => {
-              const active = option.id === selected;
-              return (
-                <li key={option.id}>
-                  <button
-                    type="button"
-                    aria-pressed={active}
-                    onClick={() => select(option.id)}
-                    className={cn(
-                      "min-h-10 cursor-pointer rounded-full border px-4 text-[13.5px] font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
-                      active
-                        ? "border-teal-600 bg-teal-600 text-white"
-                        : "border-navy-700 bg-navy-900 text-white hover:border-teal-600",
-                    )}
+    <main>
+      {/* ── 1 · Talk to us ── cream ───────────────────────────────────────
+          The trio wave rather than point. On every other page they explain
+          something; here they are the greeting, which is why the artwork is
+          cropped at the waist and sits small. */}
+      <section aria-labelledby="contact-heading" className="section-light">
+        <div className="mx-auto w-full max-w-[1200px] px-5 pb-2 pt-14 sm:px-8">
+          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
+            <Reveal>
+              <p className="eyebrow tracking-[0.14em] text-orange-700">{contactHero.eyebrow}</p>
+              <h1
+                id="contact-heading"
+                className="heading-tight mt-3 max-w-[16ch] text-balance text-[clamp(2.125rem,5.4vw,3.75rem)] font-extrabold tracking-[-0.03em] text-white"
+              >
+                {contactHero.title}
+              </h1>
+              <ul className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-7">
+                <li>
+                  <a
+                    href={`mailto:${contactDetails.email}`}
+                    className="flex min-h-11 items-center gap-2.5 font-heading text-[clamp(1rem,1.7vw,1.25rem)] font-bold text-white transition-colors duration-200 hover:text-teal-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                   >
-                    {option.label}
-                  </button>
+                    <Mail aria-hidden="true" className="size-[18px] shrink-0 text-teal-500" />
+                    {contactDetails.email}
+                  </a>
                 </li>
-              );
-            })}
-          </ul>
+                <li>
+                  <a
+                    href={telHref(contactDetails.phone)}
+                    className="flex min-h-11 items-center gap-2.5 font-heading text-[clamp(1rem,1.7vw,1.25rem)] font-bold text-white transition-colors duration-200 hover:text-teal-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+                  >
+                    <Phone aria-hidden="true" className="size-[18px] shrink-0 text-teal-500" />
+                    {contactDetails.phone}
+                  </a>
+                </li>
+                <li className="flex min-h-11 items-center gap-2.5 text-sm text-slate-muted">
+                  <Clock aria-hidden="true" className="size-4 shrink-0 text-teal-500" />
+                  {contactDetails.hours}
+                </li>
+              </ul>
+            </Reveal>
 
-          <div className="mt-8">
-            <EnquiryForm route={selected} prefilledRole={role} />
+            <img
+              src="/images/ai-team/trio-wave.webp"
+              alt=""
+              aria-hidden="true"
+              width={934}
+              height={558}
+              className="hidden w-full lg:block"
+            />
           </div>
         </div>
       </section>
 
-      {/* ── 3 · FAQ ────────────────────────────────────────────────────── */}
-      <section aria-labelledby="faq-heading">
+      {/* ── 2 · The form + the rail ── cream, joined to section 1 ────────── */}
+      <section aria-label="Enquiry form" className="section-light">
+        <div className="mx-auto w-full max-w-[1200px] px-5 pb-16 pt-6 sm:px-8">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-14">
+            <div>
+              {/* The route changes the fields, the team and the reply time, so
+                  it has to stay choosable — a chip row rather than the grid of
+                  six cards it used to be. */}
+              <p className="eyebrow tracking-[0.14em] text-orange-700">What do you need?</p>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {enquiryRoutes.map((option) => {
+                  const active = option.id === selected;
+                  return (
+                    <li key={option.id}>
+                      <button
+                        type="button"
+                        aria-pressed={active}
+                        onClick={() => select(option.id)}
+                        className={cn(
+                          "min-h-10 cursor-pointer rounded-full border px-4 font-heading text-[13.5px] font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
+                          active
+                            ? "border-teal-600 bg-teal-600 text-white"
+                            : "border-navy-700 bg-navy-900 text-white hover:border-teal-600",
+                        )}
+                      >
+                        {option.label}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <div className="mt-7">
+                <EnquiryForm route={selected} prefilledRole={role} />
+              </div>
+            </div>
+
+            {/* ── The rail ────────────────────────────────────────────── */}
+            <div>
+              <p className="eyebrow tracking-[0.14em] text-orange-700">What happens next</p>
+              <ul>
+                {whatHappensNext.map((step, i) => (
+                  <Reveal key={step.title} index={i} as="li">
+                    <div className="mt-5 border-t-2 border-teal-600 pt-3">
+                      <p className="font-heading text-[15px] font-extrabold text-white">
+                        {step.title}
+                      </p>
+                      <p className="mt-1.5 text-[13px] leading-relaxed text-mist">{step.body}</p>
+                    </div>
+                  </Reveal>
+                ))}
+              </ul>
+
+              {/* Care information, not marketing. Duplicated from the footer on
+                  purpose — see the note at the top of this file. */}
+              <section
+                aria-labelledby="crisis-heading"
+                className="mt-7 rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800 p-4"
+              >
+                <p className="flex items-center gap-2">
+                  <LifeBuoy aria-hidden="true" className="size-4 shrink-0 text-orange-500" />
+                  <span
+                    id="crisis-heading"
+                    className="eyebrow tracking-[0.14em] text-orange-700"
+                  >
+                    In a crisis
+                  </span>
+                </p>
+                <ul className="mt-2.5 flex flex-col">
+                  {crisisLines.map((line) => (
+                    <li key={line.label}>
+                      <a
+                        href={telHref(line.detail)}
+                        className="flex min-h-11 items-center justify-between gap-3 border-b border-navy-700 text-[13px] text-mist last:border-b-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+                      >
+                        {line.label}
+                        <span className="font-heading text-[14px] font-bold text-white">
+                          {line.detail}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-2 font-heading text-[12.5px] font-bold text-white">{crisisNote}</p>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3 · FAQ ── navy ───────────────────────────────────────────────── */}
+      <section aria-labelledby="faq-heading" className="border-t border-navy-700 bg-navy-900">
         <div className="mx-auto w-full max-w-[900px] px-5 py-14 sm:px-8 lg:py-16">
-          <p className="eyebrow text-teal-400">{faqEyebrow}</p>
+          <p className="eyebrow tracking-[0.14em] text-teal-400">{faqEyebrow}</p>
           <h2
             id="faq-heading"
             className="heading-tight mt-2.5 text-balance text-[clamp(1.5rem,2.8vw,2rem)] font-extrabold tracking-[-0.02em] text-white"
