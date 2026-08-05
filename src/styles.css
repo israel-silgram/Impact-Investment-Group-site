@@ -903,8 +903,41 @@
   color: var(--color-white);
 }
 
+/* The flip control. It used to be a quiet white caption on the photograph and
+   nobody could tell the panel turned — so it is now an orange pill with a ring
+   that breathes outward, which is the one thing on the plate that reads as
+   "press me".
+
+   White on orange-600 is 3.4:1 and only clears AA as LARGE text, which is why
+   the label is locked at 16px semibold. Do not shrink it to fit. */
 .flip-plate-hint {
-  color: color-mix(in oklab, var(--color-white) 78%, transparent);
+  color: var(--color-white);
+}
+
+@keyframes cta-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-orange-500) 60%, transparent);
+  }
+  55% {
+    box-shadow: 0 0 0 14px color-mix(in oklab, var(--color-orange-500) 0%, transparent);
+  }
+}
+
+/* A ring expanding out of the pill, not a size or opacity change: the button
+   never moves, so it cannot shift the layout or blur its own label. */
+.cta-pulse {
+  animation: cta-pulse 2400ms var(--ease-out-soft) infinite;
+}
+
+/* The global reduced-motion backstop flattens animation-duration, which would
+   freeze this mid-ring. Removed outright instead, leaving a static shadow that
+   still reads as a raised button. */
+@media (prefers-reduced-motion: reduce) {
+  .cta-pulse {
+    animation: none;
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-orange-500) 30%, transparent);
+  }
 }
 
 /* THE PANEL TURN — Our Mission | The Problem on one face, Our Solution on the

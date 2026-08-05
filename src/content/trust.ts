@@ -33,6 +33,11 @@ export interface LogoCredit {
  * (Manchester) to 4:1 (Newcastle), so a row of equal-width plates still
  * looked ragged, because each file brought its own padding with it.
  *
+ * They render in FULL COLOUR — the earlier low-saturation treatment is gone.
+ * That is what the normalisation is carrying now: the row reads as one rhythm
+ * because every mark is the same optical size, not because the colour was
+ * drained out of it.
+ *
  * The normalised set is generated from those originals: flattened onto white,
  * trimmed of the file's own padding, then rescaled so every mark occupies the
  * same optical AREA — sqrt(w × h) held constant — and centred in a 240 × 104
@@ -88,46 +93,36 @@ export const commissioningCouncils: LogoCredit[] = [
 export const councilsEyebrow = "Built around what local authorities are commissioning";
 
 /**
- * The count, split so the panel can set the figure at display scale.
+ * The one line that sits above the carousel.
  *
- * `councilsCount` and `councilsCountOf` are not decoration: together they are
- * the "18 of the ~296" claim that used to open the disclaimer. Showing 18
- * crests without the denominator implies national coverage the platform does
- * not have, so if the figure is ever displayed without `councilsCountOf`
- * beside it, the sentence has to go back into the disclaimer.
+ * `councilsCount` is separate so the number can be set in teal without the
+ * sentence being split in the JSX.
  */
 export const councilsCount = "18";
-export const councilsCountOf = "of ~296 English local authorities";
-export const councilsCountLabel = "Local authorities we build around";
+export const councilsStatement = "local authorities that we build around";
 
 /*
- * THE ORIGINAL DISCLAIMER, verbatim from the production site's
- * CommissioningStrip. Kept here so it can be restored, not paraphrased:
+ * THE SMALL PRINT UNDER THE LOGOS — the shortest form this can safely take.
+ *
+ * The original ran to three lines and is kept verbatim below. It was cut to one
+ * line at Callum's request, and this is the floor: a wall of protected council
+ * crests reads as endorsement unless something says otherwise, and none of
+ * these councils has given one. The two claims that had to survive are the
+ * sample size (so 18 crests cannot imply national coverage) and the denial.
+ *
+ * ⚠️ NOT CURRENTLY RENDERED. Removed from the strip at Callum's request. This
+ * export is kept so restoring it is one line in CouncilPanel rather than a
+ * rewrite, and so the wording does not have to be reconstructed from memory if
+ * a council ever objects to its crest being shown.
+ *
+ * THE ORIGINAL, verbatim from the production site's CommissioningStrip:
  *
  *   "These are 18 of the ~296 local authorities in England, in the areas we
  *    source most. Their logos indicate the commissioning briefs we build
  *    around — not a partnership, endorsement or approval by any council."
- *
- * The version below is shorter because the anchored panel now carries the
- * first claim structurally: "18" is set at display scale with "of ~296 English
- * local authorities" directly beneath it, so repeating "These are 18 of the
- * ~296 local authorities in England" in prose said the same thing twice.
- *
- * Every substantive claim survives the cut:
- *
- *   18 of ~296, England ....... `councilsCount` + `councilsCountOf`
- *   why these 18 .............. "These are the areas we source most."
- *   what the logos mean ....... "Their published commissioning briefs shape
- *                                what we build around"
- *   the denial ................ "not a partnership, endorsement or approval
- *                                by any council" — WORD FOR WORD
- *
- * The denial is the clause that does the legal work and it is unchanged. Do
- * not shorten it further, and do not separate it from the logos: wherever the
- * crests go, this goes with them.
  */
 export const councilsDisclaimer =
-  "These are the areas we source most. Their published commissioning briefs shape what we build around — not a partnership, endorsement or approval by any council.";
+  "18 of ~296 English local authorities · not a partnership, endorsement or approval by any council.";
 
 export interface DataSource extends LogoCredit {
   id: string;

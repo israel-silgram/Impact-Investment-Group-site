@@ -189,9 +189,13 @@ function FlipPlate({
         <span className="flip-plate-title mt-2 font-heading text-[clamp(1.125rem,1.5vw,1.375rem)] font-bold leading-tight">
           {label}
         </span>
-        <span className="flip-plate-hint mt-3 inline-flex items-center gap-2.5 text-[12.5px] font-semibold">
-          <span className="grid size-8 shrink-0 place-items-center rounded-full border border-white/35 bg-white/10 transition-transform duration-[900ms] ease-out group-hover:rotate-180 motion-reduce:transition-none">
-            <Icons.RefreshCw aria-hidden="true" className="size-3.5 text-white" />
+        {/* The affordance. A span, not a button — the whole plate is already
+            the <button>, and nesting one inside another is invalid. It is
+            styled as a pill so it reads as pressable, and the parent's hover
+            and focus states drive it. */}
+        <span className="cta-pulse flip-plate-hint mt-3.5 inline-flex w-fit items-center gap-2.5 rounded-full bg-orange-600 py-2.5 pl-3 pr-5 text-[16px] font-semibold transition-transform duration-200 group-hover:scale-[1.03]">
+          <span className="grid size-7 shrink-0 place-items-center rounded-full bg-white/20 transition-transform duration-[900ms] ease-out group-hover:rotate-180 motion-reduce:transition-none">
+            <Icons.RefreshCw aria-hidden="true" className="size-4 text-white" />
           </span>
           {hint}
         </span>
@@ -389,7 +393,7 @@ export function MissionSolution() {
                   objectPosition="object-center"
                   eyebrow="The other side"
                   label="See our solution"
-                  hint="Turn the panel over"
+                  hint="Flip to see our solution"
                   expanded={showSolution}
                   onFlip={() => setShowSolution(true)}
                 />
@@ -608,7 +612,7 @@ export function MissionSolution() {
                   objectPosition="object-center"
                   eyebrow="The other side"
                   label="Back to the need"
-                  hint="Turn the panel back"
+                  hint="Flip back to the need"
                   expanded={showSolution}
                   onFlip={() => setShowSolution(false)}
                 />
