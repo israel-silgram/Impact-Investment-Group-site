@@ -430,6 +430,31 @@ export const impactProof = {
   },
 };
 
+/*
+ * REMOVED FROM THE DEMAND SECTION — the ten category chips and both dropdowns.
+ *
+ * None of them did anything. The chips were plain <li> elements with no click
+ * handler and were never passed to <DemandMap visibleIds>, and the two <select>
+ * elements carried options but no onChange — the region/authority datasets were
+ * never wired. So this is dead UI being removed, not a feature: hover, click,
+ * selection and the readout all live inside DemandMap and are untouched.
+ *
+ * Kept verbatim in case they are ever built for real:
+ *
+ *   filtersLabel: "Demand categories"
+ *   filters: Temporary accommodation · Supported housing · Care leavers ·
+ *            Hospital discharge · Mental health · Learning disabilities ·
+ *            Older people · Families · Domestic abuse · Homelessness
+ *   selectors:
+ *     Region          — England · all regions, North West, North East,
+ *                       Yorkshire and the Humber, West Midlands, East Midlands,
+ *                       East of England, London, South East, South West
+ *     Local authority — All commissioning authorities
+ *
+ * DemandMap already accepts a `visibleIds` prop for exactly this, so wiring the
+ * chips back up is a matter of holding the filter state here and passing it
+ * down — the map end is already built.
+ */
 export const demandMapCopy = {
   eyebrow: "Live UK demand",
   title: "Visualising Housing Need Across the Nation",
@@ -461,49 +486,31 @@ export const demandMapCopy = {
       body: "Each property opportunity can be connected to a real housing requirement and potential social outcome.",
     },
   ] satisfies { icon: string; tone: "teal" | "orange"; heading: string; body: string }[],
-  filtersLabel: "Demand categories",
-  /** Client-approved disclaimer for the dropdowns. Verbatim. */
-  selectorNote:
-    "The information shown in this demonstration is provided for illustrative purposes. The completed platform will deliver detailed regional and local authority analysis, live housing-demand intelligence, intelligent partner connections and property-matching capabilities.",
-  filters: [
-    "Temporary accommodation",
-    "Supported housing",
-    "Care leavers",
-    "Hospital discharge",
-    "Mental health",
-    "Learning disabilities",
-    "Older people",
-    "Families",
-    "Domestic abuse",
-    "Homelessness",
-  ],
   /**
-   * Placeholder selectors — the region/authority datasets are not wired yet, so
-   * the controls carry their labels and options but no filtering behaviour.
+   * The illustrative-purposes note, shortened.
+   *
+   * It used to sit beneath the Region and Local Authority dropdowns and run to
+   * three lines. The dropdowns are gone — see the block below — but this note
+   * is NOT tied to them: the map itself still shows illustrative demand data,
+   * so the claim has to stay on the page. It now runs as a single line behind
+   * an info icon beside the map.
+   *
+   * THE CLIENT-APPROVED ORIGINAL, verbatim, so it can be restored rather than
+   * reconstructed:
+   *
+   *   "The information shown in this demonstration is provided for illustrative
+   *    purposes. The completed platform will deliver detailed regional and local
+   *    authority analysis, live housing-demand intelligence, intelligent partner
+   *    connections and property-matching capabilities."
+   *
+   * Nothing material was dropped — "will deliver" became "delivers", the four
+   * promised capabilities are all still named, and "provided for illustrative
+   * purposes" became "illustrative demonstration". If Israel would rather not
+   * have his wording touched, paste the original back over the string below;
+   * nothing else has to change.
    */
-  selectors: [
-    {
-      id: "region",
-      label: "Region",
-      options: [
-        "England \u00b7 all regions",
-        "North West",
-        "North East",
-        "Yorkshire and the Humber",
-        "West Midlands",
-        "East Midlands",
-        "East of England",
-        "London",
-        "South East",
-        "South West",
-      ],
-    },
-    {
-      id: "authority",
-      label: "Local authority",
-      options: ["All commissioning authorities"],
-    },
-  ],
+  illustrativeNote:
+    "Illustrative demonstration. The completed platform delivers detailed regional and local-authority analysis, live demand intelligence, partner connections and property matching.",
 };
 
 /*
@@ -565,8 +572,22 @@ export const closingCopy = {
   ] satisfies IconPoint[],
 };
 
-export const demandMapNote =
-  "Built from published commissioning briefs · 18 of ~296 English local authorities · their briefs shape what we source, which is not a partnership, endorsement or approval by any council.";
+/*
+ * `demandMapNote` is gone. It read:
+ *
+ *   "Built from published commissioning briefs · 18 of ~296 English local
+ *    authorities · their briefs shape what we source, which is not a
+ *    partnership, endorsement or approval by any council."
+ *
+ * That is the SAME disclaimer the council panel now carries a few hundred
+ * pixels further up the page — see `councilsDisclaimer` in content/trust.ts,
+ * which states it in full beside the crests it applies to. Saying it twice on
+ * one page added length without adding protection.
+ *
+ * ⚠️ It is only safe to have deleted this because CouncilPanel carries it. If
+ * the council carousel is ever removed from the homepage, this line has to
+ * come back — the claim cannot simply disappear.
+ */
 
 export interface PlatformCapability {
   id: string;

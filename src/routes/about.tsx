@@ -11,19 +11,55 @@ import { DirectorCard } from "@/components/about/director-card";
 import streetDusk from "@/assets/about-street-dusk.jpg";
 import { imagery } from "@/content/home";
 import {
-  aboutHero,
   commissioningContext,
-  director,
-  teamContext,
-  teamNote,
   partnerAsk,
   partnerTypes,
   partnershipSteps,
+  team,
+  teamContext,
+  teamEyebrow,
+  teamNote,
+  teamTitle,
   teasers,
   technologyPartners,
   values,
   visionMission,
+  whatWeDo,
+  whoWeAre,
+  whyPartner,
+  whyWeExist,
 } from "@/content/about";
+
+/**
+ * /about — four sections, in the client's own order and under his own names.
+ *
+ *   1 · Who We Are          navy, over the street photograph
+ *   2 · Why We Exist        cream
+ *   3 · What We Do          navy
+ *   4 · Why Partner With Us cream
+ *   5 · Where to go next + the page's single orange action, navy
+ *
+ * The four headings are the client's supplied copy and are set verbatim.
+ * Nothing that was on this page before has been dropped — each block was
+ * placed inside the section that answers for it, which is why sections 3 and 4
+ * are longer than their copy alone would suggest:
+ *
+ *   the director and team context ....... inside Who We Are
+ *   vision and mission .................. inside Why We Exist
+ *   group structure, partner types,
+ *     technology partners, the
+ *     commissioning context ............. inside What We Do
+ *   values, how a partnership starts,
+ *     what we ask of partners ........... inside Why Partner With Us
+ *
+ * The group structure matters most of that list: it moved here off the
+ * homepage in task 06 precisely so it would not be lost, and it is the answer
+ * to "who actually delivers this?" that institutional investors and local
+ * authorities ask first. It stays on this page.
+ *
+ * Backgrounds alternate navy / cream / navy / cream / navy, which is the same
+ * rhythm rule the homepage follows.
+ */
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -33,13 +69,13 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Why we exist, how the group is structured, who does what, and who we work with across the NHS, councils, housing associations, care providers and investors.",
+          "Who we are, why we exist, what we do and why partner with us — a national property and housing ecosystem connecting investors, landlords and developers with councils, housing associations and care and support organisations.",
       },
       { property: "og:title", content: "About Us — The Impact Investment Platform" },
       {
         property: "og:description",
         content:
-          "Our vision, values, leadership and group structure — plus how a partnership with us actually starts.",
+          "Connecting property, investment and housing demand to transform lives. Our purpose, our ecosystem, our group structure and how a partnership starts.",
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/about" },
@@ -59,7 +95,12 @@ const valueIcons = {
 function AboutPage() {
   return (
     <main className="bg-navy-900">
-      {/* 1 · Hero — why we exist */}
+      {/* ── 1 · Who We Are ─────────────────────────────────────────────────
+          The lead line is set at display scale because it is the whole page in
+          one sentence. The two paragraphs beneath it are the client's copy
+          verbatim; the leadership block follows in the same section because
+          "who we are" is a question about people before it is one about
+          structure. */}
       <section aria-labelledby="about-heading" className="relative isolate overflow-hidden">
         <img
           src={streetDusk}
@@ -72,31 +113,82 @@ function AboutPage() {
           aria-hidden="true"
           className="absolute inset-0 -z-10 bg-linear-to-b from-navy-950/70 via-navy-900/65 to-navy-900"
         />
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-24 sm:px-8 lg:py-32">
+        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8 lg:py-28">
           <Reveal>
-            <p className="eyebrow text-teal-400">{aboutHero.eyebrow}</p>
+            <p className="eyebrow text-teal-400">{whoWeAre.eyebrow}</p>
             <h1
               id="about-heading"
               className="heading-tight mt-4 text-[clamp(2.25rem,5vw,4rem)] font-bold text-white"
             >
-              {aboutHero.heading}
+              {whoWeAre.title}
             </h1>
-            <p className="mt-8 max-w-[22ch] font-heading text-[clamp(1.25rem,2.4vw,1.75rem)] font-semibold leading-snug text-white">
-              {aboutHero.statement}
+            <p className="mt-7 max-w-[26ch] font-heading text-[clamp(1.25rem,2.4vw,1.75rem)] font-semibold leading-snug text-white">
+              {whoWeAre.lead}
             </p>
+            <div className="mt-7 grid max-w-[92ch] gap-4 md:grid-cols-2">
+              {whoWeAre.body.map((paragraph) => (
+                <p key={paragraph} className="text-base leading-relaxed text-mist">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </Reveal>
+
+          {/* The team — the answer to "who are we" is people, so they sit in
+              the hero section rather than three screens down.
+
+              Israel leads on a full-width card: larger portrait, his bio, and
+              the only orange accent on the page. The other four run as an even
+              four-up row beneath, every card identical to every other. The
+              hierarchy is carried by width, size and accent — nobody is shrunk
+              to make the lead look bigger, which is what makes it read as
+              seniority rather than as a ranking. */}
+          <div className="mt-14 border-t border-navy-700 pt-10">
+            <SectionHeader eyebrow={teamEyebrow} title={teamTitle} as="h2" />
+
+            <Reveal className="mt-8">
+              <DirectorCard director={team[0]!} variant="lead" />
+            </Reveal>
+
+            <ul className="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+              {team.slice(1).map((member, i) => (
+                <Reveal key={member.name} index={i} as="li">
+                  <DirectorCard director={member} variant="member" />
+                </Reveal>
+              ))}
+            </ul>
+
+            <Reveal className="mt-8 flex flex-col gap-3">
+              <p className="max-w-[92ch] text-base leading-relaxed text-mist">{teamContext}</p>
+              <p className="text-[12px] leading-relaxed text-slate-muted">{teamNote}</p>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* 2 · Vision and mission */}
-      <section aria-labelledby="vision-heading" className="section-light border-t border-navy-700">
+      {/* ── 2 · Why We Exist ───────────────────────────────────────────────
+          The vision and mission cards live here rather than in their own
+          section: they are the same question answered at a different scale, and
+          side by side with the client's two paragraphs they read as evidence
+          for the claim rather than as a separate topic. */}
+      <section aria-labelledby="why-heading" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
           <SectionHeader
-            eyebrow="Direction"
-            title="Vision and mission"
-            lead="Two different things, side by side, so they can be compared without scrolling."
+            eyebrow={whyWeExist.eyebrow}
+            title={whyWeExist.title}
+            lead={whyWeExist.lead}
+            as="h2"
+            id="why-heading"
           />
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          <div className="mt-8 grid max-w-[92ch] gap-4 md:grid-cols-2">
+            {whyWeExist.body.map((paragraph) => (
+              <p key={paragraph} className="text-base leading-relaxed">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {visionMission.map((card, i) => (
               <Reveal key={card.id} index={i} as="article">
                 <div
@@ -105,10 +197,7 @@ function AboutPage() {
                   }`}
                 >
                   <p className="eyebrow text-slate-muted">{card.label}</p>
-                  <h3
-                    id={card.id === "vision" ? "vision-heading" : undefined}
-                    className="heading-tight mt-4 text-[clamp(1.25rem,2vw,1.625rem)] font-bold text-white"
-                  >
+                  <h3 className="heading-tight mt-4 text-[clamp(1.25rem,2vw,1.625rem)] font-bold text-white">
                     {card.title}
                   </h3>
                   <p className="mt-4 text-base leading-relaxed text-mist">{card.body}</p>
@@ -119,11 +208,139 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* 3 · Values */}
-      <section aria-label="Values" className="section-light border-t border-navy-700">
+      {/* ── 3 · What We Do ─────────────────────────────────────────────────
+          The client's two paragraphs describe the ecosystem in the abstract;
+          everything under them is the concrete version of the same claim — who
+          holds what, who we work with, and whose briefs shape what we source.
+          The order is deliberate: structure, then partners, then evidence. */}
+      <section aria-labelledby="what-heading" className="border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
-          <SectionHeader eyebrow="How we work" title="Values" as="h2" />
-          <ul className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          <SectionHeader
+            eyebrow={whatWeDo.eyebrow}
+            title={whatWeDo.title}
+            lead={whatWeDo.lead}
+            as="h2"
+            id="what-heading"
+          />
+          <div className="mt-8 grid max-w-[92ch] gap-4 md:grid-cols-2">
+            {whatWeDo.body.map((paragraph) => (
+              <p key={paragraph} className="text-base leading-relaxed text-mist">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          {/* Group structure — the accountable chain. Three companies, three
+              jobs: the lease, the capital and the care never sit in the same
+              pair of hands. This is the "who actually delivers this?" answer. */}
+          <div className="mt-14 border-t border-navy-700 pt-10">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,280px)] lg:items-center lg:gap-12">
+              <SectionHeader
+                eyebrow="Group structure"
+                title="Who does what"
+                lead="Three companies, three jobs. The lease, the capital and the care never sit in the same pair of hands."
+                as="h3"
+              />
+              {/* The supplied crop has an olive-yellow ground that fights the
+                  palette, so it carries a navy scrim and reduced saturation. */}
+              <Reveal className="relative isolate overflow-hidden rounded-xl border border-navy-700">
+                <img
+                  src={imagery.partnership.src}
+                  alt={imagery.partnership.alt}
+                  width={1024}
+                  height={1536}
+                  loading="lazy"
+                  className="aspect-[4/3] w-full object-cover object-top saturate-[0.3] lg:aspect-[3/4]"
+                />
+                <span aria-hidden="true" className="image-navy-scrim absolute inset-0" />
+              </Reveal>
+            </div>
+            <GroupDiagram />
+          </div>
+
+          {/* Who we work with */}
+          <div className="mt-14 border-t border-navy-700 pt-10">
+            <SectionHeader
+              eyebrow="Who we work with"
+              title="Partner types, and what each relationship actually is"
+              as="h3"
+            />
+            <ul className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {partnerTypes.map((p, i) => (
+                <Reveal key={p.id} index={i} as="li">
+                  <div className="h-full rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/60 p-6">
+                    <h4 className="font-heading text-base font-bold uppercase tracking-[0.08em] text-white">
+                      {p.partner}
+                    </h4>
+                    <p className="mt-3 text-sm leading-relaxed text-mist">{p.detail}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </ul>
+
+            {/* Technology partners — data licences, deliberately not in the
+                grid. The licence note is not decoration and stays with it. */}
+            <Reveal className="mt-4">
+              <div className="rounded-[var(--radius-panel)] border border-dashed border-navy-600 bg-navy-950 p-6">
+                <h4 className="font-heading text-base font-bold uppercase tracking-[0.08em] text-slate-muted">
+                  {technologyPartners.partner}
+                </h4>
+                <p className="mt-3 max-w-[80ch] text-sm leading-relaxed text-mist">
+                  {technologyPartners.detail}
+                </p>
+                <SourceLine className="mt-4" source={technologyPartners.note} />
+              </div>
+            </Reveal>
+
+            {/* Commissioning context. The disclaimer is the reason this can be
+                shown at all — briefs read, not partnerships held. */}
+            <Reveal className="mt-8">
+              <div className="panel-slate p-7">
+                <p className="eyebrow text-slate-muted">{commissioningContext.eyebrow}</p>
+                <h4 className="mt-4 font-heading text-xl font-bold text-white">
+                  {commissioningContext.title}
+                </h4>
+                <p className="mt-6 font-display text-[clamp(2.5rem,6vw,4rem)] leading-none text-mist">
+                  {commissioningContext.count}
+                  <span className="ml-3 font-heading text-base font-semibold text-slate-muted">
+                    {commissioningContext.of}
+                  </span>
+                </p>
+                <p className="measure mt-4 text-sm leading-relaxed text-mist">
+                  {commissioningContext.body}
+                </p>
+                <p className="measure mt-3 text-[12px] leading-relaxed text-slate-muted">
+                  {commissioningContext.disclaimer}
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4 · Why Partner With Us? ───────────────────────────────────────
+          The client's answer is experience and intent; the values and the
+          partnership route are the operational version of it. The strapline
+          closes the section because it is the same three-part line the homepage
+          hero is built on, and landing on it here ties the two pages together. */}
+      <section aria-labelledby="partner-heading" className="section-light border-t border-navy-700">
+        <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
+          <SectionHeader
+            eyebrow={whyPartner.eyebrow}
+            title={whyPartner.title}
+            as="h2"
+            id="partner-heading"
+          />
+          <div className="mt-8 grid max-w-[92ch] gap-4 md:grid-cols-2">
+            {whyPartner.body.map((paragraph) => (
+              <p key={paragraph} className="text-base leading-relaxed">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          {/* Values */}
+          <ul className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {values.map((value, i) => {
               const Icon = valueIcons[value.icon];
               return (
@@ -137,119 +354,10 @@ function AboutPage() {
               );
             })}
           </ul>
-        </div>
-      </section>
 
-      {/* 4 · Leadership */}
-      <section aria-label="Leadership" className="border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
-          <SectionHeader
-            eyebrow="Leadership"
-            title="Who you would be contracting with"
-            lead="Named people, named responsibilities."
-          />
-          <div className="mt-10 grid gap-6 lg:grid-cols-[1.6fr_1fr] lg:items-start">
-            <Reveal>
-              <DirectorCard director={director} />
-            </Reveal>
-            <Reveal index={1} className="flex flex-col gap-4">
-              <p className="text-base leading-relaxed text-mist">{teamContext}</p>
-              <p className="text-[12px] leading-relaxed text-slate-muted">{teamNote}</p>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* 5 · Group structure — the accountable chain, moved here off the
-          homepage. This is where "who actually delivers this?" gets answered. */}
-      <section aria-label="Group structure" className="section-light border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,280px)] lg:items-center lg:gap-12">
-            <SectionHeader
-              eyebrow="Group structure"
-              title="Who does what"
-              lead="Three companies, three jobs. The lease, the capital and the care never sit in the same pair of hands."
-            />
-            {/* The supplied crop has an olive-yellow ground that fights the
-                palette, so it carries a navy scrim and reduced saturation. */}
-            <Reveal className="relative isolate overflow-hidden rounded-xl border border-[color-mix(in_oklab,var(--color-slate)_28%,transparent)]">
-              <img
-                src={imagery.partnership.src}
-                alt={imagery.partnership.alt}
-                width={1024}
-                height={1536}
-                loading="lazy"
-                className="aspect-[4/3] w-full object-cover object-top saturate-[0.3] lg:aspect-[3/4]"
-              />
-              <span aria-hidden="true" className="image-navy-scrim absolute inset-0" />
-            </Reveal>
-          </div>
-          <GroupDiagram />
-        </div>
-      </section>
-
-      {/* 6 · Who we work with */}
-      <section aria-label="Who we work with" className="section-light border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
-          <SectionHeader
-            eyebrow="Who we work with"
-            title="Partner types, and what each relationship actually is"
-          />
-
-          {/* Part one — partner types */}
-          <ul className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {partnerTypes.map((p, i) => (
-              <Reveal key={p.id} index={i} as="li">
-                <div className="h-full rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/60 p-6">
-                  <h3 className="font-heading text-base font-bold uppercase tracking-[0.08em] text-white">
-                    {p.partner}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-mist">{p.detail}</p>
-                </div>
-              </Reveal>
-            ))}
-          </ul>
-
-          {/* Technology partners — data licences, deliberately not in the grid */}
-          <Reveal className="mt-4">
-            <div className="rounded-[var(--radius-panel)] border border-dashed border-navy-600 bg-navy-950 p-6">
-              <h3 className="font-heading text-base font-bold uppercase tracking-[0.08em] text-slate-muted">
-                {technologyPartners.partner}
-              </h3>
-              <p className="mt-3 max-w-[80ch] text-sm leading-relaxed text-mist">
-                {technologyPartners.detail}
-              </p>
-              <SourceLine className="mt-4" source={technologyPartners.note} />
-            </div>
-          </Reveal>
-
-          {/* Part two — commissioning context */}
-          <Reveal className="mt-12">
-            <div className="panel-slate p-7">
-              <p className="eyebrow text-slate-muted">{commissioningContext.eyebrow}</p>
-              <h3 className="mt-4 font-heading text-xl font-bold text-white">
-                {commissioningContext.title}
-              </h3>
-              <p className="mt-6 font-display text-[clamp(2.5rem,6vw,4rem)] leading-none text-mist">
-                {commissioningContext.count}
-                <span className="ml-3 font-heading text-base font-semibold text-slate-muted">
-                  {commissioningContext.of}
-                </span>
-              </p>
-              <p className="measure mt-4 text-sm leading-relaxed text-mist">
-                {commissioningContext.body}
-              </p>
-              <p className="measure mt-3 text-[12px] leading-relaxed text-slate-muted">
-                {commissioningContext.disclaimer}
-              </p>
-            </div>
-          </Reveal>
-
-          {/* Part three — how a partnership starts */}
-          <div className="mt-12">
-            <h3 className="font-heading text-xl font-bold text-white">
-              How a partnership starts
-            </h3>
+          {/* How a partnership starts */}
+          <div className="mt-14">
+            <h3 className="font-heading text-xl font-bold">How a partnership starts</h3>
             <ol className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               {partnershipSteps.map((step, i) => (
                 <Reveal key={step.id} index={i} as="li">
@@ -286,11 +394,23 @@ function AboutPage() {
               </aside>
             </Reveal>
           </div>
+
+          {/* The strapline, at display scale. orange-700 is the only orange
+              that carries text on the cream — 4.1:1, large text only, which
+              this clears at 26px+. */}
+          <Reveal className="mt-14">
+            <p className="heading-tight text-balance font-heading text-[clamp(1.5rem,3.2vw,2.25rem)] font-extrabold text-orange-700">
+              {whyPartner.strapline}
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* 7 · Two teasers */}
-      <section aria-label="Where to go next" className="border-t border-navy-700 bg-navy-950">
+      {/* ── 5 · Where to go next, and the page's single orange action ──────
+          The two teasers merged into the closing band rather than sitting in
+          their own navy-950 strip above it: that put two dark sections back to
+          back for no reason once section 4 turned cream. */}
+      <section aria-labelledby="about-cta-heading" className="border-t border-navy-700 bg-navy-950">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-20">
           <ul className="grid gap-6 lg:grid-cols-2">
             {teasers.map((teaser, i) => (
@@ -309,13 +429,8 @@ function AboutPage() {
               </Reveal>
             ))}
           </ul>
-        </div>
-      </section>
 
-      {/* 8 · Closing — the page's single orange action */}
-      <section aria-labelledby="about-cta-heading" className="border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
-          <Reveal>
+          <Reveal className="mt-14 border-t border-navy-700 pt-12">
             <h2
               id="about-cta-heading"
               className="heading-tight text-balance text-[clamp(1.75rem,3.4vw,3rem)] font-bold text-white"
@@ -332,9 +447,10 @@ function AboutPage() {
             </p>
             <PreReleaseBadge className="mt-8" />
             <div className="mt-5 flex flex-wrap items-center gap-4">
+              {/* The client's own CTA wording, in place of "Register Here". */}
               <Button variant="primary" asChild>
                 <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
-                  Register Here
+                  {whyPartner.cta}
                 </Link>
               </Button>
               <Button variant="secondary" asChild withArrow={false}>
