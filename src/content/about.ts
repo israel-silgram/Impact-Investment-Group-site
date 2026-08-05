@@ -139,11 +139,12 @@ export interface Director {
  *     with Jonathan whether it should read £ — it is the only currency on the
  *     page and a reader will notice.
  *
- * NO PORTRAITS YET. `portrait` is wired and DirectorCard renders a photograph
- * the moment one is set; until then it falls back to initials in a navy circle
- * with a teal ring, never a stock face. The old production repo's `public/`
- * folder has no team photographs in it — they are most likely in its
- * `src/assets`. Drop the files into `public/images/team/` and set `portrait`.
+ * PORTRAITS. Supplied as 4096 × 4096 PNGs, already cut to a circle on a
+ * transparent ground and already black and white. Each was trimmed to its alpha
+ * bounds — otherwise the transparent margin would shrink the face inside the
+ * ring — squared, resized to 400px and saved as WebP with its alpha intact.
+ * 11.8 MB of PNG became 62 KB. The initials fallback in DirectorCard stays in
+ * place for anyone added later without a photograph.
  *
  * Israel leads: his card is full width above the other four, at a larger size,
  * with the only orange accent on the page. That is the "big dog" treatment,
@@ -152,6 +153,7 @@ export interface Director {
 export const team: Director[] = [
   {
     name: "Israel Silgram",
+    portrait: "/images/team/israel-silgram.webp",
     role: "Impact Director",
     initials: "IS",
     icon: "HandHeart",
@@ -165,6 +167,7 @@ export const team: Director[] = [
   },
   {
     name: "Maria Avallone",
+    portrait: "/images/team/maria-avallone.webp",
     role: "Asset Manager",
     initials: "MA",
     icon: "House",
@@ -175,6 +178,7 @@ export const team: Director[] = [
   },
   {
     name: "Dr Jonathan Elton",
+    portrait: "/images/team/jonathan-elton.webp",
     role: "Chief Investment Officer",
     initials: "JE",
     icon: "HandCoins",
@@ -185,6 +189,7 @@ export const team: Director[] = [
   },
   {
     name: "Callum Saxon",
+    portrait: "/images/team/callum-saxon.webp",
     role: "Chief Technology Officer",
     initials: "CS",
     icon: "BrainCircuit",
@@ -196,6 +201,7 @@ export const team: Director[] = [
   },
   {
     name: "Shahab Jamali",
+    portrait: "/images/team/shahab-jamali.webp",
     role: "Software Engineer & AI Specialist",
     initials: "SJ",
     icon: "Sparkles",
@@ -399,3 +405,54 @@ export const problemHeading = "A safe home is out of reach for hundreds of thous
 export const aboutHeroImage = {
   caption: "Illustrative image",
 };
+
+/**
+ * Short-form versions of the four sections.
+ *
+ * The client's full paragraphs are still above and unchanged — these are what
+ * the page renders. Each is an array of segments so individual words can be
+ * emphasised: a bare string is body copy, `{ t, em: "ink" }` is bold in the
+ * section's strongest text colour, `{ t, em: "accent" }` is bold orange.
+ *
+ * Written as data rather than as markup so the emphasis lives with the copy.
+ * If a sentence changes, the bolding changes with it in the same place.
+ */
+export type Seg = string | { t: string; em: "ink" | "accent" };
+
+export const summaries: Record<string, Seg[]> = {
+  whoWeAre: [
+    "We connect ",
+    { t: "investors, landlords and developers", em: "ink" },
+    " with ",
+    { t: "councils, housing associations and care providers", em: "ink" },
+    " — and turn that into ",
+    { t: "safe, suitable homes", em: "accent" },
+    " across the UK.",
+  ],
+  whyWeExist: [
+    "Every organisation holds part of the picture. ",
+    { t: "Almost none of it connects.", em: "accent" },
+    " We bring them together, grow the supply of suitable housing, and make sure investment follows ",
+    { t: "genuine local need", em: "ink" },
+    ".",
+  ],
+  whatWeDo: [
+    "We find the demand, source and match the property, bring the investment, and connect housing, care and support. Our ",
+    { t: "AI platform", em: "accent" },
+    " will let partners see demand, list property and build the partnerships that deliver ",
+    { t: "more homes, faster", em: "ink" },
+    ".",
+  ],
+  whyPartner: [
+    { t: "30+ years", em: "accent" },
+    " across property, housing, care and support. Not an estate agency — a ",
+    { t: "national network", em: "ink" },
+    " built for measurable social impact and responsible investment.",
+  ],
+};
+
+/** One accent per figure card, so the row is not four identical blue boxes. */
+export const figureAccents = ["orange", "teal", "white", "teal"] as const;
+
+/** And one per company in the chain. */
+export const chainAccents = ["teal", "orange", "teal"] as const;

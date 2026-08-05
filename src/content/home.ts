@@ -98,7 +98,15 @@ export const purposeStats: PurposeStat[] = [
 export const purposeStatsNote =
   "These figures measure overlapping populations and are not cumulative.";
 
-/** Rendered literally until the client supplies the wording. Do not fill in. */
+/*
+ * The AI statement placeholder is no longer rendered. It ran as a dashed chip
+ * on the foot rule of Our Solution and was removed at Callum's request — a
+ * visible TBC on a live page reads as an unfinished site rather than as a note
+ * to ourselves.
+ *
+ * The wording is still outstanding from the client. When it lands it belongs in
+ * Our Solution, and the export below is what to fill in:
+ */
 export const aiStatementPlaceholder = "[AI-DRIVEN PLATFORM STATEMENT — TBC]";
 
 /*

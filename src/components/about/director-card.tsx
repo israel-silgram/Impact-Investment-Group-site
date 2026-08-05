@@ -74,8 +74,8 @@ export function DirectorCard({
         "shadow-[0_1px_2px_rgba(0,17,43,0.05),0_10px_30px_-18px_rgba(0,17,43,0.25)]",
         orange && "border-l-4 border-l-orange-600",
         lead
-          ? "gap-6 p-7 sm:flex-row sm:items-start sm:gap-8 sm:p-8"
-          : "items-center gap-4 p-6 text-center",
+          ? "gap-5 p-5 sm:flex-row sm:items-start sm:gap-6"
+          : "items-center gap-3 p-4 text-center",
         className,
       )}
     >
@@ -88,7 +88,7 @@ export function DirectorCard({
           height={224}
           className={cn(
             "shrink-0 rounded-full object-cover ring-2",
-            lead ? "size-28" : "size-20",
+            lead ? "size-20" : "size-14",
             ring,
           )}
         />
@@ -97,7 +97,7 @@ export function DirectorCard({
           aria-hidden="true"
           className={cn(
             "grid shrink-0 place-items-center rounded-full bg-white font-heading font-bold text-navy-900 ring-2",
-            lead ? "size-28 text-3xl" : "size-20 text-2xl",
+            lead ? "size-20 text-2xl" : "size-14 text-lg",
             ring,
           )}
         >
@@ -114,17 +114,17 @@ export function DirectorCard({
             className={cn(
               "grid place-items-center rounded-full bg-white",
               "border border-[color-mix(in_oklab,var(--color-navy-900)_18%,transparent)]",
-              lead ? "mb-4 size-11" : "mb-3 size-10",
+              lead ? "mb-3 size-9" : "mb-2.5 size-8",
             )}
           >
-            <Icon className={cn(lead ? "size-5" : "size-[18px]", glyph)} strokeWidth={1.5} />
+            <Icon className={cn(lead ? "size-4" : "size-[15px]", glyph)} strokeWidth={1.5} />
           </span>
         ) : null}
 
         <h3
           className={cn(
             "font-heading font-bold text-navy-900",
-            lead ? "text-xl" : "text-base",
+            lead ? "text-lg" : "text-[14px]",
           )}
         >
           {director.name}
@@ -132,25 +132,25 @@ export function DirectorCard({
         {/* teal-600 at 4.7:1. Israel's is teal too — orange is 4.1:1 here and
             fails at this size, and his card is already carrying the accent in
             three places that have no contrast floor. */}
-        <p className="mt-1 text-sm font-semibold text-teal-600">{director.role}</p>
+        <p className="mt-0.5 text-[12.5px] font-semibold text-teal-600">{director.role}</p>
 
         {lead && director.bio ? (
-          <p className="mt-4 max-w-[70ch] text-sm leading-relaxed text-slate-ink">{director.bio}</p>
+          <p className="mt-3 max-w-[70ch] text-[13px] leading-relaxed text-slate-ink">{director.bio}</p>
         ) : null}
 
         {director.credentials?.length ? (
-          <ul className={cn("mt-4 flex flex-col gap-1.5", !lead && "items-center")}>
+          <ul className={cn("mt-3 flex flex-col gap-1", !lead && "items-center")}>
             {director.credentials.map((line) => (
               <li
                 key={line}
                 className={cn(
-                  "flex gap-2 text-[13px] leading-[1.5] text-slate-ink",
+                  "flex gap-2 text-[12px] leading-[1.45] text-slate-ink",
                   !lead && "justify-center text-center",
                 )}
               >
                 <span
                   aria-hidden="true"
-                  className={cn("mt-[7px] size-[6px] shrink-0 rounded-full", marker)}
+                  className={cn("mt-[6px] size-[5px] shrink-0 rounded-full", marker)}
                 />
                 <span>{line}</span>
               </li>

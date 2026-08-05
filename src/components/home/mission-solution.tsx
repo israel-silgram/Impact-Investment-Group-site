@@ -6,7 +6,6 @@ import type { LucideIcon } from "lucide-react";
 import { IconCircle } from "@/components/ui/icon-circle";
 import { Reveal } from "@/components/ui/reveal";
 import {
-  aiStatementPlaceholder,
   challengeCopy,
   impactProof,
   imagery,
@@ -594,9 +593,6 @@ export function MissionSolution() {
                     >
                       {solutionCopy.deliveryLink}
                     </Link>
-                  </span>
-                  <span className="rounded-full border border-dashed px-2.5 py-1 font-heading text-[10.5px] font-bold uppercase tracking-[0.06em]">
-                    {aiStatementPlaceholder}
                   </span>
                 </p>
               </div>
