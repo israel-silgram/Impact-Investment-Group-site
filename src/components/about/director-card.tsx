@@ -16,9 +16,11 @@ const icon = (name?: string): LucideIcon =>
  *
  * ── Why every colour here is written out longhand ──────────────────────────
  *
- * These cards are cream but the section around them is navy, so `.section-light`
- * never applies and none of its automatic remapping happens. Every value has to
- * be stated, and stated against the CREAM, not the navy. From the contrast
+ * The card is cream and sits on the cream About page. Every colour is stated
+ * longhand rather than left to `.section-light`, because these cards also have
+ * to survive being dropped on a navy section — the homepage may yet want them.
+ * All of it is measured against the CREAM, which is the harsher of the two
+ * grounds. From the contrast
  * table in CLAUDE.md, measured against #f7f1e6:
  *
  *   navy-900    16.8:1  ✓ names
@@ -63,10 +65,13 @@ export function DirectorCard({
   return (
     <article
       className={cn(
-        "flex h-full flex-col rounded-[var(--radius-panel)] bg-mist-bg",
-        /* A hairline in navy at 18% — the same ring weight the brand system
-           gives icons on cream, so the card edge and the icon edges agree. */
-        "border border-[color-mix(in_oklab,var(--color-navy-900)_18%,transparent)]",
+        "flex h-full flex-col rounded-2xl bg-cream-card",
+        /* cream-card (#efe6d6), not the page cream (#f7f1e6): the About page
+           is now one continuous cream ground, so a card in the same cream as
+           the page behind it would have no edge at all. One step darker plus a
+           navy hairline is what makes it read as a card. */
+        "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
+        "shadow-[0_1px_2px_rgba(0,17,43,0.05),0_10px_30px_-18px_rgba(0,17,43,0.25)]",
         orange && "border-l-4 border-l-orange-600",
         lead
           ? "gap-6 p-7 sm:flex-row sm:items-start sm:gap-8 sm:p-8"
@@ -91,7 +96,7 @@ export function DirectorCard({
         <span
           aria-hidden="true"
           className={cn(
-            "grid shrink-0 place-items-center rounded-full bg-cream-card font-heading font-bold text-navy-900 ring-2",
+            "grid shrink-0 place-items-center rounded-full bg-white font-heading font-bold text-navy-900 ring-2",
             lead ? "size-28 text-3xl" : "size-20 text-2xl",
             ring,
           )}

@@ -314,3 +314,88 @@ export const teasers = [
     to: "/platform" as const,
   },
 ];
+
+/*
+ * Blocks lifted from the old production About page (iip-web) so the page keeps
+ * the material that only lived there. Copy is that site's, verbatim.
+ */
+
+/** The three companies, worded as the old site words them — shorter. */
+export const accountableChain = [
+  {
+    id: "iig",
+    number: "1.",
+    name: "Impact Investment Group",
+    body: "Sources and packages every deal, and operates the platform.",
+  },
+  {
+    id: "rhema",
+    number: "2.",
+    name: "Rhema Social Impact Group",
+    body: "Holds the head lease — a 5 year+ FRI, CPI or internal repairing lease — and under-leases each home to a UK Registered Provider.",
+  },
+  {
+    id: "elevate",
+    number: "3.",
+    name: "Elevate Supported Living",
+    body: "Delivers the care and support, and runs the human allocation gate at the centre of every placement.",
+    qualifier: "Care Quality Commission registration is currently in progress.",
+  },
+];
+
+/** Both paragraphs are compliance text. Verbatim from the old site. */
+export const chainNotices = [
+  "The Impact Investment Platform provides property sourcing, deal packaging and managed investment services, not financial, legal, tax, or mortgage advice. Investing into property on the platform is also a direct investment into the lives of the people housed by Elevate Supported Living.",
+  "Impact Investment Group is not authorised or regulated by the Financial Conduct Authority (FCA), and the platform is not a Collective Investment Scheme. Take independent professional advice before you invest.",
+];
+
+export const straplines = [
+  "Building Homes · Changing Lives · Generating Impact.",
+  "More Than Property · An Investment in Lives",
+];
+
+/**
+ * The four published figures, with their sources. Every one carries a live
+ * link to the publication it came from — that is the whole point of the block
+ * and no figure may appear here without one.
+ */
+export const problemFigures = [
+  {
+    id: "children-ta",
+    kind: "Sourced figure",
+    value: "176,130",
+    label: "children in temporary accommodation in England",
+    source: "gov.uk · Statutory homelessness in England: Oct–Dec 2025 · at 31 December 2025",
+    href: "https://www.gov.uk/government/statistics/statutory-homelessness-in-england-october-to-december-2025/statutory-homelessness-in-england-october-to-december-2025",
+  },
+  {
+    id: "duty",
+    kind: "Sourced figure",
+    value: "330,410",
+    label: "households owed a homelessness duty in England, 2024–25",
+    source: "gov.uk · Statutory homelessness in England: financial year 2024-25",
+    href: "https://www.gov.uk/government/statistics/statutory-homelessness-in-england-financial-year-2024-25/statutory-homelessness-in-england-financial-year-2024-25",
+  },
+  {
+    id: "nhs-cost",
+    kind: "A cost, not a headcount",
+    value: "£102m / yr",
+    label:
+      "the annual NHS cost of people waiting in hospital for supported housing to be available",
+    source: "Inside Housing · Lack of supported housing places costs NHS £102m per year",
+    href: "https://www.insidehousing.co.uk/news/call-for-government-action-on-supported-housing-as-lack-of-spaces-costs-nhs-102m-per-year-96834",
+  },
+  {
+    id: "2040",
+    kind: "Sourced projection",
+    value: "677,202",
+    label: "supported homes England is projected to need by 2040",
+    source: "National Housing Federation · How much supported housing will we need by 2040?",
+    href: "https://www.housing.org.uk/resources/how-much-supported-housing-will-we-need-by-2040/",
+  },
+];
+
+export const problemHeading = "A safe home is out of reach for hundreds of thousands.";
+export const aboutHeroImage = {
+  caption: "Illustrative image",
+};
