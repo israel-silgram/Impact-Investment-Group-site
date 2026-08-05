@@ -1,0 +1,72 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: "Commit/tag to take src/ and public/ from (blank = this branch)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Escape hatch: build the site content from an older commit while keeping
+      # this branch's build config. Used while main is mid-refactor.
+      - name: Take site content from ${{ inputs.source_ref }}
+        if: inputs.source_ref != ''
+        run: git checkout ${{ inputs.source_ref }} -- src public
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - run: bun install --frozen-lockfile
+
+      # STATIC_BUILD switches vite.config.ts to prerender with no Nitro server.
+      # BASE_PATH is "/<repo>/" for a project site, "/" behind a custom domain.
+      - name: Build static site
+        env:
+          STATIC_BUILD: "true"
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+        run: bun run build
+
+      - name: Rewrite public asset paths, add 404 fallback
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+        run: node scripts/pages-postbuild.mjs dist/client
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/client
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
