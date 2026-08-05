@@ -580,22 +580,22 @@ export const closingCopy = {
   ] satisfies IconPoint[],
 };
 
-/*
- * `demandMapNote` is gone. It read:
+/**
+ * The commissioning-briefs attribution for the demand map.
  *
- *   "Built from published commissioning briefs · 18 of ~296 English local
- *    authorities · their briefs shape what we source, which is not a
- *    partnership, endorsement or approval by any council."
+ * NOT used on the homepage any more: CouncilPanel states the same thing in full
+ * beside the crests it applies to, a few hundred pixels above the map, and
+ * saying it twice on one page added length without adding protection.
  *
- * That is the SAME disclaimer the council panel now carries a few hundred
- * pixels further up the page — see `councilsDisclaimer` in content/trust.ts,
- * which states it in full beside the crests it applies to. Saying it twice on
- * one page added length without adding protection.
+ * It is still REQUIRED on /the-problem, which renders <DemandMap /> with no
+ * council panel anywhere on it. That page is the reason this export exists.
  *
- * ⚠️ It is only safe to have deleted this because CouncilPanel carries it. If
- * the council carousel is ever removed from the homepage, this line has to
- * come back — the claim cannot simply disappear.
+ * ⚠️ Do not delete this again without checking BOTH pages. It was removed once
+ * on the strength of a search that only covered part of the tree, and the
+ * missing export broke the production build.
  */
+export const demandMapNote =
+  "Built from published commissioning briefs · 18 of ~296 English local authorities · their briefs shape what we source, which is not a partnership, endorsement or approval by any council.";
 
 export interface PlatformCapability {
   id: string;
