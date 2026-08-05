@@ -43,8 +43,8 @@ export interface RoleSection {
   icon: string;
   /** One-sentence promise, rendered as the section h2. */
   promise: string;
-  /** Exactly three. */
-  bullets: [string, string, string];
+  /** Exactly three. Each carries its own icon — never a tick. */
+  bullets: [RoleBullet, RoleBullet, RoleBullet];
   portal: PortalState;
   /** Rendered verbatim in slate-muted beneath the bullets. Investors only. */
   riskLine?: string;
@@ -56,6 +56,18 @@ export interface RoleSection {
   compact?: boolean;
   /** Enquiry type this role's closing routes carry. */
   enquiry: "team" | "partner" | "investor";
+}
+
+/**
+ * A role bullet and the icon that carries it. Teal for data, process,
+ * measurement and verification; orange for people, homes and care, and never
+ * more than one orange in a card.
+ */
+export interface RoleBullet {
+  text: string;
+  /** lucide-react icon name, resolved in the component. */
+  icon: string;
+  tone: "teal" | "orange";
 }
 
 export const riskLine =
@@ -70,9 +82,9 @@ export const roleSections: RoleSection[] = [
     icon: "Landmark",
     promise: "Send us the brief, get matched homes.",
     bullets: [
-      "Send us the brief and get matched homes back.",
-      "Placement and support held in one record.",
-      "Reporting your committee will accept.",
+      { text: "Send us the brief and get matched homes back.", icon: "Share2", tone: "teal" },
+      { text: "Placement and support held in one record.", icon: "Database", tone: "teal" },
+      { text: "Reporting your committee will accept.", icon: "ClipboardList", tone: "teal" },
     ],
     portal: {
       state: "brief & matches",
@@ -95,9 +107,13 @@ export const roleSections: RoleSection[] = [
     icon: "Building2",
     promise: "Take the lease, hold the tenancy, see the stock.",
     bullets: [
-      "Lease terms, tenancy and compliance in one record.",
-      "Stock and condition visible across the portfolio.",
-      "Support provider named against every home.",
+      {
+        text: "Lease terms, tenancy and compliance in one record.",
+        icon: "Database",
+        tone: "teal",
+      },
+      { text: "Stock and condition visible across the portfolio.", icon: "House", tone: "teal" },
+      { text: "Support provider named against every home.", icon: "HandHeart", tone: "orange" },
     ],
     terms:
       "Take on block stock with nomination rights built in. The platform sources, underwrites and refurbishes block stock that fits the supported-housing brief, then leases it to your registered provider on a 5 year+ FRI, CPI or internal repairing lease, paid monthly in advance, with nomination rights into the placements pipeline you already run.",
@@ -122,9 +138,13 @@ export const roleSections: RoleSection[] = [
     icon: "HeartHandshake",
     promise: "Placements and rotas in the same place as the home.",
     bullets: [
-      "Placements and rotas in the same place as the home.",
-      "Referral to room with the evidence attached.",
-      "Hours, visits and outcomes recorded against the household.",
+      { text: "Placements and rotas in the same place as the home.", icon: "Clock", tone: "teal" },
+      { text: "Referral to room with the evidence attached.", icon: "ShieldCheck", tone: "teal" },
+      {
+        text: "Hours, visits and outcomes recorded against the household.",
+        icon: "Users",
+        tone: "orange",
+      },
     ],
     terms:
       "Elevate Supported Living delivers the care and support and runs a human allocation gate at the centre of every placement.",
@@ -150,9 +170,17 @@ export const roleSections: RoleSection[] = [
     icon: "CircleDollarSign",
     promise: "Five-year-plus leases. Income and impact, reported.",
     bullets: [
-      "Five-year-plus leases with accountable counterparties.",
-      "Income and impact reported from the same record.",
-      "Sourcing and packaging handled end to end.",
+      {
+        text: "Five-year-plus leases with accountable counterparties.",
+        icon: "ShieldCheck",
+        tone: "teal",
+      },
+      {
+        text: "Income and impact reported from the same record.",
+        icon: "TrendingUp",
+        tone: "teal",
+      },
+      { text: "Sourcing and packaging handled end to end.", icon: "Network", tone: "teal" },
     ],
     terms:
       "Rhema Social Impact Group holds the head lease — a 5 year+ FRI, CPI or internal repairing lease — and under-leases each home to a UK Registered Provider.",
@@ -178,9 +206,17 @@ export const roleSections: RoleSection[] = [
     icon: "Home",
     promise: "Long lease, guaranteed rent, no voids to chase.",
     bullets: [
-      "Long lease held by an accountable counterparty.",
-      "Rent paid whether or not the room is occupied.",
-      "Condition and compliance managed for you.",
+      {
+        text: "Long lease held by an accountable counterparty.",
+        icon: "ShieldCheck",
+        tone: "teal",
+      },
+      {
+        text: "Rent paid whether or not the room is occupied.",
+        icon: "HandCoins",
+        tone: "orange",
+      },
+      { text: "Condition and compliance managed for you.", icon: "ClipboardList", tone: "teal" },
     ],
     portal: {
       state: "lease & rent view",
@@ -200,12 +236,16 @@ export const roleSections: RoleSection[] = [
     number: "06",
     title: "Developers",
     cardLine: "Build to a brief that already has demand behind it",
-    icon: "Construction",
+    icon: "HardHat",
     promise: "Build to a brief that already has demand behind it.",
     bullets: [
-      "Briefs drawn from published commissioning demand.",
-      "Specification agreed before you break ground.",
-      "Lease counterparty identified at design stage.",
+      { text: "Briefs drawn from published commissioning demand.", icon: "MapPin", tone: "orange" },
+      {
+        text: "Specification agreed before you break ground.",
+        icon: "ClipboardList",
+        tone: "teal",
+      },
+      { text: "Lease counterparty identified at design stage.", icon: "Handshake", tone: "teal" },
     ],
     portal: {
       state: "demand briefs",
@@ -228,9 +268,13 @@ export const roleSections: RoleSection[] = [
     icon: "Handshake",
     promise: "Send suitable stock, get a decision quickly.",
     bullets: [
-      "Clear criteria so you know what to send.",
-      "Decisions returned against a stated timescale.",
-      "One point of contact through to completion.",
+      { text: "Clear criteria so you know what to send.", icon: "ClipboardList", tone: "teal" },
+      { text: "Decisions returned against a stated timescale.", icon: "Clock", tone: "teal" },
+      {
+        text: "One point of contact through to completion.",
+        icon: "UserRound",
+        tone: "orange",
+      },
     ],
     portal: {
       state: "submitted stock",
@@ -253,9 +297,13 @@ export const roleSections: RoleSection[] = [
     icon: "Hammer",
     promise: "Conversion work, scheduled through the platform.",
     bullets: [
-      "Scope issued from the property record.",
-      "Work scheduled and tracked to completion.",
-      "Sign-off evidenced against compliance requirements.",
+      { text: "Scope issued from the property record.", icon: "Database", tone: "teal" },
+      { text: "Work scheduled and tracked to completion.", icon: "Clock", tone: "teal" },
+      {
+        text: "Sign-off evidenced against compliance requirements.",
+        icon: "ShieldCheck",
+        tone: "teal",
+      },
     ],
     portal: {
       state: "works schedule",

@@ -1,13 +1,25 @@
+import { cn } from "@/lib/utils";
+
 /**
  * Brand logo lockup — matches the official Impact Investment mark: a split ring
- * (orange upper arc, brand ring lower arc) enclosing a solid house with two
- * figures inside it, one in the brand neutral and one in orange, then the
- * stacked "Impact Investment / Platform" wordmark.
+ * (orange upper arc, neutral lower arc) enclosing an outlined house with a
+ * chimney and two figures inside it — a taller neutral adult on the left, a
+ * shorter orange child on the right — then the stacked "Impact Investment /
+ * Platform" wordmark.
  *
- * On this site the chrome ground is navy, so the navy elements of the official
- * artwork are rendered in white for contrast; the orange is unchanged.
+ * The neutral half of the artwork follows the ground it sits on: white on navy,
+ * navy-900 on cream. White on cream is invisible, so a light section must pass
+ * variant="on-cream". The orange is never substituted or tinted in either.
  */
-export function Logo({ className }: { className?: string }) {
+export function Logo({
+  className,
+  variant = "on-navy",
+}: {
+  className?: string;
+  variant?: "on-navy" | "on-cream";
+}) {
+  const neutral = variant === "on-cream" ? "text-navy-900" : "text-white";
+
   return (
     <span className={className}>
       <span className="flex items-center gap-3">
@@ -26,7 +38,7 @@ export function Logo({ className }: { className?: string }) {
             stroke="currentColor"
             strokeWidth="2.6"
             strokeLinecap="round"
-            className="text-white"
+            className={neutral}
           />
           {/* house — frame in the brand neutral, interior open */}
           <path
@@ -35,14 +47,14 @@ export function Logo({ className }: { className?: string }) {
             strokeWidth="2.4"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-white"
+            className={neutral}
           />
           <path
             d="M20.6 32.5V47.5M43.4 32.5V47.5"
             stroke="currentColor"
             strokeWidth="2.4"
             strokeLinecap="round"
-            className="text-white"
+            className={neutral}
           />
           <path
             d="M41 22.4v-4h3.1v9.4"
@@ -50,14 +62,14 @@ export function Logo({ className }: { className?: string }) {
             strokeWidth="2.2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-white"
+            className={neutral}
           />
           {/* figure one — neutral */}
-          <circle cx="28" cy="34.2" r="2.7" fill="currentColor" className="text-white" />
+          <circle cx="28" cy="34.2" r="2.7" fill="currentColor" className={neutral} />
           <path
             d="M24.2 47.5v-5.4a3.8 3.8 0 0 1 7.6 0v5.4h-7.6Z"
             fill="currentColor"
-            className="text-white"
+            className={neutral}
           />
           {/* figure two — orange */}
           <circle cx="36.4" cy="36.6" r="2.3" fill="currentColor" className="text-orange-500" />
@@ -69,12 +81,19 @@ export function Logo({ className }: { className?: string }) {
         </svg>
 
         <span className="flex flex-col leading-none">
-          <span className="font-heading text-lg font-extrabold tracking-tight text-white sm:text-xl">
+          <span
+            className={cn("font-heading text-lg font-extrabold tracking-tight sm:text-xl", neutral)}
+          >
             Impact <span className="text-orange-500">Investment</span>
           </span>
           <span className="mt-1 flex items-center gap-2">
             <span aria-hidden="true" className="h-px w-4 bg-orange-500 sm:w-6" />
-            <span className="font-heading text-[10px] font-semibold uppercase tracking-[0.34em] text-white sm:text-[11px]">
+            <span
+              className={cn(
+                "font-heading text-[10px] font-semibold uppercase tracking-[0.34em] sm:text-[11px]",
+                neutral,
+              )}
+            >
               Platform
             </span>
             <span aria-hidden="true" className="h-px w-4 bg-orange-500 sm:w-6" />

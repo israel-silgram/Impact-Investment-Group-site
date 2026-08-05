@@ -80,7 +80,8 @@ export function DeliverySpine({ className }: { className?: string }) {
                       aria-hidden="true"
                       className={cn(
                         "grid size-7 place-items-center rounded-full font-heading text-xs font-bold",
-                        orange ? "bg-orange-500 text-white" : "bg-navy-700 text-teal-400",
+                        /* Navy ink on the amber fill: white on orange-500 is 2.6:1. */
+                        orange ? "bg-orange-500 text-navy-950" : "bg-navy-700 text-teal-400",
                       )}
                     >
                       {i + 1}

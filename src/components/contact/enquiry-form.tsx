@@ -2,7 +2,7 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { CalendarClock, Check } from "lucide-react";
+import { CalendarClock, HandHeart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -161,7 +161,8 @@ export function EnquiryForm({
     return (
       <div className="rounded-[var(--radius-panel)] border border-teal-600 bg-teal-950 p-8">
         <span className="grid size-11 place-items-center rounded-full border border-teal-500">
-          <Check aria-hidden="true" className="size-5 text-teal-400" />
+          {/* Affirmation, not a tick — the copy already says "received". */}
+          <HandHeart aria-hidden="true" className="size-5 text-teal-400" />
         </span>
         <h3 className="mt-5 font-heading text-xl font-bold text-white">Enquiry received</h3>
         <p className="measure mt-3 text-sm leading-relaxed text-mist">
@@ -400,11 +401,9 @@ export function EnquiryForm({
           <Button type="submit" variant="primary" disabled={isSubmitting}>
             {isSubmitting
               ? "Sending…"
-              : route === "demo"
-                ? "Book a demo"
-                : route === "waitlist"
-                  ? "Register your interest"
-                  : "Send enquiry"}
+              : route === "waitlist"
+                ? "Register your interest"
+                : "Send enquiry"}
           </Button>
         </div>
         <p className="font-heading text-sm font-semibold text-mist">{config.reply}</p>

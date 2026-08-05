@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- HM Land Registry brand mark — GOV.UK style.
+     Uses the GOV.UK black-on-cream wordmark format with the
+     St Edward's Crown silhouette (simplified, fair-use). Wide
+     2.2:1 viewBox sized for the PoweredBy tile. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 200" width="440" height="200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="HM Land Registry">
+  <!-- Simplified crown silhouette (St Edward's Crown profile) -->
+  <g transform="translate(220 22)" fill="#062151">
+    <!-- base band -->
+    <rect x="-44" y="32" width="88" height="6" rx="1" />
+    <rect x="-44" y="22" width="88" height="6" rx="1" />
+    <!-- arches -->
+    <path d="M-44 22 C -44 -10, -22 -22, 0 -22 C 22 -22, 44 -10, 44 22 Z" fill="#062151" />
+    <!-- orb cross on top -->
+    <circle cx="0" cy="-26" r="5" fill="#062151" />
+    <rect x="-1.5" y="-36" width="3" height="14" fill="#062151" />
+    <rect x="-5" y="-32" width="10" height="3" fill="#062151" />
+    <!-- pearls along the band -->
+    <circle cx="-32" cy="14" r="3" fill="#FBF8F0" />
+    <circle cx="-16" cy="8" r="3" fill="#FBF8F0" />
+    <circle cx="0"   cy="6" r="3" fill="#FBF8F0" />
+    <circle cx="16"  cy="8" r="3" fill="#FBF8F0" />
+    <circle cx="32"  cy="14" r="3" fill="#FBF8F0" />
+  </g>
+  <!-- Wordmark -->
+  <g font-family="'Plus Jakarta Sans', 'Outfit', 'Inter', system-ui, sans-serif" fill="#062151">
+    <text x="220" y="130" text-anchor="middle" font-size="30" font-weight="800" letter-spacing="0.3">HM Land Registry</text>
+    <text x="220" y="160" text-anchor="middle" font-size="11" font-weight="700" fill="#5A6478" letter-spacing="4">GOV.UK</text>
+  </g>
+  <rect x="170" y="172" width="100" height="3" rx="1.5" fill="#062151" />
+</svg>

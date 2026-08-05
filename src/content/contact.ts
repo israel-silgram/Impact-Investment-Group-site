@@ -24,7 +24,7 @@ export interface EnquiryRoute {
 export const enquiryRoutes: EnquiryRoute[] = [
   {
     id: "demo",
-    label: "Book a demo",
+    label: "Talk to the team",
     subline: "A walkthrough of the platform with the team · 30 min",
     reply: "We reply within one working day",
     routedTo: "Platform team",

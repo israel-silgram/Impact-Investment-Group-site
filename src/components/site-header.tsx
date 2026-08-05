@@ -4,8 +4,14 @@ import { Menu, X } from "lucide-react";
 
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import { primaryNav } from "@/content/site";
+import { primaryNav, registerRoute } from "@/content/site";
 import { cn } from "@/lib/utils";
+
+/**
+ * The platform itself is not open yet, so "Log in" lands on the same
+ * registration route until a real sign-in destination exists.
+ */
+const loginSearch = { enquiry: "waitlist", type: "waitlist" } as const;
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = React.useState(false);
@@ -33,7 +39,6 @@ export function SiteHeader() {
       window.removeEventListener("resize", onScroll);
     };
   }, []);
-
 
   // Close on route change.
   React.useEffect(() => {
@@ -93,17 +98,17 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex min-h-[76px] w-full max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8">
         <Link to="/" className="shrink-0 rounded-md" aria-label="Impact Investment Platform — home">
-          <Logo />
+          <Logo variant="on-navy" />
         </Link>
 
-        <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-8">
+        <nav aria-label="Main" className="hidden xl:block">
+          <ul className="flex items-center gap-7">
             {primaryNav.map((item) => (
               <li key={item.to}>
                 <Link
                   to={item.to}
                   activeOptions={{ exact: true }}
-                  className="nav-underline inline-flex min-h-11 items-center font-heading text-sm font-medium text-mist transition-colors duration-200 hover:text-white"
+                  className="nav-link inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200"
                 >
                   {item.label}
                 </Link>
@@ -112,19 +117,19 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="hidden items-center gap-5 lg:flex">
+        <div className="hidden items-center gap-5 xl:flex">
+          <Button variant="primary" size="sm" asChild withArrow={false}>
+            <Link to={registerRoute.to} search={registerRoute.search}>
+              {registerRoute.label}
+            </Link>
+          </Button>
           <Link
             to="/contact"
-            search={{ enquiry: "waitlist", type: "waitlist" }}
-            className="nav-underline inline-flex min-h-11 items-center font-heading text-sm font-medium text-white"
+            search={loginSearch}
+            className="inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-normal text-mist transition-colors duration-200 hover:text-white"
           >
             Log in
           </Link>
-          <Button variant="primary" size="sm" asChild>
-            <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
-              Book a Demo
-            </Link>
-          </Button>
         </div>
 
         <button
@@ -133,7 +138,7 @@ export function SiteHeader() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="inline-grid size-11 cursor-pointer place-items-center rounded-full border border-navy-600 text-white transition-colors duration-200 hover:bg-navy-800 lg:hidden"
+          className="inline-grid size-11 cursor-pointer place-items-center rounded-full border border-navy-600 text-white transition-colors duration-200 hover:bg-navy-800 xl:hidden"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
@@ -145,10 +150,10 @@ export function SiteHeader() {
           role="dialog"
           aria-modal="true"
           aria-label="Site menu"
-          className="fixed inset-0 top-0 z-50 flex flex-col bg-navy-950 px-5 pb-8 pt-6 lg:hidden"
+          className="fixed inset-0 top-0 z-50 flex flex-col bg-navy-950 px-5 pb-8 pt-6 xl:hidden"
         >
           <div className="flex items-center justify-between">
-            <Logo />
+            <Logo variant="on-navy" />
             <button
               type="button"
               aria-label="Close menu"
@@ -168,36 +173,29 @@ export function SiteHeader() {
                 <li key={item.to}>
                   <Link
                     to={item.to}
-                    className="font-heading text-[28px] font-semibold text-white"
-                    activeProps={{ className: "text-orange-500" }}
+                    activeOptions={{ exact: true }}
+                    className="font-heading text-[28px] font-semibold text-white data-[status=active]:text-orange-500"
                   >
                     {item.label}
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  to="/contact"
-                  className="font-heading text-[28px] font-semibold text-mist"
-                  activeProps={{ className: "text-orange-500" }}
-                >
-                  Contact
-                </Link>
-              </li>
             </ul>
           </nav>
 
-          <div className="flex flex-col gap-3">
-            <Button variant="primary" asChild className="w-full">
-              <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
-                Book a Demo
+          <div className="flex flex-col items-center gap-5">
+            <Button variant="primary" asChild className="w-full" withArrow={false}>
+              <Link to={registerRoute.to} search={registerRoute.search}>
+                {registerRoute.label}
               </Link>
             </Button>
-            <Button variant="secondary" asChild className="w-full" withArrow={false}>
-              <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
-                Register Your Interest
-              </Link>
-            </Button>
+            <Link
+              to="/contact"
+              search={loginSearch}
+              className="inline-flex min-h-11 items-center text-[15px] font-normal text-mist"
+            >
+              Log in
+            </Link>
           </div>
         </div>
       ) : null}

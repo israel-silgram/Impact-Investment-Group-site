@@ -2,6 +2,7 @@ import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Download, FileText, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { IconCircle } from "@/components/ui/icon-circle";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -73,14 +74,12 @@ function PlatformPage() {
             <p className="measure mt-5 text-base leading-relaxed text-mist">{heroSummary.lead}</p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Button variant="primary" asChild>
-                <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
-                  Book a Demo
+                <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
+                  Register Here
                 </Link>
               </Button>
               <Button variant="secondary" asChild withArrow={false}>
-                <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
-                  Register Your Interest
-                </Link>
+                <Link to="/contact">Contact Us</Link>
               </Button>
             </div>
           </Reveal>
@@ -217,8 +216,8 @@ function PlatformPage() {
             </h2>
             <ul className="mt-8 grid gap-6 lg:grid-cols-3">
               {governance.lines.map((line) => (
-                <li key={line} className="flex items-start gap-3">
-                  <ShieldCheck aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-teal-500" />
+                <li key={line} className="flex items-center gap-4">
+                  <IconCircle icon={ShieldCheck} size="brand" tone="teal" />
                   <span className="text-sm leading-relaxed text-mist">{line}</span>
                 </li>
               ))}
@@ -253,14 +252,12 @@ function PlatformPage() {
             <PreReleaseBadge className="mt-8" />
             <div className="mt-5 flex flex-wrap items-center gap-4">
               <Button variant="primary" asChild>
-                <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
-                  Book a Demo
+                <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
+                  Register Here
                 </Link>
               </Button>
               <Button variant="secondary" asChild withArrow={false}>
-                <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
-                  Register Your Interest
-                </Link>
+                <Link to="/contact">Contact Us</Link>
               </Button>
               <Button variant="ghost" asChild>
                 <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>

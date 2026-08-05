@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- postcodes.io brand mark — map-pin icon + wordmark.
+     The open-source UK postcode API. Pin icon riffs on the
+     project's brand identity (map-pin + UK silhouette). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 200" width="440" height="200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="postcodes.io">
+  <!-- Map pin glyph -->
+  <g transform="translate(220 18)">
+    <path d="M0 0 C -22 0, -38 18, -38 40 C -38 64, -8 90, 0 100 C 8 90, 38 64, 38 40 C 38 18, 22 0, 0 0 Z"
+          fill="#062151" />
+    <circle cx="0" cy="38" r="14" fill="#FBF8F0" />
+    <text x="0" y="44" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif"
+          font-size="16" font-weight="800" fill="#062151">PC</text>
+  </g>
+  <!-- Wordmark -->
+  <g font-family="'Plus Jakarta Sans', 'Outfit', 'Inter', system-ui, sans-serif">
+    <text x="220" y="158" text-anchor="middle" font-size="34" font-weight="800" letter-spacing="-0.6">
+      <tspan fill="#062151">postcodes</tspan><tspan fill="#C6613F">.io</tspan>
+    </text>
+    <text x="220" y="183" text-anchor="middle" font-size="10" font-weight="700" fill="#5A6478" letter-spacing="3">ONS-ALIGNED GEOCODER</text>
+  </g>
+</svg>

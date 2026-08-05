@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/ui/section-header";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { Reveal } from "@/components/ui/reveal";
+import { registerRoute } from "@/content/site";
 
 /**
  * Titled shell for routes whose content has not been signed off yet.
@@ -26,14 +27,12 @@ export function PageShell({
         <PreReleaseBadge className="mb-5" />
         <div className="flex flex-wrap items-center gap-4">
           <Button variant="primary" asChild>
-            <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
-              Book a Demo
+            <Link to={registerRoute.to} search={registerRoute.search}>
+              {registerRoute.label}
             </Link>
           </Button>
           <Button variant="secondary" asChild withArrow={false}>
-            <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
-              Register Your Interest
-            </Link>
+            <Link to="/contact">Contact Us</Link>
           </Button>
         </div>
       </Reveal>

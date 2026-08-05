@@ -1,4 +1,4 @@
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { LiveWindow } from "@/components/ui/live-window";
 import { DotMeter } from "@/components/platform/dot-meter";
 import { matchFactors, matchOverall } from "@/content/platform";
@@ -33,7 +33,9 @@ export function MatchPanel({ tabLabel = "Match detail" }: { tabLabel?: string })
             "Model version is stamped on the match.",
           ].map((line) => (
             <li key={line} className="flex items-start gap-2 text-[13px] leading-relaxed text-mist">
-              <Check aria-hidden="true" className="mt-0.5 size-3.5 shrink-0 text-teal-400" />
+              {/* Product-window chrome, not a marketing bullet: the brand's
+                  trusted-source glyph at UI scale, never a bare tick. */}
+              <ShieldCheck aria-hidden="true" className="mt-0.5 size-3.5 shrink-0 text-teal-400" />
               <span>{line}</span>
             </li>
           ))}

@@ -4,12 +4,25 @@ export interface NavItem {
   to: string;
 }
 
+/**
+ * Confirmed navigation. There is deliberately no Homepage item — the logo is
+ * the home link. "Register Here" and "Log in" are chrome, not nav items, and
+ * live in the header itself.
+ */
 export const primaryNav: NavItem[] = [
+  { label: "About Us", to: "/about" },
+  { label: "Our Services", to: "/platform" },
   { label: "The Problem", to: "/the-problem" },
-  { label: "Our Solutions", to: "/solutions" },
-  { label: "The Platform", to: "/platform" },
-  { label: "About", to: "/about" },
+  { label: "The Solution", to: "/solutions" },
+  { label: "Contact Us", to: "/contact" },
 ];
+
+/** Where every "Register Here" action points. One destination, one label. */
+export const registerRoute = {
+  label: "Register Here",
+  to: "/contact",
+  search: { enquiry: "waitlist", type: "waitlist" },
+} as const;
 
 export const siteName = "Impact Investment Platform";
 
@@ -27,17 +40,18 @@ export const contactDetails = {
   hours: "Mon–Fri, 9–5",
 } as const;
 
+/** Same labels as the header, so the two never drift apart. */
 export const footerSiteLinks: NavItem[] = [
+  { label: "About Us", to: "/about" },
+  { label: "Our Services", to: "/platform" },
   { label: "The Problem", to: "/the-problem" },
-  { label: "Our Solutions", to: "/solutions" },
-  { label: "The Platform", to: "/platform" },
-  { label: "About", to: "/about" },
-  { label: "Contact", to: "/contact" },
+  { label: "The Solution", to: "/solutions" },
+  { label: "Contact Us", to: "/contact" },
 ];
 
 /** Each deep-links to /contact with the enquiry type pre-selected. */
 export const contactRoutes: { label: string; enquiry: string }[] = [
-  { label: "Book a demo", enquiry: "demo" },
+  { label: "Talk to the team", enquiry: "demo" },
   { label: "Register your interest", enquiry: "waitlist" },
   { label: "Become a partner", enquiry: "partner" },
   { label: "Investor enquiry", enquiry: "investor" },

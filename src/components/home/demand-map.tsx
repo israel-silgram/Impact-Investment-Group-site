@@ -1,6 +1,4 @@
-import { geoCentroid, geoMercator } from "d3-geo";
 import * as React from "react";
-import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 import { SourceLine } from "@/components/ui/source-line";
 import {
@@ -10,260 +8,330 @@ import {
 } from "@/content/demand";
 import englandLad from "@/data/england-lad.json";
 import { cn } from "@/lib/utils";
+import {
+  buildDotField,
+  buildHubs,
+  buildLinks,
+  HEIGHT,
+  pathFor,
+  SWEEPS,
+  WIDTH,
+  type DotField,
+} from "./demand-map-field";
 
 /**
- * DemandMap — England drawn from real local-authority boundaries (2013 LAD
- * GeoJSON, cached in src/data/england-lad.json and filtered to LAD13CD "E*"),
- * projected with geoMercator. The 18 commissioning authorities are highlighted
- * and carry a pulsing orange node at their centroid. Inline SVG only.
+ * DemandMap — the whole UK as a luminous dot field, with the eighteen English
+ * commissioning authorities carrying data-sized hubs.
+ *
+ * The dot field is a canvas: ~7,000 circles is well past the point where SVG
+ * stops being sensible. Everything interactive stays in SVG on top of it —
+ * transparent local-authority polygons as hit targets — so hover, selection,
+ * the filters and both dropdowns behave exactly as they did before.
  */
 
-type LadFeature = {
+/** Sampled from the mock-up rather than estimated. */
+const DOT_BASE = [0x00, 0x1d, 0x5b] as const;
+const DOT_HOT = [0xd4, 0xff, 0xff] as const;
+
+interface LadFeature {
   type: "Feature";
   properties: { LAD13CD: string; LAD13NM: string };
-  geometry: { type: "Polygon" | "MultiPolygon"; coordinates: number[][][] | number[][][][] };
-};
-
-const COLLECTION = englandLad as unknown as {
-  type: "FeatureCollection";
-  features: LadFeature[];
-};
-
-const WIDTH = 620;
-const HEIGHT = 760;
-
-/** Fit England to the frame, then express the fit as centre + scale for rsm. */
-const fitted = geoMercator()
-  .center([-2, 54])
-  .fitExtent(
-    [
-      [10, 10],
-      [WIDTH - 10, HEIGHT - 10],
-    ],
-    COLLECTION as never,
-  );
-const MAP_SCALE = fitted.scale();
-const MAP_CENTER = (fitted.invert?.([WIDTH / 2, HEIGHT / 2]) ?? [-2, 54]) as [number, number];
-
-/** district name (LAD13NM) → authority id */
-const DISTRICT_TO_AUTHORITY = new Map<string, string>();
-for (const authority of commissioningAuthorities) {
-  for (const district of authority.districts) {
-    DISTRICT_TO_AUTHORITY.set(district, authority.id);
-  }
+  geometry: { type: "Polygon" | "MultiPolygon"; coordinates: unknown };
 }
 
-const FEATURES_BY_DISTRICT = new Map(
-  COLLECTION.features.map((feature) => [feature.properties.LAD13NM, feature]),
-);
+const COLLECTION = englandLad as unknown as { features: LadFeature[] };
 
-/**
- * Area-weighted centroid of each authority's constituent districts, projected
- * to pixel space with the same projection react-simple-maps builds internally
- * and rounded — floating-point drift between server and client renders would
- * otherwise trip a hydration mismatch on the marker transforms.
- */
-const markerProjection = geoMercator()
-  .center(MAP_CENTER)
-  .scale(MAP_SCALE)
-  .translate([WIDTH / 2, HEIGHT / 2]);
+/** district name → authority index, for the interactive hit targets. */
+const DISTRICT_TO_INDEX = new Map<string, number>();
+commissioningAuthorities.forEach((authority, index) => {
+  for (const district of authority.districts) DISTRICT_TO_INDEX.set(district, index);
+});
 
-const CENTROIDS = new Map<string, [number, number]>();
-const UNMATCHED: { authority: string; districts: string[] }[] = [];
-for (const authority of commissioningAuthorities) {
-  const geometries = authority.districts
-    .map((district) => FEATURES_BY_DISTRICT.get(district)?.geometry)
-    .filter((geometry): geometry is LadFeature["geometry"] => Boolean(geometry));
+/** Only the commissioning districts need hit targets; the rest are scenery. */
+const HIT_TARGETS = COLLECTION.features
+  .map((feature) => {
+    const index = DISTRICT_TO_INDEX.get(feature.properties.LAD13NM);
+    if (index === undefined) return null;
+    const d = pathFor(feature as never);
+    if (!d) return null;
+    return { d, index, name: feature.properties.LAD13NM };
+  })
+  .filter((entry): entry is { d: string; index: number; name: string } => entry !== null);
 
-  const missing = authority.districts.filter((district) => !FEATURES_BY_DISTRICT.has(district));
-  if (missing.length > 0) UNMATCHED.push({ authority: authority.name, districts: missing });
+const HUBS = buildHubs();
+const LINKS = buildLinks(HUBS);
 
-  if (geometries.length > 0) {
-    const lonLat = geoCentroid({ type: "GeometryCollection", geometries } as never);
-    const point = markerProjection(lonLat as [number, number]);
-    if (point) {
-      CENTROIDS.set(authority.id, [
-        Math.round(point[0] * 100) / 100,
-        Math.round(point[1] * 100) / 100,
-      ]);
-    }
-  }
-}
-
-
+const UNMATCHED = commissioningAuthorities
+  .filter((authority) => !HUBS.some((hub) => hub.id === authority.id))
+  .map((authority) => authority.name);
 if (UNMATCHED.length > 0) {
-  // Never silently dropped: surfaced so the alias map can be corrected.
-  console.warn(
-    "[DemandMap] commissioning authorities with unmatched 2013 districts:",
-    UNMATCHED.map((entry) => `${entry.authority} → ${entry.districts.join(", ")}`).join(" | "),
-  );
+  // Never silently dropped: surfaced so the district alias map can be fixed.
+  console.warn("[DemandMap] authorities with no matched 2013 districts:", UNMATCHED.join(", "));
+}
+
+const mix = (t: number, channel: 0 | 1 | 2) =>
+  Math.round(DOT_BASE[channel] + (DOT_HOT[channel] - DOT_BASE[channel]) * t);
+
+/** Brightness buckets: a dozen fills rather than seven thousand. */
+const BUCKETS = 12;
+
+/** Landmass brightness before demand is applied — coastline does the drawing. */
+const baseT = (edge: number) => 0.24 + edge * 0.46;
+
+function addDot(paths: Path2D[], x: number, y: number, rawT: number) {
+  const t = Math.max(0, Math.min(1, rawT));
+  const radius = 0.85 + t * 0.55;
+  const path = paths[Math.min(BUCKETS - 1, Math.round(t * (BUCKETS - 1)))]!;
+  path.moveTo(x + radius, y);
+  path.arc(x, y, radius, 0, Math.PI * 2);
 }
 
 export function DemandMap({
   className,
   visibleIds,
+  readout = "beside",
 }: {
   className?: string;
   /** When set, authorities outside this list are dimmed (filter state). */
   visibleIds?: string[];
+  /**
+   * "beside" keeps the readout in its own column — right for the narrow
+   * embeds on /platform and /the-problem. "overlay" lets the map take the
+   * whole column with the readout floating over it, which is the homepage
+   * treatment and the one the mock-up shows.
+   */
+  readout?: "beside" | "overlay";
 }) {
   const [activeId, setActiveId] = React.useState(
     commissioningAuthorities.find((a) => a.id === DEFAULT_AUTHORITY_ID)?.id ??
       commissioningAuthorities[0]!.id,
   );
+  const [field, setField] = React.useState<DotField | null>(null);
+  const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
+  const staticPaths = React.useRef<Path2D[] | null>(null);
+
   const active: CommissioningAuthority =
     commissioningAuthorities.find((a) => a.id === activeId) ?? commissioningAuthorities[0]!;
+  const activeIndex = commissioningAuthorities.indexOf(active);
 
-  const isDimmed = (id: string) => (visibleIds ? !visibleIds.includes(id) : false);
+  const isDimmed = React.useCallback(
+    (id: string) => (visibleIds ? !visibleIds.includes(id) : false),
+    [visibleIds],
+  );
+
+  /** Built once per page load, off the first paint. */
+  React.useEffect(() => {
+    let cancelled = false;
+    const build = () => {
+      if (!cancelled) setField(buildDotField());
+    };
+    const idle = (window as unknown as { requestIdleCallback?: (cb: () => void) => number })
+      .requestIdleCallback;
+    if (idle) idle(build);
+    else window.setTimeout(build, 0);
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const paint = React.useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || !field) return;
+
+    // Back the canvas with the size it is actually displayed at, not the
+    // viewBox. Painting into a 620-wide buffer and letting CSS scale it down
+    // renders every dot sub-pixel, which is what turns the field into a smudge.
+    const rendered = canvas.clientWidth || WIDTH;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const unit = (rendered / WIDTH) * dpr;
+    const width = Math.round(WIDTH * unit);
+    const height = Math.round(HEIGHT * unit);
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.setTransform(unit, 0, 0, unit, 0, 0);
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+    const { data, count } = field;
+
+    // Dots outside every commissioning authority — the large majority — can
+    // never change brightness, so their paths are built once and re-filled.
+    // Only the authority dots are rebuilt when the selection or filter moves,
+    // which is what keeps a hover repaint inside a frame.
+    if (!staticPaths.current) {
+      const built: Path2D[] = Array.from({ length: BUCKETS }, () => new Path2D());
+      for (let i = 0; i < count; i++) {
+        const offset = i * 4;
+        if (data[offset + 3]! >= 0) continue;
+        addDot(built, data[offset]!, data[offset + 1]!, baseT(data[offset + 2]!));
+      }
+      staticPaths.current = built;
+    }
+
+    const dynamic: Path2D[] = Array.from({ length: BUCKETS }, () => new Path2D());
+    for (let i = 0; i < count; i++) {
+      const offset = i * 4;
+      const authority = data[offset + 3]!;
+      if (authority < 0) continue;
+
+      let t = baseT(data[offset + 2]!);
+      const item = commissioningAuthorities[authority]!;
+      if (isDimmed(item.id)) {
+        t *= 0.45;
+      } else {
+        t += 0.16 + (item.intensity / 100) * 0.3;
+        if (authority === activeIndex) t += 0.24;
+      }
+      addDot(dynamic, data[offset]!, data[offset + 1]!, t);
+    }
+
+    for (let b = 0; b < BUCKETS; b++) {
+      const t = b / (BUCKETS - 1);
+      ctx.fillStyle = `rgba(${mix(t, 0)}, ${mix(t, 1)}, ${mix(t, 2)}, ${(0.62 + t * 0.38).toFixed(3)})`;
+      ctx.fill(staticPaths.current[b]!);
+      ctx.fill(dynamic[b]!);
+    }
+  }, [field, activeIndex, isDimmed]);
+
+  React.useEffect(() => {
+    paint();
+  }, [paint]);
+
+  /** Repaint only when the device pixel ratio changes, throttled. */
+  React.useEffect(() => {
+    let timer = 0;
+    const onResize = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(paint, 150);
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [paint]);
+
+  const overlay = readout === "overlay";
 
   return (
     <div
       className={cn(
-        "section-dark grid gap-8 p-5 sm:p-6 md:grid-cols-[minmax(0,1fr)_18rem] md:items-center",
+        overlay ? "relative" : "grid gap-8 md:grid-cols-[minmax(0,1fr)_18rem] md:items-center",
         className,
       )}
     >
-      <div className="relative mx-auto w-full max-w-[26rem]">
-        <div
+      {/* The map floats on the section — no card, no border. Under "overlay" it
+          takes the whole column and the readout rides over it from lg up,
+          dropping beneath on narrower screens so neither has to shrink. */}
+      <div
+        className={cn(
+          "demand-map-ground relative mx-auto w-full",
+          overlay ? "max-w-[34rem] lg:max-w-none" : "max-w-[30rem]",
+        )}
+      >
+        <canvas
+          ref={canvasRef}
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[36px] bg-teal-950/40 blur-2xl"
+          className="pointer-events-none absolute inset-0 size-full"
         />
-        <ComposableMap
-          projection="geoMercator"
-          projectionConfig={{ scale: MAP_SCALE, center: MAP_CENTER }}
-          width={WIDTH}
-          height={HEIGHT}
+
+        <svg
+          viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
           role="group"
-          aria-label="Map of England showing the local authorities whose commissioning briefs shape what we source"
+          aria-label="Map of the United Kingdom. The eighteen English local authorities whose commissioning briefs shape what we source are marked and selectable."
           className="relative w-full"
         >
           <defs>
-            <radialGradient id="demand-glow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="var(--color-orange-400)" stopOpacity="0.75" />
-              <stop offset="100%" stopColor="var(--color-orange-500)" stopOpacity="0" />
+            <radialGradient id="hub-halo">
+              <stop offset="0%" stopColor="#F27216" stopOpacity="0.55" />
+              <stop offset="45%" stopColor="#F27216" stopOpacity="0.18" />
+              <stop offset="100%" stopColor="#F27216" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="hub-inner">
+              <stop offset="0%" stopColor="#FFEFB2" stopOpacity="0.95" />
+              <stop offset="40%" stopColor="#F27216" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#BF4B1B" stopOpacity="0" />
             </radialGradient>
           </defs>
 
-          <Geographies geography={COLLECTION}>
-            {({ geographies }) =>
-              geographies.map((geo) => {
-                const authorityId = DISTRICT_TO_AUTHORITY.get(geo.properties.LAD13NM);
-                const authority = authorityId
-                  ? commissioningAuthorities.find((a) => a.id === authorityId)
-                  : undefined;
+          {/* Wide sweeps — atmosphere, drawn clear of the landmass. */}
+          <g aria-hidden="true" fill="none" stroke="#D4FFFF" strokeWidth="0.75">
+            {SWEEPS.map((d, i) => (
+              <path key={d} d={d} strokeOpacity={i % 2 === 0 ? 0.09 : 0.06} />
+            ))}
+          </g>
 
-                if (!authority) {
-                  return (
-                    <Geography
-                      key={geo.rsmKey}
-                      geography={geo}
-                      tabIndex={-1}
-                      style={{
-                        default: {
-                          fill: "var(--color-navy-800)",
-                          stroke: "var(--color-teal-500)",
-                          strokeOpacity: 0.25,
-                          strokeWidth: 0.5,
-                          outline: "none",
-                        },
-                        hover: {
-                          fill: "var(--color-navy-800)",
-                          stroke: "var(--color-teal-500)",
-                          strokeOpacity: 0.25,
-                          strokeWidth: 0.5,
-                          outline: "none",
-                        },
-                        pressed: {
-                          fill: "var(--color-navy-800)",
-                          stroke: "var(--color-teal-500)",
-                          strokeOpacity: 0.25,
-                          strokeWidth: 0.5,
-                          outline: "none",
-                        },
-                      }}
-                    />
-                  );
-                }
+          {/* Sparse mesh between neighbouring hubs. */}
+          <g aria-hidden="true" stroke="#F27216" strokeWidth="0.5" strokeOpacity="0.15">
+            {LINKS.map(({ a, b }) => (
+              <line key={`${a.id}-${b.id}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} />
+            ))}
+          </g>
 
-                const isActive = authority.id === activeId;
-                const dimmed = isDimmed(authority.id);
-                const select = () => setActiveId(authority.id);
-                const highlight = {
-                  fill: isActive ? "var(--color-teal-900)" : "var(--color-teal-950)",
-                  fillOpacity: dimmed ? 0.35 : 1,
-                  stroke: "var(--color-teal-400)",
-                  strokeOpacity: dimmed ? 0.25 : 0.6,
-                  strokeWidth: 0.6,
-                  outline: "none",
-                  cursor: "pointer",
-                  transition: "fill 200ms var(--ease-out-soft)",
-                } as const;
+          {/* Hubs. Radius carries homes sourced; the glow is not decoration. */}
+          <g aria-hidden="true">
+            {HUBS.map((hub, i) => {
+              const dimmed = isDimmed(hub.id);
+              const isActive = hub.id === activeId;
+              const scale = 1 + hub.weight * 0.9 + (isActive ? 0.35 : 0);
+              return (
+                <g
+                  key={hub.id}
+                  transform={`translate(${hub.x} ${hub.y})`}
+                  opacity={dimmed ? 0.18 : 1}
+                  className={dimmed ? undefined : "demand-hub"}
+                  style={{ animationDelay: `${(i % 7) * 420}ms` }}
+                >
+                  <circle r={14 * scale} fill="url(#hub-halo)" />
+                  <circle r={5 * scale} fill="url(#hub-inner)" />
+                  <circle r={1.5 * scale} fill="#FFEFB2" />
+                </g>
+              );
+            })}
+          </g>
 
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    role="button"
-                    tabIndex={0}
-                    aria-label={`${authority.name} commissioning detail`}
-                    aria-pressed={isActive}
-                    onMouseEnter={select}
-                    onFocus={select}
-                    onClick={select}
-                    onTouchStart={select}
-                    style={{
-                      default: highlight,
-                      hover: { ...highlight, fill: "var(--color-teal-800)" },
-                      pressed: { ...highlight, fill: "var(--color-teal-800)" },
-                    }}
-                  />
-                );
-              })
-            }
-          </Geographies>
-
-          {commissioningAuthorities.map((authority, i) => {
-            const centroid = CENTROIDS.get(authority.id);
-            if (!centroid) return null;
-            const isActive = authority.id === activeId;
-            const dimmed = isDimmed(authority.id);
-            const select = () => setActiveId(authority.id);
-
-            return (
-              <g
-                key={authority.id}
-                transform={`translate(${centroid[0]} ${centroid[1]})`}
-                opacity={dimmed ? 0.22 : 1}
-                onMouseEnter={select}
-                onFocus={select}
-                onClick={select}
-              >
-                {dimmed ? null : <circle r={isActive ? 14 : 11} fill="url(#demand-glow)" />}
-                <circle
-                  r={isActive && !dimmed ? 5.5 : 3.5}
-                  fill={isActive ? "var(--color-orange-400)" : "var(--color-orange-500)"}
-                  className="demand-node"
-                  style={{ animationDelay: `${(i % 6) * 380}ms` }}
-                />
-                {/* Hit area for touch and keyboard; kept tight so adjacent
-                    authorities such as Liverpool and Wirral stay reachable. */}
-                <circle
-                  r="8"
+          {/* Interactive layer: invisible hit targets over the dot field. The
+              point-in-polygon work never runs again after the field is built. */}
+          <g>
+            {HIT_TARGETS.map((target) => {
+              const authority = commissioningAuthorities[target.index]!;
+              const select = () => setActiveId(authority.id);
+              return (
+                <path
+                  key={`${authority.id}-${target.name}`}
+                  d={target.d}
                   fill="transparent"
+                  stroke="none"
                   role="button"
                   tabIndex={0}
                   aria-label={`${authority.name} commissioning detail`}
-                  aria-pressed={isActive}
+                  aria-pressed={authority.id === activeId}
+                  onMouseEnter={select}
+                  onFocus={select}
+                  onClick={select}
+                  onTouchStart={select}
                   className="cursor-pointer outline-none focus-visible:stroke-teal-400 focus-visible:[stroke-width:2]"
-                />
-              </g>
-            );
-          })}
-
-        </ComposableMap>
+                >
+                  <title>{authority.name}</title>
+                </path>
+              );
+            })}
+          </g>
+        </svg>
       </div>
 
-      <aside aria-live="polite" className="panel p-5">
+      <aside
+        aria-live="polite"
+        className={cn(
+          "panel p-5",
+          overlay &&
+            "mt-6 lg:absolute lg:right-0 lg:top-6 lg:mt-0 lg:w-[17rem] lg:bg-navy-800/85 lg:backdrop-blur-sm",
+        )}
+      >
         <p className="eyebrow text-teal-400">Selected area</p>
         <p className="heading-tight mt-2 text-2xl font-bold text-white">{active.name}</p>
 
@@ -275,7 +343,9 @@ export function DemandMap({
             </dd>
           </div>
           <div>
-            <dt className="text-xs uppercase tracking-[0.14em] text-slate-muted">Potential rooms</dt>
+            <dt className="text-xs uppercase tracking-[0.14em] text-slate-muted">
+              Potential rooms
+            </dt>
             <dd className="font-heading text-xl font-bold text-white">
               {active.potentialRooms.toLocaleString("en-GB")}
             </dd>
@@ -298,7 +368,7 @@ export function DemandMap({
 
         <SourceLine
           className="mt-5"
-          source="Boundaries: ONS Local Authority Districts (2013), Open Government Licence · figures are illustrative interface data"
+          source="Boundaries: ONS Local Authority Districts (2013) and Natural Earth, Open Government Licence · figures are illustrative interface data"
         />
       </aside>
     </div>

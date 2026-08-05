@@ -9,6 +9,7 @@ import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { GroupDiagram } from "@/components/about/group-diagram";
 import { DirectorCard } from "@/components/about/director-card";
 import streetDusk from "@/assets/about-street-dusk.jpg";
+import { imagery } from "@/content/home";
 import {
   aboutHero,
   commissioningContext,
@@ -159,14 +160,30 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* 5 · Group structure */}
+      {/* 5 · Group structure — the accountable chain, moved here off the
+          homepage. This is where "who actually delivers this?" gets answered. */}
       <section aria-label="Group structure" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
-          <SectionHeader
-            eyebrow="Group structure"
-            title="Who does what"
-            lead="Three companies, three jobs. The lease, the capital and the care never sit in the same pair of hands."
-          />
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,280px)] lg:items-center lg:gap-12">
+            <SectionHeader
+              eyebrow="Group structure"
+              title="Who does what"
+              lead="Three companies, three jobs. The lease, the capital and the care never sit in the same pair of hands."
+            />
+            {/* The supplied crop has an olive-yellow ground that fights the
+                palette, so it carries a navy scrim and reduced saturation. */}
+            <Reveal className="relative isolate overflow-hidden rounded-xl border border-[color-mix(in_oklab,var(--color-slate)_28%,transparent)]">
+              <img
+                src={imagery.partnership.src}
+                alt={imagery.partnership.alt}
+                width={1024}
+                height={1536}
+                loading="lazy"
+                className="aspect-[4/3] w-full object-cover object-top saturate-[0.3] lg:aspect-[3/4]"
+              />
+              <span aria-hidden="true" className="image-navy-scrim absolute inset-0" />
+            </Reveal>
+          </div>
           <GroupDiagram />
         </div>
       </section>
@@ -316,14 +333,12 @@ function AboutPage() {
             <PreReleaseBadge className="mt-8" />
             <div className="mt-5 flex flex-wrap items-center gap-4">
               <Button variant="primary" asChild>
-                <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
-                  Book a Demo
+                <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
+                  Register Here
                 </Link>
               </Button>
               <Button variant="secondary" asChild withArrow={false}>
-                <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
-                  Register Your Interest
-                </Link>
+                <Link to="/contact">Contact Us</Link>
               </Button>
               <Button variant="ghost" asChild>
                 <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>

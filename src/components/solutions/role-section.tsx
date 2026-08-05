@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, ChevronDown } from "lucide-react";
+import * as Icons from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EmptySlot } from "@/components/ui/empty-slot";
 import { IconCircle } from "@/components/ui/icon-circle";
@@ -9,6 +11,9 @@ import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 import type { RoleSection } from "@/content/solutions";
 import { roleIcons } from "./role-utils";
+
+const bulletIcon = (name: string): LucideIcon =>
+  (Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle;
 
 function PortalPreview({ role }: { role: RoleSection }) {
   const { portal } = role;
@@ -58,11 +63,14 @@ function RoleBody({ role }: { role: RoleSection }) {
       <div className="flex flex-col gap-8">
         <div>
           <h3 className="eyebrow text-slate-muted">What the platform does for me</h3>
-          <ul className="mt-4 flex flex-col gap-3">
+          <ul className="mt-5 flex flex-col gap-4">
             {role.bullets.map((bullet) => (
-              <li key={bullet} className="flex gap-3 text-sm leading-relaxed text-mist">
-                <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-teal-400" />
-                <span>{bullet}</span>
+              <li
+                key={bullet.text}
+                className="flex items-center gap-4 text-sm leading-relaxed text-mist"
+              >
+                <IconCircle icon={bulletIcon(bullet.icon)} size="brand" tone={bullet.tone} />
+                <span>{bullet.text}</span>
               </li>
             ))}
           </ul>

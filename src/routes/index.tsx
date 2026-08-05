@@ -1,40 +1,35 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { HeartHandshake, Home as HomeIcon, Users } from "lucide-react";
 
-import challengeAerial from "@/assets/challenge-estate-aerial.jpg";
-import purposeTerrace from "@/assets/purpose-terrace-morning.jpg";
 import { DemandMap } from "@/components/home/demand-map";
 import { HomeHero } from "@/components/home/hero";
+import { MissionSolution } from "@/components/home/mission-solution";
 import { Button } from "@/components/ui/button";
 import { IconCircle } from "@/components/ui/icon-circle";
+import { LogoMarquee } from "@/components/ui/logo-marquee";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { Reveal } from "@/components/ui/reveal";
-import { SectionHeader } from "@/components/ui/section-header";
-import { SourceLine } from "@/components/ui/source-line";
+import { closingCopy, demandMapCopy, demandMapNote } from "@/content/home";
+import { registerRoute } from "@/content/site";
 import {
-  challengeCopy,
-  closingCopy,
-  connectCopy,
-  demandMapCopy,
-  demandMapNote,
-  purposeCopy,
-  solutionCopy,
-  groupSolutions,
-  bnbSpendPanel,
-  nhsCostPanel,
-  problemBars,
-} from "@/content/home";
+  commissioningCouncils,
+  councilsDisclaimer,
+  councilsEyebrow,
+  dataSources,
+  dataSourcesDisclaimer,
+  dataSourcesEyebrow,
+  openStreetMapAttribution,
+  platformStats,
+  platformStatsSource,
+} from "@/content/trust";
 import { cn } from "@/lib/utils";
 
 /** The single orange action this page exists to get. Hero + closing band only. */
-const PRIMARY_LABEL = "Book a Demo";
+const PRIMARY_LABEL = registerRoute.label;
 
 const icon = (name: string): LucideIcon =>
   (Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle;
-
-const maxBar = Math.max(...problemBars.map((b) => b.value));
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -69,342 +64,279 @@ function HomePage() {
       {/* 1 · Hero */}
       <HomeHero />
 
-      {/* 2 · Our purpose | The problem */}
-      <section aria-labelledby="purpose-heading" className="section-light border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
-          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
-            <div>
-              <SectionHeader
-                id="purpose-heading"
-                eyebrow={purposeCopy.eyebrow}
-                title={purposeCopy.title}
-                className="max-w-3xl"
-              />
-              <p className="measure mt-6 text-base leading-relaxed text-mist">{purposeCopy.body}</p>
+      {/* 2 · Our mission | The problem, flipping to Our solution */}
+      <MissionSolution />
+
+      {/* Commissioning councils — a band, not a numbered section. It sits
+          between the mission panel and the demand map because that is the
+          hinge in the argument: this is who is asking, immediately before the
+          map showing where. navy-800 rather than the navy-900 beneath it, so
+          it reads as its own strip rather than as the top of the map section.
+
+          The disclaimer is not optional and is never shortened. A wall of
+          protected council crests reads as endorsement unless it says
+          otherwise, and it travels with the logos wherever they go. */}
+      <section
+        aria-labelledby="commissioning-councils"
+        className="border-y border-navy-700 bg-navy-800 py-10"
+      >
+        <h2
+          id="commissioning-councils"
+          className="eyebrow px-5 text-center tracking-[0.14em] text-teal-400 sm:px-8"
+        >
+          {councilsEyebrow}
+        </h2>
+
+        <LogoMarquee items={commissioningCouncils} label={councilsEyebrow} className="mt-6" />
+
+        <p className="mx-auto mt-6 max-w-[70ch] px-5 text-center text-[12px] leading-relaxed text-white/60 sm:px-8">
+          {councilsDisclaimer}
+        </p>
+      </section>
+
+      {/* 3 · Live UK demand map — stays dark, the glow needs it.
+
+          Rebuilt to land inside one screen, like the hero and the mission
+          panel. The map is what forced the restructure: its viewBox is
+          620 × 760, so at the two-thirds column it used to sit in it rendered
+          over 1000px tall on its own — more than a screen before anything else
+          was counted. It is now width-capped at 420px, which puts it at ~515px
+          tall, and everything else is arranged around that height rather than
+          stacked beneath it.
+
+          Section padding runs at 32/40 rather than the 96 in CLAUDE.md, and
+          the icon rings are compact rather than brand-size. Both are the same
+          deliberate exceptions the other two sections take to hit one screen.
+
+          `human-insight.jpg` came off this section — there is no height left
+          for a photograph once the map, the four statements and the compliance
+          copy are in. Nothing else was cut: every statement, filter, dropdown,
+          disclaimer and attribution survives. */}
+      <section aria-labelledby="demand-heading" className="border-t border-navy-700 bg-navy-900">
+        <div className="mx-auto w-full max-w-[1440px] px-5 py-8 sm:px-8">
+          {/* Heading left, the platform's own coverage right — the two used to
+              be stacked, which cost 200px for information that reads fine side
+              by side. */}
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-[52ch]">
+              <p className="eyebrow text-teal-400">{demandMapCopy.eyebrow}</p>
+              <h2
+                id="demand-heading"
+                className="heading-tight mt-2 text-balance text-[clamp(1.5rem,2.8vw,1.875rem)] font-bold text-white"
+              >
+                {demandMapCopy.title}
+              </h2>
+              <p className="mt-2 text-[13px] leading-[1.6] text-mist">{demandMapCopy.lead}</p>
             </div>
-            <Reveal>
-              <img
-                src={purposeTerrace}
-                alt="Early morning light on a row of British red-brick terraced houses"
-                width={1024}
-                height={1280}
-                loading="lazy"
-                className="aspect-[4/5] w-full rounded-xl object-cover ring-1 ring-navy-700/20"
-              />
-            </Reveal>
-          </div>
 
-          <div className="mt-20 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
-            <div>
-              <SectionHeader
-                eyebrow={challengeCopy.eyebrow}
-                title={challengeCopy.title}
-                lead={challengeCopy.lead}
-                className="max-w-3xl"
-              />
-
-              <ul className="measure mt-8 flex flex-col gap-3">
-                {challengeCopy.points.map((point) => (
+            {/* A recorded snapshot, not a live feed — see content/trust.ts.
+                The caption says so once beneath the row rather than three
+                times, once per card, which is also more honest. */}
+            <div className="shrink-0 lg:w-[31rem]">
+              <ul className="grid grid-cols-3 gap-2.5">
+                {platformStats.map((stat) => (
                   <li
-                    key={point}
-                    className="flex items-start gap-3 text-base leading-relaxed text-mist"
+                    key={stat.label}
+                    className={cn(
+                      "rounded-xl border p-3",
+                      stat.emphasis ? "border-teal-600 bg-teal-600" : "border-navy-700 bg-navy-800",
+                    )}
                   >
-                    <Icons.Minus
-                      aria-hidden="true"
-                      className="mt-1.5 size-4 shrink-0 text-teal-500"
-                    />
-                    {point}
+                    <span
+                      className={cn(
+                        "block font-heading text-[22px] font-extrabold leading-none tracking-[-0.02em]",
+                        stat.emphasis ? "text-white" : "text-teal-400",
+                      )}
+                    >
+                      {stat.value}
+                    </span>
+                    <span className="mt-1.5 block text-[12px] font-semibold leading-snug text-white">
+                      {stat.label}
+                    </span>
+                    <span className="mt-1 block text-[10px] leading-snug text-white/60">
+                      {stat.detail}
+                    </span>
                   </li>
                 ))}
               </ul>
-              <p className="measure mt-6 text-base leading-relaxed text-mist">
-                {challengeCopy.close}
+              <p className="mt-2 flex items-center gap-1.5 text-[11px] font-semibold text-teal-400">
+                <Icons.Activity aria-hidden="true" className="size-3" />
+                {platformStatsSource}
               </p>
             </div>
-            <Reveal className="lg:self-stretch">
-              <img
-                src={challengeAerial}
-                alt="Aerial view of a dense British suburban housing estate"
-                width={1024}
-                height={1280}
-                loading="lazy"
-                className="h-full max-h-[560px] min-h-[320px] w-full rounded-xl object-cover ring-1 ring-navy-700/20"
-              />
-            </Reveal>
           </div>
 
-          <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:gap-12">
-            <ul className="flex flex-col gap-8">
-              {problemBars.map((bar, i) => (
-                <Reveal as="li" key={bar.id} index={i}>
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <p className="font-heading text-base font-semibold text-mist">{bar.label}</p>
-                    <p
-                      className={cn(
-                        "font-heading text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-none",
-                        bar.tone === "orange" ? "text-orange-500" : "text-white",
-                      )}
-                    >
-                      {bar.display}
-                    </p>
-                  </div>
-                  <div className="mt-3 h-4 w-full overflow-hidden rounded-full bg-navy-800">
-                    <div
-                      className={cn(
-                        "h-full rounded-full",
-                        bar.tone === "orange" ? "bg-orange-500" : "bg-teal-500",
-                      )}
-                      style={{ width: `${Math.round((bar.value / maxBar) * 100)}%` }}
+          {/* The map is capped in WIDTH because that is the only thing that
+              controls its height — the SVG scales off its viewBox. 420px puts
+              it at roughly 515px tall, which is what the rest of the section
+              is budgeted around. */}
+          <div className="mt-5 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)]">
+            <div className="order-2 flex flex-col gap-5 lg:order-1">
+              <ul className="grid gap-4 sm:grid-cols-2">
+                {demandMapCopy.statements.map((statement) => (
+                  <li key={statement.heading} className="flex items-start gap-3">
+                    <IconCircle
+                      icon={icon(statement.icon)}
+                      size="compact"
+                      tone={statement.tone}
+                      className="mt-0.5"
                     />
-                  </div>
-                  <SourceLine className="mt-2" source={bar.source} />
-                </Reveal>
-              ))}
-            </ul>
-
-            <Reveal className="panel flex flex-col justify-center gap-3 p-6">
-              <p className="font-heading text-[clamp(2rem,4vw,3rem)] font-bold leading-none text-orange-500">
-                {nhsCostPanel.value}
-              </p>
-              <p className="font-heading text-base font-semibold text-mist">{nhsCostPanel.label}</p>
-              <SourceLine source={nhsCostPanel.source} />
-
-              <div className="mt-4 border-t border-navy-700 pt-4">
-                <p className="font-heading text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-none text-white">
-                  {bnbSpendPanel.value}
-                </p>
-                <p className="mt-2 font-heading text-sm font-semibold text-mist">
-                  {bnbSpendPanel.label}
-                </p>
-                <SourceLine className="mt-2" source={bnbSpendPanel.source} />
-              </div>
-            </Reveal>
-          </div>
-
-          <div className="mt-12">
-            <Button variant="ghost" asChild>
-              <Link to="/the-problem">See the full picture</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* 3 · Our solution */}
-      <section aria-labelledby="solution-heading" className="border-t border-navy-700 bg-navy-950">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
-          <SectionHeader
-            id="solution-heading"
-            eyebrow={solutionCopy.eyebrow}
-            title={solutionCopy.title}
-            lead={solutionCopy.lead}
-            className="max-w-3xl"
-          />
-
-          <ul className="mt-10 grid gap-3 sm:grid-cols-2">
-            {solutionCopy.points.map((point) => (
-              <li
-                key={point}
-                className="flex items-start gap-3 text-base leading-relaxed text-mist"
-              >
-                <Icons.Check aria-hidden="true" className="mt-1 size-5 shrink-0 text-teal-500" />
-                {point}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* 4 · The accountable chain behind it */}
-      <section aria-labelledby="chain-heading" className="section-light border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
-          <h2 id="chain-heading" className="eyebrow text-teal-400">
-            {solutionCopy.subBlockTitle}
-          </h2>
-
-          <ul className="mt-6 grid gap-6 md:grid-cols-3">
-            {groupSolutions.map((item, i) => {
-              const Icon = icon(item.icon);
-              return (
-                <Reveal as="li" key={item.id} index={i} className="h-full">
-                  <div className="panel flex h-full flex-col gap-4 p-6">
-                    <IconCircle icon={Icon} size="lg" tone="teal" />
-                    <h3 className="heading-tight text-xl font-bold text-white">{item.title}</h3>
-                    <p className="eyebrow text-teal-400">{item.entity}</p>
-                    <p className="text-sm leading-relaxed text-mist">{item.summary}</p>
-                    {item.qualifier ? (
-                      <p className="mt-auto text-[12px] leading-relaxed text-slate-muted">
-                        {item.qualifier}
-                      </p>
-                    ) : null}
-                  </div>
-                </Reveal>
-              );
-            })}
-          </ul>
-        </div>
-      </section>
-
-      {/* 5 · Live UK demand map */}
-      <section aria-labelledby="demand-heading" className="border-t border-navy-700 bg-navy-900">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-24 sm:px-8 lg:py-32">
-          <SectionHeader
-            id="demand-heading"
-            eyebrow={demandMapCopy.eyebrow}
-            title={demandMapCopy.title}
-            lead={demandMapCopy.lead}
-            className="max-w-3xl"
-          />
-
-          <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:items-center">
-            <div className="flex flex-col gap-8">
-              <ul className="flex flex-col gap-6">
-                {[
-                  {
-                    id: "homes",
-                    Icon: HomeIcon,
-                    label: "Providing Homes",
-                    tone: "neutral" as const,
-                  },
-                  {
-                    id: "support",
-                    Icon: HeartHandshake,
-                    label: "Delivering Support",
-                    tone: "orange" as const,
-                  },
-                  {
-                    id: "lives",
-                    Icon: Users,
-                    label: "Transforming Lives",
-                    tone: "neutral" as const,
-                  },
-                ].map(({ id, Icon, label, tone }) => (
-                  <li key={id} className="flex items-center gap-4">
-                    <Icon
-                      aria-hidden="true"
-                      size={40}
-                      strokeWidth={1.5}
-                      className={tone === "orange" ? "text-orange-500" : "text-white"}
-                    />
-                    <span
-                      className={cn(
-                        "heading-tight text-[clamp(1.5rem,3vw,2.25rem)] font-bold",
-                        tone === "orange" ? "text-orange-500" : "text-white",
-                      )}
-                    >
-                      {label}
-                    </span>
+                    <div>
+                      <h3 className="heading-tight text-[14px] font-bold text-white">
+                        {statement.heading}
+                      </h3>
+                      <p className="mt-1 text-[12px] leading-[1.5] text-mist">{statement.body}</p>
+                    </div>
                   </li>
                 ))}
               </ul>
 
               <div>
+                <p className="eyebrow text-slate-muted">{demandMapCopy.filtersLabel}</p>
+                <ul className="mt-2 flex flex-wrap gap-2">
+                  {demandMapCopy.filters.map((filter) => (
+                    <li
+                      key={filter}
+                      className="inline-flex min-h-9 items-center rounded-full border border-teal-500/70 bg-teal-950/40 px-3 text-[12px] font-semibold text-teal-400"
+                    >
+                      {filter}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                {demandMapCopy.selectors.map((sel) => (
+                  <div key={sel.id}>
+                    <label htmlFor={`demand-${sel.id}`} className="eyebrow block text-slate-muted">
+                      {sel.label}
+                    </label>
+                    <select
+                      id={`demand-${sel.id}`}
+                      defaultValue={sel.options[0]}
+                      className="mt-1.5 min-h-11 w-full cursor-pointer rounded-panel border border-teal-600/60 bg-navy-800/60 px-3 font-heading text-[13px] font-semibold text-white transition-colors duration-200 hover:border-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
+                    >
+                      {sel.options.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
+              </div>
+
+              {/* Compliance copy, both of it. Client-approved disclaimer first,
+                  then the ONS/commissioning note. Neither may be trimmed. */}
+              <p className="text-[11px] leading-snug text-slate-muted">
+                {demandMapCopy.selectorNote}
+              </p>
+              <p className="text-[11px] leading-snug text-slate-muted">{demandMapNote}</p>
+
+              <div className="mt-auto">
                 <Button variant="ghost" asChild>
-                  <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
+                  <Link to={registerRoute.to} search={registerRoute.search}>
                     {PRIMARY_LABEL}
                   </Link>
                 </Button>
               </div>
             </div>
 
-            <Reveal>
-              <DemandMap />
+            <Reveal className="order-1 lg:order-2">
+              <DemandMap readout="overlay" />
             </Reveal>
           </div>
 
-          <div className="mt-10 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-            <div>
-              <p className="eyebrow text-slate-muted">{demandMapCopy.filtersLabel}</p>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {demandMapCopy.filters.map((filter) => (
+          {/* Provenance of the map's data, so it sits with what it describes.
+              The eyebrow runs inline with the logos and the two attributions
+              share one line — both saved a row each, and every word of them is
+              still here. ODbL requires the OpenStreetMap credit wherever its
+              data is used. */}
+          <div className="mt-5 border-t border-navy-700 pt-4">
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
+              <h3 className="eyebrow tracking-[0.14em] text-teal-400">{dataSourcesEyebrow}</h3>
+              <ul className="flex flex-wrap items-center justify-center gap-3">
+                {dataSources.map((source) => (
                   <li
-                    key={filter}
-                    className="inline-flex min-h-11 items-center rounded-full border border-teal-500/70 bg-teal-950/40 px-4 text-[13px] font-semibold text-teal-400"
+                    key={source.id}
+                    className="inline-flex h-9 items-center justify-center rounded-lg bg-white px-2.5 py-1.5"
                   >
-                    {filter}
+                    <img
+                      src={source.logo}
+                      alt={`${source.name} — ${source.blurb}`}
+                      width={source.artwork.w}
+                      height={source.artwork.h}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-auto max-w-[7rem] object-contain"
+                    />
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="flex shrink-0 flex-col gap-4 sm:flex-row lg:flex-col">
-              {demandMapCopy.selectors.map((sel) => (
-                <div key={sel.id} className="min-w-[16rem]">
-                  <label htmlFor={`demand-${sel.id}`} className="eyebrow block text-slate-muted">
-                    {sel.label}
-                  </label>
-                  <select
-                    id={`demand-${sel.id}`}
-                    defaultValue={sel.options[0]}
-                    className="mt-2 min-h-11 w-full cursor-pointer rounded-panel border border-teal-600/60 bg-navy-800/60 px-4 font-heading text-sm font-semibold text-white transition-colors duration-200 hover:border-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
-                  >
-                    {sel.options.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              ))}
-            </div>
+
+            <p className="mt-2.5 text-center text-[11px] leading-relaxed text-slate-muted">
+              {dataSourcesDisclaimer} · {openStreetMapAttribution} ·{" "}
+              <Link
+                to="/about"
+                className="font-semibold text-teal-400 transition-colors duration-200 hover:text-white"
+              >
+                Where our data comes from
+              </Link>
+            </p>
           </div>
-
-          <p className="mt-8 text-[12px] leading-snug text-slate-muted">{demandMapNote}</p>
         </div>
       </section>
 
-      {/* 6 · Who we connect — condensed band */}
-      <section aria-labelledby="connect-heading" className="section-light border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-7 sm:px-8 lg:py-12">
-          <h2 id="connect-heading" className="eyebrow text-center text-teal-400">
-            {connectCopy.eyebrow}
-          </h2>
-          <p className="mt-4 text-center font-heading text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-tight text-white">
-            {connectCopy.title}
-          </p>
-          <p className="measure mx-auto mt-6 text-center text-sm leading-relaxed text-mist">
-            {connectCopy.extras}
-          </p>
-          <p className="measure mx-auto mt-3 text-center text-sm leading-relaxed text-slate-muted">
-            {connectCopy.close}
-          </p>
-        </div>
-      </section>
+      {/* 4 · Closing CTA — cream. With Who We Connect gone the page alternates
+          cleanly again: navy hero, cream mission/solution, navy demand map,
+          cream close, navy footer. The orange button is a fill, not text, so it
+          survives on the light ground; everything else re-points to the cream
+          palette.
 
-      {/* 7 · Closing CTA */}
-      <section aria-labelledby="closing-heading" className="border-t border-navy-700 bg-navy-950">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-24 text-center sm:px-8">
+          Halved (~720px → ~370px) without dropping a word. Three changes did
+          it: the headline steps from 56px to 34px on a 26ch measure so it
+          still breaks over two lines; the vision statement sits on a 40rem
+          measure at 15px so it fits two lines instead of three; and the four
+          points run as one centred row of 32px rings rather than a two-column
+          block of 60px ones, which alone was 176px of the old height. Padding
+          drops from 96px to 40/48px. Everything stays centred on one axis. */}
+      <section aria-labelledby="closing-heading" className="section-light border-t border-navy-700">
+        <div className="mx-auto w-full max-w-[1440px] px-5 py-10 text-center sm:px-8 lg:py-12">
           <h2
             id="closing-heading"
-            className="heading-tight mx-auto max-w-4xl text-balance text-[clamp(2rem,5vw,3.5rem)] font-bold text-white"
+            className="heading-tight mx-auto max-w-[26ch] text-balance text-[clamp(1.5rem,3vw,2.125rem)] font-bold"
           >
             {closingCopy.title}
           </h2>
-          <p className="measure mx-auto mt-6 text-base leading-relaxed text-mist">
+          <p className="mx-auto mt-3 max-w-[40rem] text-pretty text-[15px] leading-relaxed text-[color-mix(in_oklab,var(--color-navy-900)_75%,transparent)]">
             {closingCopy.lead}
           </p>
-          <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-x-3 gap-y-2">
+          {/* One centred row. The rings are xs (16px icon in a 32px circle) so
+              four points cost one line instead of four rows. */}
+          <ul className="mx-auto mt-6 flex max-w-4xl flex-wrap items-center justify-center gap-x-7 gap-y-3">
             {closingCopy.points.map((point) => (
-              <li
-                key={point}
-                className="flex items-center gap-2 font-heading text-sm font-semibold text-mist"
-              >
-                <Icons.Check aria-hidden="true" className="size-4 shrink-0 text-teal-500" />
-                {point}
+              <li key={point.text} className="flex items-center gap-2.5">
+                <IconCircle icon={icon(point.icon)} size="xs" tone={point.tone} />
+                <span className="font-heading text-[13px] font-semibold text-navy-900">
+                  {point.text}
+                </span>
               </li>
             ))}
           </ul>
-          <PreReleaseBadge className="mt-10 justify-center" />
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-            <Button variant="primary" size="lg" asChild>
-              <Link to="/contact" search={{ enquiry: "demo", type: "demo" }}>
+          <PreReleaseBadge className="mt-6 justify-center" />
+          {/* size="default" not "lg": 44px instead of 52px. The label stays at
+              16px/600, which is the floor white-on-orange-600 needs to pass. */}
+          <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+            <Button variant="primary" asChild>
+              <Link to={registerRoute.to} search={registerRoute.search}>
                 {PRIMARY_LABEL}
               </Link>
             </Button>
-            <Button variant="secondary" size="lg" asChild withArrow={false}>
-              <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
-                Register Your Interest
-              </Link>
+            <Button variant="secondary" asChild withArrow={false} className="border-teal-600">
+              <Link to="/contact">Contact Us</Link>
             </Button>
-            <Button variant="ghost" size="lg" asChild>
+            <Button variant="ghost" asChild>
               <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
                 Become a Partner
               </Link>

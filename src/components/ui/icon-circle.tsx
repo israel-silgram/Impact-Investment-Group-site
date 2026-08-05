@@ -3,8 +3,14 @@ import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const sizes = {
+  /** Dense tiles where the ring is a marker, not a feature: 16px in 32px. */
+  xs: { box: "size-8", icon: "size-4" },
   sm: { box: "size-10", icon: "size-4" },
+  /** Compact data cards and condensed bullet rows: 20px icon in a 40px ring. */
+  compact: { box: "size-10", icon: "size-5" },
   md: { box: "size-14", icon: "size-5" },
+  /** The brand spec: a 24px icon centred in a 60px circle. */
+  brand: { box: "size-[60px]", icon: "size-6" },
   lg: { box: "size-20", icon: "size-7" },
 } as const;
 

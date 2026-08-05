@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- OpenStreetMap brand mark — magnifier-over-map icon + wordmark.
+     Uses the OSM green palette and a stylised map-grid + magnifier
+     glyph (fair-use, simplified). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 200" width="440" height="200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="OpenStreetMap">
+  <!-- Map + magnifier glyph -->
+  <g transform="translate(220 22)">
+    <!-- folded map background -->
+    <path d="M-44 -6 L -14 -22 L 16 -10 L 46 -22 L 46 50 L 16 62 L -14 50 L -44 62 Z"
+          fill="#7EBC6F" stroke="#3E7C2E" stroke-width="2" stroke-linejoin="round" />
+    <!-- fold lines -->
+    <line x1="-14" y1="-22" x2="-14" y2="50" stroke="#3E7C2E" stroke-width="1.5" />
+    <line x1="16" y1="-10" x2="16" y2="62" stroke="#3E7C2E" stroke-width="1.5" />
+    <!-- road squiggle -->
+    <path d="M-34 30 Q -16 10, 4 22 T 36 14" stroke="#FBF8F0" stroke-width="3" fill="none" />
+    <!-- magnifier -->
+    <circle cx="22" cy="36" r="14" fill="none" stroke="#062151" stroke-width="4" />
+    <line x1="32" y1="46" x2="44" y2="58" stroke="#062151" stroke-width="5" stroke-linecap="round" />
+  </g>
+  <!-- Wordmark -->
+  <g font-family="'Plus Jakarta Sans', 'Outfit', 'Inter', system-ui, sans-serif" fill="#062151">
+    <text x="220" y="146" text-anchor="middle" font-size="28" font-weight="800" letter-spacing="-0.4">
+      <tspan>Open</tspan><tspan fill="#3E7C2E">Street</tspan><tspan>Map</tspan>
+    </text>
+    <text x="220" y="172" text-anchor="middle" font-size="10" font-weight="700" fill="#5A6478" letter-spacing="3">COMMUNITY MAP DATA</text>
+  </g>
+</svg>

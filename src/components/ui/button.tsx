@@ -18,8 +18,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        /* Flat orange-600 fill, never the amber orange-500: white on 500 is
+           2.6:1 and fails, white on 600 is 3.4:1 and passes at 16px semibold.
+           Hover lifts and deepens the shadow rather than lightening the fill. */
         primary:
-          "rounded-full bg-linear-to-r from-orange-400 to-orange-500 px-6 text-white shadow-[var(--shadow-action)] hover:-translate-y-0.5 hover:from-orange-400 hover:to-orange-600 hover:shadow-[0_16px_34px_-12px_var(--color-orange-500)]",
+          "rounded-full bg-orange-600 px-6 text-white shadow-[var(--shadow-action)] hover:-translate-y-0.5 hover:shadow-[0_16px_34px_-12px_var(--color-orange-500)]",
         secondary:
           "rounded-full border border-teal-500 bg-transparent px-6 text-teal-400 hover:bg-teal-950 hover:text-white",
         ghost:
@@ -33,8 +36,8 @@ const buttonVariants = cva(
       },
       size: {
         /* Every button label stays at 16px / weight 600 minimum — white on
-           orange is 3.7:1 and only clears AA at large text. Never shrink these,
-           including on mobile. */
+           orange-600 is 3.4:1 and only clears AA at large text. Never shrink
+           these, including on mobile. */
         default: "min-h-11 px-6 text-base",
         sm: "min-h-11 px-4 text-base",
         lg: "min-h-[52px] px-8 text-base",

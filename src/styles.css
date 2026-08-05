@@ -29,10 +29,17 @@
   --color-navy-700: #0a2a52;
   --color-navy-600: #143c6b;
 
-  /* Orange — the action colour. */
+  /* Orange — the action colour.
+     500 is the approved brand amber sampled from Mock-up 1. White on it is
+     2.6:1 and FAILS, so it is only ever an icon, a fill or a headline word on
+     navy. 600 is the button fill: white on it is 3.4:1, which passes for
+     16px semibold and above. */
   --color-orange-400: #ff7a29;
-  --color-orange-500: #ee4d00;
-  --color-orange-600: #d9430a;
+  --color-orange-500: #ff7a29;
+  --color-orange-600: #e56600;
+  /* The only orange that reads as TEXT on cream: 4.1:1, large text only.
+     500 is 2.3:1 there and 600 is 3.0:1 — both fail. */
+  --color-orange-700: #c25400;
 
   /* Teal — second accent. Muted, never neon. */
   --color-teal-400: #2fbaaa;
@@ -46,10 +53,11 @@
   --color-slate-muted: #7f91ac;
 
   /* Light mode — evidence and detail. Alternated with the navy. */
-  --color-mist-bg: #ebf1f8; /* light section background */
+  --color-mist-bg: #f7f1e6; /* CREAM — light section background */
+  --color-cream-card: #efe6d6; /* cards sitting directly on the cream */
   --color-surface: #ffffff; /* card and content surfaces, only ever on mist-bg */
   --color-slate: #647289; /* borders, rules, small caps, body copy on white cards */
-  --color-slate-ink: #4e5a6e; /* body copy directly on mist-bg — 6.1:1 */
+  --color-slate-ink: #4e5a6e; /* body copy directly on the cream — 6.2:1 */
 
   /* Type */
   --font-display: "Anton", "Barlow", system-ui, sans-serif;
@@ -75,14 +83,18 @@
   --card-foreground: #ffffff;
   --popover: #041c3d;
   --popover-foreground: #ffffff;
-  --primary: #ee4d00;
-  --primary-foreground: #ffffff;
+  --primary: #ff7a29;
+  /* White on the brand amber is 2.6:1. Anything filled with --primary carries
+     navy ink, not white. Orange-filled buttons use --color-orange-600. */
+  --primary-foreground: #00112b;
   --secondary: #06302e;
   --secondary-foreground: #2fbaaa;
   --muted: #041c3d;
   --muted-foreground: #7f91ac;
   --accent: #1e9e8f;
   --accent-foreground: #ffffff;
+  /* Error and validation states only — deliberately not a brand orange, so a
+     failed field never reads as a call to action. */
   --destructive: #d9430a;
   --destructive-foreground: #ffffff;
   --border: #0a2a52;
@@ -95,15 +107,15 @@
   --chart-5: #7f91ac;
   --sidebar: #041c3d;
   --sidebar-foreground: #c6d2e4;
-  --sidebar-primary: #ee4d00;
-  --sidebar-primary-foreground: #ffffff;
+  --sidebar-primary: #ff7a29;
+  --sidebar-primary-foreground: #00112b;
   --sidebar-accent: #0a2a52;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: #0a2a52;
   --sidebar-ring: #2fbaaa;
 
   /* Composite tokens */
-  --gradient-action: linear-gradient(100deg, var(--color-orange-400), var(--color-orange-500));
+  --gradient-action: linear-gradient(100deg, var(--color-orange-500), var(--color-orange-600));
   --gradient-teal-wash: linear-gradient(180deg, var(--color-teal-950), transparent);
   --shadow-panel: 0 24px 60px -28px rgb(0 0 0 / 0.75);
   --shadow-action: 0 10px 26px -12px color-mix(in oklab, var(--color-orange-500) 65%, transparent);
@@ -278,11 +290,126 @@
   animation: node-pulse 2600ms var(--ease-out-soft) infinite;
 }
 
+/* ── Council marquee ────────────────────────────────────────────────────
+ * Animation logic lifted from the production site's `mkt-trust.css` rather
+ * than approximated. The lane is duplicated in the markup, and the advance
+ * is NOT -50%: the track holds 2N items and therefore 2N-1 gaps, so half its
+ * width is one lane plus half a gap — translating by -50% makes the lane jump
+ * backwards by gap/2 every cycle. One lane's true advance is 50% + half a gap.
+ */
+.logo-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+
+.logo-marquee__track {
+  --marquee-gap: clamp(20px, 3vw, 44px);
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: var(--marquee-gap);
+  padding: 6px 0;
+  animation: logo-marquee 40s linear infinite;
+}
+
+@keyframes logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - (var(--marquee-gap) / 2)));
+  }
+}
+
+/* WCAG 2.2.2: motion that starts on its own and runs past five seconds needs
+   a way to stop it. Hover and focus-within are that mechanism. */
+.logo-marquee:hover .logo-marquee__track,
+.logo-marquee:focus-within .logo-marquee__track {
+  animation-play-state: paused;
+}
+
+/* Reduced motion: the lane stops dead and wraps instead. The global backstop
+   below flattens animation-duration to ~0, which would SNAP the marquee to
+   its end state and hide the first lane, so the animation is removed outright
+   and the track resets. */
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee__track {
+    animation: none;
+    transform: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    white-space: normal;
+  }
+  /* The clone lane only exists to make the loop seamless. */
+  .logo-marquee__track [data-clone="true"] {
+    display: none;
+  }
+}
+
+/* Hub pulse on the UK demand map: a narrow opacity swing only — the mock-up
+   breathes, it does not throb. Staggered per hub in the component, and stilled
+   entirely by the reduced-motion block below. */
+@keyframes hub-pulse {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.demand-hub {
+  animation: hub-pulse 3200ms var(--ease-out-soft) infinite;
+}
+
+/* The map floats on the section: no card, no border. The ground lifts from
+   #000D2A under the landmass out to navy-900 at the edges. */
+.demand-map-ground {
+  background-image: radial-gradient(
+    circle at 50% 45%,
+    #000d2a 0%,
+    #000d2a 42%,
+    color-mix(in oklab, #000d2a 55%, var(--color-navy-900)) 68%,
+    var(--color-navy-900) 100%
+  );
+}
+
 @utility reveal {
   opacity: 0;
   &[data-revealed="true"] {
     animation: rise-in var(--duration-reveal) var(--ease-out-soft) both;
     animation-delay: var(--reveal-delay, 0ms);
+  }
+}
+
+/* Primary site navigation: white on navy, orange underline on hover, orange
+   text and underline on the active route. Distinct from nav-underline below,
+   which is teal and belongs to secondary and ghost actions. */
+@utility nav-link {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 2px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    background-color: var(--color-orange-500);
+    transition: transform var(--duration-hover) var(--ease-out-soft);
+  }
+  &:hover::after,
+  &:focus-visible::after {
+    transform: scaleX(1);
+  }
+  &[data-status="active"] {
+    color: var(--color-orange-500);
+  }
+  &[data-status="active"]::after {
+    transform: scaleX(1);
   }
 }
 
@@ -364,14 +491,15 @@
 /* =====================================================================
  * LIGHT SECTIONS
  *
- * Dark navy carries emotion and product. Light grey carries evidence
- * and detail. A section marked `.section-light` sits on mist-bg and
- * re-points the dark palette used inside it onto the light one, so the
- * same components read correctly on both grounds.
+ * Dark navy carries emotion and product. Cream carries evidence and
+ * detail. A section marked `.section-light` sits on the cream mist-bg
+ * and re-points the dark palette used inside it onto the light one, so
+ * the same components read correctly on both grounds.
  *
  * Contrast rules that must not break:
- *   slate (#647289) on mist-bg is 4.29:1 — fails AA for body copy.
- *   Body copy directly on mist-bg is therefore slate-ink (6.1:1).
+ *   slate (#647289) on the cream is 4.33:1 — fails AA for body copy.
+ *   Body copy directly on the cream is therefore slate-ink (6.2:1).
+ *   Orange is never text on the cream (2.3:1) — icons and fills only.
  *   slate is only for body copy on white cards (4.87:1), plus borders,
  *   rules and small caps labels.
  *
@@ -421,6 +549,19 @@
 /* The lighter teals do not hold on a light ground. */
 .section-light :is([class*="text-teal-400"], [class*="text-teal-500"]) {
   color: var(--color-teal-600);
+}
+
+/* The light oranges are 2.3:1 and 3.0:1 on the cream and are never text there,
+   so any 400/500/600 word that lands in a light section falls back to navy ink;
+   the accent survives as icons, borders and fills. orange-700 is deliberately
+   not listed — at 4.1:1 it is the one orange that may carry large text here.
+   Icons and validation errors are exempt too: the first is a permitted accent,
+   the second has to stay distinguishable. */
+.section-light
+  :is([class*="text-orange-4"], [class*="text-orange-5"], [class*="text-orange-6"]):not(
+    svg
+  ):not([role="alert"]) {
+  color: var(--color-navy-900);
 }
 
 /* Body copy sitting on a white card may use slate. */
@@ -583,6 +724,11 @@
 .section-light .section-dark.section-dark [class*="text-mist"] {
   color: var(--color-mist);
 }
+/* Orange is 7.2:1 on navy, so inside a dark island it stays orange — this must
+   outrank the light-section guard that turns orange text to navy ink. */
+.section-light .section-dark.section-dark [class*="text-orange-"] {
+  color: var(--color-orange-500);
+}
 
 /* ---------------------------------------------------------------------------
  * Icon-circle tones
@@ -620,19 +766,21 @@
   color: var(--color-white);
 }
 
-/* On light sections the same tones re-point to their darker, legible values. */
+/* On light sections the same tones re-point to their darker, legible values.
+   The ring is the documented navy hairline — rgba(0,17,43,0.18) — on every
+   tone, so only the glyph carries the accent. */
 .section-light .icon-tone-teal {
-  border-color: color-mix(in oklab, var(--color-teal-600) 45%, transparent);
-  background-color: color-mix(in oklab, var(--color-teal-500) 12%, transparent);
+  border-color: rgb(0 17 43 / 0.18);
+  background-color: color-mix(in oklab, var(--color-teal-500) 10%, transparent);
   color: var(--color-teal-600);
 }
 .section-light .icon-tone-orange {
-  border-color: color-mix(in oklab, var(--color-orange-500) 55%, transparent);
+  border-color: rgb(0 17 43 / 0.18);
   background-color: color-mix(in oklab, var(--color-orange-500) 10%, transparent);
   color: var(--color-orange-600);
 }
 .section-light .icon-tone-slate {
-  border-color: color-mix(in oklab, var(--color-slate) 40%, transparent);
+  border-color: rgb(0 17 43 / 0.18);
   background-color: color-mix(in oklab, var(--color-slate) 10%, transparent);
   color: var(--color-slate);
 }
@@ -645,6 +793,248 @@
   border-color: color-mix(in oklab, var(--color-slate) 30%, transparent);
   background-color: var(--color-white);
   color: var(--color-navy-900);
+}
+
+/* `.band-scrim` and `.band-statement` lived here. They served the full-bleed
+   "From plans on a page to keys in a hand." band at the foot of Our Purpose,
+   which has been removed — that photograph now runs ghosted behind the hero
+   instead, and nothing else on the site used either rule. */
+
+/* Rescue scrim for supplied photography whose background is off-palette. The
+   wash is heaviest top and bottom, where the offending ground dominates, and
+   lightest across the middle band where the subjects are — so the people stay
+   readable while the colour behind them is pulled back towards navy. */
+.image-navy-scrim {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--color-navy-900) 55%, transparent) 0%,
+    color-mix(in oklab, var(--color-navy-900) 20%, transparent) 32%,
+    color-mix(in oklab, var(--color-navy-900) 18%, transparent) 64%,
+    color-mix(in oklab, var(--color-navy-900) 52%, transparent) 100%
+  );
+}
+
+/* The street ghosted behind the hero. Measured, not chosen by eye.
+   `hero-ground-street.webp` is a compressed derivative of `our-purpose-band.png`,
+   which is now the only place that photograph appears.
+
+   The picture runs at 14%. At that strength the veil is no longer carrying
+   contrast — a flat 14% already measures white/62 at 5.99:1 — so it has been
+   lightened to 18/4/36, enough to ground the foot of the section without
+   swallowing the reduction it sits over. Lightest around 38% down, where the
+   opaque photographs sit and nothing has to be read through it.
+
+   Worst case, measured against the brightest pixel of every row of the image:
+     white 13.3:1 · white/62 6.1:1 · orange-500 5.1:1.
+   At 18% those were 11.8 / 5.6 / 4.5, and at 25% 9.7 / 4.9 / 3.7 — all
+   passing, but the orange headline had little room left at the top end. If
+   the opacity goes back up, re-measure rather than assuming. */
+.hero-ground {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--color-navy-900) 18%, transparent) 0%,
+    color-mix(in oklab, var(--color-navy-900) 4%, transparent) 38%,
+    color-mix(in oklab, var(--color-navy-900) 36%, transparent) 100%
+  );
+}
+
+/* The heavy black rules that box the mission panel.
+
+   These have to be their own classes. The .section-light remap turns anything
+   matching bg-navy-* into a white card surface and anything matching
+   border-navy-* into a pale slate rule — so a bar built the obvious way with
+   Tailwind's navy utilities would come out WHITE on the cream, which is the
+   exact opposite of the intent. These names match neither pattern.
+
+   navy-950 rather than #000: it is the darkest token in the palette and reads
+   as black against the cream, without putting a raw hex in a component.
+
+   Two rules only, and deliberately so: the vertical one between the mission
+   and the problem, and the horizontal one under the top row. No left edge, no
+   closing bar at the foot. */
+.panel-rule {
+  background-color: var(--color-navy-950);
+}
+
+.panel-rule-top {
+  border-top: 6px solid var(--color-navy-950);
+}
+
+/* The solution face uses the same black, thinner: a 2px rule above the impact
+   band and a 2px rule under each stage heading. Same reason for living here as
+   the two above — border-navy-* would be rewritten to pale slate. */
+.panel-rule-thin {
+  border-top: 2px solid var(--color-navy-950);
+}
+
+.panel-rule-under {
+  border-bottom: 2px solid var(--color-navy-950);
+}
+
+/* The "See the full picture" control: a black-outlined pill on the cream.
+
+   The border colour is declared here rather than with a border-navy-* utility
+   because the .section-light remap rewrites those to a pale slate rule — the
+   same trap the panel rules hit. Inverting on hover rather than tinting keeps
+   it reading as the deliberate black element it is. */
+.panel-pill {
+  border: 2px solid var(--color-navy-950);
+  color: var(--color-navy-900);
+  transition:
+    background-color var(--duration-hover) var(--ease-out-soft),
+    color var(--duration-hover) var(--ease-out-soft);
+}
+
+.panel-pill:hover {
+  background-color: var(--color-navy-950);
+  color: var(--color-white);
+}
+
+/* The flip plate is a dark photograph sitting inside a cream section, so the
+   .section-light remap must not reach into it — its type is white on navy, not
+   navy on cream. These class names deliberately avoid the substrings that
+   remap matches on ("text-white", "text-teal-400"), which is cheaper and more
+   readable than fighting it on specificity. */
+.flip-plate-eyebrow {
+  color: var(--color-teal-400);
+}
+
+.flip-plate-title {
+  color: var(--color-white);
+}
+
+.flip-plate-hint {
+  color: color-mix(in oklab, var(--color-white) 78%, transparent);
+}
+
+/* THE PANEL TURN — Our Mission | The Problem on one face, Our Solution on the
+   other. A column cascade, not a rotation.
+
+   The panel's blocks leave in reading order and the incoming ones arrive the
+   same way, 85ms apart, so the layout itself performs the change rather than
+   the box it sits in. It replaced a 3D rotateY for three reasons:
+
+     1. No 3D context, so nothing can glitch on a machine without hardware
+        compositing — and no `transform-style: preserve-3d` to be silently
+        flattened by a stray `filter` on an ancestor, which is a real trap:
+        a filter anywhere on the 3D chain kills backface-visibility and the
+        outgoing face shows through mirrored.
+     2. It works at every width. The rotation had to fall back to a plain
+        cross-fade below 1024px, because a panel far taller than it is wide
+        reads as a glitch when it turns. The phone and the desktop now do the
+        same thing.
+     3. It reads as content changing, which is what is actually happening.
+
+   The front face always leaves and returns downward and the back face upward,
+   so the direction stays consistent whichever way you turn it. Both faces
+   occupy the same grid cell, so the panel keeps the height of the taller one
+   and nothing below it moves.
+
+   The visibility rule is focus management, not looks: the face turned away is
+   invisible to the eye but still in the DOM, so it has to leave the tab order.
+   The 0s transition delayed by the full leaving sequence times that to the end
+   — do it immediately and the outgoing blocks vanish mid-fall. */
+.flip-scene {
+  /* The 3D scene is gone with the rotation. The element stays because it is
+     the panel's positioning context and the JSX hook. */
+  position: relative;
+}
+
+.flip-card {
+  display: grid;
+
+  /* One place to retime the whole turn. Total = swap + 3 steps + in. */
+  --cascade-out: 560ms;
+  --cascade-in: 640ms;
+  --cascade-step: 85ms;
+  --cascade-swap: 500ms;
+}
+
+.flip-face {
+  grid-area: 1 / 1;
+}
+
+.flip-face[data-active="false"] {
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear calc(var(--cascade-out) + 3 * var(--cascade-step));
+}
+
+/* The blocks themselves. `--i` is the index set in the component; it is the
+   only thing that differs between them. */
+.flip-face [data-cascade] {
+  transition:
+    transform var(--cascade-out) var(--ease-out-soft),
+    opacity var(--cascade-out) ease;
+  transition-delay: calc(var(--i, 0) * var(--cascade-step));
+}
+
+.flip-face[data-active="true"] [data-cascade] {
+  transform: none;
+  opacity: 1;
+  transition-duration: var(--cascade-in);
+  transition-delay: calc(var(--cascade-swap) + var(--i, 0) * var(--cascade-step));
+}
+
+.flip-face:not(.flip-face-back)[data-active="false"] [data-cascade] {
+  transform: translateY(24px);
+  opacity: 0;
+}
+
+.flip-face-back[data-active="false"] [data-cascade] {
+  transform: translateY(-24px);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-face,
+  .flip-face [data-cascade] {
+    transition: none;
+  }
+  .flip-face[data-active="false"] [data-cascade] {
+    transform: none;
+  }
+}
+
+/* Each hero photograph and its headline share one measuring context, so the
+   caption can be sized as a fraction of the picture's own width. */
+.hero-panel {
+  container-type: inline-size;
+}
+
+/* The hero has to land inside the first screen — photographs, the three
+   headlines, the "Register as" rule and the ten role tiles, with nothing left
+   below the fold.
+
+   Everything except the photographs is a fixed stack, measured at roughly
+   28rem including the site header. The pictures take what is left, and because
+   they hold their own 5:4 the band's WIDTH follows from their height rather
+   than the other way round — so the section is fitted by scaling, never by
+   cropping anyone out of frame.
+
+   The 1.19 divisor is the photograph plus the headline under it: the caption
+   is 11.85% of the picture's width (see hero.tsx), the width is 1.25 of the
+   height, and leading-tight is 1.25 — so the caption adds 0.185 of the photo
+   height and grows with it. 3.75 is three of those widths; 2.5rem is the two
+   20px gaps.
+
+   The hero sits in the site's standard 1440px container, the same one the
+   header and every other section use — it ran at 1800px for a while and was
+   the only thing on the page that did, which is exactly what made it look
+   misaligned. On a screen ~870px tall or more the calculation below comes out
+   wider than that container, so the container wins and the row runs edge to
+   edge with the header above it and the role tiles beneath. Below that the
+   height binds instead and the band narrows: fitting one screen is the
+   constraint that wins, and on a short laptop that costs some width.
+
+   Only from 768px, where the three columns exist. Below that the row stacks
+   and a single screen was never on offer. */
+@media (min-width: 768px) {
+  .hero-band {
+    --hero-photo-h: clamp(12rem, calc((100svh - 28rem) / 1.19), 31rem);
+    margin-inline: auto;
+    max-width: calc(var(--hero-photo-h) * 3.75 + 2.5rem);
+  }
 }
 
 /* Hero role row: 2 across on mobile, 3 on tablet, 5 from 1024px, 10 from 1400px.

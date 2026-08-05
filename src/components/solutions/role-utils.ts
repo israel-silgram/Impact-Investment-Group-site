@@ -2,7 +2,7 @@ import * as React from "react";
 import {
   Building2,
   CircleDollarSign,
-  Construction,
+  HardHat,
   Hammer,
   Handshake,
   HeartHandshake,
@@ -18,7 +18,7 @@ export const roleIcons: Record<RoleSlug, LucideIcon> = {
   "care-support-providers": HeartHandshake,
   investors: CircleDollarSign,
   landlords: Home,
-  developers: Construction,
+  developers: HardHat,
   "estate-agents": Handshake,
   contractors: Hammer,
 };
