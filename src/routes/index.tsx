@@ -252,8 +252,8 @@ function HomePage() {
           points run as one centred row of 32px rings rather than a two-column
           block of 60px ones, which alone was 176px of the old height. Padding
           drops from 96px to 40/48px. Everything stays centred on one axis. */}
-      <section aria-labelledby="closing-heading" className="bg-navy-950 px-5 pb-10 pt-12 sm:px-8">
-        <div className="section-light mx-auto w-full max-w-[1200px] rounded-[var(--radius-panel)] px-6 py-8 text-center shadow-[0_18px_48px_-24px_rgba(0,0,0,0.55)] sm:px-10">
+      <section aria-labelledby="closing-heading" className="section-light">
+        <div className="mx-auto w-full max-w-[1200px] px-5 py-12 text-center sm:px-8">
           <h2
             id="closing-heading"
             className="heading-tight mx-auto max-w-[26ch] text-balance text-[clamp(1.5rem,3vw,2.125rem)] font-extrabold tracking-[-0.02em] text-white"
