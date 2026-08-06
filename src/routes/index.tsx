@@ -253,19 +253,16 @@ function HomePage() {
           block of 60px ones, which alone was 176px of the old height. Padding
           drops from 96px to 40/48px. Everything stays centred on one axis. */}
       <section aria-labelledby="closing-heading" className="bg-navy-950 px-5 pb-10 pt-12 sm:px-8">
-        <div className="mx-auto w-full max-w-[1200px] rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800 px-6 py-9 text-center sm:px-10">
+        <div className="section-light mx-auto w-full max-w-[1200px] rounded-[var(--radius-panel)] px-6 py-8 text-center shadow-[0_18px_48px_-24px_rgba(0,0,0,0.55)] sm:px-10">
           <h2
             id="closing-heading"
             className="heading-tight mx-auto max-w-[26ch] text-balance text-[clamp(1.5rem,3vw,2.125rem)] font-extrabold tracking-[-0.02em] text-white"
           >
             {closingCopy.title}
-          </h2>
-          <p className="mx-auto mt-3 max-w-[40rem] text-pretty text-[15px] leading-relaxed text-mist">
-            {closingCopy.lead}
-          </p>
+          </h2>
           {/* One centred row. The rings are xs (16px icon in a 32px circle) so
               four points cost one line instead of four rows. */}
-          <ul className="mx-auto mt-6 flex max-w-4xl flex-wrap items-center justify-center gap-x-7 gap-y-3">
+          <ul className="mx-auto mt-6 flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-3">
             {closingCopy.points.map((point) => (
               <li key={point.text} className="flex items-center gap-2.5">
                 <IconCircle icon={icon(point.icon)} size="xs" tone={point.tone} />
@@ -275,7 +272,7 @@ function HomePage() {
               </li>
             ))}
           </ul>
-          <PreReleaseBadge className="mt-6 justify-center" />
+          <PreReleaseBadge className="mt-7 justify-center" />
           {/* size="default" not "lg": 44px instead of 52px. The label stays at
               16px/600, which is the floor white-on-orange-600 needs to pass. */}
           <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
