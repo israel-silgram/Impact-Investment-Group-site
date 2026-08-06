@@ -204,7 +204,7 @@ function HomePage() {
               still here. ODbL requires the OpenStreetMap credit wherever its
               data is used. */}
           <div className="mt-8 border-t border-navy-700 pt-4">
-            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
+            <div className="flex flex-col items-center gap-3">
               <h3 className="eyebrow tracking-[0.14em] text-teal-400">{dataSourcesEyebrow}</h3>
               <ul className="flex flex-wrap items-center justify-center gap-3">
                 {dataSources.map((source) => (

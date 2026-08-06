@@ -64,7 +64,7 @@ export function CouncilPanel() {
             {councilsCount}
           </span>
         ) : null}
-        <span className="font-heading text-[clamp(1.0625rem,1.9vw,1.375rem)] font-bold text-white">
+        <span className="eyebrow tracking-[0.14em] text-teal-400">
           {councilsStatement}
         </span>
       </p>
