@@ -341,7 +341,7 @@ function AboutPage() {
        * than leaving it stranded at the bottom.
        */}
       <Band id="about-heading" light>
-        <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)] lg:items-start lg:gap-10">
+        <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)] lg:items-stretch lg:gap-10">
           {/* Explicit grid placement rather than `order-*`: source order is
               already the reading order on a phone — copy, Israel, then the
               team — and the placement classes only take effect from lg up. */}
@@ -356,7 +356,7 @@ function AboutPage() {
             <Summary lines={summaries.whoWeAre!} tone="rust" />
           </Reveal>
 
-          <Reveal index={1} className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
+          <Reveal index={1} className="h-full lg:col-start-2 lg:row-span-2 lg:row-start-1">
             <DirectorCard director={team[0]!} variant="portrait" />
           </Reveal>
 
