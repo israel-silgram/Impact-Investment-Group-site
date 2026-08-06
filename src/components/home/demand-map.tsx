@@ -95,11 +95,18 @@ export function DemandMap({
   visibleIds?: string[];
   /**
    * "beside" keeps the readout in its own column — right for the narrow
-   * embeds on /platform and /the-problem. "overlay" lets the map take the
-   * whole column with the readout floating over it, which is the homepage
-   * treatment and the one the mock-up shows.
+   * embeds on /platform and /the-problem. "overlay" floats it over the map.
+   * "below" puts the three figures in a horizontal bar UNDER the map, which
+   * is the homepage treatment: it is the only mode where the map gets the
+   * full width of its column.
+   *
+   * ⚠️ THIS UNION IS LOAD-BEARING. index.tsx asks for "below". If that mode is
+   * ever removed from this file again, the prop silently falls through to
+   * "beside", the readout takes an 18rem column out of the map's 560px, and
+   * the map renders at 240px — which is exactly the bug this comment exists to
+   * stop happening a second time.
    */
-  readout?: "beside" | "overlay";
+  readout?: "beside" | "overlay" | "below";
 }) {
   const [activeId, setActiveId] = React.useState(
     commissioningAuthorities.find((a) => a.id === DEFAULT_AUTHORITY_ID)?.id ??
@@ -215,11 +222,14 @@ export function DemandMap({
   }, [paint]);
 
   const overlay = readout === "overlay";
+  const below = readout === "below";
 
   return (
     <div
       className={cn(
-        overlay ? "relative" : "grid gap-8 md:grid-cols-[minmax(0,1fr)_18rem] md:items-center",
+        overlay || below
+          ? "relative"
+          : "grid gap-8 md:grid-cols-[minmax(0,1fr)_18rem] md:items-center",
         className,
       )}
     >
@@ -232,7 +242,7 @@ export function DemandMap({
       <div
         className={cn(
           "relative mx-auto w-full",
-          overlay ? "max-w-[34rem] lg:max-w-none" : "max-w-[30rem]",
+          overlay || below ? "max-w-[34rem] lg:max-w-none" : "max-w-[30rem]",
         )}
       >
         <canvas
@@ -328,6 +338,54 @@ export function DemandMap({
         </svg>
       </div>
 
+      {/* ── "below": the three figures as a horizontal bar under the map ──
+          Same numbers, same aria-live region, same source line — only the
+          shape changes. This exists so the map can have the full width of its
+          column instead of surrendering 18rem of it to a side panel. */}
+      {below ? (
+        <aside aria-live="polite" className="panel mt-5 p-4">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3">
+            <p>
+              <span className="eyebrow block text-teal-400">Selected area</span>
+              <span className="heading-tight mt-1 block font-heading text-xl font-bold text-white">
+                {active.name}
+              </span>
+            </p>
+            <p>
+              <span className="text-[11px] uppercase tracking-[0.14em] text-slate-muted">
+                Homes sourced
+              </span>
+              <span className="block font-heading text-xl font-bold text-white">
+                {active.homesSourced.toLocaleString("en-GB")}
+              </span>
+            </p>
+            <p>
+              <span className="text-[11px] uppercase tracking-[0.14em] text-slate-muted">
+                Potential rooms
+              </span>
+              <span className="block font-heading text-xl font-bold text-white">
+                {active.potentialRooms.toLocaleString("en-GB")}
+              </span>
+            </p>
+            <p className="min-w-[9rem] flex-1">
+              <span className="text-[11px] uppercase tracking-[0.14em] text-slate-muted">
+                Demand intensity
+              </span>
+              <span className="mt-2 block h-2 w-full overflow-hidden rounded-full bg-navy-700">
+                <span
+                  className="block h-full rounded-full bg-teal-500 transition-[width] duration-500 ease-[var(--ease-out-soft)]"
+                  style={{ width: `${active.intensity}%` }}
+                />
+              </span>
+              <span className="sr-only">{active.intensity} out of 100</span>
+            </p>
+          </div>
+          <SourceLine
+            className="mt-4"
+            source="Boundaries: ONS Local Authority Districts (2013) and Natural Earth, Open Government Licence · figures are illustrative interface data"
+          />
+        </aside>
+      ) : (
       <aside
         aria-live="polite"
         className={cn(
@@ -375,6 +433,7 @@ export function DemandMap({
           source="Boundaries: ONS Local Authority Districts (2013) and Natural Earth, Open Government Licence · figures are illustrative interface data"
         />
       </aside>
+      )}
     </div>
   );
 }

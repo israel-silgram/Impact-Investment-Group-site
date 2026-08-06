@@ -54,11 +54,17 @@ export function CouncilPanel() {
           print is gone. The figure runs at display scale in teal — the data
           voice — against the statement in white, so the eye lands on "18"
           first and reads the sentence second. */}
+      {/* The figure is gone — `councilsCount` is now an empty string and the
+          span is conditional, so the line reads as one statement rather than a
+          number with a caption. Restoring a count is a one-line change in
+          content/trust.ts; see the note there before you do. */}
       <p className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1 px-5 text-center sm:px-8">
-        <span className="font-heading text-[clamp(1.75rem,3.4vw,2.25rem)] font-extrabold leading-none tracking-[-0.02em] text-teal-400">
-          {councilsCount}
-        </span>
-        <span className="font-heading text-[clamp(1rem,1.7vw,1.1875rem)] font-bold text-white">
+        {councilsCount ? (
+          <span className="font-heading text-[clamp(1.75rem,3.4vw,2.25rem)] font-extrabold leading-none tracking-[-0.02em] text-teal-400">
+            {councilsCount}
+          </span>
+        ) : null}
+        <span className="font-heading text-[clamp(1.0625rem,1.9vw,1.375rem)] font-bold text-white">
           {councilsStatement}
         </span>
       </p>

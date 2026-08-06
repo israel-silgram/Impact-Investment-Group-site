@@ -98,8 +98,21 @@ export const councilsEyebrow = "Built around what local authorities are commissi
  * `councilsCount` is separate so the number can be set in teal without the
  * sentence being split in the JSX.
  */
-export const councilsCount = "18";
-export const councilsStatement = "local authorities that we build around";
+/*
+ * ⚠️ THE COUNT IS NO LONGER RENDERED. The strip used to read "18 local
+ * authorities that we build around". Callum replaced it with the wording
+ * below, which does not quote a number.
+ *
+ * ⚠️ AND A FLAG THAT NEEDS A DECISION, NOT A CODE CHANGE: the live wording says
+ * "all local authorities". Eighteen crests are shown, and the business builds
+ * around eighteen published commissioning briefs — not all 317 English
+ * councils. If any reader takes "all" to mean "we work with every council in
+ * the country", that is a claim the business cannot evidence. Dropping the one
+ * word — "Working with local authorities" — removes the exposure entirely and
+ * loses nothing. Raised with Callum; his call.
+ */
+export const councilsCount = "";
+export const councilsStatement = "Working with all local authorities";
 
 /*
  * THE SMALL PRINT UNDER THE LOGOS — the shortest form this can safely take.
