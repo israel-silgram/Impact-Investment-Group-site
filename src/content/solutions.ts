@@ -1,5 +1,26 @@
 /**
- * /solutions content. Eight roles on one shared template.
+ * /solutions content.
+ *
+ * ── WHAT THIS PAGE IS NOW ─────────────────────────────────────────────────
+ *
+ * Five sections: a statement, the five layers of a deal, who owns which layer,
+ * the product, and the shared close. Everything the page renders lives in
+ * `solutionHero`, `dealLayers`, `layerOwners`, `productPitch` and
+ * `lookingForHome` below.
+ *
+ * ⚠️ IT USED TO BE EIGHT NEAR-IDENTICAL ROLE SECTIONS, one per organisation,
+ * each with its own promise, three bullets and a mocked-up portal window. That
+ * is why it read as flat: one template, eight times. Every one of those eight
+ * roles still appears — condensed to a single verb line in `layerOwners` —
+ * but the template is gone.
+ *
+ * ⚠️ `RoleSlug`, `RoleSection`, `roleSections` AND `riskLine` BELOW ARE NO
+ * LONGER RENDERED. They are kept because three components still import those
+ * types (components/solutions/role-section.tsx, section-rail.tsx and
+ * role-utils.ts) and deleting the types would break the build without deleting
+ * those files too. They are also the only remaining record of the eight
+ * portals' wording. Do not add to them; if the components are ever removed,
+ * this whole block can go with them.
  *
  * EDITORIAL: no statistics live here. Everything inside a `portal` block is
  * illustrative interface data and is labelled as such at the LiveWindow.
@@ -326,4 +347,133 @@ export const notAnOrganisation = {
   action: { label: "Find a home", enquiry: "support" as const },
   closing:
     "This platform supports but never substitutes statutory housing and social care services.",
+};
+
+
+/* ══ THE PAGE AS IT IS ACTUALLY RENDERED ═════════════════════════════════ */
+
+export const solutionHero = {
+  eyebrow: "The solution",
+  /** Split so the second half can take the accent. */
+  headA: "The parts already exist.",
+  headB: "Nobody joined them.",
+  lead: "Councils, providers, landlords and capital all want the same home to work. We built the one place where that can happen.",
+};
+
+export interface DealLayer {
+  number: string;
+  title: string;
+  detail: string;
+}
+
+/**
+ * The five layers, top to bottom.
+ *
+ * ⚠️ THE EXPLODED HOUSE BESIDE THIS LIST IS A RHYME, NOT A DIAGRAM. It has five
+ * slabs and this has five rows, and that is the whole of the relationship —
+ * the roof is not "the brief". Do not add connector lines between the two, and
+ * do not reorder this list to "match" the house.
+ */
+export const dealLayers: DealLayer[] = [
+  { number: "01", title: "The brief", detail: "What the council actually needs" },
+  { number: "02", title: "The home", detail: "Sourced and checked against it" },
+  { number: "03", title: "The lease", detail: "5 year+, under-leased to a Registered Provider" },
+  { number: "04", title: "The support", detail: "Care delivered, human allocation gate" },
+  { number: "05", title: "The report", detail: "Income and impact, evidenced" },
+];
+
+export const dealLayersKicker = "Most of the sector holds one and hopes the rest line up.";
+
+export interface LayerOwner {
+  layer: string;
+  number: string;
+  /** `role` is the organisation, `verb` is the one thing it does at this layer. */
+  people: { role: string; verb: string }[];
+}
+
+/**
+ * All eight roles from the old page, mapped to the layer each one acts on.
+ *
+ * Every verb is taken from that role's own `cardLine` in `roleSections` above —
+ * nothing here is invented. Two judgement calls worth knowing about:
+ *
+ *   · LANDLORDS sit at "the home" (own it) rather than "the lease", even though
+ *     their old line led with "long lease". They own the asset; the Registered
+ *     Provider holds the tenancy.
+ *   · INVESTORS appear TWICE, at the lease and at the report, because they
+ *     genuinely act at both. That is not a duplication to tidy away.
+ *
+ * "The home" carries four owners and every other layer carries one or two. That
+ * imbalance is real and is why this renders as a spine rather than a grid — a
+ * five-column layout leaves three columns nearly empty.
+ */
+export const layerOwners: LayerOwner[] = [
+  { layer: "The brief", number: "01", people: [{ role: "Local Authorities", verb: "publish it" }] },
+  {
+    layer: "The home",
+    number: "02",
+    people: [
+      { role: "Estate Agents", verb: "send it" },
+      { role: "Landlords", verb: "own it" },
+      { role: "Developers", verb: "build it" },
+      { role: "Contractors", verb: "convert it" },
+    ],
+  },
+  {
+    layer: "The lease",
+    number: "03",
+    people: [
+      { role: "Housing Associations", verb: "hold it" },
+      { role: "Investors", verb: "fund it" },
+    ],
+  },
+  {
+    layer: "The support",
+    number: "04",
+    people: [{ role: "Care & Support Providers", verb: "deliver it" }],
+  },
+  { layer: "The report", number: "05", people: [{ role: "Investors", verb: "receive it" }] },
+];
+
+export const layerOwnersKicker =
+  "Nobody is asked to do somebody else's job — and nothing falls between two of them.";
+
+/**
+ * The join to /platform. This is the section that says our own product is one
+ * of the solutions, which is the whole reason the page ends here.
+ *
+ * ⚠️ NO RISK PARAGRAPH IN THIS SECTION. The long capital-at-risk line that used
+ * to sit under it was removed to stop the section reading as legal small print,
+ * and that is only safe because the site FOOTER carries capital at risk, the
+ * FCA position and the scheme status on every page. If the footer is trimmed,
+ * it comes back here.
+ */
+export const productPitch = {
+  eyebrow: "And the platform itself",
+  headA: "Our biggest solution is the",
+  headB: "product",
+  lead: "Three analysts on every deal, in one place.",
+  items: [
+    { title: "Property Finder", detail: "Describe the brief, get matched homes" },
+    { title: "Demand Map", detail: "Where supported housing is needed" },
+    { title: "Impact score", detail: "On every home, not asserted at the end" },
+  ],
+  cta: "See Our Services",
+};
+
+/**
+ * The safeguarding signpost. NOT marketing — it is the route out for someone
+ * who has landed on a page selling property to investors and actually needs
+ * somewhere to live. It stays, and the "supports but never substitutes" clause
+ * stays with it.
+ */
+export const lookingForHome = {
+  body: "Looking for a home? This page is not for you — and here is the route that is. The platform supports but never substitutes statutory housing and social care services.",
+  action: "Find a home",
+  enquiry: "support" as const,
+};
+
+export const solutionClose = {
+  lead: "Register now and you are in the queue for access at launch.",
+  cta: "Register Your Interest",
 };

@@ -1,3 +1,5 @@
+import { closingBeats, closingStrapline } from "@/content/site";
+
 /** Copy for /about. Edit here — never inside JSX. */
 
 /*
@@ -60,9 +62,16 @@ export const whyPartner = {
     "With more than 30 years of experience across property, housing, care and support, we understand both the investment opportunity and the responsibility involved in providing homes for people who need them.",
     "We are building more than an estate agency or property platform. We are creating a collaborative national network focused on delivering measurable social impact, sustainable partnerships and responsible investment.",
   ],
-  /** The same three-part line the homepage hero is built on. */
-  strapline: "Providing Homes. Delivering Support. Transforming Lives.",
-  cta: "Register Your Interest Today",
+  /**
+   * The same three-part line the homepage hero is built on — now split, because
+   * on /about it IS the heading rather than a strapline under one. Rejoin with
+   * a space to get the original sentence back.
+   */
+  /* Both re-exported from content/site.ts — the line is site-wide and every
+     page closes on it. Do not paste a second copy in here. */
+  strapline: closingStrapline,
+  straplineBeats: closingBeats,
+  cta: "Register Your Interest",
 };
 
 export const visionMission = [
@@ -345,34 +354,134 @@ export const teasers = [
  */
 
 /** The three companies, worded as the old site words them — shorter. */
-export const accountableChain = [
+/**
+ * The three companies, said as STATEMENTS rather than descriptions.
+ *
+ * The headline of each card is now the claim — "We find the home." — and the
+ * company name is the credit under it. That inversion is the point: a reader
+ * scanning three cards reads three verbs and understands the chain, instead of
+ * reading three company names they have never heard of and having to work it
+ * out from the body copy.
+ *
+ * `claim` is the only line most people will read. Keep it under six words, keep
+ * the full stop, and keep the subject as "we" — the moment one of them says
+ * "Rhema holds…" the row stops being one voice.
+ *
+ * ⚠️ `detail` IS NOT DECORATION. Between them the three detail lines carry the
+ * lease term, the fact that the under-lease goes to a UK Registered Provider,
+ * and the human allocation gate. Those are the three things that make the
+ * structure defensible. Shorten them if you must; do not remove them.
+ *
+ * The original, longer body copy is kept below each entry, because it is the
+ * wording that was signed off and this is a condensation of it.
+ */
+export interface ChainStep {
+  id: string;
+  /** The headline. Six words or fewer, with a full stop. */
+  claim: string;
+  name: string;
+  detail: string;
+  /** File in public/images/chain/. Transparent, already brand-coloured. */
+  icon: string;
+}
+
+export const accountableChain: ChainStep[] = [
   {
     id: "iig",
-    number: "1.",
+    claim: "We find the home.",
     name: "Impact Investment Group",
-    body: "Sources and packages every deal, and operates the platform.",
+    detail: "Sourced and packaged against a published commissioning brief.",
+    icon: "/images/chain/source.webp",
+    // was: "Sources and packages every deal, and operates the platform."
   },
   {
     id: "rhema",
-    number: "2.",
+    claim: "We hold the lease.",
     name: "Rhema Social Impact Group",
-    body: "Holds the head lease — a 5 year+ FRI, CPI or internal repairing lease — and under-leases each home to a UK Registered Provider.",
+    detail: "A 5 year+ head lease, under-leased to a UK Registered Provider.",
+    icon: "/images/chain/lease.webp",
+    // was: "Holds the head lease — a 5 year+ FRI, CPI or internal repairing
+    //       lease — and under-leases each home to a UK Registered Provider."
   },
   {
     id: "elevate",
-    number: "3.",
+    claim: "We look after the people.",
     name: "Elevate Supported Living",
-    body: "Delivers the care and support, and runs the human allocation gate at the centre of every placement.",
-    qualifier: "Care Quality Commission registration is currently in progress.",
+    detail: "Care and support delivered, with a human deciding every placement.",
+    icon: "/images/chain/care.webp",
+    // was: "Delivers the care and support, and runs the human allocation gate
+    //       at the centre of every placement."
+    //      qualifier: "Care Quality Commission registration is currently in
+    //       progress." — still stated in the Contact FAQ, which is where the
+    //       regulatory position is set out in full.
   },
 ];
 
 /** Both paragraphs are compliance text. Verbatim from the old site. */
-export const chainNotices = [
-  "The Impact Investment Platform provides property sourcing, deal packaging and managed investment services, not financial, legal, tax, or mortgage advice. Investing into property on the platform is also a direct investment into the lives of the people housed by Elevate Supported Living.",
-  "Impact Investment Group is not authorised or regulated by the Financial Conduct Authority (FCA), and the platform is not a Collective Investment Scheme. Take independent professional advice before you invest.",
+/**
+ * The compliance notice under the chain. ONE paragraph, 48 words.
+ *
+ * It replaced two paragraphs totalling 85 words. Five claims had to survive the
+ * cut and all five are still here, in this order:
+ *
+ *   1. what the service IS      sourcing, deal packaging, managed investment
+ *   2. what it is NOT           not financial, legal, tax or mortgage advice
+ *   3. FCA position             not authorised or regulated
+ *   4. scheme status            not a Collective Investment Scheme
+ *   5. the instruction          take independent professional advice
+ *
+ * The entity names are load-bearing and are NOT interchangeable: the PLATFORM
+ * provides the services, the GROUP is the one that is not FCA regulated. Do not
+ * merge them into one subject to save a few words.
+ *
+ * ⚠️ CAPITAL AT RISK IS NOT STATED HERE, and never was. It lives in the site
+ * footer and in the Contact FAQ. That is only safe while the footer is on every
+ * page — if this section is ever lifted onto a page without it, the risk
+ * warning has to come with it.
+ *
+ * `emphasis` is the list of substrings set in bold navy. All four are negatives:
+ * a disclosure nobody's eye stops on is not much of a disclosure.
+ *
+ * THE ORIGINAL, verbatim, in case any of this is ever queried:
+ *
+ *   "The Impact Investment Platform provides property sourcing, deal packaging
+ *    and managed investment services, not financial, legal, tax, or mortgage
+ *    advice. Investing into property on the platform is also a direct
+ *    investment into the lives of the people housed by Elevate Supported
+ *    Living."
+ *
+ *   "Impact Investment Group is not authorised or regulated by the Financial
+ *    Conduct Authority (FCA), and the platform is not a Collective Investment
+ *    Scheme. Take independent professional advice before you invest."
+ *
+ * The only sentence dropped is the second of the first paragraph — "a direct
+ * investment into the lives of the people housed by Elevate Supported Living".
+ * It is a marketing line, not a disclosure, and it was the reason the block read
+ * as prose rather than as a notice.
+ */
+export const chainNotice =
+  "The Impact Investment Platform provides property sourcing, deal packaging and managed investment services — not financial, legal, tax or mortgage advice. Impact Investment Group is not authorised or regulated by the Financial Conduct Authority (FCA), and the platform is not a Collective Investment Scheme. Take independent professional advice before you invest.";
+
+/** Substrings of `chainNotice` set in bold navy. Must match it exactly. */
+export const chainNoticeEmphasis = [
+  "not financial, legal, tax or mortgage advice",
+  "not authorised or regulated by the Financial Conduct Authority (FCA)",
+  "not a Collective Investment Scheme",
 ];
 
+/*
+ * ⚠️ NOT RENDERED ON /about ANY MORE.
+ *
+ * These two lines used to run in small grey type directly under the orange
+ * strapline, and most of them said the same thing it did — "Building Homes" is
+ * "Providing Homes", "Changing Lives" is "Transforming Lives". Stacked, the two
+ * blocks read as one long block of near-repetition, which is what made the
+ * closing section feel wordy.
+ *
+ * They are kept because they are approved brand lines and are used elsewhere.
+ * If they ever come back to this page they need to sit somewhere the strapline
+ * is not — not directly beneath it.
+ */
 export const straplines = [
   "Building Homes · Changing Lives · Generating Impact.",
   "More Than Property · An Investment in Lives",
@@ -500,15 +609,18 @@ export const summaries: Record<string, Seg[][]> = {
       ".",
     ],
   ],
+  /*
+   * ONE line, not two. The pair this replaced ran to 28 words across two
+   * paragraphs under a heading that already said "Why Partner With Us?" — and
+   * on this band the three beats above it are doing the shouting, so the job of
+   * this line is only to say what we are and what we are not, once.
+   */
   whyPartner: [
     [
       { t: "30+ years", em: "accent" },
-      " across property, housing, care and support.",
-    ],
-    [
-      "Not an estate agency — a ",
+      " across property, housing, care and support — not an estate agency, a ",
       { t: "national network", em: "ink" },
-      " built for measurable social impact and responsible investment.",
+      ".",
     ],
   ],
 };

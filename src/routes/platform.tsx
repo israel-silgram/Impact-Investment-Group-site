@@ -1,18 +1,15 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import * as Icons from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 import { registerRoute } from "@/content/site";
 import {
-  aiTeam,
   aiTeamNote,
   capitalAtRisk,
   compareHeading,
-  compareNote,
   compareUpdated,
   demandFigures,
   ourBuild,
@@ -21,12 +18,15 @@ import {
   ourBuildNote,
   sectorRecord,
   sectorRecordHeading,
+  sectorRecordMark,
   servicesClose,
   servicesHero,
   steps,
-  tools,
+  toolsEyebrow,
   toolsHeading,
   toolsLead,
+  workflow,
+  workflowFooter,
   trustSource,
   type Seg,
 } from "@/content/services";
@@ -40,7 +40,7 @@ import {
  *
  *   1 · Find it, price it, prove it   cream   hero + the product screenshot
  *   2 · Four steps, nothing hidden    navy    the journey
- *   3 · Three tools, one workflow     cream   Finder, Map, AI team
+ *   3 · Find it. Price it. Prove it.   cream   Petra, Peter, Pippa
  *   4 · Built differently             navy    trust, demand, integration
  *   5 · Every figure, sourced         cream   close
  *
@@ -52,9 +52,6 @@ import {
  * 4.1:1 on cream and needs large text to pass, which is why emphasised lines
  * are set at 19px semibold.
  */
-
-const icon = (name: string): LucideIcon =>
-  (Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle;
 
 export const Route = createFileRoute("/platform")({
   component: ServicesPage,
@@ -284,160 +281,196 @@ function ServicesPage() {
         </ol>
       </Band>
 
-      {/* ── 3 · Three tools ── cream ─────────────────────────────────────── */}
+      {/*
+       * ── 3 · Find it. Price it. Prove it. ── cream ──────────────────────
+       *
+       * This was three tools in a row with three analysts nested inside the
+       * third one — six items, and a reader had to work out the relationship
+       * before any of it meant anything. Petra, Peter and Pippa ARE find,
+       * price and prove, so the two lists became one: three steps, three
+       * characters, and the tool each works in on a chip.
+       *
+       * THE PODIUM. Each character stands on top of their card and breaks out
+       * of it. That overlap is the whole idea — three cards in a row is what
+       * the rest of the site already does, and the break-out is what stops
+       * this reading as another card row. It is why the card carries 104px of
+       * top padding and the figure is absolutely positioned above it.
+       *
+       * The ghost numeral behind the claim is 4.5% navy: a counting cue at the
+       * edge of visible, not a design element. It sits BEHIND the text, so it
+       * never has to meet a contrast ratio.
+       *
+       * Audience note, from Callum: most people reading this are 35–60 and on
+       * a laptop. That is why the claim is 24px, the body 14px and the measure
+       * short — do not shrink any of it to fit something else in.
+       */}
       <Band id="tools-heading" light>
-        <Head eyebrow="The platform, live" title={toolsHeading} id="tools-heading" tone="rust" />
-        <p className="mt-3 max-w-[56ch] text-[15px] leading-relaxed text-mist">{toolsLead}</p>
+        <Head eyebrow={toolsEyebrow} title={toolsHeading} id="tools-heading" tone="rust" />
+        <p className="mt-3 max-w-[56ch] text-[16px] leading-relaxed text-mist">{toolsLead}</p>
 
-        {/* ── The roadmap ───────────────────────────────────────────────────
-            One track, three stops, rather than six boxes in two rows. The AI
-            team is a stop on the route and the three analysts live inside it —
-            that is what removed the second row and stopped the section reading
-            as a wall of cards.
-
-            This band is always cream, so unlike the rest of the page its
-            colours are written for the light ground directly. Two things make
-            that safe: the discs are FILLS, which have no text-contrast floor,
-            and `.section-light` exempts `svg` from its orange guard, so a
-            white glyph on an orange-600 disc survives exactly as drawn. */}
-        <ol className="relative mt-12 grid gap-10 md:grid-cols-3 md:gap-6">
-          {/* The track. Runs behind the discs, teal into orange into navy, so
-              the eye is pulled left to right before it reads a word. Hidden
-              under md, where the stops stack and a line would go nowhere. */}
-          <span
-            aria-hidden="true"
-            className="absolute inset-x-[16%] top-7 hidden h-[3px] rounded-full bg-gradient-to-r from-teal-600 via-orange-600 to-navy-900 opacity-30 md:block"
-          />
-
-          {tools.map((stop, i) => {
-            const Icon = icon(stop.icon);
+        <ol className="mt-20 grid gap-6 md:grid-cols-3 md:gap-7">
+          {workflow.map((step, i) => {
+            const chip =
+              step.accent === "orange"
+                ? "bg-orange-600/12 text-orange-700"
+                : "bg-teal-600/12 text-teal-600";
             return (
-              <li key={stop.id} className="relative flex flex-col items-center text-center">
-                {/* The stop marker: a filled disc on the track, with the step
-                    number riding its shoulder. */}
-                <div className="relative z-10">
-                  <span
+              <Reveal key={step.id} index={i} as="li" className="h-full">
+                <div className="relative h-full pt-[104px]">
+                  {/* Artwork only. `alt=""` — the claim underneath says the
+                      same thing, and "cartoon of an orange-haired woman with a
+                      magnifying glass" helps nobody. */}
+                  <img
+                    src={step.portrait}
+                    alt=""
                     aria-hidden="true"
-                    className={cn(
-                      "grid size-14 place-items-center rounded-full shadow-[0_8px_20px_-8px_rgba(0,17,43,0.45)] ring-4 ring-[var(--color-mist-bg)]",
-                      stop.disc,
-                    )}
-                  >
-                    <Icon className="size-6 text-white" strokeWidth={1.6} />
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="absolute -right-1.5 -top-1.5 grid size-6 place-items-center rounded-full border border-[color-mix(in_oklab,var(--color-navy-900)_15%,transparent)] bg-white font-heading text-[11px] font-extrabold text-navy-900"
-                  >
-                    {i + 1}
-                  </span>
+                    loading="lazy"
+                    width={347}
+                    height={520}
+                    className="absolute left-1/2 top-0 z-2 h-[188px] w-auto -translate-x-1/2 drop-shadow-[0_14px_26px_rgba(0,17,43,0.22)]"
+                  />
+                  <div className="panel relative flex h-full flex-col overflow-hidden px-5 pb-6 pt-[92px] text-center">
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute left-1/2 top-[84px] -translate-x-1/2 font-heading text-[86px] font-extrabold leading-none text-navy-900/5"
+                    >
+                      {i + 1}
+                    </span>
+                    <h3 className="relative font-heading text-[clamp(1.25rem,2vw,1.5rem)] font-extrabold tracking-[-0.015em] text-navy-900">
+                      {step.claim}
+                    </h3>
+                    <p className="relative mt-2.5 pb-4 text-[14px] leading-relaxed text-slate-ink">
+                      {step.body}
+                    </p>
+                    <p
+                      className={cn(
+                        "relative mx-auto mt-auto w-fit rounded-full px-3 py-1.5 font-heading text-[11px] font-extrabold uppercase tracking-[0.1em]",
+                        chip,
+                      )}
+                    >
+                      {step.chip}
+                    </p>
+                  </div>
                 </div>
-
-                <h3 className="mt-5 font-heading text-[17px] font-bold text-navy-900">
-                  {stop.name}
-                </h3>
-                <p className="mt-2 max-w-[34ch] text-[13.5px] leading-relaxed text-slate-ink">
-                  {stop.body}
-                </p>
-
-                {/* The third stop opens out into the three analysts. */}
-                {stop.id === "ai" ? (
-                  <ul className="mt-4 flex w-full flex-col gap-1.5">
-                    {aiTeam.map((member) => (
-                      <li
-                        key={member.id}
-                        className="flex items-baseline justify-center gap-2 rounded-lg bg-cream-card px-3 py-2 text-[13px]"
-                      >
-                        <span className="font-heading font-bold text-navy-900">{member.name}</span>
-                        <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-teal-600">
-                          {member.role}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </li>
+              </Reveal>
             );
           })}
         </ol>
 
-        <p className="mt-8 text-center text-[12px] leading-relaxed text-slate-ink">
+        {/* The Demand Map is a tool, not one of the three — see the note in
+            content/services.ts for why it is named here and not on a chip. */}
+        <p className="mx-auto mt-9 max-w-[72ch] text-center text-[14px] leading-relaxed text-slate-ink">
+          {workflowFooter}
+        </p>
+        <p className="mx-auto mt-3 max-w-[72ch] text-center text-[12px] leading-relaxed text-slate-muted">
           {aiTeamNote}
         </p>
       </Band>
 
-      {/* ── 4 · Built differently ── navy ────────────────────────────────
-          A contrast, laid out as one: what happened to the sector on the left,
-          how this is built on the right, a VS between them. That is what the
-          section has always been arguing — it was just being argued in two
-          unrelated cards with a paragraph each.
-
-          Integration folded into the right column as its third line, which is
-          what let a whole card disappear. */}
+      {/*
+       * ── 4 · Built differently ── navy ─────────────────────────────────
+       *
+       * A CASE FILE AND A SPEC SHEET, not two cards with a "vs" between them.
+       * The two sides are arguing different kinds of thing and now they LOOK
+       * like different kinds of thing: the left is a public record — ruled
+       * paper, numbered 01–04, mono figures, a bordered marker in the corner;
+       * the right is a specification — ticks, larger claims, teal. A reader
+       * gets the point before reading a word of it.
+       *
+       * ⚠️ THE MARKER IS NOT A ROTATED STAMP. The mock-up tilted it like a
+       * rubber stamp and it was straightened on purpose — see the note on
+       * `sectorRecordMark` in content/services.ts. Do not tilt it back.
+       *
+       * ⚠️ PROVENANCE IS THE WHOLE POINT OF THE LAYOUT. Left = public record,
+       * and `trustSource` names the three regulators. Right = OUR OWN
+       * ANALYSIS, labelled as such in the panel header. Those two labels are
+       * what keep this a comparison rather than an insinuation. Neither may be
+       * dropped, and nothing may move from one panel to the other.
+       *
+       * The ruled paper is a repeating-linear-gradient at ~1% white, which is
+       * texture rather than contrast — no text sits on a band edge hard enough
+       * to matter, and it disappears entirely under forced-colours mode.
+       */}
       <Band id="compare-heading">
         <Head eyebrow="How we compare" title={compareHeading} id="compare-heading" />
-        <p className="mt-3 text-[15px] leading-relaxed text-mist">{compareNote}</p>
 
-        <div className="relative mt-8 grid gap-4 lg:grid-cols-2 lg:gap-14">
-          {/* The VS badge sits on the gutter between the two columns. */}
-          <span
-            aria-hidden="true"
-            className="absolute left-1/2 top-1/2 z-10 hidden size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-navy-700 bg-navy-800 font-heading text-[12px] font-extrabold uppercase tracking-[0.08em] text-slate-muted lg:grid"
-          >
-            vs
-          </span>
-
-          {/* Their record — orange marks, because this is the harm side. */}
+        <div className="mt-8 grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-6">
+          {/* ── The case file ─────────────────────────────────────────── */}
           <Reveal>
-            <div className="flex h-full flex-col rounded-[var(--radius-panel)] border border-orange-600/30 bg-[color-mix(in_oklab,var(--color-orange-600)_8%,var(--color-navy-800))] p-5">
-              <p className="eyebrow text-orange-500">{sectorRecordHeading}</p>
-              <ul className="mt-4 flex flex-col gap-3">
-                {sectorRecord.map((item) => (
-                  <li key={item.id} className="flex gap-3">
-                    <Icons.TriangleAlert
+            <div className="relative overflow-hidden rounded-[var(--radius-panel)] border border-orange-600/30 p-5 sm:p-6">
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 -z-10 bg-[repeating-linear-gradient(180deg,transparent,transparent_29px,rgba(255,255,255,0.028)_29px,rgba(255,255,255,0.028)_58px)] bg-navy-800/60"
+              />
+              <div className="flex items-start justify-between gap-4">
+                <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-orange-500">
+                  {sectorRecordHeading}
+                </p>
+                <span className="shrink-0 rounded-[4px] border border-orange-600/35 px-2.5 py-1 font-heading text-[9.5px] font-extrabold uppercase tracking-[0.16em] text-orange-500/80">
+                  {sectorRecordMark}
+                </span>
+              </div>
+
+              <ol className="mt-4">
+                {sectorRecord.map((item, i) => (
+                  <li
+                    key={item.id}
+                    className="grid grid-cols-[30px_1fr] gap-3 border-b border-dashed border-orange-600/25 py-3 last:border-b-0"
+                  >
+                    <span
                       aria-hidden="true"
-                      className="mt-0.5 size-4 shrink-0 text-orange-500"
-                      strokeWidth={1.8}
-                    />
-                    <p className="text-[13.5px] leading-relaxed text-mist">
-                      <strong className="font-bold text-white">{item.name}</strong>
-                      {" — "}
-                      {item.detail}
-                    </p>
+                      className="pt-0.5 font-mono text-[11px] text-orange-500"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <p className="font-heading text-[15px] font-bold text-white">{item.name}</p>
+                      <p className="mt-0.5 text-[13px] leading-relaxed text-mist">{item.detail}</p>
+                    </div>
                   </li>
                 ))}
-              </ul>
+              </ol>
+
               {/* Attribution. Travels with the findings, always. */}
-              <p className="mt-auto pt-4 text-[11px] leading-relaxed text-slate-muted">
-                {trustSource}
-              </p>
+              <p className="mt-4 text-[11px] leading-relaxed text-slate-muted">{trustSource}</p>
             </div>
           </Reveal>
 
-          {/* Ours — teal marks. */}
+          {/* ── The spec sheet ────────────────────────────────────────── */}
           <Reveal index={1}>
-            <div className="flex h-full flex-col rounded-[var(--radius-panel)] border border-teal-600/40 bg-[color-mix(in_oklab,var(--color-teal-600)_10%,var(--color-navy-800))] p-5">
-              <p className="eyebrow text-teal-400">{ourBuildHeading}</p>
-              <ul className="mt-4 flex flex-col gap-3">
+            <div className="rounded-[var(--radius-panel)] border border-teal-600/30 bg-[color-mix(in_oklab,var(--color-teal-600)_10%,var(--color-navy-800))] p-5 sm:p-6">
+              <div className="flex items-baseline justify-between gap-4">
+                <p className="eyebrow text-teal-400">{ourBuildHeading}</p>
+                {/* Not decoration — this is what marks the panel as our claim
+                    rather than public record. */}
+                <p className="shrink-0 font-heading text-[10px] font-extrabold uppercase tracking-[0.14em] text-slate-muted">
+                  {ourBuildLabel}
+                </p>
+              </div>
+
+              <ul className="mt-3">
                 {ourBuild.map((item) => (
-                  <li key={item.id} className="flex gap-3">
-                    <Icons.ShieldCheck
+                  <li
+                    key={item.id}
+                    className="flex gap-3 border-b border-teal-600/20 py-3.5 last:border-b-0"
+                  >
+                    <span
                       aria-hidden="true"
-                      className="mt-0.5 size-4 shrink-0 text-teal-400"
-                      strokeWidth={1.8}
-                    />
-                    <p className="text-[13.5px] leading-relaxed text-mist">
-                      <strong className="font-bold text-white">{item.title}</strong>
-                      {" — "}
-                      {item.detail}
-                    </p>
+                      className="mt-0.5 grid size-[22px] shrink-0 place-items-center rounded-full bg-teal-600"
+                    >
+                      <Icons.Check className="size-3 text-white" strokeWidth={2.5} />
+                    </span>
+                    <div>
+                      <p className="font-heading text-[17px] font-extrabold tracking-[-0.01em] text-white">
+                        {item.title}
+                      </p>
+                      <p className="mt-0.5 text-[13.5px] leading-relaxed text-mist">{item.detail}</p>
+                    </div>
                   </li>
                 ))}
               </ul>
+
               <p className="mt-4 text-[11.5px] leading-relaxed text-slate-muted">{ourBuildNote}</p>
-              <p className="mt-auto pt-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-muted">
-                {ourBuildLabel}
-              </p>
             </div>
           </Reveal>
         </div>

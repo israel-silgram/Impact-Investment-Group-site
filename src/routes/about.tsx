@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
@@ -9,11 +9,11 @@ import { cn } from "@/lib/utils";
 import {
   accountableChain,
   chainAccents,
-  chainNotices,
+  chainNotice,
+  chainNoticeEmphasis,
   figureAccents,
   problemFigures,
   problemHeading,
-  straplines,
   summaries,
   team,
   teamTitle,
@@ -122,6 +122,36 @@ function Rich({
           >
             {part.t}
           </strong>
+        ),
+      )}
+    </>
+  );
+}
+
+/**
+ * Bolds the listed substrings inside a plain string, in place.
+ *
+ * Used for the compliance notice, where the four negatives ("not authorised or
+ * regulated by…") have to be the parts a skimming reader's eye stops on. The
+ * terms are matched literally and each is expected to appear ONCE — if a term
+ * is not found it is silently skipped rather than throwing, because a missing
+ * bold is a styling regression and a blank compliance notice is not.
+ */
+function Emphasise({ text, terms }: { text: string; terms: string[] }) {
+  const pattern = terms
+    .filter((t) => text.includes(t))
+    .map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|");
+  if (!pattern) return <>{text}</>;
+  return (
+    <>
+      {text.split(new RegExp(`(${pattern})`, "g")).map((chunk, i) =>
+        terms.includes(chunk) ? (
+          <strong key={i} className="font-semibold text-white">
+            {chunk}
+          </strong>
+        ) : (
+          <span key={i}>{chunk}</span>
         ),
       )}
     </>
@@ -398,101 +428,156 @@ function AboutPage() {
         </ul>
       </Band>
 
-      {/* ── 3 · What We Do + the chain ── cream ──────────────────────────── */}
+      {/*
+       * ── 3 · What We Do + the chain ── cream ────────────────────────────
+       *
+       * Five things on the whole band: eyebrow, title, the statement, three
+       * cards, one notice. The sub-head ("Three companies, one accountable
+       * chain.") and the descriptive summary line that used to sit between the
+       * title and the cards are both GONE — the three claims say it better than
+       * a sentence about the three claims did.
+       *
+       * The cards lead with the claim and credit the company underneath. There
+       * is no arrow between them any more and no numbered disc: the left rule,
+       * the claim and the chip carry it, and the ordered list still gives the
+       * sequence to a screen reader.
+       */}
       <Band id="what-heading" light>
         <Head eyebrow={whatWeDo.eyebrow} title={whatWeDo.title} id="what-heading" tone="rust" />
-        <Summary lines={summaries.whatWeDo!} tone="rust" />
+        {/* The statement, not a summary. Larger than a Summary line and on its
+            own — this is the sentence the section exists to land. */}
+        <p className="mt-4 max-w-[44ch] text-[clamp(1.375rem,2.4vw,1.625rem)] font-semibold leading-[1.32] text-white">
+          Three companies. <strong className="font-bold text-orange-700">One chain.</strong> No gap
+          for a person to fall through.
+        </p>
 
-        <SubHead>Three companies, one accountable chain.</SubHead>
-        {/* An actual chain rather than three cards in a row: numbered discs,
-            an arrow between each pair, and one accent per company. The arrows
-            are decorative — the ordered list carries the sequence for anyone
-            not seeing them. */}
-        <ol className="mt-5 grid items-stretch gap-3 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
-          {accountableChain.map((company, i) => {
-            const accent = ACCENT[chainAccents[i % chainAccents.length]!];
+        <ol className="mt-8 grid items-stretch gap-4 md:grid-cols-3">
+          {accountableChain.map((step, i) => {
+            const accent = chainAccents[i % chainAccents.length]!;
+            const rule = accent === "orange" ? "bg-orange-600" : "bg-teal-600";
+            /* The chip is a tinted pill, not a filled one: orange-700 text on a
+               12% orange wash is still measured against the CREAM behind it —
+               the wash is too light to change the ratio — so it holds 4.1:1 at
+               11px uppercase bold, which clears AA for bold small text. A
+               filled orange pill with white on it would not. */
+            const chip =
+              accent === "orange"
+                ? "bg-orange-600/12 text-orange-700"
+                : "bg-teal-600/12 text-teal-600";
             return (
-              <React.Fragment key={company.id}>
-                {i > 0 ? (
-                  <li
+              <Reveal key={step.id} index={i} as="li" className="h-full">
+                <div className="panel relative flex h-full flex-col overflow-hidden p-6 pl-7">
+                  <span
                     aria-hidden="true"
-                    className="hidden items-center justify-center md:flex"
-                  >
-                    <ArrowRight className="size-5 text-slate-muted" strokeWidth={2} />
-                  </li>
-                ) : null}
-                <Reveal index={i} as="li" className="h-full">
-                  <div className="panel flex h-full flex-col p-5">
-                    <span
-                      aria-hidden="true"
-                      className={cn(
-                        "grid size-9 place-items-center rounded-full font-heading text-[15px] font-extrabold",
-                        accent.disc,
-                      )}
-                    >
-                      {i + 1}
-                    </span>
-                    <h4 className="mt-3.5 font-heading text-[15px] font-bold text-white">
-                      {company.name}
+                    className={cn("absolute inset-y-0 left-0 w-1", rule)}
+                  />
+                  <div className="flex items-start justify-between gap-3">
+                    <h4 className="heading-tight max-w-[14ch] font-heading text-[clamp(1.25rem,1.9vw,1.5rem)] font-extrabold tracking-[-0.015em] text-white">
+                      {step.claim}
                     </h4>
-                    <p className="mt-2 text-[13.5px] leading-relaxed text-mist">{company.body}</p>
-                    {company.qualifier ? (
-                      <p className="mt-auto pt-3 text-[12px] leading-relaxed text-slate-muted">
-                        {company.qualifier}
-                      </p>
-                    ) : null}
+                    <img
+                      src={step.icon}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                      width={288}
+                      height={288}
+                      className="size-14 shrink-0"
+                    />
                   </div>
-                </Reveal>
-              </React.Fragment>
+                  <p className="mt-3 pb-4 text-[13px] leading-relaxed text-mist">{step.detail}</p>
+                  <p
+                    className={cn(
+                      "mt-auto w-fit rounded-full px-3 py-1.5 font-heading text-[11px] font-extrabold uppercase tracking-[0.1em]",
+                      chip,
+                    )}
+                  >
+                    {step.name}
+                  </p>
+                </div>
+              </Reveal>
             );
           })}
         </ol>
 
-        {/* Compliance, both paragraphs, verbatim. Neither may be dropped. */}
-        <div className="mt-6 flex flex-col gap-2.5">
-          {chainNotices.map((notice) => (
-            <p key={notice} className="max-w-[104ch] text-[12px] leading-relaxed text-slate-muted">
-              {notice}
-            </p>
-          ))}
+        {/* The compliance notice. It is a NOTICE, not body copy — the shield,
+            the tinted strip and the bolded negatives are all there so it reads
+            as one, and so the four things it denies are the parts the eye
+            stops on. See content/about.ts for what may and may not be cut. */}
+        <div className="mt-7 flex items-start gap-3 rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/40 p-4">
+          <ShieldAlert
+            aria-hidden="true"
+            className="mt-px size-[17px] shrink-0 text-slate-muted"
+            strokeWidth={1.8}
+          />
+          <p className="max-w-[104ch] text-[12.5px] leading-relaxed text-slate-muted">
+            <Emphasise text={chainNotice} terms={chainNoticeEmphasis} />
+          </p>
         </div>
       </Band>
 
-      {/* ── 4 · Why Partner + the close ── navy ──────────────────────────── */}
+      {/*
+       * ── 4 · Why Partner + the close ── navy ────────────────────────────
+       *
+       * The three beats ARE the heading here. "Why Partner With Us?" has been
+       * demoted into the eyebrow and the strapline promoted to display size,
+       * because this is the last thing on the page before the footer and a
+       * closing section should make one loud claim rather than ask a question
+       * and then answer it quietly.
+       *
+       * Middle beat in orange, outer two in white. One accent in a stack of
+       * three is a rhythm; three would just be an orange block.
+       *
+       * ⚠️ THE HEADING IS STILL AN <h2>, and it is still the three beats joined
+       * back into the original sentence for anything that reads the document
+       * rather than looks at it — `sr-only` carries "Why Partner With Us?" so
+       * the outline of the page has not changed just because the type has.
+       *
+       * Two actions, not three. "Contact Us" was the middle of three and is in
+       * both the nav and the footer; with three side by side none of them read
+       * as the primary.
+       */}
       <Band id="partner-heading">
-        {/* Centred end to end — heading, line, strapline and actions all on one
-            axis. Left-aligned copy over centred buttons was what made this read
-            as two half-finished layouts stacked. */}
         <div className="text-center">
-          <Head eyebrow={whyPartner.eyebrow} title={whyPartner.title} id="partner-heading" />
+          <p className="eyebrow tracking-[0.14em] text-teal-400">
+            {whyPartner.eyebrow} · {whyPartner.title}
+          </p>
+          <h2 id="partner-heading" className="sr-only">
+            {whyPartner.title}
+          </h2>
+
+          <Reveal className="mt-4">
+            {whyPartner.straplineBeats.map((beat, i) => (
+              <p
+                key={beat}
+                className={cn(
+                  "heading-tight text-balance font-heading text-[clamp(1.75rem,4.6vw,3.125rem)] font-extrabold leading-[1.04] tracking-[-0.025em]",
+                  i === 1 ? "text-orange-500" : "text-white",
+                )}
+              >
+                {beat}
+              </p>
+            ))}
+          </Reveal>
+
+          <Summary lines={summaries.whyPartner!} tone="teal" centre />
+
+          <Reveal index={1}>
+            <PreReleaseBadge className="mt-8 justify-center" />
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+              <Button variant="primary" asChild>
+                <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
+                  {whyPartner.cta}
+                </Link>
+              </Button>
+              <Button variant="secondary" asChild withArrow={false}>
+                <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
+                  Become a Partner
+                </Link>
+              </Button>
+            </div>
+          </Reveal>
         </div>
-        <Summary lines={summaries.whyPartner!} tone="teal" centre />
-
-        <Reveal className="mt-10 text-center">
-          <p className="heading-tight text-balance font-heading text-[clamp(1.375rem,2.8vw,1.875rem)] font-extrabold text-orange-500">
-            {whyPartner.strapline}
-          </p>
-          <p className="mt-3 text-[14px] font-semibold text-mist">
-            {straplines.join("  ·  ")}
-          </p>
-
-          <PreReleaseBadge className="mt-6 justify-center" />
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-            <Button variant="primary" asChild>
-              <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
-                {whyPartner.cta}
-              </Link>
-            </Button>
-            <Button variant="secondary" asChild withArrow={false}>
-              <Link to="/contact">Contact Us</Link>
-            </Button>
-            <Button variant="ghost" asChild>
-              <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
-                Become a Partner
-              </Link>
-            </Button>
-          </div>
-        </Reveal>
       </Band>
     </main>
   );

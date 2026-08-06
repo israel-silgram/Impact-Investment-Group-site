@@ -1,32 +1,59 @@
-import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { IconCircle } from "@/components/ui/icon-circle";
-import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { Reveal } from "@/components/ui/reveal";
-import { SectionRail } from "@/components/solutions/section-rail";
-import { RoleSectionBlock } from "@/components/solutions/role-section";
-import { roleIcons, useActiveSection, useAnchorScroll } from "@/components/solutions/role-utils";
-import { notAnOrganisation, roleSections } from "@/content/solutions";
-import { crisisLines, crisisNote } from "@/content/site";
+import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
+import { cn } from "@/lib/utils";
+import { closingBeats, closingStrapline, registerRoute } from "@/content/site";
+import {
+  dealLayers,
+  dealLayersKicker,
+  layerOwners,
+  layerOwnersKicker,
+  lookingForHome,
+  productPitch,
+  solutionClose,
+  solutionHero,
+} from "@/content/solutions";
+
+/**
+ * /solutions — five sections.
+ *
+ *   1 · The statement        cream, street photo at 12%
+ *   2 · Five layers          navy,  exploded house
+ *   3 · Who owns which       cream, hub diagram + spine
+ *   4 · The product          navy,  the three analysts
+ *   5 · Close                cream, the site-wide strapline
+ *
+ * ── WHAT THIS REPLACED ────────────────────────────────────────────────────
+ *
+ * Eight near-identical role sections — one per organisation, each with a
+ * promise, three bullets and a mocked-up portal window. All eight roles still
+ * appear; they are the verb lines in section three. The portals are gone: they
+ * were invented interface screenshots, and /platform now shows the real thing.
+ *
+ * ── THREE THINGS THAT ARE NOT ARBITRARY ───────────────────────────────────
+ *
+ * THE HOUSE IS A RHYME, NOT A DIAGRAM. Five slabs beside five rows, and that is
+ * all. There are deliberately no connector lines between them, because the roof
+ * is not "the brief" and drawing a line would claim that it is.
+ *
+ * SECTION 3 IS A SPINE, NOT A GRID. "The home" has four owners and the other
+ * layers have one or two. A five-column grid advertises that imbalance; a spine
+ * absorbs it.
+ *
+ * THE CLOSE IS THE SHARED ONE. Same beats, same accent on the middle beat, same
+ * two actions as /about, /platform and /the-problem — from `closingBeats` in
+ * content/site.ts. This page is not special.
+ */
 
 export const Route = createFileRoute("/solutions")({
   component: SolutionsPage,
   head: () => ({
     meta: [
-      { title: "Solutions by role — The Impact Investment Platform" },
-      {
-        name: "description",
-        content:
-          "Eight routes into one evidenced process: local authorities, housing associations, care and support providers, investors, landlords, developers, estate agents and contractors.",
-      },
-      { property: "og:title", content: "Solutions by role — The Impact Investment Platform" },
-      {
-        property: "og:description",
-        content:
-          "What the platform does for commissioners, providers, landlords, developers and capital partners in UK supported housing.",
-      },
+      { title: "The Solution — The Impact Investment Platform" },
+      { name: "description", content: solutionHero.lead },
+      { property: "og:title", content: "The Solution — The Impact Investment Platform" },
+      { property: "og:description", content: solutionHero.lead },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/solutions" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -35,170 +62,276 @@ export const Route = createFileRoute("/solutions")({
   }),
 });
 
-const slugs = roleSections.map((section) => section.slug);
-
 function SolutionsPage() {
-  const active = useActiveSection(slugs);
-  const scrollTo = useAnchorScroll();
-
-  // Honour a deep link such as /solutions#local-authorities on first paint.
-  React.useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    if (hash && slugs.includes(hash as (typeof slugs)[number])) {
-      window.requestAnimationFrame(() => scrollTo(hash));
-    }
-  }, [scrollTo]);
-
-  const readingRole =
-    roleSections.find((section) => section.slug === active)?.slug ?? "local-authorities";
-
   return (
-    <main className="bg-navy-900">
-      {/* 1 · Hero — the role picker is the hero */}
-      <section aria-labelledby="solutions-heading" className="border-b border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
+    <main>
+      {/* ── 1 · The statement ── cream ─────────────────────────────────────
+          The street photograph sits at 12% and fades to solid cream before the
+          copy starts, so nothing is read against a busy part of the image. */}
+      <section
+        aria-labelledby="solution-heading"
+        className="section-light relative isolate overflow-hidden"
+      >
+        <img
+          src="/images/solution-street-blueprint.webp"
+          alt=""
+          aria-hidden="true"
+          width={1600}
+          height={900}
+          className="pointer-events-none absolute inset-0 -z-20 size-full object-cover opacity-[0.12]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-b from-[var(--color-mist-bg)]/80 via-[var(--color-mist-bg)]/25 to-[var(--color-mist-bg)]"
+        />
+        <div className="mx-auto w-full max-w-[1200px] px-5 py-20 sm:px-8">
           <Reveal>
-            <p className="eyebrow text-teal-400">Our solutions</p>
+            <p className="eyebrow tracking-[0.14em] text-orange-700">{solutionHero.eyebrow}</p>
             <h1
-              id="solutions-heading"
-              className="heading-tight mt-4 text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-white"
+              id="solution-heading"
+              className="heading-tight mt-3.5 max-w-[15ch] font-heading text-[clamp(2.5rem,7.6vw,6rem)] font-extrabold leading-[0.98] tracking-[-0.04em] text-white"
             >
-              Solutions
+              {solutionHero.headA}{" "}
+              {/* orange-700, not orange-500: on the cream the brighter orange is
+                  2.3:1 and `.section-light` would rewrite it to navy ink. */}
+              <span className="text-orange-700">{solutionHero.headB}</span>
             </h1>
-            <p className="measure mt-5 text-base leading-relaxed text-mist">
-              Pick your role. Every section answers the same four questions in the same order, so
-              you can compare what we hold ourselves to.
+            <p className="mt-5 max-w-[56ch] text-[19px] leading-relaxed text-mist">
+              {solutionHero.lead}
             </p>
           </Reveal>
-
-          <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {roleSections.map((role, i) => {
-              const isActive = role.slug === active;
-              return (
-                <Reveal as="li" key={role.slug} index={i}>
-                  <button
-                    type="button"
-                    onClick={() => scrollTo(role.slug)}
-                    aria-current={isActive ? "true" : undefined}
-                    className={`flex h-full min-h-11 w-full cursor-pointer flex-col items-center gap-3 rounded-[var(--radius-panel)] border p-6 text-center transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400 ${
-                      isActive
-                        ? "border-teal-500 bg-navy-800/70"
-                        : "border-navy-700 bg-navy-800/40 hover:border-navy-600"
-                    }`}
-                  >
-                    <IconCircle icon={roleIcons[role.slug]} />
-                    <span className="font-heading text-base font-semibold text-white">
-                      {role.title}
-                    </span>
-                    <span className="text-[13px] leading-relaxed text-slate-muted">
-                      {role.cardLine}
-                    </span>
-                  </button>
-                </Reveal>
-              );
-            })}
-          </ul>
         </div>
       </section>
 
-      {/* 2 · Sticky rail + 3 · the eight sections */}
-      <div className="section-light">
-        <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
-          <div className="sticky top-[72px] z-30 -mx-5 bg-navy-900/95 py-3 backdrop-blur sm:-mx-8 sm:px-8 lg:top-24 lg:mx-0 lg:self-start lg:!bg-transparent lg:!shadow-none lg:px-0 lg:py-12 lg:backdrop-blur-none">
-            <div className="px-5 sm:px-0 lg:px-0">
-              <SectionRail sections={roleSections} active={active} onSelect={scrollTo} />
-            </div>
-          </div>
+      {/* ── 2 · Five layers ── navy ───────────────────────────────────────── */}
+      <section aria-labelledby="layers-heading" className="border-t border-navy-700 bg-navy-900">
+        <div className="mx-auto w-full max-w-[1200px] px-5 py-11 sm:px-8">
+          <p className="eyebrow tracking-[0.14em] text-teal-400">How a deal is built</p>
+          <h2
+            id="layers-heading"
+            className="heading-tight mt-2.5 max-w-[22ch] text-balance text-[clamp(1.625rem,3.8vw,2.75rem)] font-extrabold tracking-[-0.02em] text-white"
+          >
+            A deal has <span className="text-orange-500">five layers</span>. We hold all of them.
+          </h2>
 
-          <div className="pb-4">
-            {roleSections.map((role) => (
-              <RoleSectionBlock key={role.slug} role={role} />
-            ))}
+          <div className="mt-4 grid items-center gap-7 lg:grid-cols-[minmax(0,1fr)_200px]">
+            <div>
+              <ol>
+                {dealLayers.map((layer, i) => (
+                  <Reveal key={layer.number} index={i} as="li">
+                    {/* The stagger is the cascade. It is capped at 26px a step —
+                        deeper and the last row loses too much width to read. */}
+                    <div
+                      className="mt-[7px] flex items-center gap-[18px] rounded-r-xl border-l-[3px] border-teal-400 bg-linear-to-r from-teal-600/25 to-transparent px-4 py-[11px]"
+                      style={{ marginLeft: `${i * 26}px` }}
+                    >
+                      <span className="font-heading text-[20px] font-extrabold text-teal-400">
+                        {layer.number}
+                      </span>
+                      <span>
+                        <span className="block font-heading text-[18px] font-extrabold text-white">
+                          {layer.title}
+                        </span>
+                        <span className="mt-0.5 block text-[13px] text-mist">{layer.detail}</span>
+                      </span>
+                    </div>
+                  </Reveal>
+                ))}
+              </ol>
+              <p className="mt-5 max-w-[52ch] font-heading text-[19px] font-bold text-white">
+                {dealLayersKicker}
+              </p>
+            </div>
+
+            {/* Decorative. The list beside it says everything this says. */}
+            <img
+              src="/images/solution/house.webp"
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              width={453}
+              height={1100}
+              className="hidden w-full lg:block"
+            />
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* 4 · Not an organisation? */}
-      <section aria-labelledby="find-a-home-heading" className="section-light border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-20">
-          <Reveal className="panel-slate p-8 lg:p-10">
-            <h2
-              id="find-a-home-heading"
-              className="heading-tight text-[clamp(1.5rem,2.6vw,2.25rem)] font-bold text-white"
-            >
-              {notAnOrganisation.heading}
-            </h2>
-            <p className="measure mt-4 text-base leading-relaxed text-mist">
-              {notAnOrganisation.body}
-            </p>
-            <div className="mt-6">
-              <Button variant="secondary" asChild>
-                <Link to="/contact" search={{ enquiry: notAnOrganisation.action.enquiry }}>
-                  {notAnOrganisation.action.label}
-                </Link>
-              </Button>
+      {/* ── 3 · Who owns which layer ── cream ─────────────────────────────── */}
+      <section aria-labelledby="owners-heading" className="section-light border-t border-navy-700">
+        <div className="mx-auto w-full max-w-[1200px] px-5 py-14 sm:px-8">
+          <p className="eyebrow tracking-[0.14em] text-orange-700">Who touches which layer</p>
+          <h2
+            id="owners-heading"
+            className="heading-tight mt-2.5 max-w-[24ch] text-balance text-[clamp(1.625rem,3.8vw,2.75rem)] font-extrabold tracking-[-0.02em] text-white"
+          >
+            Eight sides. <span className="text-orange-700">One job each.</span>
+          </h2>
+
+          <div className="mt-6 grid items-center gap-7 lg:grid-cols-[260px_minmax(0,1fr)]">
+            <img
+              src="/images/solution/hub.webp"
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              width={846}
+              height={620}
+              className="hidden w-full lg:block"
+            />
+
+            <div>
+              <ol>
+                {layerOwners.map((row, i) => {
+                  const last = i === layerOwners.length - 1;
+                  return (
+                    <Reveal key={row.layer} index={i} as="li">
+                      <div className={cn("grid grid-cols-[56px_1fr] gap-[22px]", !last && "pb-[18px]")}>
+                        <div className="relative text-center">
+                          <span className="grid size-11 place-items-center rounded-full bg-teal-600 font-heading text-[15px] font-extrabold text-white">
+                            {row.number}
+                          </span>
+                          {/* The thread between the discs. Decorative — the
+                              ordered list carries the sequence. */}
+                          {!last ? (
+                            <span
+                              aria-hidden="true"
+                              className="absolute -bottom-[18px] left-1/2 top-12 w-0.5 -translate-x-1/2 bg-linear-to-b from-teal-600/40 to-teal-600/10"
+                            />
+                          ) : null}
+                        </div>
+                        <div className="pt-[5px]">
+                          <p className="eyebrow tracking-[0.14em] text-orange-700">{row.layer}</p>
+                          <div className="mt-2.5 flex flex-wrap">
+                            {row.people.map((p) => (
+                              <span
+                                key={p.role}
+                                className="mb-2 mr-2 inline-flex items-baseline gap-[7px] rounded-full border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)] bg-white px-[15px] py-2 shadow-[0_1px_2px_rgba(0,17,43,0.05)]"
+                              >
+                                <b className="font-heading text-[15px] font-extrabold text-navy-900">
+                                  {p.role}
+                                </b>
+                                <span className="text-[14px] font-semibold text-orange-700">
+                                  {p.verb}
+                                </span>
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </Reveal>
+                  );
+                })}
+              </ol>
+              <p className="mt-5 max-w-[56ch] text-[14px] leading-relaxed text-mist">
+                {layerOwnersKicker}
+              </p>
             </div>
-            <p className="measure mt-6 text-sm leading-relaxed text-mist">
-              {notAnOrganisation.closing}
-            </p>
-          </Reveal>
+          </div>
+        </div>
+      </section>
 
-          <Reveal index={1} className="mt-6">
-            <ul className="flex flex-col gap-2">
-              {crisisLines.map((line) => (
-                <li key={line.label} className="flex items-center gap-3 text-sm text-mist">
-                  <Phone aria-hidden="true" className="size-4 shrink-0 text-teal-400" />
-                  <span className="font-heading font-semibold text-white">{line.label}</span>
-                  <a
-                    href={`tel:${line.detail.replace(/\s/g, "")}`}
-                    className="min-h-11 content-center text-teal-400 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
-                  >
-                    {line.detail}
-                  </a>
+      {/* ── 4 · The product ── navy ───────────────────────────────────────── */}
+      <section aria-labelledby="product-heading" className="border-t border-navy-700 bg-navy-900">
+        <div className="mx-auto grid w-full max-w-[1200px] items-center gap-9 px-5 py-14 sm:px-8 lg:grid-cols-[minmax(0,1fr)_340px]">
+          <div>
+            <p className="eyebrow tracking-[0.14em] text-teal-400">{productPitch.eyebrow}</p>
+            <h2
+              id="product-heading"
+              className="heading-tight mt-3 max-w-[20ch] text-balance text-[clamp(1.75rem,4.4vw,3.125rem)] font-extrabold tracking-[-0.02em] text-white"
+            >
+              {productPitch.headA}{" "}
+              <span className="text-orange-500">{productPitch.headB}</span>.
+            </h2>
+            <p className="mt-3.5 text-[17px] leading-relaxed text-mist">{productPitch.lead}</p>
+
+            <ul className="mt-6 flex flex-col gap-5 sm:flex-row sm:gap-6">
+              {productPitch.items.map((item) => (
+                <li key={item.title} className="flex-1 border-t-2 border-teal-600 pt-3">
+                  <p className="font-heading text-[16.5px] font-extrabold text-white">
+                    {item.title}
+                  </p>
+                  <p className="mt-1.5 text-[13px] leading-snug text-mist">{item.detail}</p>
                 </li>
               ))}
-              <li className="flex items-center gap-3 text-sm text-mist">
-                <Phone aria-hidden="true" className="size-4 shrink-0 text-teal-400" />
-                <span>{crisisNote}</span>
-              </li>
             </ul>
-          </Reveal>
+
+            {/* Filled, not outlined, with a glow ring. White on teal-600 is
+                5.25:1 — the brighter teal would drop it below AA. */}
+            <div className="mt-7">
+              <Link
+                to="/platform"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-teal-400 bg-teal-600 px-6 py-3 font-heading text-[15px] font-bold text-white shadow-[0_0_0_4px_color-mix(in_oklab,var(--color-teal-400)_18%,transparent),0_12px_30px_-10px_color-mix(in_oklab,var(--color-teal-400)_60%,transparent)] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
+              >
+                {productPitch.cta}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+
+          <img
+            src="/images/solution/trio.webp"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            width={829}
+            height={620}
+            className="hidden w-full drop-shadow-[0_20px_34px_rgba(0,17,43,0.4)] lg:block"
+          />
         </div>
       </section>
 
-      {/* 5 · Closing CTA — the page's single orange action */}
-      <section aria-labelledby="solutions-cta-heading" className="border-t border-navy-700 bg-navy-950">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 lg:py-24">
-          <Reveal>
-            <h2
-              id="solutions-cta-heading"
-              className="heading-tight text-balance text-[clamp(1.75rem,3.4vw,3rem)] font-bold text-white"
+      {/* ── The safeguarding signpost ─────────────────────────────────────
+          Not marketing. Someone who needs housing has landed on a page selling
+          property to investors, and this is their route out. It stays. */}
+      <section aria-label="Looking for a home" className="border-t border-navy-700 bg-navy-800">
+        <div className="mx-auto w-full max-w-[1200px] px-5 py-4 text-center sm:px-8">
+          <p className="mx-auto max-w-[96ch] text-[13px] leading-relaxed text-mist">
+            {lookingForHome.body}{" "}
+            <Link
+              to="/contact"
+              search={{ enquiry: lookingForHome.enquiry, type: lookingForHome.enquiry }}
+              className="font-bold text-teal-400 underline-offset-2 hover:underline"
             >
-              See it against your own brief
-            </h2>
-            <p className="measure mt-4 text-base leading-relaxed text-mist">
-              We will walk the platform through the role you have been reading — no generic tour.
-            </p>
-            <PreReleaseBadge className="mt-8" />
-            <div className="mt-5 flex flex-wrap items-center gap-4">
-              <Button variant="primary" asChild>
-                <Link
-                  to="/contact"
-                  search={{ enquiry: "waitlist", type: "waitlist", role: readingRole }}
+              {lookingForHome.action} →
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* ── 5 · Close ── cream, no rule above it ──────────────────────────── */}
+      <section aria-labelledby="solutions-cta" className="section-light">
+        <div className="mx-auto w-full max-w-[1200px] px-5 pb-16 pt-6 text-center sm:px-8 lg:pb-20">
+          <h2 id="solutions-cta" className="sr-only">
+            {closingStrapline}
+          </h2>
+          <Reveal>
+            <PreReleaseBadge className="justify-center" />
+            <div className="mt-5">
+              {closingBeats.map((beat, i) => (
+                <span
+                  key={beat}
+                  aria-hidden="true"
+                  className={cn(
+                    "heading-tight inline-block font-heading text-[clamp(1.75rem,4.4vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.025em]",
+                    i === 1 ? "text-orange-700" : "text-white",
+                    i < 2 && "mr-2",
+                  )}
                 >
-                  Register Here
+                  {beat}
+                </span>
+              ))}
+            </div>
+            <p className="mx-auto mt-4 max-w-[56ch] text-[17px] leading-relaxed text-mist">
+              {solutionClose.lead}
+            </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Button variant="primary" asChild>
+                <Link to={registerRoute.to} search={registerRoute.search}>
+                  {solutionClose.cta}
                 </Link>
               </Button>
               <Button variant="secondary" asChild withArrow={false}>
-                <Link to="/contact" search={{ role: readingRole }}>
-                  Contact Us
-                </Link>
-              </Button>
-              <Button variant="ghost" asChild>
-                <Link
-                  to="/contact"
-                  search={{ enquiry: "partner", type: "partner", role: readingRole }}
-                >
+                <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
                   Become a Partner
                 </Link>
               </Button>

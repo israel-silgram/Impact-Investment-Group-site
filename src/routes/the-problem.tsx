@@ -1,27 +1,61 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { DemandMap } from "@/components/home/demand-map";
-import { PageShell } from "@/components/page-shell";
-import { SectionHeader } from "@/components/ui/section-header";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
-import { demandMapNote, heroCounts, heroCountsSource } from "@/content/home";
+import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
+import { cn } from "@/lib/utils";
+import { closingBeats, closingStrapline, registerRoute } from "@/content/site";
+import { problemClose, problemHero, problemSections } from "@/content/problem";
 
+/**
+ * /the-problem — four sections and the shared close.
+ *
+ *   1 · The scale             navy    1.34m      Petra
+ *   2 · The cost of waiting   cream   £2.7bn     — no character, deliberately
+ *   3 · Why it stays broken   navy    5          Peter
+ *   4 · The opportunity       cream   £39bn      Pippa
+ *   5 · Close                 navy    the same CTA as /about and /platform
+ *
+ * ── THE LAYOUT ────────────────────────────────────────────────────────────
+ *
+ * One enormous number on the left, the data as rows on the right, and the
+ * character OVERSIZED AND BLEEDING OFF THE OUTER EDGE of the page — left on
+ * sections one and three, right on section four. Three things about that:
+ *
+ *   · The bleed is the point. A figure fully inside the container reads as
+ *     clip-art dropped onto the page; one that runs off the edge reads as part
+ *     of it. That is why the section is `overflow-hidden` and the image is
+ *     positioned at a negative offset rather than being given a column.
+ *   · Alternating sides gives the page a rhythm — the eye zig-zags down rather
+ *     than running straight — which is the whole reason this beat the
+ *     centred-gutter version.
+ *   · They are gone below lg. At tablet width the bleed eats the copy, and a
+ *     shrunk character is worse than none. `hidden lg:block`, no apology.
+ *
+ * ── WHAT CAME OFF THIS PAGE ───────────────────────────────────────────────
+ *
+ * ⚠️ THE DEMAND MAP WAS HERE AND IS NOT ANY MORE. The page used to run a
+ * hero, a live-counters band and the full interactive DemandMap. The brief was
+ * four sections, and the map did not earn one of them: it answers "where", and
+ * this page now answers "how big, what it costs, why, and what is funded".
+ *
+ * It is NOT lost — `<DemandMap readout="overlay" />` still runs on the
+ * homepage, which is the only place it was ever the main event. If it is ever
+ * wanted back here it is one import and one line.
+ *
+ * The live-counters band went with it. Those three figures are the platform's
+ * own numbers, and this page is deliberately built from published statistics
+ * that anyone can check — mixing our counters in among gov.uk releases would
+ * borrow authority the counters have not earned yet.
+ */
 
 export const Route = createFileRoute("/the-problem")({
   component: TheProblemPage,
   head: () => ({
     meta: [
       { title: "The Problem — The Impact Investment Platform" },
-      {
-        name: "description",
-        content:
-          "Why supported housing placement, compliance and capital allocation break down across UK local authorities and providers.",
-      },
+      { name: "description", content: problemHero.description },
       { property: "og:title", content: "The Problem — The Impact Investment Platform" },
-      {
-        property: "og:description",
-        content:
-          "Why supported housing placement, compliance and capital allocation break down across UK local authorities and providers.",
-      },
+      { property: "og:description", content: problemHero.description },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/the-problem" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -30,64 +64,182 @@ export const Route = createFileRoute("/the-problem")({
   }),
 });
 
+const PORTRAIT: Record<string, { src: string; w: number; h: number }> = {
+  "petra-point": { src: "/images/ai-team/petra-point.webp", w: 338, h: 560 },
+  "peter-present": { src: "/images/ai-team/peter-present.webp", w: 281, h: 560 },
+  "pippa-point": { src: "/images/ai-team/pippa-point.webp", w: 345, h: 560 },
+};
+
 function TheProblemPage() {
   return (
-    <>
-      <PageShell
-        eyebrow="The Problem"
-        title="Supply, support and capital do not currently meet in the same place"
-        lead="The evidenced case for change, built only from sourced figures. No statistic appears on this page without its origin."
-      />
+    <main>
+      <h1 className="sr-only">{problemHero.title}</h1>
 
-      <section aria-labelledby="counters-heading" className="section-light border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
+      {problemSections.map((section, i) => {
+        const portrait = section.character ? PORTRAIT[section.character] : undefined;
+        /* Left on the first character section, right on the last — the
+           alternation is what gives the page its rhythm. */
+        const onLeft = i !== problemSections.length - 1;
+
+        return (
+          <section
+            key={section.id}
+            aria-labelledby={`${section.id}-heading`}
+            className={cn(
+              "relative overflow-hidden border-t border-navy-700",
+              section.light ? "section-light" : "bg-navy-900",
+            )}
+          >
+            <div className="mx-auto w-full max-w-[1200px] px-5 py-14 sm:px-8 lg:py-16">
+              <div
+                className={cn(
+                  "relative",
+                  portrait && (onLeft ? "lg:pl-[290px]" : "lg:pr-[290px]"),
+                )}
+              >
+                {portrait ? (
+                  <img
+                    src={portrait.src}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    width={portrait.w}
+                    height={portrait.h}
+                    className={cn(
+                      "pointer-events-none absolute bottom-0 hidden h-[302px] w-auto drop-shadow-[0_20px_34px_rgba(0,17,43,0.3)] lg:block",
+                      onLeft ? "-left-12" : "-right-12 -scale-x-100",
+                    )}
+                  />
+                ) : null}
+
+                <div className="grid items-center gap-8 lg:min-h-[250px] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-10">
+                  <div>
+                    <p
+                      className={cn(
+                        "eyebrow tracking-[0.14em]",
+                        section.light ? "text-orange-700" : "text-teal-400",
+                      )}
+                    >
+                      {section.eyebrow}
+                    </p>
+                    {/* The figure IS the heading. `sr-only` carries a sentence
+                        instead, because "£2.7bn" alone is not a section title
+                        to anything reading the document rather than looking. */}
+                    <h2 id={`${section.id}-heading`} className="sr-only">
+                      {section.eyebrow} — {section.headline}
+                    </h2>
+                    <p
+                      aria-hidden="true"
+                      className={cn(
+                        "mt-3 font-heading text-[clamp(2.75rem,6.6vw,5rem)] font-extrabold leading-[0.94] tracking-[-0.035em]",
+                        section.light ? "text-orange-700" : "text-orange-500",
+                      )}
+                    >
+                      {section.headline}
+                    </p>
+                    <p className="mt-3.5 max-w-[32ch] text-[15px] leading-relaxed text-mist">
+                      {section.lead}
+                    </p>
+                    {section.source ? (
+                      <p className="mt-3.5 max-w-[46ch] text-[11px] leading-relaxed text-slate-muted">
+                        {section.source}
+                      </p>
+                    ) : null}
+                  </div>
+
+                  <Reveal index={1}>
+                    <ul>
+                      {section.rows.map((r) => (
+                        <li
+                          key={r.label}
+                          className="flex items-baseline justify-between gap-4 border-b border-navy-700 py-3 last:border-b-0"
+                        >
+                          <p className="text-[13.5px] leading-snug text-mist">{r.label}</p>
+                          {r.value ? (
+                            <p
+                              className={cn(
+                                "shrink-0 font-heading text-[19px] font-extrabold",
+                                section.light ? "text-navy-900" : "text-teal-400",
+                              )}
+                            >
+                              {r.value}
+                            </p>
+                          ) : null}
+                        </li>
+                      ))}
+                    </ul>
+                  </Reveal>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      })}
+
+      {/*
+       * ── 5 · Close ── cream ────────────────────────────────────────────
+       *
+       * NO BORDER ON TOP. Section four is also cream, so the two run together
+       * as one continuous ground — that join is deliberate and is why the rule
+       * every other section carries is absent here. Do not "fix" it.
+       *
+       * The beats are set in orange-700, NOT the orange-500 the same close uses
+       * on /about. That is not a colour preference: /about closes on navy where
+       * orange-500 is 7.2:1, and this one closes on cream where orange-500 is
+       * 2.3:1 and fails outright. orange-700 is 4.1:1 — which clears AA only as
+       * LARGE text, and these beats are 28–50px extrabold, so they qualify.
+       * `.section-light` also rewrites orange-500 to navy ink, so writing it
+       * here would silently produce a black word rather than an orange one.
+       *
+       * ⚠️ NO CAPITAL-AT-RISK PARAGRAPH HERE. It was removed to match the
+       * approved design, and that is only safe because the site FOOTER carries
+       * "capital at risk" on every page, alongside the FCA and scheme-status
+       * statements. If the footer is ever trimmed, this comes back.
+       */}
+      <section aria-labelledby="problem-cta" className="section-light">
+        <div className="mx-auto w-full max-w-[1200px] px-5 pb-16 pt-6 text-center sm:px-8 lg:pb-20">
+          <h2 id="problem-cta" className="sr-only">
+            {closingStrapline}
+          </h2>
+
           <Reveal>
-            <SectionHeader
-              id="counters-heading"
-              eyebrow="Live counters"
-              title="What we can evidence today"
-              lead="Three figures, live from our platform. Nothing else is published until it can be evidenced."
-              className="max-w-3xl"
-            />
+            <PreReleaseBadge className="justify-center" />
+            <div className="mt-5">
+              {closingBeats.map((beat, i) => (
+                <span
+                  key={beat}
+                  aria-hidden="true"
+                  className={cn(
+                    "heading-tight font-heading text-[clamp(1.75rem,4.4vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.025em]",
+                    /* inline-block so the three beats sit on one line where
+                       there is room and wrap as whole phrases where there is
+                       not — never mid-beat. */
+                    "inline-block",
+                    i === 1 ? "text-orange-700" : "text-white",
+                    i < 2 && "mr-2",
+                  )}
+                >
+                  {beat}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+              <Button variant="primary" asChild>
+                <Link to={registerRoute.to} search={registerRoute.search}>
+                  {problemClose.cta}
+                </Link>
+              </Button>
+              <Button variant="secondary" asChild withArrow={false}>
+                <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
+                  Become a Partner
+                </Link>
+              </Button>
+            </div>
           </Reveal>
-          <dl className="mt-10 grid gap-6 sm:grid-cols-3">
-            {heroCounts.map((count, i) => (
-              <Reveal key={count.id} index={i} className="panel flex flex-col gap-2 p-6">
-                <dt className="font-heading text-base font-semibold text-mist">{count.label}</dt>
-                <dd className="font-heading text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold leading-none text-white">
-                  {count.value}
-                </dd>
-                <p className="text-[12px] leading-snug text-slate-muted">{heroCountsSource}</p>
-              </Reveal>
-            ))}
-          </dl>
-          <p className="measure mt-8 text-sm leading-relaxed text-mist">
-            We don&rsquo;t publish people housed, investment raised, carbon saved or social value
-            created until we can evidence them. When we can, they&rsquo;ll appear here with their
-            method.
-          </p>
         </div>
       </section>
 
-      <section
-        aria-label="Demand comparison by local authority"
-        className="border-t border-navy-700 bg-navy-950"
-      >
-        <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8">
-          <Reveal>
-            <SectionHeader
-              eyebrow="Where the demand sits"
-              title="Compare demand authority by authority"
-              lead="Every highlighted authority has a published commissioning brief. Select one to compare its sourced homes, potential rooms and demand intensity against the others."
-            />
-          </Reveal>
-          <Reveal index={1} className="mt-10">
-            <DemandMap />
-          </Reveal>
-          <p className="mt-10 text-[12px] leading-snug text-slate-muted">{demandMapNote}</p>
-        </div>
-      </section>
-    </>
+    </main>
   );
-
 }

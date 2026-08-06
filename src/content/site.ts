@@ -26,6 +26,25 @@ export const registerRoute = {
 
 export const siteName = "Impact Investment Platform";
 
+/**
+ * The closing line every page ends on — home, About, Our Services, The Problem.
+ *
+ * ⚠️ THIS LIVES HERE BECAUSE IT IS SITE-WIDE, NOT BECAUSE ANY ONE PAGE OWNS IT.
+ * It used to be defined inside content/about.ts, which meant the Problem page
+ * either imported About's content (wrong) or kept its own copy of the same
+ * sentence (worse — two copies drift, and then two pages close on subtly
+ * different brand lines).
+ *
+ * `beats` is the same sentence split for display: the middle beat takes the
+ * accent, the outer two stay white. Rejoin with a space to get `strapline`
+ * back. If one changes, change both.
+ *
+ * The 'Coming soon · register your interest' line above the buttons is NOT
+ * here — it belongs to <PreReleaseBadge>, which every page already renders.
+ */
+export const closingStrapline = "Providing Homes. Delivering Support. Transforming Lives.";
+export const closingBeats = ["Providing Homes.", "Delivering Support.", "Transforming Lives."];
+
 /** Supporting positioning line. "Intelligent infrastructure", never "AI-powered platform". */
 export const positioningLine =
   "Building Homes. Delivering Support. Transforming Lives. The UK's intelligent infrastructure for housing, care and support.";
