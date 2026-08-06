@@ -78,17 +78,22 @@ export function DirectorCard({
           className,
         )}
       >
-        <img
-          src={director.portraitLead ?? director.portrait}
-          alt={`${director.name}, ${director.role}`}
-          width={880}
-          height={1100}
-          className="aspect-[4/5] w-full object-cover object-[50%_18%]"
-        />
-        <div className="flex flex-1 flex-col p-5">
+        {/* A circle needs a SQUARE source — `portrait` (440x440), not
+            `portraitLead` (the 880x1100 crop), which would lose the top of
+            the head to the mask. */}
+        <div className="flex justify-center px-5 pt-6">
+          <img
+            src={director.portrait}
+            alt={`${director.name}, ${director.role}`}
+            width={440}
+            height={440}
+            className="size-[168px] rounded-full object-cover ring-4 ring-white"
+          />
+        </div>
+        <div className="flex flex-1 flex-col p-5 text-center">
           <span
             aria-hidden="true"
-            className={cn("h-1 w-10 rounded-full", orange ? "bg-orange-600" : "bg-teal-600")}
+            className={cn("mx-auto h-1 w-10 rounded-full", orange ? "bg-orange-600" : "bg-teal-600")}
           />
           <h3 className="mt-3 font-heading text-[19px] font-bold text-navy-900">{director.name}</h3>
           <p className="mt-0.5 text-[12.5px] font-semibold text-teal-600">{director.role}</p>
@@ -96,7 +101,7 @@ export function DirectorCard({
             <p className="mt-3 text-[13px] leading-relaxed text-slate-ink">{director.bio}</p>
           ) : null}
           {director.credentials?.length ? (
-            <ul className="mt-3.5 flex flex-col gap-1.5 border-t border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] pt-3.5">
+            <ul className="mt-3.5 flex flex-col gap-1.5 border-t border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] pt-3.5 text-left">
               {director.credentials.map((line) => (
                 <li key={line} className="flex gap-2 text-[12px] leading-[1.45] text-slate-ink">
                   <span
@@ -137,12 +142,12 @@ export function DirectorCard({
             loading="lazy"
             width={440}
             height={440}
-            className="size-[68px] shrink-0 rounded-[10px] object-cover"
+            className="size-[68px] shrink-0 rounded-full object-cover"
           />
         ) : (
           <span
             aria-hidden="true"
-            className="grid size-[68px] shrink-0 place-items-center rounded-[10px] bg-white font-heading text-xl font-bold text-navy-900"
+            className="grid size-[68px] shrink-0 place-items-center rounded-full bg-white font-heading text-xl font-bold text-navy-900"
           >
             {director.initials}
           </span>
