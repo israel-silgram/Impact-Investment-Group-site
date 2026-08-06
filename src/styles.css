@@ -364,17 +364,22 @@
   animation: hub-pulse 3200ms var(--ease-out-soft) infinite;
 }
 
-/* The map floats on the section: no card, no border. The ground lifts from
-   #000D2A under the landmass out to navy-900 at the edges. */
-.demand-map-ground {
-  background-image: radial-gradient(
-    circle at 50% 45%,
-    #000d2a 0%,
-    #000d2a 42%,
-    color-mix(in oklab, #000d2a 55%, var(--color-navy-900)) 68%,
-    var(--color-navy-900) 100%
-  );
-}
+/*
+ * ⚠️ `.demand-map-ground` WAS REMOVED, along with the pale sweeps in the SVG.
+ *
+ * It painted a radial vignette behind the dot field — #000D2A under the
+ * landmass lifting out to navy-900 at the edges — so the map sat on a subtly
+ * darker plate than the section around it. Callum asked for the map to blend
+ * into the section background instead, so the class is off the element in
+ * demand-map.tsx and the rule is gone from here. The map now inherits whatever
+ * the section behind it is painted, on both / and /the-problem.
+ *
+ * If it ever needs a ground again, this was it:
+ *
+ *   background-image: radial-gradient(circle at 50% 45%, #000d2a 0%,
+ *     #000d2a 42%, color-mix(in oklab, #000d2a 55%, var(--color-navy-900)) 68%,
+ *     var(--color-navy-900) 100%);
+ */
 
 @utility reveal {
   opacity: 0;

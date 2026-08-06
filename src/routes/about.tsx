@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { DirectorCard } from "@/components/about/director-card";
-import { imagery } from "@/content/home";
 import { cn } from "@/lib/utils";
 import {
   accountableChain,
@@ -88,11 +87,29 @@ export const Route = createFileRoute("/about")({
  *
  * "accent" cannot do the same trick. `.section-light` rewrites orange-500 to
  * navy ink, and orange-700 — the one orange it lets through — is 4.1:1 on the
- * cream and only clears AA as LARGE text. That is why these lines are set at
- * 19px semibold: at that size and weight orange-700 qualifies as large text and
- * passes. On navy the brighter orange-500 is used instead, at 7.2:1.
+ * cream and only clears AA as LARGE text. So the claim line is set at 20px
+ * minimum, semibold, where orange-700 qualifies as large text and passes; the
+ * smaller lines under it get `small` and their accents fall back to ink. On
+ * navy none of this applies — orange-500 is 7.2:1 at any size.
  */
-function Rich({ parts, tone }: { parts: Seg[]; tone: "rust" | "teal" }) {
+function Rich({
+  parts,
+  tone,
+  small,
+}: {
+  parts: Seg[];
+  tone: "rust" | "teal";
+  small?: boolean;
+}) {
+  /*
+   * On the CREAM, an accent in a small line is demoted to navy ink. orange-700
+   * is 4.1:1 there and only passes as large text, so orange below ~19px
+   * semibold would be a real contrast failure rather than a style choice. Ink
+   * is 16.8:1 and still reads as emphasis. On NAVY there is no such problem —
+   * orange-500 is 7.2:1 at any size — so `small` changes nothing there.
+   */
+  const accent =
+    tone === "teal" ? "text-orange-500" : small ? "text-white" : "text-orange-700";
   return (
     <>
       {parts.map((part, i) =>
@@ -101,14 +118,7 @@ function Rich({ parts, tone }: { parts: Seg[]; tone: "rust" | "teal" }) {
         ) : (
           <strong
             key={i}
-            className={cn(
-              "font-bold",
-              part.em === "accent"
-                ? tone === "rust"
-                  ? "text-orange-700"
-                  : "text-orange-500"
-                : "text-white",
-            )}
+            className={cn("font-bold", part.em === "accent" ? accent : "text-white")}
           >
             {part.t}
           </strong>
@@ -125,24 +135,62 @@ const ACCENT = {
   white: { text: "text-white", bar: "bg-white/70", disc: "bg-white text-navy-900" },
 } as const;
 
-/** Section shell: one ground, one container, one padding value everywhere. */
+/**
+ * Section shell: one ground, one container, one padding value everywhere.
+ *
+ * `image` washes a photograph in behind the copy at 12% — texture, not a
+ * picture. Three things keep it from becoming decoration that fights the text:
+ *
+ *   · 9%. It started at 12% and Callum took three points off it by eye. Past
+ *     ~15% the stat cards start to sit on shapes rather than on a ground and
+ *     the eye reads the roofs instead of the figures — 9% is texture you
+ *     notice only once you look for it, which is the point.
+ *   · The scrim fades to solid navy at the top and bottom, so the band still
+ *     meets its neighbours on a clean edge rather than a torn photograph.
+ *   · `alt=""` and `aria-hidden`. It carries no information; a screen reader
+ *     announcing "aerial view of a housing estate" here would be noise.
+ *
+ * It is only ever used on a NAVY band. On cream there is no scrim dark enough
+ * to hold it back, which is exactly the version of this Callum rejected on the
+ * homepage — do not put one behind a `.section-light` band.
+ */
 function Band({
   id,
   light,
+  image,
   children,
 }: {
   id: string;
   light?: boolean;
+  image?: string;
   children: React.ReactNode;
 }) {
   return (
     <section
       aria-labelledby={id}
       className={cn(
-        "border-t border-navy-700",
+        "relative isolate border-t border-navy-700",
         light ? "section-light" : "bg-navy-900",
+        image && "overflow-hidden",
       )}
     >
+      {image ? (
+        <>
+          <img
+            src={image}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            width={1600}
+            height={640}
+            className="pointer-events-none absolute inset-0 -z-10 size-full object-cover opacity-[0.09]"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-b from-navy-900 via-transparent to-navy-900"
+          />
+        </>
+      ) : null}
       <div className="mx-auto w-full max-w-[1200px] px-5 py-12 sm:px-8 lg:py-14">{children}</div>
     </section>
   );
@@ -197,35 +245,77 @@ function SubHead({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** One summarised line per section, in place of two paragraphs. */
+/**
+ * A section's whole copy: one or two SHORT lines, in place of a lead sentence
+ * plus a two-paragraph body.
+ *
+ * The first line is the claim and runs large and semibold. Anything after it is
+ * a step down — smaller, regular weight, a narrower measure. That size drop is
+ * doing the work: a reader takes the first line at a glance and only reads on
+ * if they want the detail, which is not true of two paragraphs set identically.
+ *
+ * ⚠️ The measures are deliberately tight (52ch / 58ch, against the usual 62ch).
+ * Long lines are the other half of why the old copy read as heavy — the eye
+ * loses the start of the next line somewhere past ~65 characters.
+ */
 function Summary({
-  parts,
+  lines,
   tone,
   centre,
 }: {
-  parts: Seg[];
+  lines: Seg[][];
   tone: "rust" | "teal";
   centre?: boolean;
 }) {
   return (
-    <p
-      className={cn(
-        "mt-4 text-[19px] font-semibold leading-[1.5] text-mist",
-        centre ? "mx-auto max-w-[62ch] text-center" : "max-w-[62ch]",
-      )}
-    >
-      <Rich parts={parts} tone={tone} />
-    </p>
+    <div className={cn("mt-5 flex flex-col gap-3", centre && "items-center")}>
+      {lines.map((parts, i) => (
+        <p
+          key={i}
+          className={cn(
+            i === 0
+              ? /* The claim. Scales with the viewport so it still reads as the
+                   loudest thing under the heading on a large screen. Never
+                   below 20px — that is the floor at which orange-700 on the
+                   cream is still legally large text. */
+                "max-w-[48ch] text-[clamp(1.25rem,2.1vw,1.5rem)] font-semibold leading-[1.35] text-white"
+              : "max-w-[56ch] text-[16.5px] leading-[1.6] text-mist",
+            centre && "text-center",
+          )}
+        >
+          <Rich parts={parts} tone={tone} small={i > 0} />
+        </p>
+      ))}
+    </div>
   );
 }
 
 function AboutPage() {
   return (
     <main>
-      {/* ── 1 · Who We Are + the team ── cream ───────────────────────────── */}
+      {/*
+       * ── 1 · Who We Are + the team ── cream ─────────────────────────────
+       *
+       * TWO COLUMNS, NOT THREE BLOCKS. This used to be copy + an AI-generated
+       * meeting photograph, and then the team as a separate full-width block
+       * underneath — three things stacked, and the illustrative photograph was
+       * the least true of them.
+       *
+       * The photograph is gone. Israel now holds that slot as a tall portrait
+       * card on the right, and the team folds into the left column beneath the
+       * copy as four rows. Two rows stack to roughly the height of the portrait
+       * card, which is what makes the two columns finish level.
+       *
+       * The order is deliberate on narrow screens too: copy, then Israel, then
+       * the rest of the team — `order-*` puts the portrait between them rather
+       * than leaving it stranded at the bottom.
+       */}
       <Band id="about-heading" light>
-        <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)]">
-          <Reveal>
+        <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)] lg:items-start lg:gap-10">
+          {/* Explicit grid placement rather than `order-*`: source order is
+              already the reading order on a phone — copy, Israel, then the
+              team — and the placement classes only take effect from lg up. */}
+          <Reveal className="lg:col-start-1 lg:row-start-1">
             <Head
               eyebrow={whoWeAre.eyebrow}
               title={whoWeAre.title}
@@ -233,55 +323,38 @@ function AboutPage() {
               tone="rust"
               hero
             />
-            <p className="mt-4 max-w-[40ch] text-[16px] leading-relaxed text-white">
-              {whoWeAre.lead}
-            </p>
-            <Summary parts={summaries.whoWeAre!} tone="rust" />
+            <Summary lines={summaries.whoWeAre!} tone="rust" />
           </Reveal>
 
-          {/* Captioned — what stops an illustrative photograph reading as
-              documentary. */}
-          <Reveal index={1}>
-            <figure className="panel overflow-hidden">
-              <img
-                src={imagery.meeting.src}
-                alt={imagery.meeting.alt}
-                width={1536}
-                height={1024}
-                className="aspect-[3/2] w-full object-cover"
-              />
-            </figure>
-          </Reveal>
-        </div>
-
-        {/* The team — kept as built. */}
-        <div className="mt-10">
-          <p className="eyebrow tracking-[0.14em] text-orange-700">The team</p>
-          <h2 className="heading-tight mt-2.5 text-[clamp(1.5rem,2.8vw,2rem)] font-extrabold tracking-[-0.02em] text-white">
-            {teamTitle}
-          </h2>
-
-          <Reveal className="mt-6">
-            <DirectorCard director={team[0]!} variant="lead" />
+          <Reveal index={1} className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
+            <DirectorCard director={team[0]!} variant="portrait" />
           </Reveal>
 
-          <ul className="mt-3.5 grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
-            {team.slice(1).map((member, i) => (
-              <Reveal key={member.name} index={i} as="li">
-                <DirectorCard director={member} variant="member" />
-              </Reveal>
-            ))}
-          </ul>
+          {/* One column, not two. Four stacked rows come out at almost exactly
+              the height of Israel's card, which is what makes the two columns
+              finish level — and a row is easier to read than a 2×2 grid of
+              them.
+
+              NO WIDTH CAP. They deliberately run the full width of the column,
+              right up to the grid gap beside Israel's card, so the block reads
+              as one team rather than a narrow list floating in the section. */}
+          <div className="lg:col-start-1 lg:row-start-2">
+            <p className="eyebrow tracking-[0.14em] text-orange-700">{teamTitle}</p>
+            <ul className="mt-3.5 flex flex-col gap-3">
+              {team.slice(1).map((member, i) => (
+                <Reveal key={member.name} index={i} as="li">
+                  <DirectorCard director={member} variant="row" />
+                </Reveal>
+              ))}
+            </ul>
+          </div>
         </div>
       </Band>
 
       {/* ── 2 · Why We Exist + the figures ── navy ───────────────────────── */}
-      <Band id="why-heading">
+      <Band id="why-heading" image="/images/why-estate-aerial.webp">
         <Head eyebrow={whyWeExist.eyebrow} title={whyWeExist.title} id="why-heading" />
-        <p className="mt-4 max-w-[46ch] text-[17px] leading-relaxed text-white">
-          {whyWeExist.lead}
-        </p>
-        <Summary parts={summaries.whyWeExist!} tone="teal" />
+        <Summary lines={summaries.whyWeExist!} tone="teal" />
 
         <SubHead>{problemHeading}</SubHead>
         <ul className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -328,10 +401,7 @@ function AboutPage() {
       {/* ── 3 · What We Do + the chain ── cream ──────────────────────────── */}
       <Band id="what-heading" light>
         <Head eyebrow={whatWeDo.eyebrow} title={whatWeDo.title} id="what-heading" tone="rust" />
-        <p className="mt-4 max-w-[46ch] text-[17px] leading-relaxed text-white">
-          {whatWeDo.lead}
-        </p>
-        <Summary parts={summaries.whatWeDo!} tone="rust" />
+        <Summary lines={summaries.whatWeDo!} tone="rust" />
 
         <SubHead>Three companies, one accountable chain.</SubHead>
         {/* An actual chain rather than three cards in a row: numbered discs,
@@ -396,7 +466,7 @@ function AboutPage() {
         <div className="text-center">
           <Head eyebrow={whyPartner.eyebrow} title={whyPartner.title} id="partner-heading" />
         </div>
-        <Summary parts={summaries.whyPartner!} tone="teal" centre />
+        <Summary lines={summaries.whyPartner!} tone="teal" centre />
 
         <Reveal className="mt-10 text-center">
           <p className="heading-tight text-balance font-heading text-[clamp(1.375rem,2.8vw,1.875rem)] font-extrabold text-orange-500">

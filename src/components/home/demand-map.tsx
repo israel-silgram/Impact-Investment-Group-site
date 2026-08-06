@@ -14,7 +14,6 @@ import {
   buildLinks,
   HEIGHT,
   pathFor,
-  SWEEPS,
   WIDTH,
   type DotField,
 } from "./demand-map-field";
@@ -95,17 +94,12 @@ export function DemandMap({
   /** When set, authorities outside this list are dimmed (filter state). */
   visibleIds?: string[];
   /**
-   * "beside"  — readout in its own column. Right for the narrow embeds on
-   *             /platform and /the-problem, where the map is small anyway.
-   * "overlay" — readout floats over the map. Looks like the mock-up, but it
-   *             sits ON the landmass: at homepage size it covered Scotland and
-   *             the northern isles, which is why the homepage no longer uses it.
-   * "below"   — readout as a horizontal bar under the map. Nothing is occluded
-   *             and the map keeps the full width of its column, which matters
-   *             now the homepage map is 560px rather than 420px. This is the
-   *             homepage treatment.
+   * "beside" keeps the readout in its own column — right for the narrow
+   * embeds on /platform and /the-problem. "overlay" lets the map take the
+   * whole column with the readout floating over it, which is the homepage
+   * treatment and the one the mock-up shows.
    */
-  readout?: "beside" | "overlay" | "below";
+  readout?: "beside" | "overlay";
 }) {
   const [activeId, setActiveId] = React.useState(
     commissioningAuthorities.find((a) => a.id === DEFAULT_AUTHORITY_ID)?.id ??
@@ -221,24 +215,24 @@ export function DemandMap({
   }, [paint]);
 
   const overlay = readout === "overlay";
-  const below = readout === "below";
 
   return (
     <div
       className={cn(
-        overlay && "relative",
-        below && "flex flex-col gap-3.5",
-        !overlay && !below && "grid gap-8 md:grid-cols-[minmax(0,1fr)_18rem] md:items-center",
+        overlay ? "relative" : "grid gap-8 md:grid-cols-[minmax(0,1fr)_18rem] md:items-center",
         className,
       )}
     >
-      {/* The map floats on the section — no card, no border. Under "overlay" it
+      {/* The map floats on the section — no card, no border, and now no ground
+          of its own either: the `demand-map-ground` radial vignette that used
+          to sit here was removed with the sweeps, so the dot field sits
+          directly on whatever the section's background is. Under "overlay" it
           takes the whole column and the readout rides over it from lg up,
           dropping beneath on narrower screens so neither has to shrink. */}
       <div
         className={cn(
-          "demand-map-ground relative mx-auto w-full",
-          overlay || below ? "max-w-[34rem] lg:max-w-none" : "max-w-[30rem]",
+          "relative mx-auto w-full",
+          overlay ? "max-w-[34rem] lg:max-w-none" : "max-w-[30rem]",
         )}
       >
         <canvas
@@ -266,12 +260,14 @@ export function DemandMap({
             </radialGradient>
           </defs>
 
-          {/* Wide sweeps — atmosphere, drawn clear of the landmass. */}
-          <g aria-hidden="true" fill="none" stroke="#D4FFFF" strokeWidth="0.75">
-            {SWEEPS.map((d, i) => (
-              <path key={d} d={d} strokeOpacity={i % 2 === 0 ? 0.09 : 0.06} />
-            ))}
-          </g>
+          {/*
+           * ⚠️ THE WIDE SWEEPS ARE GONE. Four pale arcs used to be drawn here,
+           * across the whole viewBox at 6–9% opacity. They were atmosphere and
+           * nothing else — they carried no data — and Callum did not want them:
+           * they read as a pattern behind the map rather than as part of it.
+           * `SWEEPS` is still exported from demand-map-field.ts if they are
+           * ever wanted back; nothing else consumes it.
+           */}
 
           {/* Sparse mesh between neighbouring hubs. */}
           <g aria-hidden="true" stroke="#F27216" strokeWidth="0.5" strokeOpacity="0.15">
@@ -332,111 +328,53 @@ export function DemandMap({
         </svg>
       </div>
 
-      {/* The readout, in whichever arrangement the caller asked for.
+      <aside
+        aria-live="polite"
+        className={cn(
+          "panel p-5",
+          overlay &&
+            "mt-6 lg:absolute lg:right-0 lg:top-6 lg:mt-0 lg:w-[17rem] lg:bg-navy-800/85 lg:backdrop-blur-sm",
+        )}
+      >
+        <p className="eyebrow text-teal-400">Selected area</p>
+        <p className="heading-tight mt-2 text-2xl font-bold text-white">{active.name}</p>
 
-          "below" is a genuinely different shape, not the same card moved: the
-          three figures run as columns across a bar rather than stacked down a
-          card, because a 560px-wide strip under the map has horizontal room
-          and no vertical room. The demand meter keeps its own column so it
-          still reads as a scale rather than a stray line. */}
-      {below ? (
-        <aside aria-live="polite" className="panel px-4 py-3.5">
-          <div className="grid gap-x-5 gap-y-3 sm:grid-cols-[minmax(0,1.3fr)_repeat(3,minmax(0,1fr))] sm:items-center">
-            <div className="min-w-0">
-              <p className="eyebrow text-teal-400">Selected area</p>
-              <p className="heading-tight mt-1 truncate text-[19px] font-bold text-white">
-                {active.name}
-              </p>
-            </div>
-
-            <dl className="contents">
-              <div className="min-w-0">
-                <dt className="text-[10px] uppercase tracking-[0.12em] text-slate-muted">
-                  Homes sourced
-                </dt>
-                <dd className="font-heading text-[17px] font-bold text-white">
-                  {active.homesSourced.toLocaleString("en-GB")}
-                </dd>
-              </div>
-              <div className="min-w-0">
-                <dt className="text-[10px] uppercase tracking-[0.12em] text-slate-muted">
-                  Potential rooms
-                </dt>
-                <dd className="font-heading text-[17px] font-bold text-white">
-                  {active.potentialRooms.toLocaleString("en-GB")}
-                </dd>
-              </div>
-              <div className="min-w-0">
-                <dt className="text-[10px] uppercase tracking-[0.12em] text-slate-muted">
-                  Demand intensity
-                </dt>
-                <dd className="mt-2">
-                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-navy-700">
-                    <div
-                      className="h-full rounded-full bg-teal-500 transition-[width] duration-500 ease-[var(--ease-out-soft)]"
-                      style={{ width: `${active.intensity}%` }}
-                    />
-                  </div>
-                  <span className="sr-only">{active.intensity} out of 100</span>
-                </dd>
-              </div>
-            </dl>
+        <dl className="mt-5 space-y-4">
+          <div>
+            <dt className="text-xs uppercase tracking-[0.14em] text-slate-muted">Homes sourced</dt>
+            <dd className="font-heading text-xl font-bold text-white">
+              {active.homesSourced.toLocaleString("en-GB")}
+            </dd>
           </div>
+          <div>
+            <dt className="text-xs uppercase tracking-[0.14em] text-slate-muted">
+              Potential rooms
+            </dt>
+            <dd className="font-heading text-xl font-bold text-white">
+              {active.potentialRooms.toLocaleString("en-GB")}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-xs uppercase tracking-[0.14em] text-slate-muted">
+              Demand intensity
+            </dt>
+            <dd className="mt-2">
+              <div className="h-2 w-full overflow-hidden rounded-full bg-navy-700">
+                <div
+                  className="h-full rounded-full bg-teal-500 transition-[width] duration-500 ease-[var(--ease-out-soft)]"
+                  style={{ width: `${active.intensity}%` }}
+                />
+              </div>
+              <span className="sr-only">{active.intensity} out of 100</span>
+            </dd>
+          </div>
+        </dl>
 
-          <SourceLine
-            className="mt-3"
-            source="Boundaries: ONS Local Authority Districts (2013) and Natural Earth, Open Government Licence · figures are illustrative interface data"
-          />
-        </aside>
-      ) : (
-        <aside
-          aria-live="polite"
-          className={cn(
-            "panel p-5",
-            overlay &&
-              "mt-6 lg:absolute lg:right-0 lg:top-6 lg:mt-0 lg:w-[17rem] lg:bg-navy-800/85 lg:backdrop-blur-sm",
-          )}
-        >
-          <p className="eyebrow text-teal-400">Selected area</p>
-          <p className="heading-tight mt-2 text-2xl font-bold text-white">{active.name}</p>
-
-          <dl className="mt-5 space-y-4">
-            <div>
-              <dt className="text-xs uppercase tracking-[0.14em] text-slate-muted">Homes sourced</dt>
-              <dd className="font-heading text-xl font-bold text-white">
-                {active.homesSourced.toLocaleString("en-GB")}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-xs uppercase tracking-[0.14em] text-slate-muted">
-                Potential rooms
-              </dt>
-              <dd className="font-heading text-xl font-bold text-white">
-                {active.potentialRooms.toLocaleString("en-GB")}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-xs uppercase tracking-[0.14em] text-slate-muted">
-                Demand intensity
-              </dt>
-              <dd className="mt-2">
-                <div className="h-2 w-full overflow-hidden rounded-full bg-navy-700">
-                  <div
-                    className="h-full rounded-full bg-teal-500 transition-[width] duration-500 ease-[var(--ease-out-soft)]"
-                    style={{ width: `${active.intensity}%` }}
-                  />
-                </div>
-                <span className="sr-only">{active.intensity} out of 100</span>
-              </dd>
-            </div>
-          </dl>
-
-          <SourceLine
-            className="mt-5"
-            source="Boundaries: ONS Local Authority Districts (2013) and Natural Earth, Open Government Licence · figures are illustrative interface data"
-          />
-        </aside>
-      )}
+        <SourceLine
+          className="mt-5"
+          source="Boundaries: ONS Local Authority Districts (2013) and Natural Earth, Open Government Licence · figures are illustrative interface data"
+        />
+      </aside>
     </div>
   );
 }

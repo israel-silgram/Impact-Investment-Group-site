@@ -110,6 +110,8 @@ export const values = [
 ];
 
 export interface Director {
+  /** Optional 4:5 crop for the tall lead card. Falls back to `portrait`. */
+  portraitLead?: string;
   name: string;
   role: string;
   initials: string;
@@ -163,7 +165,23 @@ export const team: Director[] = [
       "30+ years developing, systemising and scaling social-impact businesses",
       "Property-led care and support for vulnerable people",
     ],
-    bio: "Israel Silgram is a passionate motivated leader and is committed to seeing the quality of vulnerable people's lives improve. He is a dynamic and highly skilled social entrepreneur with proven experience in both children and adult social care. A business leader with significant strategic and operational success within children and adult services, across commercial businesses and charities.",
+    /*
+     * Condensed from the four-sentence bio on the old production site, which is
+     * kept verbatim below. Nothing in it was contradicted — the sentences were
+     * merged and the repetition ("dynamic and highly skilled", "significant
+     * strategic and operational success") dropped.
+     *
+     * THE ORIGINAL:
+     *   "Israel Silgram is a passionate motivated leader and is committed to
+     *    seeing the quality of vulnerable people's lives improve. He is a
+     *    dynamic and highly skilled social entrepreneur with proven experience
+     *    in both children and adult social care. A business leader with
+     *    significant strategic and operational success within children and
+     *    adult services, across commercial businesses and charities."
+     */
+    bio: "A social entrepreneur with 30+ years building and scaling care businesses across children's and adult services — and the reason this platform is built around people, not stock.",
+    /** The 4:5 crop, for the tall card. `portrait` stays the round avatar. */
+    portraitLead: "/images/team/israel-silgram-lead.webp",
   },
   {
     name: "Maria Avallone",
@@ -419,35 +437,79 @@ export const aboutHeroImage = {
  */
 export type Seg = string | { t: string; em: "ink" | "accent" };
 
-export const summaries: Record<string, Seg[]> = {
+/**
+ * The condensed copy for each band — and the ONLY copy those bands render.
+ *
+ * ⚠️ THIS REPLACED THE `lead` + `body` PAIRS ABOVE. Every section used to run a
+ * short lead sentence and then a two-paragraph body, and the lead almost always
+ * restated the first line of the body. Callum asked for them joined and made
+ * readable, so each section is now one or two SHORT lines and nothing else. The
+ * originals are still exported above, unedited, because they are the approved
+ * wording — if a claim here is ever questioned, that is what it was condensed
+ * from.
+ *
+ * Each entry is a LIST OF LINES, not one blob. The first line renders large and
+ * semibold, the rest smaller and regular — that is what stops a paragraph
+ * reading as a wall. Keep the first line under ~25 words; if it needs more,
+ * split it into a second line rather than letting it run.
+ */
+export const summaries: Record<string, Seg[][]> = {
+  /*
+   * ⚠️ THE ORANGE HAS TO LIVE ON THE FIRST LINE.
+   *
+   * On the cream, orange-700 is 4.1:1 — it only clears AA as LARGE text, which
+   * the first line is and the smaller lines are not. So on a cream band the
+   * accent goes in line one or it does not go in at all; `Rich` renders an
+   * accent in a small line as navy ink instead, deliberately. That is why this
+   * entry leads with the outcome and follows with the mechanism, rather than
+   * the other way round.
+   */
   whoWeAre: [
-    "We connect ",
-    { t: "investors, landlords and developers", em: "ink" },
-    " with ",
-    { t: "councils, housing associations and care providers", em: "ink" },
-    " — and turn that into ",
-    { t: "safe, suitable homes", em: "accent" },
-    " across the UK.",
+    ["We turn property investment into ", { t: "safe, suitable homes", em: "accent" }, " across the UK."],
+    [
+      "Connecting ",
+      { t: "investors, landlords and developers", em: "ink" },
+      " with ",
+      { t: "councils, housing associations and care providers", em: "ink" },
+      ".",
+    ],
   ],
   whyWeExist: [
-    "Every organisation holds part of the picture. ",
-    { t: "Almost none of it connects.", em: "accent" },
-    " We bring them together, grow the supply of suitable housing, and make sure investment follows ",
-    { t: "genuine local need", em: "ink" },
-    ".",
+    [
+      "The UK doesn't just have a ",
+      { t: "shortage of homes", em: "ink" },
+      ". It has a ",
+      { t: "disconnected housing system", em: "accent" },
+      ".",
+    ],
+    [
+      "Every organisation holds part of the picture, and almost none of it connects. We bring them together, and make sure investment follows ",
+      { t: "genuine local need", em: "ink" },
+      ".",
+    ],
   ],
   whatWeDo: [
-    "We find the demand, source and match the property, bring the investment, and connect housing, care and support. Our ",
-    { t: "AI platform", em: "accent" },
-    " will let partners see demand, list property and build the partnerships that deliver ",
-    { t: "more homes, faster", em: "ink" },
-    ".",
+    [
+      "We find the demand, source the property, bring the investment, and connect housing, care and support.",
+    ],
+    [
+      "Our ",
+      { t: "AI platform", em: "accent" },
+      " will let partners see demand, list property and build the partnerships that deliver ",
+      { t: "more homes, faster", em: "ink" },
+      ".",
+    ],
   ],
   whyPartner: [
-    { t: "30+ years", em: "accent" },
-    " across property, housing, care and support. Not an estate agency — a ",
-    { t: "national network", em: "ink" },
-    " built for measurable social impact and responsible investment.",
+    [
+      { t: "30+ years", em: "accent" },
+      " across property, housing, care and support.",
+    ],
+    [
+      "Not an estate agency — a ",
+      { t: "national network", em: "ink" },
+      " built for measurable social impact and responsible investment.",
+    ],
   ],
 };
 

@@ -36,10 +36,17 @@ const icon = (name?: string): LucideIcon =>
  * credential markers are orange. Everyone else's are teal. That keeps the
  * hierarchy obvious and the accent legal at the same time.
  *
- * Two shapes, one component:
+ * Four shapes, one component:
  *
- *   "lead"    full width, larger portrait, the bio paragraph, orange accent.
- *   "member"  compact card for the grid beneath — credentials, no bio.
+ *   "portrait"  the tall card — 4:5 photograph at the top, name, role and
+ *               credentials beneath. This is the one the About page uses for
+ *               Israel, in the slot the AI meeting photograph used to hold.
+ *   "row"       horizontal: square photo left, name / role / credential right.
+ *               Two of these side by side fit the height of one "portrait",
+ *               which is the whole reason the About section now balances.
+ *   "lead"      the older full-width bar. Kept — /about no longer uses it, but
+ *               it is the only shape that renders the bio inline.
+ *   "member"    the older compact centred card.
  *
  * The hierarchy is size, width and accent. Nobody is shrunk to make the lead
  * look bigger, which is what makes it read as seniority rather than a ranking.
@@ -50,12 +57,110 @@ export function DirectorCard({
   className,
 }: {
   director: Director;
-  variant?: "lead" | "member";
+  variant?: "lead" | "member" | "portrait" | "row";
   className?: string;
 }) {
-  const lead = variant === "lead";
   const orange = director.accent === "orange";
   const Icon = icon(director.icon);
+
+  /* ── The tall portrait card ─────────────────────────────────────────────
+     Photo at 4:5 with no ring and no crop games: a headshot shot against a
+     plain ground needs a frame, not a circle. The name block below carries
+     the accent instead — an orange top rule for the director, teal for
+     anyone else this shape is ever used for. */
+  if (variant === "portrait") {
+    return (
+      <article
+        className={cn(
+          "flex h-full flex-col overflow-hidden rounded-2xl bg-cream-card",
+          "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
+          "shadow-[0_1px_2px_rgba(0,17,43,0.05),0_10px_30px_-18px_rgba(0,17,43,0.25)]",
+          className,
+        )}
+      >
+        <img
+          src={director.portraitLead ?? director.portrait}
+          alt={`${director.name}, ${director.role}`}
+          width={880}
+          height={1100}
+          className="aspect-[4/5] w-full object-cover object-[50%_18%]"
+        />
+        <div className="flex flex-1 flex-col p-5">
+          <span
+            aria-hidden="true"
+            className={cn("h-1 w-10 rounded-full", orange ? "bg-orange-600" : "bg-teal-600")}
+          />
+          <h3 className="mt-3 font-heading text-[19px] font-bold text-navy-900">{director.name}</h3>
+          <p className="mt-0.5 text-[12.5px] font-semibold text-teal-600">{director.role}</p>
+          {director.bio ? (
+            <p className="mt-3 text-[13px] leading-relaxed text-slate-ink">{director.bio}</p>
+          ) : null}
+          {director.credentials?.length ? (
+            <ul className="mt-3.5 flex flex-col gap-1.5 border-t border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] pt-3.5">
+              {director.credentials.map((line) => (
+                <li key={line} className="flex gap-2 text-[12px] leading-[1.45] text-slate-ink">
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "mt-[6px] size-[5px] shrink-0 rounded-full",
+                      orange ? "bg-orange-600" : "bg-teal-600",
+                    )}
+                  />
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      </article>
+    );
+  }
+
+  /* ── The horizontal row ─────────────────────────────────────────────────
+     A rounded square rather than a circle, because these photographs are
+     square originals and a circle throws away the shoulders that make a
+     headshot read as a person rather than a face. */
+  if (variant === "row") {
+    return (
+      <article
+        className={cn(
+          "flex items-center gap-4 rounded-xl bg-cream-card p-4",
+          "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
+          "shadow-[0_1px_2px_rgba(0,17,43,0.04)]",
+          className,
+        )}
+      >
+        {director.portrait ? (
+          <img
+            src={director.portrait}
+            alt={`${director.name}, ${director.role}`}
+            loading="lazy"
+            width={440}
+            height={440}
+            className="size-[68px] shrink-0 rounded-[10px] object-cover"
+          />
+        ) : (
+          <span
+            aria-hidden="true"
+            className="grid size-[68px] shrink-0 place-items-center rounded-[10px] bg-white font-heading text-xl font-bold text-navy-900"
+          >
+            {director.initials}
+          </span>
+        )}
+        <div className="min-w-0">
+          <h3 className="font-heading text-[16px] font-bold text-navy-900">{director.name}</h3>
+          <p className="mt-0.5 text-[13px] font-semibold text-teal-600">{director.role}</p>
+          {director.credentials?.length ? (
+            <p className="mt-1.5 text-[12.5px] leading-snug text-slate-ink">
+              {director.credentials.join(" · ")}
+            </p>
+          ) : null}
+        </div>
+      </article>
+    );
+  }
+
+  const lead = variant === "lead";
 
   /* Graphics, not text — orange is permitted on cream as a fill or a glyph. */
   const ring = orange ? "ring-orange-600" : "ring-teal-600";
