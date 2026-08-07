@@ -3,12 +3,10 @@ import * as React from "react";
 import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-import { IconCircle } from "@/components/ui/icon-circle";
-import { Reveal } from "@/components/ui/reveal";
+import { Reveal, useCountUp } from "@/components/ui/reveal";
 import {
   challengeCopy,
   impactProof,
-  imagery,
   purposeCopy,
   purposeStats,
   purposeStatsNote,
@@ -17,188 +15,179 @@ import {
 import { cn } from "@/lib/utils";
 
 /**
- * MissionSolution — the need and the answer as two faces of one section.
+ * MissionSolution — the need and the answer, as one bento grid with two faces.
  *
- * Face one is Our Mission and The Problem; face two is Our Solution. A single
- * control cross-fades between them, so the page carries both without spending
- * two screens on them.
+ * ── THE THREE THINGS THAT WERE WRONG WITH THE FIRST BENTO ─────────────────
  *
- * Both faces sit in the SAME grid cell. That is the whole trick: the cell
- * takes the height of the taller face, so flipping never moves anything below
- * it on the page. The shorter face spreads into that height rather than
- * leaving a gap at its foot — every column is a flex column whose last element
- * is pushed down with mt-auto.
+ * Callum: "colours look very dull… tons of gaps… still too much information."
+ * All three were the same mistake in different clothes, and all three are
+ * fixed by rules rather than by nudging:
  *
- * The turn itself is a column cascade — see the panel-turn block in styles.css.
- * The panel's four blocks leave in reading order and the incoming four arrive
- * the same way, 85ms apart, so the layout performs the change rather than the
- * box it sits in. It replaced a 3D rotation, which had to fall back to a plain
- * cross-fade below 1024px; this works identically at every width.
+ * 1 · GAPS. Six stat tiles in a three-across grid is two rows with an empty
+ *     sixth slot, and that tall right column stretched the orange hero into a
+ *     mostly-empty rectangle. THE COUNT NOW DIVIDES THE ROW. Three stats, one
+ *     row, no orphan — and the two columns come out close enough in height
+ *     that nothing has to stretch to fill.
  *
- * There is no separate button. The photograph on the outer edge of each face
- * IS the control: it carries the label, it lights up on hover, and its icon
- * turns over. A plate you can see the other side of is a more honest
- * affordance than a pill that says "click here", and it puts the interaction
- * where the eye already is.
+ *     ⚠️ IF YOU ADD A FOURTH STAT, ADD A FIFTH AND A SIXTH TOO, or change the
+ *     grid to four across. Anything that leaves a hole brings the gaps back.
  *
- * The face turned away keeps its box but goes visibility:hidden once the last
- * block has fallen, which is what takes it out of the tab order. Content nobody
- * can see must not be reachable by keyboard, so its pointer-events go
- * immediately and its visibility on a delay timed to the sequence.
+ * 2 · DULL. Everything on the cream face was a white card, so the only colour
+ *     in a very large block was one orange rectangle. On cream the brand's
+ *     teal only passes contrast as a DARK text colour, which reads muted — so
+ *     brightness here cannot come from text. It comes from FILLS: the problem
+ *     tile is navy, one stat tile is solid teal with white on it, the flip bar
+ *     is an orange gradient. Four grounds in one grid instead of one.
  *
- * Both faces are built to the same constraint as the hero: land inside one
- * screen at 100% zoom. Section padding of 40 and 56px icon rings are deliberate
- * exceptions to CLAUDE.md, taken to hit it. Nothing is cut to get there — every
- * figure, basis line, bullet and disclaimer survives on one face or the other.
+ * 3 · TOO MUCH. Six figures became three. Five bullets became three, and they
+ *     moved INSIDE the problem tile rather than sitting in a box of their own —
+ *     one fewer container, one fewer border, one fewer gap. The progress bars
+ *     are gone: they compared a count of households against a sum of pounds,
+ *     which was decoration pretending to be data.
+ *
+ * ⚠️ THE DROPPED FIGURES ARE NOT DELETED. `purposeStats` still holds all six in
+ * content/home.ts; `SHOWN` below picks three by id. Swapping which three is a
+ * one-line change and nothing else has to move.
+ *
+ * ── THE TWO FACES ─────────────────────────────────────────────────────────
+ *
+ * Both faces share one grid — same columns, same tile positions, same block
+ * order: statement tile, three tiles, flip bar. Reading one face teaches you
+ * the other. Only the ground and the content change.
+ *
+ * They are stacked in a single grid cell and crossfaded rather than rotated in
+ * 3D: a 3D flip on a block this tall is heavy, and the cell takes the height of
+ * the taller face so nothing jumps.
+ *
+ * ⚠️ THE GROUND TRAVELS WITH THE FACE, NOT THE SECTION. The front carries
+ * `.section-light` and the back `bg-navy-900`; the <section> is transparent. A
+ * background on the section shows through the crossfade as a flash of the wrong
+ * colour.
  */
 
-const icon = (name: string): LucideIcon =>
-  (Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle;
+/** Three, because three divides the row. See note 1 above before changing. */
+const SHOWN = ["waiting-lists", "temporary-accommodation", "asset-requirement"] as const;
+
+const icon = (name?: string): LucideIcon =>
+  name ? ((Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle) : Icons.Circle;
 
 /**
- * One of the six figures is promoted to display scale; the other five run as a
- * rail beside it. Split here rather than in content so `purposeStats` stays a
- * single list of six — nothing is duplicated and nothing can be dropped by
- * editing one place and not the other.
+ * The hero figure, counting.
  *
- * Children in temporary accommodation is the one chosen: it is the most human
- * of the set and the most precisely sourced (gov.uk, a dated snapshot), which
- * is what a figure at that size needs behind it.
+ * `useCountUp` wants a number and the content gives a formatted string, so the
+ * digits come out and are re-formatted on the way back — en-GB, because this is
+ * a UK statistic and the separator must be a comma wherever the visitor is.
+ * The static string stays in the accessibility tree: a screen reader should
+ * hear "176,130", not a number ticking.
  */
-const HERO_STAT_ID = "children-ta";
-const heroStat = purposeStats.find((stat) => stat.id === HERO_STAT_ID);
-const supportingStats = purposeStats.filter((stat) => stat.id !== HERO_STAT_ID);
-
-/* CARD is gone with the TBC panel it framed — the placeholder is now a chip
-   on the foot rule rather than a card in prime position. Restore it verbatim
-   if a bordered white card is ever needed on this face again. */
-const QUIET = "text-[color-mix(in_oklab,var(--color-navy-900)_75%,transparent)]";
-
-/**
- * Marks a block as one step of the cascade and sets its place in the order.
- *
- * The blocks leave and arrive in reading order, `--cascade-step` apart — see
- * the panel-turn block in styles.css. Indices run 0..3 on both faces so the
- * two sides stay in step with each other:
- *
- *   0  the banner / the headline rail
- *   1  the left column
- *   2  the right column
- *   3  the photograph
- *
- * It has to sit INSIDE <Reveal> rather than on it. Reveal's entrance is a CSS
- * animation with `fill: both`, and an animation's filled values beat a
- * transition on the same element — the cascade would simply never run.
- */
-function cascade(index: number) {
-  return { "data-cascade": "", style: { "--i": index } as React.CSSProperties };
-}
-
-/* DIVIDER_Y and GRID are gone with the 6px vertical bar and the three-column
-   layout. Both faces now separate their columns with the gap alone and mark
-   their headings with the same 2px .panel-rule-under. Restore from git if the
-   heavy bar is ever wanted back. */
-
-/**
- * Splits the mission headline so the one emphasised phrase can carry orange.
- * On cream that has to be orange-700: 500 measures 2.3:1 there and 600 3.0:1,
- * so both fail even as large text.
- */
-function MissionHeadline({ id }: { id: string }) {
-  const [before, after] = purposeCopy.title.split(purposeCopy.emphasis);
+function CountUpFigure({ value, className }: { value: string; className?: string }) {
+  const target = Number(value.replace(/[^0-9]/g, "")) || 0;
+  const { ref, display } = useCountUp(target, 1400);
   return (
-    <h2
-      id={id}
-      className="heading-tight text-balance text-[clamp(1.375rem,2.4vw,1.5625rem)] font-bold"
-    >
-      {before}
-      <span className="text-orange-700">{purposeCopy.emphasis}</span>
-      {after}
-    </h2>
+    <>
+      <span ref={ref} aria-hidden="true" className={className}>
+        {display.toLocaleString("en-GB")}
+      </span>
+      <span className="sr-only">{value}</span>
+    </>
   );
 }
 
 /**
- * The photograph at the edge of each face, doubling as the flip control.
+ * A stat tile. The first of the three is SOLID TEAL with white on it; the other
+ * two are the standard panel. That is the rhythm — a row of three identical
+ * white cards is what made this block read as beige.
  *
- * A button rather than a div with an onClick: it has to be reachable by
- * keyboard and announce itself, and aria-expanded plus aria-controls tell a
- * screen reader that this thing governs the panel rather than navigating away.
+ * White on teal-600 is 5.25:1, which passes AA at any size, so the fill is safe
+ * for the label as well as the figure.
  */
-function FlipPlate({
-  src,
-  alt,
-  width,
-  height,
-  objectPosition,
-  eyebrow,
+function StatTile({ stat, filled }: { stat: (typeof purposeStats)[number]; filled: boolean }) {
+  const Glyph = icon(stat.icon);
+  return (
+    <div
+      className={cn(
+        "group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-panel)] p-5 transition-all duration-300",
+        "hover:-translate-y-1",
+        filled
+          ? "bg-teal-600 hover:shadow-[0_18px_34px_-18px_rgba(15,143,132,0.8)]"
+          : "panel hover:shadow-[0_18px_34px_-20px_rgba(0,17,43,0.5)]",
+      )}
+    >
+      <Glyph
+        aria-hidden="true"
+        strokeWidth={1.7}
+        className={cn(
+          "absolute -right-3 -top-3 size-20 opacity-[0.13]",
+          filled ? "text-[#ffffff]" : "text-teal-600",
+        )}
+      />
+      <p
+        className={cn(
+          "font-heading text-[clamp(1.5rem,2.6vw,2rem)] font-extrabold leading-none tracking-[-0.03em]",
+          filled ? "text-[#ffffff]" : "text-orange-700",
+        )}
+      >
+        {stat.value}
+      </p>
+      <p
+        className={cn(
+          "mt-2 text-[13px] font-bold leading-snug",
+          filled ? "text-[#ffffff]" : "text-white",
+        )}
+      >
+        {stat.label}
+      </p>
+      {/* The source line is the reward for hovering. Hidden from the eye, not
+          from assistive tech — three sources printed under three figures is
+          what "too much information" looks like. */}
+      <p
+        className={cn(
+          "mt-1 max-h-0 overflow-hidden text-[11px] leading-snug opacity-0 transition-all duration-300 group-hover:max-h-16 group-hover:opacity-100",
+          filled ? "text-[rgba(255,255,255,0.85)]" : "text-slate-muted",
+        )}
+      >
+        {stat.basis}
+      </p>
+    </div>
+  );
+}
+
+/**
+ * The flip control — a full-width bar across the foot of the column rather than
+ * a tile in the grid.
+ *
+ * It was a white card sitting quietly beside the content, which is the last
+ * thing an invitation should be. As a bar it spans the column, carries the
+ * orange gradient and is unmistakably the thing to press.
+ */
+function FlipBar({
   label,
+  title,
   hint,
-  expanded,
   onFlip,
 }: {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-  objectPosition: string;
-  eyebrow: string;
   label: string;
+  title: string;
   hint: string;
-  expanded: boolean;
   onFlip: () => void;
 }) {
   return (
     <button
       type="button"
       onClick={onFlip}
-      aria-expanded={expanded}
-      aria-controls="mission-solution-faces"
-      className={cn(
-        "flip-plate group relative block h-[240px] w-full overflow-hidden rounded-xl text-left lg:h-full",
-        "border border-[color-mix(in_oklab,var(--color-slate)_25%,transparent)]",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
-      )}
+      className="group flex w-full cursor-pointer items-center justify-between gap-4 rounded-[var(--radius-panel)] bg-linear-to-r from-orange-600 to-orange-500 px-6 py-4 text-left transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
     >
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        loading="lazy"
-        className={cn(
-          "size-full object-cover transition-transform duration-[900ms] ease-out",
-          "group-hover:scale-[1.06] motion-reduce:transition-none motion-reduce:group-hover:scale-100",
-          objectPosition,
-        )}
-      />
-
-      {/* Reads the label against any photograph, and deepens on hover so the
-          plate answers the cursor before anything moves. */}
-      <span
-        aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-[#000b1c]/95 via-[#000b1c]/45 to-transparent transition-opacity duration-500 group-hover:opacity-90"
-      />
-      <span
-        aria-hidden="true"
-        className="absolute inset-0 rounded-xl ring-1 ring-inset ring-transparent transition-colors duration-300 group-hover:ring-teal-400/70"
-      />
-
-      <span className="absolute inset-x-0 bottom-0 flex flex-col p-5">
-        <span className="eyebrow flip-plate-eyebrow tracking-[0.14em]">{eyebrow}</span>
-        <span className="flip-plate-title mt-2 font-heading text-[clamp(1.125rem,1.5vw,1.375rem)] font-bold leading-tight">
+      <span className="min-w-0">
+        <span className="block font-heading text-[10px] font-extrabold uppercase tracking-[0.16em] text-[rgba(255,255,255,0.78)]">
           {label}
         </span>
-        {/* The affordance. A span, not a button — the whole plate is already
-            the <button>, and nesting one inside another is invalid. It is
-            styled as a pill so it reads as pressable, and the parent's hover
-            and focus states drive it. */}
-        <span className="cta-pulse flip-plate-hint mt-3.5 inline-flex w-fit items-center gap-2.5 rounded-full bg-orange-600 py-2.5 pl-3 pr-5 text-[16px] font-semibold transition-transform duration-200 group-hover:scale-[1.03]">
-          <span className="grid size-7 shrink-0 place-items-center rounded-full bg-white/20 transition-transform duration-[900ms] ease-out group-hover:rotate-180 motion-reduce:transition-none">
-            <Icons.RefreshCw aria-hidden="true" className="size-4 text-white" />
-          </span>
-          {hint}
+        <span className="heading-tight block font-heading text-[clamp(1.0625rem,1.6vw,1.25rem)] font-extrabold text-[#ffffff]">
+          {title}
         </span>
+        <span className="block text-[12.5px] text-[rgba(255,255,255,0.88)]">{hint}</span>
+      </span>
+      <span className="grid size-11 shrink-0 place-items-center rounded-full bg-white/18 transition-transform duration-500 group-hover:rotate-180">
+        <Icons.RefreshCw aria-hidden="true" className="size-5 text-[#ffffff]" />
       </span>
     </button>
   );
@@ -206,420 +195,340 @@ function FlipPlate({
 
 export function MissionSolution() {
   const [showSolution, setShowSolution] = React.useState(false);
+  const flip = React.useCallback(() => setShowSolution((v) => !v), []);
+
+  /* Picked BY ID, never by position — re-ordering content/home.ts must not
+     silently promote a different statistic into the big orange tile. */
+  const hero = purposeStats.find((s) => s.id === "children-ta") ?? purposeStats[0]!;
+  const shown = SHOWN.map((id) => purposeStats.find((s) => s.id === id)).filter(
+    (s): s is (typeof purposeStats)[number] => Boolean(s),
+  );
+
+  /* Three of the five bullets. The full list stays in content/home.ts. */
+  const points = challengeCopy.points.slice(0, 3);
+
+  const faceBase = "col-start-1 row-start-1 transition-opacity duration-500 ease-out";
 
   return (
-    <section
-      aria-labelledby={showSolution ? "solution-heading" : "mission-heading"}
-      className="section-light border-t border-navy-700"
-    >
-      <div className="mx-auto w-full max-w-[1440px] px-5 py-10 sm:px-8">
-        <div className="flip-scene">
-          <div
-            id="mission-solution-faces"
-            className="flip-card"
-            data-flipped={showSolution}
-          >
-          {/* ── Face one — Our mission | The problem ─────────────────────── */}
-            <div
-              data-active={!showSolution}
-              aria-hidden={showSolution}
-              className="flip-face flex flex-col"
+    <section aria-labelledby="mission-heading" className="relative isolate grid">
+      {/* ══ FRONT — the need ══════════════════════════════════════════════ */}
+      <div
+        className={cn(
+          faceBase,
+          "section-light",
+          showSolution ? "pointer-events-none opacity-0" : "opacity-100",
+        )}
+        aria-hidden={showSolution}
+      >
+        <div className="mx-auto w-full max-w-[1440px] px-5 py-11 sm:px-8 lg:py-12">
+          <Reveal>
+            <p className="eyebrow tracking-[0.14em] text-orange-700">{purposeCopy.eyebrow}</p>
+            <h2
+              id="mission-heading"
+              className="heading-tight mt-2 max-w-[24ch] text-balance font-heading text-[clamp(1.625rem,3.2vw,2.375rem)] font-extrabold tracking-[-0.025em] text-white"
             >
-            <div className="grid flex-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,296px)]">
-              <div className="flex min-w-0 flex-col">
-                {/* The manifesto banner.
+              {/* The emphasis is picked out of the title rather than the title
+                  being split into two fields — one source of truth for the
+                  sentence, and the highlight cannot drift out of it. */}
+              {purposeCopy.title.split(purposeCopy.emphasis).map((part, i, all) => (
+                <React.Fragment key={i}>
+                  {part}
+                  {i < all.length - 1 ? (
+                    <span className="text-orange-700">{purposeCopy.emphasis}</span>
+                  ) : null}
+                </React.Fragment>
+              ))}
+            </h2>
+          </Reveal>
 
-                    These two sentences are the strongest copy on the page and
-                    they used to sit mid-column at not much above body size.
-                    Given the full width and 29px they become the first thing
-                    read, and the second sentence carries the orange — the
-                    equality claim made in colour rather than argued in words.
-                    orange-700 at 29px is 4.09:1, which clears AA as large
-                    text; below 26px it would not. */}
-                <Reveal className="panel-rule-under pb-3">
-                  <div {...cascade(0)}>
-                  <p className="flex items-center gap-3">
-                    <IconCircle icon={Icons.HandHeart} size="sm" tone="orange" />
-                    <span className="eyebrow tracking-[0.14em] text-teal-600">
-                      {purposeCopy.eyebrow}
-                    </span>
+          <div className="mt-6 flex flex-col gap-3.5 lg:flex-row">
+            {/* ── left column ──────────────────────────────────────────── */}
+            <div className="flex flex-col gap-3.5 lg:w-[41%]">
+              {/* THE HERO TILE. Content is BOTTOM-ALIGNED. Centred, it floated
+                  in an orange field with dead space above and below; against
+                  the foot of the tile the space above reads as deliberate, the
+                  way a poster's does. The glyph fills the top so it is never
+                  empty. */}
+              <Reveal className="flex flex-1">
+                <div className="relative flex w-full flex-col justify-end overflow-hidden rounded-[var(--radius-panel)] bg-orange-600 p-6 lg:min-h-[270px]">
+                  <Icons.Baby
+                    aria-hidden="true"
+                    strokeWidth={1.2}
+                    className="pointer-events-none absolute -right-8 -top-8 size-48 text-[#ffffff] opacity-[0.14]"
+                  />
+                  <p className="eyebrow tracking-[0.14em] text-[rgba(255,255,255,0.88)]">{hero.label}</p>
+                  <p className="mt-1.5 font-heading text-[clamp(3rem,6.6vw,4.75rem)] font-extrabold leading-none tracking-[-0.04em] text-[#ffffff]">
+                    <CountUpFigure value={hero.value} />
                   </p>
-                  <p className="heading-tight mt-2 text-balance font-heading text-[clamp(1.375rem,2.6vw,1.8125rem)] font-bold text-navy-900">
-                    {purposeCopy.closing[0]}
-                    <br />
-                    <span className="text-orange-700">{purposeCopy.closing[1]}</span>
-                  </p>
+                  <p className="mt-2.5 text-[12px] text-[rgba(255,255,255,0.88)]">{hero.basis}</p>
+                </div>
+              </Reveal>
+
+              {/* The only photograph in the section, and the reason the block
+                  does not read as a dashboard. The scrim runs to 92% at the
+                  foot — at 88% the caption was still fighting the roofs. */}
+              <Reveal index={1}>
+                <div className="group relative h-[150px] overflow-hidden rounded-[var(--radius-panel)]">
+                  <img
+                    src="/images/why-estate-aerial.webp"
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    width={1600}
+                    height={640}
+                    className="size-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-110"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-linear-to-t from-[rgba(0,17,43,0.92)] via-[rgba(0,17,43,0.45)] to-transparent"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 p-5">
+                    <p className="eyebrow tracking-[0.14em] text-[#2fbaaa]">Where this happens</p>
+                    <p className="heading-tight mt-0.5 font-heading text-[17px] font-extrabold text-[#ffffff]">
+                      Every local authority in the UK
+                    </p>
                   </div>
-                </Reveal>
+                </div>
+              </Reveal>
+            </div>
 
-                {/* 10fr / 9fr, not the other way round. The mission column is
-                    the wider of the two precisely so every figure label below
-                    lands on ONE line — at 7fr they wrapped to two, which cost
-                    ~14px a row across five rows and put the panel 70px over
-                    one screen. */}
-                <div className="mt-4 grid flex-1 gap-9 lg:grid-cols-[minmax(0,10fr)_minmax(0,9fr)]">
-                  {/* Our mission */}
-                  <Reveal className="flex min-w-0 flex-col">
-                    <div {...cascade(1)} className="flex flex-1 flex-col">
-                    <MissionHeadline id="mission-heading" />
-                    <p className="mt-2.5 text-[13.5px] leading-[1.65] text-navy-900">
-                      {purposeCopy.statement}
-                    </p>
-
-                    {/* The figures moved out of the full-width row at the foot
-                        and into this column. Same card, same contents — ring,
-                        figure, label, basis — laid on one line each so the
-                        column reads as a rail rather than six tiles. */}
-                    <p className="panel-rule-under mt-5 pb-1.5 font-heading text-[12.5px] font-extrabold uppercase tracking-[0.06em] text-navy-900">
-                      The scale of it
-                    </p>
-                    <ul className="mt-2.5 flex flex-col gap-1.5">
-                      {supportingStats.map((stat) => {
-                        const StatIcon = icon(stat.icon);
-                        return (
-                          <li
-                            key={stat.id}
-                            className="grid grid-cols-[26px_112px_minmax(0,1fr)] items-center gap-2.5 rounded-xl border border-[color-mix(in_oklab,var(--color-slate)_25%,transparent)] bg-white px-3 py-1.5"
-                          >
-                            <span className="icon-tone icon-tone-teal grid size-[26px] place-items-center rounded-full">
-                              <StatIcon aria-hidden="true" className="size-3.5" strokeWidth={1.5} />
-                            </span>
-                            <span className="whitespace-nowrap font-heading text-[19px] font-extrabold leading-none text-teal-600">
-                              {stat.value}
-                            </span>
-                            <span className="flex min-w-0 flex-col">
-                              <span className="text-[11.5px] font-semibold leading-[1.3] text-navy-900">
-                                {stat.label}
-                              </span>
-                              <span className="mt-px text-[9.5px] leading-[1.35] text-slate">
-                                {stat.basis}
-                              </span>
-                            </span>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                    <p className="mt-2 text-[10.5px] leading-snug text-slate-ink">
-                      {purposeStatsNote}
-                    </p>
-                    </div>
-                  </Reveal>
-
-                  {/* The problem */}
-                  <Reveal index={1} className="flex min-w-0 flex-col">
-                    <div {...cascade(2)} className="flex flex-1 flex-col">
-                    <p className="eyebrow tracking-[0.14em] text-teal-600">
-                      {challengeCopy.eyebrow}
-                    </p>
-                    <h2 className="panel-rule-under heading-tight mt-1.5 text-balance pb-2 text-[clamp(1.25rem,2.2vw,1.4375rem)] font-bold">
-                      {challengeCopy.title}
-                    </h2>
-
-                    {/* One figure at display scale instead of six at one
-                        weight. This is the most human of the set and the most
-                        precisely sourced, and its source travels with it — a
-                        number this size must never appear without one. The
-                        other five are directly opposite in the mission column,
-                        every one of them, with their basis lines. */}
-                    {heroStat ? (
-                      <p className="mt-3 flex items-center gap-3.5 rounded-2xl bg-cream-card px-4 py-3">
-                        <span className="font-heading text-[clamp(2.25rem,4vw,3.125rem)] font-extrabold leading-[0.95] tracking-[-0.02em] text-orange-700">
-                          {heroStat.value}
-                        </span>
-                        <span className="flex min-w-0 flex-col">
-                          <span className="font-heading text-[13.5px] font-extrabold uppercase leading-[1.2] tracking-[0.04em] text-navy-900">
-                            {heroStat.label}
-                          </span>
-                          <span className="mt-1 text-[11px] text-slate-ink">{heroStat.basis}</span>
-                        </span>
-                      </p>
-                    ) : null}
-
-                    <p className="mt-3 text-[13px] leading-[1.6]">{challengeCopy.lead}</p>
-
-                    {/* Dots, not rings. With the figures gone from this column
-                        the bullets no longer need to compete, and five 40px
-                        rings were the loudest thing in a column whose headline
-                        is the point. */}
-                    <ul className="mt-3 grid gap-x-6 gap-y-2 sm:grid-cols-2">
-                      {challengeCopy.points.map((point) => (
-                        <li key={point.text} className="flex gap-2">
-                          <span
+            {/* ── right column ─────────────────────────────────────────── */}
+            <div className="flex flex-1 flex-col gap-3.5">
+              {/* NAVY ON CREAM. The single biggest lift out of "dull": a dark
+                  tile in a light grid is the highest-contrast thing on the
+                  band, so the sentence the section is arguing lands first. The
+                  bullets live inside it — one fewer box, one fewer gap. */}
+              <Reveal index={1}>
+                <div className="section-dark p-6">
+                  <p className="eyebrow tracking-[0.14em] text-teal-400">
+                    {challengeCopy.eyebrow}
+                  </p>
+                  <h3 className="heading-tight mt-1.5 font-heading text-[clamp(1.25rem,2.1vw,1.5rem)] font-extrabold text-white">
+                    {challengeCopy.title}
+                  </h3>
+                  <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
+                    {points.map((point) => {
+                      const Glyph = icon(point.icon);
+                      return (
+                        <li key={point.text} className="flex items-start gap-2.5">
+                          <Glyph
                             aria-hidden="true"
+                            strokeWidth={1.9}
                             className={cn(
-                              "mt-[6px] size-[7px] shrink-0 rounded-full",
-                              point.tone === "orange" ? "bg-orange-700" : "bg-teal-600",
+                              "mt-px size-4 shrink-0",
+                              point.tone === "orange" ? "text-[#ff7a29]" : "text-[#2fbaaa]",
                             )}
                           />
-                          <span className="text-[12.5px] font-semibold leading-[1.42] text-navy-900">
-                            {point.text}
-                          </span>
+                          <span className="text-[12.5px] leading-snug text-mist">{point.text}</span>
                         </li>
-                      ))}
-                    </ul>
-
-                    <p className={cn("mt-3.5 text-[12px] leading-[1.55]", QUIET)}>
-                      {challengeCopy.close}
-                    </p>
-
-                    {/* flex-1 with the pill centred inside it, rather than
-                        my-auto on the pill: this puts it in the true middle of
-                        the space left at the foot of the column, horizontally
-                        as well as vertically. */}
-                    <div className="flex flex-1 items-center justify-center pt-4">
-                      <Link
-                        to="/the-problem"
-                        className="panel-pill inline-flex min-h-[52px] items-center gap-2 rounded-full px-6 text-[15px] font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
-                      >
-                        See the full picture
-                        <Icons.ArrowRight aria-hidden="true" className="size-4" />
-                      </Link>
-                    </div>
-                    </div>
-                  </Reveal>
+                      );
+                    })}
+                  </ul>
+                  <Link
+                    to="/the-problem"
+                    className="mt-4 inline-flex items-center gap-1.5 font-heading text-[13px] font-bold text-teal-400 transition-colors duration-200 hover:text-orange-500"
+                  >
+                    See the full picture
+                    <Icons.ArrowRight aria-hidden="true" className="size-3.5" />
+                  </Link>
                 </div>
+              </Reveal>
+
+              <div className="grid flex-1 gap-3.5 sm:grid-cols-3">
+                {shown.map((stat, i) => (
+                  <Reveal key={stat.id} index={i} className="flex">
+                    <StatTile stat={stat} filled={i === 0} />
+                  </Reveal>
+                ))}
               </div>
 
-              {/* The thinking pose belongs to The Problem — this is the
-                  question the industry has not answered. The source is 2:3 and
-                  the column lands near enough for the crop to be nominal. */}
-              <Reveal index={2} className="order-first lg:order-none">
-                <div {...cascade(3)} className="h-full">
-                <FlipPlate
-                  src={imagery.thinking.src}
-                  alt={imagery.thinking.alt}
-                  width={1024}
-                  height={1536}
-                  objectPosition="object-center"
-                  eyebrow="The other side"
-                  label="See our solution"
-                  hint="Flip to see our solution"
-                  expanded={showSolution}
-                  onFlip={() => setShowSolution(true)}
+              <Reveal index={2}>
+                <FlipBar
+                  label="The other side"
+                  title="See our solution"
+                  hint="The same picture, joined up."
+                  onFlip={flip}
                 />
-                </div>
               </Reveal>
             </div>
           </div>
 
-          {/* ── Face two — Our solution ──────────────────────────────────── */}
-            <div
-              data-active={showSolution}
-              aria-hidden={!showSolution}
-              className="flip-face flip-face-back flex flex-col"
-            >
-            <div className="grid flex-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,296px)]">
-              <div className="flex min-w-0 flex-col">
-                <div className="grid gap-8 lg:grid-cols-[minmax(0,322px)_minmax(0,1fr)]">
-                  {/* Identity rail — the headline, then the one claim the
-                      section is built around. The claim used to sit in the
-                      middle column competing with the mechanism paragraph;
-                      giving it the orange bar and its own column makes it the
-                      single thing the eye lands on. */}
-                  <div {...cascade(0)} className="flex flex-col">
-                    <IconCircle icon={Icons.Sparkles} size="md" tone="teal" />
-                    <p className="eyebrow mt-3 tracking-[0.14em] text-teal-600">
-                      {solutionCopy.eyebrow}
+          <p className="mt-3.5 text-[11px] leading-relaxed text-slate-muted">{purposeStatsNote}</p>
+        </div>
+      </div>
+
+      {/* ══ BACK — the answer ═════════════════════════════════════════════ */}
+      <div
+        className={cn(
+          faceBase,
+          "bg-navy-900",
+          showSolution ? "opacity-100" : "pointer-events-none opacity-0",
+        )}
+        aria-hidden={!showSolution}
+      >
+        <div className="mx-auto w-full max-w-[1440px] px-5 py-11 sm:px-8 lg:py-12">
+          <Reveal>
+            <p className="eyebrow tracking-[0.14em] text-teal-400">{solutionCopy.eyebrow}</p>
+            <h2 className="heading-tight mt-2 max-w-[24ch] text-balance font-heading text-[clamp(1.625rem,3.2vw,2.375rem)] font-extrabold tracking-[-0.025em] text-white">
+              {/* The last of the three carries the accent — the same rhythm the
+                  closing strapline uses everywhere else on the site. */}
+              {solutionCopy.title.split(". ").map((part, i, all) => (
+                <span key={part} className={i === all.length - 1 ? "text-orange-500" : undefined}>
+                  {part}
+                  {i < all.length - 1 ? ". " : ""}
+                </span>
+              ))}
+            </h2>
+          </Reveal>
+
+          <div className="mt-6 flex flex-col gap-3.5 lg:flex-row">
+            <div className="flex flex-col gap-3.5 lg:w-[41%]">
+              {/* Mirrors the orange tile exactly — same position, same
+                  bottom-aligned content, same oversized glyph. */}
+              <Reveal className="flex flex-1">
+                <div className="relative flex w-full flex-col justify-end overflow-hidden rounded-[var(--radius-panel)] bg-teal-600 p-6 lg:min-h-[270px]">
+                  <Icons.House
+                    aria-hidden="true"
+                    strokeWidth={1.2}
+                    className="pointer-events-none absolute -right-8 -top-8 size-48 text-[#ffffff] opacity-[0.14]"
+                  />
+                  <p className="eyebrow tracking-[0.14em] text-white/85">{impactProof.eyebrow}</p>
+                  <p className="mt-1.5 flex flex-wrap items-baseline gap-x-3 font-heading font-extrabold leading-none tracking-[-0.04em] text-white">
+                    <span className="text-[clamp(2.25rem,4vw,3rem)]">
+                      {impactProof.multiplier.from.figure}
+                    </span>
+                    <span className="text-[13px] font-semibold">
+                      {impactProof.multiplier.from.label}
+                    </span>
+                    <Icons.ArrowRight aria-hidden="true" className="size-6 shrink-0" />
+                    <span className="text-[clamp(3rem,6.6vw,4.75rem)]">
+                      {impactProof.multiplier.to.figure}
+                    </span>
+                    <span className="text-[13px] font-semibold">
+                      {impactProof.multiplier.to.label}
+                    </span>
+                  </p>
+                  {/* ⚠️ ILLUSTRATIVE, AND IT SAYS SO. A conversion model, not a
+                      delivered result. The disclaimer travels with the figure
+                      and is not a caption a later layout pass may trim. */}
+                  <p className="mt-2.5 text-[11.5px] leading-snug text-white/85">
+                    {impactProof.multiplier.disclaimer}
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal index={1}>
+                <div className="group relative h-[150px] overflow-hidden rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800">
+                  <img
+                    src="/images/ai-team/trio-wave.webp"
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    width={934}
+                    height={558}
+                    className="absolute -bottom-1 right-2 h-[152px] w-auto translate-y-3 transition-transform duration-700 ease-out group-hover:translate-y-0"
+                  />
+                  <div className="absolute inset-y-0 left-0 flex max-w-[54%] flex-col justify-center p-5">
+                    <p className="eyebrow tracking-[0.14em] text-teal-400">Who it is for</p>
+                    <p className="heading-tight mt-0.5 font-heading text-[17px] font-extrabold text-white">
+                      Everyone in the chain, in one place
                     </p>
-                    <h2
-                      id="solution-heading"
-                      className="heading-tight mt-3 text-balance text-[clamp(1.375rem,2.6vw,1.625rem)] font-bold"
-                    >
-                      {solutionCopy.title}
-                    </h2>
-                    {/* The bar carries the emphasis, not the type: orange-700
-                        is 4.1:1 on cream and only clears AA as large text, and
-                        this sits at 16px. A fill has no such limit. */}
-                    <blockquote className="mt-4 border-l-[3px] border-orange-600 pl-3.5">
-                      <p className="heading-tight text-[clamp(0.9375rem,1.4vw,1rem)] font-bold text-navy-900">
-                        {solutionCopy.assertion}
-                      </p>
-                    </blockquote>
-                  </div>
-
-                  {/* What it does — three named stages, not eight loose rows */}
-                  <div {...cascade(1)} className="flex min-w-0 flex-col">
-                    <p className="eyebrow tracking-[0.14em] text-teal-600">The platform</p>
-                    <p className={cn("mt-2 text-[12.5px] leading-[1.6]", QUIET)}>
-                      {solutionCopy.mechanism}
-                    </p>
-
-                    <ul className="mt-3.5 grid gap-5 sm:grid-cols-3">
-                      {solutionCopy.stages.map((stage) => {
-                        const StageIcon = icon(stage.icon);
-                        return (
-                          <li key={stage.id} className="flex flex-col">
-                            <p className="panel-rule-under flex items-center gap-2 pb-1.5">
-                              <StageIcon
-                                aria-hidden="true"
-                                className="size-3.5 shrink-0 text-teal-600"
-                                strokeWidth={1.5}
-                              />
-                              <span className="font-heading text-[12.5px] font-extrabold uppercase tracking-[0.06em] text-navy-900">
-                                {stage.name}
-                              </span>
-                            </p>
-                            <ul className="mt-2 flex flex-col gap-1.5">
-                              {stage.points.map((point) => (
-                                <li key={point.text} className="flex gap-2">
-                                  {/* A dot, not a ring: three rings a column
-                                      turned the stage heads into noise. The
-                                      tone still carries teal for data and
-                                      orange for the human consequence. */}
-                                  <span
-                                    aria-hidden="true"
-                                    className={cn(
-                                      "mt-[5px] size-[7px] shrink-0 rounded-full",
-                                      point.tone === "orange" ? "bg-orange-700" : "bg-teal-600",
-                                    )}
-                                  />
-                                  <span className="text-[12px] font-semibold leading-[1.4] text-navy-900">
-                                    {point.text}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                          </li>
-                        );
-                      })}
-                    </ul>
-
-                    {/* The roster from `lead`, said once. See the note on
-                        solutionCopy.roster for why it is chips and not prose. */}
-                    <div className="mt-4">
-                      <p className="font-heading text-[10px] font-bold uppercase tracking-[0.16em] text-slate-ink">
-                        Connecting
-                      </p>
-                      <ul className="mt-2 flex flex-wrap gap-1.5">
-                        {solutionCopy.roster.map((party) => (
-                          <li
-                            key={party}
-                            className="rounded-full border border-[color-mix(in_oklab,var(--color-slate)_25%,transparent)] bg-white px-2.5 py-1 text-[11.5px] font-semibold leading-[1.3] text-navy-900"
-                          >
-                            {party}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
                   </div>
                 </div>
+              </Reveal>
+            </div>
 
-                {/* ── What one home does ──────────────────────────────────
-                    The payoff. A capability list answers "what does it do";
-                    this answers "so what", which is the question a reader
-                    actually leaves with. Ending here rather than on the
-                    delivery footnote is the whole reason it exists. */}
-                <div {...cascade(2)} className="panel-rule-thin mt-auto pt-4">
-                  <p className="eyebrow tracking-[0.16em] text-teal-600">{impactProof.eyebrow}</p>
-                  <ul className="mt-2.5 grid gap-3 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)_minmax(0,1.1fr)]">
-                    {/* Ours, and illustrative — labelled as such on the card */}
-                    <li className="rounded-xl border border-[color-mix(in_oklab,var(--color-slate)_25%,transparent)] bg-white p-3.5">
-                      <p className="flex items-center gap-2.5">
-                        <span className="font-heading text-[34px] font-extrabold leading-none text-navy-900">
-                          {impactProof.multiplier.from.figure}
-                        </span>
-                        <span className="font-heading text-[11px] font-bold uppercase leading-[1.25] tracking-[0.06em] text-slate-ink">
-                          {impactProof.multiplier.from.label}
-                        </span>
-                        <span className="sr-only"> becomes up to </span>
-                        <Icons.ArrowRight
-                          aria-hidden="true"
-                          className="size-5 shrink-0 text-teal-600"
-                          strokeWidth={2}
-                        />
-                        <span className="font-heading text-[34px] font-extrabold leading-none text-orange-700">
-                          {impactProof.multiplier.to.figure}
-                        </span>
-                        <span className="font-heading text-[11px] font-bold uppercase leading-[1.25] tracking-[0.06em] text-slate-ink">
-                          {impactProof.multiplier.to.label}
-                        </span>
-                      </p>
-                      <p className="mt-2 text-[11px] leading-[1.5] text-slate-ink">
-                        {impactProof.multiplier.basis}
-                      </p>
-                      <p className="mt-1 text-[11px] leading-[1.5] text-slate-ink">
-                        {impactProof.multiplier.disclaimer}
-                      </p>
-                    </li>
-
-                    {/* Published, cited, and guarded. The card carries "orange"
-                        in its class list, which is what exempts its white type
-                        from the .section-light remap — see the note there. */}
-                    <li className="rounded-xl bg-orange-700 p-3.5 text-white">
-                      <p className="font-heading text-[34px] font-extrabold leading-none">
-                        {impactProof.cost.figure}
-                      </p>
-                      <p className="mt-1.5 text-[11.5px] font-semibold leading-[1.45]">
-                        {impactProof.cost.body}
-                      </p>
-                      <p className="mt-1.5 text-[10px] leading-[1.4]">
-                        {impactProof.cost.source} · {impactProof.cost.caveat}
-                      </p>
-                    </li>
-
-                    <li className="rounded-xl border border-[color-mix(in_oklab,var(--color-slate)_25%,transparent)] bg-white p-3.5">
-                      <p className="font-heading text-[12.5px] font-extrabold uppercase tracking-[0.06em] text-navy-900">
-                        {impactProof.outcomes.heading}
-                      </p>
-                      <ul className="mt-2 flex flex-col gap-1.5">
-                        {impactProof.outcomes.points.map((point) => {
-                          const PointIcon = icon(point.icon);
-                          return (
-                            <li key={point.text} className="flex gap-2">
-                              <PointIcon
-                                aria-hidden="true"
-                                className="mt-[2px] size-3.5 shrink-0 text-teal-600"
-                                strokeWidth={1.5}
-                              />
-                              <span className="text-[11.5px] leading-[1.42] text-slate-ink">
-                                {point.text}
-                              </span>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </li>
+            <div className="flex flex-1 flex-col gap-3.5">
+              {/* The mirror of the navy tile on the front — here it is teal-edged
+                  on navy, and it carries the roster inside it for the same
+                  reason the bullets moved: one fewer box. */}
+              <Reveal index={1}>
+                <div className="rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800 p-6">
+                  <p className="eyebrow tracking-[0.14em] text-teal-400">The platform</p>
+                  <p className="mt-2 max-w-[70ch] text-[13.5px] leading-relaxed text-mist">
+                    {solutionCopy.assertion}
+                  </p>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {solutionCopy.roster.map((name) => (
+                      <li
+                        key={name}
+                        className="rounded-full border border-teal-600 px-3 py-1.5 text-[11.5px] font-semibold text-white"
+                      >
+                        {name}
+                      </li>
+                    ))}
                   </ul>
                 </div>
+              </Reveal>
 
-                {/* The delivery structure lives on About Us; the AI statement
-                    is still pending and is rendered literally so it is never
-                    mistaken for a real one. */}
-                <p
-                  {...cascade(2)}
-                  className={cn("mt-3 flex flex-wrap items-center justify-between gap-x-5 gap-y-2 text-[11.5px] leading-[1.6]", QUIET)}
-                >
-                  <span>
-                    {solutionCopy.delivery}{" "}
-                    <Link
-                      to="/about"
-                      className="nav-underline font-semibold text-teal-600 transition-colors duration-200 hover:text-navy-900"
-                    >
-                      {solutionCopy.deliveryLink}
-                    </Link>
-                  </span>
-                </p>
+              <div className="grid flex-1 gap-3.5 sm:grid-cols-3">
+                {solutionCopy.stages.map((stage, i) => {
+                  const Glyph = icon(stage.icon);
+                  const filled = i === 0;
+                  return (
+                    <Reveal key={stage.id} index={i} className="flex">
+                      <div
+                        className={cn(
+                          "group relative flex h-full w-full flex-col overflow-hidden rounded-[var(--radius-panel)] p-5 transition-all duration-300 hover:-translate-y-1",
+                          filled
+                            ? "bg-teal-600"
+                            : "border border-navy-700 bg-navy-800 hover:border-teal-600",
+                        )}
+                      >
+                        <Glyph
+                          aria-hidden="true"
+                          strokeWidth={1.5}
+                          className={cn(
+                            "absolute -right-3 -top-3 size-20 opacity-[0.14]",
+                            filled ? "text-white" : "text-teal-400",
+                          )}
+                        />
+                        <span
+                          className={cn(
+                            "font-heading text-[11px] font-extrabold tracking-[0.14em]",
+                            filled ? "text-white/80" : "text-teal-400",
+                          )}
+                        >
+                          {stage.number}
+                        </span>
+                        <p className="heading-tight mt-1 font-heading text-[15px] font-extrabold text-white">
+                          {stage.name}
+                        </p>
+                        <ul className="mt-2.5 flex flex-col gap-1.5">
+                          {stage.points.map((point) => (
+                            <li
+                              key={point.text}
+                              className={cn(
+                                "text-[11.5px] leading-snug",
+                                filled ? "text-white/90" : "text-mist",
+                              )}
+                            >
+                              {point.text}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </Reveal>
+                  );
+                })}
               </div>
 
-              {/* The site's strongest assertion needs a person making it. His
-                  open palm points back into the copy beside him. */}
-              <div {...cascade(3)} className="order-first h-full lg:order-none">
-                <FlipPlate
-                  src={imagery.statement.src}
-                  alt={imagery.statement.alt}
-                  width={1024}
-                  height={1536}
-                  objectPosition="object-center"
-                  eyebrow="The other side"
-                  label="Back to the need"
-                  hint="Flip back to the need"
-                  expanded={showSolution}
-                  onFlip={() => setShowSolution(false)}
+              <Reveal index={2}>
+                <FlipBar
+                  label="Back to it"
+                  title="See the need"
+                  hint="The problem this answers."
+                  onFlip={flip}
                 />
-              </div>
-            </div>
+              </Reveal>
             </div>
           </div>
+
+          <p className="mt-3.5 text-[11px] leading-relaxed text-slate-muted">
+            <Link to="/solutions" className="font-semibold text-teal-400 hover:text-white">
+              Read how it works →
+            </Link>
+          </p>
         </div>
       </div>
     </section>
