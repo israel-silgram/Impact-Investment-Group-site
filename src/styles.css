@@ -1071,7 +1071,7 @@
   .hero-band {
     --hero-photo-h: clamp(12rem, calc((100svh - 28rem) / 1.19), 31rem);
     margin-inline: auto;
-    max-width: calc(var(--hero-photo-h) * 3.75 + 2.5rem);
+    max-width: none; }  .hero-band img { max-height: clamp(13rem, calc(100svh - 30rem), 40rem);
   }
 }
 
@@ -1095,4 +1095,33 @@
   .hero-role-grid {
     grid-template-columns: repeat(10, minmax(0, 1fr));
   }
+}
+
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   WIDE-MONITOR CONTAINER STEP-UP
+
+   Every page container is either max-w-[1440px] (full-bleed sections, the
+   header, the hero) or max-w-[1200px] (the narrower reading bands). Both are
+   fixed pixel caps, so past ~1700px the page stops growing and the rest of
+   the screen becomes margin â€” 560px of empty navy either side on a 2560px
+   monitor.
+
+   Written against the utility class rather than a new container class on
+   purpose: every container already carries one of these two, so this reaches
+   all of them without editing a single component.
+
+   Unlayered on purpose. Tailwind v4 emits utilities inside @layer utilities,
+   and unlayered CSS beats layered CSS whatever the source order â€” so these
+   win without !important.
+
+   âš ï¸ ONLY page containers may use these two widths. Verified across the
+   routes: every use is an `mx-auto w-full` wrapper. Give a CARD max-w-[1200px]
+   and it will grow on wide screens too â€” cards get their own width. */
+@media (min-width: 1700px) {
+  .max-w-\[1440px\] { max-width: 1600px; }
+  .max-w-\[1200px\] { max-width: 1320px; }
+}
+@media (min-width: 2100px) {
+  .max-w-\[1440px\] { max-width: 1760px; }
+  .max-w-\[1200px\] { max-width: 1440px; }
 }

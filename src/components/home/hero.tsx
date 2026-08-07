@@ -159,7 +159,7 @@ export function HomeHero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative isolate overflow-hidden bg-navy-900"
+      className="relative isolate flex flex-col justify-center overflow-hidden bg-navy-900 md:min-h-[calc(100svh_-_77px)]"
     >
       {/* The street, ghosted. Decorative only — it carries no information the
           copy does not, so it is empty-alt and hidden from the tree.
