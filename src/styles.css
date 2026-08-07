@@ -1071,7 +1071,7 @@
   .hero-band {
     --hero-photo-h: clamp(12rem, calc((100svh - 28rem) / 1.19), 31rem);
     margin-inline: auto;
-    max-width: none; }  .hero-band img { max-height: clamp(13rem, calc(100svh - 30rem), 40rem);
+    max-width: none; }  .hero-band img { max-height: clamp(13rem, calc(100svh - 31.5rem), 40rem);
   }
 }
 
