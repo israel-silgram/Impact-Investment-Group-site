@@ -324,7 +324,6 @@
 
 /* WCAG 2.2.2: motion that starts on its own and runs past five seconds needs
    a way to stop it. Hover and focus-within are that mechanism. */
-.logo-marquee:hover .logo-marquee__track,
 .logo-marquee:focus-within .logo-marquee__track {
   animation-play-state: paused;
 }

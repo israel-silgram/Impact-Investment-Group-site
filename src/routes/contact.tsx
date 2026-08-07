@@ -7,7 +7,6 @@ import {
   contactHero,
   enquiryRouteIds,
   enquiryRoutes,
-  whatHappensNext,
   type EnquiryRouteId,
 } from "@/content/contact";
 import { faq, faqEyebrow, faqHeading } from "@/content/faq";
@@ -189,19 +188,7 @@ function ContactPage() {
 
             {/* ── The rail ────────────────────────────────────────────── */}
             <div>
-              <p className="eyebrow tracking-[0.14em] text-orange-700">What happens next</p>
-              <ul>
-                {whatHappensNext.map((step, i) => (
-                  <Reveal key={step.title} index={i} as="li">
-                    <div className="mt-5 border-t-2 border-teal-600 pt-3">
-                      <p className="font-heading text-[15px] font-extrabold text-white">
-                        {step.title}
-                      </p>
-                      <p className="mt-1.5 text-[13px] leading-relaxed text-mist">{step.body}</p>
-                    </div>
-                  </Reveal>
-                ))}
-              </ul>
+              
 
               {/* Care information, not marketing. Duplicated from the footer on
                   purpose — see the note at the top of this file. */}

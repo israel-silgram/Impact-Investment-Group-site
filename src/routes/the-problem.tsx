@@ -79,7 +79,7 @@ function TheProblemPage() {
         const portrait = section.character ? PORTRAIT[section.character] : undefined;
         /* Left on the first character section, right on the last — the
            alternation is what gives the page its rhythm. */
-        const onLeft = i !== problemSections.length - 1;
+        const onLeft = i % 2 === 0;
 
         return (
           <section
@@ -132,7 +132,7 @@ function TheProblemPage() {
                       aria-hidden="true"
                       className={cn(
                         "mt-3 font-heading text-[clamp(2.75rem,6.6vw,5rem)] font-extrabold leading-[0.94] tracking-[-0.035em]",
-                        section.light ? "text-orange-700" : "text-orange-500",
+                        section.light ? "text-orange-700" : "text-teal-400",
                       )}
                     >
                       {section.headline}
@@ -196,7 +196,7 @@ function TheProblemPage() {
        * "capital at risk" on every page, alongside the FCA and scheme-status
        * statements. If the footer is ever trimmed, this comes back.
        */}
-      <section aria-labelledby="problem-cta" className="section-light">
+      <section aria-labelledby="problem-cta" className="section-light border-t border-navy-700">
         <div className="mx-auto w-full max-w-[1200px] px-5 pb-16 pt-6 text-center sm:px-8 lg:pb-20">
           <h2 id="problem-cta" className="sr-only">
             {closingStrapline}

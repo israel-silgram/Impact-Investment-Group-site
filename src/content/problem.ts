@@ -98,6 +98,7 @@ export const problemSections: ProblemSection[] = [
     source:
       "gov.uk · Scottish Government · Welsh Government · NIHE. Recorded on different bases and not simply additive.",
     character: "petra-point",
+    light: true,
   },
   {
     id: "cost",
@@ -113,21 +114,6 @@ export const problemSections: ProblemSection[] = [
           "a year — NHS cost of people stuck in hospital waiting for supported housing · Inside Housing",
         value: "£102m",
       },
-    ],
-    light: true,
-    // character: deliberately absent. See the note on ProblemSection.character.
-  },
-  {
-    id: "cause",
-    eyebrow: "Why it stays broken",
-    headline: "5",
-    lead: "Five parties. Five systems. No shared view of demand, supply or suitability.",
-    rows: [
-      { label: "Councils — know who needs a home", value: "" },
-      { label: "Housing associations — hold the tenancy", value: "" },
-      { label: "Care providers — deliver the support", value: "" },
-      { label: "Landlords — own the property", value: "" },
-      { label: "Investors — have the capital", value: "" },
     ],
     character: "peter-present",
   },
