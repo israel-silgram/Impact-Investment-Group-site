@@ -298,47 +298,7 @@ function SolutionsPage() {
         </div>
       </section>
 
-      {/* ── 5 · Close ── cream, no rule above it ──────────────────────────── */}
-      <section aria-labelledby="solutions-cta" className="section-light">
-        <div className="mx-auto w-full max-w-[1200px] px-5 pb-16 pt-6 text-center sm:px-8 lg:pb-20">
-          <h2 id="solutions-cta" className="sr-only">
-            {closingStrapline}
-          </h2>
-          <Reveal>
-            <PreReleaseBadge className="justify-center" />
-            <div className="mt-5">
-              {closingBeats.map((beat, i) => (
-                <span
-                  key={beat}
-                  aria-hidden="true"
-                  className={cn(
-                    "heading-tight inline-block font-heading text-[clamp(1.75rem,4.4vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.025em]",
-                    i === 1 ? "text-orange-700" : "text-white",
-                    i < 2 && "mr-2",
-                  )}
-                >
-                  {beat}
-                </span>
-              ))}
-            </div>
-            <p className="mx-auto mt-4 max-w-[56ch] text-[17px] leading-relaxed text-mist">
-              {solutionClose.lead}
-            </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Button variant="primary" asChild>
-                <Link to={registerRoute.to} search={registerRoute.search}>
-                  {solutionClose.cta}
-                </Link>
-              </Button>
-              <Button variant="secondary" asChild withArrow={false}>
-                <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
-                  Become a Partner
-                </Link>
-              </Button>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      
     </main>
   );
 }

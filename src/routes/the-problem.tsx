@@ -176,69 +176,7 @@ function TheProblemPage() {
         );
       })}
 
-      {/*
-       * ── 5 · Close ── cream ────────────────────────────────────────────
-       *
-       * NO BORDER ON TOP. Section four is also cream, so the two run together
-       * as one continuous ground — that join is deliberate and is why the rule
-       * every other section carries is absent here. Do not "fix" it.
-       *
-       * The beats are set in orange-700, NOT the orange-500 the same close uses
-       * on /about. That is not a colour preference: /about closes on navy where
-       * orange-500 is 7.2:1, and this one closes on cream where orange-500 is
-       * 2.3:1 and fails outright. orange-700 is 4.1:1 — which clears AA only as
-       * LARGE text, and these beats are 28–50px extrabold, so they qualify.
-       * `.section-light` also rewrites orange-500 to navy ink, so writing it
-       * here would silently produce a black word rather than an orange one.
-       *
-       * ⚠️ NO CAPITAL-AT-RISK PARAGRAPH HERE. It was removed to match the
-       * approved design, and that is only safe because the site FOOTER carries
-       * "capital at risk" on every page, alongside the FCA and scheme-status
-       * statements. If the footer is ever trimmed, this comes back.
-       */}
-      <section aria-labelledby="problem-cta" className="section-light border-t border-navy-700">
-        <div className="mx-auto w-full max-w-[1200px] px-5 pb-16 pt-6 text-center sm:px-8 lg:pb-20">
-          <h2 id="problem-cta" className="sr-only">
-            {closingStrapline}
-          </h2>
-
-          <Reveal>
-            <PreReleaseBadge className="justify-center" />
-            <div className="mt-5">
-              {closingBeats.map((beat, i) => (
-                <span
-                  key={beat}
-                  aria-hidden="true"
-                  className={cn(
-                    "heading-tight font-heading text-[clamp(1.75rem,4.4vw,3rem)] font-extrabold leading-[1.08] tracking-[-0.025em]",
-                    /* inline-block so the three beats sit on one line where
-                       there is room and wrap as whole phrases where there is
-                       not — never mid-beat. */
-                    "inline-block",
-                    i === 1 ? "text-orange-700" : "text-white",
-                    i < 2 && "mr-2",
-                  )}
-                >
-                  {beat}
-                </span>
-              ))}
-            </div>
-
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-              <Button variant="primary" asChild>
-                <Link to={registerRoute.to} search={registerRoute.search}>
-                  {problemClose.cta}
-                </Link>
-              </Button>
-              <Button variant="secondary" asChild withArrow={false}>
-                <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
-                  Become a Partner
-                </Link>
-              </Button>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      
 
     </main>
   );

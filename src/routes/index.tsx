@@ -251,47 +251,7 @@ function HomePage() {
           measure at 15px so it fits two lines instead of three; and the four
           points run as one centred row of 32px rings rather than a two-column
           block of 60px ones, which alone was 176px of the old height. Padding
-          drops from 96px to 40/48px. Everything stays centred on one axis. */}
-      <section aria-labelledby="closing-heading" className="section-light">
-        <div className="mx-auto w-full max-w-[1200px] px-5 py-12 text-center sm:px-8">
-          <h2
-            id="closing-heading"
-            className="heading-tight mx-auto max-w-[26ch] text-balance text-[clamp(1.5rem,3vw,2.125rem)] font-extrabold tracking-[-0.02em] text-white"
-          >
-            {closingCopy.title}
-          </h2>
-          {/* One centred row. The rings are xs (16px icon in a 32px circle) so
-              four points cost one line instead of four rows. */}
-          <ul className="mx-auto mt-6 flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-3">
-            {closingCopy.points.map((point) => (
-              <li key={point.text} className="flex items-center gap-2.5">
-                <IconCircle icon={icon(point.icon)} size="xs" tone={point.tone} />
-                <span className="font-heading text-[13px] font-semibold text-white">
-                  {point.text}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <PreReleaseBadge className="mt-7 justify-center" />
-          {/* size="default" not "lg": 44px instead of 52px. The label stays at
-              16px/600, which is the floor white-on-orange-600 needs to pass. */}
-          <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-            <Button variant="primary" asChild>
-              <Link to={registerRoute.to} search={registerRoute.search}>
-                {PRIMARY_LABEL}
-              </Link>
-            </Button>
-            <Button variant="secondary" asChild withArrow={false} className="border-teal-600">
-              <Link to="/contact">Contact Us</Link>
-            </Button>
-            <Button variant="ghost" asChild>
-              <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
-                Become a Partner
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+          drops from 96px to 40/48px. Everything stays centred on one axis. */}
     </>
   );
 }

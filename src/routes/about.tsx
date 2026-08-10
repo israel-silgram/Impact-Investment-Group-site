@@ -158,10 +158,21 @@ function Emphasise({ text, terms }: { text: string; terms: string[] }) {
   );
 }
 
+/**
+ * One character per step of the chain, by POSITION not by company — re-order
+ * `accountableChain` and the cast follows. Same three used on /the-problem and
+ * /solutions, which is the point: About should not introduce new furniture.
+ */
+const CAST = [
+  "/images/ai-team/petra-point.webp",
+  "/images/ai-team/peter-present.webp",
+  "/images/ai-team/pippa-present.webp",
+] as const;
+
 /** Per-card accents, so a row of data does not read as one block of colour. */
 const ACCENT = {
   teal: { text: "text-teal-400", bar: "bg-teal-400", disc: "bg-teal-400 text-navy-900" },
-  orange: { text: "text-orange-500", bar: "bg-orange-500", disc: "bg-orange-500 text-white" },
+  orange: { text: "text-orange-700", bar: "bg-orange-600", disc: "bg-orange-600 text-white" },
   white: { text: "text-white", bar: "bg-white/70", disc: "bg-white text-navy-900" },
 } as const;
 
@@ -180,9 +191,11 @@ const ACCENT = {
  *   · `alt=""` and `aria-hidden`. It carries no information; a screen reader
  *     announcing "aerial view of a housing estate" here would be noise.
  *
- * It is only ever used on a NAVY band. On cream there is no scrim dark enough
- * to hold it back, which is exactly the version of this Callum rejected on the
- * homepage — do not put one behind a `.section-light` band.
+ * It works on EITHER ground now: the scrim follows `light`, so it fades to
+ * cream on a light band and to navy on a dark one. It was navy-only for a
+ * while, and dropping that navy scrim onto cream is what darkened the top and
+ * bottom of the section — the version Callum rejected on the homepage. If the
+ * scrim is ever hardcoded again, this comes back with it.
  */
 function Band({
   id,
@@ -213,11 +226,16 @@ function Band({
             loading="lazy"
             width={1600}
             height={640}
-            className="pointer-events-none absolute inset-0 -z-10 size-full object-cover opacity-[0.09]"
+            className="pointer-events-none absolute inset-0 -z-10 size-full object-cover opacity-[0.10]"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-b from-navy-900 via-transparent to-navy-900"
+            className={cn(
+              "pointer-events-none absolute inset-0 -z-10 bg-linear-to-b",
+              light
+                ? "from-[var(--color-mist-bg)] via-transparent to-[var(--color-mist-bg)]"
+                : "from-navy-900 via-transparent to-navy-900",
+            )}
           />
         </>
       ) : null}
@@ -340,7 +358,7 @@ function AboutPage() {
        * the rest of the team — `order-*` puts the portrait between them rather
        * than leaving it stranded at the bottom.
        */}
-      <Band id="about-heading" light>
+      <Band id="about-heading">
         <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)] lg:items-stretch lg:gap-10">
           {/* Explicit grid placement rather than `order-*`: source order is
               already the reading order on a phone — copy, Israel, then the
@@ -350,10 +368,10 @@ function AboutPage() {
               eyebrow={whoWeAre.eyebrow}
               title={whoWeAre.title}
               id="about-heading"
-              tone="rust"
+              tone="teal"
               hero
             />
-            <Summary lines={summaries.whoWeAre!} tone="rust" />
+            <Summary lines={summaries.whoWeAre!} tone="teal" />
           </Reveal>
 
           <Reveal index={1} className="h-full lg:col-start-2 lg:row-span-2 lg:row-start-1">
@@ -369,7 +387,7 @@ function AboutPage() {
               right up to the grid gap beside Israel's card, so the block reads
               as one team rather than a narrow list floating in the section. */}
           <div className="lg:col-start-1 lg:row-start-2">
-            <p className="eyebrow tracking-[0.14em] text-orange-700">{teamTitle}</p>
+            <p className="eyebrow tracking-[0.14em] text-teal-400">{teamTitle}</p>
             <ul className="mt-3.5 flex flex-col gap-3">
               {team.slice(1).map((member, i) => (
                 <Reveal key={member.name} index={i} as="li">
@@ -382,49 +400,58 @@ function AboutPage() {
       </Band>
 
       {/* ── 2 · Why We Exist + the figures ── navy ───────────────────────── */}
-      <Band id="why-heading" image="/images/why-estate-aerial.webp">
-        <Head eyebrow={whyWeExist.eyebrow} title={whyWeExist.title} id="why-heading" />
-        <Summary lines={summaries.whyWeExist!} tone="teal" />
+      {/* ── 2 · Why We Exist ── navy ── THE LADDER ────────────────────────
+        *
+        * Four sourced figures as four full-width rows rather than four cards:
+        * value left, meaning centre, source right. Every figure, every kind
+        * label and every source link survives — a card just spent its width on
+        * a number that needed a third of it.
+        */}
+      <Band id="why-heading" light image="/images/why-estate-aerial.webp">
+        <Head eyebrow={whyWeExist.eyebrow} title={whyWeExist.title} id="why-heading" tone="rust" />
+        <Summary lines={summaries.whyWeExist!} tone="rust" />
 
         <SubHead>{problemHeading}</SubHead>
-        <ul className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {problemFigures.map((figure, i) => (
-            <Reveal key={figure.id} index={i} as="li">
-              {/* One accent per card — a 3px top bar and the figure itself. Four
-                  identical cards made the row read as a single block. */}
-              <div className="panel relative flex h-full flex-col overflow-hidden p-5 pt-6">
-                <span
-                  aria-hidden="true"
-                  className={cn(
-                    "absolute inset-x-0 top-0 h-[3px]",
-                    ACCENT[figureAccents[i % figureAccents.length]!].bar,
-                  )}
-                />
-                <p className={cn("eyebrow", ACCENT[figureAccents[i % figureAccents.length]!].text)}>
-                  {figure.kind}
-                </p>
-                <p
-                  className={cn(
-                    "mt-2.5 font-heading text-[clamp(1.75rem,2.8vw,2.125rem)] font-extrabold leading-none tracking-[-0.02em]",
-                    ACCENT[figureAccents[i % figureAccents.length]!].text,
-                  )}
-                >
-                  {figure.value}
-                </p>
-                <p className="mt-2.5 text-[13.5px] leading-relaxed text-mist">{figure.label}</p>
-                {/* A figure without its source does not go on this page. */}
-                <a
-                  href={figure.href}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="mt-auto inline-flex items-start gap-1 pt-3.5 text-[11px] font-semibold leading-snug text-teal-400 transition-colors duration-200 hover:text-white"
-                >
-                  <span>Source: {figure.source}</span>
-                  <ArrowUpRight aria-hidden="true" className="mt-px size-3 shrink-0" />
-                </a>
-              </div>
-            </Reveal>
-          ))}
+        <ul className="mt-5">
+          {problemFigures.map((figure, i) => {
+            const accent = ACCENT[figureAccents[i % figureAccents.length]!];
+            return (
+              <Reveal
+                key={figure.id}
+                index={i}
+                as="li"
+                className="border-b border-navy-700 last:border-b-0"
+              >
+                <div className="flex flex-col gap-2 py-4 sm:flex-row sm:items-baseline sm:gap-7">
+                  {/* Fluid, not fixed: "176,130" and "£102m / yr" are very
+                      different lengths, and a fixed column either clips the
+                      long one or leaves a hole after the short one. */}
+                  <p
+                    className={cn(
+                      "shrink-0 font-heading text-[clamp(1.75rem,3.4vw,2.5rem)] font-extrabold leading-none tracking-[-0.035em] sm:w-[clamp(9rem,16vw,13rem)]",
+                      accent.text,
+                    )}
+                  >
+                    {figure.value}
+                  </p>
+                  <div className="min-w-0 flex-1">
+                    <p className={cn("eyebrow", accent.text)}>{figure.kind}</p>
+                    <p className="mt-1 text-[14px] leading-snug text-white">{figure.label}</p>
+                  </div>
+                  {/* A figure without its source does not go on this page. */}
+                  <a
+                    href={figure.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="inline-flex shrink-0 items-start gap-1 text-[11px] font-semibold leading-snug text-teal-400 transition-colors duration-200 hover:text-white sm:max-w-[17rem]"
+                  >
+                    <span>Source: {figure.source}</span>
+                    <ArrowUpRight aria-hidden="true" className="mt-px size-3 shrink-0" />
+                  </a>
+                </div>
+              </Reveal>
+            );
+          })}
         </ul>
       </Band>
 
@@ -442,58 +469,62 @@ function AboutPage() {
        * the claim and the chip carry it, and the ordered list still gives the
        * sequence to a screen reader.
        */}
-      <Band id="what-heading" light>
-        <Head eyebrow={whatWeDo.eyebrow} title={whatWeDo.title} id="what-heading" tone="rust" />
-        {/* The statement, not a summary. Larger than a Summary line and on its
-            own — this is the sentence the section exists to land. */}
+      {/* ── 3 · What We Do ── navy ── THE TRIO ────────────────────────────
+        *
+        * ⚠️ THIS BAND USED TO BE CREAM. About now runs cream → navy → navy.
+        * The two dark bands do not merge — Band draws a border-t on every
+        * section — but the alternation is gone. Putting `light` back on this
+        * Band is the whole of the fix if that reads badly.
+        */}
+      <Band id="what-heading">
+        <Head eyebrow={whatWeDo.eyebrow} title={whatWeDo.title} id="what-heading" />
         <p className="mt-4 max-w-[44ch] text-[clamp(1.375rem,2.4vw,1.625rem)] font-semibold leading-[1.32] text-white">
-          Three companies. <strong className="font-bold text-orange-700">One chain.</strong> No gap
+          Three companies. <strong className="font-bold text-orange-500">One chain.</strong> No gap
           for a person to fall through.
         </p>
 
         <ol className="mt-8 grid items-stretch gap-4 md:grid-cols-3">
           {accountableChain.map((step, i) => {
             const accent = chainAccents[i % chainAccents.length]!;
-            const rule = accent === "orange" ? "bg-orange-600" : "bg-teal-600";
-            /* The chip is a tinted pill, not a filled one: orange-700 text on a
-               12% orange wash is still measured against the CREAM behind it —
-               the wash is too light to change the ratio — so it holds 4.1:1 at
-               11px uppercase bold, which clears AA for bold small text. A
-               filled orange pill with white on it would not. */
+            const line = accent === "orange" ? "text-orange-500" : "text-teal-400";
             const chip =
               accent === "orange"
-                ? "bg-orange-600/12 text-orange-700"
-                : "bg-teal-600/12 text-teal-600";
+                ? "bg-orange-500/16 text-orange-500"
+                : "bg-teal-400/16 text-teal-400";
             return (
               <Reveal key={step.id} index={i} as="li" className="h-full">
-                <div className="panel relative flex h-full flex-col overflow-hidden p-6 pl-7">
-                  <span
-                    aria-hidden="true"
-                    className={cn("absolute inset-y-0 left-0 w-1", rule)}
-                  />
-                  <div className="flex items-start justify-between gap-3">
-                    <h4 className="heading-tight max-w-[14ch] font-heading text-[clamp(1.25rem,1.9vw,1.5rem)] font-extrabold tracking-[-0.015em] text-white">
-                      {step.claim}
-                    </h4>
-                    <img
-                      src={step.icon}
-                      alt=""
-                      aria-hidden="true"
-                      loading="lazy"
-                      width={288}
-                      height={288}
-                      className="size-14 shrink-0"
-                    />
-                  </div>
-                  <p className="mt-3 pb-4 text-[13px] leading-relaxed text-mist">{step.detail}</p>
+                {/* pb-[104px] reserves the character's corner. Without it the
+                    chip and the artwork fight for the same 100px. */}
+                <div
+                  className={cn(
+                    "panel relative flex h-full flex-col overflow-hidden p-6 pb-[104px]",
+                    accent === "orange" ? "border-orange-500/40" : "border-teal-600/40",
+                  )}
+                >
+                  <p className={cn("eyebrow", line)}>{`0${i + 1}`}</p>
+                  <h4 className="heading-tight mt-1.5 max-w-[16ch] font-heading text-[clamp(1.125rem,1.7vw,1.3125rem)] font-extrabold tracking-[-0.015em] text-white">
+                    {step.claim}
+                  </h4>
+                  <p className="mt-2.5 max-w-[32ch] text-[12.5px] leading-relaxed text-mist">
+                    {step.detail}
+                  </p>
                   <p
                     className={cn(
-                      "mt-auto w-fit rounded-full px-3 py-1.5 font-heading text-[11px] font-extrabold uppercase tracking-[0.1em]",
+                      "mt-3 w-fit rounded-full px-3 py-1.5 font-heading text-[10.5px] font-extrabold uppercase tracking-[0.1em]",
                       chip,
                     )}
                   >
                     {step.name}
                   </p>
+                  <img
+                    src={CAST[i % CAST.length]}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    width={281}
+                    height={560}
+                    className="pointer-events-none absolute -bottom-2 -right-4 h-[136px] w-auto"
+                  />
                 </div>
               </Reveal>
             );
@@ -502,8 +533,7 @@ function AboutPage() {
 
         {/* The compliance notice. It is a NOTICE, not body copy — the shield,
             the tinted strip and the bolded negatives are all there so it reads
-            as one, and so the four things it denies are the parts the eye
-            stops on. See content/about.ts for what may and may not be cut. */}
+            as one. See content/about.ts for what may and may not be cut. */}
         <div className="mt-7 flex items-start gap-3 rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/40 p-4">
           <ShieldAlert
             aria-hidden="true"
@@ -537,48 +567,6 @@ function AboutPage() {
        * both the nav and the footer; with three side by side none of them read
        * as the primary.
        */}
-      <Band id="partner-heading">
-        <div className="text-center">
-          <p className="eyebrow tracking-[0.14em] text-teal-400">
-            {whyPartner.eyebrow} · {whyPartner.title}
-          </p>
-          <h2 id="partner-heading" className="sr-only">
-            {whyPartner.title}
-          </h2>
-
-          <Reveal className="mt-4">
-            {whyPartner.straplineBeats.map((beat, i) => (
-              <p
-                key={beat}
-                className={cn(
-                  "heading-tight text-balance font-heading text-[clamp(1.75rem,4.6vw,3.125rem)] font-extrabold leading-[1.04] tracking-[-0.025em]",
-                  i === 1 ? "text-orange-500" : "text-white",
-                )}
-              >
-                {beat}
-              </p>
-            ))}
-          </Reveal>
-
-          <Summary lines={summaries.whyPartner!} tone="teal" centre />
-
-          <Reveal index={1}>
-            <PreReleaseBadge className="mt-8 justify-center" />
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-              <Button variant="primary" asChild>
-                <Link to="/contact" search={{ enquiry: "waitlist", type: "waitlist" }}>
-                  {whyPartner.cta}
-                </Link>
-              </Button>
-              <Button variant="secondary" asChild withArrow={false}>
-                <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
-                  Become a Partner
-                </Link>
-              </Button>
-            </div>
-          </Reveal>
-        </div>
-      </Band>
     </main>
   );
 }

@@ -72,7 +72,7 @@ export function DirectorCard({
     return (
       <article
         className={cn(
-          "flex h-full flex-col overflow-hidden rounded-2xl bg-cream-card",
+          "section-light flex h-full flex-col overflow-hidden rounded-2xl bg-cream-card",
           "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
           "shadow-[0_1px_2px_rgba(0,17,43,0.05),0_10px_30px_-18px_rgba(0,17,43,0.25)]",
           className,

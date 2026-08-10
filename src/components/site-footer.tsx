@@ -2,13 +2,17 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, LifeBuoy, Mail, Phone, Clock } from "lucide-react";
 
 import { Logo } from "@/components/logo";
+import { Button } from "@/components/ui/button";
+import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import {
+  closingBeats,
   contactDetails,
   contactRoutes,
   crisisLines,
   crisisNote,
   footerSiteLinks,
   legalNotice,
+  registerRoute,
   siteDescription,
   trustRegistrations,
 } from "@/content/site";
@@ -38,7 +42,85 @@ import {
  */
 export function SiteFooter() {
   return (
-    <footer className="border-t border-navy-700 bg-navy-950">
+    <footer className="relative isolate">
+      {/*
+       * THE ARCH. A dome across the top of the footer, so the register funnel
+       * and the footer read as one block rising out of the page rather than as
+       * two more stacked bands.
+       *
+       * Transparent strip, cream path. The control points sit at y=-47, which
+       * puts the apex exactly on the top edge — that is what stops it reading
+       * as a wave. preserveAspectRatio="none" stretches one path to any width.
+       *
+       * ⚠️ ON A PAGE WHOSE LAST SECTION IS CREAM the two top corners show the
+       * page ground through them, which reads as a navy strip. That is the
+       * known cost of a transparent divider and it is NOT fixed by deleting
+       * the arch — see restore-footer.cjs.
+       */}
+      <div
+        aria-hidden="true"
+        className="relative -mb-px h-[clamp(36px,4.5vw,80px)] w-full overflow-hidden"
+      >
+        <svg viewBox="0 0 1440 140" preserveAspectRatio="none" className="absolute inset-0 size-full">
+          <path d="M0 140 C 380 -47 1060 -47 1440 140 Z" fill="var(--color-mist-bg)" />
+        </svg>
+      </div>
+
+      <div className="section-light">
+        {/*
+         * THE FUNNEL. One copy, at the top of the footer, on every page.
+         *
+         * No rule above it and one below: nothing separates it from the page's
+         * last section, and the rule underneath groups it with the footer
+         * columns, so it reads as the top of the footer rather than a section.
+         *
+         * whitespace-nowrap per beat is what protects the phrasing — a width
+         * cap once broke "Delivering / Support." across two lines. A beat can
+         * never split; the line either fits or wraps at a full stop.
+         */}
+        <section aria-labelledby="funnel-heading" className="border-b border-navy-700">
+          <div className="mx-auto w-full max-w-[1440px] px-5 pb-8 pt-1 text-center sm:px-8">
+            <h2 id="funnel-heading" className="sr-only">
+              Register your interest
+            </h2>
+            <PreReleaseBadge className="justify-center" />
+            <p className="mt-3">
+              {closingBeats.map((beat, i) => (
+                <span
+                  key={beat}
+                  aria-hidden="true"
+                  className={
+                    "heading-tight inline-block whitespace-nowrap font-heading text-[clamp(1.25rem,2.4vw,1.875rem)] font-extrabold leading-[1.2] tracking-[-0.02em] " +
+                    (i === 1 ? "text-orange-700" : "text-white") +
+                    (i < 2 ? " mr-2" : "")
+                  }
+                >
+                  {beat}
+                </span>
+              ))}
+            </p>
+            <p className="mx-auto mt-2.5 max-w-[58ch] text-[13.5px] leading-relaxed text-mist">
+              {/* orange-700 is the one orange that survives on cream — 4.1:1,
+                  and at 13.5px semibold it is emphasis, not a heading. */}
+              <strong className="font-bold text-orange-700">30+ years</strong> across property,
+              housing, care and support — not an estate agency, a{" "}
+              <strong className="font-bold text-white">national network</strong>.
+            </p>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+              <Button variant="primary" asChild>
+                <Link to={registerRoute.to} search={registerRoute.search}>
+                  {registerRoute.label}
+                </Link>
+              </Button>
+              <Button variant="secondary" asChild withArrow={false}>
+                <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
+                  Become a Partner
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
       {/* The commissioning-councils carousel used to sit here as a band
           above these columns. It now runs between Our Mission and the
           demand map in routes/index.tsx — its disclaimer travelled with it
@@ -49,7 +131,7 @@ export function SiteFooter() {
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,0.85fr)_minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-9">
           {/* Logo + contact */}
           <div className="flex flex-col gap-3">
-            <Logo variant="on-navy" />
+            <Logo variant="on-cream" />
             <p className="max-w-[74ch] text-[12px] leading-relaxed text-slate-muted">
               {siteDescription}
             </p>
@@ -126,21 +208,21 @@ export function SiteFooter() {
               the 999 note are untouched; only the padding and type moved. */}
           <section
             aria-labelledby="crisis-heading"
-            className="teal-wash flex flex-col gap-2.5 self-start rounded-[var(--radius-panel)] border border-teal-600/40 p-4"
+            className="flex flex-col gap-2.5 self-start rounded-[var(--radius-panel)] border border-[var(--color-teal-600)] bg-[var(--color-navy-900)] p-4 text-[var(--color-mist-bg)]"
           >
-            <h2 id="crisis-heading" className="flex items-center gap-2 eyebrow text-teal-400">
+            <h2 id="crisis-heading" className="flex items-center gap-2 eyebrow text-[var(--color-mist-bg)]">
               <LifeBuoy aria-hidden="true" className="size-3.5" />
               In a crisis
             </h2>
-            <ul className="flex flex-col gap-1.5 text-[13px] text-white">
+            <ul className="flex flex-col gap-1.5 text-[13px] text-[var(--color-mist-bg)]">
               {crisisLines.map((line) => (
                 <li key={line.label} className="flex items-baseline justify-between gap-3">
-                  <span className="text-mist">{line.label}</span>
+                  <span className="text-[var(--color-mist-bg)]">{line.label}</span>
                   <span className="font-heading font-semibold">{line.detail}</span>
                 </li>
               ))}
             </ul>
-            <p className="font-heading text-[13px] font-semibold text-white">{crisisNote}</p>
+            <p className="font-heading text-[13px] font-semibold text-[var(--color-mist-bg)]">{crisisNote}</p>
           </section>
         </div>
       </div>
@@ -188,6 +270,7 @@ export function SiteFooter() {
         <p className="mx-auto mt-3 max-w-[120ch] text-balance text-center text-[11px] leading-relaxed text-slate-muted">
           {legalNotice}
         </p>
+      </div>
       </div>
     </footer>
   );

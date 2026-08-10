@@ -505,32 +505,7 @@ function ServicesPage() {
         <p className="mt-3 text-[11px] text-slate-muted">{compareUpdated}</p>
       </Band>
 
-      {/* ── 5 · Close ── cream ───────────────────────────────────────────── */}
-      <Band id="services-cta" light>
-        <Reveal className="text-center">
-          <h2
-            id="services-cta"
-            className="heading-tight mx-auto max-w-[24ch] text-balance text-[clamp(1.625rem,3.2vw,2.25rem)] font-extrabold text-white"
-          >
-            {servicesClose.title}
-          </h2>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <Button variant="primary" asChild>
-              <Link to={registerRoute.to} search={registerRoute.search}>
-                {servicesClose.cta}
-              </Link>
-            </Button>
-            <Button variant="secondary" asChild withArrow={false}>
-              <Link to="/contact">Contact Us</Link>
-            </Button>
-          </div>
-          <p className="mt-3 text-[12.5px] text-slate-ink">{servicesClose.ctaNote}</p>
-          {/* Capital at risk, verbatim. Never shortened to fit. */}
-          <p className="mx-auto mt-8 max-w-[104ch] text-[11.5px] leading-relaxed text-slate-ink">
-            {capitalAtRisk}
-          </p>
-        </Reveal>
-      </Band>
+      {/* ── 5 · Close ── cream ───────────────────────────────────────────── */}
     </main>
   );
 }
