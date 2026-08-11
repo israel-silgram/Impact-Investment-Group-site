@@ -375,62 +375,74 @@ function AboutPage() {
             </ul>
           </div>
 
-          <Reveal index={1} className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
-            <aside
-              aria-labelledby="leadership-capability-heading"
-              className={cn(
-                "section-light relative flex flex-col overflow-hidden rounded-2xl bg-cream-card p-5",
-                "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
-                "shadow-[0_1px_2px_rgba(0,17,43,0.05),0_10px_30px_-18px_rgba(0,17,43,0.25)]",
-              )}
-            >
-              <span aria-hidden="true" className="absolute left-5 top-0 h-1 w-12 bg-orange-600" />
-              <p className="eyebrow mt-2 tracking-[0.14em] text-teal-600">
-                {leadershipCapability.eyebrow}
-              </p>
-              <h2
-                id="leadership-capability-heading"
-                className="heading-tight mt-2 font-heading text-[24px] font-bold text-navy-900"
+          <Reveal
+            index={1}
+            className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:flex lg:h-full lg:flex-col lg:justify-center"
+          >
+            <div className="flex w-full flex-col items-center">
+              <img
+                src="/images/ai-team/collective-capability-team.png"
+                alt="Three illustrated members of the Impact Investment Group team"
+                width={935}
+                height={559}
+                className="mb-3 h-auto w-full max-w-[310px] object-contain drop-shadow-[0_12px_18px_rgba(0,17,43,0.16)]"
+              />
+              <aside
+                aria-labelledby="leadership-capability-heading"
+                className={cn(
+                  "section-light relative flex w-full flex-col overflow-hidden rounded-2xl bg-cream-card p-5",
+                  "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
+                  "shadow-[0_1px_2px_rgba(0,17,43,0.05),0_10px_30px_-18px_rgba(0,17,43,0.25)]",
+                )}
               >
-                {leadershipCapability.title}
-              </h2>
+                <span aria-hidden="true" className="absolute left-5 top-0 h-1 w-12 bg-orange-600" />
+                <p className="eyebrow mt-2 tracking-[0.14em] text-teal-600">
+                  {leadershipCapability.eyebrow}
+                </p>
+                <h2
+                  id="leadership-capability-heading"
+                  className="heading-tight mt-2 font-heading text-[24px] font-bold text-navy-900"
+                >
+                  {leadershipCapability.title}
+                </h2>
 
-              <div className="mt-4 border-y border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] py-4">
-                <p className="font-heading text-[38px] font-extrabold leading-none tracking-[-0.03em] text-teal-600">
-                  {leadershipCapability.experience}
-                </p>
-                <p className="mt-2 text-[13px] font-semibold leading-snug text-navy-900">
-                  {leadershipCapability.experienceLabel}
-                </p>
-                <p className="mt-2 text-[12px] leading-relaxed text-slate-ink">
-                  {leadershipCapability.lead}
-                </p>
-              </div>
+                <div className="mt-4 border-y border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] py-4">
+                  <p className="font-heading text-[38px] font-extrabold leading-none tracking-[-0.03em] text-teal-600">
+                    {leadershipCapability.experience}
+                  </p>
+                  <p className="mt-2 text-[13px] font-semibold leading-snug text-navy-900">
+                    {leadershipCapability.experienceLabel}
+                  </p>
+                  <p className="mt-2 text-[12px] leading-relaxed text-slate-ink">
+                    {leadershipCapability.lead}
+                  </p>
+                </div>
 
-              <ol className="mt-1">
-                {leadershipCapability.impacts.map((impact, i) => (
-                  <li
-                    key={impact.title}
-                    className="grid grid-cols-[28px_minmax(0,1fr)] gap-3 border-b border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] py-3 last:border-b-0"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="grid size-7 place-items-center rounded-full border border-[color-mix(in_oklab,var(--color-navy-900)_18%,transparent)] font-mono text-[10px] font-semibold text-teal-600"
+                <ol className="mt-1">
+                  {leadershipCapability.impacts.map((impact, i) => (
+                    <li
+                      key={impact.title}
+                      className="grid grid-cols-[28px_minmax(0,1fr)] gap-3 border-b border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] py-3 last:border-b-0"
                     >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <h3 className="font-heading text-[13.5px] font-bold text-navy-900">
-                        {impact.title}
-                      </h3>
-                      <p className="mt-0.5 text-[11.5px] leading-[1.45] text-slate-ink">
-                        {impact.body}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </aside>
+                      <span
+                        aria-hidden="true"
+                        className="grid size-7 place-items-center rounded-full border border-[color-mix(in_oklab,var(--color-navy-900)_18%,transparent)] font-mono text-[10px] font-semibold text-teal-600"
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div>
+                        <h3 className="font-heading text-[13.5px] font-bold text-navy-900">
+                          {impact.title}
+                        </h3>
+                        <p className="mt-0.5 text-[11.5px] leading-[1.45] text-slate-ink">
+                          {impact.body}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </aside>
+            </div>
           </Reveal>
         </div>
       </Band>
