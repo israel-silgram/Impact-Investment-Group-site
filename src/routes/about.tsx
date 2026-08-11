@@ -12,6 +12,7 @@ import {
   chainNotice,
   chainNoticeEmphasis,
   figureAccents,
+  leadershipCapability,
   problemFigures,
   problemHeading,
   summaries,
@@ -92,15 +93,7 @@ export const Route = createFileRoute("/about")({
  * smaller lines under it get `small` and their accents fall back to ink. On
  * navy none of this applies — orange-500 is 7.2:1 at any size.
  */
-function Rich({
-  parts,
-  tone,
-  small,
-}: {
-  parts: Seg[];
-  tone: "rust" | "teal";
-  small?: boolean;
-}) {
+function Rich({ parts, tone, small }: { parts: Seg[]; tone: "rust" | "teal"; small?: boolean }) {
   /*
    * On the CREAM, an accent in a small line is demoted to navy ink. orange-700
    * is 4.1:1 there and only passes as large text, so orange below ~19px
@@ -108,18 +101,14 @@ function Rich({
    * is 16.8:1 and still reads as emphasis. On NAVY there is no such problem —
    * orange-500 is 7.2:1 at any size — so `small` changes nothing there.
    */
-  const accent =
-    tone === "teal" ? "text-orange-500" : small ? "text-white" : "text-orange-700";
+  const accent = tone === "teal" ? "text-orange-500" : small ? "text-white" : "text-orange-700";
   return (
     <>
       {parts.map((part, i) =>
         typeof part === "string" ? (
           <span key={i}>{part}</span>
         ) : (
-          <strong
-            key={i}
-            className={cn("font-bold", part.em === "accent" ? accent : "text-white")}
-          >
+          <strong key={i} className={cn("font-bold", part.em === "accent" ? accent : "text-white")}>
             {part.t}
           </strong>
         ),
@@ -273,9 +262,7 @@ function Head({
         id={id}
         className={cn(
           "heading-tight mt-2.5 text-balance font-extrabold tracking-[-0.02em] text-white",
-          hero
-            ? "text-[clamp(2rem,4.6vw,3.25rem)]"
-            : "text-[clamp(1.5rem,2.8vw,2rem)]",
+          hero ? "text-[clamp(2rem,4.6vw,3.25rem)]" : "text-[clamp(1.5rem,2.8vw,2rem)]",
         )}
       >
         {title}
@@ -349,20 +336,15 @@ function AboutPage() {
        * underneath — three things stacked, and the illustrative photograph was
        * the least true of them.
        *
-       * The photograph is gone. Israel now holds that slot as a tall portrait
-       * card on the right, and the team folds into the left column beneath the
-       * copy as four rows. Two rows stack to roughly the height of the portrait
-       * card, which is what makes the two columns finish level.
-       *
-       * The order is deliberate on narrow screens too: copy, then Israel, then
-       * the rest of the team — `order-*` puts the portrait between them rather
-       * than leaving it stranded at the bottom.
+       * The photograph is gone. All five leaders now sit at the same hierarchy
+       * in the left column, with Israel first above Maria. The old feature-card
+       * slot on the right carries collective skills and experience instead.
+       * On narrow screens the team stays together before the capability panel.
        */}
       <Band id="about-heading">
         <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)] lg:items-stretch lg:gap-10">
-          {/* Explicit grid placement rather than `order-*`: source order is
-              already the reading order on a phone — copy, Israel, then the
-              team — and the placement classes only take effect from lg up. */}
+          {/* Explicit grid placement keeps the desktop composition without
+              splitting the five-person team in the mobile reading order. */}
           <Reveal className="lg:col-start-1 lg:row-start-1">
             <Head
               eyebrow={whoWeAre.eyebrow}
@@ -374,39 +356,95 @@ function AboutPage() {
             <Summary lines={summaries.whoWeAre!} tone="teal" />
           </Reveal>
 
-          <Reveal index={1} className="h-full lg:col-start-2 lg:row-span-2 lg:row-start-1">
-            <DirectorCard director={team[0]!} variant="portrait" />
-          </Reveal>
-
-          {/* One column, not two. Four stacked rows come out at almost exactly
-              the height of Israel's card, which is what makes the two columns
-              finish level — and a row is easier to read than a 2×2 grid of
-              them.
+          {/* One column, not two. Israel is deliberately the first equal row,
+              not a separate feature card, so all five leaders share one clear
+              hierarchy.
 
               NO WIDTH CAP. They deliberately run the full width of the column,
-              right up to the grid gap beside Israel's card, so the block reads
-              as one team rather than a narrow list floating in the section. */}
+              right up to the grid gap beside the capability panel, so the
+              block reads as one team rather than a narrow list floating in the
+              section. */}
           <div className="lg:col-start-1 lg:row-start-2">
             <p className="eyebrow tracking-[0.14em] text-teal-400">{teamTitle}</p>
             <ul className="mt-3.5 flex flex-col gap-3">
-              {team.slice(1).map((member, i) => (
+              {team.map((member, i) => (
                 <Reveal key={member.name} index={i} as="li">
                   <DirectorCard director={member} variant="row" />
                 </Reveal>
               ))}
             </ul>
           </div>
+
+          <Reveal index={1} className="h-full lg:col-start-2 lg:row-span-2 lg:row-start-1">
+            <aside
+              aria-labelledby="leadership-capability-heading"
+              className={cn(
+                "section-light relative flex h-full flex-col overflow-hidden rounded-2xl bg-cream-card p-5",
+                "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
+                "shadow-[0_1px_2px_rgba(0,17,43,0.05),0_10px_30px_-18px_rgba(0,17,43,0.25)]",
+              )}
+            >
+              <span aria-hidden="true" className="absolute left-5 top-0 h-1 w-12 bg-orange-600" />
+              <p className="eyebrow mt-2 tracking-[0.14em] text-teal-600">
+                {leadershipCapability.eyebrow}
+              </p>
+              <h2
+                id="leadership-capability-heading"
+                className="heading-tight mt-2 font-heading text-[26px] font-bold text-navy-900"
+              >
+                {leadershipCapability.title}
+              </h2>
+
+              <div className="mt-5 border-y border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] py-5">
+                <p className="font-heading text-[42px] font-extrabold leading-none tracking-[-0.03em] text-teal-600">
+                  {leadershipCapability.experience}
+                </p>
+                <p className="mt-2 text-[13px] font-semibold leading-snug text-navy-900">
+                  {leadershipCapability.experienceLabel}
+                </p>
+                <p className="mt-2 text-[12.5px] leading-relaxed text-slate-ink">
+                  {leadershipCapability.lead}
+                </p>
+              </div>
+
+              <ol className="mt-1">
+                {leadershipCapability.impacts.map((impact, i) => (
+                  <li
+                    key={impact.title}
+                    className="grid grid-cols-[32px_minmax(0,1fr)] gap-3 border-b border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] py-4 last:border-b-0"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="grid size-8 place-items-center rounded-full border border-[color-mix(in_oklab,var(--color-navy-900)_18%,transparent)] font-mono text-[11px] font-semibold text-teal-600"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <h3 className="font-heading text-[14px] font-bold text-navy-900">
+                        {impact.title}
+                      </h3>
+                      <p className="mt-1 text-[12px] leading-[1.5] text-slate-ink">{impact.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+
+              <p className="mt-auto border-t border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] pt-4 text-[12px] font-semibold leading-relaxed text-navy-900">
+                {leadershipCapability.closing}
+              </p>
+            </aside>
+          </Reveal>
         </div>
       </Band>
 
       {/* ── 2 · Why We Exist + the figures ── navy ───────────────────────── */}
       {/* ── 2 · Why We Exist ── navy ── THE LADDER ────────────────────────
-        *
-        * Four sourced figures as four full-width rows rather than four cards:
-        * value left, meaning centre, source right. Every figure, every kind
-        * label and every source link survives — a card just spent its width on
-        * a number that needed a third of it.
-        */}
+       *
+       * Four sourced figures as four full-width rows rather than four cards:
+       * value left, meaning centre, source right. Every figure, every kind
+       * label and every source link survives — a card just spent its width on
+       * a number that needed a third of it.
+       */}
       <Band id="why-heading" light image="/images/why-estate-aerial.webp">
         <Head eyebrow={whyWeExist.eyebrow} title={whyWeExist.title} id="why-heading" tone="rust" />
         <Summary lines={summaries.whyWeExist!} tone="rust" />
@@ -470,12 +508,12 @@ function AboutPage() {
        * sequence to a screen reader.
        */}
       {/* ── 3 · What We Do ── navy ── THE TRIO ────────────────────────────
-        *
-        * ⚠️ THIS BAND USED TO BE CREAM. About now runs cream → navy → navy.
-        * The two dark bands do not merge — Band draws a border-t on every
-        * section — but the alternation is gone. Putting `light` back on this
-        * Band is the whole of the fix if that reads badly.
-        */}
+       *
+       * ⚠️ THIS BAND USED TO BE CREAM. About now runs cream → navy → navy.
+       * The two dark bands do not merge — Band draws a border-t on every
+       * section — but the alternation is gone. Putting `light` back on this
+       * Band is the whole of the fix if that reads badly.
+       */}
       <Band id="what-heading">
         <Head eyebrow={whatWeDo.eyebrow} title={whatWeDo.title} id="what-heading" />
         <p className="mt-4 max-w-[44ch] text-[clamp(1.375rem,2.4vw,1.625rem)] font-semibold leading-[1.32] text-white">

@@ -242,6 +242,43 @@ export const director: Director = team[0]!;
 export const teamEyebrow = "Who we are";
 export const teamTitle = "The team";
 
+/**
+ * Collective proof shown beside the equal-height leadership rows on /about.
+ * Kept here with the rest of the About copy so wording can change without
+ * touching the layout.
+ */
+export const leadershipCapability = {
+  eyebrow: "Collective capability",
+  title: "Key Skills & Experience",
+  experience: "20+",
+  experienceLabel: "years of combined housing industry experience",
+  lead: "Leadership spanning housing, care, investment, operations and technology.",
+  impacts: [
+    {
+      title: "Housing & supported living",
+      body: "Property-led delivery, asset management and supported-housing operations.",
+    },
+    {
+      title: "Care-sector leadership",
+      body: "Children's and adult services shaped around real resident outcomes.",
+    },
+    {
+      title: "Investment capability",
+      body: "More than $100 million in capital-raising experience.",
+    },
+    {
+      title: "Operational delivery",
+      body: "Experience developing and scaling complex social-impact organisations.",
+    },
+    {
+      title: "Technology & AI",
+      body: "In-house software engineering, platform, AI and LLM capability.",
+    },
+  ],
+  closing:
+    "One connected leadership team covering the full journey from housing need and care delivery to capital and technology.",
+};
+
 export const teamContext =
   "The team works across property, investment and care: Impact Investment Group sources and packages the homes, Rhema Social Impact Group holds the lease and manages compliance and repairs, and Elevate Supported Living delivers the care with a human allocation gate at the centre of every placement.";
 
@@ -310,8 +347,7 @@ export const commissioningContext = {
   count: "18",
   of: "of ~296 authorities",
   body: "Their published briefs shape what we source.",
-  disclaimer:
-    "This is not a partnership, endorsement or approval by any council.",
+  disclaimer: "This is not a partnership, endorsement or approval by any council.",
 };
 
 export const partnershipSteps = [
@@ -574,7 +610,11 @@ export const summaries: Record<string, Seg[][]> = {
    * the other way round.
    */
   whoWeAre: [
-    ["We turn property investment into ", { t: "safe, suitable homes", em: "accent" }, " across the UK."],
+    [
+      "We turn property investment into ",
+      { t: "safe, suitable homes", em: "accent" },
+      " across the UK.",
+    ],
     [
       "Connecting ",
       { t: "investors, landlords and developers", em: "ink" },
