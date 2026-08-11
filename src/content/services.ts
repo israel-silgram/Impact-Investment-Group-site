@@ -143,87 +143,91 @@ export const workflowFooter =
 export const aiTeamNote =
   "Analysis, not financial advice — every figure sourced or a labelled estimate.";
 
-export const compareHeading = "Built differently — on purpose.";
-/*
- * ⚠️ NO LONGER RENDERED. "Contrast, not attack. Public, sourced facts only."
- * sat under the heading and announced the section's own good manners; the
- * attribution line under the record already says it is public record, and the
- * panel is now visibly a file rather than an argument. Kept in case the tone of
- * the section is ever questioned — this is what it used to promise.
- */
-export const compareNote = "Contrast, not attack. Public, sourced facts only.";
+export const differenceHeading = "Longer is not always stronger.";
+export const differenceLead =
+  "The sector learnt that a long lease cannot make supported housing sustainable on its own. The model around it needs evidence, accountability and room to respond when conditions change.";
 export const compareUpdated = "Updated 2 June 2026";
 
-/*
- * ⚠️ THE LEFT COLUMN NAMES REAL FIRMS AND REAL FINDINGS.
- *
- * Each line was shortened but NOT weakened: every one still states exactly what
- * the named regulator found, and the attribution line below travels with them.
- * Do not add an entry, do not drop the attribution, and do not turn a finding
- * into an implication — the protection here is the precision.
- */
-/*
- * Each `detail` was tightened again — and the regulator moved INTO the line
- * rather than trailing at the end of it, which is the opposite of weakening:
- * the finding and who found it now sit in the same breath. Originals kept
- * alongside so any of it can be checked at a glance.
- */
-export const sectorRecord = [
+export const differenceStory = [
   {
-    id: "home-reit",
-    name: "Home REIT",
-    detail: "Collapsed · Serious Fraud Office investigation",
-    // was: "Collapsed. Subject to a Serious Fraud Office investigation."
+    id: "past",
+    number: "01",
+    eyebrow: "The past failures",
+    title: "Long leases were treated as proof of security.",
+    body: "Rigid commitments could outlast the demand, funding and operating assumptions they were built on. When circumstances changed, the model had little room to respond.",
+    points: [
+      "Property secured before local demand was properly evidenced",
+      "Housing, care and asset management working in separate silos",
+      "Risk pushed forward instead of reviewed as conditions changed",
+    ],
+    tone: "orange" as const,
   },
   {
-    id: "house-crowd",
-    name: "The House Crowd",
-    detail: "Liquidation, owing tens of millions",
-    // was: "Went into liquidation owing tens of millions."
+    id: "lessons",
+    number: "02",
+    eyebrow: "The lessons learnt",
+    title: "A lease only works when the model around it works.",
+    body: "Supported housing changes with local need, public funding, regulation and the people being housed. Sustainable delivery depends on planned review points and shared accountability.",
+    points: [
+      "Start with evidenced need, not an available property",
+      "Connect the investor, leaseholder, provider and care team",
+      "Test the model regularly rather than relying on old assumptions",
+    ],
+    tone: "white" as const,
   },
   {
-    id: "qualia",
-    name: "Qualia",
-    detail: "FCA: care-room scheme operated like a Ponzi",
-    // was: "FCA found the care-room scheme operated like a Ponzi."
-  },
-  {
-    id: "lease",
-    name: "Lease-based providers",
-    detail: "Numerous non-compliant · Regulator of Social Housing",
-    // was: "Numerous found non-compliant by the Regulator of Social Housing."
+    id: "solution",
+    number: "03",
+    eyebrow: "Our sustainable solution",
+    title: "Five-year leases create room to adapt responsibly.",
+    body: "Our five-year structure creates a natural review window for political, funding and economic change—without losing sight of the stability a home and its residents need.",
+    points: [
+      "Revalidate demand before extending the commitment",
+      "Respond to change without locking in avoidable risk",
+      "Carry real operating lessons into each renewal decision",
+    ],
+    tone: "teal" as const,
   },
 ];
 
-/**
- * The marker in the corner of the record panel.
- *
- * ⚠️ IT IS A LABEL, NOT A STAMP. The mock-up had this rotated like a rubber
- * stamp across the corner and it was pulled back deliberately: these are live
- * regulatory findings about named companies, and a jaunty graphic device over
- * them reads as flippant to exactly the reader who matters most. It keeps the
- * letterspacing and the border. It does not keep the tilt.
- */
-export const sectorRecordMark = "Public record";
-
-export const sectorRecordHeading = "The sector's record";
-
-export const trustSource =
-  "Public record — Serious Fraud Office · Financial Conduct Authority · Regulator of Social Housing";
-
-/** The other half of the contrast. Integration folded in as the third line. */
-export const ourBuildHeading = "How we're built";
-
-export const ourBuild = [
-  { id: "no-guarantee", title: "No 'guaranteed' returns", detail: "We have never advertised one." },
-  { id: "sourced", title: "Every figure sourced", detail: "Or openly marked unavailable." },
-  { id: "one-product", title: "One product, three sides", detail: "Investor, referral and impact measurement together." },
+export const leaseComparison = [
+  {
+    id: "legacy",
+    label: "Typical legacy model",
+    term: "25 years",
+    title: "One fixed commitment",
+    detail:
+      "The original assumptions can remain in place long after demand, policy or operating conditions have moved on.",
+    tone: "orange" as const,
+  },
+  {
+    id: "ours",
+    label: "Our model",
+    term: "5 years",
+    title: "A planned review window",
+    detail:
+      "The lease can be reviewed against current demand, performance and risk before the next commitment is made.",
+    tone: "teal" as const,
+  },
 ];
 
-export const ourBuildNote =
-  "Strong specialists exist on each side. Our edge is the integration — not a claim to have invented matching.";
-
-export const ourBuildLabel = "Our own analysis";
+export const sustainabilityPrinciples = [
+  {
+    id: "agility",
+    title: "Agility",
+    detail: "The model can respond when commissioning, funding or local demand changes.",
+  },
+  {
+    id: "risk",
+    title: "Risk mitigation",
+    detail: "Evidence and operating performance are reviewed before risk is carried forward.",
+  },
+  {
+    id: "resilience",
+    title: "Long-term resilience",
+    detail: "Renewal is an informed decision—not an assumption made decades earlier.",
+  },
+];
 
 /** Published figures. Each carries its publisher and date; none may lose it. */
 export const demandFigures = [

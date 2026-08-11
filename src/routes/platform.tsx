@@ -9,25 +9,21 @@ import { registerRoute } from "@/content/site";
 import {
   aiTeamNote,
   capitalAtRisk,
-  compareHeading,
   compareUpdated,
   demandFigures,
-  ourBuild,
-  ourBuildHeading,
-  ourBuildLabel,
-  ourBuildNote,
-  sectorRecord,
-  sectorRecordHeading,
-  sectorRecordMark,
+  differenceHeading,
+  differenceLead,
+  differenceStory,
+  leaseComparison,
   servicesClose,
   servicesHero,
   steps,
+  sustainabilityPrinciples,
   toolsEyebrow,
   toolsHeading,
   toolsLead,
   workflow,
   workflowFooter,
-  trustSource,
   type Seg,
 } from "@/content/services";
 
@@ -187,6 +183,164 @@ function Summary({
     >
       <Rich parts={parts} tone={tone} />
     </p>
+  );
+}
+
+const DIFFERENCE_VISUAL = {
+  past: { value: "25", unit: "years fixed", tone: "text-orange-500" },
+  lessons: { value: "REVIEW", unit: "before risk rolls forward", tone: "text-white" },
+  solution: { value: "5", unit: "year review window", tone: "text-teal-400" },
+} as const;
+
+function DifferenceStory() {
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const activeChapter = differenceStory[activeIndex]!;
+  const activeVisual = DIFFERENCE_VISUAL[activeChapter.id as keyof typeof DIFFERENCE_VISUAL];
+  const activeAccent = ACCENT[activeChapter.tone as Accent];
+
+  return (
+    <>
+      <Head eyebrow="How we differ" title={differenceHeading} id="compare-heading" />
+      <p className="mt-4 max-w-[66ch] text-[16.5px] leading-relaxed text-mist">
+        {differenceLead}
+      </p>
+
+      <div className="relative mt-8 overflow-hidden rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/55 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.8)]">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:36px_36px]"
+        />
+        <div
+          aria-hidden="true"
+          className={cn(
+            "pointer-events-none absolute -right-28 top-1/2 size-[430px] -translate-y-1/2 rounded-full blur-3xl transition-colors duration-700",
+            activeChapter.tone === "orange"
+              ? "bg-orange-500/15"
+              : activeChapter.tone === "teal"
+                ? "bg-teal-400/18"
+                : "bg-white/8",
+          )}
+        />
+
+        <div className="relative grid lg:grid-cols-[240px_minmax(0,1fr)]">
+          <div
+            className="border-b border-navy-700 p-4 sm:p-5 lg:border-b-0 lg:border-r"
+            role="tablist"
+            aria-label="How we differ storyline"
+          >
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-slate-muted">
+              Choose a chapter
+            </p>
+            <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
+              {differenceStory.map((chapter, i) => {
+                const selected = i === activeIndex;
+                const accent = ACCENT[chapter.tone as Accent];
+                return (
+                  <button
+                    key={chapter.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={selected}
+                    aria-controls="difference-story-panel"
+                    onClick={() => setActiveIndex(i)}
+                    className={cn(
+                      "group flex min-h-[64px] items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-all duration-300",
+                      selected
+                        ? "translate-x-0 border-teal-600/45 bg-navy-700/80 shadow-[0_10px_30px_-18px_rgba(36,210,195,0.7)] lg:translate-x-1"
+                        : "border-transparent bg-transparent hover:border-navy-700 hover:bg-navy-800",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "grid size-8 shrink-0 place-items-center rounded-full border font-mono text-[10px] transition-all duration-300",
+                        selected
+                          ? cn(accent.disc, "border-transparent scale-105")
+                          : "border-navy-700 text-slate-muted group-hover:text-white",
+                      )}
+                    >
+                      {chapter.number}
+                    </span>
+                    <span>
+                      <span className={cn("block text-[10px] font-bold uppercase tracking-[0.11em]", selected ? accent.text : "text-slate-muted")}>
+                        {chapter.eyebrow}
+                      </span>
+                      <span className="mt-0.5 block text-[12px] leading-snug text-mist">
+                        {i === 0 ? "What failed" : i === 1 ? "What we learnt" : "What we built"}
+                      </span>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div id="difference-story-panel" role="tabpanel" className="relative min-h-[500px] p-5 sm:p-8 lg:min-h-[440px] lg:p-10">
+            <div key={activeChapter.id} className="[animation:rise-in_520ms_var(--ease-out-soft)_both]">
+              <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(250px,0.78fr)] lg:items-center">
+                <div>
+                  <p className={cn("eyebrow", activeAccent.text)}>{activeChapter.eyebrow}</p>
+                  <h3 className="heading-tight mt-3 max-w-[19ch] font-heading text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold tracking-[-0.025em] text-white">
+                    {activeChapter.title}
+                  </h3>
+                  <p className="mt-4 max-w-[54ch] text-[14px] leading-relaxed text-mist">
+                    {activeChapter.body}
+                  </p>
+                  <ul className="mt-6 grid gap-2.5">
+                    {activeChapter.points.map((point) => (
+                      <li key={point} className="flex gap-3 text-[13px] leading-relaxed text-mist">
+                        <span aria-hidden="true" className={cn("mt-[7px] size-1.5 shrink-0 rounded-full", activeAccent.bar)} />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="relative grid min-h-[220px] place-items-center overflow-hidden rounded-2xl border border-navy-700 bg-navy-900/70 p-5 text-center sm:min-h-[260px]">
+                  <span aria-hidden="true" className="absolute inset-5 rounded-full border border-dashed border-navy-700 [animation:spin_28s_linear_infinite] motion-reduce:animate-none" />
+                  <span aria-hidden="true" className={cn("absolute size-[145px] rounded-full opacity-20 blur-2xl", activeAccent.bar)} />
+                  <div className="relative">
+                    <p className={cn("font-heading font-extrabold leading-[0.78] tracking-[-0.075em]", activeVisual.tone, activeChapter.id === "lessons" ? "text-[clamp(2.5rem,7vw,4.5rem)]" : "text-[clamp(6rem,14vw,9rem)]")}>
+                      {activeVisual.value}
+                    </p>
+                    <p className="mt-5 font-heading text-[13px] font-bold uppercase tracking-[0.14em] text-white">
+                      {activeVisual.unit}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-navy-700 pt-4 text-[11px] text-slate-muted">
+              <span className="font-semibold text-orange-500">{leaseComparison[0]!.term} · fixed legacy commitment</span>
+              <Icons.ArrowRight aria-hidden="true" className="size-3.5 text-white" />
+              <span className="font-semibold text-teal-400">{leaseComparison[1]!.term} · planned review window</span>
+            </div>
+          </div>
+        </div>
+
+        <ul className="relative grid border-t border-navy-700 sm:grid-cols-3">
+          {sustainabilityPrinciples.map((principle, i) => (
+            <li key={principle.id} className={cn("px-5 py-4", i > 0 && "border-t border-navy-700 sm:border-l sm:border-t-0")}>
+              <p className="font-heading text-[13px] font-extrabold text-white">{principle.title}</p>
+              <p className="mt-1 text-[11.5px] leading-relaxed text-slate-muted">{principle.detail}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="logo-marquee mt-7 border-y border-navy-700 py-1" aria-label="Sourced housing demand figures">
+        <div className="logo-marquee__track">
+          {[...demandFigures, ...demandFigures].map((figure, i) => (
+            <span key={`${figure.id}-${i}`} data-clone={i >= demandFigures.length ? "true" : undefined} className="inline-flex items-baseline gap-2 px-3">
+              <strong className={cn("font-heading text-[22px] font-extrabold", ACCENT[figure.accent as Accent].text)}>{figure.value}</strong>
+              <span className="text-[12px] text-mist">{figure.label}</span>
+              <span className="text-[10px] text-slate-muted">{figure.source}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+      <p className="mt-2 text-[10px] text-slate-muted">{compareUpdated}</p>
+    </>
   );
 }
 
@@ -367,142 +521,16 @@ function ServicesPage() {
         </p>
       </Band>
 
-      {/*
-       * ── 4 · Built differently ── navy ─────────────────────────────────
+      {/* ── 4 · How we differ ── navy ─────────────────────────────────────
        *
-       * A CASE FILE AND A SPEC SHEET, not two cards with a "vs" between them.
-       * The two sides are arguing different kinds of thing and now they LOOK
-       * like different kinds of thing: the left is a public record — ruled
-       * paper, numbered 01–04, mono figures, a bordered marker in the corner;
-       * the right is a specification — ticks, larger claims, teal. A reader
-       * gets the point before reading a word of it.
-       *
-       * ⚠️ THE MARKER IS NOT A ROTATED STAMP. The mock-up tilted it like a
-       * rubber stamp and it was straightened on purpose — see the note on
-       * `sectorRecordMark` in content/services.ts. Do not tilt it back.
-       *
-       * ⚠️ PROVENANCE IS THE WHOLE POINT OF THE LAYOUT. Left = public record,
-       * and `trustSource` names the three regulators. Right = OUR OWN
-       * ANALYSIS, labelled as such in the panel header. Those two labels are
-       * what keep this a comparison rather than an insinuation. Neither may be
-       * dropped, and nothing may move from one panel to the other.
-       *
-       * The ruled paper is a repeating-linear-gradient at ~1% white, which is
-       * texture rather than contrast — no text sits on a band edge hard enough
-       * to matter, and it disappears entirely under forced-colours mode.
+       * A three-part story replaces the old side-by-side comparison. The
+       * section now moves from the sector's structural failures, through the
+       * lessons those failures exposed, to the model built in response. The
+       * lease comparison is deliberately specific: it explains the review
+       * window rather than presenting a shorter term as an end in itself.
        */}
       <Band id="compare-heading">
-        <Head eyebrow="How we compare" title={compareHeading} id="compare-heading" />
-
-        <div className="mt-8 grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-6">
-          {/* ── The case file ─────────────────────────────────────────── */}
-          <Reveal>
-            <div className="relative overflow-hidden rounded-[var(--radius-panel)] border border-orange-600/30 p-5 sm:p-6">
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 -z-10 bg-[repeating-linear-gradient(180deg,transparent,transparent_29px,rgba(255,255,255,0.028)_29px,rgba(255,255,255,0.028)_58px)] bg-navy-800/60"
-              />
-              <div className="flex items-start justify-between gap-4">
-                <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-orange-500">
-                  {sectorRecordHeading}
-                </p>
-                <span className="shrink-0 rounded-[4px] border border-orange-600/35 px-2.5 py-1 font-heading text-[9.5px] font-extrabold uppercase tracking-[0.16em] text-orange-500/80">
-                  {sectorRecordMark}
-                </span>
-              </div>
-
-              <ol className="mt-4">
-                {sectorRecord.map((item, i) => (
-                  <li
-                    key={item.id}
-                    className="grid grid-cols-[30px_1fr] gap-3 border-b border-dashed border-orange-600/25 py-3 last:border-b-0"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="pt-0.5 font-mono text-[11px] text-orange-500"
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <p className="font-heading text-[15px] font-bold text-white">{item.name}</p>
-                      <p className="mt-0.5 text-[13px] leading-relaxed text-mist">{item.detail}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-
-              {/* Attribution. Travels with the findings, always. */}
-              <p className="mt-4 text-[11px] leading-relaxed text-slate-muted">{trustSource}</p>
-            </div>
-          </Reveal>
-
-          {/* ── The spec sheet ────────────────────────────────────────── */}
-          <Reveal index={1}>
-            <div className="rounded-[var(--radius-panel)] border border-teal-600/30 bg-[color-mix(in_oklab,var(--color-teal-600)_10%,var(--color-navy-800))] p-5 sm:p-6">
-              <div className="flex items-baseline justify-between gap-4">
-                <p className="eyebrow text-teal-400">{ourBuildHeading}</p>
-                {/* Not decoration — this is what marks the panel as our claim
-                    rather than public record. */}
-                <p className="shrink-0 font-heading text-[10px] font-extrabold uppercase tracking-[0.14em] text-slate-muted">
-                  {ourBuildLabel}
-                </p>
-              </div>
-
-              <ul className="mt-3">
-                {ourBuild.map((item) => (
-                  <li
-                    key={item.id}
-                    className="flex gap-3 border-b border-teal-600/20 py-3.5 last:border-b-0"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="mt-0.5 grid size-[22px] shrink-0 place-items-center rounded-full bg-teal-600"
-                    >
-                      <Icons.Check className="size-3 text-white" strokeWidth={2.5} />
-                    </span>
-                    <div>
-                      <p className="font-heading text-[17px] font-extrabold tracking-[-0.01em] text-white">
-                        {item.title}
-                      </p>
-                      <p className="mt-0.5 text-[13.5px] leading-relaxed text-mist">{item.detail}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-
-              <p className="mt-4 text-[11.5px] leading-relaxed text-slate-muted">{ourBuildNote}</p>
-            </div>
-          </Reveal>
-        </div>
-
-        {/* The need, in three figures. One accent each, each keeping its
-            publisher — a figure here without its source does not ship. */}
-        <p className="eyebrow mt-10 text-teal-400">Demand-led · the need is public</p>
-        <ul className="mt-4 grid gap-4 md:grid-cols-3">
-          {demandFigures.map((figure, i) => {
-            const accent = ACCENT[figure.accent as Accent];
-            return (
-              <Reveal key={figure.id} index={i} as="li">
-                <div className="panel relative flex h-full flex-col overflow-hidden p-5 pt-6">
-                  <span aria-hidden="true" className={cn("absolute inset-x-0 top-0 h-[3px]", accent.bar)} />
-                  <p
-                    className={cn(
-                      "font-heading text-[clamp(1.875rem,3vw,2.375rem)] font-extrabold leading-none tracking-[-0.02em]",
-                      accent.text,
-                    )}
-                  >
-                    {figure.value}
-                  </p>
-                  <p className="mt-2.5 text-[13.5px] leading-relaxed text-mist">{figure.label}</p>
-                  <p className="mt-auto pt-3 text-[11px] font-semibold text-slate-muted">
-                    {figure.source}
-                  </p>
-                </div>
-              </Reveal>
-            );
-          })}
-        </ul>
-        <p className="mt-3 text-[11px] text-slate-muted">{compareUpdated}</p>
+        <DifferenceStory />
       </Band>
 
       {/* ── 5 · Close ── cream ───────────────────────────────────────────── */}
