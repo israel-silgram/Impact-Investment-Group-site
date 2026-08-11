@@ -93,12 +93,17 @@ export function DirectorCard({
         <div className="flex flex-1 flex-col p-5 text-center">
           <span
             aria-hidden="true"
-            className={cn("mx-auto h-1 w-10 rounded-full", orange ? "bg-orange-600" : "bg-teal-600")}
+            className={cn(
+              "mx-auto h-1 w-10 rounded-full",
+              orange ? "bg-orange-600" : "bg-teal-600",
+            )}
           />
           <h3 className="mt-3 font-heading text-[19px] font-bold text-navy-900">{director.name}</h3>
           <p className="mt-0.5 text-[12.5px] font-semibold text-teal-600">{director.role}</p>
           {director.bio ? (
-            <p className="mb-auto mt-3 text-[13px] leading-relaxed text-slate-ink">{director.bio}</p>
+            <p className="mb-auto mt-3 text-[13px] leading-relaxed text-slate-ink">
+              {director.bio}
+            </p>
           ) : null}
           {director.credentials?.length ? (
             <ul className="mt-3.5 flex flex-col gap-1.5 border-t border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] pt-3.5 text-left">
@@ -129,7 +134,7 @@ export function DirectorCard({
     return (
       <article
         className={cn(
-          "flex items-center gap-4 rounded-xl bg-cream-card p-4",
+          "flex items-center gap-3.5 rounded-xl bg-cream-card px-4 py-3.5",
           "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
           "shadow-[0_1px_2px_rgba(0,17,43,0.04)]",
           className,
@@ -142,21 +147,21 @@ export function DirectorCard({
             loading="lazy"
             width={440}
             height={440}
-            className="size-[68px] shrink-0 rounded-full object-cover"
+            className="size-[60px] shrink-0 rounded-full object-cover"
           />
         ) : (
           <span
             aria-hidden="true"
-            className="grid size-[68px] shrink-0 place-items-center rounded-full bg-white font-heading text-xl font-bold text-navy-900"
+            className="grid size-[60px] shrink-0 place-items-center rounded-full bg-white font-heading text-lg font-bold text-navy-900"
           >
             {director.initials}
           </span>
         )}
         <div className="min-w-0">
-          <h3 className="font-heading text-[16px] font-bold text-navy-900">{director.name}</h3>
-          <p className="mt-0.5 text-[13px] font-semibold text-teal-600">{director.role}</p>
+          <h3 className="font-heading text-[15px] font-bold text-navy-900">{director.name}</h3>
+          <p className="mt-0.5 text-[12.5px] font-semibold text-teal-600">{director.role}</p>
           {director.credentials?.length ? (
-            <p className="mt-1.5 text-[12.5px] leading-snug text-slate-ink">
+            <p className="mt-1 text-[12px] leading-snug text-slate-ink">
               {director.credentials.join(" · ")}
             </p>
           ) : null}
@@ -232,10 +237,7 @@ export function DirectorCard({
         ) : null}
 
         <h3
-          className={cn(
-            "font-heading font-bold text-navy-900",
-            lead ? "text-lg" : "text-[14px]",
-          )}
+          className={cn("font-heading font-bold text-navy-900", lead ? "text-lg" : "text-[14px]")}
         >
           {director.name}
         </h3>
@@ -245,7 +247,9 @@ export function DirectorCard({
         <p className="mt-0.5 text-[12.5px] font-semibold text-teal-600">{director.role}</p>
 
         {lead && director.bio ? (
-          <p className="mt-3 max-w-[70ch] text-[13px] leading-relaxed text-slate-ink">{director.bio}</p>
+          <p className="mt-3 max-w-[70ch] text-[13px] leading-relaxed text-slate-ink">
+            {director.bio}
+          </p>
         ) : null}
 
         {director.credentials?.length ? (

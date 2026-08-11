@@ -171,8 +171,8 @@ export const team: Director[] = [
     accent: "orange",
     credentials: [
       "Care professional",
-      "30+ years developing, systemising and scaling social-impact businesses",
-      "Property-led care and support for vulnerable people",
+      "30+ years scaling social-impact businesses",
+      "Property-led care and support",
     ],
     /*
      * Condensed from the four-sentence bio on the old production site, which is
@@ -198,10 +198,7 @@ export const team: Director[] = [
     role: "Asset Manager",
     initials: "MA",
     icon: "House",
-    credentials: [
-      "Children's and adult services",
-      "20+ years managing and developing social-impact businesses",
-    ],
+    credentials: ["Children's and adult services", "20+ years managing social-impact businesses"],
   },
   {
     name: "Dr Jonathan Elton",
@@ -209,10 +206,7 @@ export const team: Director[] = [
     role: "Chief Investment Officer",
     initials: "JE",
     icon: "HandCoins",
-    credentials: [
-      "Background in raising money for charitable causes",
-      "Over $100 million in raises",
-    ],
+    credentials: ["Charitable capital raising", "$100m+ raised"],
   },
   {
     name: "Callum Saxon",
@@ -222,7 +216,7 @@ export const team: Director[] = [
     icon: "BrainCircuit",
     credentials: [
       "BSc Computer Science",
-      "Special Recognition Award winner",
+      "Special Recognition Award-winning technologist",
       "5+ years professional experience",
     ],
   },
@@ -232,7 +226,7 @@ export const team: Director[] = [
     role: "Software Engineer & AI Specialist",
     initials: "SJ",
     icon: "Sparkles",
-    credentials: ["Software engineering · AI · LLMs", "4 years professional experience"],
+    credentials: ["Software engineering · AI & LLMs", "4 years professional experience"],
   },
 ];
 
@@ -252,31 +246,25 @@ export const leadershipCapability = {
   title: "Key Skills & Experience",
   experience: "20+",
   experienceLabel: "years of combined housing industry experience",
-  lead: "Leadership spanning housing, care, investment, operations and technology.",
+  lead: "Housing, care, investment, operations and technology in one team.",
   impacts: [
     {
-      title: "Housing & supported living",
-      body: "Property-led delivery, asset management and supported-housing operations.",
+      title: "Housing & care delivery",
+      body: "Supported housing, asset management and children's and adult services.",
     },
     {
-      title: "Care-sector leadership",
-      body: "Children's and adult services shaped around real resident outcomes.",
+      title: "Investment experience",
+      body: "$100m+ raised for charitable and impact-focused work.",
     },
     {
-      title: "Investment capability",
-      body: "More than $100 million in capital-raising experience.",
-    },
-    {
-      title: "Operational delivery",
-      body: "Experience developing and scaling complex social-impact organisations.",
+      title: "Operational leadership",
+      body: "30+ years building and scaling social-impact organisations.",
     },
     {
       title: "Technology & AI",
-      body: "In-house software engineering, platform, AI and LLM capability.",
+      body: "In-house platform, software, AI and LLM delivery.",
     },
   ],
-  closing:
-    "One connected leadership team covering the full journey from housing need and care delivery to capital and technology.",
 };
 
 export const teamContext =

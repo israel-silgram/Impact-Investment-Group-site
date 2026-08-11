@@ -366,7 +366,7 @@ function AboutPage() {
               section. */}
           <div className="lg:col-start-1 lg:row-start-2">
             <p className="eyebrow tracking-[0.14em] text-teal-400">{teamTitle}</p>
-            <ul className="mt-3.5 flex flex-col gap-3">
+            <ul className="mt-3.5 flex flex-col gap-2.5">
               {team.map((member, i) => (
                 <Reveal key={member.name} index={i} as="li">
                   <DirectorCard director={member} variant="row" />
@@ -375,11 +375,11 @@ function AboutPage() {
             </ul>
           </div>
 
-          <Reveal index={1} className="h-full lg:col-start-2 lg:row-span-2 lg:row-start-1">
+          <Reveal index={1} className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
             <aside
               aria-labelledby="leadership-capability-heading"
               className={cn(
-                "section-light relative flex h-full flex-col overflow-hidden rounded-2xl bg-cream-card p-5",
+                "section-light relative flex flex-col overflow-hidden rounded-2xl bg-cream-card p-5",
                 "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
                 "shadow-[0_1px_2px_rgba(0,17,43,0.05),0_10px_30px_-18px_rgba(0,17,43,0.25)]",
               )}
@@ -390,19 +390,19 @@ function AboutPage() {
               </p>
               <h2
                 id="leadership-capability-heading"
-                className="heading-tight mt-2 font-heading text-[26px] font-bold text-navy-900"
+                className="heading-tight mt-2 font-heading text-[24px] font-bold text-navy-900"
               >
                 {leadershipCapability.title}
               </h2>
 
-              <div className="mt-5 border-y border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] py-5">
-                <p className="font-heading text-[42px] font-extrabold leading-none tracking-[-0.03em] text-teal-600">
+              <div className="mt-4 border-y border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] py-4">
+                <p className="font-heading text-[38px] font-extrabold leading-none tracking-[-0.03em] text-teal-600">
                   {leadershipCapability.experience}
                 </p>
                 <p className="mt-2 text-[13px] font-semibold leading-snug text-navy-900">
                   {leadershipCapability.experienceLabel}
                 </p>
-                <p className="mt-2 text-[12.5px] leading-relaxed text-slate-ink">
+                <p className="mt-2 text-[12px] leading-relaxed text-slate-ink">
                   {leadershipCapability.lead}
                 </p>
               </div>
@@ -411,27 +411,25 @@ function AboutPage() {
                 {leadershipCapability.impacts.map((impact, i) => (
                   <li
                     key={impact.title}
-                    className="grid grid-cols-[32px_minmax(0,1fr)] gap-3 border-b border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] py-4 last:border-b-0"
+                    className="grid grid-cols-[28px_minmax(0,1fr)] gap-3 border-b border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] py-3 last:border-b-0"
                   >
                     <span
                       aria-hidden="true"
-                      className="grid size-8 place-items-center rounded-full border border-[color-mix(in_oklab,var(--color-navy-900)_18%,transparent)] font-mono text-[11px] font-semibold text-teal-600"
+                      className="grid size-7 place-items-center rounded-full border border-[color-mix(in_oklab,var(--color-navy-900)_18%,transparent)] font-mono text-[10px] font-semibold text-teal-600"
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
-                      <h3 className="font-heading text-[14px] font-bold text-navy-900">
+                      <h3 className="font-heading text-[13.5px] font-bold text-navy-900">
                         {impact.title}
                       </h3>
-                      <p className="mt-1 text-[12px] leading-[1.5] text-slate-ink">{impact.body}</p>
+                      <p className="mt-0.5 text-[11.5px] leading-[1.45] text-slate-ink">
+                        {impact.body}
+                      </p>
                     </div>
                   </li>
                 ))}
               </ol>
-
-              <p className="mt-auto border-t border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] pt-4 text-[12px] font-semibold leading-relaxed text-navy-900">
-                {leadershipCapability.closing}
-              </p>
             </aside>
           </Reveal>
         </div>
