@@ -1,9 +1,16 @@
 import * as React from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { partnerProfiles } from "@/content/partners";
 import { primaryNav, registerRoute } from "@/content/site";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +23,8 @@ const loginSearch = { enquiry: "waitlist", type: "waitlist" } as const;
 export function SiteHeader() {
   const [scrolled, setScrolled] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [partnersOpen, setPartnersOpen] = React.useState(false);
+  const [mobilePartnersOpen, setMobilePartnersOpen] = React.useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const panelRef = React.useRef<HTMLDivElement | null>(null);
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
@@ -43,6 +52,8 @@ export function SiteHeader() {
   // Close on route change.
   React.useEffect(() => {
     setOpen(false);
+    setPartnersOpen(false);
+    setMobilePartnersOpen(false);
   }, [pathname]);
 
   // Focus trap + escape while the overlay is open.
@@ -104,15 +115,68 @@ export function SiteHeader() {
         <nav aria-label="Main" className="hidden xl:block">
           <ul className="flex items-center gap-7">
             {primaryNav.map((item) => (
-              <li key={item.to}>
-                <Link
-                  to={item.to}
-                  activeOptions={{ exact: true }}
-                  className="nav-link inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200"
-                >
-                  {item.label}
-                </Link>
-              </li>
+              <React.Fragment key={item.to}>
+                {item.to === "/contact" ? (
+                  <li>
+                    <DropdownMenu open={partnersOpen} onOpenChange={setPartnersOpen}>
+                      <DropdownMenuTrigger asChild>
+                        <button
+                          type="button"
+                          className={cn(
+                            "nav-link inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200",
+                            pathname.startsWith("/partner-with-") && "text-orange-500",
+                          )}
+                        >
+                          Partners
+                          <ChevronDown
+                            aria-hidden="true"
+                            className={cn(
+                              "size-3.5 transition-transform",
+                              partnersOpen && "rotate-180",
+                            )}
+                          />
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent
+                        align="center"
+                        sideOffset={10}
+                        className="w-[300px] rounded-2xl border-navy-600 bg-navy-900 p-2 text-white shadow-[0_24px_70px_rgba(0,0,0,0.38)]"
+                      >
+                        <p className="px-3 pb-2 pt-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-teal-400">
+                          Choose your role
+                        </p>
+                        {partnerProfiles.map((partner, index) => (
+                          <DropdownMenuItem
+                            key={partner.id}
+                            asChild
+                            className="cursor-pointer rounded-xl p-0 focus:bg-navy-700 focus:text-white"
+                          >
+                            <Link
+                              to={partner.path}
+                              className="flex w-full items-center gap-3 px-3 py-2.5"
+                            >
+                              <span className="font-mono text-[10px] text-orange-500">
+                                {String(index + 1).padStart(2, "0")}
+                              </span>
+                              <span className="text-[14px] font-semibold">{partner.label}</span>
+                              <ArrowMark />
+                            </Link>
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </li>
+                ) : null}
+                <li>
+                  <Link
+                    to={item.to}
+                    activeOptions={{ exact: true }}
+                    className="nav-link inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              </React.Fragment>
             ))}
           </ul>
         </nav>
@@ -150,7 +214,7 @@ export function SiteHeader() {
           role="dialog"
           aria-modal="true"
           aria-label="Site menu"
-          className="fixed inset-0 top-0 z-50 flex flex-col bg-navy-950 px-5 pb-8 pt-6 xl:hidden"
+          className="absolute inset-x-0 top-0 z-50 flex h-dvh flex-col bg-navy-950 px-5 pb-8 pt-6 xl:hidden"
         >
           <div className="flex items-center justify-between">
             <Logo variant="on-navy" />
@@ -167,18 +231,63 @@ export function SiteHeader() {
             </button>
           </div>
 
-          <nav aria-label="Mobile" className="mt-12 flex-1">
-            <ul className="flex flex-col gap-7">
+          <nav aria-label="Mobile" className="mt-8 min-h-0 flex-1 overflow-y-auto py-4">
+            <ul className="flex flex-col gap-6">
               {primaryNav.map((item) => (
-                <li key={item.to}>
-                  <Link
-                    to={item.to}
-                    activeOptions={{ exact: true }}
-                    className="font-heading text-[28px] font-semibold text-white data-[status=active]:text-orange-500"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
+                <React.Fragment key={item.to}>
+                  {item.to === "/contact" ? (
+                    <li>
+                      <button
+                        type="button"
+                        aria-expanded={mobilePartnersOpen}
+                        aria-controls="mobile-partner-links"
+                        onClick={() => setMobilePartnersOpen((value) => !value)}
+                        className={cn(
+                          "flex w-full items-center justify-between font-heading text-[28px] font-semibold text-white",
+                          pathname.startsWith("/partner-with-") && "text-orange-500",
+                        )}
+                      >
+                        Partners
+                        <ChevronDown
+                          aria-hidden="true"
+                          className={cn(
+                            "size-5 transition-transform",
+                            mobilePartnersOpen && "rotate-180",
+                          )}
+                        />
+                      </button>
+                      {mobilePartnersOpen ? (
+                        <ol
+                          id="mobile-partner-links"
+                          className="mt-4 grid gap-1 border-l border-teal-400/35 pl-4"
+                        >
+                          {partnerProfiles.map((partner, index) => (
+                            <li key={partner.id}>
+                              <Link
+                                to={partner.path}
+                                className="flex min-h-10 items-center gap-3 rounded-lg px-2 text-[15px] font-semibold text-mist hover:bg-navy-800 hover:text-white"
+                              >
+                                <span className="font-mono text-[10px] text-orange-500">
+                                  {String(index + 1).padStart(2, "0")}
+                                </span>
+                                {partner.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ol>
+                      ) : null}
+                    </li>
+                  ) : null}
+                  <li>
+                    <Link
+                      to={item.to}
+                      activeOptions={{ exact: true }}
+                      className="font-heading text-[28px] font-semibold text-white data-[status=active]:text-orange-500"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                </React.Fragment>
               ))}
             </ul>
           </nav>
@@ -200,5 +309,13 @@ export function SiteHeader() {
         </div>
       ) : null}
     </header>
+  );
+}
+
+function ArrowMark() {
+  return (
+    <span aria-hidden="true" className="ml-auto text-[13px] text-teal-400">
+      →
+    </span>
   );
 }

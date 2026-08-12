@@ -12,6 +12,16 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as PartnerWithBrokerRouteImport } from './routes/partner-with-broker'
+import { Route as PartnerWithCareProviderRouteImport } from './routes/partner-with-care-provider'
+import { Route as PartnerWithDeveloperRouteImport } from './routes/partner-with-developer'
+import { Route as PartnerWithHousingAssociationRouteImport } from './routes/partner-with-housing-association'
+import { Route as PartnerWithInvestorRouteImport } from './routes/partner-with-investor'
+import { Route as PartnerWithLandlordRouteImport } from './routes/partner-with-landlord'
+import { Route as PartnerWithLocalAuthorityRouteImport } from './routes/partner-with-local-authority'
+import { Route as PartnerWithResidentRouteImport } from './routes/partner-with-resident'
+import { Route as PartnerWithSocialWorkerRouteImport } from './routes/partner-with-social-worker'
+import { Route as PartnerWithSupportProviderRouteImport } from './routes/partner-with-support-provider'
 import { Route as PlatformRouteImport } from './routes/platform'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SolutionsRouteImport } from './routes/solutions'
@@ -33,6 +43,59 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartnerWithBrokerRoute = PartnerWithBrokerRouteImport.update({
+  id: '/partner-with-broker',
+  path: '/partner-with-broker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerWithCareProviderRoute = PartnerWithCareProviderRouteImport.update({
+  id: '/partner-with-care-provider',
+  path: '/partner-with-care-provider',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerWithDeveloperRoute = PartnerWithDeveloperRouteImport.update({
+  id: '/partner-with-developer',
+  path: '/partner-with-developer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerWithHousingAssociationRoute =
+  PartnerWithHousingAssociationRouteImport.update({
+    id: '/partner-with-housing-association',
+    path: '/partner-with-housing-association',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PartnerWithInvestorRoute = PartnerWithInvestorRouteImport.update({
+  id: '/partner-with-investor',
+  path: '/partner-with-investor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerWithLandlordRoute = PartnerWithLandlordRouteImport.update({
+  id: '/partner-with-landlord',
+  path: '/partner-with-landlord',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerWithLocalAuthorityRoute =
+  PartnerWithLocalAuthorityRouteImport.update({
+    id: '/partner-with-local-authority',
+    path: '/partner-with-local-authority',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PartnerWithResidentRoute = PartnerWithResidentRouteImport.update({
+  id: '/partner-with-resident',
+  path: '/partner-with-resident',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerWithSocialWorkerRoute = PartnerWithSocialWorkerRouteImport.update({
+  id: '/partner-with-social-worker',
+  path: '/partner-with-social-worker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerWithSupportProviderRoute =
+  PartnerWithSupportProviderRouteImport.update({
+    id: '/partner-with-support-provider',
+    path: '/partner-with-support-provider',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PlatformRoute = PlatformRouteImport.update({
   id: '/platform',
   path: '/platform',
@@ -63,6 +126,16 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/partner-with-broker': typeof PartnerWithBrokerRoute
+  '/partner-with-care-provider': typeof PartnerWithCareProviderRoute
+  '/partner-with-developer': typeof PartnerWithDeveloperRoute
+  '/partner-with-housing-association': typeof PartnerWithHousingAssociationRoute
+  '/partner-with-investor': typeof PartnerWithInvestorRoute
+  '/partner-with-landlord': typeof PartnerWithLandlordRoute
+  '/partner-with-local-authority': typeof PartnerWithLocalAuthorityRoute
+  '/partner-with-resident': typeof PartnerWithResidentRoute
+  '/partner-with-social-worker': typeof PartnerWithSocialWorkerRoute
+  '/partner-with-support-provider': typeof PartnerWithSupportProviderRoute
   '/platform': typeof PlatformRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
@@ -73,6 +146,16 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/partner-with-broker': typeof PartnerWithBrokerRoute
+  '/partner-with-care-provider': typeof PartnerWithCareProviderRoute
+  '/partner-with-developer': typeof PartnerWithDeveloperRoute
+  '/partner-with-housing-association': typeof PartnerWithHousingAssociationRoute
+  '/partner-with-investor': typeof PartnerWithInvestorRoute
+  '/partner-with-landlord': typeof PartnerWithLandlordRoute
+  '/partner-with-local-authority': typeof PartnerWithLocalAuthorityRoute
+  '/partner-with-resident': typeof PartnerWithResidentRoute
+  '/partner-with-social-worker': typeof PartnerWithSocialWorkerRoute
+  '/partner-with-support-provider': typeof PartnerWithSupportProviderRoute
   '/platform': typeof PlatformRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
@@ -84,6 +167,16 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/partner-with-broker': typeof PartnerWithBrokerRoute
+  '/partner-with-care-provider': typeof PartnerWithCareProviderRoute
+  '/partner-with-developer': typeof PartnerWithDeveloperRoute
+  '/partner-with-housing-association': typeof PartnerWithHousingAssociationRoute
+  '/partner-with-investor': typeof PartnerWithInvestorRoute
+  '/partner-with-landlord': typeof PartnerWithLandlordRoute
+  '/partner-with-local-authority': typeof PartnerWithLocalAuthorityRoute
+  '/partner-with-resident': typeof PartnerWithResidentRoute
+  '/partner-with-social-worker': typeof PartnerWithSocialWorkerRoute
+  '/partner-with-support-provider': typeof PartnerWithSupportProviderRoute
   '/platform': typeof PlatformRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
@@ -96,6 +189,16 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/partner-with-broker'
+    | '/partner-with-care-provider'
+    | '/partner-with-developer'
+    | '/partner-with-housing-association'
+    | '/partner-with-investor'
+    | '/partner-with-landlord'
+    | '/partner-with-local-authority'
+    | '/partner-with-resident'
+    | '/partner-with-social-worker'
+    | '/partner-with-support-provider'
     | '/platform'
     | '/sitemap.xml'
     | '/solutions'
@@ -106,6 +209,16 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/partner-with-broker'
+    | '/partner-with-care-provider'
+    | '/partner-with-developer'
+    | '/partner-with-housing-association'
+    | '/partner-with-investor'
+    | '/partner-with-landlord'
+    | '/partner-with-local-authority'
+    | '/partner-with-resident'
+    | '/partner-with-social-worker'
+    | '/partner-with-support-provider'
     | '/platform'
     | '/sitemap.xml'
     | '/solutions'
@@ -116,6 +229,16 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/partner-with-broker'
+    | '/partner-with-care-provider'
+    | '/partner-with-developer'
+    | '/partner-with-housing-association'
+    | '/partner-with-investor'
+    | '/partner-with-landlord'
+    | '/partner-with-local-authority'
+    | '/partner-with-resident'
+    | '/partner-with-social-worker'
+    | '/partner-with-support-provider'
     | '/platform'
     | '/sitemap.xml'
     | '/solutions'
@@ -127,6 +250,16 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  PartnerWithBrokerRoute: typeof PartnerWithBrokerRoute
+  PartnerWithCareProviderRoute: typeof PartnerWithCareProviderRoute
+  PartnerWithDeveloperRoute: typeof PartnerWithDeveloperRoute
+  PartnerWithHousingAssociationRoute: typeof PartnerWithHousingAssociationRoute
+  PartnerWithInvestorRoute: typeof PartnerWithInvestorRoute
+  PartnerWithLandlordRoute: typeof PartnerWithLandlordRoute
+  PartnerWithLocalAuthorityRoute: typeof PartnerWithLocalAuthorityRoute
+  PartnerWithResidentRoute: typeof PartnerWithResidentRoute
+  PartnerWithSocialWorkerRoute: typeof PartnerWithSocialWorkerRoute
+  PartnerWithSupportProviderRoute: typeof PartnerWithSupportProviderRoute
   PlatformRoute: typeof PlatformRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SolutionsRoute: typeof SolutionsRoute
@@ -155,6 +288,76 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner-with-broker': {
+      id: '/partner-with-broker'
+      path: '/partner-with-broker'
+      fullPath: '/partner-with-broker'
+      preLoaderRoute: typeof PartnerWithBrokerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner-with-care-provider': {
+      id: '/partner-with-care-provider'
+      path: '/partner-with-care-provider'
+      fullPath: '/partner-with-care-provider'
+      preLoaderRoute: typeof PartnerWithCareProviderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner-with-developer': {
+      id: '/partner-with-developer'
+      path: '/partner-with-developer'
+      fullPath: '/partner-with-developer'
+      preLoaderRoute: typeof PartnerWithDeveloperRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner-with-housing-association': {
+      id: '/partner-with-housing-association'
+      path: '/partner-with-housing-association'
+      fullPath: '/partner-with-housing-association'
+      preLoaderRoute: typeof PartnerWithHousingAssociationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner-with-investor': {
+      id: '/partner-with-investor'
+      path: '/partner-with-investor'
+      fullPath: '/partner-with-investor'
+      preLoaderRoute: typeof PartnerWithInvestorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner-with-landlord': {
+      id: '/partner-with-landlord'
+      path: '/partner-with-landlord'
+      fullPath: '/partner-with-landlord'
+      preLoaderRoute: typeof PartnerWithLandlordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner-with-local-authority': {
+      id: '/partner-with-local-authority'
+      path: '/partner-with-local-authority'
+      fullPath: '/partner-with-local-authority'
+      preLoaderRoute: typeof PartnerWithLocalAuthorityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner-with-resident': {
+      id: '/partner-with-resident'
+      path: '/partner-with-resident'
+      fullPath: '/partner-with-resident'
+      preLoaderRoute: typeof PartnerWithResidentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner-with-social-worker': {
+      id: '/partner-with-social-worker'
+      path: '/partner-with-social-worker'
+      fullPath: '/partner-with-social-worker'
+      preLoaderRoute: typeof PartnerWithSocialWorkerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner-with-support-provider': {
+      id: '/partner-with-support-provider'
+      path: '/partner-with-support-provider'
+      fullPath: '/partner-with-support-provider'
+      preLoaderRoute: typeof PartnerWithSupportProviderRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/platform': {
@@ -199,6 +402,16 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  PartnerWithBrokerRoute: PartnerWithBrokerRoute,
+  PartnerWithCareProviderRoute: PartnerWithCareProviderRoute,
+  PartnerWithDeveloperRoute: PartnerWithDeveloperRoute,
+  PartnerWithHousingAssociationRoute: PartnerWithHousingAssociationRoute,
+  PartnerWithInvestorRoute: PartnerWithInvestorRoute,
+  PartnerWithLandlordRoute: PartnerWithLandlordRoute,
+  PartnerWithLocalAuthorityRoute: PartnerWithLocalAuthorityRoute,
+  PartnerWithResidentRoute: PartnerWithResidentRoute,
+  PartnerWithSocialWorkerRoute: PartnerWithSocialWorkerRoute,
+  PartnerWithSupportProviderRoute: PartnerWithSupportProviderRoute,
   PlatformRoute: PlatformRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SolutionsRoute: SolutionsRoute,

@@ -4,6 +4,7 @@ import { ArrowUpRight, LifeBuoy, Mail, Phone, Clock } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
+import { partnerProfiles } from "@/content/partners";
 import {
   closingBeats,
   contactDetails,
@@ -61,7 +62,11 @@ export function SiteFooter() {
         aria-hidden="true"
         className="relative -mb-px h-[clamp(36px,4.5vw,80px)] w-full overflow-hidden"
       >
-        <svg viewBox="0 0 1440 140" preserveAspectRatio="none" className="absolute inset-0 size-full">
+        <svg
+          viewBox="0 0 1440 140"
+          preserveAspectRatio="none"
+          className="absolute inset-0 size-full"
+        >
           <path d="M0 140 C 380 -47 1060 -47 1440 140 Z" fill="var(--color-mist-bg)" />
         </svg>
       </div>
@@ -121,160 +126,180 @@ export function SiteFooter() {
           </div>
         </section>
 
-      {/* The commissioning-councils carousel used to sit here as a band
+        {/* The commissioning-councils carousel used to sit here as a band
           above these columns. It now runs between Our Mission and the
           demand map in routes/index.tsx — its disclaimer travelled with it
           and must stay wherever it lands. */}
-      <div className="mx-auto w-full max-w-[1440px] px-5 pb-6 pt-7 sm:px-8 lg:pb-7 lg:pt-8">
-        {/* Column 1 is given the most width so the description settles on four
+        <div className="mx-auto w-full max-w-[1440px] px-5 pb-6 pt-7 sm:px-8 lg:pb-7 lg:pt-8">
+          {/* Column 1 is given the most width so the description settles on four
             lines rather than six — the single biggest saving in this block. */}
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,0.85fr)_minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-9">
-          {/* Logo + contact */}
-          <div className="flex flex-col gap-3">
-            <Logo variant="on-cream" />
-            <p className="max-w-[74ch] text-[12px] leading-relaxed text-slate-muted">
-              {siteDescription}
-            </p>
-            <ul className="flex flex-col gap-1.5 text-[13px] text-mist">
-              <li className="flex items-center gap-2">
-                <Mail aria-hidden="true" className="size-3.5 shrink-0 text-teal-500" />
-                <a
-                  className="transition-colors duration-200 hover:text-white"
-                  href={`mailto:${contactDetails.email}`}
-                >
-                  {contactDetails.email}
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone aria-hidden="true" className="size-3.5 shrink-0 text-teal-500" />
-                <a
-                  className="transition-colors duration-200 hover:text-white"
-                  href={`tel:${contactDetails.phone.replace(/\s/g, "")}`}
-                >
-                  {contactDetails.phone}
-                </a>
-              </li>
-              <li className="flex items-center gap-2 text-slate-muted">
-                <Clock aria-hidden="true" className="size-3.5 shrink-0 text-teal-500" />
-                {contactDetails.hours}
-              </li>
-            </ul>
-          </div>
-
-          {/* Site */}
-          <nav aria-label="Footer site links" className="flex flex-col gap-2.5">
-            <h2 className="eyebrow text-slate-muted">Site</h2>
-            <ul className="flex flex-col gap-1 text-[13px]">
-              {footerSiteLinks.map((item) => (
-                <li key={item.to}>
-                  <Link
-                    to={item.to}
-                    className="inline-flex min-h-11 items-center text-mist transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-px"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Contact routes */}
-          <nav aria-label="Enquiry routes" className="flex flex-col gap-2.5">
-            <h2 className="eyebrow text-slate-muted">Contact routes</h2>
-            <ul className="flex flex-col gap-1 text-[13px]">
-              {contactRoutes.map((item) => (
-                <li key={item.enquiry}>
-                  <Link
-                    to="/contact"
-                    search={{ enquiry: item.enquiry, type: item.enquiry }}
-                    className="inline-flex min-h-11 items-center text-mist transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-px"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <Link
-              to="/contact"
-              search={{ enquiry: "partner", type: "partner" }}
-              className="inline-flex min-h-11 items-center gap-1 font-heading text-[13px] font-semibold text-teal-400 transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-px"
-            >
-              Become a Partner
-              <ArrowUpRight aria-hidden="true" className="size-3.5" />
-            </Link>
-          </nav>
-
-          {/* In a crisis — care information, not marketing. Every number and
-              the 999 note are untouched; only the padding and type moved. */}
-          <section
-            aria-labelledby="crisis-heading"
-            className="flex flex-col gap-2.5 self-start rounded-[var(--radius-panel)] border border-[var(--color-teal-600)] bg-[var(--color-navy-900)] p-4 text-[var(--color-mist-bg)]"
-          >
-            <h2
-              id="crisis-heading"
-              className="flex items-center gap-2 eyebrow"
-              style={{ color: "#ffffff" }}
-            >
-              <LifeBuoy aria-hidden="true" className="size-3.5" />
-              In a crisis
-            </h2>
-            <ul className="flex flex-col gap-1.5 text-[13px] text-[var(--color-mist-bg)]">
-              {crisisLines.map((line) => (
-                <li key={line.label} className="flex items-baseline justify-between gap-3">
-                  <span className="text-[var(--color-mist-bg)]">{line.label}</span>
-                  <span className="font-heading font-semibold">{line.detail}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="font-heading text-[13px] font-semibold text-[var(--color-mist-bg)]">{crisisNote}</p>
-          </section>
-        </div>
-      </div>
-
-      {/* Registrations and the legal notice. No rule above this — the block is
-          divided from the columns by space only. */}
-      <div className="mx-auto w-full max-w-[1440px] px-5 pb-6 sm:px-8">
-        <ul className="grid gap-2.5 md:grid-cols-3">
-          {trustRegistrations.map((reg) => (
-            <li key={reg.id} className="panel flex flex-col gap-0.5 px-3 py-2.5 text-center">
-              <p className="font-heading text-[13px] font-semibold leading-tight text-white">
-                {reg.label}
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,0.62fr)_minmax(0,0.9fr)_minmax(0,1.45fr)_minmax(0,1.05fr)] lg:gap-6">
+            {/* Logo + contact */}
+            <div className="flex flex-col gap-3">
+              <Logo variant="on-cream" />
+              <p className="max-w-[74ch] text-[12px] leading-relaxed text-slate-muted">
+                {siteDescription}
               </p>
-              {/* Category, reference and the verify link all on one line. The
+              <ul className="flex flex-col gap-1.5 text-[13px] text-mist">
+                <li className="flex items-center gap-2">
+                  <Mail aria-hidden="true" className="size-3.5 shrink-0 text-teal-500" />
+                  <a
+                    className="transition-colors duration-200 hover:text-white"
+                    href={`mailto:${contactDetails.email}`}
+                  >
+                    {contactDetails.email}
+                  </a>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Phone aria-hidden="true" className="size-3.5 shrink-0 text-teal-500" />
+                  <a
+                    className="transition-colors duration-200 hover:text-white"
+                    href={`tel:${contactDetails.phone.replace(/\s/g, "")}`}
+                  >
+                    {contactDetails.phone}
+                  </a>
+                </li>
+                <li className="flex items-center gap-2 text-slate-muted">
+                  <Clock aria-hidden="true" className="size-3.5 shrink-0 text-teal-500" />
+                  {contactDetails.hours}
+                </li>
+              </ul>
+            </div>
+
+            {/* Site */}
+            <nav aria-label="Footer site links" className="flex flex-col gap-2.5">
+              <h2 className="eyebrow text-slate-muted">Site</h2>
+              <ul className="flex flex-col gap-1 text-[13px]">
+                {footerSiteLinks.map((item) => (
+                  <li key={item.to}>
+                    <Link
+                      to={item.to}
+                      className="inline-flex min-h-11 items-center text-mist transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-px"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            {/* Contact routes */}
+            <nav aria-label="Enquiry routes" className="flex flex-col gap-2.5">
+              <h2 className="eyebrow text-slate-muted">Contact routes</h2>
+              <ul className="flex flex-col gap-1 text-[13px]">
+                {contactRoutes.map((item) => (
+                  <li key={item.enquiry}>
+                    <Link
+                      to="/contact"
+                      search={{ enquiry: item.enquiry, type: item.enquiry }}
+                      className="inline-flex min-h-11 items-center text-mist transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-px"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            {/* Partner routes stay compact in two equal columns: five links on
+              each side, followed by the partnership enquiry action. */}
+            <nav aria-label="Partner pages" className="flex flex-col gap-2.5">
+              <h2 className="eyebrow text-slate-muted">Our Partners</h2>
+              <ul className="grid grid-flow-col grid-cols-2 grid-rows-5 gap-x-5 gap-y-1 text-[13px]">
+                {partnerProfiles.map((partner) => (
+                  <li key={partner.id}>
+                    <Link
+                      to={partner.path}
+                      className="inline-flex min-h-11 items-center text-mist transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-px"
+                    >
+                      {partner.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to="/contact"
+                search={{ enquiry: "partner", type: "partner" }}
+                className="inline-flex min-h-11 items-center gap-1 font-heading text-[13px] font-semibold text-teal-400 transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-px"
+              >
+                Become a Partner
+                <ArrowUpRight aria-hidden="true" className="size-3.5" />
+              </Link>
+            </nav>
+
+            {/* In a crisis — care information, not marketing. Every number and
+              the 999 note are untouched; only the padding and type moved. */}
+            <section
+              aria-labelledby="crisis-heading"
+              className="flex flex-col gap-2.5 self-start rounded-[var(--radius-panel)] border border-[var(--color-teal-600)] bg-[var(--color-navy-900)] p-4 text-[var(--color-mist-bg)]"
+            >
+              <h2
+                id="crisis-heading"
+                className="flex items-center gap-2 eyebrow"
+                style={{ color: "#ffffff" }}
+              >
+                <LifeBuoy aria-hidden="true" className="size-3.5" />
+                In a crisis
+              </h2>
+              <ul className="flex flex-col gap-1.5 text-[13px] text-[var(--color-mist-bg)]">
+                {crisisLines.map((line) => (
+                  <li key={line.label} className="flex items-baseline justify-between gap-3">
+                    <span className="text-[var(--color-mist-bg)]">{line.label}</span>
+                    <span className="font-heading font-semibold">{line.detail}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="font-heading text-[13px] font-semibold text-[var(--color-mist-bg)]">
+                {crisisNote}
+              </p>
+            </section>
+          </div>
+        </div>
+
+        {/* Registrations and the legal notice. No rule above this — the block is
+          divided from the columns by space only. */}
+        <div className="mx-auto w-full max-w-[1440px] px-5 pb-6 sm:px-8">
+          <ul className="grid gap-2.5 md:grid-cols-3">
+            {trustRegistrations.map((reg) => (
+              <li key={reg.id} className="panel flex flex-col gap-0.5 px-3 py-2.5 text-center">
+                <p className="font-heading text-[13px] font-semibold leading-tight text-white">
+                  {reg.label}
+                </p>
+                {/* Category, reference and the verify link all on one line. The
                   link used to sit on a row of its own pinned to the bottom of
                   the card; inline it is the same words in ~20px less height.
                   It stays a real anchor with a visible label — it is how a
                   visitor checks the registration is genuine. */}
-              <p className="text-[11px] leading-snug text-slate-muted">
-                <span className="uppercase tracking-[0.1em]">{reg.category}</span>
-                <span aria-hidden="true"> · </span>
-                <span className="font-mono text-mist">{reg.reference}</span>
-                <span aria-hidden="true"> · </span>
-                <a
-                  href={reg.verifyHref}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="inline-flex items-baseline gap-0.5 font-semibold text-teal-400 transition-colors duration-200 hover:text-white"
-                >
-                  {reg.verifyLabel}
-                  <ArrowUpRight aria-hidden="true" className="size-3 self-center" />
-                </a>
-              </p>
-              {/* Published terms verbatim, run inline instead of stacked —
-                  same words, fewer lines. */}
-              {reg.details?.length ? (
                 <p className="text-[11px] leading-snug text-slate-muted">
-                  {reg.details.join(" · ")}
+                  <span className="uppercase tracking-[0.1em]">{reg.category}</span>
+                  <span aria-hidden="true"> · </span>
+                  <span className="font-mono text-mist">{reg.reference}</span>
+                  <span aria-hidden="true"> · </span>
+                  <a
+                    href={reg.verifyHref}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="inline-flex items-baseline gap-0.5 font-semibold text-teal-400 transition-colors duration-200 hover:text-white"
+                  >
+                    {reg.verifyLabel}
+                    <ArrowUpRight aria-hidden="true" className="size-3 self-center" />
+                  </a>
                 </p>
-              ) : null}
-            </li>
-          ))}
-        </ul>
+                {/* Published terms verbatim, run inline instead of stacked —
+                  same words, fewer lines. */}
+                {reg.details?.length ? (
+                  <p className="text-[11px] leading-snug text-slate-muted">
+                    {reg.details.join(" · ")}
+                  </p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
 
-        <p className="mx-auto mt-3 max-w-[120ch] text-balance text-center text-[11px] leading-relaxed text-slate-muted">
-          {legalNotice}
-        </p>
-      </div>
+          <p className="mx-auto mt-3 max-w-[120ch] text-balance text-center text-[11px] leading-relaxed text-slate-muted">
+            {legalNotice}
+          </p>
+        </div>
       </div>
     </footer>
   );
