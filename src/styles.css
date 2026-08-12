@@ -178,6 +178,19 @@
     background-color: var(--color-navy-950);
   }
 
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  html.lenis {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
   body {
     background-color: var(--color-navy-900);
     color: var(--color-foreground);

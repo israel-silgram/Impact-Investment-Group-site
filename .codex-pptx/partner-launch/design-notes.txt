@@ -1,0 +1,16 @@
+Communication job
+By the end, prospective and existing platform partners should feel recognised, essential and confident that the new partner experience gives their role a visible place in a connected housing network.
+
+Narrative: VIP welcome -> dedicated role experience -> shared impact chain -> architecture and QA proof.
+
+Exactly four sections
+1. VIP welcome (slides 1-2)
+2. A front door for every role (slides 3-4)
+3. Impact as a connected journey (slides 5-6)
+4. Interactive platform architecture story (slides 7-10)
+
+Visual direction
+16:9, high-contrast navy/cream alternation, orange as decisive emphasis, teal as evidence/connection, spacious typography, real site captures, editable native diagrams.
+
+Section 4 interaction
+Presenter-led four-beat reveal: choose a partner archetype -> trace its role-specific impact logic -> reveal integration surfaces -> close with multi-device QA proof. The audience is invited to pick a role to follow.

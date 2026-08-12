@@ -1,0 +1,340 @@
+{"kind":"deck","id":"pr/bv5oah","name":"Deck"}
+{"kind":"layout","layoutId":"c57f0c1d-8aa3-413c-84ee-d5541a853dd1","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"9d904150-49a7-410f-beaf-6686e97f603b","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/9c4fw0","slide":1,"title":"PARTNER PAGE LAUNCH  ·  12 AUGUST 2026","textShapes":9}
+{"kind":"shape","id":"sh/h07a503i","slide":1,"bbox":[0,0,1280,12]}
+{"kind":"textbox","id":"sh/fyp83qlc","slide":1,"text":"PARTNER PAGE LAUNCH  ·  12 AUGUST 2026","textPreview":"PARTNER PAGE LAUNCH  ·  12 AUGUST 2026","textChars":38,"textLines":1,"bbox":[72,142,520,28]}
+{"kind":"textbox","id":"sh/svy98v21","slide":1,"text":"Ten partners.","textPreview":"Ten partners.","textChars":13,"textLines":1,"bbox":[72,186,650,82]}
+{"kind":"textbox","id":"sh/tw7q1g36","slide":1,"text":"One essential network.","textPreview":"One essential network.","textChars":22,"textLines":1,"bbox":[72,264,760,88]}
+{"kind":"textbox","id":"sh/6twr6lkv","slide":1,"text":"A launch designed to give every partner a visible, respected place in the platform.","textPreview":"A launch designed to give every partner a visible, respected place in the platform.","textChars":83,"textLines":1,"bbox":[76,378,660,72]}
+{"kind":"shape","id":"sh/7up8zqlg","slide":1,"bbox":[810,118,380,470]}
+{"kind":"shape","id":"sh/cri9kf25","slide":1,"bbox":[840,526,320,0.1]}
+{"kind":"shape","id":"sh/dsradk3q","slide":1,"bbox":[823,144,144,144]}
+{"kind":"shape","id":"sh/1ori90vi","slide":1,"bbox":[928,144,144,144]}
+{"kind":"shape","id":"sh/0ni10vux","slide":1,"bbox":[1033,144,144,144]}
+{"kind":"textbox","id":"sh/cji1wvu1","slide":1,"text":"FIND","textPreview":"FIND","textChars":4,"textLines":1,"bbox":[846,548,92,30]}
+{"kind":"textbox","id":"sh/rip03qdg","slide":1,"text":"PRICE","textPreview":"PRICE","textChars":5,"textLines":1,"bbox":[954,548,92,30]}
+{"kind":"textbox","id":"sh/qxgzulcv","slide":1,"text":"PROVE","textPreview":"PROVE","textChars":5,"textLines":1,"bbox":[1062,548,92,30]}
+{"kind":"textbox","id":"sh/xgbihkvq","slide":1,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[1182,660,42,22]}
+{"kind":"textbox","id":"sh/wf218fu5","slide":1,"text":"SECTION 01  /  VIP WELCOME","textPreview":"SECTION 01  /  VIP WELCOME","textChars":26,"textLines":1,"bbox":[72,660,500,22]}
+{"kind":"image","id":"im/j2p4nu1k","slide":1,"name":"","alt":"logo-lockup-reverse.webp","bbox":[72,42,210,56]}
+{"kind":"image","id":"im/gb25gzu5","slide":1,"name":"","alt":"petra-present.webp","bbox":[824,136,145,310]}
+{"kind":"image","id":"im/hcb694vq","slide":1,"name":"","alt":"peter-present.webp","bbox":[929,136,145,310]}
+{"kind":"image","id":"im/2dkni9cb","slide":1,"name":"","alt":"pippa-present.webp","bbox":[1034,136,145,310]}
+{"kind":"notes","id":"nt/9c4fw0","slide":1,"text":"Open by positioning the partners as the launch itself—not as an audience being asked to admire a technical release.\n\n[Sources]\n- Internal implementation commit d7896011d31277d88eab93e43698d5a68ea5050a.\n- Internal brand and character assets from public/images/brand and public/images/ai-team."}
+{"kind":"slide","id":"sl/bef5bi","slide":2,"title":"SECTION 01","textShapes":31}
+{"kind":"textbox","id":"sh/107mpgr6","slide":2,"text":"SECTION 01","textPreview":"SECTION 01","textChars":10,"textLines":1,"bbox":[72,38,210,24]}
+{"kind":"textbox","id":"sh/exw3ulsf","slide":2,"text":"VIP WELCOME","textPreview":"VIP WELCOME","textChars":11,"textLines":1,"bbox":[292,38,600,24]}
+{"kind":"textbox","id":"sh/zy54nq90","slide":2,"text":"Partners are not a dropdown.","textPreview":"Partners are not a dropdown.","textChars":28,"textLines":1,"bbox":[72,104,600,58]}
+{"kind":"textbox","id":"sh/o3yl0vah","slide":2,"text":"They are the platform.","textPreview":"They are the platform.","textChars":22,"textLines":1,"bbox":[72,158,560,58]}
+{"kind":"textbox","id":"sh/947mt0r2","slide":2,"text":"Every role now receives its own language, its own route and a visible place in the shared impact model.","textPreview":"Every role now receives its own language, its own route and a visible place in the shared impact model.","textChars":103,"textLines":1,"bbox":[74,246,470,118]}
+{"kind":"shape","id":"sh/m1g3ylsr","slide":2,"bbox":[74,404,390,4]}
+{"kind":"textbox","id":"sh/n2p4rq9c","slide":2,"text":"A dedicated front door says: we built this with you in mind.","textPreview":"A dedicated front door says: we built this with you in mind.","textChars":60,"textLines":1,"bbox":[74,430,440,86]}
+{"kind":"textbox","id":"sh/47elorad","slide":2,"text":"THE NETWORK GUEST LIST","textPreview":"THE NETWORK GUEST LIST","textChars":22,"textLines":1,"bbox":[650,92,420,26]}
+{"kind":"shape","id":"sh/p8n2hwry","slide":2,"bbox":[650,128,528,0.1]}
+{"kind":"textbox","id":"sh/54vepsfq","slide":2,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[650,160,32,24]}
+{"kind":"textbox","id":"sh/43mdgne5","slide":2,"text":"Investor","textPreview":"Investor","textChars":8,"textLines":1,"bbox":[686,158,214,30]}
+{"kind":"shape","id":"sh/32dcnixk","slide":2,"bbox":[650,194,234,0.1]}
+{"kind":"textbox","id":"sh/i14vedwz","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[650,242,32,24]}
+{"kind":"textbox","id":"sh/d8fetsf2","slide":2,"text":"Landlord","textPreview":"Landlord","textChars":8,"textLines":1,"bbox":[686,240,214,30]}
+{"kind":"shape","id":"sh/s76dkneh","slide":2,"bbox":[650,276,234,0.1]}
+{"kind":"textbox","id":"sh/r6dwr2xw","slide":2,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[650,324,32,24]}
+{"kind":"textbox","id":"sh/q54vixwb","slide":2,"text":"Developer","textPreview":"Developer","textChars":9,"textLines":1,"bbox":[686,322,214,30]}
+{"kind":"shape","id":"sh/1cfexcfy","slide":2,"bbox":[650,358,234,0.1]}
+{"kind":"textbox","id":"sh/0b6do7ed","slide":2,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[650,406,32,24]}
+{"kind":"textbox","id":"sh/0fex0bmp","slide":2,"text":"Housing Association","textPreview":"Housing Association","textChars":19,"textLines":1,"bbox":[686,404,214,30]}
+{"kind":"shape","id":"sh/lgnytg3a","slide":2,"bbox":[650,440,234,0.1]}
+{"kind":"textbox","id":"sh/ydwfy14j","slide":2,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[650,488,32,24]}
+{"kind":"textbox","id":"sh/ze5gr654","slide":2,"text":"Local Authority","textPreview":"Local Authority","textChars":15,"textLines":1,"bbox":[686,486,214,30]}
+{"kind":"shape","id":"sh/8jyx4vml","slide":2,"bbox":[650,522,234,0.1]}
+{"kind":"textbox","id":"sh/947yx036","slide":2,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[920,160,32,24]}
+{"kind":"textbox","id":"sh/mhwf2l4f","slide":2,"text":"Care Provider","textPreview":"Care Provider","textChars":13,"textLines":1,"bbox":[956,158,214,30]}
+{"kind":"shape","id":"sh/nipgvql0","slide":2,"bbox":[920,194,234,0.1]}
+{"kind":"textbox","id":"sh/onuxsrmh","slide":2,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[920,242,32,24]}
+{"kind":"textbox","id":"sh/p83elwn2","slide":2,"text":"Support Provider","textPreview":"Support Provider","textChars":16,"textLines":1,"bbox":[956,240,214,30]}
+{"kind":"shape","id":"sh/redsny9w","slide":2,"bbox":[920,276,234,0.1]}
+{"kind":"textbox","id":"sh/qdkretsb","slide":2,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[920,324,32,24]}
+{"kind":"textbox","id":"sh/dgvap8rm","slide":2,"text":"Social Worker","textPreview":"Social Worker","textChars":13,"textLines":1,"bbox":[956,322,214,30]}
+{"kind":"shape","id":"sh/sfm9g3a1","slide":2,"bbox":[920,358,234,0.1]}
+{"kind":"textbox","id":"sh/3atsjetk","slide":2,"text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[920,406,32,24]}
+{"kind":"textbox","id":"sh/i9kra9sz","slide":2,"text":"Broker","textPreview":"Broker","textChars":6,"textLines":1,"bbox":[956,404,214,30]}
+{"kind":"shape","id":"sh/5cbalorq","slide":2,"bbox":[920,440,234,0.1]}
+{"kind":"textbox","id":"sh/4b29cja5","slide":2,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[920,488,32,24]}
+{"kind":"textbox","id":"sh/vm98feto","slide":2,"text":"Resident","textPreview":"Resident","textChars":8,"textLines":1,"bbox":[956,486,214,30]}
+{"kind":"shape","id":"sh/ul0r69s3","slide":2,"bbox":[920,522,234,0.1]}
+{"kind":"textbox","id":"sh/at4vahon","slide":2,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[1060,542,112,72]}
+{"kind":"textbox","id":"sh/budwj2p8","slide":2,"text":"essential roles","textPreview":"essential roles","textChars":15,"textLines":1,"bbox":[935,604,236,28]}
+{"kind":"textbox","id":"sh/wvmdc76t","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1182,660,42,22]}
+{"kind":"textbox","id":"sh/xwvelc7e","slide":2,"text":"SECTION 01  /  VIP WELCOME","textPreview":"SECTION 01  /  VIP WELCOME","textChars":26,"textLines":1,"bbox":[72,660,500,22]}
+{"kind":"notes","id":"nt/bef5bi","slide":2,"text":"Move across the guest list slowly. The point is not that ten pages exist; it is that ten different partner identities are recognised without flattening them into one generic audience.\n\n[Sources]\n- Internal product source: src/content/partners.ts (ten partner archetypes and role names)."}
+{"kind":"slide","id":"sl/yuh8bm","slide":3,"title":"SECTION 02","textShapes":13}
+{"kind":"textbox","id":"sh/3m54buxs","slide":3,"text":"SECTION 02","textPreview":"SECTION 02","textChars":10,"textLines":1,"bbox":[72,38,210,24]}
+{"kind":"textbox","id":"sh/4nelkzyd","slide":3,"text":"A FRONT DOOR FOR EVERY ROLE","textPreview":"A FRONT DOOR FOR EVERY ROLE","textChars":27,"textLines":1,"bbox":[292,38,600,24]}
+{"kind":"textbox","id":"sh/5onmd4fy","slide":3,"text":"Your role now has a front door.","textPreview":"Your role now has a front door.","textChars":31,"textLines":1,"bbox":[72,102,560,112]}
+{"kind":"textbox","id":"sh/qpg3m9gj","slide":3,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[74,278,42,28]}
+{"kind":"textbox","id":"sh/rqp4fex4","slide":3,"text":"Recognised by name","textPreview":"Recognised by name","textChars":18,"textLines":1,"bbox":[124,274,370,38]}
+{"kind":"shape","id":"sh/srylojyp","slide":3,"bbox":[94,318,0.1,38]}
+{"kind":"textbox","id":"sh/ds7mhofa","slide":3,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[74,372,42,28]}
+{"kind":"textbox","id":"sh/edg3qtgv","slide":3,"text":"Explained in context","textPreview":"Explained in context","textChars":20,"textLines":1,"bbox":[124,368,370,38]}
+{"kind":"shape","id":"sh/fep4jex0","slide":3,"bbox":[94,412,0.1,38]}
+{"kind":"textbox","id":"sh/n6xgnydo","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[74,466,42,28]}
+{"kind":"textbox","id":"sh/25ofudc3","slide":3,"text":"Connected to impact","textPreview":"Connected to impact","textChars":19,"textLines":1,"bbox":[124,462,370,38]}
+{"kind":"textbox","id":"sh/p8fyp8vu","slide":3,"text":"The new Partners menu makes the network visible before a visitor reads a single page.","textPreview":"The new Partners menu makes the network visible before a visitor reads a single page.","textChars":85,"textLines":1,"bbox":[74,566,470,62]}
+{"kind":"shape","id":"sh/o76xw3u9","slide":3,"bbox":[602,96,606,510]}
+{"kind":"textbox","id":"sh/eh4fqtc7","slide":3,"text":"DESKTOP PARTNER ENTRY","textPreview":"DESKTOP PARTNER ENTRY","textChars":21,"textLines":1,"bbox":[948,570,226,20]}
+{"kind":"textbox","id":"sh/14fyl8vi","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1182,660,42,22]}
+{"kind":"textbox","id":"sh/036xs3ux","slide":3,"text":"SECTION 02  /  ROLE ENTRY","textPreview":"SECTION 02  /  ROLE ENTRY","textChars":25,"textLines":1,"bbox":[72,660,500,22]}
+{"kind":"image","id":"im/kzylw7ah","slide":3,"name":"","alt":"partners-dropdown-desktop.png","bbox":[622,116,566,470]}
+{"kind":"notes","id":"nt/yuh8bm","slide":3,"text":"Use the three beats as a reveal. Then point to the real navigation capture and show how the partner identity is visible at the exact moment of entry.\n\n[Sources]\n- Internal implementation: src/components/site-header.tsx.\n- Internal localhost QA capture: partners-dropdown-desktop.png, 12 August 2026."}
+{"kind":"slide","id":"sl/cuaa6r","slide":4,"title":"SECTION 02","textShapes":19}
+{"kind":"textbox","id":"sh/w7ax4zyx","slide":4,"text":"SECTION 02","textPreview":"SECTION 02","textChars":10,"textLines":1,"bbox":[72,38,210,24]}
+{"kind":"textbox","id":"sh/v61wvuhc","slide":4,"text":"A FRONT DOOR FOR EVERY ROLE","textPreview":"A FRONT DOOR FOR EVERY ROLE","textChars":27,"textLines":1,"bbox":[292,38,600,24]}
+{"kind":"textbox","id":"sh/u5sf2pgr","slide":4,"text":"Each page speaks the partner’s language.","textPreview":"Each page speaks the partner’s language.","textChars":40,"textLines":1,"bbox":[72,92,890,58]}
+{"kind":"textbox","id":"sh/94jetkz6","slide":4,"text":"Not a generic profile. A role-specific journey from identity to impact.","textPreview":"Not a generic profile. A role-specific journey from identity to impact.","textChars":71,"textLines":1,"bbox":[74,154,780,42]}
+{"kind":"shape","id":"sh/83ax0fyl","slide":4,"bbox":[72,226,610,350]}
+{"kind":"textbox","id":"sh/m18fypgv","slide":4,"text":"LIVE ROLE PAGE","textPreview":"LIVE ROLE PAGE","textChars":14,"textLines":1,"bbox":[92,534,160,20]}
+{"kind":"textbox","id":"sh/l0zepkza","slide":4,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[742,234,38,24]}
+{"kind":"textbox","id":"sh/kfqxwfyp","slide":4,"text":"Who you are","textPreview":"Who you are","textChars":11,"textLines":1,"bbox":[792,230,330,38]}
+{"kind":"shape","id":"sh/uxk3ap87","slide":4,"bbox":[759,268,0.1,38]}
+{"kind":"textbox","id":"sh/fyt43upc","slide":4,"text":"↓","textPreview":"↓","textChars":1,"textLines":1,"bbox":[741,278,36,30]}
+{"kind":"textbox","id":"sh/gz2lczqx","slide":4,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[742,324,38,24]}
+{"kind":"textbox","id":"sh/h0vm547i","slide":4,"text":"What you can do","textPreview":"What you can do","textChars":15,"textLines":1,"bbox":[792,320,330,38]}
+{"kind":"shape","id":"sh/6tk36p8v","slide":4,"bbox":[759,358,0.1,38]}
+{"kind":"textbox","id":"sh/7utkzapg","slide":4,"text":"↓","textPreview":"↓","textChars":1,"textLines":1,"bbox":[741,368,36,30]}
+{"kind":"textbox","id":"sh/sv2l8fq1","slide":4,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[742,414,38,24]}
+{"kind":"textbox","id":"sh/twbm1k7m","slide":4,"text":"How you create impact","textPreview":"How you create impact","textChars":21,"textLines":1,"bbox":[792,410,330,38]}
+{"kind":"shape","id":"sh/i503258z","slide":4,"bbox":[759,448,0.1,38]}
+{"kind":"textbox","id":"sh/j69kvap4","slide":4,"text":"↓","textPreview":"↓","textChars":1,"textLines":1,"bbox":[741,458,36,30]}
+{"kind":"textbox","id":"sh/nap0365w","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[742,504,38,24]}
+{"kind":"textbox","id":"sh/m9gja1or","slide":4,"text":"Where you connect","textPreview":"Where you connect","textChars":17,"textLines":1,"bbox":[792,500,330,38]}
+{"kind":"textbox","id":"sh/9c7i5gn2","slide":4,"text":"Every page closes with a custom organisational view—not a stock diagram.","textPreview":"Every page closes with a custom organisational view—not a stock diagram.","textChars":72,"textLines":1,"bbox":[742,566,420,62]}
+{"kind":"textbox","id":"sh/8by1cb6h","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1182,660,42,22]}
+{"kind":"textbox","id":"sh/vyp07q58","slide":4,"text":"SECTION 02  /  ROLE EXPERIENCE","textPreview":"SECTION 02  /  ROLE EXPERIENCE","textChars":30,"textLines":1,"bbox":[72,660,500,22]}
+{"kind":"image","id":"im/ax4nix0z","slide":4,"name":"","alt":"partner-desktop-viewport.png","bbox":[88,242,578,318]}
+{"kind":"notes","id":"nt/cuaa6r","slide":4,"text":"Walk the audience through the four-part page journey. Stress that the final organisational view changes with the role, which is what makes the partner feel seen rather than templated.\n\n[Sources]\n- Internal implementation: src/components/partners/partner-page.tsx.\n- Internal route example: src/routes/partner-with-housing-association.tsx.\n- Internal localhost QA capture: partner-desktop-viewport.png, 12 August 2026."}
+{"kind":"slide","id":"sl/7n8cab","slide":5,"title":"SECTION 03","textShapes":18}
+{"kind":"textbox","id":"sh/rqpgny5s","slide":5,"text":"SECTION 03","textPreview":"SECTION 03","textChars":10,"textLines":1,"bbox":[72,38,210,24]}
+{"kind":"textbox","id":"sh/sryxw3md","slide":5,"text":"THE SHARED IMPACT JOURNEY","textPreview":"THE SHARED IMPACT JOURNEY","textChars":25,"textLines":1,"bbox":[292,38,600,24]}
+{"kind":"textbox","id":"sh/ts7yp8ny","slide":5,"text":"Impact becomes a chain, not a claim.","textPreview":"Impact becomes a chain, not a claim.","textChars":36,"textLines":1,"bbox":[72,94,830,58]}
+{"kind":"textbox","id":"sh/ilwfqt4b","slide":5,"text":"Each partner page makes the route from contribution to outcome visible.","textPreview":"Each partner page makes the route from contribution to outcome visible.","textChars":71,"textLines":1,"bbox":[74,154,760,40]}
+{"kind":"shape","id":"sh/jmpwjy5g","slide":5,"bbox":[250,298,752,0.1]}
+{"kind":"shape","id":"sh/4nyxs3m1","slide":5,"bbox":[242,290,16,16]}
+{"kind":"shape","id":"sh/5o7el8nm","slide":5,"bbox":[624,290,16,16]}
+{"kind":"shape","id":"sh/2h0f2x4f","slide":5,"bbox":[994,290,16,16]}
+{"kind":"textbox","id":"sh/3i9gvi50","slide":5,"text":"Capital + criteria","textPreview":"Capital + criteria","textChars":18,"textLines":1,"bbox":[92,272,300,36]}
+{"kind":"shape","id":"sh/ra1kjqhw","slide":5,"bbox":[492,260,280,76]}
+{"kind":"textbox","id":"sh/6ps3qlgb","slide":5,"text":"INVESTOR","textPreview":"INVESTOR","textChars":8,"textLines":1,"bbox":[514,281,236,30]}
+{"kind":"textbox","id":"sh/tcj2l0z2","slide":5,"text":"Suitable homes · delivery · reporting","textPreview":"Suitable homes · delivery · reporting","textChars":37,"textLines":1,"bbox":[892,270,300,56]}
+{"kind":"shape","id":"sh/sbalsvyh","slide":5,"bbox":[250,424,752,0.1]}
+{"kind":"shape","id":"sh/fe1knqhs","slide":5,"bbox":[242,416,16,16]}
+{"kind":"shape","id":"sh/eds3ulgn","slide":5,"bbox":[624,416,16,16]}
+{"kind":"shape","id":"sh/1g32p0zy","slide":5,"bbox":[994,416,16,16]}
+{"kind":"textbox","id":"sh/gfulwvyd","slide":5,"text":"Demand + matched property","textPreview":"Demand + matched property","textChars":25,"textLines":1,"bbox":[92,398,300,36]}
+{"kind":"shape","id":"sh/3il4rah4","slide":5,"bbox":[492,386,280,76]}
+{"kind":"textbox","id":"sh/2hc3i5gj","slide":5,"text":"HOUSING ASSOCIATION","textPreview":"HOUSING ASSOCIATION","textChars":19,"textLines":1,"bbox":[514,407,236,30]}
+{"kind":"textbox","id":"sh/ydwnq90r","slide":5,"text":"Lease · management · resident home","textPreview":"Lease · management · resident home","textChars":34,"textLines":1,"bbox":[892,396,300,56]}
+{"kind":"shape","id":"sh/zepoje1c","slide":5,"bbox":[250,550,752,0.1]}
+{"kind":"shape","id":"sh/kfy5sjix","slide":5,"bbox":[242,542,16,16]}
+{"kind":"shape","id":"sh/l076l4ji","slide":5,"bbox":[624,542,16,16]}
+{"kind":"shape","id":"sh/a9wnmp0v","slide":5,"bbox":[994,542,16,16]}
+{"kind":"textbox","id":"sh/ba5ofu10","slide":5,"text":"Needs + preferences","textPreview":"Needs + preferences","textChars":19,"textLines":1,"bbox":[92,524,300,36]}
+{"kind":"shape","id":"sh/cbe5ozil","slide":5,"bbox":[492,512,280,76]}
+{"kind":"textbox","id":"sh/xcn6h4j6","slide":5,"text":"RESIDENT","textPreview":"RESIDENT","textChars":8,"textLines":1,"bbox":[514,533,236,30]}
+{"kind":"textbox","id":"sh/u5g7yt0z","slide":5,"text":"Suitable home · support · outcomes","textPreview":"Suitable home · support · outcomes","textChars":34,"textLines":1,"bbox":[892,522,300,56]}
+{"kind":"textbox","id":"sh/v69ory1k","slide":5,"text":"INPUT","textPreview":"INPUT","textChars":5,"textLines":1,"bbox":[92,220,120,22]}
+{"kind":"textbox","id":"sh/50bqhs3m","slide":5,"text":"ESSENTIAL ROLE","textPreview":"ESSENTIAL ROLE","textChars":14,"textLines":1,"bbox":[528,220,210,22]}
+{"kind":"textbox","id":"sh/4z29on21","slide":5,"text":"VISIBLE OUTCOME","textPreview":"VISIBLE OUTCOME","textChars":15,"textLines":1,"bbox":[958,220,234,22]}
+{"kind":"textbox","id":"sh/jyt8filg","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1182,660,42,22]}
+{"kind":"textbox","id":"sh/ix0rmdkv","slide":5,"text":"SECTION 03  /  IMPACT CHAINS","textPreview":"SECTION 03  /  IMPACT CHAINS","textChars":28,"textLines":1,"bbox":[72,660,500,22]}
+{"kind":"notes","id":"nt/7n8cab","slide":5,"text":"Read one row end to end, then let the audience scan the other two. The diagrams make the partner contribution explicit while keeping the outcome visible.\n\n[Sources]\n- Internal product source: src/content/partners.ts (Investor, Housing Association and Resident diagram definitions)."}
+{"kind":"slide","id":"sl/pnhzyq","slide":6,"title":"SECTION 03","textShapes":18}
+{"kind":"textbox","id":"sh/gri54b6h","slide":6,"text":"SECTION 03","textPreview":"SECTION 03","textChars":10,"textLines":1,"bbox":[72,38,210,24]}
+{"kind":"textbox","id":"sh/vq9ob65w","slide":6,"text":"THE SHARED IMPACT JOURNEY","textPreview":"THE SHARED IMPACT JOURNEY","textChars":25,"textLines":1,"bbox":[292,38,600,24]}
+{"kind":"textbox","id":"sh/up0ni1ob","slide":6,"text":"The network grows. The person stays central.","textPreview":"The network grows. The person stays central.","textChars":44,"textLines":1,"bbox":[72,90,1110,60]}
+{"kind":"textbox","id":"sh/torm9wnq","slide":6,"text":"Nine specialist roles connect around one human purpose: a suitable home with joined-up support.","textPreview":"Nine specialist roles connect around one human purpose: a suitable home with joined-up support.","textChars":95,"textLines":1,"bbox":[74,152,940,42]}
+{"kind":"shape","id":"sh/8ni5gr65","slide":6,"bbox":[360,266,280,148]}
+{"kind":"shape","id":"sh/7m947m50","slide":6,"bbox":[536,238,104,176]}
+{"kind":"shape","id":"sh/6l0ne1of","slide":6,"bbox":[640,228,92,186]}
+{"kind":"shape","id":"sh/dkv6l0na","slide":6,"bbox":[640,248,314,166]}
+{"kind":"shape","id":"sh/sj25cvmp","slide":6,"bbox":[640,326,462,88]}
+{"kind":"shape","id":"sh/2xwnapkv","slide":6,"bbox":[640,414,460,96]}
+{"kind":"shape","id":"sh/3y543u1g","slide":6,"bbox":[640,414,270,178]}
+{"kind":"shape","id":"sh/ozy5cz21","slide":6,"bbox":[636,414,4,190]}
+{"kind":"shape","id":"sh/p07m54jm","slide":6,"bbox":[394,414,246,116]}
+{"kind":"shape","id":"sh/etw36pkz","slide":6,"bbox":[528,302,224,224]}
+{"kind":"shape","id":"sh/fu54za14","slide":6,"bbox":[544,318,192,192]}
+{"kind":"textbox","id":"sh/gve58f2p","slide":6,"text":"RESIDENT","textPreview":"RESIDENT","textChars":8,"textLines":1,"bbox":[550,386,180,42]}
+{"kind":"textbox","id":"sh/1wnm1kja","slide":6,"text":"home · support · outcomes","textPreview":"home · support · outcomes","textChars":25,"textLines":1,"bbox":[528,430,224,36]}
+{"kind":"shape","id":"sh/ypgni903","slide":6,"bbox":[270,248,142,52]}
+{"kind":"textbox","id":"sh/zqp4be1o","slide":6,"text":"Investor","textPreview":"Investor","textChars":8,"textLines":1,"bbox":[280,261,122,28]}
+{"kind":"shape","id":"sh/vyhsn2do","slide":6,"bbox":[446,220,142,52]}
+{"kind":"textbox","id":"sh/ax8behw3","slide":6,"text":"Landlord","textPreview":"Landlord","textChars":8,"textLines":1,"bbox":[456,233,122,28]}
+{"kind":"shape","id":"sh/x0zapcvu","slide":6,"bbox":[642,210,142,52]}
+{"kind":"textbox","id":"sh/wzqtg7e9","slide":6,"text":"Developer","textPreview":"Developer","textChars":9,"textLines":1,"bbox":[652,223,122,28]}
+{"kind":"shape","id":"sh/j2hsrmd0","slide":6,"bbox":[864,230,180,52]}
+{"kind":"textbox","id":"sh/i18bihwf","slide":6,"text":"Housing Association","textPreview":"Housing Association","textChars":19,"textLines":1,"bbox":[874,243,160,28]}
+{"kind":"shape","id":"sh/5ojatwvq","slide":6,"bbox":[1012,308,142,52]}
+{"kind":"textbox","id":"sh/k3atkrel","slide":6,"text":"Local Authority","textPreview":"Local Authority","textChars":15,"textLines":1,"bbox":[1022,321,122,28]}
+{"kind":"shape","id":"sh/7q1svmdw","slide":6,"bbox":[1010,492,142,52]}
+{"kind":"textbox","id":"sh/6psbm1cb","slide":6,"text":"Care Provider","textPreview":"Care Provider","textChars":13,"textLines":1,"bbox":[1020,505,122,28]}
+{"kind":"shape","id":"sh/4vu9cbap","slide":6,"bbox":[820,574,180,52]}
+{"kind":"textbox","id":"sh/pw3alwba","slide":6,"text":"Support Provider","textPreview":"Support Provider","textChars":16,"textLines":1,"bbox":[830,587,160,28]}
+{"kind":"shape","id":"sh/2tsra1sj","slide":6,"bbox":[546,586,142,52]}
+{"kind":"textbox","id":"sh/3ulsj6t4","slide":6,"text":"Social Worker","textPreview":"Social Worker","textChars":13,"textLines":1,"bbox":[556,599,122,28]}
+{"kind":"shape","id":"sh/gra98rad","slide":6,"bbox":[304,512,142,52]}
+{"kind":"textbox","id":"sh/hsjahwby","slide":6,"text":"Broker","textPreview":"Broker","textChars":6,"textLines":1,"bbox":[314,525,122,28]}
+{"kind":"textbox","id":"sh/upsr6hsn","slide":6,"text":"Every partner remains essential because every connection carries a different responsibility.","textPreview":"Every partner remains essential because every connection carries a different responsibility.","textChars":92,"textLines":1,"bbox":[290,638,700,30]}
+{"kind":"textbox","id":"sh/fq1sfmts","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1182,660,42,22]}
+{"kind":"textbox","id":"sh/s3a947ah","slide":6,"text":"SECTION 03  /  PERSON-CENTRED NETWORK","textPreview":"SECTION 03  /  PERSON-CENTRED NETWORK","textChars":37,"textLines":1,"bbox":[72,660,500,22]}
+{"kind":"notes","id":"nt/pnhzyq","slide":6,"text":"Use the visual to reinforce that the resident is not a supply category. Each surrounding role stays distinct, and the value comes from coordination rather than role-blurring.\n\n[Sources]\n- Internal product source: src/content/partners.ts (ten role descriptions and Resident positioning).\n- The three-cluster interpretation is a presentation synthesis of the role descriptions, not a new operating claim."}
+{"kind":"slide","id":"sl/wbueog","slide":7,"title":"SECTION 04","textShapes":32}
+{"kind":"textbox","id":"sh/1ozutwfa","slide":7,"text":"SECTION 04","textPreview":"SECTION 04","textChars":10,"textLines":1,"bbox":[72,38,210,24]}
+{"kind":"textbox","id":"sh/eloby1wj","slide":7,"text":"PLATFORM ARCHITECTURE STORY  ·  1/4","textPreview":"PLATFORM ARCHITECTURE STORY  ·  1/4","textChars":35,"textLines":1,"bbox":[292,38,600,24]}
+{"kind":"textbox","id":"sh/zmxcr6x4","slide":7,"text":"Choose a role. Follow its value.","textPreview":"Choose a role. Follow its value.","textChars":32,"textLines":1,"bbox":[72,92,760,58]}
+{"kind":"textbox","id":"sh/obqd4bel","slide":7,"text":"Pick any archetype—the platform gives it a clear entry, workflow and impact destination.","textPreview":"Pick any archetype—the platform gives it a clear entry, workflow and impact destination.","textChars":88,"textLines":1,"bbox":[74,152,900,40]}
+{"kind":"shape","id":"sh/9czuxgf6","slide":7,"bbox":[262,275,378,149]}
+{"kind":"shape","id":"sh/mp8b21wv","slide":7,"bbox":[262,375,378,49]}
+{"kind":"shape","id":"sh/nqhcv6x0","slide":7,"bbox":[262,424,378,51]}
+{"kind":"shape","id":"sh/4fmts7eh","slide":7,"bbox":[470,424,170,147]}
+{"kind":"shape","id":"sh/pgfulcf2","slide":7,"bbox":[640,424,32,163]}
+{"kind":"shape","id":"sh/507yxc72","slide":7,"bbox":[640,424,232,147]}
+{"kind":"shape","id":"sh/kzyx476h","slide":7,"bbox":[640,424,432,101]}
+{"kind":"shape","id":"sh/jypgv2pw","slide":7,"bbox":[640,391,458,33]}
+{"kind":"shape","id":"sh/ixgf2xob","slide":7,"bbox":[640,275,458,149]}
+{"kind":"shape","id":"sh/t4ry1c7y","slide":7,"bbox":[640,237,274,187]}
+{"kind":"shape","id":"sh/s3ix876d","slide":7,"bbox":[514,298,252,252]}
+{"kind":"shape","id":"sh/729gz2p8","slide":7,"bbox":[536,320,208,208]}
+{"kind":"textbox","id":"sh/610f6hon","slide":7,"text":"IMPACT","textPreview":"IMPACT","textChars":6,"textLines":1,"bbox":[544,376,192,40]}
+{"kind":"textbox","id":"sh/1sry5w7a","slide":7,"text":"PLATFORM","textPreview":"PLATFORM","textChars":8,"textLines":1,"bbox":[544,416,192,40]}
+{"kind":"textbox","id":"sh/g7ixcr6p","slide":7,"text":"10 routes · one network","textPreview":"10 routes · one network","textChars":23,"textLines":1,"bbox":[530,468,220,28]}
+{"kind":"shape","id":"sh/0na9ozix","slide":7,"bbox":[180,250,164,52]}
+{"kind":"textbox","id":"sh/lojqx4zi","slide":7,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[189,266,42,18]}
+{"kind":"textbox","id":"sh/ylsrmp07","slide":7,"text":"Investor","textPreview":"Investor","textChars":8,"textLines":1,"bbox":[230,262,104,30]}
+{"kind":"shape","id":"sh/zm18vuhc","slide":7,"bbox":[180,350,164,52]}
+{"kind":"textbox","id":"sh/8bu9szi9","slide":7,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[189,366,42,18]}
+{"kind":"textbox","id":"sh/9c3a14zu","slide":7,"text":"Landlord","textPreview":"Landlord","textChars":8,"textLines":1,"bbox":[230,362,104,30]}
+{"kind":"shape","id":"sh/mpsrqp03","slide":7,"bbox":[180,450,164,52]}
+{"kind":"textbox","id":"sh/nal8zuho","slide":7,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[189,466,42,18]}
+{"kind":"textbox","id":"sh/ofq9gfip","slide":7,"text":"Developer","textPreview":"Developer","textChars":9,"textLines":1,"bbox":[230,462,104,30]}
+{"kind":"shape","id":"sh/pgzqp0ja","slide":7,"bbox":[388,546,186,60]}
+{"kind":"textbox","id":"sh/7apcvi1s","slide":7,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[397,562,42,18]}
+{"kind":"textbox","id":"sh/69gb2dk7","slide":7,"text":"Housing Association","textPreview":"Housing Association","textChars":19,"textLines":1,"bbox":[438,554,126,42]}
+{"kind":"shape","id":"sh/tc7ux8jy","slide":7,"bbox":[590,562,186,60]}
+{"kind":"textbox","id":"sh/sbyt4n2d","slide":7,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[599,578,42,18]}
+{"kind":"textbox","id":"sh/j65cry1w","slide":7,"text":"Local Authority","textPreview":"Local Authority","textChars":15,"textLines":1,"bbox":[640,570,126,42]}
+{"kind":"shape","id":"sh/i5wbytkb","slide":7,"bbox":[790,546,186,60]}
+{"kind":"textbox","id":"sh/58nut8j2","slide":7,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[799,562,42,18]}
+{"kind":"textbox","id":"sh/k7et032h","slide":7,"text":"Care Provider","textPreview":"Care Provider","textChars":13,"textLines":1,"bbox":[840,554,126,42]}
+{"kind":"shape","id":"sh/vi5cny1k","slide":7,"bbox":[990,500,186,60]}
+{"kind":"textbox","id":"sh/ahcbutkf","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[999,516,42,18]}
+{"kind":"textbox","id":"sh/apgfyhgz","slide":7,"text":"Support Provider","textPreview":"Support Provider","textChars":16,"textLines":1,"bbox":[1040,508,126,42]}
+{"kind":"shape","id":"sh/bqpgrmxk","slide":7,"bbox":[1016,366,186,60]}
+{"kind":"textbox","id":"sh/cryx0ryp","slide":7,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1025,382,42,18]}
+{"kind":"textbox","id":"sh/xc7ytwfa","slide":7,"text":"Social Worker","textPreview":"Social Worker","textChars":13,"textLines":1,"bbox":[1066,374,126,42]}
+{"kind":"shape","id":"sh/2lwfuhgn","slide":7,"bbox":[1016,250,164,52]}
+{"kind":"textbox","id":"sh/nm5gnmh8","slide":7,"text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[1025,266,42,18]}
+{"kind":"textbox","id":"sh/onyxwryt","slide":7,"text":"Broker","textPreview":"Broker","textChars":6,"textLines":1,"bbox":[1066,262,104,30]}
+{"kind":"shape","id":"sh/po7ypwze","slide":7,"bbox":[832,212,164,52]}
+{"kind":"textbox","id":"sh/ehwfqxgr","slide":7,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[841,228,42,18]}
+{"kind":"textbox","id":"sh/fi5wj2hc","slide":7,"text":"Resident","textPreview":"Resident","textChars":8,"textLines":1,"bbox":[882,224,104,30]}
+{"kind":"textbox","id":"sh/hcbip0zu","slide":7,"text":"SUPPLY","textPreview":"SUPPLY","textChars":6,"textLines":1,"bbox":[182,220,120,20]}
+{"kind":"textbox","id":"sh/wb21wfi9","slide":7,"text":"DELIVERY","textPreview":"DELIVERY","textChars":8,"textLines":1,"bbox":[392,628,160,20]}
+{"kind":"textbox","id":"sh/vat0naho","slide":7,"text":"PEOPLE + ACCESS","textPreview":"PEOPLE + ACCESS","textChars":15,"textLines":1,"bbox":[1002,190,180,20]}
+{"kind":"textbox","id":"sh/u9kju503","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1182,660,42,22]}
+{"kind":"textbox","id":"sh/98bil0zi","slide":7,"text":"ARCHITECTURE STORY  01  →  02  →  03  →  04","textPreview":"ARCHITECTURE STORY  01  →  02  →  03  →  04","textChars":43,"textLines":1,"bbox":[72,660,500,22]}
+{"kind":"notes","id":"nt/wbueog","slide":7,"text":"Make this interactive: ask the audience to name one archetype they want to follow. Use Housing Association if no one chooses, then advance to the worked example.\n\n[Sources]\n- Internal product source: src/content/partners.ts (ten archetypes and dedicated routes).\n- The supply/delivery/people grouping is an audience navigation device inferred from the role descriptions."}
+{"kind":"slide","id":"sl/ts43ut","slide":8,"title":"SECTION 04","textShapes":33}
+{"kind":"textbox","id":"sh/dgzudwzy","slide":8,"text":"SECTION 04","textPreview":"SECTION 04","textChars":10,"textLines":1,"bbox":[72,38,210,24]}
+{"kind":"textbox","id":"sh/qd8v2h0n","slide":8,"text":"PLATFORM ARCHITECTURE STORY  ·  2/4","textPreview":"PLATFORM ARCHITECTURE STORY  ·  2/4","textChars":35,"textLines":1,"bbox":[292,38,600,24]}
+{"kind":"textbox","id":"sh/rehcbmh8","slide":8,"text":"One role in. Three outcomes out.","textPreview":"One role in. Three outcomes out.","textChars":32,"textLines":1,"bbox":[72,92,760,58]}
+{"kind":"textbox","id":"sh/4bqd0rih","slide":8,"text":"The architecture changes its logic for every archetype—not just the title.","textPreview":"The architecture changes its logic for every archetype—not just the title.","textChars":74,"textLines":1,"bbox":[74,152,820,40]}
+{"kind":"shape","id":"sh/pczu9wz2","slide":8,"bbox":[314,386,182,0.1]}
+{"kind":"shape","id":"sh/2p8vyh0b","slide":8,"bbox":[738,386,196,0.1]}
+{"kind":"textbox","id":"sh/3qhc7mhw","slide":8,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[392,362,40,36]}
+{"kind":"textbox","id":"sh/gn6tw7il","slide":8,"text":"→","textPreview":"→","textChars":1,"textLines":1,"bbox":[820,362,40,36]}
+{"kind":"textbox","id":"sh/hofu5czq","slide":8,"text":"INPUTS","textPreview":"INPUTS","textChars":6,"textLines":1,"bbox":[90,240,220,24]}
+{"kind":"shape","id":"sh/54by9gvm","slide":8,"bbox":[88,286,226,74]}
+{"kind":"textbox","id":"sh/432xgbe1","slide":8,"text":"Housing demand","textPreview":"Housing demand","textChars":14,"textLines":1,"bbox":[110,309,182,30]}
+{"kind":"shape","id":"sh/32tg76dg","slide":8,"bbox":[88,406,226,74]}
+{"kind":"textbox","id":"sh/i1kfe1wv","slide":8,"text":"Matched property","textPreview":"Matched property","textChars":16,"textLines":1,"bbox":[110,429,182,30]}
+{"kind":"textbox","id":"sh/hgry5wva","slide":8,"text":"SELECTED ARCHETYPE","textPreview":"SELECTED ARCHETYPE","textChars":18,"textLines":1,"bbox":[498,240,240,24]}
+{"kind":"shape","id":"sh/gfixcre5","slide":8,"bbox":[496,286,242,194]}
+{"kind":"textbox","id":"sh/ve9g3mdk","slide":8,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[518,312,44,26]}
+{"kind":"textbox","id":"sh/ud0fahwz","slide":8,"text":"Housing","textPreview":"Housing","textChars":7,"textLines":1,"bbox":[518,350,198,40]}
+{"kind":"textbox","id":"sh/9cry1cve","slide":8,"text":"Association","textPreview":"Association","textChars":11,"textLines":1,"bbox":[518,390,198,40]}
+{"kind":"textbox","id":"sh/8bix8ret","slide":8,"text":"One connected role","textPreview":"One connected role","textChars":18,"textLines":1,"bbox":[518,442,198,24]}
+{"kind":"textbox","id":"sh/0vmxormp","slide":8,"text":"VISIBLE OUTCOMES","textPreview":"VISIBLE OUTCOMES","textChars":16,"textLines":1,"bbox":[934,240,250,24]}
+{"kind":"shape","id":"sh/lgvyhw3a","slide":8,"bbox":[934,276,250,72]}
+{"kind":"textbox","id":"sh/ytkfmh4j","slide":8,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[950,301,42,20]}
+{"kind":"textbox","id":"sh/zutgfm54","slide":8,"text":"Lease & tenancy","textPreview":"Lease & tenancy","textChars":15,"textLines":1,"bbox":[996,296,170,30]}
+{"kind":"shape","id":"sh/cr2xk7mt","slide":8,"bbox":[934,380,250,72]}
+{"kind":"textbox","id":"sh/dsbydcny","slide":8,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[950,405,42,20]}
+{"kind":"textbox","id":"sh/qpkfih4n","slide":8,"text":"Housing management","textPreview":"Housing management","textChars":18,"textLines":1,"bbox":[996,400,170,30]}
+{"kind":"shape","id":"sh/bqtgb258","slide":8,"bbox":[934,484,250,72]}
+{"kind":"textbox","id":"sh/wn6hwbmx","slide":8,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[950,509,42,20]}
+{"kind":"textbox","id":"sh/hofypg3i","slide":8,"text":"Resident home","textPreview":"Resident home","textChars":13,"textLines":1,"bbox":[996,504,170,30]}
+{"kind":"textbox","id":"sh/ru1sbu9w","slide":8,"text":"9 more archetypes carry their own inputs, responsibilities and impact outcomes.","textPreview":"9 more archetypes carry their own inputs, responsibilities and impact outcomes.","textChars":79,"textLines":1,"bbox":[266,548,748,34]}
+{"kind":"textbox","id":"sh/qtsr29sb","slide":8,"text":"Investor","textPreview":"Investor","textChars":8,"textLines":1,"bbox":[96,604,205,22]}
+{"kind":"textbox","id":"sh/dwjad4rm","slide":8,"text":"Landlord","textPreview":"Landlord","textChars":8,"textLines":1,"bbox":[314,604,205,22]}
+{"kind":"textbox","id":"sh/sva94zah","slide":8,"text":"Developer","textPreview":"Developer","textChars":9,"textLines":1,"bbox":[532,604,205,22]}
+{"kind":"textbox","id":"sh/fi1sfe9s","slide":8,"text":"Local Authority","textPreview":"Local Authority","textChars":15,"textLines":1,"bbox":[750,604,205,22]}
+{"kind":"textbox","id":"sh/ehsr69s7","slide":8,"text":"Care Provider","textPreview":"Care Provider","textChars":13,"textLines":1,"bbox":[968,604,205,22]}
+{"kind":"textbox","id":"sh/1k3ahory","slide":8,"text":"Support Provider","textPreview":"Support Provider","textChars":16,"textLines":1,"bbox":[96,632,205,22]}
+{"kind":"textbox","id":"sh/0jut8jad","slide":8,"text":"Social Worker","textPreview":"Social Worker","textChars":13,"textLines":1,"bbox":[314,632,205,22]}
+{"kind":"textbox","id":"sh/vmhs3ato","slide":8,"text":"Broker","textPreview":"Broker","textChars":6,"textLines":1,"bbox":[532,632,205,22]}
+{"kind":"textbox","id":"sh/ul8rups3","slide":8,"text":"Resident","textPreview":"Resident","textChars":8,"textLines":1,"bbox":[750,632,205,22]}
+{"kind":"textbox","id":"sh/m5crqp0z","slide":8,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1182,660,42,22]}
+{"kind":"textbox","id":"sh/76lsju1k","slide":8,"text":"ARCHITECTURE STORY  01  →  02  →  03  →  04","textPreview":"ARCHITECTURE STORY  01  →  02  →  03  →  04","textChars":43,"textLines":1,"bbox":[72,660,500,22]}
+{"kind":"notes","id":"nt/ts43ut","slide":8,"text":"Trace the Housing Association path left to right. If the audience selected a different role, explain that the same page architecture swaps in that role's own inputs and outcomes.\n\n[Sources]\n- Internal product source: src/content/partners.ts (Housing Association diagram and all ten role-specific diagram definitions)."}
+{"kind":"slide","id":"sl/vwbia1","slide":9,"title":"SECTION 04","textShapes":14}
+{"kind":"textbox","id":"sh/id4bqto3","slide":9,"text":"SECTION 04","textPreview":"SECTION 04","textChars":10,"textLines":1,"bbox":[72,38,210,24]}
+{"kind":"textbox","id":"sh/5gfu18nu","slide":9,"text":"PLATFORM ARCHITECTURE STORY  ·  3/4","textPreview":"PLATFORM ARCHITECTURE STORY  ·  3/4","textChars":35,"textLines":1,"bbox":[292,38,600,24]}
+{"kind":"textbox","id":"sh/kf6ts369","slide":9,"text":"The partner network is discoverable everywhere.","textPreview":"The partner network is discoverable everywhere.","textChars":47,"textLines":1,"bbox":[72,92,1120,58]}
+{"kind":"textbox","id":"sh/7ixc3i5k","slide":9,"text":"Integration turns ten standalone pages into one connected site experience.","textPreview":"Integration turns ten standalone pages into one connected site experience.","textChars":74,"textLines":1,"bbox":[74,152,850,40]}
+{"kind":"shape","id":"sh/6hobudoz","slide":9,"bbox":[74,226,470,300]}
+{"kind":"textbox","id":"sh/sj6twn65","slide":9,"text":"HEADER ENTRY","textPreview":"HEADER ENTRY","textChars":12,"textLines":1,"bbox":[92,492,160,20]}
+{"kind":"shape","id":"sh/nmdsre5g","slide":9,"bbox":[738,226,470,300]}
+{"kind":"textbox","id":"sh/sfy5k3ud","slide":9,"text":"FOOTER DIRECTORY","textPreview":"FOOTER DIRECTORY","textChars":16,"textLines":1,"bbox":[756,492,180,20]}
+{"kind":"shape","id":"sh/dg7mt8by","slide":9,"bbox":[544,376,56,0.1]}
+{"kind":"shape","id":"sh/qdgnidc7","slide":9,"bbox":[680,376,58,0.1]}
+{"kind":"shape","id":"sh/rep4rits","slide":9,"bbox":[570,306,140,140]}
+{"kind":"textbox","id":"sh/0ji5onu9","slide":9,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[596,324,88,62]}
+{"kind":"textbox","id":"sh/1krmxsbu","slide":9,"text":"LIVE ROUTES","textPreview":"LIVE ROUTES","textChars":11,"textLines":1,"bbox":[582,390,116,24]}
+{"kind":"shape","id":"sh/ehgnmdcj","slide":9,"bbox":[184,590,912,0.1]}
+{"kind":"shape","id":"sh/fi94vito","slide":9,"bbox":[172,578,24,24]}
+{"kind":"textbox","id":"sh/gne5cju5","slide":9,"text":"HEADER","textPreview":"HEADER","textChars":6,"textLines":1,"bbox":[106,614,156,24]}
+{"kind":"shape","id":"sh/honmlobq","slide":9,"bbox":[476,578,24,24]}
+{"kind":"textbox","id":"sh/xsvutgz2","slide":9,"text":"DIRECT URL","textPreview":"DIRECT URL","textChars":10,"textLines":1,"bbox":[410,614,156,24]}
+{"kind":"shape","id":"sh/c7mt0vix","slide":9,"bbox":[780,578,24,24]}
+{"kind":"textbox","id":"sh/b6dcrq1c","slide":9,"text":"SITEMAP","textPreview":"SITEMAP","textChars":7,"textLines":1,"bbox":[714,614,156,24]}
+{"kind":"shape","id":"sh/a54byl0r","slide":9,"bbox":[1084,578,24,24]}
+{"kind":"textbox","id":"sh/lwfux0ze","slide":9,"text":"FOOTER","textPreview":"FOOTER","textChars":6,"textLines":1,"bbox":[1018,614,156,24]}
+{"kind":"textbox","id":"sh/kv6t4vit","slide":9,"text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[1182,660,42,22]}
+{"kind":"textbox","id":"sh/juxcvqh8","slide":9,"text":"ARCHITECTURE STORY  01  →  02  →  03  →  04","textPreview":"ARCHITECTURE STORY  01  →  02  →  03  →  04","textChars":43,"textLines":1,"bbox":[72,660,500,22]}
+{"kind":"image","id":"im/gvqpcn6d","slide":9,"name":"","alt":"partners-dropdown-desktop.png","bbox":[88,240,442,272]}
+{"kind":"image","id":"im/zql8fm5w","slide":9,"name":"","alt":"footer-partners-desktop.png","bbox":[752,240,442,272]}
+{"kind":"notes","id":"nt/vwbia1","slide":9,"text":"Use the horizontal rail as the integration story: partners can enter through navigation, direct URLs, search discovery via the sitemap, or the footer directory.\n\n[Sources]\n- Internal implementation: src/components/site-header.tsx and src/components/site-footer.tsx.\n- Internal implementation: src/routes/partner-with-*.tsx and src/routes/sitemap[.]xml.ts.\n- Internal localhost QA captures: partners-dropdown-desktop.png and footer-partners-desktop.png, 12 August 2026."}
+{"kind":"slide","id":"sl/9bd4vp","slide":10,"title":"SECTION 04","textShapes":13}
+{"kind":"textbox","id":"sh/x0jat4zm","slide":10,"text":"SECTION 04","textPreview":"SECTION 04","textChars":10,"textLines":1,"bbox":[72,38,210,24]}
+{"kind":"textbox","id":"sh/ax8rip0b","slide":10,"text":"PLATFORM ARCHITECTURE STORY  ·  4/4","textPreview":"PLATFORM ARCHITECTURE STORY  ·  4/4","textChars":35,"textLines":1,"bbox":[292,38,600,24]}
+{"kind":"textbox","id":"sh/byhsruhw","slide":10,"text":"The experience holds together across devices.","textPreview":"The experience holds together across devices.","textChars":45,"textLines":1,"bbox":[72,88,920,58]}
+{"kind":"textbox","id":"sh/k3a9ozid","slide":10,"text":"The launch was verified as a connected journey—not just ten pages that render.","textPreview":"The launch was verified as a connected journey—not just ten pages that render.","textChars":78,"textLines":1,"bbox":[74,148,850,40]}
+{"kind":"shape","id":"sh/l4jax4zy","slide":10,"bbox":[74,238,610,314]}
+{"kind":"shape","id":"sh/j21svuhs","slide":10,"bbox":[288,552,184,16]}
+{"kind":"shape","id":"sh/07q9cfi9","slide":10,"bbox":[238,568,284,12]}
+{"kind":"textbox","id":"sh/18zqlkze","slide":10,"text":"DESKTOP","textPreview":"DESKTOP","textChars":7,"textLines":1,"bbox":[92,508,110,20]}
+{"kind":"shape","id":"sh/5o3qh8zm","slide":10,"bbox":[734,218,188,382]}
+{"kind":"shape","id":"sh/j218fyhg","slide":10,"bbox":[820,576,16,16]}
+{"kind":"textbox","id":"sh/i1s76t0v","slide":10,"text":"10/10","textPreview":"10/10","textChars":5,"textLines":1,"bbox":[970,244,220,76]}
+{"kind":"textbox","id":"sh/ts3qlszi","slide":10,"text":"partner routes live","textPreview":"partner routes live","textChars":19,"textLines":1,"bbox":[966,318,224,30]}
+{"kind":"shape","id":"sh/sru9cnix","slide":10,"bbox":[966,374,224,0.1]}
+{"kind":"textbox","id":"sh/7ql8jihc","slide":10,"text":"DESKTOP + MOBILE","textPreview":"DESKTOP + MOBILE","textChars":16,"textLines":1,"bbox":[966,402,224,24]}
+{"kind":"textbox","id":"sh/6pcrad0r","slide":10,"text":"QA passed","textPreview":"QA passed","textChars":9,"textLines":1,"bbox":[966,436,224,42]}
+{"kind":"textbox","id":"sh/hwnqpsze","slide":10,"text":"Navigation · page flow · diagrams · partner directory","textPreview":"Navigation · page flow · diagrams · partner directory","textChars":53,"textLines":1,"bbox":[952,492,238,72]}
+{"kind":"shape","id":"sh/gvu9gni9","slide":10,"bbox":[74,612,1116,4]}
+{"kind":"textbox","id":"sh/0z2tcrq5","slide":10,"text":"The architecture is ready. Now every partner can see where they belong.","textPreview":"The architecture is ready. Now every partner can see where they belong.","textChars":71,"textLines":1,"bbox":[74,628,1060,34]}
+{"kind":"textbox","id":"sh/10valw7q","slide":10,"text":"ARCHITECTURE STORY  ·  COMPLETE","textPreview":"ARCHITECTURE STORY  ·  COMPLETE","textChars":31,"textLines":1,"bbox":[72,690,500,18]}
+{"kind":"textbox","id":"sh/exkba18f","slide":10,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[1182,690,42,18]}
+{"kind":"image","id":"im/bq14bq14","slide":10,"name":"","alt":"partner-desktop-viewport.png","bbox":[92,256,574,278]}
+{"kind":"image","id":"im/j6x03udg","slide":10,"name":"","alt":"partners-mobile-menu-fixed.png","bbox":[748,242,160,330]}
+{"kind":"notes","id":"nt/9bd4vp","slide":10,"text":"Close by resolving the opening promise. The platform now recognises ten partner identities, carries their impact logic through the site and holds together on desktop and mobile.\n\n[Sources]\n- Internal QA, 12 August 2026: all ten partner routes returned HTTP 200.\n- Internal QA, 12 August 2026: desktop and mobile navigation and page layouts visually inspected.\n- Internal localhost captures: partner-desktop-viewport.png and partners-mobile-menu-fixed.png."}

@@ -1,0 +1,19 @@
+Internal product sources
+- src/content/partners.ts: ten partner archetypes, role summaries, role-specific inputs and outcomes.
+- src/components/site-header.tsx: desktop and mobile Partners navigation.
+- src/components/site-footer.tsx: two-column partner directory and partnership route.
+- src/components/partners/partner-page.tsx: shared partner page architecture.
+- src/routes/partner-with-*.tsx: ten dedicated partner routes.
+- src/routes/sitemap[.]xml.ts: sitemap integration.
+- Commit d7896011d31277d88eab93e43698d5a68ea5050a: public partner launch implementation.
+- Local QA on 12 August 2026: desktop and mobile visual checks; all ten partner routes returned HTTP 200.
+
+Internal visual assets
+- public/images/brand/logo-lockup-reverse.webp
+- public/images/brand/logo-lockup.webp
+- public/images/ai-team/petra-present.webp
+- public/images/ai-team/peter-present.webp
+- public/images/ai-team/pippa-present.webp
+- Localhost QA captures created during implementation and stored in the system temp directory.
+
+No external claims or external visual assets are used.

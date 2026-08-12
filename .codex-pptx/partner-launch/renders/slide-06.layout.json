@@ -1,0 +1,1567 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/pnhzyq",
+    "id": "pnhzyq",
+    "slide": 6,
+    "layoutId": "9d904150-49a7-410f-beaf-6686e97f603b",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "c57f0c1d-8aa3-413c-84ee-d5541a853dd1",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#F7F1E6",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "9d904150-49a7-410f-beaf-6686e97f603b",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "c57f0c1d-8aa3-413c-84ee-d5541a853dd1",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "c57f0c1d-8aa3-413c-84ee-d5541a853dd1",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gri54b6h",
+      "id": "1",
+      "bbox": [
+        72,
+        38,
+        210,
+        24
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "SECTION 03",
+      "textPreview": "SECTION 03",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "fontSize": 14,
+        "typeface": "+mn-lt",
+        "color": "#17796F",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "SECTION 03"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "SECTION 03",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#17796F",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "SECTION 03",
+              "fontSize": 14,
+              "color": "#17796F",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vq9ob65w",
+      "id": "2",
+      "bbox": [
+        292,
+        38,
+        600,
+        24
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "THE SHARED IMPACT JOURNEY",
+      "textPreview": "THE SHARED IMPACT JOURNEY",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "fontSize": 14,
+        "typeface": "+mn-lt",
+        "color": "#647289",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "THE SHARED IMPACT JOURNEY"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "THE SHARED IMPACT JOURNEY",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#647289",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "THE SHARED IMPACT JOURNEY",
+              "fontSize": 14,
+              "color": "#647289",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/up0ni1ob",
+      "id": "3",
+      "bbox": [
+        72,
+        90,
+        1110,
+        60
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "The network grows. The person stays central.",
+      "textPreview": "The network grows. The person stays central.",
+      "resolvedFontSize": 42,
+      "resolvedTextStyle": {
+        "fontSize": 42,
+        "typeface": "+mn-lt",
+        "color": "#00112B",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "The network grows. The person stays central."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "The network grows. The person stays central.",
+          "resolvedTextStyle": {
+            "fontSize": 42,
+            "color": "#00112B",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "The network grows. The person stays central.",
+              "fontSize": 42,
+              "color": "#00112B",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/torm9wnq",
+      "id": "4",
+      "bbox": [
+        74,
+        152,
+        940,
+        42
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "Nine specialist roles connect around one human purpose: a suitable home with joined-up support.",
+      "textPreview": "Nine specialist roles connect around one human purpose: a suitable home with joined-up support.",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "+mn-lt",
+        "color": "#4E5A6E",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Nine specialist roles connect around one human purpose: a suitable home with joined-up support."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Nine specialist roles connect around one human purpose: a suitable home with joined-up support.",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#4E5A6E",
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Nine specialist roles connect around one human purpose: a suitable home with joined-up support.",
+              "fontSize": 21,
+              "color": "#4E5A6E",
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/8ni5gr65",
+      "id": "5",
+      "bbox": [
+        360,
+        266,
+        280,
+        148
+      ],
+      "geometry": "line",
+      "lineColor": "#FF7A29",
+      "lineWidth": 2.5
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7m947m50",
+      "id": "6",
+      "bbox": [
+        536,
+        238,
+        104,
+        176
+      ],
+      "geometry": "line",
+      "lineColor": "#17796F",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6l0ne1of",
+      "id": "7",
+      "bbox": [
+        640,
+        228,
+        92,
+        186
+      ],
+      "horizontalFlip": true,
+      "geometry": "line",
+      "lineColor": "#17796F",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/dkv6l0na",
+      "id": "8",
+      "bbox": [
+        640,
+        248,
+        314,
+        166
+      ],
+      "horizontalFlip": true,
+      "geometry": "line",
+      "lineColor": "#FF7A29",
+      "lineWidth": 2.5
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sj25cvmp",
+      "id": "9",
+      "bbox": [
+        640,
+        326,
+        462,
+        88
+      ],
+      "horizontalFlip": true,
+      "geometry": "line",
+      "lineColor": "#17796F",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2xwnapkv",
+      "id": "10",
+      "bbox": [
+        640,
+        414,
+        460,
+        96
+      ],
+      "horizontalFlip": true,
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#17796F",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3y543u1g",
+      "id": "11",
+      "bbox": [
+        640,
+        414,
+        270,
+        178
+      ],
+      "horizontalFlip": true,
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#FF7A29",
+      "lineWidth": 2.5
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ozy5cz21",
+      "id": "12",
+      "bbox": [
+        636,
+        414,
+        4,
+        190
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#17796F",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/p07m54jm",
+      "id": "13",
+      "bbox": [
+        394,
+        414,
+        246,
+        116
+      ],
+      "verticalFlip": true,
+      "geometry": "line",
+      "lineColor": "#17796F",
+      "lineWidth": 1.5
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/etw36pkz",
+      "id": "14",
+      "bbox": [
+        528,
+        302,
+        224,
+        224
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#00112B",
+      "lineColor": "#FF7A29",
+      "lineWidth": 1
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fu54za14",
+      "id": "15",
+      "bbox": [
+        544,
+        318,
+        192,
+        192
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#041C3D",
+      "lineColor": "#17796F",
+      "lineWidth": 1
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gve58f2p",
+      "id": "16",
+      "bbox": [
+        550,
+        386,
+        180,
+        42
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "RESIDENT",
+      "textPreview": "RESIDENT",
+      "resolvedFontSize": 28,
+      "resolvedTextStyle": {
+        "fontSize": 28,
+        "typeface": "+mn-lt",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "RESIDENT"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "RESIDENT",
+          "resolvedTextStyle": {
+            "fontSize": 28,
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "RESIDENT",
+              "fontSize": 28,
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1wnm1kja",
+      "id": "17",
+      "bbox": [
+        528,
+        430,
+        224,
+        36
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "home · support · outcomes",
+      "textPreview": "home · support · outcomes",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#2FBAAA",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "home · support · outcomes"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "home · support · outcomes",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#2FBAAA",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "home · support · outcomes",
+              "fontSize": 15,
+              "color": "#2FBAAA",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ypgni903",
+      "id": "18",
+      "bbox": [
+        270,
+        248,
+        142,
+        52
+      ],
+      "rotation": 0,
+      "geometry": "roundRect",
+      "fillColor": "#EFE6D6",
+      "lineColor": "#C25400",
+      "lineWidth": 1
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zqp4be1o",
+      "id": "19",
+      "bbox": [
+        280,
+        261,
+        122,
+        28
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "Investor",
+      "textPreview": "Investor",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#00112B",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Investor"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Investor",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#00112B",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Investor",
+              "fontSize": 17,
+              "color": "#00112B",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/vyhsn2do",
+      "id": "20",
+      "bbox": [
+        446,
+        220,
+        142,
+        52
+      ],
+      "rotation": 0,
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#EFE6D6",
+      "lineWidth": 1
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ax8behw3",
+      "id": "21",
+      "bbox": [
+        456,
+        233,
+        122,
+        28
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "Landlord",
+      "textPreview": "Landlord",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#00112B",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Landlord"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Landlord",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#00112B",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Landlord",
+              "fontSize": 17,
+              "color": "#00112B",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/x0zapcvu",
+      "id": "22",
+      "bbox": [
+        642,
+        210,
+        142,
+        52
+      ],
+      "rotation": 0,
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#EFE6D6",
+      "lineWidth": 1
+    },
+    {
+      "order": 23,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wzqtg7e9",
+      "id": "23",
+      "bbox": [
+        652,
+        223,
+        122,
+        28
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "Developer",
+      "textPreview": "Developer",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#00112B",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Developer"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Developer",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#00112B",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Developer",
+              "fontSize": 17,
+              "color": "#00112B",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 24,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/j2hsrmd0",
+      "id": "24",
+      "bbox": [
+        864,
+        230,
+        180,
+        52
+      ],
+      "rotation": 0,
+      "geometry": "roundRect",
+      "fillColor": "#EFE6D6",
+      "lineColor": "#C25400",
+      "lineWidth": 1
+    },
+    {
+      "order": 25,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/i18bihwf",
+      "id": "25",
+      "bbox": [
+        874,
+        243,
+        160,
+        28
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "Housing Association",
+      "textPreview": "Housing Association",
+      "resolvedFontSize": 15,
+      "resolvedTextStyle": {
+        "fontSize": 15,
+        "typeface": "+mn-lt",
+        "color": "#00112B",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Housing Association"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Housing Association",
+          "resolvedTextStyle": {
+            "fontSize": 15,
+            "color": "#00112B",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Housing Association",
+              "fontSize": 15,
+              "color": "#00112B",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 26,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5ojatwvq",
+      "id": "26",
+      "bbox": [
+        1012,
+        308,
+        142,
+        52
+      ],
+      "rotation": 0,
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#EFE6D6",
+      "lineWidth": 1
+    },
+    {
+      "order": 27,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/k3atkrel",
+      "id": "27",
+      "bbox": [
+        1022,
+        321,
+        122,
+        28
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "Local Authority",
+      "textPreview": "Local Authority",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#00112B",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Local"
+          },
+          {
+            "index": 2,
+            "text": "Authority"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Local Authority",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#00112B",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Local Authority",
+              "fontSize": 17,
+              "color": "#00112B",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 28,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7q1svmdw",
+      "id": "28",
+      "bbox": [
+        1010,
+        492,
+        142,
+        52
+      ],
+      "rotation": 0,
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#EFE6D6",
+      "lineWidth": 1
+    },
+    {
+      "order": 29,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6psbm1cb",
+      "id": "29",
+      "bbox": [
+        1020,
+        505,
+        122,
+        28
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "Care Provider",
+      "textPreview": "Care Provider",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#00112B",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Care Provider"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Care Provider",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#00112B",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Care Provider",
+              "fontSize": 17,
+              "color": "#00112B",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 30,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4vu9cbap",
+      "id": "30",
+      "bbox": [
+        820,
+        574,
+        180,
+        52
+      ],
+      "rotation": 0,
+      "geometry": "roundRect",
+      "fillColor": "#EFE6D6",
+      "lineColor": "#C25400",
+      "lineWidth": 1
+    },
+    {
+      "order": 31,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/pw3alwba",
+      "id": "31",
+      "bbox": [
+        830,
+        587,
+        160,
+        28
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "Support Provider",
+      "textPreview": "Support Provider",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#00112B",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Support Provider"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Support Provider",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#00112B",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Support Provider",
+              "fontSize": 17,
+              "color": "#00112B",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 32,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2tsra1sj",
+      "id": "32",
+      "bbox": [
+        546,
+        586,
+        142,
+        52
+      ],
+      "rotation": 0,
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#EFE6D6",
+      "lineWidth": 1
+    },
+    {
+      "order": 33,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3ulsj6t4",
+      "id": "33",
+      "bbox": [
+        556,
+        599,
+        122,
+        28
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "Social Worker",
+      "textPreview": "Social Worker",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#00112B",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Social Worker"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Social Worker",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#00112B",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Social Worker",
+              "fontSize": 17,
+              "color": "#00112B",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 34,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gra98rad",
+      "id": "34",
+      "bbox": [
+        304,
+        512,
+        142,
+        52
+      ],
+      "rotation": 0,
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#EFE6D6",
+      "lineWidth": 1
+    },
+    {
+      "order": 35,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hsjahwby",
+      "id": "35",
+      "bbox": [
+        314,
+        525,
+        122,
+        28
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "Broker",
+      "textPreview": "Broker",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#00112B",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Broker"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Broker",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#00112B",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Broker",
+              "fontSize": 17,
+              "color": "#00112B",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 36,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/upsr6hsn",
+      "id": "36",
+      "bbox": [
+        290,
+        638,
+        700,
+        30
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "Every partner remains essential because every connection carries a different responsibility.",
+      "textPreview": "Every partner remains essential because every connection carries a different responsibility.",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "fontSize": 18,
+        "typeface": "+mn-lt",
+        "color": "#C25400",
+        "bold": true,
+        "alignment": "center",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Every partner remains essential because every connection carries a different responsibility."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Every partner remains essential because every connection carries a different responsibility.",
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "color": "#C25400",
+            "bold": true,
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Every partner remains essential because every connection carries a different responsibility.",
+              "fontSize": 18,
+              "color": "#C25400",
+              "bold": true,
+              "alignment": "center"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 37,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fq1sfmts",
+      "id": "37",
+      "bbox": [
+        1182,
+        660,
+        42,
+        22
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "06",
+      "textPreview": "06",
+      "resolvedFontSize": 13,
+      "resolvedTextStyle": {
+        "fontSize": 13,
+        "typeface": "+mn-lt",
+        "color": "#647289",
+        "bold": true,
+        "alignment": "right",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "06"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "06",
+          "resolvedTextStyle": {
+            "fontSize": 13,
+            "color": "#647289",
+            "bold": true,
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "06",
+              "fontSize": 13,
+              "color": "#647289",
+              "bold": true,
+              "alignment": "right"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 38,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/s3a947ah",
+      "id": "38",
+      "bbox": [
+        72,
+        660,
+        500,
+        22
+      ],
+      "rotation": 0,
+      "geometry": "rect",
+      "text": "SECTION 03  /  PERSON-CENTRED NETWORK",
+      "textPreview": "SECTION 03  /  PERSON-CENTRED NETWORK",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "+mn-lt",
+        "color": "#17796F",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "SECTION 03  /  PERSON-CENTRED NETWORK"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "SECTION 03  /  PERSON-CENTRED NETWORK",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "color": "#17796F",
+            "bold": true,
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "SECTION 03  /  PERSON-CENTRED NETWORK",
+              "fontSize": 12,
+              "color": "#17796F",
+              "bold": true,
+              "alignment": "left"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

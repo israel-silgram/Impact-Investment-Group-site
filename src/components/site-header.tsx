@@ -28,8 +28,19 @@ export function SiteHeader() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const panelRef = React.useRef<HTMLDivElement | null>(null);
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
+  const partnersCloseTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [overLight, setOverLight] = React.useState(false);
+
+  const openPartnersMenu = () => {
+    if (partnersCloseTimerRef.current) clearTimeout(partnersCloseTimerRef.current);
+    setPartnersOpen(true);
+  };
+
+  const schedulePartnersMenuClose = () => {
+    if (partnersCloseTimerRef.current) clearTimeout(partnersCloseTimerRef.current);
+    partnersCloseTimerRef.current = setTimeout(() => setPartnersOpen(false), 220);
+  };
 
   React.useEffect(() => {
     const onScroll = () => {
@@ -55,6 +66,13 @@ export function SiteHeader() {
     setPartnersOpen(false);
     setMobilePartnersOpen(false);
   }, [pathname]);
+
+  React.useEffect(
+    () => () => {
+      if (partnersCloseTimerRef.current) clearTimeout(partnersCloseTimerRef.current);
+    },
+    [],
+  );
 
   // Focus trap + escape while the overlay is open.
   React.useEffect(() => {
@@ -112,18 +130,22 @@ export function SiteHeader() {
           <Logo variant="on-navy" />
         </Link>
 
-        <nav aria-label="Main" className="hidden xl:block">
-          <ul className="flex items-center gap-7">
+        <nav aria-label="Main" className="hidden self-stretch xl:block">
+          <ul className="flex h-full items-center gap-7">
             {primaryNav.map((item) => (
               <React.Fragment key={item.to}>
                 {item.to === "/contact" ? (
-                  <li>
-                    <DropdownMenu open={partnersOpen} onOpenChange={setPartnersOpen}>
+                  <li
+                    className="flex h-full items-center"
+                    onMouseEnter={openPartnersMenu}
+                    onMouseLeave={schedulePartnersMenuClose}
+                  >
+                    <DropdownMenu modal={false} open={partnersOpen} onOpenChange={setPartnersOpen}>
                       <DropdownMenuTrigger asChild>
                         <button
                           type="button"
                           className={cn(
-                            "nav-link inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200",
+                            "nav-link inline-flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200",
                             pathname.startsWith("/partner-with-") && "text-orange-500",
                           )}
                         >
@@ -138,22 +160,24 @@ export function SiteHeader() {
                         </button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
-                        align="center"
-                        sideOffset={10}
-                        className="w-[300px] rounded-2xl border-navy-600 bg-navy-900 p-2 text-white shadow-[0_24px_70px_rgba(0,0,0,0.38)]"
+                        align="start"
+                        sideOffset={0}
+                        onMouseEnter={openPartnersMenu}
+                        onMouseLeave={schedulePartnersMenuClose}
+                className="w-[310px] rounded-none border-x border-b border-t-0 border-navy-600 bg-navy-950 p-2 text-white shadow-[0_26px_55px_rgba(0,0,0,0.34)]"
                       >
-                        <p className="px-3 pb-2 pt-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-teal-400">
+                        <p className="border-b border-navy-700 px-3 pb-3 pt-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-teal-400">
                           Choose your role
                         </p>
                         {partnerProfiles.map((partner, index) => (
                           <DropdownMenuItem
                             key={partner.id}
                             asChild
-                            className="cursor-pointer rounded-xl p-0 focus:bg-navy-700 focus:text-white"
+                            className="cursor-pointer rounded-lg p-0 focus:bg-navy-800 focus:text-white"
                           >
                             <Link
                               to={partner.path}
-                              className="flex w-full items-center gap-3 px-3 py-2.5"
+                              className="flex w-full items-center gap-3 px-3 py-2"
                             >
                               <span className="font-mono text-[10px] text-orange-500">
                                 {String(index + 1).padStart(2, "0")}
