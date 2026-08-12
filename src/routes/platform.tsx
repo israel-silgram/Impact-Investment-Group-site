@@ -543,10 +543,10 @@ function LivingComic() {
   const [activeId, setActiveId] = React.useState(DEFAULT_WORKFLOW_STEP.id);
 
   return (
-    <div className="relative">
+    <div className="relative font-sans">
       <div className="relative">
-        <p className="eyebrow tracking-[0.16em] text-teal-400">The platform story</p>
-        <h2 id="living-comic-heading" className="heading-tight mt-2 font-heading text-[clamp(2.3rem,5vw,4.6rem)] font-medium text-white">
+        <p className="text-[0.72rem] font-medium uppercase tracking-[0.17em] text-teal-400">The platform story</p>
+        <h2 id="living-comic-heading" className="mt-2 font-sans text-[clamp(2.3rem,5vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.04em] text-white">
           Not a pop-up. <span className="text-teal-400">A living comic.</span>
         </h2>
 
@@ -580,10 +580,10 @@ function LivingComic() {
                 )}
               >
                 <span aria-hidden="true" className={cn("absolute inset-[-30%] animate-spin bg-[repeating-conic-gradient(from_0deg,rgba(255,107,0,0.16)_0deg_7deg,transparent_7deg_14deg)] [animation-duration:34s] motion-reduce:animate-none", index === 1 && "bg-[repeating-conic-gradient(from_0deg,rgba(255,255,255,0.10)_0deg_7deg,transparent_7deg_14deg)]", index === 2 && "bg-[repeating-conic-gradient(from_0deg,rgba(37,209,194,0.18)_0deg_7deg,transparent_7deg_14deg)]")} />
-                <span className="absolute left-4 top-4 z-3 -rotate-2 bg-white px-3 py-2 font-heading text-[12px] font-extrabold text-navy-900 shadow-[6px_6px_0_var(--color-orange-600)] sm:text-[14px]">{step.claim.toUpperCase()}</span>
+                <span className="absolute left-4 top-4 z-3 -rotate-2 bg-white px-3 py-2 font-sans text-[12px] font-bold text-navy-900 shadow-[6px_6px_0_var(--color-orange-600)] sm:text-[14px]">{step.claim.toUpperCase()}</span>
                 <img src={PORTAL_ART[key]} alt="" aria-hidden="true" className={cn("absolute bottom-[-10px] right-[-18%] h-[88%] w-[116%] max-w-none object-contain drop-shadow-[0_16px_24px_rgba(0,0,0,0.28)] transition-[right,transform] duration-500", active && "right-[-3%] scale-[1.04]")} />
                 <span className={cn("absolute inset-x-4 bottom-4 z-3 rounded-[20px] border-[3px] border-navy-900 bg-white p-4 text-center text-[13px] leading-relaxed text-navy-900 transition-[opacity,transform] duration-500 sm:p-5 sm:text-[14px]", active ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-7 opacity-0")}>
-                  <strong className="mb-1.5 block font-heading text-[15px]">“{quote}”</strong>{expandedCopy}
+                  <strong className="mb-1.5 block font-sans text-[15px] font-bold">“{quote}”</strong>{expandedCopy}
                 </span>
               </button>
             );
