@@ -77,6 +77,7 @@ function TheProblemPage() {
 
       {problemSections.map((section, i) => {
         const portrait = section.character ? PORTRAIT[section.character] : undefined;
+        const light = i === 1;
         /* Left on the first character section, right on the last — the
            alternation is what gives the page its rhythm. */
         const onLeft = i % 2 === 0;
@@ -87,7 +88,7 @@ function TheProblemPage() {
             aria-labelledby={`${section.id}-heading`}
             className={cn(
               "relative overflow-hidden border-t border-navy-700",
-              section.light ? "section-light" : "bg-navy-900",
+              light ? "section-light" : "bg-navy-900",
             )}
           >
             <div className="mx-auto w-full max-w-[1200px] px-5 py-14 sm:px-8 lg:py-16">
@@ -117,7 +118,7 @@ function TheProblemPage() {
                     <p
                       className={cn(
                         "eyebrow tracking-[0.14em]",
-                        section.light ? "text-orange-700" : "text-teal-400",
+                        light ? "text-orange-700" : "text-teal-400",
                       )}
                     >
                       {section.eyebrow}
@@ -132,7 +133,7 @@ function TheProblemPage() {
                       aria-hidden="true"
                       className={cn(
                         "mt-3 font-heading text-[clamp(2.75rem,6.6vw,5rem)] font-extrabold leading-[0.94] tracking-[-0.035em]",
-                        section.light ? "text-orange-700" : "text-teal-400",
+                        light ? "text-orange-700" : "text-teal-400",
                       )}
                     >
                       {section.headline}
@@ -159,7 +160,7 @@ function TheProblemPage() {
                             <p
                               className={cn(
                                 "shrink-0 font-heading text-[19px] font-extrabold",
-                                section.light ? "text-navy-900" : "text-teal-400",
+                                light ? "text-navy-900" : "text-teal-400",
                               )}
                             >
                               {r.value}

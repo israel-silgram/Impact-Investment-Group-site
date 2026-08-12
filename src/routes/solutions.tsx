@@ -111,7 +111,7 @@ function SolutionsPage() {
             id="layers-heading"
             className="heading-tight mt-2.5 max-w-[22ch] text-balance text-[clamp(1.625rem,3.8vw,2.75rem)] font-extrabold tracking-[-0.02em] text-white"
           >
-            A deal has <span className="text-orange-500">five layers</span>. We hold all of them.
+            A workable deal has <span className="text-orange-500">five layers</span>. We keep them connected.
           </h2>
 
           <div className="mt-4 grid items-center gap-7 lg:grid-cols-[minmax(0,1fr)_200px]">
@@ -165,7 +165,7 @@ function SolutionsPage() {
             id="owners-heading"
             className="heading-tight mt-2.5 max-w-[24ch] text-balance text-[clamp(1.625rem,3.8vw,2.75rem)] font-extrabold tracking-[-0.02em] text-white"
           >
-            Eight sides. <span className="text-orange-700">One job each.</span>
+            Eight partners. <span className="text-orange-700">Clear responsibilities.</span>
           </h2>
 
           <div className="mt-6 grid items-center gap-7 lg:grid-cols-[260px_minmax(0,1fr)]">

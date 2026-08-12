@@ -15,7 +15,7 @@ export type Seg = string | { t: string; em: "ink" | "accent" };
 export const servicesHero = {
   eyebrow: "Our services",
   title: "Find it, price it, prove it.",
-  lead: "One platform, end to end.",
+  lead: "One platform, from search to supported home.",
   summary: [
     "We source UK residential property, price every home against ",
     { t: "named public data", em: "ink" as const },
@@ -37,21 +37,21 @@ export const steps = [
     id: "search",
     image: "/images/steps/search.webp",
     name: "Search",
-    body: "Describe the home you want in plain words. Matches, map and area demand answer side by side.",
+    body: "Describe the home you need in plain English. See matching properties, the map and local demand side by side.",
     accent: "teal" as const,
   },
   {
     id: "assess",
     image: "/images/steps/assess.webp",
     name: "Assess",
-    body: "Every home carries its numbers in the open — each one sourced, marked an estimate, or left blank.",
+    body: "See the numbers behind every home. Each figure is sourced, labelled as an estimate or left blank.",
     accent: "orange" as const,
   },
   {
     id: "reserve",
     image: "/images/steps/reserve.webp",
     name: "Reserve",
-    body: "Move on a home through the platform. Enquiry, paperwork and progress stay in one place.",
+    body: "Enquire about a home and keep the paperwork, updates and next steps together.",
     accent: "white" as const,
   },
   {
@@ -83,7 +83,7 @@ export const steps = [
  */
 export const toolsEyebrow = "The platform, live";
 export const toolsHeading = "Find it. Price it. Prove it.";
-export const toolsLead = "Three analysts on every deal, inside one platform.";
+export const toolsLead = "Three analysts working together on every deal.";
 
 export interface WorkflowStep {
   id: string;
@@ -102,7 +102,7 @@ export const workflow: WorkflowStep[] = [
     id: "petra",
     portrait: "/images/ai-team/petra.webp",
     claim: "Petra finds it.",
-    body: "Describe the home in plain English. She searches the whole sourced market.",
+    body: "Describe the home you need. Petra searches the whole sourced market for the closest fit.",
     chip: "Property Finder",
     accent: "teal",
     // was: "Scans the sourced market for homes that fit your brief."
@@ -111,7 +111,7 @@ export const workflow: WorkflowStep[] = [
     id: "peter",
     portrait: "/images/ai-team/peter.webp",
     claim: "Peter prices it.",
-    body: "Valuation and cost work, run on named public data.",
+    body: "Peter checks valuations and costs against named public data.",
     chip: "Every figure traceable",
     accent: "orange",
     // was: "Runs the valuation and cost work on named public data."
@@ -120,7 +120,7 @@ export const workflow: WorkflowStep[] = [
     id: "pippa",
     portrait: "/images/ai-team/pippa.webp",
     claim: "Pippa proves it.",
-    body: "Scores the social impact of every home the platform offers.",
+    body: "Pippa scores the social impact of every home and makes the result easy to understand.",
     chip: "Impact score",
     accent: "teal",
     // was: "Scores the social impact of every home the platform offers."
@@ -137,7 +137,7 @@ export const workflow: WorkflowStep[] = [
  * under the trio rather than inside it.
  */
 export const workflowFooter =
-  "All three read the same Demand Map — where supported housing is needed, town by town. Public figures first, estimates labelled, blanks left honest.";
+  "All three use the same Demand Map to see where supported housing is needed, town by town. Public figures come first, estimates are labelled and unknowns stay blank.";
 
 /** Not optional. The trio is analysis, and the page has to say so. */
 export const aiTeamNote =
@@ -145,7 +145,7 @@ export const aiTeamNote =
 
 export const differenceHeading = "Longer is not always stronger.";
 export const differenceLead =
-  "The sector learnt that a long lease cannot make supported housing sustainable on its own. The model around it needs evidence, accountability and room to respond when conditions change.";
+  "The sector has learnt that a long lease alone cannot make supported housing sustainable. It also takes evidence, clear accountability and the freedom to respond when circumstances change.";
 export const compareUpdated = "Updated 2 June 2026";
 
 export const differenceStory = [
@@ -154,11 +154,11 @@ export const differenceStory = [
     number: "01",
     eyebrow: "The past failures",
     title: "Long leases were treated as proof of security.",
-    body: "Rigid commitments could outlast the demand, funding and operating assumptions they were built on. When circumstances changed, the model had little room to respond.",
+    body: "Long commitments could outlast the demand, funding and working assumptions behind them. When circumstances changed, there was little room to respond.",
     points: [
-      "Property secured before local demand was properly evidenced",
-      "Housing, care and asset management working in separate silos",
-      "Risk pushed forward instead of reviewed as conditions changed",
+      "Homes secured before local demand was properly evidenced",
+      "Housing, care and asset management working separately",
+      "Risk carried forward instead of reviewed as conditions changed",
     ],
     tone: "orange" as const,
   },
@@ -167,11 +167,11 @@ export const differenceStory = [
     number: "02",
     eyebrow: "The lessons learnt",
     title: "A lease only works when the model around it works.",
-    body: "Supported housing changes with local need, public funding, regulation and the people being housed. Sustainable delivery depends on planned review points and shared accountability.",
+    body: "Local need, public funding, regulation and people's circumstances all change. A sustainable model needs regular reviews and shared responsibility.",
     points: [
-      "Start with evidenced need, not an available property",
-      "Connect the investor, leaseholder, provider and care team",
-      "Test the model regularly rather than relying on old assumptions",
+      "Start with evidence of need, not simply an available property",
+      "Keep the investor, leaseholder, provider and care team connected",
+      "Review the model regularly instead of relying on old assumptions",
     ],
     tone: "white" as const,
   },
@@ -180,11 +180,11 @@ export const differenceStory = [
     number: "03",
     eyebrow: "Our sustainable solution",
     title: "Five-year leases create room to adapt responsibly.",
-    body: "Our five-year structure creates a natural review window for political, funding and economic change—without losing sight of the stability a home and its residents need.",
+    body: "Our five-year structure creates a clear point to review political, funding and economic change, while protecting the stability residents need from their home.",
     points: [
-      "Revalidate demand before extending the commitment",
+      "Check the evidence of demand before renewing",
       "Respond to change without locking in avoidable risk",
-      "Carry real operating lessons into each renewal decision",
+      "Use what we have learnt to make each renewal decision",
     ],
     tone: "teal" as const,
   },
@@ -215,17 +215,17 @@ export const sustainabilityPrinciples = [
   {
     id: "agility",
     title: "Agility",
-    detail: "The model can respond when commissioning, funding or local demand changes.",
+    detail: "We can respond when commissioning, funding or local demand changes.",
   },
   {
     id: "risk",
     title: "Risk mitigation",
-    detail: "Evidence and operating performance are reviewed before risk is carried forward.",
+    detail: "We review the evidence and performance before carrying risk forward.",
   },
   {
     id: "resilience",
     title: "Long-term resilience",
-    detail: "Renewal is an informed decision—not an assumption made decades earlier.",
+    detail: "Each renewal is a fresh, informed decision—not an assumption made decades earlier.",
   },
 ];
 
@@ -269,7 +269,7 @@ export const servicesClose = {
    * carries the consequence. Both halves survive, neither is cramped.
    */
   cta: "Register for Access",
-  ctaNote: "Registering puts you in the queue for platform access.",
+  ctaNote: "Register to join the queue for platform access.",
 };
 
 /** Capital-at-risk wording, verbatim from the old page. Never shortened. */

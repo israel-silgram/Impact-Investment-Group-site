@@ -63,13 +63,13 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Who we are, why we exist, what we do and why partner with us — a national property and housing ecosystem connecting investors, landlords and developers with councils, housing associations and care and support organisations.",
+          "Meet the team connecting investors, landlords and developers with councils, housing associations and care and support organisations across the UK.",
       },
       { property: "og:title", content: "About Us — The Impact Investment Platform" },
       {
         property: "og:description",
         content:
-          "Connecting property, investment and housing demand to transform lives. Our purpose, our ecosystem, our group structure and how a partnership starts.",
+          "Meet our team, understand why we exist and see how our housing, investment, care and support network works.",
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/about" },
@@ -328,24 +328,10 @@ function Summary({
 function AboutPage() {
   return (
     <main>
-      {/*
-       * ── 1 · Who We Are + the team ── cream ─────────────────────────────
-       *
-       * TWO COLUMNS, NOT THREE BLOCKS. This used to be copy + an AI-generated
-       * meeting photograph, and then the team as a separate full-width block
-       * underneath — three things stacked, and the illustrative photograph was
-       * the least true of them.
-       *
-       * The photograph is gone. All five leaders now sit at the same hierarchy
-       * in the left column, with Israel first above Maria. The old feature-card
-       * slot on the right carries collective skills and experience instead.
-       * On narrow screens the team stays together before the capability panel.
-       */}
+      {/* ── 1 · Who We Are + the team ── navy ────────────────────────────── */}
       <Band id="about-heading">
-        <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)] lg:items-stretch lg:gap-10">
-          {/* Explicit grid placement keeps the desktop composition without
-              splitting the five-person team in the mobile reading order. */}
-          <Reveal className="lg:col-start-1 lg:row-start-1">
+        <div className="relative">
+          <Reveal>
             <Head
               eyebrow={whoWeAre.eyebrow}
               title={whoWeAre.title}
@@ -356,93 +342,88 @@ function AboutPage() {
             <Summary lines={summaries.whoWeAre!} tone="teal" />
           </Reveal>
 
-          {/* One column, not two. Israel is deliberately the first equal row,
-              not a separate feature card, so all five leaders share one clear
-              hierarchy.
-
-              NO WIDTH CAP. They deliberately run the full width of the column,
-              right up to the grid gap beside the capability panel, so the
-              block reads as one team rather than a narrow list floating in the
-              section. */}
-          <div className="lg:col-start-1 lg:row-start-2">
+          <div className="mt-9">
             <p className="eyebrow tracking-[0.14em] text-teal-400">{teamTitle}</p>
-            <ul className="mt-3.5 flex flex-col gap-2.5">
+            <ul
+              aria-label="Leadership team"
+              className="mt-3.5 grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5"
+            >
               {team.map((member, i) => (
-                <Reveal key={member.name} index={i} as="li">
-                  <DirectorCard director={member} variant="row" />
+                <Reveal key={member.name} index={i} as="li" className="h-full">
+                  <DirectorCard director={member} variant="vertical" />
                 </Reveal>
               ))}
             </ul>
           </div>
 
-          <Reveal
-            index={1}
-            className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:flex lg:h-full lg:flex-col lg:justify-center"
-          >
-            <div className="flex w-full flex-col items-center">
+          <Reveal index={2} className="mt-[18px]">
+            <aside
+              aria-labelledby="leadership-capability-heading"
+              className={cn(
+                "section-light relative min-h-[326px] overflow-hidden rounded-[20px] bg-cream-card",
+                "border border-white/60 shadow-[0_22px_52px_rgba(0,7,20,0.23)]",
+              )}
+            >
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-[5px] bg-[linear-gradient(90deg,var(--color-orange-600)_0_18%,var(--color-teal-400)_18%_100%)]"
+              />
               <img
                 src="/images/ai-team/collective-capability-team.png"
                 alt="Three illustrated members of the Impact Investment Group team"
                 width={935}
                 height={559}
-                className="mb-3 h-auto w-full max-w-[310px] object-contain drop-shadow-[0_12px_18px_rgba(0,17,43,0.16)]"
+                loading="lazy"
+                className="pointer-events-none absolute bottom-[-6px] left-3 w-[min(300px,28%)] select-none object-contain drop-shadow-[0_16px_16px_rgba(7,26,51,0.16)] max-md:w-[270px] max-md:max-w-[78%]"
               />
-              <aside
-                aria-labelledby="leadership-capability-heading"
-                className={cn(
-                  "section-light relative flex w-full flex-col overflow-hidden rounded-2xl bg-cream-card p-5",
-                  "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
-                  "shadow-[0_1px_2px_rgba(0,17,43,0.05),0_10px_30px_-18px_rgba(0,17,43,0.25)]",
-                )}
-              >
-                <span aria-hidden="true" className="absolute left-5 top-0 h-1 w-12 bg-orange-600" />
-                <p className="eyebrow mt-2 tracking-[0.14em] text-teal-600">
+              <div className="grid min-h-[326px] grid-cols-[190px_minmax(0,1fr)] gap-6 py-[30px] pl-[calc(29%+12px)] pr-7 max-md:grid-cols-1 max-md:gap-0 max-md:pb-[175px] max-md:pl-[22px] max-md:pr-[22px]">
+                <div className="flex flex-col justify-center border-r border-[color-mix(in_oklab,var(--color-navy-900)_13%,transparent)] pr-6 max-md:border-b max-md:border-r-0 max-md:pb-5 max-md:pr-0">
+                  <p className="eyebrow tracking-[0.14em] text-teal-600">
                   {leadershipCapability.eyebrow}
                 </p>
                 <h2
                   id="leadership-capability-heading"
-                  className="heading-tight mt-2 font-heading text-[24px] font-bold text-navy-900"
+                    className="heading-tight mt-2 font-heading text-[clamp(24px,3vw,34px)] font-bold text-navy-900"
                 >
                   {leadershipCapability.title}
                 </h2>
-
-                <div className="mt-4 border-y border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] py-4">
-                  <p className="font-heading text-[38px] font-extrabold leading-none tracking-[-0.03em] text-teal-600">
+                  <p className="mt-4 font-heading text-[48px] font-extrabold leading-[0.9] tracking-[-0.04em] text-teal-600">
                     {leadershipCapability.experience}
                   </p>
                   <p className="mt-2 text-[13px] font-semibold leading-snug text-navy-900">
                     {leadershipCapability.experienceLabel}
                   </p>
-                  <p className="mt-2 text-[12px] leading-relaxed text-slate-ink">
-                    {leadershipCapability.lead}
-                  </p>
                 </div>
 
-                <ol className="mt-1">
+                <ol className="grid content-center sm:grid-cols-2">
                   {leadershipCapability.impacts.map((impact, i) => (
                     <li
                       key={impact.title}
-                      className="grid grid-cols-[28px_minmax(0,1fr)] gap-3 border-b border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] py-3 last:border-b-0"
+                      className={cn(
+                        "grid min-h-[104px] grid-cols-[32px_minmax(0,1fr)] gap-3 border-b border-[color-mix(in_oklab,var(--color-navy-900)_13%,transparent)] px-[18px] py-[18px]",
+                        "sm:odd:border-r sm:[&:nth-child(n+3)]:border-b-0",
+                        "max-sm:min-h-0 max-sm:px-0 max-sm:last:border-b-0",
+                      )}
                     >
                       <span
                         aria-hidden="true"
-                        className="grid size-7 place-items-center rounded-full border border-[color-mix(in_oklab,var(--color-navy-900)_18%,transparent)] font-mono text-[10px] font-semibold text-teal-600"
+                        className="grid size-8 place-items-center rounded-full border border-teal-600/30 font-mono text-[10px] font-semibold text-teal-600"
                       >
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <div>
-                        <h3 className="font-heading text-[13.5px] font-bold text-navy-900">
+                        <h3 className="font-heading text-[15px] font-bold leading-tight text-navy-900">
                           {impact.title}
                         </h3>
-                        <p className="mt-0.5 text-[11.5px] leading-[1.45] text-slate-ink">
+                        <p className="mt-1 text-[12px] leading-[1.45] text-slate-ink">
                           {impact.body}
                         </p>
                       </div>
                     </li>
                   ))}
                 </ol>
-              </aside>
-            </div>
+              </div>
+            </aside>
           </Reveal>
         </div>
       </Band>

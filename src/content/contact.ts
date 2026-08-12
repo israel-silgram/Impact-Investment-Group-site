@@ -25,21 +25,21 @@ export const enquiryRoutes: EnquiryRoute[] = [
   {
     id: "demo",
     label: "Talk to the team",
-    subline: "A walkthrough of the platform with the team · 30 min",
+    subline: "See the platform and ask us your questions · 30 min",
     reply: "We reply within one working day",
     routedTo: "Platform team",
   },
   {
     id: "waitlist",
     label: "Register your interest",
-    subline: "Join the wait list and be first in when the platform opens",
+    subline: "Join the waitlist for platform access",
     reply: "We reply within one working day",
     routedTo: "Platform team",
   },
   {
     id: "partner",
     label: "Become a partner",
-    subline: "HAs, care providers, developers, agents",
+    subline: "Housing associations, care providers, developers and agents",
     reply: "We reply within two working days",
     routedTo: "Partnerships team",
   },
@@ -53,7 +53,7 @@ export const enquiryRoutes: EnquiryRoute[] = [
   {
     id: "media",
     label: "Media",
-    subline: "Press, interviews, factual checks",
+    subline: "Press enquiries, interviews and fact-checking",
     reply: "We reply the same working day where a deadline is given",
     routedTo: "Press office",
   },
@@ -144,7 +144,7 @@ export const registeredOffice = {
 export const whatHappensNext = [
   {
     title: "A person reads it",
-    body: "Not a bot, and not a shared inbox nobody checks.",
+    body: "Your message goes to a member of the team who can help.",
   },
   {
     title: "One working day",
@@ -152,7 +152,7 @@ export const whatHappensNext = [
   },
   {
     title: "Then a real conversation",
-    body: "No automated sequence, no drip campaign.",
+    body: "We will speak with you directly, without an automated sales sequence.",
   },
 ];
 

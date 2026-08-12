@@ -466,7 +466,7 @@ export const impactProof = {
 export const demandMapCopy = {
   eyebrow: "Live UK demand",
   title: "Visualising Housing Need Across the Nation",
-  lead: "A live demand intelligence map showing partners where housing is needed most.",
+  lead: "See where housing is needed most and where partners can respond.",
   /** Client-approved, final copy. Verbatim — do not paraphrase. */
   statements: [
     {
@@ -518,7 +518,7 @@ export const demandMapCopy = {
    * nothing else has to change.
    */
   illustrativeNote:
-    "Illustrative demonstration. The completed platform delivers detailed regional and local-authority analysis, live demand intelligence, partner connections and property matching.",
+    "Illustrative demonstration. The completed platform will provide detailed regional and local-authority analysis, live demand intelligence, partner connections and property matching.",
 };
 
 /*

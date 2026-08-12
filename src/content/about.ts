@@ -620,19 +620,19 @@ export const summaries: Record<string, Seg[][]> = {
       ".",
     ],
     [
-      "Every organisation holds part of the picture, and almost none of it connects. We bring them together, and make sure investment follows ",
+      "Every organisation holds part of the picture, but very little of it connects. We bring them together so investment follows ",
       { t: "genuine local need", em: "ink" },
       ".",
     ],
   ],
   whatWeDo: [
     [
-      "We find the demand, source the property, bring the investment, and connect housing, care and support.",
+      "We start with the demand, find the right property and bring housing, investment, care and support together.",
     ],
     [
       "Our ",
       { t: "AI platform", em: "accent" },
-      " will let partners see demand, list property and build the partnerships that deliver ",
+      " will help partners see demand, list property and form the partnerships needed to deliver ",
       { t: "more homes, faster", em: "ink" },
       ".",
     ],

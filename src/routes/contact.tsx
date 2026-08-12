@@ -73,7 +73,7 @@ export const Route = createFileRoute("/contact")({
       { property: "og:title", content: "Contact — The Impact Investment Platform" },
       {
         property: "og:description",
-        content: "One form, six routes, and the questions people ask us most.",
+        content: "Choose the right enquiry route and speak directly with the team.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/contact" },

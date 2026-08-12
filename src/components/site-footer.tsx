@@ -210,7 +210,11 @@ export function SiteFooter() {
             aria-labelledby="crisis-heading"
             className="flex flex-col gap-2.5 self-start rounded-[var(--radius-panel)] border border-[var(--color-teal-600)] bg-[var(--color-navy-900)] p-4 text-[var(--color-mist-bg)]"
           >
-            <h2 id="crisis-heading" className="flex items-center gap-2 eyebrow text-[var(--color-mist-bg)]">
+            <h2
+              id="crisis-heading"
+              className="flex items-center gap-2 eyebrow"
+              style={{ color: "#ffffff" }}
+            >
               <LifeBuoy aria-hidden="true" className="size-3.5" />
               In a crisis
             </h2>

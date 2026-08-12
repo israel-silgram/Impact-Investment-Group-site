@@ -36,7 +36,7 @@ const icon = (name?: string): LucideIcon =>
  * credential markers are orange. Everyone else's are teal. That keeps the
  * hierarchy obvious and the accent legal at the same time.
  *
- * Four shapes, one component:
+ * Five shapes, one component:
  *
  *   "portrait"  the tall card — 4:5 photograph at the top, name, role and
  *               credentials beneath. This is the one the About page uses for
@@ -44,6 +44,9 @@ const icon = (name?: string): LucideIcon =>
  *   "row"       horizontal: square photo left, name / role / credential right.
  *               Two of these side by side fit the height of one "portrait",
  *               which is the whole reason the About section now balances.
+ *   "vertical"  compact, equal-height profile used by the five-column team
+ *               line-up. It deliberately omits the longer biography so every
+ *               leader holds the same visual hierarchy.
  *   "lead"      the older full-width bar. Kept — /about no longer uses it, but
  *               it is the only shape that renders the bio inline.
  *   "member"    the older compact centred card.
@@ -57,11 +60,61 @@ export function DirectorCard({
   className,
 }: {
   director: Director;
-  variant?: "lead" | "member" | "portrait" | "row";
+  variant?: "lead" | "member" | "portrait" | "row" | "vertical";
   className?: string;
 }) {
   const orange = director.accent === "orange";
   const Icon = icon(director.icon);
+
+  if (variant === "vertical") {
+    return (
+      <article
+        className={cn(
+          "group section-light relative flex h-full min-h-[356px] flex-col items-center overflow-hidden rounded-[18px] bg-cream-card px-4 pb-5 pt-5 text-center",
+          "border border-white/70 shadow-[0_18px_42px_rgba(0,7,20,0.2)]",
+          "transition-[transform,box-shadow] duration-300 motion-reduce:transition-none",
+          "hover:-translate-y-1.5 hover:shadow-[0_26px_55px_rgba(0,7,20,0.3)]",
+          className,
+        )}
+      >
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-teal-400 to-orange-600 transition-transform duration-300 group-hover:scale-x-100 motion-reduce:transition-none"
+        />
+        {director.portrait ? (
+          <img
+            src={director.portrait}
+            alt={`${director.name}, ${director.role}`}
+            loading="lazy"
+            width={440}
+            height={440}
+            className="size-28 shrink-0 rounded-full object-cover ring-4 ring-white shadow-[0_0_0_1px_rgba(7,26,51,0.08)]"
+          />
+        ) : (
+          <span
+            aria-hidden="true"
+            className="grid size-28 shrink-0 place-items-center rounded-full bg-white font-heading text-2xl font-bold text-navy-900 ring-4 ring-white"
+          >
+            {director.initials}
+          </span>
+        )}
+        <h3 className="mt-4 font-heading text-[17px] font-bold leading-tight text-navy-900">
+          {director.name}
+        </h3>
+        <p className="mt-1 min-h-8 text-[12.5px] font-semibold leading-tight text-teal-600">
+          {director.role}
+        </p>
+        <span aria-hidden="true" className="my-3.5 h-[3px] w-9 rounded-full bg-orange-600" />
+        {director.credentials?.length ? (
+          <ul className="flex flex-col gap-2 text-[12px] leading-[1.4] text-slate-ink">
+            {director.credentials.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+        ) : null}
+      </article>
+    );
+  }
 
   /* ── The tall portrait card ─────────────────────────────────────────────
      Photo at 4:5 with no ring and no crop games: a headshot shot against a

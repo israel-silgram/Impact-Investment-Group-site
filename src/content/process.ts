@@ -31,6 +31,6 @@ export const deliverySteps: ProcessStep[] = [
     id: "support",
     icon: Users,
     title: "Support Provided",
-    description: "Provide care or support that change lives.",
+    description: "Provide care or support that changes lives.",
   },
 ];

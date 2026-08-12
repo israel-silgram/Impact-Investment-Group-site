@@ -357,7 +357,7 @@ export const solutionHero = {
   /** Split so the second half can take the accent. */
   headA: "The parts already exist.",
   headB: "Nobody joined them.",
-  lead: "Councils, providers, landlords and capital all want the same home to work. We built the one place where that can happen.",
+  lead: "Councils, providers, landlords and capital all need the same home to work. We give them one place to make it happen.",
 };
 
 export interface DealLayer {
@@ -382,7 +382,8 @@ export const dealLayers: DealLayer[] = [
   { number: "05", title: "The report", detail: "Income and impact, evidenced" },
 ];
 
-export const dealLayersKicker = "Most of the sector holds one and hopes the rest line up.";
+export const dealLayersKicker =
+  "Too often, one layer is secured and everyone is left hoping the others fall into place.";
 
 export interface LayerOwner {
   layer: string;
@@ -436,7 +437,7 @@ export const layerOwners: LayerOwner[] = [
 ];
 
 export const layerOwnersKicker =
-  "Nobody is asked to do somebody else's job — and nothing falls between two of them.";
+  "Everyone knows what they are responsible for, and every handover has a clear owner.";
 
 /**
  * The join to /platform. This is the section that says our own product is one
@@ -450,13 +451,13 @@ export const layerOwnersKicker =
  */
 export const productPitch = {
   eyebrow: "And the platform itself",
-  headA: "Our biggest solution is the",
-  headB: "product",
-  lead: "Three analysts on every deal, in one place.",
+  headA: "The platform keeps every layer",
+  headB: "connected",
+  lead: "Three analysts work together on every deal, all in one place.",
   items: [
-    { title: "Property Finder", detail: "Describe the brief, get matched homes" },
-    { title: "Demand Map", detail: "Where supported housing is needed" },
-    { title: "Impact score", detail: "On every home, not asserted at the end" },
+    { title: "Property Finder", detail: "Describe the brief and see matching homes" },
+    { title: "Demand Map", detail: "See where supported housing is needed" },
+    { title: "Impact score", detail: "Understand the potential impact of each home" },
   ],
   cta: "See Our Services",
 };

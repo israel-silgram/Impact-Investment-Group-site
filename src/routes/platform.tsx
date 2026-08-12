@@ -19,9 +19,6 @@ import {
   servicesHero,
   steps,
   sustainabilityPrinciples,
-  toolsEyebrow,
-  toolsHeading,
-  toolsLead,
   workflow,
   workflowFooter,
   type Seg,
@@ -344,6 +341,233 @@ function DifferenceStory() {
   );
 }
 
+const PORTAL_ART = {
+  petra: "/images/ai-team/petra-point.webp",
+  peter: "/images/ai-team/peter-present.webp",
+  pippa: "/images/ai-team/pippa-present.webp",
+} as const;
+
+const PORTAL_LABEL = {
+  petra: "Enter · Find",
+  peter: "Enter · Price",
+  pippa: "Enter · Prove",
+} as const;
+
+const PORTAL_ACTION = {
+  petra: "Search every sourced listing",
+  peter: "Test the full cost picture",
+  pippa: "Make the outcome visible",
+} as const;
+
+const DEFAULT_WORKFLOW_STEP = workflow[0]!;
+
+/**
+ * The approved "Character Portals" concept. Each doorway is a real button,
+ * and its expanded profile keeps the existing workflow copy and safeguards.
+ */
+function CharacterPortals() {
+  const [selectedId, setSelectedId] = React.useState<string | null>(null);
+  const selected = workflow.find((step) => step.id === selectedId) ?? null;
+
+  return (
+    <div className="relative overflow-hidden rounded-[24px] border border-navy-900/15 bg-cream-card px-4 py-8 shadow-[0_24px_60px_rgba(0,7,20,0.14)] sm:px-8 sm:py-10 lg:px-12">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-55 [background-image:linear-gradient(rgba(0,21,47,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(0,21,47,0.06)_1px,transparent_1px)] [background-size:56px_56px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 size-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-600/10 blur-[110px]"
+      />
+
+      <div className="relative z-1">
+        <p className="eyebrow tracking-[0.16em] text-teal-600">Option 4 · Character portals</p>
+        <h2
+          id="tools-heading"
+          className="heading-tight mt-2 max-w-[720px] font-heading text-[clamp(2.25rem,5vw,4.35rem)] font-bold text-navy-900"
+        >
+          Three doors into <span className="text-orange-700">one platform.</span>
+        </h2>
+        <p className="mt-3 text-[15px] text-slate-ink sm:text-[16px]">
+          Choose where you want to begin.
+        </p>
+
+        <div className="relative mt-9 min-h-[310px] sm:mt-12 sm:min-h-[390px]">
+          <ol
+            aria-label="Choose a platform guide"
+            className={cn(
+              "mx-auto grid max-w-[780px] grid-cols-3 items-end gap-2 transition-opacity duration-300 sm:gap-5 lg:gap-9",
+              selected && "pointer-events-none opacity-0",
+            )}
+          >
+            {workflow.map((step) => {
+              const id = step.id as keyof typeof PORTAL_ART;
+              return (
+                <li key={step.id}>
+                  <button
+                    type="button"
+                    aria-pressed={selectedId === step.id}
+                    aria-label={`Meet ${step.claim.split(" ")[0]} — ${PORTAL_LABEL[id]}`}
+                    onClick={() => setSelectedId(step.id)}
+                    className={cn(
+                      "group relative h-[285px] w-full overflow-hidden rounded-b-[16px] rounded-t-[999px] border-2 border-navy-900/20 bg-[radial-gradient(circle_at_50%_38%,rgba(255,255,255,0.92),var(--color-mist-bg)_68%)] p-0 text-navy-900",
+                      "transition-[transform,box-shadow,border-color] duration-500 ease-out motion-reduce:transition-none",
+                      "hover:-translate-y-3 hover:scale-[1.025] hover:border-teal-400 hover:shadow-[0_0_48px_rgba(37,209,194,0.28)]",
+                      "focus-visible:-translate-y-3 focus-visible:border-teal-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-4 focus-visible:ring-offset-cream-card",
+                      "sm:h-[350px] lg:h-[390px]",
+                      "before:absolute before:inset-[-60%] before:animate-spin before:bg-[conic-gradient(transparent,rgba(37,209,194,0.36),transparent,rgba(255,107,0,0.30),transparent)] before:[animation-duration:7s] before:content-['']",
+                      "after:absolute after:inset-2 after:rounded-[inherit] after:bg-cream-card after:content-['']",
+                    )}
+                  >
+                    <img
+                      src={PORTAL_ART[id]}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                      width={347}
+                      height={520}
+                      className="pointer-events-none absolute bottom-9 left-1/2 z-2 h-[225px] w-[122%] max-w-none -translate-x-1/2 object-contain drop-shadow-[0_14px_22px_rgba(0,0,0,0.35)] transition-transform duration-500 group-hover:-translate-y-2 group-hover:scale-[1.04] motion-reduce:transition-none sm:h-[292px] lg:h-[330px]"
+                    />
+                    <strong className="absolute inset-x-1.5 bottom-1.5 z-3 rounded-[10px] bg-white/90 px-1 py-2 font-heading text-[10px] font-semibold text-navy-900 shadow-sm sm:inset-x-2.5 sm:bottom-2.5 sm:px-2 sm:text-[14px]">
+                      {PORTAL_LABEL[id]}
+                    </strong>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+
+          {selected ? (
+            <div
+              role="dialog"
+              aria-modal="false"
+              aria-labelledby="portal-profile-heading"
+              className="absolute inset-0 z-10 grid overflow-hidden rounded-[22px] border border-teal-600/35 bg-cream-card shadow-[0_30px_70px_rgba(0,17,43,0.22)] md:grid-cols-[0.8fr_1.2fr]"
+            >
+              <div className="relative hidden overflow-hidden bg-[radial-gradient(circle,rgba(37,209,194,0.25),transparent_68%)] md:block">
+                <img
+                  src={PORTAL_ART[selected.id as keyof typeof PORTAL_ART]}
+                  alt={selected.claim.split(" ")[0]}
+                  width={347}
+                  height={520}
+                  className="absolute bottom-0 left-1/2 h-[94%] w-full -translate-x-1/2 object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)]"
+                />
+              </div>
+              <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+                <p className="eyebrow tracking-[0.14em] text-teal-600">{selected.chip}</p>
+                <h3
+                  id="portal-profile-heading"
+                  className="mt-2 font-heading text-[clamp(1.8rem,4vw,3rem)] font-bold text-navy-900"
+                >
+                  Hi, I’m {selected.claim.split(" ")[0]}.
+                </h3>
+                <p className="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-slate-ink sm:text-[17px]">
+                  {selected.body}
+                </p>
+                <p className="mt-5 font-heading text-[15px] font-bold text-navy-900 sm:text-[17px]">
+                  {PORTAL_ACTION[selected.id as keyof typeof PORTAL_ACTION]}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSelectedId(null)}
+                  className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-teal-400 px-4 py-2.5 font-heading text-[13px] font-bold text-navy-900 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white motion-reduce:transition-none"
+                >
+                  <Icons.ArrowLeft className="size-4" aria-hidden="true" />
+                  Return to the doors
+                </button>
+              </div>
+            </div>
+          ) : null}
+        </div>
+
+        <p className="mx-auto mt-8 max-w-[72ch] text-center text-[14px] leading-relaxed text-slate-ink">
+          {workflowFooter}
+        </p>
+        <p className="mx-auto mt-3 max-w-[72ch] text-center text-[12px] leading-relaxed text-slate-muted">
+          {aiTeamNote}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function MissionControl() {
+  const [activeId, setActiveId] = React.useState(DEFAULT_WORKFLOW_STEP.id);
+  const active = workflow.find((step) => step.id === activeId) ?? DEFAULT_WORKFLOW_STEP;
+  const activeKey = active.id as keyof typeof PORTAL_ART;
+
+  return (
+    <div className="relative overflow-hidden rounded-[24px] border border-navy-700 bg-navy-800 px-5 py-8 shadow-[0_30px_70px_rgba(0,7,20,0.34)] sm:px-8 lg:px-12 lg:py-10">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(37,209,194,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(37,209,194,0.08)_1px,transparent_1px)] [background-size:44px_44px]" />
+      <div className="relative">
+        <p className="eyebrow tracking-[0.16em] text-teal-400">Option 2 · Platform mission control</p>
+        <h2 id="mission-control-heading" className="heading-tight mt-2 max-w-[760px] font-heading text-[clamp(2rem,4.6vw,3.8rem)] font-bold text-white">
+          Choose a specialist. <span className="text-orange-500">Activate their tool.</span>
+        </h2>
+
+        <div className="mt-8 grid items-center gap-8 lg:grid-cols-[minmax(360px,1.05fr)_minmax(300px,0.95fr)]">
+          <div className="relative mx-auto aspect-square w-full max-w-[500px]">
+            <span aria-hidden="true" className="absolute inset-[15%] animate-spin rounded-full border border-dashed border-teal-400/50 [animation-duration:24s] motion-reduce:animate-none" />
+            <div className="absolute inset-[34%] grid place-items-center rounded-full border border-teal-400/50 bg-[radial-gradient(circle,rgba(37,209,194,0.22),var(--color-navy-800)_68%)] text-center shadow-[0_0_65px_rgba(37,209,194,0.22)]">
+              <span><strong className="block font-heading text-white">One workflow</strong><small className="text-mist">Find · Price · Prove</small></span>
+            </div>
+            {workflow.map((step, index) => {
+              const key = step.id as keyof typeof PORTAL_ART;
+              const position = index === 0 ? "left-1/2 top-0 -translate-x-1/2" : index === 1 ? "bottom-[7%] right-[1%]" : "bottom-[7%] left-[1%]";
+              return (
+                <button key={step.id} type="button" aria-pressed={activeId === step.id} onClick={() => setActiveId(step.id)} className={cn("absolute h-[132px] w-[112px] overflow-hidden rounded-[18px] border bg-navy-700/90 text-white transition duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 sm:h-[142px] sm:w-[126px]", position, activeId === step.id ? "border-teal-400 shadow-[0_0_30px_rgba(37,209,194,0.3)]" : "border-navy-600")}>
+                  <img src={PORTAL_ART[key]} alt="" aria-hidden="true" className="mx-auto h-[104px] w-full object-contain sm:h-[112px]" />
+                  <span className="font-heading text-[12px] font-bold">{step.claim.split(" ")[0]}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div aria-live="polite" className="relative min-h-[340px] overflow-hidden border border-teal-400/35 bg-[repeating-linear-gradient(0deg,rgba(37,209,194,0.035)_0_3px,transparent_3px_7px)] p-7 shadow-[inset_0_0_55px_rgba(37,209,194,0.08)]">
+            <img src={PORTAL_ART[activeKey]} alt="" aria-hidden="true" className="absolute -bottom-5 -right-7 h-[280px] opacity-25 saturate-50 drop-shadow-[0_0_18px_rgba(37,209,194,0.7)]" />
+            <p className="relative eyebrow tracking-[0.14em] text-teal-400">{active.chip}</p>
+            <h3 className="relative mt-3 max-w-[12ch] font-heading text-[clamp(1.8rem,3.5vw,2.5rem)] font-bold text-white">Hi, I’m {active.claim.split(" ")[0]}.</h3>
+            <p className="relative mt-4 max-w-[31ch] text-[15px] leading-relaxed text-mist">{active.body}</p>
+            <p className="relative mt-5 inline-flex border border-teal-400/40 px-3 py-2 text-[13px] text-teal-400">Tool online · <strong className="ml-1">{PORTAL_ACTION[activeKey]}</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LivingComic() {
+  const [activeId, setActiveId] = React.useState(DEFAULT_WORKFLOW_STEP.id);
+
+  return (
+    <div className="relative overflow-hidden rounded-[24px] border border-navy-900/15 bg-cream-card px-4 py-8 shadow-[0_24px_60px_rgba(0,7,20,0.14)] sm:px-8 lg:px-12 lg:py-10">
+      <p className="eyebrow tracking-[0.16em] text-teal-600">Option 3 · Living comic</p>
+      <h2 id="living-comic-heading" className="heading-tight mt-2 font-heading text-[clamp(2rem,4.6vw,3.8rem)] font-bold text-navy-900">
+        Not a pop-up. <span className="text-teal-600">A living comic.</span>
+      </h2>
+      <p className="mt-3 text-[15px] text-slate-ink">Choose a panel and let the character take over the story.</p>
+
+      <div className="mt-8 grid min-h-[470px] grid-cols-1 gap-3 md:grid-cols-3">
+        {workflow.map((step, index) => {
+          const key = step.id as keyof typeof PORTAL_ART;
+          const active = activeId === step.id;
+          const quote = index === 0 ? "Tell me what home you need." : index === 1 ? "Now let’s test the numbers." : "What difference will this home make?";
+          return (
+            <button key={step.id} type="button" aria-pressed={active} onClick={() => setActiveId(step.id)} className={cn("group relative min-h-[360px] overflow-hidden border-[3px] border-navy-900 bg-navy-800 text-left transition-[flex,transform,filter] duration-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-600/45 md:min-h-[470px]", active ? "md:col-span-1 md:brightness-110" : "hover:brightness-110")}>
+              <span aria-hidden="true" className={cn("absolute inset-[-25%] animate-spin bg-[repeating-conic-gradient(from_0deg,rgba(255,107,0,0.14)_0deg_7deg,transparent_7deg_14deg)] [animation-duration:34s] motion-reduce:animate-none", index === 1 && "bg-[repeating-conic-gradient(from_0deg,rgba(255,255,255,0.08)_0deg_7deg,transparent_7deg_14deg)]", index === 2 && "bg-[repeating-conic-gradient(from_0deg,rgba(37,209,194,0.14)_0deg_7deg,transparent_7deg_14deg)]")} />
+              <span className="absolute left-4 top-4 z-3 bg-white px-3 py-2 font-heading text-[12px] font-extrabold text-navy-900 shadow-[5px_5px_0_var(--color-orange-600)] sm:text-[14px]">{step.claim.toUpperCase()}</span>
+              <img src={PORTAL_ART[key]} alt="" aria-hidden="true" className={cn("absolute bottom-0 right-[-8%] h-[86%] w-[108%] object-contain transition duration-500", active && "scale-105")} />
+              <span className={cn("absolute inset-x-4 bottom-4 z-3 rounded-[18px] border-[3px] border-navy-900 bg-white p-4 text-[13px] leading-relaxed text-navy-900 transition duration-500", active ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100")}>
+                <strong className="mb-1 block font-heading text-[15px]">“{quote}”</strong>{step.body}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function ServicesPage() {
   return (
     <main>
@@ -459,69 +683,18 @@ function ServicesPage() {
        * short — do not shrink any of it to fit something else in.
        */}
       <Band id="tools-heading" light>
-        <Head eyebrow={toolsEyebrow} title={toolsHeading} id="tools-heading" tone="rust" />
-        <p className="mt-3 max-w-[56ch] text-[16px] leading-relaxed text-mist">{toolsLead}</p>
-
-        <ol className="mt-20 grid gap-6 md:grid-cols-3 md:gap-7">
-          {workflow.map((step, i) => {
-            const chip =
-              step.accent === "orange"
-                ? "bg-orange-600/12 text-orange-700"
-                : "bg-teal-600/12 text-teal-600";
-            return (
-              <Reveal key={step.id} index={i} as="li" className="h-full">
-                <div className="relative h-full pt-[104px]">
-                  {/* Artwork only. `alt=""` — the claim underneath says the
-                      same thing, and "cartoon of an orange-haired woman with a
-                      magnifying glass" helps nobody. */}
-                  <img
-                    src={step.portrait}
-                    alt=""
-                    aria-hidden="true"
-                    loading="lazy"
-                    width={347}
-                    height={520}
-                    className="absolute left-1/2 top-0 z-2 h-[188px] w-auto -translate-x-1/2 drop-shadow-[0_14px_26px_rgba(0,17,43,0.22)]"
-                  />
-                  <div className="panel relative flex h-full flex-col overflow-hidden px-5 pb-6 pt-[92px] text-center">
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute left-1/2 top-[84px] -translate-x-1/2 font-heading text-[86px] font-extrabold leading-none text-navy-900/5"
-                    >
-                      {i + 1}
-                    </span>
-                    <h3 className="relative font-heading text-[clamp(1.25rem,2vw,1.5rem)] font-extrabold tracking-[-0.015em] text-navy-900">
-                      {step.claim}
-                    </h3>
-                    <p className="relative mt-2.5 pb-4 text-[14px] leading-relaxed text-slate-ink">
-                      {step.body}
-                    </p>
-                    <p
-                      className={cn(
-                        "relative mx-auto mt-auto w-fit rounded-full px-3 py-1.5 font-heading text-[11px] font-extrabold uppercase tracking-[0.1em]",
-                        chip,
-                      )}
-                    >
-                      {step.chip}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            );
-          })}
-        </ol>
-
-        {/* The Demand Map is a tool, not one of the three — see the note in
-            content/services.ts for why it is named here and not on a chip. */}
-        <p className="mx-auto mt-9 max-w-[72ch] text-center text-[14px] leading-relaxed text-slate-ink">
-          {workflowFooter}
-        </p>
-        <p className="mx-auto mt-3 max-w-[72ch] text-center text-[12px] leading-relaxed text-slate-muted">
-          {aiTeamNote}
-        </p>
+        <CharacterPortals />
       </Band>
 
-      {/* ── 4 · How we differ ── navy ─────────────────────────────────────
+      <Band id="mission-control-heading">
+        <MissionControl />
+      </Band>
+
+      <Band id="living-comic-heading" light>
+        <LivingComic />
+      </Band>
+
+      {/* ── How we differ ── navy ─────────────────────────────────────────
        *
        * A three-part story replaces the old side-by-side comparison. The
        * section now moves from the sector's structural failures, through the
