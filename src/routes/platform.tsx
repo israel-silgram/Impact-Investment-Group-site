@@ -540,29 +540,53 @@ function LivingComic() {
   const [activeId, setActiveId] = React.useState(DEFAULT_WORKFLOW_STEP.id);
 
   return (
-    <div className="relative overflow-hidden rounded-[24px] border border-navy-900/15 bg-cream-card px-4 py-8 shadow-[0_24px_60px_rgba(0,7,20,0.14)] sm:px-8 lg:px-12 lg:py-10">
-      <p className="eyebrow tracking-[0.16em] text-teal-600">Option 3 · Living comic</p>
-      <h2 id="living-comic-heading" className="heading-tight mt-2 font-heading text-[clamp(2rem,4.6vw,3.8rem)] font-bold text-navy-900">
-        Not a pop-up. <span className="text-teal-600">A living comic.</span>
-      </h2>
-      <p className="mt-3 text-[15px] text-slate-ink">Choose a panel and let the character take over the story.</p>
+    <div className="relative overflow-hidden rounded-[24px] border border-navy-700 bg-navy-900 px-4 py-8 shadow-[0_32px_80px_rgba(0,7,20,0.36)] sm:px-8 lg:px-12 lg:py-10">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(37,209,194,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(37,209,194,0.08)_1px,transparent_1px)] [background-size:56px_56px]" />
+      <div className="relative">
+        <p className="eyebrow tracking-[0.16em] text-teal-400">The platform story</p>
+        <h2 id="living-comic-heading" className="heading-tight mt-2 font-heading text-[clamp(2.3rem,5vw,4.6rem)] font-medium text-white">
+          Not a pop-up. <span className="text-teal-400">A living comic.</span>
+        </h2>
 
-      <div className="mt-8 grid min-h-[470px] grid-cols-1 gap-3 md:grid-cols-3">
-        {workflow.map((step, index) => {
-          const key = step.id as keyof typeof PORTAL_ART;
-          const active = activeId === step.id;
-          const quote = index === 0 ? "Tell me what home you need." : index === 1 ? "Now let’s test the numbers." : "What difference will this home make?";
-          return (
-            <button key={step.id} type="button" aria-pressed={active} onClick={() => setActiveId(step.id)} className={cn("group relative min-h-[360px] overflow-hidden border-[3px] border-navy-900 bg-navy-800 text-left transition-[flex,transform,filter] duration-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-600/45 md:min-h-[470px]", active ? "md:col-span-1 md:brightness-110" : "hover:brightness-110")}>
-              <span aria-hidden="true" className={cn("absolute inset-[-25%] animate-spin bg-[repeating-conic-gradient(from_0deg,rgba(255,107,0,0.14)_0deg_7deg,transparent_7deg_14deg)] [animation-duration:34s] motion-reduce:animate-none", index === 1 && "bg-[repeating-conic-gradient(from_0deg,rgba(255,255,255,0.08)_0deg_7deg,transparent_7deg_14deg)]", index === 2 && "bg-[repeating-conic-gradient(from_0deg,rgba(37,209,194,0.14)_0deg_7deg,transparent_7deg_14deg)]")} />
-              <span className="absolute left-4 top-4 z-3 bg-white px-3 py-2 font-heading text-[12px] font-extrabold text-navy-900 shadow-[5px_5px_0_var(--color-orange-600)] sm:text-[14px]">{step.claim.toUpperCase()}</span>
-              <img src={PORTAL_ART[key]} alt="" aria-hidden="true" className={cn("absolute bottom-0 right-[-8%] h-[86%] w-[108%] object-contain transition duration-500", active && "scale-105")} />
-              <span className={cn("absolute inset-x-4 bottom-4 z-3 rounded-[18px] border-[3px] border-navy-900 bg-white p-4 text-[13px] leading-relaxed text-navy-900 transition duration-500", active ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100")}>
-                <strong className="mb-1 block font-heading text-[15px]">“{quote}”</strong>{step.body}
-              </span>
-            </button>
-          );
-        })}
+        <div
+          className="mt-8 grid min-h-[470px] grid-cols-1 gap-3 transition-[grid-template-columns] duration-500 ease-out md:grid-cols-[var(--comic-columns)]"
+          style={{
+            "--comic-columns": workflow
+              .map((step) => (step.id === activeId ? "1.8fr" : "0.6fr"))
+              .join(" "),
+          } as React.CSSProperties}
+        >
+          {workflow.map((step, index) => {
+            const key = step.id as keyof typeof PORTAL_ART;
+            const active = activeId === step.id;
+            const quote = index === 0 ? "Tell me what home you need." : index === 1 ? "Now let’s test the numbers." : "What difference will this home make?";
+            const expandedCopy = index === 0
+              ? "I search the sourced market and bring the closest matches into one view."
+              : index === 1
+                ? "I run valuation and cost work against named public data, with every figure traceable."
+                : "I turn the social outcome into a visible, reportable Impact Score.";
+            return (
+              <button
+                key={step.id}
+                type="button"
+                aria-pressed={active}
+                onClick={() => setActiveId(step.id)}
+                className={cn(
+                  "group relative min-h-[390px] min-w-0 overflow-hidden border-[3px] border-white bg-navy-800 text-left transition-[filter,transform] duration-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-400/55 md:min-h-[470px]",
+                  index === 0 ? "-rotate-[0.45deg]" : index === 1 ? "rotate-[0.45deg]" : "-rotate-[0.35deg]",
+                  active ? "brightness-110" : "hover:brightness-110",
+                )}
+              >
+                <span aria-hidden="true" className={cn("absolute inset-[-30%] animate-spin bg-[repeating-conic-gradient(from_0deg,rgba(255,107,0,0.16)_0deg_7deg,transparent_7deg_14deg)] [animation-duration:34s] motion-reduce:animate-none", index === 1 && "bg-[repeating-conic-gradient(from_0deg,rgba(255,255,255,0.10)_0deg_7deg,transparent_7deg_14deg)]", index === 2 && "bg-[repeating-conic-gradient(from_0deg,rgba(37,209,194,0.18)_0deg_7deg,transparent_7deg_14deg)]")} />
+                <span className="absolute left-4 top-4 z-3 -rotate-2 bg-white px-3 py-2 font-heading text-[12px] font-extrabold text-navy-900 shadow-[6px_6px_0_var(--color-orange-600)] sm:text-[14px]">{step.claim.toUpperCase()}</span>
+                <img src={PORTAL_ART[key]} alt="" aria-hidden="true" className={cn("absolute bottom-[-10px] right-[-18%] h-[88%] w-[116%] max-w-none object-contain drop-shadow-[0_16px_24px_rgba(0,0,0,0.28)] transition-[right,transform] duration-500", active && "right-[-3%] scale-[1.04]")} />
+                <span className={cn("absolute inset-x-4 bottom-4 z-3 rounded-[20px] border-[3px] border-navy-900 bg-white p-4 text-center text-[13px] leading-relaxed text-navy-900 transition-[opacity,transform] duration-500 sm:p-5 sm:text-[14px]", active ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-7 opacity-0")}>
+                  <strong className="mb-1.5 block font-heading text-[15px]">“{quote}”</strong>{expandedCopy}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -690,7 +714,7 @@ function ServicesPage() {
         <MissionControl />
       </Band>
 
-      <Band id="living-comic-heading" light>
+      <Band id="living-comic-heading">
         <LivingComic />
       </Band>
 
