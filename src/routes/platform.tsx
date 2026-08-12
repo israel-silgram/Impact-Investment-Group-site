@@ -107,18 +107,31 @@ function Rich({ parts, tone }: { parts: Seg[]; tone: "rust" | "teal" }) {
 function Band({
   id,
   light,
+  grid,
   children,
 }: {
   id: string;
   light?: boolean;
+  grid?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <section
       aria-labelledby={id}
-      className={cn("border-t border-navy-700", light ? "section-light" : "bg-navy-900")}
+      className={cn(
+        "relative overflow-hidden border-t border-navy-700",
+        light ? "section-light" : "bg-navy-900",
+      )}
     >
-      <div className="mx-auto w-full max-w-[1200px] px-5 py-12 sm:px-8 lg:py-14">{children}</div>
+      {grid ? (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(37,209,194,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(37,209,194,0.08)_1px,transparent_1px)] [background-size:56px_56px]"
+        />
+      ) : null}
+      <div className="relative mx-auto w-full max-w-[1200px] px-5 py-12 sm:px-8 lg:py-14">
+        {children}
+      </div>
     </section>
   );
 }
@@ -370,25 +383,16 @@ function CharacterPortals() {
   const selected = workflow.find((step) => step.id === selectedId) ?? null;
 
   return (
-    <div className="relative overflow-hidden rounded-[24px] border border-navy-900/15 bg-cream-card px-4 py-8 shadow-[0_24px_60px_rgba(0,7,20,0.14)] sm:px-8 sm:py-10 lg:px-12">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-55 [background-image:linear-gradient(rgba(0,21,47,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(0,21,47,0.06)_1px,transparent_1px)] [background-size:56px_56px]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 size-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-600/10 blur-[110px]"
-      />
-
+    <div className="relative">
       <div className="relative z-1">
-        <p className="eyebrow tracking-[0.16em] text-teal-600">Option 4 · Character portals</p>
+        <p className="eyebrow tracking-[0.16em] text-teal-400">Option 4 · Character portals</p>
         <h2
           id="tools-heading"
-          className="heading-tight mt-2 max-w-[720px] font-heading text-[clamp(2.25rem,5vw,4.35rem)] font-bold text-navy-900"
+          className="heading-tight mt-2 max-w-[720px] font-heading text-[clamp(2.25rem,5vw,4.35rem)] font-bold text-white"
         >
-          Three doors into <span className="text-orange-700">one platform.</span>
+          Three doors into <span className="text-orange-500">one platform.</span>
         </h2>
-        <p className="mt-3 text-[15px] text-slate-ink sm:text-[16px]">
+        <p className="mt-3 text-[15px] text-mist sm:text-[16px]">
           Choose where you want to begin.
         </p>
 
@@ -410,13 +414,13 @@ function CharacterPortals() {
                     aria-label={`Meet ${step.claim.split(" ")[0]} — ${PORTAL_LABEL[id]}`}
                     onClick={() => setSelectedId(step.id)}
                     className={cn(
-                      "group relative h-[285px] w-full overflow-hidden rounded-b-[16px] rounded-t-[999px] border-2 border-navy-900/20 bg-[radial-gradient(circle_at_50%_38%,rgba(255,255,255,0.92),var(--color-mist-bg)_68%)] p-0 text-navy-900",
+                      "group relative h-[285px] w-full overflow-hidden rounded-b-[16px] rounded-t-[999px] border-2 border-navy-600 bg-[radial-gradient(circle_at_50%_38%,rgba(37,209,194,0.20),var(--color-navy-800)_66%)] p-0 text-white",
                       "transition-[transform,box-shadow,border-color] duration-500 ease-out motion-reduce:transition-none",
                       "hover:-translate-y-3 hover:scale-[1.025] hover:border-teal-400 hover:shadow-[0_0_48px_rgba(37,209,194,0.28)]",
-                      "focus-visible:-translate-y-3 focus-visible:border-teal-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-4 focus-visible:ring-offset-cream-card",
+                      "focus-visible:-translate-y-3 focus-visible:border-teal-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-4 focus-visible:ring-offset-navy-900",
                       "sm:h-[350px] lg:h-[390px]",
                       "before:absolute before:inset-[-60%] before:animate-spin before:bg-[conic-gradient(transparent,rgba(37,209,194,0.36),transparent,rgba(255,107,0,0.30),transparent)] before:[animation-duration:7s] before:content-['']",
-                      "after:absolute after:inset-2 after:rounded-[inherit] after:bg-cream-card after:content-['']",
+                      "after:absolute after:inset-2 after:rounded-[inherit] after:bg-navy-800 after:content-['']",
                     )}
                   >
                     <img
@@ -428,7 +432,7 @@ function CharacterPortals() {
                       height={520}
                       className="pointer-events-none absolute bottom-9 left-1/2 z-2 h-[225px] w-[122%] max-w-none -translate-x-1/2 object-contain drop-shadow-[0_14px_22px_rgba(0,0,0,0.35)] transition-transform duration-500 group-hover:-translate-y-2 group-hover:scale-[1.04] motion-reduce:transition-none sm:h-[292px] lg:h-[330px]"
                     />
-                    <strong className="absolute inset-x-1.5 bottom-1.5 z-3 rounded-[10px] bg-white/90 px-1 py-2 font-heading text-[10px] font-semibold text-navy-900 shadow-sm sm:inset-x-2.5 sm:bottom-2.5 sm:px-2 sm:text-[14px]">
+                    <strong className="absolute inset-x-1.5 bottom-1.5 z-3 rounded-[10px] bg-navy-900/90 px-1 py-2 font-heading text-[10px] font-semibold text-white sm:inset-x-2.5 sm:bottom-2.5 sm:px-2 sm:text-[14px]">
                       {PORTAL_LABEL[id]}
                     </strong>
                   </button>
@@ -442,7 +446,7 @@ function CharacterPortals() {
               role="dialog"
               aria-modal="false"
               aria-labelledby="portal-profile-heading"
-              className="absolute inset-0 z-10 grid overflow-hidden rounded-[22px] border border-teal-600/35 bg-cream-card shadow-[0_30px_70px_rgba(0,17,43,0.22)] md:grid-cols-[0.8fr_1.2fr]"
+              className="absolute inset-0 z-10 grid overflow-hidden rounded-[22px] border border-teal-400/50 bg-navy-800/98 shadow-[0_35px_80px_rgba(0,0,0,0.55)] md:grid-cols-[0.8fr_1.2fr]"
             >
               <div className="relative hidden overflow-hidden bg-[radial-gradient(circle,rgba(37,209,194,0.25),transparent_68%)] md:block">
                 <img
@@ -454,17 +458,17 @@ function CharacterPortals() {
                 />
               </div>
               <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
-                <p className="eyebrow tracking-[0.14em] text-teal-600">{selected.chip}</p>
+                <p className="eyebrow tracking-[0.14em] text-teal-400">{selected.chip}</p>
                 <h3
                   id="portal-profile-heading"
-                  className="mt-2 font-heading text-[clamp(1.8rem,4vw,3rem)] font-bold text-navy-900"
+                  className="mt-2 font-heading text-[clamp(1.8rem,4vw,3rem)] font-bold text-white"
                 >
                   Hi, I’m {selected.claim.split(" ")[0]}.
                 </h3>
-                <p className="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-slate-ink sm:text-[17px]">
+                <p className="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-mist sm:text-[17px]">
                   {selected.body}
                 </p>
-                <p className="mt-5 font-heading text-[15px] font-bold text-navy-900 sm:text-[17px]">
+                <p className="mt-5 font-heading text-[15px] font-bold text-white sm:text-[17px]">
                   {PORTAL_ACTION[selected.id as keyof typeof PORTAL_ACTION]}
                 </p>
                 <button
@@ -480,7 +484,7 @@ function CharacterPortals() {
           ) : null}
         </div>
 
-        <p className="mx-auto mt-8 max-w-[72ch] text-center text-[14px] leading-relaxed text-slate-ink">
+        <p className="mx-auto mt-8 max-w-[72ch] text-center text-[14px] leading-relaxed text-mist">
           {workflowFooter}
         </p>
         <p className="mx-auto mt-3 max-w-[72ch] text-center text-[12px] leading-relaxed text-slate-muted">
@@ -497,8 +501,7 @@ function MissionControl() {
   const activeKey = active.id as keyof typeof PORTAL_ART;
 
   return (
-    <div className="relative overflow-hidden rounded-[24px] border border-navy-700 bg-navy-800 px-5 py-8 shadow-[0_30px_70px_rgba(0,7,20,0.34)] sm:px-8 lg:px-12 lg:py-10">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(37,209,194,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(37,209,194,0.08)_1px,transparent_1px)] [background-size:44px_44px]" />
+    <div className="relative">
       <div className="relative">
         <p className="eyebrow tracking-[0.16em] text-teal-400">Option 2 · Platform mission control</p>
         <h2 id="mission-control-heading" className="heading-tight mt-2 max-w-[760px] font-heading text-[clamp(2rem,4.6vw,3.8rem)] font-bold text-white">
@@ -540,8 +543,7 @@ function LivingComic() {
   const [activeId, setActiveId] = React.useState(DEFAULT_WORKFLOW_STEP.id);
 
   return (
-    <div className="relative overflow-hidden rounded-[24px] border border-navy-700 bg-navy-900 px-4 py-8 shadow-[0_32px_80px_rgba(0,7,20,0.36)] sm:px-8 lg:px-12 lg:py-10">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(37,209,194,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(37,209,194,0.08)_1px,transparent_1px)] [background-size:56px_56px]" />
+    <div className="relative">
       <div className="relative">
         <p className="eyebrow tracking-[0.16em] text-teal-400">The platform story</p>
         <h2 id="living-comic-heading" className="heading-tight mt-2 font-heading text-[clamp(2.3rem,5vw,4.6rem)] font-medium text-white">
@@ -573,7 +575,7 @@ function LivingComic() {
                 onClick={() => setActiveId(step.id)}
                 className={cn(
                   "group relative min-h-[390px] min-w-0 overflow-hidden border-[3px] border-white bg-navy-800 text-left transition-[filter,transform] duration-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-400/55 md:min-h-[470px]",
-                  index === 0 ? "-rotate-[0.45deg]" : index === 1 ? "rotate-[0.45deg]" : "-rotate-[0.35deg]",
+                  index === 0 ? "-skew-y-[1deg]" : index === 1 ? "skew-y-[1deg]" : "-skew-y-[0.75deg]",
                   active ? "brightness-110" : "hover:brightness-110",
                 )}
               >
@@ -706,15 +708,15 @@ function ServicesPage() {
        * a laptop. That is why the claim is 24px, the body 14px and the measure
        * short — do not shrink any of it to fit something else in.
        */}
-      <Band id="tools-heading" light>
+      <Band id="tools-heading" grid>
         <CharacterPortals />
       </Band>
 
-      <Band id="mission-control-heading">
+      <Band id="mission-control-heading" grid>
         <MissionControl />
       </Band>
 
-      <Band id="living-comic-heading">
+      <Band id="living-comic-heading" grid>
         <LivingComic />
       </Band>
 
