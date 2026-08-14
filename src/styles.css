@@ -575,9 +575,9 @@
    Icons and validation errors are exempt too: the first is a permitted accent,
    the second has to stay distinguishable. */
 .section-light
-  :is([class*="text-orange-4"], [class*="text-orange-5"], [class*="text-orange-6"]):not(
-    svg
-  ):not([role="alert"]) {
+  :is([class*="text-orange-4"], [class*="text-orange-5"], [class*="text-orange-6"]):not(svg):not(
+    [role="alert"]
+  ) {
   color: var(--color-navy-900);
 }
 
@@ -658,6 +658,11 @@
 .section-light .section-dark:hover {
   transform: none;
   box-shadow: var(--shadow-panel);
+}
+
+/* Investor journey panels stay navy inside the cream platform section. */
+.section-light .investor-dark-panel.investor-dark-panel {
+  background-color: var(--color-navy-900) !important;
 }
 
 .section-light .section-dark [class*="bg-navy-950"] {
@@ -1083,7 +1088,10 @@
   .hero-band {
     --hero-photo-h: clamp(12rem, calc((100svh - 28rem) / 1.19), 31rem);
     margin-inline: auto;
-    max-width: none; }  .hero-band img { max-height: clamp(13rem, calc(100svh - 31.5rem), 40rem);
+    max-width: none;
+  }
+  .hero-band img {
+    max-height: clamp(13rem, calc(100svh - 31.5rem), 40rem);
   }
 }
 
@@ -1130,10 +1138,18 @@
    routes: every use is an `mx-auto w-full` wrapper. Give a CARD max-w-[1200px]
    and it will grow on wide screens too â€” cards get their own width. */
 @media (min-width: 1700px) {
-  .max-w-\[1440px\] { max-width: 1600px; }
-  .max-w-\[1200px\] { max-width: 1320px; }
+  .max-w-\[1440px\] {
+    max-width: 1600px;
+  }
+  .max-w-\[1200px\] {
+    max-width: 1320px;
+  }
 }
 @media (min-width: 2100px) {
-  .max-w-\[1440px\] { max-width: 1760px; }
-  .max-w-\[1200px\] { max-width: 1440px; }
+  .max-w-\[1440px\] {
+    max-width: 1760px;
+  }
+  .max-w-\[1200px\] {
+    max-width: 1440px;
+  }
 }

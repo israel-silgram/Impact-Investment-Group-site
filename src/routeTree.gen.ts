@@ -22,6 +22,7 @@ import { Route as PartnerWithLocalAuthorityRouteImport } from './routes/partner-
 import { Route as PartnerWithResidentRouteImport } from './routes/partner-with-resident'
 import { Route as PartnerWithSocialWorkerRouteImport } from './routes/partner-with-social-worker'
 import { Route as PartnerWithSupportProviderRouteImport } from './routes/partner-with-support-provider'
+import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PlatformRouteImport } from './routes/platform'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SolutionsRouteImport } from './routes/solutions'
@@ -96,6 +97,11 @@ const PartnerWithSupportProviderRoute =
     path: '/partner-with-support-provider',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlatformRoute = PlatformRouteImport.update({
   id: '/platform',
   path: '/platform',
@@ -136,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/partner-with-resident': typeof PartnerWithResidentRoute
   '/partner-with-social-worker': typeof PartnerWithSocialWorkerRoute
   '/partner-with-support-provider': typeof PartnerWithSupportProviderRoute
+  '/partners': typeof PartnersRoute
   '/platform': typeof PlatformRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
@@ -156,6 +163,7 @@ export interface FileRoutesByTo {
   '/partner-with-resident': typeof PartnerWithResidentRoute
   '/partner-with-social-worker': typeof PartnerWithSocialWorkerRoute
   '/partner-with-support-provider': typeof PartnerWithSupportProviderRoute
+  '/partners': typeof PartnersRoute
   '/platform': typeof PlatformRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
@@ -177,6 +185,7 @@ export interface FileRoutesById {
   '/partner-with-resident': typeof PartnerWithResidentRoute
   '/partner-with-social-worker': typeof PartnerWithSocialWorkerRoute
   '/partner-with-support-provider': typeof PartnerWithSupportProviderRoute
+  '/partners': typeof PartnersRoute
   '/platform': typeof PlatformRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solutions': typeof SolutionsRoute
@@ -199,6 +208,7 @@ export interface FileRouteTypes {
     | '/partner-with-resident'
     | '/partner-with-social-worker'
     | '/partner-with-support-provider'
+    | '/partners'
     | '/platform'
     | '/sitemap.xml'
     | '/solutions'
@@ -219,6 +229,7 @@ export interface FileRouteTypes {
     | '/partner-with-resident'
     | '/partner-with-social-worker'
     | '/partner-with-support-provider'
+    | '/partners'
     | '/platform'
     | '/sitemap.xml'
     | '/solutions'
@@ -239,6 +250,7 @@ export interface FileRouteTypes {
     | '/partner-with-resident'
     | '/partner-with-social-worker'
     | '/partner-with-support-provider'
+    | '/partners'
     | '/platform'
     | '/sitemap.xml'
     | '/solutions'
@@ -260,6 +272,7 @@ export interface RootRouteChildren {
   PartnerWithResidentRoute: typeof PartnerWithResidentRoute
   PartnerWithSocialWorkerRoute: typeof PartnerWithSocialWorkerRoute
   PartnerWithSupportProviderRoute: typeof PartnerWithSupportProviderRoute
+  PartnersRoute: typeof PartnersRoute
   PlatformRoute: typeof PlatformRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SolutionsRoute: typeof SolutionsRoute
@@ -360,6 +373,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PartnerWithSupportProviderRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/platform': {
       id: '/platform'
       path: '/platform'
@@ -412,6 +432,7 @@ const rootRouteChildren: RootRouteChildren = {
   PartnerWithResidentRoute: PartnerWithResidentRoute,
   PartnerWithSocialWorkerRoute: PartnerWithSocialWorkerRoute,
   PartnerWithSupportProviderRoute: PartnerWithSupportProviderRoute,
+  PartnersRoute: PartnersRoute,
   PlatformRoute: PlatformRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SolutionsRoute: SolutionsRoute,

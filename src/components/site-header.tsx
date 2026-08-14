@@ -134,7 +134,7 @@ export function SiteHeader() {
           <ul className="flex h-full items-center gap-7">
             {primaryNav.map((item) => (
               <React.Fragment key={item.to}>
-                {item.to === "/contact" ? (
+                {item.to === "/partners" ? (
                   <li
                     className="flex h-full items-center"
                     onMouseEnter={openPartnersMenu}
@@ -142,11 +142,12 @@ export function SiteHeader() {
                   >
                     <DropdownMenu modal={false} open={partnersOpen} onOpenChange={setPartnersOpen}>
                       <DropdownMenuTrigger asChild>
-                        <button
-                          type="button"
+                        <Link
+                          to="/partners"
                           className={cn(
                             "nav-link inline-flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200",
-                            pathname.startsWith("/partner-with-") && "text-orange-500",
+                            (pathname === "/partners" || pathname.startsWith("/partner-with-")) &&
+                              "text-orange-500",
                           )}
                         >
                           Partners
@@ -157,23 +158,36 @@ export function SiteHeader() {
                               partnersOpen && "rotate-180",
                             )}
                           />
-                        </button>
+                        </Link>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
                         align="start"
                         sideOffset={0}
                         onMouseEnter={openPartnersMenu}
                         onMouseLeave={schedulePartnersMenuClose}
-                className="w-[310px] rounded-none border-x border-b border-t-0 border-navy-600 bg-navy-950 p-2 text-white shadow-[0_26px_55px_rgba(0,0,0,0.34)]"
+                        className="w-[310px] rounded-none border-x border-b border-t-0 border-navy-600 bg-navy-950 p-2 text-white shadow-[0_26px_55px_rgba(0,0,0,0.34)]"
                       >
                         <p className="border-b border-navy-700 px-3 pb-3 pt-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-teal-400">
                           Choose your role
                         </p>
+                        <DropdownMenuItem
+                          asChild
+                          className="cursor-pointer rounded-none p-0 text-white focus:bg-navy-800 focus:text-white"
+                        >
+                          <Link
+                            to="/partners"
+                            className="flex w-full items-center gap-3 border-b border-navy-700 px-3 py-3"
+                          >
+                            <NetworkMark />
+                            <span className="text-[14px] font-semibold">Explore the ecosystem</span>
+                            <ArrowMark />
+                          </Link>
+                        </DropdownMenuItem>
                         {partnerProfiles.map((partner, index) => (
                           <DropdownMenuItem
                             key={partner.id}
                             asChild
-                            className="cursor-pointer rounded-lg p-0 focus:bg-navy-800 focus:text-white"
+                            className="cursor-pointer rounded-none p-0 focus:bg-navy-800 focus:text-white"
                           >
                             <Link
                               to={partner.path}
@@ -191,15 +205,17 @@ export function SiteHeader() {
                     </DropdownMenu>
                   </li>
                 ) : null}
-                <li>
-                  <Link
-                    to={item.to}
-                    activeOptions={{ exact: true }}
-                    className="nav-link inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
+                {item.to !== "/partners" ? (
+                  <li>
+                    <Link
+                      to={item.to}
+                      activeOptions={{ exact: true }}
+                      className="nav-link inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ) : null}
               </React.Fragment>
             ))}
           </ul>
@@ -259,7 +275,7 @@ export function SiteHeader() {
             <ul className="flex flex-col gap-6">
               {primaryNav.map((item) => (
                 <React.Fragment key={item.to}>
-                  {item.to === "/contact" ? (
+                  {item.to === "/partners" ? (
                     <li>
                       <button
                         type="button"
@@ -268,7 +284,8 @@ export function SiteHeader() {
                         onClick={() => setMobilePartnersOpen((value) => !value)}
                         className={cn(
                           "flex w-full items-center justify-between font-heading text-[28px] font-semibold text-white",
-                          pathname.startsWith("/partner-with-") && "text-orange-500",
+                          (pathname === "/partners" || pathname.startsWith("/partner-with-")) &&
+                            "text-orange-500",
                         )}
                       >
                         Partners
@@ -285,11 +302,20 @@ export function SiteHeader() {
                           id="mobile-partner-links"
                           className="mt-4 grid gap-1 border-l border-teal-400/35 pl-4"
                         >
+                          <li>
+                            <Link
+                              to="/partners"
+                              className="flex min-h-10 items-center gap-3 rounded-none px-2 text-[15px] font-semibold text-white hover:bg-navy-800"
+                            >
+                              <NetworkMark />
+                              Explore the ecosystem
+                            </Link>
+                          </li>
                           {partnerProfiles.map((partner, index) => (
                             <li key={partner.id}>
                               <Link
                                 to={partner.path}
-                                className="flex min-h-10 items-center gap-3 rounded-lg px-2 text-[15px] font-semibold text-mist hover:bg-navy-800 hover:text-white"
+                                className="flex min-h-10 items-center gap-3 rounded-none px-2 text-[15px] font-semibold text-mist hover:bg-navy-800 hover:text-white"
                               >
                                 <span className="font-mono text-[10px] text-orange-500">
                                   {String(index + 1).padStart(2, "0")}
@@ -302,15 +328,17 @@ export function SiteHeader() {
                       ) : null}
                     </li>
                   ) : null}
-                  <li>
-                    <Link
-                      to={item.to}
-                      activeOptions={{ exact: true }}
-                      className="font-heading text-[28px] font-semibold text-white data-[status=active]:text-orange-500"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
+                  {item.to !== "/partners" ? (
+                    <li>
+                      <Link
+                        to={item.to}
+                        activeOptions={{ exact: true }}
+                        className="font-heading text-[28px] font-semibold text-white data-[status=active]:text-orange-500"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ) : null}
                 </React.Fragment>
               ))}
             </ul>
@@ -340,6 +368,17 @@ function ArrowMark() {
   return (
     <span aria-hidden="true" className="ml-auto text-[13px] text-teal-400">
       →
+    </span>
+  );
+}
+
+function NetworkMark() {
+  return (
+    <span
+      aria-hidden="true"
+      className="grid size-5 place-items-center border border-teal-400/45 text-[10px] text-teal-400"
+    >
+      10
     </span>
   );
 }
