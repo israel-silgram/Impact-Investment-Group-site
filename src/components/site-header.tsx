@@ -161,46 +161,76 @@ export function SiteHeader() {
                         </Link>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
-                        align="start"
+                        align="center"
                         sideOffset={0}
                         onMouseEnter={openPartnersMenu}
                         onMouseLeave={schedulePartnersMenuClose}
-                        className="w-[310px] rounded-none border-x border-b border-t-0 border-navy-600 bg-navy-950 p-2 text-white shadow-[0_26px_55px_rgba(0,0,0,0.34)]"
+                        className="w-[660px] rounded-none border-x border-b border-t-2 border-x-navy-600 border-b-navy-600 border-t-orange-500 bg-navy-950 p-0 text-white shadow-[0_28px_65px_rgba(0,0,0,0.42)]"
                       >
-                        <p className="border-b border-navy-700 px-3 pb-3 pt-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-teal-400">
-                          Choose your role
-                        </p>
-                        <DropdownMenuItem
-                          asChild
-                          className="cursor-pointer rounded-none p-0 text-white focus:bg-navy-800 focus:text-white"
-                        >
-                          <Link
-                            to="/partners"
-                            className="flex w-full items-center gap-3 border-b border-navy-700 px-3 py-3"
-                          >
-                            <NetworkMark />
-                            <span className="text-[14px] font-semibold">Explore the ecosystem</span>
-                            <ArrowMark />
-                          </Link>
-                        </DropdownMenuItem>
-                        {partnerProfiles.map((partner, index) => (
-                          <DropdownMenuItem
-                            key={partner.id}
-                            asChild
-                            className="cursor-pointer rounded-none p-0 focus:bg-navy-800 focus:text-white"
-                          >
-                            <Link
-                              to={partner.path}
-                              className="flex w-full items-center gap-3 px-3 py-2"
-                            >
-                              <span className="font-mono text-[10px] text-orange-500">
-                                {String(index + 1).padStart(2, "0")}
-                              </span>
-                              <span className="text-[14px] font-semibold">{partner.label}</span>
-                              <ArrowMark />
-                            </Link>
-                          </DropdownMenuItem>
-                        ))}
+                        <div className="flex items-center justify-between border-b border-navy-700 px-5 py-3.5">
+                          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-teal-400">
+                            Partners
+                          </p>
+                          <span className="font-mono text-[9px] uppercase tracking-[0.08em] text-slate-muted">
+                            10 partner pathways
+                          </span>
+                        </div>
+
+                        <div className="grid grid-cols-[250px_1fr]">
+                          <div className="flex min-h-[360px] flex-col bg-orange-500 p-6 text-navy-950">
+                            <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.13em]">
+                              One network
+                            </p>
+                            <div className="mt-auto">
+                              <p className="font-heading text-[34px] font-extrabold leading-none">
+                                Find where you fit.
+                              </p>
+                              <p className="mt-3 max-w-[25ch] text-[12px] font-medium leading-relaxed">
+                                Explore each partner pathway or start with the full ecosystem.
+                              </p>
+                              <DropdownMenuItem
+                                asChild
+                                className="mt-5 cursor-pointer rounded-none p-0 text-white focus:bg-navy-800 focus:text-white"
+                              >
+                                <Link
+                                  to="/partners"
+                                  className="group flex min-h-12 w-full items-center gap-3 bg-navy-950 px-4 py-3 text-white transition-colors hover:bg-navy-800"
+                                >
+                                  <NetworkMark />
+                                  <span className="text-[13px] font-semibold">
+                                    Explore the ecosystem
+                                  </span>
+                                  <ArrowMark />
+                                </Link>
+                              </DropdownMenuItem>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-2 content-start gap-0.5 p-3">
+                            {partnerProfiles.map((partner, index) => (
+                              <DropdownMenuItem
+                                key={partner.id}
+                                asChild
+                                className="cursor-pointer rounded-none p-0 focus:bg-navy-800 focus:text-white"
+                              >
+                                <Link
+                                  to={partner.path}
+                                  className={cn(
+                                    "group relative flex min-h-14 w-full items-center gap-2.5 px-3 py-2 text-[12px] font-semibold leading-tight text-mist transition-colors hover:bg-navy-800 hover:text-white",
+                                    pathname === partner.path &&
+                                      "bg-navy-800 text-white before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:bg-orange-500",
+                                  )}
+                                >
+                                  <span className="w-5 shrink-0 font-mono text-[9px] text-orange-500">
+                                    {String(index + 1).padStart(2, "0")}
+                                  </span>
+                                  <span>{partner.label}</span>
+                                  <ArrowMark />
+                                </Link>
+                              </DropdownMenuItem>
+                            ))}
+                          </div>
+                        </div>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </li>
