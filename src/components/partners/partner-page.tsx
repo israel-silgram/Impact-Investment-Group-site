@@ -307,10 +307,6 @@ function PartnerRoleLedger({ profile }: { profile: PartnerProfile }) {
       aria-labelledby="role-heading"
       className="relative scroll-mt-20 overflow-hidden bg-navy-900"
     >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-size-[42px_42px]"
-      />
       <div className="relative mx-auto w-full max-w-[1200px] px-5 py-16 sm:px-8 lg:py-20">
         <Reveal className="mx-auto max-w-[850px] text-center">
           <p className="eyebrow tracking-[0.14em] text-teal-400">
@@ -393,10 +389,6 @@ function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
       aria-labelledby="platform-heading"
       className="relative isolate overflow-hidden bg-navy-950"
     >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-20 bg-[linear-gradient(rgba(37,209,194,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,209,194,0.035)_1px,transparent_1px)] bg-size-[44px_44px]"
-      />
       <div
         aria-hidden="true"
         className="absolute left-1/2 top-[48%] -z-10 size-[660px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-400/5 blur-[110px]"
