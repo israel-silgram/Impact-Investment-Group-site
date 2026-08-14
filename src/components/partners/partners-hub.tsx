@@ -209,7 +209,7 @@ export function PartnersHub() {
       <section
         id="ecosystem"
         aria-labelledby="ecosystem-heading"
-        className="scroll-mt-20 border-b border-navy-600 bg-navy-900"
+        className="scroll-mt-20 bg-navy-900"
       >
         <div className="mx-auto w-full max-w-[1080px] px-5 py-14 sm:px-8 lg:py-20">
           <Reveal className="mx-auto max-w-[760px] text-center">
