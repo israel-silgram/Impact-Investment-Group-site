@@ -41,20 +41,45 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      # A CNAME in public/ means the site is served from a custom domain's
+      # root, so assets and the router take no path prefix; without one it is a
+      # project page under /<repo>/. Derived from the file rather than read off
+      # the Pages settings so the build and the domain cannot drift apart: a
+      # project-path build served at a domain root 404s every asset on it.
+      - name: Resolve base path
+        id: base
+        run: |
+          if [ -f public/CNAME ]; then
+            echo "value=/" >> "$GITHUB_OUTPUT"
+            echo "Custom domain $(cat public/CNAME) -> base path /"
+          else
+            echo "value=${{ steps.pages.outputs.base_path }}/" >> "$GITHUB_OUTPUT"
+            echo "Project page -> base path ${{ steps.pages.outputs.base_path }}/"
+          fi
+
       - run: bun install --frozen-lockfile
 
       # STATIC_BUILD switches vite.config.ts to prerender with no Nitro server.
-      # BASE_PATH is "/<repo>/" for a project site, "/" behind a custom domain.
       - name: Build static site
         env:
           STATIC_BUILD: "true"
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+          BASE_PATH: ${{ steps.base.outputs.value }}
         run: bun run build
 
       - name: Rewrite public asset paths, add 404 fallback
         env:
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+          BASE_PATH: ${{ steps.base.outputs.value }}
         run: node scripts/pages-postbuild.mjs dist/client
+
+      # GitHub strips the custom domain on every Actions deploy unless the
+      # CNAME travels in the artifact. Vite copies public/ into the output, so
+      # this asserts it arrived rather than trusting that it did.
+      - name: Verify CNAME survived into the artifact
+        run: |
+          if [ -f public/CNAME ]; then
+            test -f dist/client/CNAME || { echo "CNAME missing from dist/client"; exit 1; }
+            echo "CNAME in artifact: $(cat dist/client/CNAME)"
+          fi
 
       - uses: actions/upload-pages-artifact@v3
         with:

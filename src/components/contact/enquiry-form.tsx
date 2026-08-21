@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { CalendarClock, HandHeart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { apiUrl } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import {
   previewSlots,
@@ -144,7 +145,10 @@ export function EnquiryForm({
   const onSubmit = async (values: FormValues) => {
     setFailed(false);
     try {
-      const res = await fetch("/api/enquiry", {
+      // Cross-origin to the platform backend, NOT the local /api/enquiry file
+      // route: that route is a server handler and the GitHub Pages build ships
+      // no server, so it 404s in production. See src/lib/api.ts.
+      const res = await fetch(apiUrl("/public/enquiry"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...values, route, routedTo: config.routedTo }),
