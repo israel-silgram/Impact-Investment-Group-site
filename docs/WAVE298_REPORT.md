@@ -6,8 +6,8 @@
 **Brief:** `CLAUDE_CODE_wave298_the-site-names-its-company.md` (Callum, 9 Sep 2026, 13:40 UK)
 **Source review:** `Impact Investment Group/05-Artifacts/legal-footer-review-2026-09-09/REVIEW.md`
 **Status:** ready. `main` was not pushed, merged or rebased. Cowork lands it.
-**Gated head:** `5f5cb08`. The only commit above it is the one correcting a wave
-295 sha in section 11, which no build, lint or audit reads.
+**Gated head:** `5f5cb08`. The only commits above it edit this report, which no
+build, lint or audit reads.
 
 The platform half is wave 297 (`feat/wave297-the-footer-says-five-things`, worktree
 `../iip-uc297`). At the time this wave built, 297 had pushed its claiming commit
@@ -383,10 +383,16 @@ Run in the foreground on a frozen tree at `027ebd9`. Nothing was backgrounded an
 no watcher was armed.
 
 **This repo's lint number is not a gate, for the reason wave 295 recorded.**
-`npm run lint` reports tens of thousands of `Delete ␍` problems from
-`core.autocrlf` on Windows, which is a property of the working copy and not of
-anything committed. The meaningful measurement is **eslint over the committed
-blobs**, base against head, which is what CI and Lovable see:
+`npm run lint` reports **20,830 problems at the base commit and 21,132 here**,
+and the whole of that +302 is `Delete ␍` from `core.autocrlf` on Windows landing
+on the lines this wave added to files that are stored with CRLF. It is a property
+of the working copy, not of anything committed: the two files the wave created
+are LF and score zero. Both numbers were measured the same way, the base from a
+throwaway detached worktree of `8f15cdb` sharing this one's `node_modules`, which
+was removed afterwards.
+
+The meaningful measurement is **eslint over the committed blobs**, base against
+head, which is what CI and Lovable actually see:
 
 | File | base `8f15cdb` | head | delta |
 |---|---|---|---|
