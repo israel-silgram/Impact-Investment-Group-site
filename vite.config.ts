@@ -37,7 +37,17 @@ const registerRolePaths: string[] = (() => {
   if (start === -1) {
     throw new Error(`vite.config.ts could not find ${marker} in ${ROLES_FILE}.`);
   }
-  const ids = [...source.slice(start).matchAll(/id:\s*"([a-z0-9-]+)"/g)].map((m) => m[1]);
+  // ⚠️ BOUNDED AT THE END OF THE ARRAY, not at the end of the file. The first
+  // cut of this read to EOF and swept up `pillarCards` below it, so the
+  // prerenderer went looking for /register/homes, /register/support and
+  // /register/lives, found nothing, and retried each one before dropping it.
+  // The build still passed, which is exactly why this is written down.
+  const end = source.indexOf("\n];", start);
+  if (end === -1) {
+    throw new Error(`vite.config.ts could not find the end of ${marker} in ${ROLES_FILE}.`);
+  }
+  const block = source.slice(start, end);
+  const ids = [...block.matchAll(/id:\s*"([a-z0-9-]+)"/g)].map((m) => m[1]);
   if (ids.length === 0) {
     throw new Error(`vite.config.ts found no role ids in ${ROLES_FILE}.`);
   }
