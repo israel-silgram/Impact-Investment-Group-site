@@ -6,7 +6,8 @@ export interface NavItem {
 
 /**
  * Confirmed navigation. There is deliberately no Homepage item — the logo is
- * the home link. "Register Here" and "Log in" are chrome, not nav items, and
+ * the home link. The wait-list button and "Log in" are chrome, not nav items,
+ * and
  * live in the header itself.
  */
 export const primaryNav: NavItem[] = [
@@ -18,11 +19,22 @@ export const primaryNav: NavItem[] = [
   { label: "Contact Us", to: "/contact" },
 ];
 
-/** Where every "Register Here" action points. One destination, one label. */
+/**
+ * Where every register action points. One destination, one label.
+ *
+ * Wave 295 moved this off /contact. It used to open the contact form with the
+ * wait-list enquiry preselected, which asked a landlord and a local authority
+ * the same four questions and learned nothing from either. It now opens the
+ * wait-list flow, which asks each role its own questions.
+ *
+ * The label is drawn in four places — the header, the mobile drawer, the
+ * page shell and the footer — and it is deliberately one string, because a
+ * button that says three different things is three different buttons to the
+ * person reading the page.
+ */
 export const registerRoute = {
-  label: "Register Here",
-  to: "/contact",
-  search: { enquiry: "waitlist", type: "waitlist" },
+  label: "Register to join the waitlist",
+  to: "/register",
 } as const;
 
 export const siteName = "Impact Investment Platform";

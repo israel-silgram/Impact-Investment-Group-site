@@ -29,17 +29,38 @@
   --color-navy-700: #0a2a52;
   --color-navy-600: #143c6b;
 
-  /* Orange — the action colour.
-     500 is the approved brand amber sampled from Mock-up 1. White on it is
-     2.6:1 and FAILS, so it is only ever an icon, a fill or a headline word on
-     navy. 600 is the button fill: white on it is 3.4:1, which passes for
-     16px semibold and above. */
-  --color-orange-400: #ff7a29;
-  --color-orange-500: #ff7a29;
-  --color-orange-600: #e56600;
-  /* The only orange that reads as TEXT on cream: 4.1:1, large text only.
-     500 is 2.3:1 there and 600 is 3.0:1 — both fail. */
-  --color-orange-700: #c25400;
+  /* Orange — the action colour. THE PLATFORM'S ORANGE (wave 295).
+     The site used to carry the Mock-up 1 amber #ff7a29. It now carries the
+     terracotta the platform ships, so that a visitor who registers here and
+     signs in there sees one brand and not two.
+
+     500 and 600 are the platform's own tokens, lifted unchanged from the
+     platform repo's docs/BRAND_KIT.md:
+       --color-orange-500 = --brand-primary      fills, graphics, marks
+       --color-orange-600 = --brand-primary-ink  the fill of any text control
+     400 is the platform's light terracotta, which the kit permits on a navy
+     ground only. 700 is derived here, because the platform has no cream as
+     dark as ours and so has no token for body text on it.
+
+     ⚠ NOT #C6613F. That is the orange the platform RETIRED in wave 34, and
+     the platform's own test suite now fails the build on its reintroduction.
+     Its white ratio is 4.05:1, not the 5.3:1 sometimes quoted for it — 5.34:1
+     belongs to #AE4E30, the ink below. Measured, both of them, in
+     docs/WAVE295_REPORT.md. */
+
+  /* On navy only: 8.60:1 on navy-800, 9.55:1 on navy-900. This is the step
+     that carries SMALL orange text on a dark ground, which 500 no longer can. */
+  --color-orange-400: #f0a886;
+  /* Fills, graphics, icon glyphs and large headline words. 4.01:1 on navy-800
+     clears AA for large text and clears 1.4.11 for non-text marks. It is not a
+     small-text colour on any ground: that is 400 on navy and 700 on cream. */
+  --color-orange-500: #c15f3c;
+  /* The button fill. White on it is 5.34:1 — full AA for normal text, where
+     the old amber's #e56600 was 3.4:1 and only ever cleared large text. */
+  --color-orange-600: #ae4e30;
+  /* Orange TEXT on the cream, at body size: 5.78:1 on mist-bg, 5.25:1 on
+     cream-card, 6.50:1 on white. 500 is 3.76:1 there and 600 is 4.75:1. */
+  --color-orange-700: #9a4429;
 
   /* Teal — second accent. Muted, never neon. */
   --color-teal-400: #2fbaaa;
@@ -83,9 +104,12 @@
   --card-foreground: #ffffff;
   --popover: #041c3d;
   --popover-foreground: #ffffff;
-  --primary: #ff7a29;
-  /* White on the brand amber is 2.6:1. Anything filled with --primary carries
-     navy ink, not white. Orange-filled buttons use --color-orange-600. */
+  /* Follows --color-orange-500. */
+  --primary: #c15f3c;
+  /* Navy ink on the terracotta is 4.46:1, white on it 4.23:1, so the navy stays
+     the better of the two. Text-bearing orange controls do not use --primary
+     anyway: brand buttons fill with --color-orange-600, where the text is
+     white at 5.34:1. */
   --primary-foreground: #00112b;
   --secondary: #06302e;
   --secondary-foreground: #2fbaaa;
@@ -103,11 +127,11 @@
   --chart-1: #1e9e8f;
   --chart-2: #2fbaaa;
   --chart-3: #143c6b;
-  --chart-4: #ff7a29;
+  --chart-4: #c15f3c;
   --chart-5: #7f91ac;
   --sidebar: #041c3d;
   --sidebar-foreground: #c6d2e4;
-  --sidebar-primary: #ff7a29;
+  --sidebar-primary: #c15f3c;
   --sidebar-primary-foreground: #00112b;
   --sidebar-accent: #0a2a52;
   --sidebar-accent-foreground: #ffffff;
@@ -422,8 +446,13 @@
   &:focus-visible::after {
     transform: scaleX(1);
   }
+  /* The label, not the rule: at 15px it needs 4.5:1, and orange-500 is 4.01:1
+     on navy since wave 295 moved it to the platform's terracotta. orange-400
+     is 8.60:1. The underline above stays orange-500 — a 2px mark answers to
+     the 3:1 floor of 1.4.11, and it is what keeps the brand colour in the
+     chrome. */
   &[data-status="active"] {
-    color: var(--color-orange-500);
+    color: var(--color-orange-400);
   }
   &[data-status="active"]::after {
     transform: scaleX(1);
@@ -516,7 +545,8 @@
  * Contrast rules that must not break:
  *   slate (#647289) on the cream is 4.33:1 — fails AA for body copy.
  *   Body copy directly on the cream is therefore slate-ink (6.2:1).
- *   Orange is never text on the cream (2.3:1) — icons and fills only.
+ *   Orange 400/500/600 is never text on the cream (2.1:1, 3.76:1, 4.75:1)
+ *   — icons and fills only. orange-700 is the one that may (5.78:1).
  *   slate is only for body copy on white cards (4.87:1), plus borders,
  *   rules and small caps labels.
  *
@@ -568,10 +598,11 @@
   color: var(--color-teal-600);
 }
 
-/* The light oranges are 2.3:1 and 3.0:1 on the cream and are never text there,
-   so any 400/500/600 word that lands in a light section falls back to navy ink;
-   the accent survives as icons, borders and fills. orange-700 is deliberately
-   not listed — at 4.1:1 it is the one orange that may carry large text here.
+/* The light oranges are 2.1:1, 3.76:1 and 4.75:1 on the cream and are never
+   text there, so any 400/500/600 word that lands in a light section falls back
+   to navy ink; the accent survives as icons, borders and fills. orange-700 is
+   deliberately not listed — at 5.78:1 it is the one orange that may carry text
+   here, at body size and not only large (wave 295 moved it from 4.1:1).
    Icons and validation errors are exempt too: the first is a permitted accent,
    the second has to stay distinguishable. */
 .section-light
@@ -847,7 +878,11 @@
    opaque photographs sit and nothing has to be read through it.
 
    Worst case, measured against the brightest pixel of every row of the image:
-     white 13.3:1 · white/62 6.1:1 · orange-500 5.1:1.
+     white 13.3:1 · white/62 6.1:1 · orange-400 6.8:1.
+   The orange headline word is orange-400 and not orange-500 for exactly this
+   reason: wave 295 moved orange-500 to the platform's terracotta, which sits
+   at 3.15:1 here. That still clears the 3:1 large-text floor, but with nothing
+   left over, and this is text over a photograph.
    At 18% those were 11.8 / 5.6 / 4.5, and at 25% 9.7 / 4.9 / 3.7 — all
    passing, but the orange headline had little room left at the top end. If
    the opacity goes back up, re-measure rather than assuming. */
@@ -930,8 +965,9 @@
    that breathes outward, which is the one thing on the plate that reads as
    "press me".
 
-   White on orange-600 is 3.4:1 and only clears AA as LARGE text, which is why
-   the label is locked at 16px semibold. Do not shrink it to fit. */
+   White on orange-600 is 5.34:1 since wave 295 moved it to the platform's
+   #ae4e30, so the label now clears AA at any size. It stays locked at 16px
+   semibold anyway: it is a primary action, and it used to be 3.4:1. */
 .flip-plate-hint {
   color: var(--color-white);
 }

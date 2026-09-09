@@ -4,6 +4,8 @@
 //     nitro (build-only using cloudflare as a default target), VITE_* env injection, @ path alias,
 //     React/TanStack dedupe, error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
+import { readFileSync } from "node:fs";
+
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // GitHub Pages build. Opt-in only: set STATIC_BUILD=true (see .github/workflows/deploy.yml).
@@ -12,6 +14,25 @@ const isStaticBuild = process.env.STATIC_BUILD === "true";
 // Project pages are served from https://<user>.github.io/<repo>/, so assets and
 // the router need that prefix. Override with BASE_PATH for a custom domain.
 const basePath = process.env.BASE_PATH ?? "/";
+
+/**
+ * The ten wait-list role pages, read off the same list the site renders from.
+ *
+ * ⚠️ NOT A SECOND HAND-KEPT COPY OF THE ROLE IDS. content/audiences.ts is the
+ * one list; parsing it here means adding a role cannot leave a page that the
+ * site links to but never prerenders. It is parsed rather than imported
+ * because this config is loaded by Vite before any TypeScript path alias or
+ * transform exists, so `import ... from "@/content/audiences"` cannot resolve.
+ */
+const registerRolePaths: string[] = (() => {
+  const source = readFileSync(new URL("./src/content/audiences.ts", import.meta.url), "utf8");
+  const list = source.slice(source.indexOf("export const registerRoles"));
+  const ids = [...list.matchAll(/id:\s*"([a-z0-9-]+)"/g)].map((match) => match[1]);
+  if (ids.length === 0) {
+    throw new Error("vite.config.ts found no role ids in src/content/audiences.ts.");
+  }
+  return ids.map((id) => `/register/${id}`);
+})();
 
 export default defineConfig({
   ...(isStaticBuild
@@ -47,6 +68,15 @@ export default defineConfig({
             { path: "/platform", prerender: { enabled: true } },
             { path: "/about", prerender: { enabled: true } },
             { path: "/contact", prerender: { enabled: true } },
+            // Wave 295 — the wait list. The picker plus one page per role.
+            // crawlLinks would reach the ten role pages from the picker and
+            // from the hero anyway, but they are listed explicitly because
+            // failOnError only protects a page the prerenderer knows about:
+            // a role that fell out of the crawl would ship as a client-side
+            // route with no HTML and no error, which is exactly the failure
+            // this list exists to catch.
+            { path: "/register", prerender: { enabled: true } },
+            ...registerRolePaths.map((path) => ({ path, prerender: { enabled: true } })),
           ],
         }
       : {}),

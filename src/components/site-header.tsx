@@ -147,7 +147,7 @@ export function SiteHeader() {
                           className={cn(
                             "nav-link inline-flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200",
                             (pathname === "/partners" || pathname.startsWith("/partner-with-")) &&
-                              "text-orange-500",
+                              "text-orange-400",
                           )}
                         >
                           Partners
@@ -177,7 +177,7 @@ export function SiteHeader() {
                         </div>
 
                         <div className="grid grid-cols-[250px_1fr]">
-                          <div className="flex min-h-[360px] flex-col bg-orange-500 p-6 text-navy-950">
+                          <div className="flex min-h-[360px] flex-col bg-orange-600 p-6 text-white">
                             <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.13em]">
                               One network
                             </p>
@@ -221,7 +221,7 @@ export function SiteHeader() {
                                       "bg-navy-800 text-white before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:bg-orange-500",
                                   )}
                                 >
-                                  <span className="w-5 shrink-0 font-mono text-[9px] text-orange-500">
+                                  <span className="w-5 shrink-0 font-mono text-[9px] text-orange-400">
                                     {String(index + 1).padStart(2, "0")}
                                   </span>
                                   <span>{partner.label}</span>
@@ -253,7 +253,7 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-5 xl:flex">
           <Button variant="primary" size="sm" asChild withArrow={false}>
-            <Link to={registerRoute.to} search={registerRoute.search}>
+            <Link to={registerRoute.to}>
               {registerRoute.label}
             </Link>
           </Button>
@@ -315,7 +315,7 @@ export function SiteHeader() {
                         className={cn(
                           "flex w-full items-center justify-between font-heading text-[28px] font-semibold text-white",
                           (pathname === "/partners" || pathname.startsWith("/partner-with-")) &&
-                            "text-orange-500",
+                            "text-orange-400",
                         )}
                       >
                         Partners
@@ -347,7 +347,7 @@ export function SiteHeader() {
                                 to={partner.path}
                                 className="flex min-h-10 items-center gap-3 rounded-none px-2 text-[15px] font-semibold text-mist hover:bg-navy-800 hover:text-white"
                               >
-                                <span className="font-mono text-[10px] text-orange-500">
+                                <span className="font-mono text-[10px] text-orange-400">
                                   {String(index + 1).padStart(2, "0")}
                                 </span>
                                 {partner.label}
@@ -363,7 +363,7 @@ export function SiteHeader() {
                       <Link
                         to={item.to}
                         activeOptions={{ exact: true }}
-                        className="font-heading text-[28px] font-semibold text-white data-[status=active]:text-orange-500"
+                        className="font-heading text-[28px] font-semibold text-white data-[status=active]:text-orange-400"
                       >
                         {item.label}
                       </Link>
@@ -376,7 +376,7 @@ export function SiteHeader() {
 
           <div className="flex flex-col items-center gap-5">
             <Button variant="primary" asChild className="w-full" withArrow={false}>
-              <Link to={registerRoute.to} search={registerRoute.search}>
+              <Link to={registerRoute.to}>
                 {registerRoute.label}
               </Link>
             </Button>

@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router";
-import * as Icons from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 
+import { RoleIcon } from "@/components/register/role-icon";
 import { registerRoles } from "@/content/audiences";
+import { registerAsDivider } from "@/content/register";
 import { cn } from "@/lib/utils";
 
 /**
  * HomeHero — the approved Mock-up 1 composition: three photographs captioned
- * with the three headlines, a "Register as" divider and ten role cards. No
+ * with the three headlines, the wait-list divider and ten role cards. No
  * buttons, no statistics, no scroll indicator. The role cards are the call to
  * action.
  *
@@ -105,56 +105,6 @@ const panels = photos.map((photo) => ({
   headline: headlines.find((line) => line.id === photo.id) ?? headlines[0],
 }));
 
-/**
- * Per-role icon treatment. Base glyph is white; where the mock-up picks out a
- * detail in orange — the coin, the flag, the hearts, the handshake — that one
- * element is rendered in orange-500 and nothing else is.
- */
-const roleIcons: Record<
-  string,
-  { base: keyof typeof Icons; accent?: keyof typeof Icons; baseOrange?: boolean }
-> = {
-  investor: { base: "HandCoins", accent: "PoundSterling" },
-  landlord: { base: "House" },
-  developer: { base: "HardHat" },
-  "housing-association": { base: "House", accent: "Users" },
-  "local-authority": { base: "Landmark", accent: "Flag" },
-  "care-provider": { base: "HandHeart", accent: "Heart" },
-  "support-provider": { base: "UsersRound" },
-  "social-worker": { base: "UserRound", accent: "Heart" },
-  broker: { base: "Handshake", baseOrange: true },
-  resident: { base: "UserRound" },
-};
-
-const icon = (name?: keyof typeof Icons): LucideIcon =>
-  name ? ((Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle) : Icons.Circle;
-
-function RoleIcon({ roleId }: { roleId: string }) {
-  const spec = roleIcons[roleId] ?? { base: "Circle" as const };
-  const Base = icon(spec.base);
-  const Accent = spec.accent ? icon(spec.accent) : null;
-
-  return (
-    <span
-      aria-hidden="true"
-      className="relative grid size-12 shrink-0 place-items-center rounded-full border-[1.5px] border-white/28"
-    >
-      <Base
-        size={24}
-        strokeWidth={1.6}
-        className={spec.baseOrange ? "text-orange-500" : "text-white"}
-      />
-      {Accent ? (
-        <Accent
-          size={12}
-          strokeWidth={2}
-          className="absolute bottom-1 right-1 text-orange-500"
-        />
-      ) : null}
-    </span>
-  );
-}
-
 export function HomeHero() {
   return (
     <section
@@ -208,7 +158,10 @@ export function HomeHero() {
                 style={{ fontSize: `${HEADLINE_FILL_CQW}cqw` }}
                 className={cn(
                   "whitespace-nowrap pt-4 text-center font-heading font-extrabold leading-tight tracking-[-0.02em]",
-                  panel.headline.orange ? "text-orange-500" : "text-white",
+                  /* orange-400, not orange-500: this word is set over the
+                     ghosted street, where the terracotta measures 3.15:1
+                     against the brightest pixel. See .hero-ground. */
+                  panel.headline.orange ? "text-orange-400" : "text-white",
                 )}
               >
                 {panel.headline.text}
@@ -219,13 +172,17 @@ export function HomeHero() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 pb-6 sm:px-8">
-        {/* Row 2 — "Register as" divider */}
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <span aria-hidden="true" className="h-0.5 w-16 bg-orange-500 sm:w-[90px]" />
-          <p id="register-as" className="text-[15px] font-normal text-white">
-            Register as
+        {/* Row 2 — the wait-list divider. The rules are non-text marks, so they
+            keep orange-500 at 4.01:1 on the navy. */}
+        <div className="mt-8 flex items-center justify-center gap-3 sm:gap-4">
+          <span aria-hidden="true" className="h-0.5 w-8 shrink-0 bg-orange-500 sm:w-[90px]" />
+          <p
+            id="register-as"
+            className="text-center text-[15px] font-normal leading-snug text-white"
+          >
+            {registerAsDivider}
           </p>
-          <span aria-hidden="true" className="h-0.5 w-16 bg-orange-500 sm:w-[90px]" />
+          <span aria-hidden="true" className="h-0.5 w-8 shrink-0 bg-orange-500 sm:w-[90px]" />
         </div>
 
         {/* Row 3 — ten role cards. The card itself is now just the icon and
@@ -254,25 +211,19 @@ export function HomeHero() {
             );
             return (
               <li key={role.id} className="flex flex-col">
-                {role.target.kind === "solutions" ? (
-                  <Link
-                    to="/solutions"
-                    hash={role.target.hash}
-                    aria-describedby={detailId}
-                    className={className}
-                  >
-                    {body}
-                  </Link>
-                ) : (
-                  <Link
-                    to="/contact"
-                    search={{ enquiry: role.target.enquiry }}
-                    aria-describedby={detailId}
-                    className={className}
-                  >
-                    {body}
-                  </Link>
-                )}
+                {/* Wave 295: the tiles used to scatter — nine into anchors on
+                    /solutions and the resident's into the contact form. They
+                    now all land on the same shape of page, the one that asks
+                    this role its own questions. The label above the tile is
+                    the promise; that page is the promise kept. */}
+                <Link
+                  to="/register/$role"
+                  params={{ role: role.id }}
+                  aria-describedby={detailId}
+                  className={className}
+                >
+                  {body}
+                </Link>
                 <span
                   id={detailId}
                   className="mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-white/62"

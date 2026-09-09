@@ -113,7 +113,7 @@ export function SiteFooter() {
             </p>
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
               <Button variant="primary" asChild>
-                <Link to={registerRoute.to} search={registerRoute.search}>
+                <Link to={registerRoute.to}>
                   {registerRoute.label}
                 </Link>
               </Button>

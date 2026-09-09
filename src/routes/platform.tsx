@@ -613,7 +613,7 @@ function ServicesPage() {
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Button variant="primary" asChild>
-              <Link to={registerRoute.to} search={registerRoute.search}>
+              <Link to={registerRoute.to}>
                 {servicesClose.cta}
               </Link>
             </Button>
