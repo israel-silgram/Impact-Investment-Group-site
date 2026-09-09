@@ -313,10 +313,7 @@ export function SiteFooter() {
            * Terms, Privacy, Disclaimer, Legal. Do not reorder or drop one to
            * save a line. (Wave 298, R298-1.)
            */}
-          <nav
-            aria-label="Legal"
-            className="mt-4 border-t border-navy-700 pt-3.5 sm:mt-5 sm:pt-4"
-          >
+          <nav aria-label="Legal" className="mt-4 border-t border-navy-700 pt-3.5 sm:mt-5 sm:pt-4">
             <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-0.5 text-[13px]">
               {legalLinks.map((item) =>
                 item.external ? (

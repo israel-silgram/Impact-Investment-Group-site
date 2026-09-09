@@ -149,10 +149,7 @@ export function SiteFooter() {
        * called to fix. If you change one footer, change both.
        */}
       <div className="border-t border-navy-700">
-        <nav
-          aria-label="Legal"
-          className="mx-auto w-full max-w-[1440px] px-5 pt-8 sm:px-8"
-        >
+        <nav aria-label="Legal" className="mx-auto w-full max-w-[1440px] px-5 pt-8 sm:px-8">
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-0.5 text-[13px]">
             {legalLinks.map((item) =>
               item.external ? (

@@ -135,8 +135,7 @@ export const collectionNotice = {
   /** Named in full. `companyRecord.name` is the Companies House record. */
   controller: companyRecord.name,
   /** Follows the controller name. */
-  purpose:
-    "is the data controller for this form. We use your details only to answer this enquiry.",
+  purpose: "is the data controller for this form. We use your details only to answer this enquiry.",
   /** The registration the site already published, kept verbatim. */
   registration: "UK GDPR · ICO ZB957755",
   linkLabel: "Read the Privacy Policy",

@@ -157,5 +157,4 @@ export const trustRegistrations: TrustRegistration[] = [
  * (see content/legal.ts for the source, the date and the address note).
  * If any of them changes on the register, change it there, not here.
  */
-export const legalNotice =
-  `Not authorised or regulated by the FCA · not a Collective Investment Scheme · capital at risk · sourcing, packaging and managed investment services, not advice · take independent advice. ${companyRecord.name} is registered in ${companyRecord.jurisdiction}, company number ${companyRecord.number}. Registered office: ${companyRecord.registeredOffice}. © 2026, an Impact Investment Group initiative.`;
+export const legalNotice = `Not authorised or regulated by the FCA · not a Collective Investment Scheme · capital at risk · sourcing, packaging and managed investment services, not advice · take independent advice. ${companyRecord.name} is registered in ${companyRecord.jurisdiction}, company number ${companyRecord.number}. Registered office: ${companyRecord.registeredOffice}. © 2026, an Impact Investment Group initiative.`;
