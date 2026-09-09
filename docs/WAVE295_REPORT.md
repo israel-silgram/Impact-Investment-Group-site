@@ -366,13 +366,21 @@ source shown"**, verbatim from the platform's own phrasing.
 Every string is in section 8, printed from `src/content/register.ts` by `scripts/wave295-copy.ts`
 rather than pasted here, so the report cannot drift from the product.
 
+**One deliberate exception to the no-em-dash canon, and only one.** The two new routes' `<title>`
+tags read `Register to join the waitlist — The Impact Investment Platform`, because every other
+page on the site already uses that separator (`Contact — ...`, `Partner with X — ...`) and two
+pages formatted differently from the other seven is a visible inconsistency in a browser tab. It
+is matching an established pattern rather than authoring prose. Every other em dash this wave
+wrote, in comments and in copy, has been removed; the ones remaining in the diff are pre-existing
+lines that a formatter moved.
+
 ---
 
 ## 6 · Gates and refuters
 
 | Gate | Result |
 |---|---|
-| `npm run lint` on every file this wave touches | **clean**, 0 errors. Four `react-refresh/only-export-components` warnings, the same kind `button.tsx` already carried. |
+| `npm run lint`, measured on COMMITTED CONTENT | **0 errors on every file this wave created**, and the edited files went from **537 problems to 475**. See the note below. |
 | `tsc --noEmit` | **clean** on every file this wave touches. Pre-existing errors in `partner-page.tsx`, `about.tsx` and `vite.config.ts` are untouched and predate the branch. |
 | `STATIC_BUILD=true npm run build` | **35 pages prerendered**, up from 31, with `failOnError: true`. No retries, no phantom crawls. |
 | `/register` and all ten `/register/<role>` prerender | **yes**, verified in `dist/client/register/*/index.html` |
@@ -384,6 +392,30 @@ rather than pasted here, so the report cannot drift from the product.
 | axe-core, WCAG 2.2 AA + best-practice, 11 pages × 2 widths | **22 of 22 clean.** No serious or critical violations. |
 | 44px targets | **every one**, inside `main`, at 360 and 1440 |
 | Keyboard order | **submit reachable by Tab alone**, no trap |
+
+### A note on `npm run lint`, because the raw number is misleading
+
+`npm run lint` fails on this repository and always has: at `8f15cdb` it reports
+**21,083 problems**, almost all of them `Delete ␍`. That is an artefact of `core.autocrlf=true`
+on Windows, which checks files out with CRLF while prettier wants LF. It is a property of the
+working copy, not of anything committed, so the honest measurement is on **committed content**
+(`git show :<path>`), which is what CI and Lovable actually see:
+
+| | Base `8f15cdb` | This branch |
+|---|---:|---:|
+| The fifteen files this wave edits | **537 problems** | **475** |
+| ...of which `src/routes/platform.tsx` | 475 | 474 |
+| The nine files this wave creates | n/a | **0 errors** (3 `react-refresh` warnings, the kind `button.tsx` already carried) |
+
+Every edited file except `platform.tsx` is now at zero. `platform.tsx` is the one blob in this
+repository stored with CRLF line endings, so prettier objects to all 475 of its lines, and it did
+before this branch too.
+
+**`platform.tsx` is byte-identical to `8f15cdb` apart from two hunks.** An `eslint --fix` pass over
+it had converted the whole file to LF, which produced a 1,114-line diff on a file this wave changes
+in two places, on a repository that syncs to Lovable. That was reverted and the two changes
+reapplied to the original bytes. Reformatting a file nobody asked to reformat is not this wave's to
+do, and a diff that large hides the two lines that matter.
 
 **The axe run is scoped to `<main>`**, because the header, footer and skip link are shared with every
 page and are out of this wave's scope (R295-6). `/contact` and `/about` are run as the baseline that

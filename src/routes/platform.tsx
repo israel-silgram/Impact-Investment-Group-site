@@ -212,7 +212,9 @@ function DifferenceStory() {
   return (
     <>
       <Head eyebrow="How we differ" title={differenceHeading} id="compare-heading" />
-      <p className="mt-4 max-w-[66ch] text-[16.5px] leading-relaxed text-mist">{differenceLead}</p>
+      <p className="mt-4 max-w-[66ch] text-[16.5px] leading-relaxed text-mist">
+        {differenceLead}
+      </p>
 
       <div className="relative mt-8 overflow-hidden rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/55 shadow-[0_24px_70px_-35px_rgba(0,0,0,0.8)]">
         <div
@@ -270,12 +272,7 @@ function DifferenceStory() {
                       {chapter.number}
                     </span>
                     <span>
-                      <span
-                        className={cn(
-                          "block text-[10px] font-bold uppercase tracking-[0.11em]",
-                          selected ? accent.text : "text-slate-muted",
-                        )}
-                      >
+                      <span className={cn("block text-[10px] font-bold uppercase tracking-[0.11em]", selected ? accent.text : "text-slate-muted")}>
                         {chapter.eyebrow}
                       </span>
                       <span className="mt-0.5 block text-[12px] leading-snug text-mist">
@@ -288,15 +285,8 @@ function DifferenceStory() {
             </div>
           </div>
 
-          <div
-            id="difference-story-panel"
-            role="tabpanel"
-            className="relative min-h-[500px] p-5 sm:p-8 lg:min-h-[440px] lg:p-10"
-          >
-            <div
-              key={activeChapter.id}
-              className="[animation:rise-in_520ms_var(--ease-out-soft)_both]"
-            >
+          <div id="difference-story-panel" role="tabpanel" className="relative min-h-[500px] p-5 sm:p-8 lg:min-h-[440px] lg:p-10">
+            <div key={activeChapter.id} className="[animation:rise-in_520ms_var(--ease-out-soft)_both]">
               <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(250px,0.78fr)] lg:items-center">
                 <div>
                   <p className={cn("eyebrow", activeAccent.text)}>{activeChapter.eyebrow}</p>
@@ -309,13 +299,7 @@ function DifferenceStory() {
                   <ul className="mt-6 grid gap-2.5">
                     {activeChapter.points.map((point) => (
                       <li key={point} className="flex gap-3 text-[13px] leading-relaxed text-mist">
-                        <span
-                          aria-hidden="true"
-                          className={cn(
-                            "mt-[7px] size-1.5 shrink-0 rounded-full",
-                            activeAccent.bar,
-                          )}
-                        />
+                        <span aria-hidden="true" className={cn("mt-[7px] size-1.5 shrink-0 rounded-full", activeAccent.bar)} />
                         <span>{point}</span>
                       </li>
                     ))}
@@ -323,27 +307,10 @@ function DifferenceStory() {
                 </div>
 
                 <div className="relative grid min-h-[220px] place-items-center overflow-hidden rounded-2xl border border-navy-700 bg-navy-900/70 p-5 text-center sm:min-h-[260px]">
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-5 rounded-full border border-dashed border-navy-700 [animation:spin_28s_linear_infinite] motion-reduce:animate-none"
-                  />
-                  <span
-                    aria-hidden="true"
-                    className={cn(
-                      "absolute size-[145px] rounded-full opacity-20 blur-2xl",
-                      activeAccent.bar,
-                    )}
-                  />
+                  <span aria-hidden="true" className="absolute inset-5 rounded-full border border-dashed border-navy-700 [animation:spin_28s_linear_infinite] motion-reduce:animate-none" />
+                  <span aria-hidden="true" className={cn("absolute size-[145px] rounded-full opacity-20 blur-2xl", activeAccent.bar)} />
                   <div className="relative">
-                    <p
-                      className={cn(
-                        "font-heading font-extrabold leading-[0.78] tracking-[-0.075em]",
-                        activeVisual.tone,
-                        activeChapter.id === "lessons"
-                          ? "text-[clamp(2.5rem,7vw,4.5rem)]"
-                          : "text-[clamp(6rem,14vw,9rem)]",
-                      )}
-                    >
+                    <p className={cn("font-heading font-extrabold leading-[0.78] tracking-[-0.075em]", activeVisual.tone, activeChapter.id === "lessons" ? "text-[clamp(2.5rem,7vw,4.5rem)]" : "text-[clamp(6rem,14vw,9rem)]")}>
                       {activeVisual.value}
                     </p>
                     <p className="mt-5 font-heading text-[13px] font-bold uppercase tracking-[0.14em] text-white">
@@ -355,56 +322,28 @@ function DifferenceStory() {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-navy-700 pt-4 text-[11px] text-slate-muted">
-              <span className="font-semibold text-orange-500">
-                {leaseComparison[0]!.term} · fixed legacy commitment
-              </span>
+              <span className="font-semibold text-orange-500">{leaseComparison[0]!.term} · fixed legacy commitment</span>
               <Icons.ArrowRight aria-hidden="true" className="size-3.5 text-white" />
-              <span className="font-semibold text-teal-400">
-                {leaseComparison[1]!.term} · planned review window
-              </span>
+              <span className="font-semibold text-teal-400">{leaseComparison[1]!.term} · planned review window</span>
             </div>
           </div>
         </div>
 
         <ul className="relative grid border-t border-navy-700 sm:grid-cols-3">
           {sustainabilityPrinciples.map((principle, i) => (
-            <li
-              key={principle.id}
-              className={cn(
-                "px-5 py-4",
-                i > 0 && "border-t border-navy-700 sm:border-l sm:border-t-0",
-              )}
-            >
-              <p className="font-heading text-[13px] font-extrabold text-white">
-                {principle.title}
-              </p>
-              <p className="mt-1 text-[11.5px] leading-relaxed text-slate-muted">
-                {principle.detail}
-              </p>
+            <li key={principle.id} className={cn("px-5 py-4", i > 0 && "border-t border-navy-700 sm:border-l sm:border-t-0")}>
+              <p className="font-heading text-[13px] font-extrabold text-white">{principle.title}</p>
+              <p className="mt-1 text-[11.5px] leading-relaxed text-slate-muted">{principle.detail}</p>
             </li>
           ))}
         </ul>
       </div>
 
-      <div
-        className="logo-marquee mt-7 border-y border-navy-700 py-1"
-        aria-label="Sourced housing demand figures"
-      >
+      <div className="logo-marquee mt-7 border-y border-navy-700 py-1" aria-label="Sourced housing demand figures">
         <div className="logo-marquee__track">
           {[...demandFigures, ...demandFigures].map((figure, i) => (
-            <span
-              key={`${figure.id}-${i}`}
-              data-clone={i >= demandFigures.length ? "true" : undefined}
-              className="inline-flex items-baseline gap-2 px-3"
-            >
-              <strong
-                className={cn(
-                  "font-heading text-[22px] font-extrabold",
-                  ACCENT[figure.accent as Accent].text,
-                )}
-              >
-                {figure.value}
-              </strong>
+            <span key={`${figure.id}-${i}`} data-clone={i >= demandFigures.length ? "true" : undefined} className="inline-flex items-baseline gap-2 px-3">
+              <strong className={cn("font-heading text-[22px] font-extrabold", ACCENT[figure.accent as Accent].text)}>{figure.value}</strong>
               <span className="text-[12px] text-mist">{figure.label}</span>
               <span className="text-[10px] text-slate-muted">{figure.source}</span>
             </span>
@@ -454,7 +393,9 @@ function CharacterPortals() {
         >
           Three doors into <span className="text-orange-500">one platform.</span>
         </h2>
-        <p className="mt-3 text-[15px] text-mist sm:text-[16px]">Choose where you want to begin.</p>
+        <p className="mt-3 text-[15px] text-mist sm:text-[16px]">
+          Choose where you want to begin.
+        </p>
 
         <div className="relative mt-9 min-h-[310px] sm:mt-12 sm:min-h-[390px]">
           <ol
@@ -563,84 +504,35 @@ function MissionControl() {
   return (
     <div className="relative">
       <div className="relative">
-        <p className="eyebrow tracking-[0.16em] text-teal-400">
-          Option 2 · Platform mission control
-        </p>
-        <h2
-          id="mission-control-heading"
-          className="heading-tight mt-2 max-w-[760px] font-heading text-[clamp(2rem,4.6vw,3.8rem)] font-bold text-white"
-        >
+        <p className="eyebrow tracking-[0.16em] text-teal-400">Option 2 · Platform mission control</p>
+        <h2 id="mission-control-heading" className="heading-tight mt-2 max-w-[760px] font-heading text-[clamp(2rem,4.6vw,3.8rem)] font-bold text-white">
           Choose a specialist. <span className="text-orange-500">Activate their tool.</span>
         </h2>
 
         <div className="mt-8 grid items-center gap-8 lg:grid-cols-[minmax(360px,1.05fr)_minmax(300px,0.95fr)]">
           <div className="relative mx-auto aspect-square w-full max-w-[500px]">
-            <span
-              aria-hidden="true"
-              className="absolute inset-[15%] animate-spin rounded-full border border-dashed border-teal-400/50 [animation-duration:24s] motion-reduce:animate-none"
-            />
+            <span aria-hidden="true" className="absolute inset-[15%] animate-spin rounded-full border border-dashed border-teal-400/50 [animation-duration:24s] motion-reduce:animate-none" />
             <div className="absolute inset-[34%] grid place-items-center rounded-full border border-teal-400/50 bg-[radial-gradient(circle,rgba(37,209,194,0.22),var(--color-navy-800)_68%)] text-center shadow-[0_0_65px_rgba(37,209,194,0.22)]">
-              <span>
-                <strong className="block font-heading text-white">One workflow</strong>
-                <small className="text-mist">Find · Price · Prove</small>
-              </span>
+              <span><strong className="block font-heading text-white">One workflow</strong><small className="text-mist">Find · Price · Prove</small></span>
             </div>
             {workflow.map((step, index) => {
               const key = step.id as keyof typeof PORTAL_ART;
-              const position =
-                index === 0
-                  ? "left-1/2 top-0 -translate-x-1/2"
-                  : index === 1
-                    ? "bottom-[7%] right-[1%]"
-                    : "bottom-[7%] left-[1%]";
+              const position = index === 0 ? "left-1/2 top-0 -translate-x-1/2" : index === 1 ? "bottom-[7%] right-[1%]" : "bottom-[7%] left-[1%]";
               return (
-                <button
-                  key={step.id}
-                  type="button"
-                  aria-pressed={activeId === step.id}
-                  onClick={() => setActiveId(step.id)}
-                  className={cn(
-                    "absolute h-[132px] w-[112px] overflow-hidden rounded-[18px] border bg-navy-700/90 text-white transition duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 sm:h-[142px] sm:w-[126px]",
-                    position,
-                    activeId === step.id
-                      ? "border-teal-400 shadow-[0_0_30px_rgba(37,209,194,0.3)]"
-                      : "border-navy-600",
-                  )}
-                >
-                  <img
-                    src={PORTAL_ART[key]}
-                    alt=""
-                    aria-hidden="true"
-                    className="mx-auto h-[104px] w-full object-contain sm:h-[112px]"
-                  />
-                  <span className="font-heading text-[12px] font-bold">
-                    {step.claim.split(" ")[0]}
-                  </span>
+                <button key={step.id} type="button" aria-pressed={activeId === step.id} onClick={() => setActiveId(step.id)} className={cn("absolute h-[132px] w-[112px] overflow-hidden rounded-[18px] border bg-navy-700/90 text-white transition duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 sm:h-[142px] sm:w-[126px]", position, activeId === step.id ? "border-teal-400 shadow-[0_0_30px_rgba(37,209,194,0.3)]" : "border-navy-600")}>
+                  <img src={PORTAL_ART[key]} alt="" aria-hidden="true" className="mx-auto h-[104px] w-full object-contain sm:h-[112px]" />
+                  <span className="font-heading text-[12px] font-bold">{step.claim.split(" ")[0]}</span>
                 </button>
               );
             })}
           </div>
 
-          <div
-            aria-live="polite"
-            className="relative min-h-[340px] overflow-hidden border border-teal-400/35 bg-[repeating-linear-gradient(0deg,rgba(37,209,194,0.035)_0_3px,transparent_3px_7px)] p-7 shadow-[inset_0_0_55px_rgba(37,209,194,0.08)]"
-          >
-            <img
-              src={PORTAL_ART[activeKey]}
-              alt=""
-              aria-hidden="true"
-              className="absolute -bottom-5 -right-7 h-[280px] opacity-25 saturate-50 drop-shadow-[0_0_18px_rgba(37,209,194,0.7)]"
-            />
+          <div aria-live="polite" className="relative min-h-[340px] overflow-hidden border border-teal-400/35 bg-[repeating-linear-gradient(0deg,rgba(37,209,194,0.035)_0_3px,transparent_3px_7px)] p-7 shadow-[inset_0_0_55px_rgba(37,209,194,0.08)]">
+            <img src={PORTAL_ART[activeKey]} alt="" aria-hidden="true" className="absolute -bottom-5 -right-7 h-[280px] opacity-25 saturate-50 drop-shadow-[0_0_18px_rgba(37,209,194,0.7)]" />
             <p className="relative eyebrow tracking-[0.14em] text-teal-400">{active.chip}</p>
-            <h3 className="relative mt-3 max-w-[12ch] font-heading text-[clamp(1.8rem,3.5vw,2.5rem)] font-bold text-white">
-              Hi, I’m {active.claim.split(" ")[0]}.
-            </h3>
-            <p className="relative mt-4 max-w-[31ch] text-[15px] leading-relaxed text-mist">
-              {active.body}
-            </p>
-            <p className="relative mt-5 inline-flex border border-teal-400/40 px-3 py-2 text-[13px] text-teal-400">
-              Tool online · <strong className="ml-1">{PORTAL_ACTION[activeKey]}</strong>
-            </p>
+            <h3 className="relative mt-3 max-w-[12ch] font-heading text-[clamp(1.8rem,3.5vw,2.5rem)] font-bold text-white">Hi, I’m {active.claim.split(" ")[0]}.</h3>
+            <p className="relative mt-4 max-w-[31ch] text-[15px] leading-relaxed text-mist">{active.body}</p>
+            <p className="relative mt-5 inline-flex border border-teal-400/40 px-3 py-2 text-[13px] text-teal-400">Tool online · <strong className="ml-1">{PORTAL_ACTION[activeKey]}</strong></p>
           </div>
         </div>
       </div>
@@ -654,41 +546,28 @@ function LivingComic() {
   return (
     <div className="relative font-sans">
       <div className="relative">
-        <p className="text-[0.72rem] font-medium uppercase tracking-[0.17em] text-teal-400">
-          The platform story
-        </p>
-        <h2
-          id="living-comic-heading"
-          className="mt-2 font-sans text-[clamp(2.3rem,5vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.04em] text-white"
-        >
+        <p className="text-[0.72rem] font-medium uppercase tracking-[0.17em] text-teal-400">The platform story</p>
+        <h2 id="living-comic-heading" className="mt-2 font-sans text-[clamp(2.3rem,5vw,4.6rem)] font-bold leading-[0.98] tracking-[-0.04em] text-white">
           Not a pop-up. <span className="text-teal-400">A living comic.</span>
         </h2>
 
         <div
           className="mt-8 grid min-h-[470px] grid-cols-1 gap-3 transition-[grid-template-columns] duration-500 ease-out md:grid-cols-[var(--comic-columns)]"
-          style={
-            {
-              "--comic-columns": workflow
-                .map((step) => (step.id === activeId ? "1.8fr" : "0.6fr"))
-                .join(" "),
-            } as React.CSSProperties
-          }
+          style={{
+            "--comic-columns": workflow
+              .map((step) => (step.id === activeId ? "1.8fr" : "0.6fr"))
+              .join(" "),
+          } as React.CSSProperties}
         >
           {workflow.map((step, index) => {
             const key = step.id as keyof typeof PORTAL_ART;
             const active = activeId === step.id;
-            const quote =
-              index === 0
-                ? "Tell me what home you need."
-                : index === 1
-                  ? "Now let’s test the numbers."
-                  : "What difference will this home make?";
-            const expandedCopy =
-              index === 0
-                ? "I search the sourced market and bring the closest matches into one view."
-                : index === 1
-                  ? "I run valuation and cost work against named public data, with every figure traceable."
-                  : "I turn the social outcome into a visible, reportable Impact Score.";
+            const quote = index === 0 ? "Tell me what home you need." : index === 1 ? "Now let’s test the numbers." : "What difference will this home make?";
+            const expandedCopy = index === 0
+              ? "I search the sourced market and bring the closest matches into one view."
+              : index === 1
+                ? "I run valuation and cost work against named public data, with every figure traceable."
+                : "I turn the social outcome into a visible, reportable Impact Score.";
             return (
               <button
                 key={step.id}
@@ -697,48 +576,15 @@ function LivingComic() {
                 onClick={() => setActiveId(step.id)}
                 className={cn(
                   "group relative min-h-[390px] min-w-0 overflow-hidden border-[3px] border-white bg-navy-800 text-left transition-[filter,transform] duration-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-400/55 md:min-h-[470px]",
-                  index === 0
-                    ? "-skew-y-[1deg]"
-                    : index === 1
-                      ? "skew-y-[1deg]"
-                      : "-skew-y-[0.75deg]",
+                  index === 0 ? "-skew-y-[1deg]" : index === 1 ? "skew-y-[1deg]" : "-skew-y-[0.75deg]",
                   active ? "brightness-110" : "hover:brightness-110",
                 )}
               >
-                <span
-                  aria-hidden="true"
-                  className={cn(
-                    "absolute inset-[-30%] animate-spin bg-[repeating-conic-gradient(from_0deg,rgba(255,107,0,0.16)_0deg_7deg,transparent_7deg_14deg)] [animation-duration:34s] motion-reduce:animate-none",
-                    index === 1 &&
-                      "bg-[repeating-conic-gradient(from_0deg,rgba(255,255,255,0.10)_0deg_7deg,transparent_7deg_14deg)]",
-                    index === 2 &&
-                      "bg-[repeating-conic-gradient(from_0deg,rgba(37,209,194,0.18)_0deg_7deg,transparent_7deg_14deg)]",
-                  )}
-                />
-                <span className="absolute left-4 top-4 z-3 -rotate-2 bg-white px-3 py-2 font-sans text-[12px] font-bold text-navy-900 shadow-[6px_6px_0_var(--color-orange-600)] sm:text-[14px]">
-                  {step.claim.toUpperCase()}
-                </span>
-                <img
-                  src={PORTAL_ART[key]}
-                  alt=""
-                  aria-hidden="true"
-                  className={cn(
-                    "absolute bottom-[-10px] right-[-18%] h-[88%] w-[116%] max-w-none object-contain drop-shadow-[0_16px_24px_rgba(0,0,0,0.28)] transition-[right,transform] duration-500",
-                    active && "right-[-3%] scale-[1.04]",
-                  )}
-                />
-                <span
-                  className={cn(
-                    "absolute inset-x-4 bottom-4 z-3 rounded-[20px] border-[3px] border-navy-900 bg-white p-4 text-center text-[13px] leading-relaxed text-navy-900 transition-[opacity,transform] duration-500 sm:p-5 sm:text-[14px]",
-                    active
-                      ? "translate-y-0 opacity-100"
-                      : "pointer-events-none translate-y-7 opacity-0",
-                  )}
-                >
-                  <strong className="mb-1.5 block font-sans text-[15px] font-bold">
-                    “{quote}”
-                  </strong>
-                  {expandedCopy}
+                <span aria-hidden="true" className={cn("absolute inset-[-30%] animate-spin bg-[repeating-conic-gradient(from_0deg,rgba(255,107,0,0.16)_0deg_7deg,transparent_7deg_14deg)] [animation-duration:34s] motion-reduce:animate-none", index === 1 && "bg-[repeating-conic-gradient(from_0deg,rgba(255,255,255,0.10)_0deg_7deg,transparent_7deg_14deg)]", index === 2 && "bg-[repeating-conic-gradient(from_0deg,rgba(37,209,194,0.18)_0deg_7deg,transparent_7deg_14deg)]")} />
+                <span className="absolute left-4 top-4 z-3 -rotate-2 bg-white px-3 py-2 font-sans text-[12px] font-bold text-navy-900 shadow-[6px_6px_0_var(--color-orange-600)] sm:text-[14px]">{step.claim.toUpperCase()}</span>
+                <img src={PORTAL_ART[key]} alt="" aria-hidden="true" className={cn("absolute bottom-[-10px] right-[-18%] h-[88%] w-[116%] max-w-none object-contain drop-shadow-[0_16px_24px_rgba(0,0,0,0.28)] transition-[right,transform] duration-500", active && "right-[-3%] scale-[1.04]")} />
+                <span className={cn("absolute inset-x-4 bottom-4 z-3 rounded-[20px] border-[3px] border-navy-900 bg-white p-4 text-center text-[13px] leading-relaxed text-navy-900 transition-[opacity,transform] duration-500 sm:p-5 sm:text-[14px]", active ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-7 opacity-0")}>
+                  <strong className="mb-1.5 block font-sans text-[15px] font-bold">“{quote}”</strong>{expandedCopy}
                 </span>
               </button>
             );
@@ -768,7 +614,9 @@ function ServicesPage() {
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Button variant="primary" asChild>
-              <Link to={registerRoute.to}>{servicesClose.cta}</Link>
+              <Link to={registerRoute.to}>
+                {servicesClose.cta}
+              </Link>
             </Button>
             <Button variant="secondary" asChild withArrow={false}>
               <Link to="/contact">Contact Us</Link>
@@ -805,10 +653,7 @@ function ServicesPage() {
               <div className="panel relative flex h-full flex-col overflow-hidden p-5 pt-6">
                 <span
                   aria-hidden="true"
-                  className={cn(
-                    "absolute inset-x-0 top-0 h-[3px]",
-                    ACCENT[step.accent as Accent].bar,
-                  )}
+                  className={cn("absolute inset-x-0 top-0 h-[3px]", ACCENT[step.accent as Accent].bar)}
                 />
                 {/* The supplied artwork, keyed off its grey ground so it sits
                     on the navy rather than in a grey box. Decorative — the step
@@ -888,7 +733,7 @@ function ServicesPage() {
         <DifferenceStory />
       </Band>
 
-      {/* ── 5 · Close ── cream ───────────────────────────────────────────── */}
+      {/* ── 5 · Close ── cream ───────────────────────────────────────────── */}
     </main>
   );
 }
