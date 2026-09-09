@@ -62,16 +62,21 @@ function CrisisSignpost({ signpost }: { signpost: NonNullable<PartnerProfile["cr
             {crisisLines.map((line) => (
               <li key={line.label} className="flex items-baseline justify-between gap-4">
                 <span className="text-mist">{line.label}</span>
-                {/* min-h-11 at every width, not just on touch. These are
-                    crisis numbers: the person tapping one may be distressed,
-                    on a phone, one-handed. A 44px target costs this band a few
-                    pixels of height and is worth every one of them. The rest
-                    of the site drops to lg:min-h-0 on desktop; this does not.
-                    (WCAG 2.2 target size minimum is 24px, which the 14px line
-                    on its own did not meet at 1440 either.) */}
+                {/* 44px BOTH WAYS, at every width, not just on touch. These
+                    are crisis numbers: the person tapping one may be
+                    distressed, on a phone, one-handed. The rest of the site
+                    drops to lg:min-h-0 on desktop; this does not.
+
+                    min-w-11 is not decoration either. "111" sets a 15px-wide
+                    line, so without it the NHS number was a 15 x 44 target.
+                    WCAG 2.2 SC 2.5.8 would still pass it on the spacing
+                    exception (the rows are 50px apart), and axe did pass it,
+                    which is exactly why the width is set explicitly rather
+                    than left to the checker: a 15px-wide crisis number is a
+                    bad target whether or not it conforms. */}
                 <a
                   href={`tel:${line.detail.replace(/\s/g, "")}`}
-                  className="inline-flex min-h-11 items-center font-heading font-semibold text-white underline underline-offset-4 transition-colors duration-200 hover:text-teal-400"
+                  className="inline-flex min-h-11 min-w-11 items-center justify-end font-heading font-semibold text-white underline underline-offset-4 transition-colors duration-200 hover:text-teal-400"
                 >
                   {line.detail}
                 </a>
