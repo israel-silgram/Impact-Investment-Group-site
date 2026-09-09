@@ -50,6 +50,16 @@ export interface RegisterQuestion {
   options?: readonly string[];
   placeholder?: string;
   maxLength?: number;
+  /**
+   * Renders INSIDE the previous question rather than as one of its own.
+   *
+   * R295-4 describes the frictions question as "a short multi-choice list of
+   * the real frictions for that role PLUS a free-text line" — one question,
+   * two answers. Drawn as a separate block it reads as a seventh question on a
+   * page that is meant to ask six, and a visitor counts blocks, not ids. It
+   * keeps its own id on the wire because it is its own answer.
+   */
+  tail?: boolean;
 }
 
 export interface RegisterRoleContent {
@@ -196,6 +206,7 @@ const frictionsDetail = (placeholder: string): RegisterQuestion => ({
   kind: "textarea",
   placeholder,
   maxLength: 2000,
+  tail: true,
 });
 
 /* ─────────────────────────────────────────────────────────────────────────

@@ -178,9 +178,12 @@ function ErrorText({ id, children }: { id: string; children?: string | undefined
 function Question({
   question,
   register,
+  tail,
 }: {
   question: RegisterQuestion;
   register: ReturnType<typeof useForm<WaitlistFormValues>>["register"];
+  /** Rendered inside this question's fieldset. See `tail` in content/register.ts. */
+  tail?: React.ReactNode;
 }) {
   const name = `answers.${question.id}` as const;
   const helpId = question.help ? `${question.id}-help` : undefined;
@@ -210,6 +213,7 @@ function Question({
             </label>
           ))}
         </div>
+        {tail ? <div className="mt-4">{tail}</div> : null}
       </fieldset>
     );
   }
@@ -219,7 +223,16 @@ function Question({
     <div className="flex flex-col gap-2">
       <label
         htmlFor={inputId}
-        className="font-heading text-[19px] font-semibold leading-snug text-white"
+        className={cn(
+          "font-heading leading-snug",
+          // A tail sits inside the question above it, so it is labelled like a
+          // part of that question and not like another one. Same 19px weight
+          // as a heading here and the page would read as seven questions
+          // again, which is the whole thing the tail exists to avoid.
+          question.tail
+            ? "text-[15px] font-medium text-mist"
+            : "text-[19px] font-semibold text-white",
+        )}
       >
         {question.label}
       </label>
@@ -304,9 +317,27 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
       className="rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/50 p-5 sm:p-8"
     >
       <div className="flex flex-col gap-10">
-        {role.questions.map((question) => (
-          <Question key={question.id} question={question} register={register} />
-        ))}
+        {role.questions
+          .filter((question) => !question.tail)
+          .map((question) => {
+            // A tail question belongs to the block before it. Looked up in the
+            // ORIGINAL list, so the pairing follows the content file's order
+            // and not an index computed over the filtered one.
+            const next = role.questions[role.questions.indexOf(question) + 1];
+            const tailQuestion = next?.tail ? next : undefined;
+            return (
+              <Question
+                key={question.id}
+                question={question}
+                register={register}
+                tail={
+                  tailQuestion ? (
+                    <Question question={tailQuestion} register={register} />
+                  ) : undefined
+                }
+              />
+            );
+          })}
       </div>
 
       <hr className="mt-10 border-navy-700" />
