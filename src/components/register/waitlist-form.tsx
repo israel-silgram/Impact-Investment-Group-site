@@ -96,7 +96,7 @@ export function buildWaitlistPayload(role: RegisterRoleContent, values: Waitlist
   for (const question of role.questions) {
     const value = values.answers?.[question.id];
     if (Array.isArray(value)) {
-      const picked = value.filter((entry) => entry !== false && entry !== "" && entry != null);
+      const picked = value.filter((entry) => typeof entry === "string" && entry !== "");
       if (picked.length > 0) answers[question.id] = picked;
     } else if (typeof value === "string" && value.trim() !== "") {
       answers[question.id] = value.trim();

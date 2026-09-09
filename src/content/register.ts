@@ -211,7 +211,10 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     lede: "We are building the platform that matches funded capital to housing demand councils and providers have already declared. Answer six questions now and your criteria are in the matching engine on the day it opens, before anything is advertised anywhere.",
     offer: [
       { icon: "Clock", text: "First look at matched opportunities, ahead of the general list" },
-      { icon: "MessageSquareQuote", text: "A say in what we build, while the roadmap is still open" },
+      {
+        icon: "MessageSquareQuote",
+        text: "A say in what we build, while the roadmap is still open",
+      },
       {
         icon: "ShieldCheck",
         text: "Every opportunity underwritten on named public data, with its source shown",
@@ -253,7 +256,8 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
         id: "regions",
         label: "Which parts of the UK interest you most?",
         kind: "text",
-        placeholder: "For example: the North West, the East Midlands, or anywhere with the right lease",
+        placeholder:
+          "For example: the North West, the East Midlands, or anywhere with the right lease",
         maxLength: 200,
       },
       {
@@ -298,7 +302,10 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     lede: "Councils and providers are already telling us where they need homes. Answer six questions about your property and what you want from a lease, and when the platform opens your stock is matched against that demand instead of sitting on a portal.",
     offer: [
       { icon: "MapPin", text: "Your property matched against declared demand, not guessed at" },
-      { icon: "MessageSquareQuote", text: "A say in what we build, while the roadmap is still open" },
+      {
+        icon: "MessageSquareQuote",
+        text: "A say in what we build, while the roadmap is still open",
+      },
       { icon: "ShieldCheck", text: "Named providers and councils, not anonymous enquiries" },
     ],
     askOrganisation: true,
@@ -394,8 +401,14 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     h1: "Know where the demand is before you commit to the site",
     lede: "The hardest part of a supported housing scheme is not building it, it is knowing there is an end user waiting at the other end. Answer six questions and when the platform opens you can read declared demand by area before you buy the land.",
     offer: [
-      { icon: "Map", text: "Declared demand by area, so a scheme has an end user before it starts" },
-      { icon: "MessageSquareQuote", text: "A say in what we build, while the roadmap is still open" },
+      {
+        icon: "Map",
+        text: "Declared demand by area, so a scheme has an end user before it starts",
+      },
+      {
+        icon: "MessageSquareQuote",
+        text: "A say in what we build, while the roadmap is still open",
+      },
       { icon: "Network", text: "Providers and councils on the same platform as your pipeline" },
     ],
     askOrganisation: true,
@@ -490,7 +503,10 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     lede: "Acquisition, disposal, leasing and finding the right support partner are four separate searches today, in four separate places. Answer six questions and help us make them one. Your answers shape the build while it is still being decided.",
     offer: [
       { icon: "Network", text: "Stock, support partners and declared demand in one view" },
-      { icon: "MessageSquareQuote", text: "A say in what we build, while the roadmap is still open" },
+      {
+        icon: "MessageSquareQuote",
+        text: "A say in what we build, while the roadmap is still open",
+      },
       {
         icon: "ShieldCheck",
         text: "Every figure underwritten on named public data, with its source shown",
@@ -518,13 +534,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
         id: "stock_scale",
         label: "Roughly how many homes do you manage?",
         kind: "single",
-        options: [
-          "Under 250",
-          "250 to 999",
-          "1,000 to 4,999",
-          "5,000 to 19,999",
-          "20,000 or more",
-        ],
+        options: ["Under 250", "250 to 999", "1,000 to 4,999", "5,000 to 19,999", "20,000 or more"],
       },
       {
         id: "regions",
@@ -692,7 +702,10 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     lede: "You can win the commission and still have nowhere to put anyone. Answer five questions about the property you need and where you need it, and when the platform opens landlords and developers are matched to that, not to a general advert.",
     offer: [
       { icon: "HandHeart", text: "Property matched to the service you actually deliver" },
-      { icon: "MessageSquareQuote", text: "A say in what we build, while the roadmap is still open" },
+      {
+        icon: "MessageSquareQuote",
+        text: "A say in what we build, while the roadmap is still open",
+      },
       { icon: "Network", text: "Landlords and developers on the same platform as your need" },
     ],
     askOrganisation: true,
@@ -775,7 +788,10 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     lede: "Support gets funded and then has nowhere to happen. Answer five questions about who you support and where, and when the platform opens the property side is matched to that instead of you starting the search from nothing.",
     offer: [
       { icon: "UsersRound", text: "Property matched to who you support and where" },
-      { icon: "MessageSquareQuote", text: "A say in what we build, while the roadmap is still open" },
+      {
+        icon: "MessageSquareQuote",
+        text: "A say in what we build, while the roadmap is still open",
+      },
       { icon: "Network", text: "Landlords, councils and developers on one platform" },
     ],
     askOrganisation: true,
@@ -858,7 +874,10 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     lede: "You already know what the person in front of you needs. What you do not have is anywhere to look. Answer six questions about the placements you are trying to make, and they shape the search we are building.",
     offer: [
       { icon: "ClipboardList", text: "One place to look, instead of a list of numbers to ring" },
-      { icon: "MessageSquareQuote", text: "A say in what we build, while the roadmap is still open" },
+      {
+        icon: "MessageSquareQuote",
+        text: "A say in what we build, while the roadmap is still open",
+      },
       { icon: "MapPin", text: "Placements near family and school, not wherever had a bed" },
     ],
     askOrganisation: true,
@@ -913,9 +932,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
           "Out of hours there is nowhere to look at all",
         ],
       },
-      frictionsDetail(
-        "For example: a placement that took far too long, and what you were missing",
-      ),
+      frictionsDetail("For example: a placement that took far too long, and what you were missing"),
       personalBudget("If a tool like this saved you real time, what would it be worth a month?", [
         "My employer would decide, not me",
       ]),
@@ -942,7 +959,10 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     lede: "You spend half your time finding stock for buyers and the other half finding buyers for stock. Answer six questions about what you broker and where, and when the platform opens both sides are already on it.",
     offer: [
       { icon: "Handshake", text: "Funded buyers and real stock on the same platform" },
-      { icon: "MessageSquareQuote", text: "A say in what we build, while the roadmap is still open" },
+      {
+        icon: "MessageSquareQuote",
+        text: "A say in what we build, while the roadmap is still open",
+      },
       { icon: "ShieldCheck", text: "Counterparties on a platform, not an introduction chain" },
     ],
     askOrganisation: true,

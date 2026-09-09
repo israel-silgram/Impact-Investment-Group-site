@@ -68,7 +68,10 @@ export function RoleIcon({ roleId, size = "sm" }: { roleId: string; size?: "sm" 
         <Accent
           size={large ? 13 : 12}
           strokeWidth={2}
-          className={cn("absolute text-orange-500", large ? "bottom-1.5 right-1.5" : "bottom-1 right-1")}
+          className={cn(
+            "absolute text-orange-500",
+            large ? "bottom-1.5 right-1.5" : "bottom-1 right-1",
+          )}
         />
       ) : null}
     </span>

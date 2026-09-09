@@ -25,9 +25,7 @@ export function SuccessState({ role }: { role: RegisterRoleContent }) {
         <HandHeart aria-hidden="true" className="size-5 text-teal-400" />
       </span>
 
-      <h2 className="mt-5 font-heading text-[26px] font-bold text-white">
-        {role.success.heading}
-      </h2>
+      <h2 className="mt-5 font-heading text-[26px] font-bold text-white">{role.success.heading}</h2>
       <p className="measure mt-3 text-[15px] leading-relaxed text-mist">{role.success.body}</p>
 
       <p className="eyebrow mt-8 text-teal-400">What happens next</p>

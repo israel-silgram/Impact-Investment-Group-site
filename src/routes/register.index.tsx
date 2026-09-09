@@ -47,9 +47,7 @@ function RegisterPickerPage() {
           <h1 className="heading-tight mt-4 text-balance text-[clamp(1.75rem,3.2vw,2.75rem)] font-bold text-white">
             {pickerContent.h1}
           </h1>
-          <p className="measure mt-5 text-[17px] leading-relaxed text-mist">
-            {pickerContent.lede}
-          </p>
+          <p className="measure mt-5 text-[17px] leading-relaxed text-mist">{pickerContent.lede}</p>
         </Reveal>
 
         <Reveal index={1} className="mt-12">

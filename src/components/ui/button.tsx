@@ -26,13 +26,13 @@ const buttonVariants = cva(
           "rounded-full bg-orange-600 px-6 text-white shadow-[var(--shadow-action)] hover:-translate-y-0.5 hover:shadow-[0_16px_34px_-12px_var(--color-orange-500)]",
         secondary:
           "rounded-full border border-teal-500 bg-transparent px-6 text-teal-400 hover:bg-teal-950 hover:text-white",
-        ghost:
-          "nav-underline rounded-none bg-transparent px-1 text-white hover:text-white",
+        ghost: "nav-underline rounded-none bg-transparent px-1 text-white hover:text-white",
         // shadcn-internal variants, retained for library components
         default: "rounded-md bg-primary px-4 text-primary-foreground hover:bg-primary/90",
         destructive:
           "rounded-md bg-destructive px-4 text-destructive-foreground hover:bg-destructive/90",
-        outline: "rounded-md border border-navy-600 bg-transparent px-4 text-white hover:bg-navy-800",
+        outline:
+          "rounded-md border border-navy-600 bg-transparent px-4 text-white hover:bg-navy-800",
         link: "text-teal-400 underline-offset-4 hover:underline",
       },
       size: {
@@ -54,8 +54,7 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   /** Adds the sliding ArrowRight used on primary actions. */
   withArrow?: boolean;

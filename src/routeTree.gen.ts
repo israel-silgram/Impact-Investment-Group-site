@@ -28,6 +28,8 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as TheProblemRouteImport } from './routes/the-problem'
 import { Route as ApiEnquiryRouteImport } from './routes/api/enquiry'
+import { Route as RegisterIndexRouteImport } from './routes/register.index'
+import { Route as RegisterRoleRouteImport } from './routes/register.$role'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -127,6 +129,16 @@ const ApiEnquiryRoute = ApiEnquiryRouteImport.update({
   path: '/api/enquiry',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RegisterIndexRoute = RegisterIndexRouteImport.update({
+  id: '/register/',
+  path: '/register/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoleRoute = RegisterRoleRouteImport.update({
+  id: '/register/$role',
+  path: '/register/$role',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -148,6 +160,8 @@ export interface FileRoutesByFullPath {
   '/solutions': typeof SolutionsRoute
   '/the-problem': typeof TheProblemRoute
   '/api/enquiry': typeof ApiEnquiryRoute
+  '/register/$role': typeof RegisterRoleRoute
+  '/register/': typeof RegisterIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -169,6 +183,8 @@ export interface FileRoutesByTo {
   '/solutions': typeof SolutionsRoute
   '/the-problem': typeof TheProblemRoute
   '/api/enquiry': typeof ApiEnquiryRoute
+  '/register/$role': typeof RegisterRoleRoute
+  '/register': typeof RegisterIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -191,6 +207,8 @@ export interface FileRoutesById {
   '/solutions': typeof SolutionsRoute
   '/the-problem': typeof TheProblemRoute
   '/api/enquiry': typeof ApiEnquiryRoute
+  '/register/$role': typeof RegisterRoleRoute
+  '/register/': typeof RegisterIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -214,6 +232,8 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/the-problem'
     | '/api/enquiry'
+    | '/register/$role'
+    | '/register/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -235,6 +255,8 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/the-problem'
     | '/api/enquiry'
+    | '/register/$role'
+    | '/register'
   id:
     | '__root__'
     | '/'
@@ -256,6 +278,8 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/the-problem'
     | '/api/enquiry'
+    | '/register/$role'
+    | '/register/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -278,6 +302,8 @@ export interface RootRouteChildren {
   SolutionsRoute: typeof SolutionsRoute
   TheProblemRoute: typeof TheProblemRoute
   ApiEnquiryRoute: typeof ApiEnquiryRoute
+  RegisterRoleRoute: typeof RegisterRoleRoute
+  RegisterIndexRoute: typeof RegisterIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -415,6 +441,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiEnquiryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/register/': {
+      id: '/register/'
+      path: '/register'
+      fullPath: '/register/'
+      preLoaderRoute: typeof RegisterIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register/$role': {
+      id: '/register/$role'
+      path: '/register/$role'
+      fullPath: '/register/$role'
+      preLoaderRoute: typeof RegisterRoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -438,6 +478,8 @@ const rootRouteChildren: RootRouteChildren = {
   SolutionsRoute: SolutionsRoute,
   TheProblemRoute: TheProblemRoute,
   ApiEnquiryRoute: ApiEnquiryRoute,
+  RegisterRoleRoute: RegisterRoleRoute,
+  RegisterIndexRoute: RegisterIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

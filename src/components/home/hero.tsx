@@ -190,10 +190,7 @@ export function HomeHero() {
             stays compact. It is tied back to the link with aria-describedby,
             otherwise moving it out of the anchor would strip that context
             from anyone navigating by link. */}
-        <ul
-          aria-labelledby="register-as"
-          className="hero-role-grid mt-5 items-stretch gap-3"
-        >
+        <ul aria-labelledby="register-as" className="hero-role-grid mt-5 items-stretch gap-3">
           {registerRoles.map((role) => {
             const detailId = `hero-role-${role.id}-detail`;
             const className =
@@ -235,41 +232,41 @@ export function HomeHero() {
           })}
         </ul>
 
-          {/*
-           * Data provenance, at the foot of the hero rather than the top.
-           *
-           * It went here and not beside the header because the gap between the
-           * header and the photographs is 32px â€” a credit line in it collides
-           * with the Register Here button directly above. At the foot it closes
-           * the section, sits on the fold, and competes with nothing.
-           *
-           * White wordmark on transparent, keyed from the supplied artwork.
-           * Zoopla's own file is white-on-purple; the purple would fight the
-           * navy, and their reversed mark is the one meant for dark grounds.
-           *
-           * THE AGREEMENT THAT BACKS THIS CLAIM sits with the backend team â€”
-           * it is a Zoopla data agreement for the platform, and the line was
-           * added on their instruction (Callum, Aug 2026). Recording it here
-           * because this is a claim about a commercial relationship carrying
-           * a third party's trademark, and the next person to read this file
-           * will otherwise have to go and ask.
-           *
-           * Still worth doing once: check Zoopla's brand guidelines for the
-           * reversed mark, minimum size and clear space. Deleting this block
-           * is the whole of the rollback.
-           */}
-          <p className="mt-6 flex items-center justify-center gap-2.5">
-            <span className="font-heading text-[10px] font-bold uppercase tracking-[0.16em] text-white/55">
-              Powered by
-            </span>
-            <img
-              src="/images/brand/zoopla-white.webp"
-              alt="Zoopla"
-              width={548}
-              height={120}
-              className="h-[18px] w-auto opacity-90"
-            />
-          </p>
+        {/*
+         * Data provenance, at the foot of the hero rather than the top.
+         *
+         * It went here and not beside the header because the gap between the
+         * header and the photographs is 32px â€” a credit line in it collides
+         * with the wait-list button directly above. At the foot it closes
+         * the section, sits on the fold, and competes with nothing.
+         *
+         * White wordmark on transparent, keyed from the supplied artwork.
+         * Zoopla's own file is white-on-purple; the purple would fight the
+         * navy, and their reversed mark is the one meant for dark grounds.
+         *
+         * THE AGREEMENT THAT BACKS THIS CLAIM sits with the backend team â€”
+         * it is a Zoopla data agreement for the platform, and the line was
+         * added on their instruction (Callum, Aug 2026). Recording it here
+         * because this is a claim about a commercial relationship carrying
+         * a third party's trademark, and the next person to read this file
+         * will otherwise have to go and ask.
+         *
+         * Still worth doing once: check Zoopla's brand guidelines for the
+         * reversed mark, minimum size and clear space. Deleting this block
+         * is the whole of the rollback.
+         */}
+        <p className="mt-6 flex items-center justify-center gap-2.5">
+          <span className="font-heading text-[10px] font-bold uppercase tracking-[0.16em] text-white/55">
+            Powered by
+          </span>
+          <img
+            src="/images/brand/zoopla-white.webp"
+            alt="Zoopla"
+            width={548}
+            height={120}
+            className="h-[18px] w-auto opacity-90"
+          />
+        </p>
       </div>
     </section>
   );

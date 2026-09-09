@@ -5,6 +5,7 @@
 //     React/TanStack dedupe, error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
@@ -23,13 +24,22 @@ const basePath = process.env.BASE_PATH ?? "/";
  * site links to but never prerenders. It is parsed rather than imported
  * because this config is loaded by Vite before any TypeScript path alias or
  * transform exists, so `import ... from "@/content/audiences"` cannot resolve.
+ * Resolved off process.cwd() and NOT off import.meta.url: Vite bundles this
+ * config into node_modules/.vite-temp before running it, so import.meta.url
+ * points at that temp directory rather than at the repo.
  */
+const ROLES_FILE = resolve(process.cwd(), "src/content/audiences.ts");
+
 const registerRolePaths: string[] = (() => {
-  const source = readFileSync(new URL("./src/content/audiences.ts", import.meta.url), "utf8");
-  const list = source.slice(source.indexOf("export const registerRoles"));
-  const ids = [...list.matchAll(/id:\s*"([a-z0-9-]+)"/g)].map((match) => match[1]);
+  const source = readFileSync(ROLES_FILE, "utf8");
+  const marker = "export const registerRoles";
+  const start = source.indexOf(marker);
+  if (start === -1) {
+    throw new Error(`vite.config.ts could not find ${marker} in ${ROLES_FILE}.`);
+  }
+  const ids = [...source.slice(start).matchAll(/id:\s*"([a-z0-9-]+)"/g)].map((m) => m[1]);
   if (ids.length === 0) {
-    throw new Error("vite.config.ts found no role ids in src/content/audiences.ts.");
+    throw new Error(`vite.config.ts found no role ids in ${ROLES_FILE}.`);
   }
   return ids.map((id) => `/register/${id}`);
 })();

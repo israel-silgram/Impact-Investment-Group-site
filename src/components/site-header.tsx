@@ -253,9 +253,7 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-5 xl:flex">
           <Button variant="primary" size="sm" asChild withArrow={false}>
-            <Link to={registerRoute.to}>
-              {registerRoute.label}
-            </Link>
+            <Link to={registerRoute.to}>{registerRoute.label}</Link>
           </Button>
           <Link
             to="/contact"
@@ -376,9 +374,7 @@ export function SiteHeader() {
 
           <div className="flex flex-col items-center gap-5">
             <Button variant="primary" asChild className="w-full" withArrow={false}>
-              <Link to={registerRoute.to}>
-                {registerRoute.label}
-              </Link>
+              <Link to={registerRoute.to}>{registerRoute.label}</Link>
             </Button>
             <Link
               to="/contact"
