@@ -343,7 +343,15 @@ export function SiteFooter() {
             </ul>
           </nav>
 
-          <p className="mx-auto mt-3 max-w-[120ch] text-balance text-center text-[11px] leading-relaxed text-slate-muted">
+          {/* text-mist, NOT text-slate-muted. Inside .section-light the two
+              map to slate-ink (6.2:1 on the cream) and slate (4.33:1), and
+              4.33 fails AA for 11px body copy: axe reported this paragraph
+              on every page of the site. It is the company disclosure this
+              wave exists to make readable, so it is the one line of footer
+              colour the wave changes. The other slate-muted labels in this
+              footer are untouched and still fail; they are listed in the
+              wave 298 report as pre-existing and out of its scope. */}
+          <p className="mx-auto mt-3 max-w-[120ch] text-balance text-center text-[11px] leading-relaxed text-mist">
             {legalNotice}
           </p>
         </div>

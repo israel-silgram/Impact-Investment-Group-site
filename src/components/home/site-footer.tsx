@@ -178,7 +178,7 @@ export function SiteFooter() {
             )}
           </ul>
         </nav>
-        <p className="mx-auto w-full max-w-[1440px] px-5 pb-8 pt-3 text-[12px] leading-relaxed text-slate-muted sm:px-8">
+        <p className="mx-auto w-full max-w-[1440px] px-5 pb-8 pt-3 text-[12px] leading-relaxed text-mist sm:px-8">
           {legalNotice}
         </p>
       </div>

@@ -72,12 +72,27 @@ function SectionIcon({ children }: { children: React.ReactNode }) {
 function LegalPage() {
   const documents = legalLinks.filter((item) => item.external);
 
+  /*
+   * A FRAGMENT, NOT <main>. `__root.tsx` already renders
+   * <main id="main"> around every route, so a page that opens its own
+   * <main> nests one landmark inside another: axe reports
+   * landmark-no-duplicate-main, landmark-unique and
+   * landmark-main-is-top-level, and a screen-reader user gets two
+   * "main" regions to choose between. The site's older routes do wrap
+   * themselves this way and are not this wave's to change; a new page
+   * does not have to inherit it.
+   */
   return (
-    <main>
+    <>
       <section aria-labelledby="legal-heading" className="section-light">
         <div className="mx-auto w-full max-w-[1200px] px-5 pb-8 pt-14 sm:px-8 lg:pt-20">
           <Reveal>
-            <p className="eyebrow tracking-[0.14em] text-orange-700">{legalPageEyebrow}</p>
+            {/* teal-600 (4.7:1 on the cream), NOT the orange-700 the other cream
+                heroes use. An eyebrow is 12px semibold, which is not large
+                text, so it needs 4.5:1 and orange-700 gives 4.1:1. The brand
+                kit already says eyebrows on cream are teal; axe caught this
+                page not following it. */}
+            <p className="eyebrow tracking-[0.14em] text-teal-400">{legalPageEyebrow}</p>
             <h1
               id="legal-heading"
               className="heading-tight mt-3 max-w-[14ch] text-balance text-[clamp(2.125rem,5.4vw,3.75rem)] font-extrabold tracking-[-0.03em] text-white"
@@ -266,6 +281,6 @@ function LegalPage() {
           </Reveal>
         </div>
       </section>
-    </main>
+    </>
   );
 }
