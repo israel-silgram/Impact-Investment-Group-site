@@ -12,6 +12,7 @@
  * neither consent. If that ever stops being true, this file says so.
  */
 import { buildWaitlistPayload } from "../src/components/register/waitlist-form";
+import { apiUrl } from "../src/lib/api";
 import { getRegisterRole } from "../src/content/register";
 
 const investor = getRegisterRole("investor")!;
@@ -71,4 +72,11 @@ show(
   }),
 );
 
-console.log("\nPOST target: {apiBase}/api/public/waitlist");
+/**
+ * ⚠️ THE PATH HAS NO `/api` SEGMENT. R295-4 writes it as
+ * `{apiBase}/api/public/waitlist`, but the backend mounts this router at
+ * `/public` (iip-backend/app/main.py includes `site_enquiry.router`, whose
+ * prefix is `/public`), and the site's live contact form already posts to
+ * `apiUrl("/public/enquiry")`. Wave 294 must mount the wait list beside it.
+ */
+console.log(`\nPOST target: ${apiUrl("/public/waitlist")}`);
