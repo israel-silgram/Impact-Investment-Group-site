@@ -172,7 +172,7 @@ export function HomeHero() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 pb-6 sm:px-8">
-        {/* Row 2 — the wait-list divider. The rules are non-text marks, so they
+        {/* Row 2, the wait-list divider. The rules are non-text marks, so they
             keep orange-500 at 4.01:1 on the navy. */}
         <div className="mt-8 flex items-center justify-center gap-3 sm:gap-4">
           <span aria-hidden="true" className="h-0.5 w-8 shrink-0 bg-orange-500 sm:w-[90px]" />
@@ -208,7 +208,7 @@ export function HomeHero() {
             );
             return (
               <li key={role.id} className="flex flex-col">
-                {/* Wave 295: the tiles used to scatter — nine into anchors on
+                {/* Wave 295: the tiles used to scatter, nine into anchors on
                     /solutions and the resident's into the contact form. They
                     now all land on the same shape of page, the one that asks
                     this role its own questions. The label above the tile is

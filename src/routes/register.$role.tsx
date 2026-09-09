@@ -9,7 +9,7 @@ import { getRegisterRole, residentUrgentNote } from "@/content/register";
 import { crisisLines, crisisNote } from "@/content/site";
 
 /**
- * /register/<role> — one page per role, asking that role its own questions.
+ * /register/<role>: one page per role, asking that role its own questions.
  *
  * ONE h1, which is the role's own headline and not a field name. The offer
  * strip above the form is the argument for filling it in; the form is the

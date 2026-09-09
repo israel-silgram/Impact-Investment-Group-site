@@ -27,8 +27,8 @@ export const primaryNav: NavItem[] = [
  * the same four questions and learned nothing from either. It now opens the
  * wait-list flow, which asks each role its own questions.
  *
- * The label is drawn in four places — the header, the mobile drawer, the
- * page shell and the footer — and it is deliberately one string, because a
+ * The label is drawn in four places (the header, the mobile drawer, the page
+ * shell and the footer) and it is deliberately one string, because a
  * button that says three different things is three different buttons to the
  * person reading the page.
  */

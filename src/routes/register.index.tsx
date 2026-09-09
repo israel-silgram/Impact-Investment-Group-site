@@ -6,7 +6,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { pickerContent } from "@/content/register";
 
 /**
- * /register — the picker.
+ * /register, the picker.
  *
  * R295-3: the heading, one line of lede, and the ten tiles. Nothing else is on
  * this page and nothing else should be added to it. A chooser earns its keep

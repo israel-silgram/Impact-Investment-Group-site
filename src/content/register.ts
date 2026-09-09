@@ -1,5 +1,5 @@
 /**
- * THE WAIT LIST — every string and every question, typed.
+ * THE WAIT LIST: every string and every question, typed.
  *
  * Wave 295. The site used to send all ten role tiles and the header button to
  * /contact with `enquiry=waitlist` preselected, which asked a landlord and a
@@ -54,7 +54,7 @@ export interface RegisterQuestion {
    * Renders INSIDE the previous question rather than as one of its own.
    *
    * R295-4 describes the frictions question as "a short multi-choice list of
-   * the real frictions for that role PLUS a free-text line" — one question,
+   * the real frictions for that role PLUS a free-text line": one question,
    * two answers. Drawn as a separate block it reads as a seventh question on a
    * page that is meant to ask six, and a visitor counts blocks, not ids. It
    * keeps its own id on the wire because it is its own answer.
@@ -153,7 +153,7 @@ export const contactFieldLabels = {
 } as const;
 
 /**
- * PRICE BANDS — PROPOSED, NOT CONFIRMED. Callum's to sign off, per R295-4.
+ * PRICE BANDS, PROPOSED AND NOT CONFIRMED. Callum's to sign off, per R295-4.
  *
  * Two ladders, because the question means a different thing to a housing
  * association with a software line in its budget than to a landlord with four

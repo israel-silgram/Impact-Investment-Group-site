@@ -88,7 +88,7 @@ export default defineConfig({
             { path: "/platform", prerender: { enabled: true } },
             { path: "/about", prerender: { enabled: true } },
             { path: "/contact", prerender: { enabled: true } },
-            // Wave 295 — the wait list. The picker plus one page per role.
+            // Wave 295, the wait list. The picker plus one page per role.
             // crawlLinks would reach the ten role pages from the picker and
             // from the hero anyway, but they are listed explicitly because
             // failOnError only protects a page the prerenderer knows about:

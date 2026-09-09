@@ -28,7 +28,7 @@ const icon = (name?: string): LucideIcon =>
  *   teal-600     4.7:1  ✓ roles
  *   orange-700   5.78:1 ✓ at any size since wave 295 (was 4.1:1)
  *   orange-600   4.75:1 ✓ (was 3.0:1)
- *   orange-500   3.76:1 ✗ — icon glyphs and fills only (was 2.3:1)
+ *   orange-500   3.76:1 ✗ icon glyphs and fills only (was 2.3:1)
  *
  * ⚠ WAVE 295 MOVED THREE OF THOSE. The orange became the platform's
  * terracotta and the ramp was re-derived against this cream, so orange is no
