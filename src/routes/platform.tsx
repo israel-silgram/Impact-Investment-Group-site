@@ -257,7 +257,7 @@ function DifferenceStory() {
                     className={cn(
                       "group flex min-h-[64px] items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-all duration-300",
                       selected
-                        ? "translate-x-0 border-teal-600/45 bg-navy-700/80 shadow-[0_10px_30px_-18px_rgba(36,210,195,0.7)] lg:translate-x-1"
+                        ? "translate-x-0 border-teal-600/45 bg-navy-950 shadow-[0_10px_30px_-18px_rgba(36,210,195,0.7)] lg:translate-x-1"
                         : "border-transparent bg-transparent hover:border-navy-700 hover:bg-navy-800",
                     )}
                   >

@@ -117,7 +117,7 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 bg-navy-900/92 backdrop-blur-md transition-colors duration-200",
+        "sticky top-0 z-50 bg-navy-950 transition-colors duration-200",
         overLight
           ? "border-b border-[color-mix(in_oklab,var(--color-slate)_25%,transparent)]"
           : scrolled
@@ -147,7 +147,7 @@ export function SiteHeader() {
                           className={cn(
                             "nav-link inline-flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200",
                             (pathname === "/partners" || pathname.startsWith("/partner-with-")) &&
-                              "text-orange-400",
+                              "text-orange-500",
                           )}
                         >
                           Partners
@@ -221,7 +221,7 @@ export function SiteHeader() {
                                       "bg-navy-800 text-white before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:bg-orange-500",
                                   )}
                                 >
-                                  <span className="w-5 shrink-0 font-mono text-[9px] text-orange-400">
+                                  <span className="w-5 shrink-0 font-mono text-[9px] text-orange-500">
                                     {String(index + 1).padStart(2, "0")}
                                   </span>
                                   <span>{partner.label}</span>
@@ -313,7 +313,7 @@ export function SiteHeader() {
                         className={cn(
                           "flex w-full items-center justify-between font-heading text-[28px] font-semibold text-white",
                           (pathname === "/partners" || pathname.startsWith("/partner-with-")) &&
-                            "text-orange-400",
+                            "text-orange-500",
                         )}
                       >
                         Partners
@@ -345,7 +345,7 @@ export function SiteHeader() {
                                 to={partner.path}
                                 className="flex min-h-10 items-center gap-3 rounded-none px-2 text-[15px] font-semibold text-mist hover:bg-navy-800 hover:text-white"
                               >
-                                <span className="font-mono text-[10px] text-orange-400">
+                                <span className="font-mono text-[10px] text-orange-500">
                                   {String(index + 1).padStart(2, "0")}
                                 </span>
                                 {partner.label}
@@ -361,7 +361,7 @@ export function SiteHeader() {
                       <Link
                         to={item.to}
                         activeOptions={{ exact: true }}
-                        className="font-heading text-[28px] font-semibold text-white data-[status=active]:text-orange-400"
+                        className="font-heading text-[28px] font-semibold text-white data-[status=active]:text-orange-500"
                       >
                         {item.label}
                       </Link>

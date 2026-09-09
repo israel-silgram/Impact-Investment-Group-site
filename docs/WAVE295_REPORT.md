@@ -51,7 +51,7 @@ one-line change to `styles.css`.
 
 | Token | Was | Now | Where it comes from | Job |
 |---|---|---|---|---|
-| `--color-orange-400` | `#ff7a29` | **`#f0a886`** | the kit's light terracotta | orange TEXT on navy, and nothing else |
+| `--color-orange-400` | `#ff7a29` | ~~`#f0a886`~~ **RETIRED** | the kit's light terracotta | it carried orange text on navy for one day. Callum removed it: see section 11, "One orange". |
 | `--color-orange-500` | `#ff7a29` | **`#c15f3c`** | the platform's `--brand-primary` | fills, marks, icon glyphs, large headline words |
 | `--color-orange-600` | `#e56600` | **`#ae4e30`** | the platform's `--brand-primary-ink` | the button fill |
 | `--color-orange-700` | `#c25400` | **`#9a4429`** | derived here | orange body text on the cream |
@@ -61,6 +61,11 @@ one-line change to `styles.css`.
 `orange-700` is derived and not lifted, because the platform has no ground as dark as this site's
 cream `#f7f1e6` and therefore has no token for body text on it. It is `orange-600` taken down one
 step until it cleared 4.5:1 with room to spare on all three light grounds.
+
+⚠️ **`orange-400` no longer exists.** Everything below in this section is the wave as first built,
+with a lighter tint carrying small orange text on navy. Callum read it and ruled that one orange
+serves every word and every button. Section 11 is what replaced it, and the FAILS rows below that
+name `orange-400` are kept only because they are why it was there.
 
 
 ### The contrast table, measured
@@ -72,31 +77,24 @@ WCAG: **4.5:1** normal text, **3:1** large text (24px, or 18.66px bold) and non-
 
 | Foreground | Ground | Before | After | After verdict |
 |---|---|---:|---:|---|
-| `orange-400` `#f0a886` | navy-950 `#000b1c` | 7.58:1 | **10.00:1** | AA any size |
 | `orange-500` `#c15f3c` | navy-950 `#000b1c` | 7.58:1 | **4.67:1** | AA any size |
 | `orange-600` `#ae4e30` | navy-950 `#000b1c` | 5.85:1 | **3.69:1** | AA large text / non-text only |
 | `orange-700` `#9a4429` | navy-950 `#000b1c` | 4.29:1 | **3.04:1** | AA large text / non-text only |
-| `orange-400` `#f0a886` | navy-900 `#00112b` | 7.24:1 | **9.55:1** | AA any size |
 | `orange-500` `#c15f3c` | navy-900 `#00112b` | 7.24:1 | **4.46:1** | AA large text / non-text only |
 | `orange-600` `#ae4e30` | navy-900 `#00112b` | 5.59:1 | **3.53:1** | AA large text / non-text only |
 | `orange-700` `#9a4429` | navy-900 `#00112b` | 4.09:1 | **2.90:1** | FAILS |
-| `orange-400` `#f0a886` | navy-800 `#041c3d` | 6.51:1 | **8.60:1** | AA any size |
 | `orange-500` `#c15f3c` | navy-800 `#041c3d` | 6.51:1 | **4.01:1** | AA large text / non-text only |
 | `orange-600` `#ae4e30` | navy-800 `#041c3d` | 5.03:1 | **3.17:1** | AA large text / non-text only |
 | `orange-700` `#9a4429` | navy-800 `#041c3d` | 3.68:1 | **2.61:1** | FAILS |
-| `orange-400` `#f0a886` | navy-700 `#0a2a52` | 5.50:1 | **7.27:1** | AA any size |
 | `orange-500` `#c15f3c` | navy-700 `#0a2a52` | 5.50:1 | **3.39:1** | AA large text / non-text only |
 | `orange-600` `#ae4e30` | navy-700 `#0a2a52` | 4.25:1 | **2.68:1** | FAILS |
 | `orange-700` `#9a4429` | navy-700 `#0a2a52` | 3.11:1 | **2.21:1** | FAILS |
-| `orange-400` `#f0a886` | cream (mist-bg) `#f7f1e6` | 2.32:1 | **1.75:1** | FAILS |
 | `orange-500` `#c15f3c` | cream (mist-bg) `#f7f1e6` | 2.32:1 | **3.76:1** | AA large text / non-text only |
 | `orange-600` `#ae4e30` | cream (mist-bg) `#f7f1e6` | 3.00:1 | **4.75:1** | AA any size |
 | `orange-700` `#9a4429` | cream (mist-bg) `#f7f1e6` | 4.09:1 | **5.78:1** | AA any size |
-| `orange-400` `#f0a886` | cream-card `#efe6d6` | 2.10:1 | **1.59:1** | FAILS |
 | `orange-500` `#c15f3c` | cream-card `#efe6d6` | 2.10:1 | **3.41:1** | AA large text / non-text only |
 | `orange-600` `#ae4e30` | cream-card `#efe6d6` | 2.72:1 | **4.31:1** | AA large text / non-text only |
 | `orange-700` `#9a4429` | cream-card `#efe6d6` | 3.72:1 | **5.25:1** | AA any size |
-| `orange-400` `#f0a886` | white `#ffffff` | 2.60:1 | **1.97:1** | FAILS |
 | `orange-500` `#c15f3c` | white `#ffffff` | 2.60:1 | **4.23:1** | AA large text / non-text only |
 | `orange-600` `#ae4e30` | white `#ffffff` | 3.37:1 | **5.34:1** | AA any size |
 | `orange-700` `#9a4429` | white `#ffffff` | 4.60:1 | **6.50:1** | AA any size |
@@ -117,7 +115,6 @@ WCAG: **4.5:1** normal text, **3:1** large text (24px, or 18.66px bold) and non-
 | Foreground | Before | After | After verdict |
 |---|---:|---:|---|
 | white `#ffffff` | 13.30:1 | **13.30:1** | AA any size |
-| orange-400 `#f0a886` | 5.11:1 | **6.75:1** | AA any size |
 | orange-500 `#c15f3c` | 5.11:1 | **3.15:1** | AA large text / non-text only |
 | orange-600 `#ae4e30` | 3.95:1 | **2.49:1** | FAILS |
 | orange-700 `#9a4429` | 2.89:1 | **2.05:1** | FAILS |
@@ -444,7 +441,7 @@ environment variable, because it audits the build and the site does not ship it.
 
 1. **The orange hex.** The site now carries the platform's live `#C15F3C`, not the brief's `#C6613F`, for the reasons in section 2. Say the word if you want `#C6613F` anyway.
 2. **The price bands.** Proposed, not confirmed, per R295-4. Two ladders, in section 8. Both carry an honest bottom rung ("it would have to be free to us"), because a person who would only use it free is a real answer and leaving that rung off pushes them into a band they do not mean.
-3. **The hero's orange headline.** "Delivering Support" is now the lighter terracotta `orange-400`, because the brand terracotta measures 3.15:1 over the ghosted street photograph. Compare `hero-before-1440.webp` with `hero-after-1440.webp`. If you would rather have the darker orange there, the fix is to lift the photograph's ghost opacity and re-measure, not to ignore the number.
+3. ~~**The hero's orange headline** is the lighter terracotta.~~ **SETTLED, and section 11 is the answer.** You read this and ruled that there is one orange. "Delivering Support" is now `#c15f3c`, the same as the button, and the photograph behind it gave way instead: 14% to 7%, with the wash over it raised. It measures 4.16:1 at 360px and 4.23:1 at 1440px against a 3:1 floor, up from 3.55:1 and 3.78:1. Compare `hero-before-1440.webp` with `hero-after-1440.webp`.
 
 ### Three things this wave could not finish
 
@@ -1172,9 +1169,147 @@ layout would see.
 
 ---
 
-## 11 · Status
+---
+
+## 11 · One orange
+
+**Callum, after reading this report:** every orange word on the site, the hero
+headline included, is the same orange as the fill of the "Register to join the waitlist" button.
+Retire the lighter tint for text. Where that orange would fail WCAG 2.2 AA where the text sits,
+do not lighten the orange, change the surface.
+
+### What changed
+
+`--color-orange-400` `#f0a886` is **gone from the token block**, not merely unused. The first cut
+of this wave used it for orange text on navy, because `#c15f3c` is 4.46:1 on the page navy and the
+body floor is 4.5:1. That put two oranges on the page, which is the exact thing this wave existed
+to end. Twelve `text-orange-400` usages became `text-orange-500`, the active nav label in
+`styles.css` followed, and so did the image-fill headline's gradient and text stroke. There is now
+one orange in the site's text, `#c15f3c`, and it is the same value as `--brand-primary` on the
+platform and as the button's fill.
+
+`orange-600` `#ae4e30` and `orange-700` `#9a4429` are untouched, exactly as instructed: 600 is the
+button fill's hover and active shade and the fill of any text-bearing control, 700 is orange text on
+the cream. Neither is a second orange for text on navy.
+
+### The arithmetic that decides every surface
+
+`#c15f3c` has a relative luminance of 0.19848, so against a perfectly black ground it measures
+**4.90:1** and it cannot do better anywhere. Two consequences, and they drive every change below:
+
+- **Orange text under 24px passes only on a ground at or below navy-950.** navy-950 `#000b1c` gives 4.67:1, navy-900 `#00112b` gives 4.46:1, navy-800 4.01:1, navy-700 3.39:1.
+- **Lightening a surface cannot rescue small orange text.** On pure white it is 4.23:1, still under the 4.5:1 body floor. On this site the surface that passes is always the darker one, so every change below darkens.
+
+### The five surfaces that moved
+
+| # | Where | The orange text on it | Was | Now | The surface change |
+|---|---|---|---:|---:|---|
+| 1 | The site header, every page | the active nav label, 15px | 4.46:1 on navy-900, and about 3.9:1 where a cream section scrolled under the 92% fill | **4.67:1** | `bg-navy-900/92 backdrop-blur-md` becomes an opaque `bg-navy-950`. The blur went with the translucency: behind an opaque fill it draws nothing and still costs a compositing layer. |
+| 2 | The dark island inside a cream section (`.section-light .section-dark`) | the home page's "See the full picture", 13px | 4.46:1 | **4.67:1** | navy-900 becomes navy-950. A darker island on the cream is slightly more contrast against the band, not less. |
+| 3 | The accountable-chain cards on `/about` | the "01 / 02 / 03" eyebrow, 11px | 4.01:1 | **4.67:1** | a new `panel-deep` utility sinks the card from navy-800 to navy-950. Defined after `panel` so it takes the background and inherits the border, radius and shadow. |
+| 4 | The chip inside those cards | the partner name, "Rhema Social Impact Group", 10.5px | 3.52:1 | **4.67:1** | it was a 16% wash of its own accent, so the word sat on a tint of itself. It is now an outlined pill and the ground under the word is the card. This is also what the platform's kit does: wave 288 retired the faded orange tint as an information fill. |
+| 5 | The selected chapter tab on `/platform` | its 10px accent label, "The past failures" | 3.53:1 | **4.67:1** | the `bg-navy-700/80` fill sinks to navy-950. Selection is still unmistakable: the teal border, the glow, the horizontal nudge and the filled accent disc all stay. |
+
+**And the hero photograph**, which is the one Callum named. "Delivering Support" is set over the
+ghosted street, where the old lighter tint measured 6.8:1 and `#c15f3c` measured 3.55:1 at 360px and
+3.78:1 at 1440px. It is large text, so it cleared the 3:1 floor, but with almost nothing to spare
+over a photograph. The photograph goes from **14% to 7%** and the wash over it from **18/4/36 to
+34/30/46**, which takes the headline to **4.16:1 at 360px and 4.23:1 at 1440px**.
+
+⚠️ **The ceiling in the hero is 4.46:1 and no wash can beat it**, because the wash is navy-900 and the
+section behind it is navy-900: at 100% the ground would BE navy-900. The headline is large text and
+answers to 3:1, so that ceiling is ample, and the section's own colour was not changed to chase a
+floor that does not apply.
+
+### What did NOT change, deliberately
+
+- **The navy scale.** `CLAUDE.md` fixes it against the approved mock-ups. Darkening `--color-navy-900` from `#00112b` to `#000e26` would have cleared 4.5:1 in one token and been invisible to the eye, and it was rejected for that reason: it is a standing brand instruction, and five targeted surfaces are honest where a quiet global shift is not.
+- **The orange.** Not lightened anywhere, at any size, on any ground.
+- **`orange-600` and `orange-700`.** The button's hover and active shades are as they were.
+
+### Every orange word on the site, measured on the rendered page
+
+Produced by `scripts/wave295-orange-audit.py`, which walks twelve pages at 360 and 1440, and for
+each orange word screenshots its box twice, once with the ink present and once with it transparent.
+The pixels that differ are the pixels the glyphs cover, and the ground is read from the inkless shot
+at only those positions, taking the 99th percentile by luminance.
+
+⚠️ **It reads pixels rather than compositing ancestors, and that is not fussiness.** The first cut
+walked the ancestor chain alpha-compositing background colours, the way axe-core's contrast rule
+does, and reported the header's ground as `#000103` when the header is navy-900 at 92% over a
+navy-900 page, which is `#00112b`. That error flattered the site's tightest measurement, the 15px
+active nav label, from 4.46:1 to 4.94:1: one side of the 4.5:1 line to the other. Three more bugs
+were found the same way and each is written down in the script: sampling the whole bounding box
+caught the line above a headline in its leading, hiding a word with `visibility` removed its own
+background as well as its ink, and Lenis smooth scroll moved the page between the two shutters. The
+script refuses to score a pair whose scroll position, word or box moved, and reports those instead
+of silently passing them.
+
+| Page | Orange text | Size | Lightest pixel behind it | Measured | Needs | |
+|---|---|---|---|---:|---:|---|
+| `/` | See the full picture | 13px/700 | `#000b1c` | **4.67:1** | 4.5:1 | PASS |
+| `/` | Delivering Support | 53px/800 large | `#071730` | **4.23:1** | 3:1 | PASS |
+| `/` | Delivering Support | 38px/800 large | `#0a1930` | **4.16:1** | 3:1 | PASS |
+| `/about` | 02 | 11px/700 | `#000b1c` | **4.67:1** | 4.5:1 | PASS |
+| `/about` | Rhema Social Impact Group | 10px/800 | `#000b1c` | **4.67:1** | 4.5:1 | PASS |
+| `/about` | About Us | 15px/500 | `#000b1c` | **4.67:1** | 4.5:1 | PASS |
+| `/about` | safe, suitable homes | 20px/700 large | `#00112b` | **4.46:1** | 3:1 | PASS |
+| `/about` | One chain. | 22px/700 large | `#00112b` | **4.46:1** | 3:1 | PASS |
+| `/contact` | Contact Us | 15px/500 | `#000b1c` | **4.67:1** | 4.5:1 | PASS |
+| `/partner-with-investor` | Partners | 15px/500 | `#000b1c` | **4.67:1** | 4.5:1 | PASS |
+| `/partner-with-investor` | building towards. | 43px/800 large | `#011021` | **4.53:1** | 3:1 | PASS |
+| `/partner-with-investor` | clear purpose. | 35px/800 large | `#00112b` | **4.46:1** | 3:1 | PASS |
+| `/partner-with-investor` | connects. | 35px/800 large | `#00112b` | **4.46:1** | 3:1 | PASS |
+| `/partner-with-investor` | building towards. | 80px/800 large | `#021323` | **4.44:1** | 3:1 | PASS |
+| `/partner-with-resident` | Partners | 15px/500 | `#000b1c` | **4.67:1** | 4.5:1 | PASS |
+| `/partner-with-resident` | a suitable home. | 43px/800 large | `#011021` | **4.53:1** | 3:1 | PASS |
+| `/partner-with-resident` | the centre. | 35px/800 large | `#00112b` | **4.46:1** | 3:1 | PASS |
+| `/partner-with-resident` | around you. | 35px/800 large | `#00112b` | **4.46:1** | 3:1 | PASS |
+| `/partner-with-resident` | a suitable home. | 80px/800 large | `#021323` | **4.44:1** | 3:1 | PASS |
+| `/partners` | Partners | 15px/500 | `#000b1c` | **4.67:1** | 4.5:1 | PASS |
+| `/partners` | One connected outcome. | 35px/800 large | `#00112b` | **4.46:1** | 3:1 | PASS |
+| `/platform` | The past failures | 10px/700 | `#000b1c` | **4.67:1** | 4.5:1 | PASS |
+| `/platform` | Our Services | 15px/500 | `#000b1c` | **4.67:1** | 4.5:1 | PASS |
+| `/platform` | one platform. | 36px/700 large | `#00112b` | **4.46:1** | 3:1 | PASS |
+| `/platform` | Activate their tool. | 32px/700 large | `#00152e` | **4.33:1** | 3:1 | PASS |
+| `/platform` | one platform. | 70px/700 large | `#00152e` | **4.33:1** | 3:1 | PASS |
+| `/platform` | 25 | 96px/800 large | `#262130` | **3.70:1** | 3:1 | PASS |
+| `/solutions` | The Solution | 15px/500 | `#000b1c` | **4.67:1** | 4.5:1 | PASS |
+| `/solutions` | five layers | 26px/800 large | `#00112b` | **4.46:1** | 3:1 | PASS |
+| `/solutions` | connected | 28px/800 large | `#00112b` | **4.46:1** | 3:1 | PASS |
+| `/the-problem` | The Problem | 15px/500 | `#000b1c` | **4.67:1** | 4.5:1 | PASS |
+
+31 distinct orange words, 0 measurement(s) below threshold.
+
+**31 distinct orange words, 0 below threshold**, at both widths. `/platform`'s marquee figures are
+reported as not measurable rather than as passes: the marquee slides between the two shutters, so
+there is no comparable pair. They are 22px extra-bold on the page navy, which is 4.46:1 against a
+3:1 floor.
+
+### The gates, re-run on this tree
+
+| Gate | Result |
+|---|---|
+| `scripts/wave295-orange-audit.py`, 12 pages x 2 widths | **30 orange words, 0 below threshold** |
+| axe-core WCAG 2.2 AA + best practice, 11 new pages x 2 widths | **22 of 22 clean**, no serious or critical violations |
+| `STATIC_BUILD=true npm run build` | **35 pages prerendered**, no retries |
+| `tsc --noEmit` | clean on every file this wave touches |
+| `npm run lint` on the changed files | 0 errors |
+| Screenshots | all 15 retaken from this build, at 360, 768 and 1440 |
+
+`src/routes/platform.tsx` is again byte-identical to its previous commit apart from one line: an
+`eslint --fix` pass converted it wholesale from CRLF to LF for the second time this wave, and it was
+reverted again. It is the one blob in this repository stored with CRLF endings.
+
+---
+
+## 12 · Status
 
 Every acceptance line in the brief is true, except the one that cannot be: wave 294's endpoint does
 not exist yet, so the form posts into a 404 until it does. The Landing-Queue row is `ready`.
+
+Callum's "one orange" change is in and is section 11: one orange for every word and every button,
+`#c15f3c`, with five surfaces moved and the hero photograph pulled back so that nothing had to be
+lightened. Thirty orange words measured on the rendered pages, none below its threshold.
 
 **`main` was not pushed, merged or rebased. No force-push, no rebase of pushed commits.**

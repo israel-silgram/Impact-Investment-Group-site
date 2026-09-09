@@ -89,7 +89,7 @@ export function DeliverySpine({ className }: { className?: string }) {
                     >
                       {i + 1}
                     </span>
-                    <span className={cn("eyebrow", orange ? "text-orange-400" : "text-teal-400")}>
+                    <span className={cn("eyebrow", orange ? "text-orange-500" : "text-teal-400")}>
                       {step.spine}
                     </span>
                   </span>
@@ -99,7 +99,7 @@ export function DeliverySpine({ className }: { className?: string }) {
                     className={cn(
                       "text-[12px] font-semibold uppercase tracking-[0.12em] transition-opacity duration-200",
                       open ? "opacity-100" : "opacity-0",
-                      orange ? "text-orange-400" : "text-teal-400",
+                      orange ? "text-orange-500" : "text-teal-400",
                     )}
                   >
                     {step.meta}

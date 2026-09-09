@@ -122,7 +122,7 @@ export function HomeHero() {
           src="/images/hero-ground-street.webp"
           alt=""
           decoding="async"
-          className="size-full object-cover object-[60%_45%] opacity-[0.14]"
+          className="size-full object-cover object-[60%_45%] opacity-[0.07]"
         />
         <div className="hero-ground absolute inset-0" />
       </div>
@@ -158,10 +158,12 @@ export function HomeHero() {
                 style={{ fontSize: `${HEADLINE_FILL_CQW}cqw` }}
                 className={cn(
                   "whitespace-nowrap pt-4 text-center font-heading font-extrabold leading-tight tracking-[-0.02em]",
-                  /* orange-400, not orange-500: this word is set over the
-                     ghosted street, where the terracotta measures 3.15:1
-                     against the brightest pixel. See .hero-ground. */
-                  panel.headline.orange ? "text-orange-400" : "text-white",
+                  /* The site's one orange, the same one that fills the
+                     wait-list button. It is set over the ghosted street, so
+                     the street gave way rather than the orange: see
+                     .hero-ground for the photograph's opacity and the wash
+                     that had to come with it. */
+                  panel.headline.orange ? "text-orange-500" : "text-white",
                 )}
               >
                 {panel.headline.text}

@@ -104,7 +104,7 @@ function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNo
 function ErrorText({ id, children }: { id: string; children?: string | undefined }) {
   if (!children) return null;
   return (
-    <p id={id} role="alert" className="text-[13px] font-medium text-orange-400">
+    <p id={id} role="alert" className="text-[13px] font-medium text-orange-500">
       {children}
     </p>
   );
@@ -413,7 +413,7 @@ export function EnquiryForm({
         <p className="font-heading text-sm font-semibold text-mist">{config.reply}</p>
         <p className="text-[12px] leading-snug text-slate-muted">{privacyLine}</p>
         {failed ? (
-          <p role="alert" className="text-[13px] font-medium text-orange-400">
+          <p role="alert" className="text-[13px] font-medium text-orange-500">
             That did not send. Please try again, or email hello@impactig.co.uk directly.
           </p>
         ) : null}

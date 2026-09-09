@@ -523,17 +523,19 @@ function AboutPage() {
           {accountableChain.map((step, i) => {
             const accent = chainAccents[i % chainAccents.length]!;
             const line = accent === "orange" ? "text-orange-500" : "text-teal-400";
+            // Outlined, not washed. A 10.5px word on a 16% wash of its
+            // own colour measured 3.52:1; on the card behind it, 4.67:1.
             const chip =
               accent === "orange"
-                ? "bg-orange-500/16 text-orange-500"
-                : "bg-teal-400/16 text-teal-400";
+                ? "border border-orange-500/45 text-orange-500"
+                : "border border-teal-400/45 text-teal-400";
             return (
               <Reveal key={step.id} index={i} as="li" className="h-full">
                 {/* pb-[104px] reserves the character's corner. Without it the
                     chip and the artwork fight for the same 100px. */}
                 <div
                   className={cn(
-                    "panel relative flex h-full flex-col overflow-hidden p-6 pb-[104px]",
+                    "panel panel-deep relative flex h-full flex-col overflow-hidden p-6 pb-[104px]",
                     accent === "orange" ? "border-orange-500/40" : "border-teal-600/40",
                   )}
                 >

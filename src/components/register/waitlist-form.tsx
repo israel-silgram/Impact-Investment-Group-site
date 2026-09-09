@@ -163,7 +163,7 @@ function FieldLabel({ htmlFor, children }: { htmlFor: string; children: React.Re
 function ErrorText({ id, children }: { id: string; children?: string | undefined }) {
   if (!children) return null;
   return (
-    <p id={id} role="alert" className="text-[13px] font-medium text-orange-400">
+    <p id={id} role="alert" className="text-[13px] font-medium text-orange-500">
       {children}
     </p>
   );
@@ -424,7 +424,7 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
           </Button>
         </div>
         {failed ? (
-          <p role="alert" className="text-[14px] font-medium text-orange-400">
+          <p role="alert" className="text-[14px] font-medium text-orange-500">
             {registerFailureLine}
           </p>
         ) : null}

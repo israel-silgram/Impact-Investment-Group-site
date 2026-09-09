@@ -27,14 +27,21 @@ const ratioL = (l1, l2) => {
 const ratio = (a, b) => ratioL(relLum(a), relLum(b));
 const r2 = (n) => n.toFixed(2);
 
+/**
+ * ⚠️ THERE IS NO orange-400 ANY MORE. It was `#f0a886`, the kit's light
+ * terracotta, and the first cut of this wave used it to carry small orange
+ * text on navy where `#c15f3c` could not reach 4.5:1. Callum retired it: one
+ * orange, the wait-list button's, for every orange word on the site. Where it
+ * did not pass, the SURFACE moved. See docs/WAVE295_REPORT.md, "One orange",
+ * and scripts/wave295-orange-audit.py, which measures the result on the real
+ * pages rather than against a hex.
+ */
 const NEW = {
-  "orange-400": "#f0a886",
   "orange-500": "#c15f3c",
   "orange-600": "#ae4e30",
   "orange-700": "#9a4429",
 };
 const OLD = {
-  "orange-400": "#ff7a29",
   "orange-500": "#ff7a29",
   "orange-600": "#e56600",
   "orange-700": "#c25400",
@@ -51,10 +58,14 @@ const GROUNDS = {
 };
 
 /**
- * The ghosted street behind the hero. There is no flat hex for it: the
- * measurable thing is the brightest pixel of the composite, and styles.css
- * records it as white measuring 13.3:1 there. Back-solve the luminance from
- * that so this table and that comment can never disagree.
+ * The ghosted street behind the hero, AS IT WAS BEFORE THIS WAVE, back-solved
+ * from the white 13.3:1 that styles.css recorded at the old photo opacity.
+ *
+ * It is kept only so the "before" column means something. The AFTER figure is
+ * not computed here and must not be: the photograph's opacity and the wash
+ * over it both moved for "one orange", so the only honest measurement of the
+ * hero headline now is the one taken off the rendered pixels its own glyphs
+ * cover, by scripts/wave295-orange-audit.py.
  */
 const HERO_GROUND_LUM = 1.05 / 13.3 - 0.05;
 
