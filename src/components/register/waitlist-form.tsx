@@ -46,7 +46,16 @@ export interface WaitlistFormValues {
   phone?: string;
   consentEmail: boolean;
   consentSms: boolean;
-  answers: Record<string, string | string[] | undefined>;
+  /**
+   * ⚠️ `unknown`, and NOT `string | string[]`, because that is not what
+   * react-hook-form puts here. An untouched radio group reads back as `null`
+   * and an untouched checkbox group as `false` or as an array with `false` in
+   * every unticked slot. Typing this narrowly is what hid a bug that made the
+   * form unsubmittable: the zod record rejected those values, the error landed
+   * on `answers` where nothing renders it, and the submit button did nothing
+   * at all. `buildWaitlistPayload` is the one place that narrows them.
+   */
+  answers: Record<string, unknown>;
 }
 
 /**
@@ -67,8 +76,19 @@ function schemaFor(role: RegisterRoleContent) {
       phone: z.string().trim().max(40, "That is longer than a phone number").optional(),
       consentEmail: z.boolean(),
       consentSms: z.boolean(),
+      // Every question is optional, so this has to accept what an untouched
+      // control reads back as: `null` from a radio group, `false` from a
+      // checkbox, and `false` in the unticked slots of a checkbox array. The
+      // lengths are the platform's; the browser caps them at the input too.
       answers: z
-        .record(z.union([z.string().max(2000), z.array(z.string().max(300))]))
+        .record(
+          z.union([
+            z.string().max(2000),
+            z.array(z.union([z.string().max(300), z.boolean()])),
+            z.boolean(),
+            z.null(),
+          ]),
+        )
         .optional()
         .default({}),
     })
@@ -96,7 +116,11 @@ export function buildWaitlistPayload(role: RegisterRoleContent, values: Waitlist
   for (const question of role.questions) {
     const value = values.answers?.[question.id];
     if (Array.isArray(value)) {
-      const picked = value.filter((entry) => typeof entry === "string" && entry !== "");
+      // react-hook-form fills the unticked slots of a checkbox array with
+      // `false`, so this drops everything that is not a real answer.
+      const picked = value.filter(
+        (entry): entry is string => typeof entry === "string" && entry !== "",
+      );
       if (picked.length > 0) answers[question.id] = picked;
     } else if (typeof value === "string" && value.trim() !== "") {
       answers[question.id] = value.trim();
