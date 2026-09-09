@@ -10,6 +10,7 @@ import {
   Home,
   Info,
   Landmark,
+  LifeBuoy,
   Network,
   User,
   UserRoundCheck,
@@ -20,6 +21,63 @@ import {
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import type { PartnerProfile } from "@/content/partners";
+import { crisisLines, crisisNote } from "@/content/site";
+
+/**
+ * Crisis signposting, drawn only for a profile that carries `crisisSignpost`
+ * (today: the resident pathway alone).
+ *
+ * ⚠ IT IS THE FIRST THING IN <main> AND IT STAYS THERE. Above the hero, not
+ * inside it, because "above the fold" has to hold at 360px as well as 1440px
+ * and the hero is 610px tall on its own. It is deliberately NOT wrapped in
+ * <Reveal>: this is the one block on the site that must be readable before any
+ * JavaScript has run and without waiting for an intersection observer.
+ *
+ * No animation, no orange, no call to action. Orange is the action colour and
+ * nothing here is an action we want; the accent is teal, the same treatment
+ * the footer's crisis panel uses, so the two read as one piece of care
+ * information rather than as a banner and a footnote.
+ */
+function CrisisSignpost({ signpost }: { signpost: NonNullable<PartnerProfile["crisisSignpost"]> }) {
+  return (
+    <section
+      aria-labelledby="crisis-signpost-heading"
+      className="border-b border-teal-600 bg-navy-900"
+    >
+      <div className="mx-auto grid w-full max-w-[1200px] gap-5 px-5 py-6 sm:px-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:items-start lg:gap-10">
+        <div>
+          <h2
+            id="crisis-signpost-heading"
+            className="flex items-center gap-2.5 font-heading text-[17px] font-bold text-white"
+          >
+            <LifeBuoy aria-hidden="true" className="size-5 shrink-0 text-teal-400" />
+            {signpost.heading}
+          </h2>
+          <p className="mt-2.5 max-w-[68ch] text-[14px] leading-relaxed text-mist">
+            {signpost.body}
+          </p>
+        </div>
+
+        <div>
+          <ul className="flex flex-col gap-1.5 text-[14px]">
+            {crisisLines.map((line) => (
+              <li key={line.label} className="flex items-baseline justify-between gap-4">
+                <span className="text-mist">{line.label}</span>
+                <a
+                  href={`tel:${line.detail.replace(/\s/g, "")}`}
+                  className="font-heading font-semibold text-white underline underline-offset-4 transition-colors duration-200 hover:text-teal-400"
+                >
+                  {line.detail}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2.5 font-heading text-[14px] font-semibold text-white">{crisisNote}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 const iconMap: Record<string, LucideIcon> = {
   Building2,
@@ -509,6 +567,8 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
 
   return (
     <main>
+      {profile.crisisSignpost ? <CrisisSignpost signpost={profile.crisisSignpost} /> : null}
+
       <section
         aria-labelledby={headingId}
         className={`section-light relative isolate overflow-hidden border-b border-navy-700 ${

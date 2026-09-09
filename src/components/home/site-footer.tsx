@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, LifeBuoy, Mail, Phone, Clock } from "lucide-react";
 
 import { Logo } from "@/components/logo";
+import { legalLinks } from "@/content/legal";
 import {
   contactDetails,
   contactRoutes,
@@ -140,8 +141,47 @@ export function SiteFooter() {
         </div>
       </div>
 
+      {/*
+       * ⚠ THIS COMPONENT IS NOT RENDERED BY ANY ROUTE. `__root.tsx` draws
+       * `@/components/site-footer`; nothing imports this one. It is kept in
+       * parity with the live footer so that restoring it can never quietly
+       * drop the legal links, which is exactly the failure wave 298 was
+       * called to fix. If you change one footer, change both.
+       */}
       <div className="border-t border-navy-700">
-        <p className="mx-auto w-full max-w-[1440px] px-5 py-8 text-[12px] leading-relaxed text-slate-muted sm:px-8">
+        <nav
+          aria-label="Legal"
+          className="mx-auto w-full max-w-[1440px] px-5 pt-8 sm:px-8"
+        >
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-0.5 text-[13px]">
+            {legalLinks.map((item) =>
+              item.external ? (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="inline-flex min-h-11 items-center gap-1 font-medium text-mist underline underline-offset-4 transition-colors duration-200 hover:text-white"
+                  >
+                    {item.label}
+                    <ArrowUpRight aria-hidden="true" className="size-3.5 shrink-0" />
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                </li>
+              ) : (
+                <li key={item.label}>
+                  <Link
+                    to={item.href}
+                    className="inline-flex min-h-11 items-center font-medium text-mist underline underline-offset-4 transition-colors duration-200 hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ),
+            )}
+          </ul>
+        </nav>
+        <p className="mx-auto w-full max-w-[1440px] px-5 pb-8 pt-3 text-[12px] leading-relaxed text-slate-muted sm:px-8">
           {legalNotice}
         </p>
       </div>

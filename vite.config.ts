@@ -47,6 +47,11 @@ export default defineConfig({
             { path: "/platform", prerender: { enabled: true } },
             { path: "/about", prerender: { enabled: true } },
             { path: "/contact", prerender: { enabled: true } },
+            // The company-information page the footer's `Legal` link opens.
+            // Listed explicitly rather than left to `crawlLinks`: it is a
+            // legal disclosure, and it has to exist as static HTML whether or
+            // not a crawl happens to reach it. (Wave 298, R298-2.)
+            { path: "/legal", prerender: { enabled: true } },
           ],
         }
       : {}),

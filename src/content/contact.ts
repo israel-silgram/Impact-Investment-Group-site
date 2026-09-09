@@ -1,5 +1,7 @@
 /** Copy and field configuration for /contact. */
 
+import { companyRecord, privacyPolicyHref } from "@/content/legal";
+
 export const enquiryRouteIds = [
   "demo",
   "waitlist",
@@ -108,8 +110,39 @@ export const previewSlots = [
 export const investorAcknowledgement =
   "I understand my capital is at risk and that this is not a Collective Investment Scheme, and that Impact Investment Group is not authorised or regulated by the FCA.";
 
-export const privacyLine =
-  "UK GDPR · we use your details only to answer this enquiry · ICO ZB957755";
+/**
+ * THE NOTICE AT COLLECTION. Rendered beside the submit control, not in the
+ * footer, because that is where the ICO's right-to-be-informed guidance puts
+ * it: a person has to be told who is taking their details and why AT THE
+ * MOMENT they hand them over. Layered information is allowed; making somebody
+ * hunt for it is not.
+ *
+ * It used to read, in full:
+ *
+ *   "UK GDPR · we use your details only to answer this enquiry · ICO ZB957755"
+ *
+ * which named no controller and linked to nothing. The three parts below add
+ * the two things it was missing and change the promise in none of them: the
+ * purpose is still the same purpose, word for word.
+ *
+ * ⚠ THIS FORM SENDS NO MARKETING, SO IT ASKS FOR NO MARKETING CONSENT.
+ * Do not add a marketing checkbox here. If marketing is ever switched on, the
+ * consent is collected then, unticked, and this notice changes with it. And
+ * never pre-tick a box on this form: a pre-ticked box is not a consent under
+ * UK GDPR, so it would buy nothing and cost the page its credibility.
+ */
+export const collectionNotice = {
+  /** Named in full. `companyRecord.name` is the Companies House record. */
+  controller: companyRecord.name,
+  /** Follows the controller name. */
+  purpose:
+    "is the data controller for this form. We use your details only to answer this enquiry.",
+  /** The registration the site already published, kept verbatim. */
+  registration: "UK GDPR · ICO ZB957755",
+  linkLabel: "Read the Privacy Policy",
+  /** The company's published Privacy Policy. Single source: content/legal.ts. */
+  linkHref: privacyPolicyHref,
+} as const;
 
 export const lookingForHome = {
   title: "Looking for a home?",
@@ -117,9 +150,20 @@ export const lookingForHome = {
   action: "Find a home",
 };
 
+/**
+ * ⚠ NOT CURRENTLY RENDERED, and corrected anyway. This block used to carry
+ * `entity` alone: a company NAME under a heading that promises a postal
+ * ADDRESS. That is the exact defect wave 298 was called in to fix in the
+ * footer, and leaving the same shape sitting here unused is how it comes back
+ * the day somebody restores the block. If it is ever rendered again, print
+ * `address` with it, and take both from content/legal.ts rather than typing
+ * them out here.
+ */
 export const registeredOffice = {
   title: "Registered office",
-  entity: "Impact Investment Group UK Limited",
+  entity: companyRecord.name,
+  address: companyRecord.registeredOffice,
+  number: `Registered in ${companyRecord.jurisdiction}, company number ${companyRecord.number}`,
 };
 
 

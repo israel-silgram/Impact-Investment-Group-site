@@ -5,6 +5,7 @@ import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { partnerProfiles } from "@/content/partners";
+import { legalLinks } from "@/content/legal";
 import {
   closingBeats,
   contactDetails,
@@ -295,6 +296,55 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
+
+          {/*
+           * THE LEGAL LINKS. Four text links, present on every route because
+           * this footer is drawn by __root.tsx. Three are the company's
+           * published documents on the platform (this site has none of its
+           * own); `Legal` is the company block on this site, at /legal.
+           *
+           * They sit ABOVE the notice, not inside it: a link buried in an
+           * 11px grey paragraph is the "technically present" that the CMA
+           * guidance on misleading omissions is about. 13px, slate-ink on the
+           * cream (6.2:1), 44px targets on touch, and they wrap to a second
+           * line at 360 rather than scrolling sideways.
+           *
+           * ⚠ THE ORDER IS FIXED and matches the platform's own footer:
+           * Terms, Privacy, Disclaimer, Legal. Do not reorder or drop one to
+           * save a line. (Wave 298, R298-1.)
+           */}
+          <nav
+            aria-label="Legal"
+            className="mt-4 border-t border-navy-700 pt-3.5 sm:mt-5 sm:pt-4"
+          >
+            <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-0.5 text-[13px]">
+              {legalLinks.map((item) =>
+                item.external ? (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="inline-flex min-h-11 items-center gap-1 font-medium text-mist underline underline-offset-4 transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-1.5"
+                    >
+                      {item.label}
+                      <ArrowUpRight aria-hidden="true" className="size-3.5 shrink-0" />
+                      <span className="sr-only">(opens in a new tab)</span>
+                    </a>
+                  </li>
+                ) : (
+                  <li key={item.label}>
+                    <Link
+                      to={item.href}
+                      className="inline-flex min-h-11 items-center font-medium text-mist underline underline-offset-4 transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-1.5"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ),
+              )}
+            </ul>
+          </nav>
 
           <p className="mx-auto mt-3 max-w-[120ch] text-balance text-center text-[11px] leading-relaxed text-slate-muted">
             {legalNotice}

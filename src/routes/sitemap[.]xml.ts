@@ -28,6 +28,10 @@ export const Route = createFileRoute("/sitemap.xml")({
             priority: "0.7",
           })),
           { path: "/contact", changefreq: "yearly", priority: "0.7" },
+          // The company-information page. Low priority, but it is indexed on
+          // purpose: a reader checking who runs this site should be able to
+          // find it from a search engine, not only from the footer.
+          { path: "/legal", changefreq: "yearly", priority: "0.3" },
         ];
 
         const urls = entries.map((e) =>

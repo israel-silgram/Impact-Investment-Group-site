@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as LegalRouteImport } from './routes/legal'
 import { Route as PartnerWithBrokerRouteImport } from './routes/partner-with-broker'
 import { Route as PartnerWithCareProviderRouteImport } from './routes/partner-with-care-provider'
 import { Route as PartnerWithDeveloperRouteImport } from './routes/partner-with-developer'
@@ -42,6 +43,11 @@ const AboutRoute = AboutRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalRoute = LegalRouteImport.update({
+  id: '/legal',
+  path: '/legal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PartnerWithBrokerRoute = PartnerWithBrokerRouteImport.update({
@@ -132,6 +138,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/legal': typeof LegalRoute
   '/partner-with-broker': typeof PartnerWithBrokerRoute
   '/partner-with-care-provider': typeof PartnerWithCareProviderRoute
   '/partner-with-developer': typeof PartnerWithDeveloperRoute
@@ -153,6 +160,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/legal': typeof LegalRoute
   '/partner-with-broker': typeof PartnerWithBrokerRoute
   '/partner-with-care-provider': typeof PartnerWithCareProviderRoute
   '/partner-with-developer': typeof PartnerWithDeveloperRoute
@@ -175,6 +183,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/legal': typeof LegalRoute
   '/partner-with-broker': typeof PartnerWithBrokerRoute
   '/partner-with-care-provider': typeof PartnerWithCareProviderRoute
   '/partner-with-developer': typeof PartnerWithDeveloperRoute
@@ -198,6 +207,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/legal'
     | '/partner-with-broker'
     | '/partner-with-care-provider'
     | '/partner-with-developer'
@@ -219,6 +229,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/legal'
     | '/partner-with-broker'
     | '/partner-with-care-provider'
     | '/partner-with-developer'
@@ -240,6 +251,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/legal'
     | '/partner-with-broker'
     | '/partner-with-care-provider'
     | '/partner-with-developer'
@@ -262,6 +274,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  LegalRoute: typeof LegalRoute
   PartnerWithBrokerRoute: typeof PartnerWithBrokerRoute
   PartnerWithCareProviderRoute: typeof PartnerWithCareProviderRoute
   PartnerWithDeveloperRoute: typeof PartnerWithDeveloperRoute
@@ -301,6 +314,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal': {
+      id: '/legal'
+      path: '/legal'
+      fullPath: '/legal'
+      preLoaderRoute: typeof LegalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/partner-with-broker': {
@@ -422,6 +442,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  LegalRoute: LegalRoute,
   PartnerWithBrokerRoute: PartnerWithBrokerRoute,
   PartnerWithCareProviderRoute: PartnerWithCareProviderRoute,
   PartnerWithDeveloperRoute: PartnerWithDeveloperRoute,

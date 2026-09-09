@@ -28,6 +28,27 @@ export interface PartnerProfile {
   closingLine: string;
   motto: string;
   importantNote?: string;
+  /**
+   * Crisis signposting shown ABOVE THE FOLD, before the hero.
+   *
+   * ⚠ ONLY THE RESIDENT PROFILE CARRIES THIS, and that is the whole point of
+   * it being optional. The other nine pathway pages address organisations:
+   * councils, housing associations, providers, investors. This one addresses
+   * the person who may be homeless, in temporary accommodation or leaving
+   * hospital, and the platform's published Disclaimer puts the helplines on
+   * every seeker-facing page rather than only in a footer somebody in
+   * difficulty has to scroll to find.
+   *
+   * The numbers themselves are NOT here. They live once, in
+   * `crisisLines` and `crisisNote` in content/site.ts, and the panel reads
+   * them from there, so a changed helpline number can never be right in the
+   * footer and stale on this page. (Wave 298, R298-6.)
+   */
+  crisisSignpost?: {
+    heading: string;
+    /** Written in the first person, like the rest of this profile. */
+    body: string;
+  };
 }
 
 /**
@@ -676,6 +697,18 @@ export const partnerProfiles: PartnerProfile[] = [
     motto: "LISTEN TO ME. FIND THE RIGHT HOME. SUPPORT MY FUTURE.",
     importantNote:
       "Access to housing, benefits, care and support depends on individual circumstances, assessments, eligibility and available services. The platform does not replace professional advice or statutory decision-making.",
+    crisisSignpost: {
+      heading: "If you need help now",
+      /*
+       * Three things, in the platform's seeker voice, before anything else on
+       * the page: what this is (homes that MAY suit, never a promise of one),
+       * that a person is always in the loop, and that this is not the number
+       * to call in an emergency. The `importantNote` further down the page
+       * still carries the assessment and statutory-decision qualification and
+       * is not replaced by this.
+       */
+      body: "This page describes a network that looks for homes that may suit you. It is not an emergency service and it cannot house you today. A person from the housing and support team confirms every match before anything happens. If you need help now, these lines are open to anyone.",
+    },
   },
 ];
 

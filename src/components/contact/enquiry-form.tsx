@@ -11,7 +11,7 @@ import {
   entityTypeOptions,
   enquiryRoutes,
   investorAcknowledgement,
-  privacyLine,
+  collectionNotice,
   roleOptions,
   ticketSizeOptions,
   type EnquiryRouteId,
@@ -411,7 +411,32 @@ export function EnquiryForm({
           </Button>
         </div>
         <p className="font-heading text-sm font-semibold text-mist">{config.reply}</p>
-        <p className="text-[12px] leading-snug text-slate-muted">{privacyLine}</p>
+        {/*
+         * THE NOTICE AT COLLECTION, beside the submit control.
+         *
+         * ⚠ IT STAYS NEXT TO THE BUTTON. Moving it to the footer, a tooltip or
+         * a "find out more" would make it the layered-but-unreachable notice
+         * the ICO's right-to-be-informed guidance is written against. It names
+         * the controller, says what the details are used for, and links to the
+         * Privacy Policy, which is the whole of what it has to do.
+         *
+         * 12px is the floor for this line and it is deliberate: it is the same
+         * size the site already used, slate on the navy panel, and it must not
+         * be shrunk further to fit a layout. (Wave 298, R298-3.)
+         */}
+        <p className="max-w-[70ch] text-[12px] leading-snug text-slate-muted">
+          <span className="font-semibold text-mist">{collectionNotice.controller}</span>{" "}
+          {collectionNotice.purpose} {collectionNotice.registration} ·{" "}
+          <a
+            href={collectionNotice.linkHref}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="font-semibold text-teal-400 underline underline-offset-4 transition-colors duration-200 hover:text-white"
+          >
+            {collectionNotice.linkLabel}
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </p>
         {failed ? (
           <p role="alert" className="text-[13px] font-medium text-orange-400">
             That did not send. Please try again, or email hello@impactig.co.uk directly.

@@ -1,3 +1,5 @@
+import { companyRecord, insuranceEvidenceLine } from "@/content/legal";
+
 /** Site navigation. Kept as data so copy edits never touch layout. */
 export interface NavItem {
   label: string;
@@ -124,14 +126,36 @@ export const trustRegistrations: TrustRegistration[] = [
     reference: "FCA broker FRN 305402",
     verifyLabel: "Verify the broker on the FCA register",
     verifyHref: "https://register.fca.org.uk/s/",
+    /*
+     * ⚠ THE COVER PERIOD IS GONE AND MUST NOT COME BACK AS A FIXED DATE RANGE.
+     * This card read "Cover 13 Aug 2025 – 12 Aug 2026" and was still saying so
+     * on the live site in September 2026, a month after that period ended,
+     * beside a heading that reads "PI & PL Insured". A period that has passed,
+     * presented as current cover, is the one thing this card cannot do.
+     * `insuranceEvidenceLine` (content/legal.ts) replaces it and stays true
+     * through every renewal. If a current certificate is supplied, add the
+     * insurer and dates BESIDE that line, never instead of it. (Wave 298.)
+     */
     details: [
       "PI limit £100,000 · PL limit £10,000,000",
-      "Cover 13 Aug 2025 – 12 Aug 2026",
+      insuranceEvidenceLine,
       "Underwritten by Victor Insurance / MS Amlin via Insurance-Desk Services",
     ],
   },
 ];
 
-/** Verbatim and unedited. Do not rewrite. */
+/**
+ * The regulatory framing is verbatim and unedited. Do not rewrite it, and do
+ * not add a claim of authorisation or exemption to it.
+ *
+ * ⚠ ONE CLAUSE CHANGED, IN WAVE 298. It used to read "Registered office:
+ * Impact Investment Group UK Limited.", which is a company NAME under a label
+ * that promises a postal ADDRESS, and the address is the one thing a reader
+ * checking a registered office is looking for. It now carries the company's registered
+ * name, its number, the jurisdiction it is registered in and the actual
+ * registered office, all four read off the Companies House public register
+ * (see content/legal.ts for the source, the date and the address note).
+ * If any of them changes on the register, change it there, not here.
+ */
 export const legalNotice =
-  "Not authorised or regulated by the FCA · not a Collective Investment Scheme · capital at risk · sourcing, packaging and managed investment services, not advice · take independent advice. Registered office: Impact Investment Group UK Limited. © 2026, an Impact Investment Group initiative.";
+  `Not authorised or regulated by the FCA · not a Collective Investment Scheme · capital at risk · sourcing, packaging and managed investment services, not advice · take independent advice. ${companyRecord.name} is registered in ${companyRecord.jurisdiction}, company number ${companyRecord.number}. Registered office: ${companyRecord.registeredOffice}. © 2026, an Impact Investment Group initiative.`;
