@@ -6,6 +6,8 @@
 **Brief:** `CLAUDE_CODE_wave298_the-site-names-its-company.md` (Callum, 9 Sep 2026, 13:40 UK)
 **Source review:** `Impact Investment Group/05-Artifacts/legal-footer-review-2026-09-09/REVIEW.md`
 **Status:** ready. `main` was not pushed, merged or rebased. Cowork lands it.
+**Gated head:** `5f5cb08`. The only commit above it is the one correcting a wave
+295 sha in section 11, which no build, lint or audit reads.
 
 The platform half is wave 297 (`feat/wave297-the-footer-says-five-things`, worktree
 `../iip-uc297`). At the time this wave built, 297 had pushed its claiming commit
@@ -516,8 +518,11 @@ defect. The element-cropped shots are unaffected.
 
 ## 11. For whoever lands this
 
-1. **Land wave 295 first.** It is `ready` on the same repo at `3030490` and its
-   `/register` form posts into a 404 until wave 294 is live. Three files overlap,
+1. **Land wave 295 first.** It is `ready` on the same repo, on
+   `feat/wave295-register-to-join-the-waitlist`, and its `/register` form posts
+   into a 404 until wave 294 is live. Its branch has moved since the Landing-Queue
+   row was written (`3030490` at that point, `2d9b7a7` when this wave finished),
+   so take its head from the remote rather than from either record. Three files overlap,
    all in disjoint regions: `src/content/site.ts` (295 edits `registerRoute`, 298
    edits `legalNotice` and `trustRegistrations`), `vite.config.ts` (295 parses its
    prerender list from `audiences.ts`, 298 appends one literal `/legal` entry) and
