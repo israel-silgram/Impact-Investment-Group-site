@@ -532,6 +532,21 @@
   border-color: var(--slate-20);
 }
 
+/* ⚠ THE FOCUS RING FOLLOWS THE GROUND, LIKE EVERYTHING ELSE HERE.
+   The base rule outlines in teal-400, which is 7.4:1 on the navy and 2.14:1 on
+   the cream. WCAG 2.2 wants 3:1 for a focus indicator (SC 1.4.11 and 2.4.11),
+   so on every light section the keyboard ring was the one affordance that
+   failed while all the text around it passed. teal-600 is 4.7:1 on the cream.
+
+   This is the whole site's focus ring on cream, not one component's: the
+   footer, the contact form, the partner heroes and the Legal page all sit in
+   .section-light. It is only ever visible while an element has keyboard focus,
+   and it only ever gets darker. (Wave 298; found by the axe pass on the four
+   new footer links, which are cream-ground by construction.) */
+.section-light :focus-visible {
+  outline-color: var(--color-teal-600);
+}
+
 /* Surfaces: navy panels become white cards. */
 .section-light [class*="bg-navy-"] {
   background-color: var(--color-surface);

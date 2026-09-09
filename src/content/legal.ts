@@ -11,16 +11,25 @@
  *   Source:    https://find-and-update.company-information.service.gov.uk/company/16650494
  *   Read on:   9 September 2026 (wave 298)
  *
- * ON THE REGISTERED OFFICE. Companies House prints the address from separate
- * fields and its own comma lands mid-name:
+ * ON THE REGISTERED OFFICE: IT IS THE REGISTER'S STRING, CHARACTER FOR
+ * CHARACTER, AND IT LOOKS ODD ON PURPOSE. Companies House assembles the
+ * address from separate fields and its own comma lands mid-name:
  *
  *   "Renewal Trust Business, Centre 3 Hawksworth St, Nottingham, NG3 2EG"
  *
- * That is the premises field ("Renewal Trust Business") running into the first
- * address line ("Centre 3 Hawksworth St"). `registeredOffice` below rejoins
- * them without the field-split comma. Street and postcode are unchanged, and
- * `registeredOfficeAsRegistered` keeps the register's exact string so the two
- * can always be compared. Callum to confirm the presentation.
+ * The premises field is "Renewal Trust Business" and the first address line is
+ * "Centre 3 Hawksworth St", so the comma sits inside what is really "Renewal
+ * Trust Business Centre, 3 Hawksworth Street". Tidying it would be three
+ * separate edits to a legally disclosed value: moving the comma, expanding
+ * "St" to "Street", and dropping the comma before the postcode. An earlier
+ * draft of this file DID tidy it and described the change as comma-only, which
+ * is how a small improvement quietly becomes an unverified claim.
+ *
+ * So it is printed exactly as the register prints it, and a reader comparing
+ * the two matches them character for character. The tidied form is a proposed
+ * change in the wave 298 report for Callum to accept or refuse; if he accepts
+ * it, change `registeredOffice` and leave `registeredOfficeAsRegistered`
+ * alone, because that field is what makes the comparison possible.
  */
 
 export interface CompanyRecordField {
@@ -33,8 +42,12 @@ export interface CompanyRecordField {
 export const companyRecord = {
   name: "Impact Investment Group UK Limited",
   number: "16650494",
-  registeredOffice: "Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG",
-  /** The register's own string, kept verbatim. Not rendered. */
+  registeredOffice: "Renewal Trust Business, Centre 3 Hawksworth St, Nottingham, NG3 2EG",
+  /**
+   * The register's own string. Identical to `registeredOffice` today, and kept
+   * as a separate field so that if the tidied form is ever adopted there is
+   * still one place holding what Companies House actually says.
+   */
   registeredOfficeAsRegistered:
     "Renewal Trust Business, Centre 3 Hawksworth St, Nottingham, NG3 2EG",
   jurisdiction: "England and Wales",
@@ -86,13 +99,13 @@ export const legalLinks: LegalLink[] = [
     label: "Terms of Service",
     href: `${platformDocsBase}/terms`,
     external: true,
-    description: "The terms on which the company provides its services.",
+    description: "The terms on which the services are provided.",
   },
   {
     label: "Privacy Policy",
     href: `${platformDocsBase}/privacy`,
     external: true,
-    description: "How the company collects, uses and stores personal data.",
+    description: "How personal data is collected, used and stored.",
   },
   {
     label: "Disclaimer",
@@ -126,9 +139,35 @@ export const legalMailboxes: LegalMailbox[] = [
   { purpose: "Data protection and privacy", address: "privacy@impactinvestmentplatform.com" },
 ];
 
-/** Where the site says its policies are published, and that it has none of its own. */
+/*
+ * THE SECOND AND THIRD MAILBOXES ARE ON A THIRD DOMAIN AND THE PAGE SAYS SO.
+ * This site is served from impactinvestmentgroup.co.uk and its documents from
+ * app.impactinvestmentgroup.co.uk, so two addresses at
+ * impactinvestmentplatform.com read as a typo unless something explains them.
+ * They are the addresses the platform's own Terms and Privacy Policy publish,
+ * which is the only reason they are here.
+ *
+ * NOBODY HAS TESTED THAT THEY ARE MONITORED. The review says so in terms and
+ * made no delivery test. A subject-access request into an unread mailbox is a
+ * real failure, so this is outstanding question O-1 in the wave 298 report. If
+ * Callum cannot confirm them, delete the two rows rather than leaving them:
+ * one working address beats three published ones.
+ */
+export const mailboxesNote =
+  "The legal and data-protection addresses are the mailboxes published in the platform's own Terms of Service and Privacy Policy.";
+
+/*
+ * THIS SENTENCE STATES WHERE THE DOCUMENTS ARE AND NOTHING ELSE.
+ * It used to add "published by the company" and "the platform documents are
+ * the ones that apply". Neither is ours to say: the review records that the
+ * Terms name the contracting party as "the platform" and the Privacy Policy
+ * names "the platform" as controller, without identifying a legal entity. So
+ * attributing the documents to this company, and declaring them applicable to
+ * a reader of this site, are both legal determinations nobody has made. They
+ * are outstanding question O-2 in the wave 298 report instead.
+ */
 export const policiesNote =
-  "The Terms of Service, Privacy Policy and Disclaimer are published by the company on the platform at app.impactinvestmentgroup.co.uk. This site publishes no separate versions of them; the platform documents are the ones that apply.";
+  "The Terms of Service, Privacy Policy and Disclaimer are published on the platform at app.impactinvestmentgroup.co.uk. This site publishes no separate versions of them.";
 
 export const legalPageEyebrow = "Company information";
 export const legalPageTitle = "Legal";
@@ -136,12 +175,20 @@ export const legalPageLead =
   "Who this company is, where it is registered, and where to find the documents that govern its services.";
 
 /**
- * ⚠ NEVER PRINT A COVER PERIOD AS CURRENT. The footer used to carry
- * "Cover 13 Aug 2025 – 12 Aug 2026", which was still on the live site in
- * September 2026, a month after it expired. A visitor reading it had no way to
- * tell whether the policy had been renewed. This sentence replaces it and is
- * true whatever the renewal date turns out to be. If Callum supplies a current
- * certificate, add the insurer and the period BESIDE this line, never instead
- * of it, and set a reminder to remove them the day the period ends.
+ * ⚠ NEVER PRINT A COVER PERIOD AS CURRENT. The footer used to carry a fixed
+ * twelve-month cover period that was still on the live site a month after it
+ * had ended, beside a card headed "PI & PL Insured". A visitor reading it had
+ * no way to tell whether the policy had been renewed. R298-4 prescribes the
+ * sentence below in its place.
+ *
+ * ⚠ AND IT DOES NOT MAKE THE CARD FULLY HONEST ON ITS OWN. The card still
+ * carries "PI & PL Insured" and two specific limits, and those came off the
+ * same certificate that expired. Removing the date stops the site presenting
+ * an ended period AS CURRENT, which is what the ruling asked for; it does not
+ * evidence that cover exists today. That gap is outstanding question O-3 in
+ * the wave 298 report, with the proposed wording, and it is Callum's to close
+ * by supplying the renewed certificate. If he does, add the insurer and the
+ * period BESIDE this line, never instead of it, and set a reminder to remove
+ * them the day that period ends.
  */
 export const insuranceEvidenceLine = "Current insurance evidence available on request";

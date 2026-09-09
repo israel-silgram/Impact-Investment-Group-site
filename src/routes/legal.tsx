@@ -10,6 +10,7 @@ import {
   legalPageEyebrow,
   legalPageLead,
   legalPageTitle,
+  mailboxesNote,
   policiesNote,
 } from "@/content/legal";
 import { trustRegistrations } from "@/content/site";
@@ -22,7 +23,14 @@ import { trustRegistrations } from "@/content/site";
  * or a reader can bookmark, quote in a complaint and reach with JavaScript
  * off. A disclosure panel that only exists once React has hydrated is a
  * disclosure that some readers do not get. It is added to the prerender list
- * in `vite.config.ts` and to the sitemap.
+ * in `vite.config.ts`.
+ *
+ * ⚠ AND TO `sitemap[.]xml.ts`, WHICH DOES NOT CURRENTLY SHIP. That route is a
+ * server handler, and the static build sets `nitro: false`, so no sitemap.xml
+ * is emitted at all and `robots.txt` names none. Its `BASE_URL` is also still
+ * "", so every `<loc>` would be relative and invalid if it did ship. That is a
+ * pre-existing defect, not this wave's, and the entry is added so that /legal
+ * is in it the day somebody fixes the route. See the wave 298 report.
  *
  * ⚠ EVERY VALUE ON THIS PAGE COMES FROM A REGISTER, NOT FROM COPY.
  * The company fields are read off Companies House (see content/legal.ts for
@@ -38,7 +46,16 @@ import { trustRegistrations } from "@/content/site";
  * regulator has approved anything, and this page must never read as if it is.
  */
 
-const title = "Legal and company information · The Impact Investment Platform";
+/*
+ * ⚠ TITLED AFTER THE COMPANY, NOT AFTER THE PRODUCT, AND ALONE ON THE SITE IN
+ * THAT. Every other page ends "The Impact Investment Platform". This is the
+ * one page whose whole job is to establish that the legal entity is Impact
+ * Investment Group UK Limited, and titling it after the platform reintroduces
+ * exactly the company-versus-platform ambiguity the review raised. The
+ * separator is a middot rather than the dash the other titles use because this
+ * project's canon forbids the em dash in anything newly written.
+ */
+const title = "Legal and company information · Impact Investment Group UK Limited";
 const description =
   "Registered company name, number, registered office and jurisdiction for Impact Investment Group UK Limited, with its public registrations and the documents that govern its services.";
 
@@ -163,10 +180,17 @@ function LegalPage() {
                 Registrations and cover
               </h2>
             </div>
+            {/* ⚠ THE THIRD CARD IS THE BROKER'S FCA NUMBER, NOT THIS COMPANY'S.
+                An earlier draft said only "each of these is checkable on the
+                register that issues it", which on a card headed
+                "FCA broker FRN 305402" reads as this company being on the FCA
+                register, on the same page whose footer says it is not. The
+                second sentence exists to close that reading and must not be
+                dropped while that card is here. */}
             <p className="measure mt-4 text-[15px] leading-relaxed text-mist">
-              Each of these is independently checkable on the register that issues it. A
-              registration is a record that the company is listed, not an approval of anything it
-              does.
+              Each of these is checkable on the register that issues it, and a listing is not an
+              approval of anything the company does. The FCA reference below belongs to the
+              insurance broker, not to this company.
             </p>
           </Reveal>
 
@@ -268,8 +292,8 @@ function LegalPage() {
             </dl>
 
             <p className="mt-6 text-[13px] leading-relaxed text-slate-muted">
-              Post can be sent to the registered office above. To ask a question about this site
-              rather than about the company,{" "}
+              {mailboxesNote} Post can be sent to the registered office above. To ask a question
+              about this site rather than about the company,{" "}
               <Link
                 to="/contact"
                 className="font-semibold text-teal-400 underline underline-offset-4 transition-colors duration-200 hover:text-white"

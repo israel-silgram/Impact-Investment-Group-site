@@ -31,6 +31,12 @@ export const Route = createFileRoute("/sitemap.xml")({
           // The company-information page. Low priority, but it is indexed on
           // purpose: a reader checking who runs this site should be able to
           // find it from a search engine, not only from the footer.
+          //
+          // ⚠ NOTHING IN THIS FILE CURRENTLY REACHES A READER. It is a server
+          // handler and the GitHub Pages build sets `nitro: false`, so no
+          // sitemap.xml is emitted and robots.txt names none; `BASE_URL` above
+          // is also still "", which would make every <loc> relative and
+          // invalid. Pre-existing, measured in wave 298, reported there.
           { path: "/legal", changefreq: "yearly", priority: "0.3" },
         ];
 

@@ -128,10 +128,10 @@ export const trustRegistrations: TrustRegistration[] = [
     verifyHref: "https://register.fca.org.uk/s/",
     /*
      * ⚠ THE COVER PERIOD IS GONE AND MUST NOT COME BACK AS A FIXED DATE RANGE.
-     * This card read "Cover 13 Aug 2025 – 12 Aug 2026" and was still saying so
-     * on the live site in September 2026, a month after that period ended,
-     * beside a heading that reads "PI & PL Insured". A period that has passed,
-     * presented as current cover, is the one thing this card cannot do.
+     * This card carried a fixed twelve-month period and was still showing it on
+     * the live site a month after that period had ended, beside a heading that
+     * reads "PI & PL Insured". A period that has passed, presented as current
+     * cover, is the one thing this card cannot do.
      * `insuranceEvidenceLine` (content/legal.ts) replaces it and stays true
      * through every renewal. If a current certificate is supplied, add the
      * insurer and dates BESIDE that line, never instead of it. (Wave 298.)
