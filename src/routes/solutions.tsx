@@ -93,7 +93,7 @@ function SolutionsPage() {
             >
               {solutionHero.headA}{" "}
               {/* orange-700, not orange-500: on the cream the brighter orange is
-                  2.3:1 and `.section-light` would rewrite it to navy ink. */}
+                  3.76:1 and `.section-light` rewrites it to navy ink anyway. */}
               <span className="text-orange-700">{solutionHero.headB}</span>
             </h1>
             <p className="mt-5 max-w-[56ch] text-[19px] leading-relaxed text-mist">
@@ -111,7 +111,8 @@ function SolutionsPage() {
             id="layers-heading"
             className="heading-tight mt-2.5 max-w-[22ch] text-balance text-[clamp(1.625rem,3.8vw,2.75rem)] font-extrabold tracking-[-0.02em] text-white"
           >
-            A workable deal has <span className="text-orange-500">five layers</span>. We keep them connected.
+            A workable deal has <span className="text-orange-500">five layers</span>. We keep them
+            connected.
           </h2>
 
           <div className="mt-4 grid items-center gap-7 lg:grid-cols-[minmax(0,1fr)_200px]">
@@ -185,7 +186,9 @@ function SolutionsPage() {
                   const last = i === layerOwners.length - 1;
                   return (
                     <Reveal key={row.layer} index={i} as="li">
-                      <div className={cn("grid grid-cols-[56px_1fr] gap-[22px]", !last && "pb-[18px]")}>
+                      <div
+                        className={cn("grid grid-cols-[56px_1fr] gap-[22px]", !last && "pb-[18px]")}
+                      >
                         <div className="relative text-center">
                           <span className="grid size-11 place-items-center rounded-full bg-teal-600 font-heading text-[15px] font-extrabold text-white">
                             {row.number}
@@ -239,8 +242,7 @@ function SolutionsPage() {
               id="product-heading"
               className="heading-tight mt-3 max-w-[20ch] text-balance text-[clamp(1.75rem,4.4vw,3.125rem)] font-extrabold tracking-[-0.02em] text-white"
             >
-              {productPitch.headA}{" "}
-              <span className="text-orange-500">{productPitch.headB}</span>.
+              {productPitch.headA} <span className="text-orange-500">{productPitch.headB}</span>.
             </h2>
             <p className="mt-3.5 text-[17px] leading-relaxed text-mist">{productPitch.lead}</p>
 
@@ -297,8 +299,6 @@ function SolutionsPage() {
           </p>
         </div>
       </section>
-
-      
     </main>
   );
 }

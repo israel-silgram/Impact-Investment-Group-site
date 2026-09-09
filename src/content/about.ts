@@ -590,12 +590,15 @@ export const summaries: Record<string, Seg[][]> = {
   /*
    * ⚠️ THE ORANGE HAS TO LIVE ON THE FIRST LINE.
    *
-   * On the cream, orange-700 is 4.1:1 — it only clears AA as LARGE text, which
-   * the first line is and the smaller lines are not. So on a cream band the
-   * accent goes in line one or it does not go in at all; `Rich` renders an
-   * accent in a small line as navy ink instead, deliberately. That is why this
+   * `Rich` renders an accent in a small line as navy ink, so on a cream band
+   * the accent goes in line one or it does not go in at all. That is why this
    * entry leads with the outcome and follows with the mechanism, rather than
    * the other way round.
+   *
+   * It began as a contrast rule: orange-700 was 4.1:1 on the cream and only
+   * cleared AA as large text, which the first line is and the smaller ones
+   * are not. Wave 295 took it to 5.78:1 and the rule survives as a
+   * typographic one. The copy order below is still the right order.
    */
   whoWeAre: [
     [

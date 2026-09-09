@@ -105,8 +105,10 @@ export function SiteFooter() {
               ))}
             </p>
             <p className="mx-auto mt-2.5 max-w-[58ch] text-[13.5px] leading-relaxed text-mist">
-              {/* orange-700 is the one orange that survives on cream — 4.1:1,
-                  and at 13.5px semibold it is emphasis, not a heading. */}
+              {/* orange-700 is the one orange that carries text on the cream.
+                  5.78:1 since wave 295, where it was 4.1:1 and this 13.5px
+                  line only passed by being called emphasis. It passes now on
+                  its own terms. */}
               <strong className="font-bold text-orange-700">30+ years</strong> across property,
               housing, care and support — not an estate agency, a{" "}
               <strong className="font-bold text-white">national network</strong>.

@@ -26,9 +26,14 @@ const icon = (name?: string): LucideIcon =>
  *   navy-900    16.8:1  ✓ names
  *   slate-ink    6.2:1  ✓ bio and credential lines
  *   teal-600     4.7:1  ✓ roles
- *   orange-700   4.1:1  ✗ for 14px text — large text only, 26px+
- *   orange-600   3.0:1  ✗
- *   orange-500   2.3:1  ✗ — icon glyphs and fills only
+ *   orange-700   5.78:1 ✓ at any size since wave 295 (was 4.1:1)
+ *   orange-600   4.75:1 ✓ (was 3.0:1)
+ *   orange-500   3.76:1 ✗ — icon glyphs and fills only (was 2.3:1)
+ *
+ * ⚠ WAVE 295 MOVED THREE OF THOSE. The orange became the platform's
+ * terracotta and the ramp was re-derived against this cream, so orange is no
+ * longer barred from small text here. The roles below stay TEAL anyway: that
+ * was a decision about what the card should say, not only about what passes.
  *
  * So no role is set in orange, including Israel's. His seniority is carried by
  * things that are not text and therefore have no contrast floor: the card runs
@@ -294,9 +299,10 @@ export function DirectorCard({
         >
           {director.name}
         </h3>
-        {/* teal-600 at 4.7:1. Israel's is teal too — orange is 4.1:1 here and
-            fails at this size, and his card is already carrying the accent in
-            three places that have no contrast floor. */}
+        {/* teal-600 at 4.67:1. Israel's is teal too. Orange would now pass
+            here (orange-700 is 5.78:1 since wave 295, where it was 4.1:1 and
+            failed at this size), but his card already carries the accent in
+            three places that have no contrast floor, so teal it stays. */}
         <p className="mt-0.5 text-[12.5px] font-semibold text-teal-600">{director.role}</p>
 
         {lead && director.bio ? (

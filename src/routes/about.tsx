@@ -87,19 +87,25 @@ export const Route = createFileRoute("/about")({
  * navy without a conditional.
  *
  * "accent" cannot do the same trick. `.section-light` rewrites orange-500 to
- * navy ink, and orange-700 — the one orange it lets through — is 4.1:1 on the
- * cream and only clears AA as LARGE text. So the claim line is set at 20px
- * minimum, semibold, where orange-700 qualifies as large text and passes; the
- * smaller lines under it get `small` and their accents fall back to ink. On
- * navy none of this applies — orange-500 is 7.2:1 at any size.
+ * navy ink, and orange-700 is the one orange it lets through. The claim line
+ * is set at 20px minimum, semibold, and the smaller lines under it get
+ * `small` so their accents fall back to ink.
+ *
+ * ⚠ THAT 20px FLOOR WAS A CONTRAST FLOOR AND NO LONGER IS. orange-700 was
+ * 4.1:1 on the cream and only cleared AA as large text; since wave 295 it is
+ * 5.78:1 and passes at any size. The floor is kept because it is also a
+ * typographic decision, but it is now a choice rather than a requirement.
+ * On navy none of this applies, though the headroom is smaller than it was:
+ * orange-500 is 4.01:1 on navy-800, not the 7.2:1 of the old amber, so it is
+ * large text and non-text marks there now.
  */
 function Rich({ parts, tone, small }: { parts: Seg[]; tone: "rust" | "teal"; small?: boolean }) {
   /*
-   * On the CREAM, an accent in a small line is demoted to navy ink. orange-700
-   * is 4.1:1 there and only passes as large text, so orange below ~19px
-   * semibold would be a real contrast failure rather than a style choice. Ink
-   * is 16.8:1 and still reads as emphasis. On NAVY there is no such problem —
-   * orange-500 is 7.2:1 at any size — so `small` changes nothing there.
+   * On the CREAM, an accent in a small line is demoted to navy ink. That began
+   * as a contrast rule: orange-700 was 4.1:1 there and passed only as large
+   * text. Since wave 295 it is 5.78:1 and passes at any size, so the demotion
+   * is now a style choice and not a failure being avoided. Ink is 16.8:1 and
+   * still reads as emphasis. On NAVY `small` changes nothing.
    */
   const accent = tone === "teal" ? "text-orange-500" : small ? "text-white" : "text-orange-700";
   return (
@@ -310,9 +316,10 @@ function Summary({
           className={cn(
             i === 0
               ? /* The claim. Scales with the viewport so it still reads as the
-                   loudest thing under the heading on a large screen. Never
-                   below 20px — that is the floor at which orange-700 on the
-                   cream is still legally large text. */
+                   loudest thing under the heading on a large screen. The 20px
+                   floor was where orange-700 on the cream stopped counting as
+                   large text; wave 295 lifted that (5.78:1, any size), so the
+                   floor is now typographic. */
                 "max-w-[48ch] text-[clamp(1.25rem,2.1vw,1.5rem)] font-semibold leading-[1.35] text-white"
               : "max-w-[56ch] text-[16.5px] leading-[1.6] text-mist",
             centre && "text-center",
@@ -379,14 +386,14 @@ function AboutPage() {
               <div className="grid min-h-[326px] grid-cols-[190px_minmax(0,1fr)] gap-6 py-[30px] pl-[calc(29%+12px)] pr-7 max-md:grid-cols-1 max-md:gap-0 max-md:pb-[175px] max-md:pl-[22px] max-md:pr-[22px]">
                 <div className="flex flex-col justify-center border-r border-[color-mix(in_oklab,var(--color-navy-900)_13%,transparent)] pr-6 max-md:border-b max-md:border-r-0 max-md:pb-5 max-md:pr-0">
                   <p className="eyebrow tracking-[0.14em] text-teal-600">
-                  {leadershipCapability.eyebrow}
-                </p>
-                <h2
-                  id="leadership-capability-heading"
+                    {leadershipCapability.eyebrow}
+                  </p>
+                  <h2
+                    id="leadership-capability-heading"
                     className="heading-tight mt-2 font-heading text-[clamp(24px,3vw,34px)] font-bold text-navy-900"
-                >
-                  {leadershipCapability.title}
-                </h2>
+                  >
+                    {leadershipCapability.title}
+                  </h2>
                   <p className="mt-4 font-heading text-[48px] font-extrabold leading-[0.9] tracking-[-0.04em] text-teal-600">
                     {leadershipCapability.experience}
                   </p>
