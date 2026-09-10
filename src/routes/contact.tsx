@@ -67,8 +67,9 @@ export const Route = createFileRoute("/contact")({
       { title: "Contact — The Impact Investment Platform" },
       {
         name: "description",
-        content:
-          "Tell us what you need and a person replies within one working day. Email hello@impactig.co.uk or call +44 7539 088373.",
+        // Interpolated, not typed out. This description carried its own copy of
+        // the general address and went stale the day the mailbox changed.
+        content: `Tell us what you need and a person replies within one working day. Email ${contactDetails.email} or call ${contactDetails.phone}.`,
       },
       { property: "og:title", content: "Contact — The Impact Investment Platform" },
       {

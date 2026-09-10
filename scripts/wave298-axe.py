@@ -10,6 +10,17 @@ the other fourteen, and "every footer carries the legal links" is a claim about
 every page or it is not a claim at all. The census is a file check, needs no
 browser, and runs first so a missing link fails fast.
 
+THE RENDER CENSUS then loads every one of those pages in a real browser and
+asserts each one actually renders: no uncaught page error, body text present, an
+h1, and the legal nav reachable. It exists because a file check cannot see a
+BROKEN PAGE. On 10 September 2026 a build emitted a /contact whose inline
+TanStack router manifest was spliced mid-token ("preloads:$Relf.$_TSR,delete
+self..."), which threw "Unexpected identifier 'self'", left the body empty, and
+still passed every file-level assertion because the markup above the script was
+perfectly intact. It did not reproduce on rebuild, so it is a build flake rather
+than a source defect, which is exactly why it needs a standing check: a flake
+that ships is a blank page on the live site.
+
 THE AXE PASS then runs against the STATIC build (the same HTML GitHub Pages
 serves) at 360 and 1440, on the pages the brief's gate names (/legal and
 /contact) plus the two other surfaces this wave touched (/ for the footer,
@@ -105,6 +116,85 @@ def footer_census(after_dir: str) -> list:
             failures.append(f"{route}: no '{label}' in the footer")
 
         print(f"  {route:34} navs={len(navs)}  labels={4 - len(missing)}/4")
+    return failures
+
+
+def routes_in(build_dir: str) -> list:
+    """Every route the build emitted, as a servable path with a trailing slash."""
+    out = []
+    for p in sorted(glob.glob(os.path.join(build_dir, "**", "index.html"), recursive=True)):
+        r = os.path.dirname(os.path.relpath(p, build_dir)).replace(os.sep, "/")
+        out.append("/" + r + "/" if r not in (".", "") else "/")
+    return out
+
+
+def render_one(page, base: str, route: str) -> dict:
+    """Load one page and record what it did."""
+    errors = []
+    handler = lambda exc: errors.append(str(exc)[:200])
+    page.on("pageerror", handler)
+    try:
+        page.goto(f"{base}{route}", wait_until="networkidle")
+        page.wait_for_timeout(220)
+        return {
+            "errors": {_error_key(x) for x in errors},
+            "text": page.evaluate("() => document.body.innerText.length"),
+            "h1": page.locator("h1").count(),
+            "navs": page.locator(f"footer nav[aria-label='{LEGAL_NAV_LABEL}']").count(),
+        }
+    finally:
+        page.remove_listener("pageerror", handler)
+
+
+def _error_key(message: str) -> str:
+    """React minifies its errors and appends a URL with the args in it.
+
+    Two hydration mismatches on different text produce different URLs, so the
+    raw string is useless for comparing builds. The error NUMBER is the stable
+    identity.
+    """
+    m = re.search(r"Minified React error #(\d+)", message)
+    return f"react#{m.group(1)}" if m else message[:120]
+
+
+def render_census(page, after_base: str, before_base: str, after_dir: str, before_dir: str) -> list:
+    """Load every emitted page and assert it actually renders.
+
+    Structural assertions (body text, one h1, one legal nav) are ABSOLUTE: a
+    blank page is a failure whatever the base commit did. Uncaught page errors
+    are measured AGAINST THE BEFORE BUILD, because /contact throws a React #418
+    hydration mismatch at `8f15cdb` and has done all along; failing on it would
+    make the gate red for something this wave neither caused nor was asked to
+    fix. A page with no counterpart in the before build (today: /legal) has no
+    control and any error on it counts as new.
+    """
+    failures = []
+    before_routes = set(routes_in(before_dir))
+    routes = routes_in(after_dir)
+    print(f"render census: {len(routes)} pages")
+    page.set_viewport_size({"width": 1440, "height": 900})
+
+    for route in routes:
+        a = render_one(page, after_base, route)
+        control = render_one(page, before_base, route)["errors"] if route in before_routes else set()
+        new_errors = sorted(a["errors"] - control)
+        old_errors = sorted(a["errors"] & control)
+
+        for x in new_errors:
+            failures.append(f"{route}: NEW uncaught page error: {x}")
+        if a["text"] < 200:
+            failures.append(f"{route}: rendered {a['text']} chars of body text, expected content")
+        if a["h1"] != 1:
+            failures.append(f"{route}: {a['h1']} h1 elements after hydration, expected 1")
+        if a["navs"] != 1:
+            failures.append(f"{route}: {a['navs']} legal navs after hydration, expected 1")
+
+        ok = not new_errors and a["text"] >= 200 and a["h1"] == 1 and a["navs"] == 1
+        note = f"  pre-existing: {', '.join(old_errors)}" if old_errors else ""
+        print(
+            f"  {'ok ' if ok else 'FAIL'} {route:34} text={a['text']:>6} "
+            f"h1={a['h1']} nav={a['navs']} new_errors={len(new_errors)}{note}"
+        )
     return failures
 
 
@@ -230,6 +320,8 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
+        failures += render_census(page, after, before, AFTER_DIR, BEFORE_DIR)
+        print()
         for path in PAGES:
             for width in WIDTHS:
                 after_set, after_impacts = audit(page, after, path, width, axe_source)

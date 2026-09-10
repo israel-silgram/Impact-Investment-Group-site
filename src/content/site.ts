@@ -1,4 +1,4 @@
-import { companyRecord, insuranceEvidenceLine } from "@/content/legal";
+import { companyRecord, generalEnquiriesAddress, insuranceEvidenceLine } from "@/content/legal";
 
 /** Site navigation. Kept as data so copy edits never touch layout. */
 export interface NavItem {
@@ -56,8 +56,20 @@ export const positioningLine =
 export const siteDescription =
   "We are building the UK's specialist property, care, AI and social impact platform — connecting investors, housing associations, landlords, providers and partners to create homes for families in temporary accommodation and vulnerable adults needing supported housing.";
 
+/**
+ * ⚠ THE GENERAL ADDRESS IS NOT WRITTEN HERE. `generalEnquiriesAddress` in
+ * content/legal.ts is the one place it exists, beside the other two mailboxes
+ * and the note explaining why it is spelt "enquires" with no second "i". Read
+ * that note before touching it: correcting the spelling sends every general
+ * enquiry on this site to a mailbox that does not exist.
+ *
+ * The footers, the contact hero, the contact page's meta description and the
+ * enquiry form's failure line all resolve to this field, because four
+ * hard-coded copies is what turned a mailbox change into a five-file edit the
+ * first time.
+ */
 export const contactDetails = {
-  email: "hello@impactig.co.uk",
+  email: generalEnquiriesAddress,
   phone: "+44 7539 088373",
   hours: "Mon–Fri, 9–5",
 } as const;

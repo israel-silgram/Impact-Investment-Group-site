@@ -167,8 +167,33 @@ export interface LegalMailbox {
   address: string;
 }
 
+/**
+ * ⚠ "enquires", NOT "enquiries". THE MISSING "i" IS CORRECT AND MUST STAY.
+ *
+ * That is the spelling the mailbox was created with, confirmed by Callum on
+ * 10 September 2026, and it is the address that actually receives mail. A
+ * well-meant correction to "enquiries@" sends every general enquiry on this
+ * site to a mailbox that does not exist, silently, with no bounce anybody here
+ * would see. If it ever looks like a typo, check the mail provider before
+ * changing it, not the dictionary.
+ *
+ * ⚠ AND `hello@impactig.co.uk` IS NOT A REAL MAILBOX. It was printed across
+ * this site until 10 September 2026 and never existed. Do not reinstate it,
+ * and do not copy it out of an old commit, an old screenshot or the wave 298
+ * report's before-and-after tables.
+ *
+ * ⚠ IT LIVES HERE, NOT IN content/site.ts, AND THE DIRECTION MATTERS.
+ * `contactDetails.email` in site.ts imports this constant. The reverse would be
+ * a cycle, because site.ts already imports `companyRecord` from this file, and
+ * a cycle between two modules of top-level consts resolves to `undefined` at
+ * evaluation time rather than failing loudly. The footers, the contact hero,
+ * the contact page's meta description and the enquiry form's failure line all
+ * end up reading this one string.
+ */
+export const generalEnquiriesAddress = "enquires@impactig.co.uk";
+
 export const legalMailboxes: LegalMailbox[] = [
-  { purpose: "General enquiries", address: "hello@impactig.co.uk" },
+  { purpose: "General enquiries", address: generalEnquiriesAddress },
   { purpose: "Support", address: "support@impactig.co.uk" },
   { purpose: "Legal and data protection", address: "admin@impactig.co.uk" },
 ];
@@ -178,7 +203,12 @@ export const legalMailboxes: LegalMailbox[] = [
    legal@ and privacy@impactinvestmentplatform.com are retired rather than
    republished here. Wave 297 moves the platform's Terms and Privacy Policy to
    the same set; if these ever diverge from those documents, the documents are
-   what a reader relies on, so change both together. */
+   what a reader relies on, so change both together.
+
+   AMENDED 10 September 2026, 14:50 UK: the general address was hello@ and that
+   mailbox does not exist. It is `enquires@impactig.co.uk`, spelt without the
+   second "i", which is how the mailbox was created. Support and legal are
+   unchanged. */
 export const mailboxesNote =
   "Legal and data-protection enquiries, including requests about personal data, are read at the address above.";
 

@@ -5,6 +5,7 @@ import { z } from "zod";
 import { CalendarClock, HandHeart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { apiUrl } from "@/lib/api";
+import { contactDetails } from "@/content/site";
 import { cn } from "@/lib/utils";
 import {
   previewSlots,
@@ -446,7 +447,11 @@ export function EnquiryForm({
         </p>
         {failed ? (
           <p role="alert" className="text-[13px] font-medium text-orange-400">
-            That did not send. Please try again, or email hello@impactig.co.uk directly.
+            {/* The general address, read from content/site.ts rather than typed
+                out again. This line is the one a person sees when the form has
+                already failed them, so it is the worst possible place for a
+                stale mailbox. */}
+            That did not send. Please try again, or email {contactDetails.email} directly.
           </p>
         ) : null}
       </div>

@@ -6,13 +6,18 @@
 **Brief:** `CLAUDE_CODE_wave298_the-site-names-its-company.md` (Callum, 9 Sep 2026, 13:40 UK)
 **Source review:** `Impact Investment Group/05-Artifacts/legal-footer-review-2026-09-09/REVIEW.md`
 **Status:** ready. `main` was not pushed, merged or rebased. Cowork lands it.
-**Gated head:** `d6db1b6`. The only commit above it is this report, which no
-build, lint or audit reads.
+**Gated head:** the mailbox pass of 10 September 2026. The only commit above it
+is this report, which no build, lint or audit reads.
 
-**Callum's decisions of 9 September 2026 (evening) are applied.** O-1, O-2, O-3
-and O-4 in section 5 are answered rather than open. What remains open is O-5
-(one browser check on the ICO register), O-6 (a change wave 295 owes) and O-7 (a
-pre-existing defect in a file nothing currently ships).
+**Callum's decisions are applied.** O-1, O-2, O-3 and O-4 in section 5 are
+answered rather than open. What remains open is O-5 (one browser check on the
+ICO register), O-6 (a change wave 295 owes) and O-7 (a pre-existing defect in a
+file nothing currently ships).
+
+**⚠ O-1 WAS AMENDED ON 10 SEPTEMBER 2026 AND THE GENERAL ADDRESS CHANGED AGAIN.**
+`hello@impactig.co.uk` is not a real mailbox and never was. The general address
+across the whole site is now **`enquires@impactig.co.uk`**, spelt with no second
+"i", which is how the mailbox exists. Section 12 records the pass.
 
 The platform half is wave 297 (`feat/wave297-the-footer-says-five-things`, worktree
 `../iip-uc297`). At the time this wave built, 297 had pushed its claiming commit
@@ -71,7 +76,7 @@ draws `@/components/site-footer`; nothing imports the other one. It was changed
 anyway, and a comment says why: restoring it must not silently drop the legal
 links, which is the exact failure this wave was called in to fix.
 
-**Four files outside the brief's list were touched, and each has a reason:**
+**Five files outside the brief's list were touched, and each has a reason:**
 
 | File | What, and why it is not in the brief's list |
 |---|---|
@@ -79,6 +84,7 @@ links, which is the exact failure this wave was called in to fix.
 | `src/routeTree.gen.ts` | Generated, not written. Adding `src/routes/legal.tsx` regenerates it on the next build; committing it is how the route resolves without a build step. |
 | `scripts/wave298-axe.py` | NEW. The footer census and the axe pass. A gate has to live somewhere, and the brief asked for a recorded axe pass. |
 | `scripts/wave298-screenshots.py` | NEW. Takes the twelve screenshots R298-7 asks for, from the two static builds. |
+| `src/routes/contact.tsx` | ONE meta description, in the 10 September mailbox pass. It carried its own hard-coded copy of the general address, and Callum's instruction was to replace every general-enquiries use of it. Section 12.3. |
 
 Both scripts are build-time auditors and neither ships: nothing under `src/`
 imports them, and the site has no new dependency because of them.
@@ -217,7 +223,7 @@ After, rendered as one sentence with two real anchors in it:
 The purpose clause is the same promise, word for word. Three things were added
 and nothing was weakened: the controller is named, there is an address to write
 to about the data itself (a different question from how to reach the business,
-which `hello@` answers), and the Privacy Policy is one click away. No box was added; no box is pre-ticked; the only checkbox
+which the general address answers), and the Privacy Policy is one click away. No box was added; no box is pre-ticked; the only checkbox
 on the form is the pre-existing investor risk acknowledgement, which is gated to
 `route === "investor"` and starts unticked. `type="checkbox"` count on the
 prerendered `/contact` is **0** for the default route.
@@ -272,7 +278,7 @@ entry carries none. An earlier draft of this report listed a fourth blurb that
 the page has never rendered.
 
 Mailboxes shown, as Callum settled them on 9 September 2026:
-`hello@impactig.co.uk` (General enquiries), `support@impactig.co.uk` (Support),
+`enquires@impactig.co.uk` (General enquiries), `support@impactig.co.uk` (Support),
 `admin@impactig.co.uk` (Legal and data protection). **No address on
 `impactinvestmentplatform.com` survives anywhere in the built site**, measured
 across all 18 pages.
@@ -348,7 +354,7 @@ monitored.
 
 | Purpose | Address |
 |---|---|
-| General enquiries | `hello@impactig.co.uk` |
+| General enquiries | `enquires@impactig.co.uk` (amended 10 Sep, see section 12) |
 | Support | `support@impactig.co.uk` |
 | Legal and data protection | `admin@impactig.co.uk` |
 
@@ -356,7 +362,8 @@ The two `impactinvestmentplatform.com` addresses are **retired, not
 republished**, and appear nowhere in the built site. `admin@impactig.co.uk` is
 also named in the notice at collection on `/contact`, because how to reach the
 controller about the data is a different question from how to reach the
-business, and `hello@` answers the second one. `mailboxesNote` on `/legal` reads
+business, and the general address answers the second one. `mailboxesNote` on
+`/legal` reads
 `Legal and data-protection enquiries, including requests about personal data,
 are read at the address above.` **Wave 297 must move the platform's Terms and
 Privacy Policy to the same three;** until it has, the published documents and
@@ -756,7 +763,8 @@ defect. The element-cropped shots are unaffected.
    `privacy@impactinvestmentplatform.com` and asks him to confirm them. **He
    has since retired both** (O-1): legal and data protection go to
    `admin@impactig.co.uk`, support to `support@impactig.co.uk`, general
-   enquiries stay `hello@impactig.co.uk`. 297's own report says this is "one
+   enquiries go to `enquires@impactig.co.uk` (amended 10 Sep, section 12).
+   297's own report says this is "one
    edit to `COMPANY_DETAILS`". Until that edit is made, the platform's Terms
    and Privacy Policy publish two addresses this site has retired, and the
    published documents are what a reader relies on.
@@ -780,3 +788,125 @@ defect. The element-cropped shots are unaffected.
    in `src/routes/sitemap[.]xml.ts` ships at all under the static build (O-7).
    Both are pre-existing, both are small, and neither belongs in a legal and
    compliance wave.
+
+---
+
+## 12. Review fixes, 10 September 2026: the general mailbox
+
+**Callum, 14:50 UK, 10 September 2026: `hello@impactig.co.uk` is not a real
+mailbox.** It had been printed across this site since long before wave 298, and
+nothing had ever bounced to anyone who would notice. The general enquiries
+address is **`enquires@impactig.co.uk`**. `support@impactig.co.uk` and
+`admin@impactig.co.uk` are unchanged.
+
+### 12.1 The spelling is not a typo
+
+`enquires`, with no second "i". That is how the mailbox was created and it is
+the address that receives mail. A well-meant correction to `enquiries@` would
+send every general enquiry on this site to a mailbox that does not exist,
+silently. Both `src/content/legal.ts` and the `contactDetails` block in
+`src/content/site.ts` now carry a comment saying so in terms, and both also say
+that `hello@` was never real, so it cannot be copied back out of an old commit,
+an old screenshot, or the before-and-after tables in this report.
+
+### 12.2 O-1 as amended
+
+| Purpose | Address | Changed |
+|---|---|---|
+| General enquiries | `enquires@impactig.co.uk` | **Yes**, from `hello@impactig.co.uk` |
+| Support | `support@impactig.co.uk` | No |
+| Legal and data protection | `admin@impactig.co.uk` | No |
+
+The two `impactinvestmentplatform.com` addresses remain retired. Nothing on this
+site presents the general address as the support or the data-protection contact,
+so nothing had to be reclassified: every use of `hello@` was a general-enquiries
+use. That was checked rather than assumed, and section 12.3 lists all five.
+
+### 12.3 Every occurrence, and what it became
+
+`git grep hello@` over the whole repository found five in shipped source, plus
+this report. Each was a general-enquiries use.
+
+| Where | Was | Now |
+|---|---|---|
+| `src/content/site.ts`, `contactDetails.email` | `"hello@impactig.co.uk"` | reads `generalEnquiriesAddress` |
+| `src/content/legal.ts`, `legalMailboxes` General enquiries row | `"hello@impactig.co.uk"` | reads `generalEnquiriesAddress` |
+| `src/routes/contact.tsx`, the page's `<meta name="description">` | `"... Email hello@impactig.co.uk or call +44 7539 088373."` | interpolates `contactDetails.email` and `contactDetails.phone` |
+| `src/components/contact/enquiry-form.tsx`, the submit-failure line | `... or email hello@impactig.co.uk directly.` | interpolates `contactDetails.email` |
+| `src/content/contact.ts`, a code comment | ``` `hello@` answers enquiries ``` | ``` `enquires@` answers enquiries ``` |
+
+`CLAUDE.md` also contains `callum.saxon@impactig.co.uk`. That is a personal
+address in a project brief, not a general-enquiries use, and it was left alone.
+There is no JSON-LD or structured-data block anywhere on this site, so there was
+no machine-readable copy of the address to miss.
+
+### 12.4 One address, one place
+
+Two of those five were hard-coded duplicates of a string that had just proved it
+can change: the meta description and the failure line. **They now interpolate**,
+so the next mailbox change is one edit rather than five.
+
+The constant lives in `src/content/legal.ts` as `generalEnquiriesAddress`, and
+`contactDetails.email` in `src/content/site.ts` imports it. **The direction
+matters and is not arbitrary.** `site.ts` already imports `companyRecord` from
+`legal.ts`, so putting the address in `site.ts` and importing it back would make
+a cycle between two modules of top-level `const`s. That resolves to `undefined`
+at evaluation time rather than failing loudly, which would have printed
+`mailto:undefined` on the Legal page. `legal.ts` imports nothing, which is what
+makes it the safe home for the shared value.
+
+### 12.5 The gate, re-run in full
+
+| Gate | Result |
+|---|---|
+| `git grep hello@` over `src`, `public`, `scripts`, `vite.config.ts` | **Only the two comments that warn against reinstating it.** No shipped string. |
+| `hello@` in the built output | **absent from all 18 pages** |
+| `enquires@impactig.co.uk` in the built output | **41 occurrences across all 18 pages; none missing it** |
+| `/legal` mailboxes, rendered | `enquires@`, `support@`, `admin@`, all `impactig.co.uk` |
+| `/contact` meta description, rendered | `Tell us what you need and a person replies within one working day. Email enquires@impactig.co.uk or call +44 7539 088373.` |
+| `tsc --noEmit` | 22 errors, **all pre-existing and identical to the base**: 18 `partner-page.tsx`, 2 `about.tsx`, 2 `vite.config.ts` |
+| `STATIC_BUILD=true vite build` | rc 0, 32 prerendered, 18 `index.html` |
+| Footer census, every emitted page | **18 of 18: 4 of 4 labels, exactly 1 legal nav** |
+| **Render census, every emitted page (NEW)** | **18 of 18 render: 0 new page errors, body text present, one h1, one legal nav** |
+| axe, 4 pages x 2 widths, against the base build | **0 new violation nodes, 0 failures** |
+| Em dashes authored | **0**, in this pass and across the wave |
+| Committed-content lint | unchanged, section 7 |
+
+### 12.6 The render census, and why it now exists
+
+**A build in this pass emitted a `/contact` that rendered nothing, and every
+file-level check passed it.** The inline TanStack router manifest was spliced
+mid-token:
+
+> `"/contact":$R[8]={preloads:$Relf.$_TSR,delete self.$R.tsr)},p(e){...`
+
+which threw `Unexpected identifier 'self'`, then `Invariant failed`, and left
+`document.body.innerText` empty. The markup above that script was perfectly
+intact, so the footer census saw four legal labels and one legal nav and
+reported the page healthy. Only the axe pass noticed, and only because
+`/contact` happens to be one of the four pages it audits.
+
+It did not reproduce on rebuild, so it is a **build flake, not a source
+defect**. That is precisely why it needed a standing check: a flake nobody
+catches is a blank page on the live site, and fourteen of the eighteen pages
+have no axe coverage at all.
+
+`scripts/wave298-axe.py` now loads **every** emitted page in a real browser and
+asserts it renders: no new uncaught page error, body text present, exactly one
+`h1`, exactly one legal nav.
+
+**It has a before/after control, like the axe pass, and finding out why took a
+red gate.** Its first run failed `/contact` on React error #418, a hydration
+mismatch. Measured against a build of the base commit, **`/contact` throws
+#418 at `8f15cdb` too**, and `/` and `/about` throw nothing in either build. So
+it is pre-existing, this wave neither caused it nor was asked to fix it, and the
+census reports it as pre-existing rather than failing on it. React minifies its
+errors and appends the arguments to the URL, so the census keys on the error
+**number** rather than the message; two different hydration mismatches would
+otherwise look like two unrelated strings.
+
+**That #418 is worth a follow-up wave and is not one this pass should take.** A
+hydration mismatch on the contact page means React discards the server-rendered
+markup for the mismatched subtree and re-renders it on the client, which is a
+flash of changed content for a real visitor on the one page that asks them to
+type something.
