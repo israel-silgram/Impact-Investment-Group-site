@@ -121,9 +121,9 @@ export const investorAcknowledgement =
  *
  *   "UK GDPR · we use your details only to answer this enquiry · ICO ZB957755"
  *
- * which named no controller and linked to nothing. The three parts below add
- * the two things it was missing and change the promise in none of them: the
- * purpose is still the same purpose, word for word.
+ * which named no controller, gave no way to reach one, and linked to nothing.
+ * The parts below add those three things and change the promise in none of
+ * them: the purpose is still the same purpose, word for word.
  *
  * ⚠ THIS FORM SENDS NO MARKETING, SO IT ASKS FOR NO MARKETING CONSENT.
  * Do not add a marketing checkbox here. If marketing is ever switched on, the
@@ -136,6 +136,16 @@ export const collectionNotice = {
   controller: companyRecord.name,
   /** Follows the controller name. */
   purpose: "is the data controller for this form. We use your details only to answer this enquiry.",
+  /**
+   * How to reach the controller ABOUT THE DATA, which is a different question
+   * from how to reach the business. `hello@` answers enquiries; this is the
+   * address a person writes to in order to ask what is held about them, or to
+   * ask for it to be corrected or deleted. Callum settled it on 9 September
+   * 2026 (wave 298, O-1) and `legalMailboxes` in content/legal.ts publishes
+   * the same address on /legal. If one moves, move both.
+   */
+  contactLead: "To ask about the data we hold about you, write to",
+  contactAddress: "admin@impactig.co.uk",
   /** The registration the site already published, kept verbatim. */
   registration: "UK GDPR · ICO ZB957755",
   linkLabel: "Read the Privacy Policy",

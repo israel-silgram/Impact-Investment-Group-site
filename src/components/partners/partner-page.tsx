@@ -40,18 +40,36 @@ import { crisisLines, crisisNote } from "@/content/site";
  */
 function CrisisSignpost({ signpost }: { signpost: NonNullable<PartnerProfile["crisisSignpost"]> }) {
   return (
-    /* aria-label, not aria-labelledby with an <h2>. This panel sits ABOVE
-       the page's <h1>, so a heading here would put a level 2 in the outline
-       before any level 1 exists. A labelled <section> is still a named
-       region, so assistive technology can still list and jump to it, without
-       the heading order being wrong. */
-    <section aria-label={signpost.heading} className="border-b border-teal-600 bg-navy-900">
+    /* ⚠ A REAL <h2>, LABELLING THE REGION, AND THE HEADING ORDER IS
+       DELIBERATELY IMPERFECT. This panel sits ABOVE the page's <h1>, so its
+       heading is a level 2 before any level 1 exists. That is untidy and it
+       is the right trade:
+
+         - Pressing H is how most screen-reader users move through a page.
+           A labelled <section> alone is only reachable through the landmarks
+           or regions list, which is a deliberate detour. For crisis
+           signposting, discoverability beats tidiness.
+         - h2-then-h1 is a DECREASE in level, which axe's heading-order rule
+           does not flag and which no success criterion forbids. The rule is
+           about skipping levels on the way down.
+         - aria-labelledby gives the region the heading's text, so the block
+           is announced by name in the regions list as well.
+
+       An earlier revision made this a <p> to keep the outline clean and lost
+       the heading. If you change it back, know what you are trading away. */
+    <section
+      aria-labelledby="crisis-signpost-heading"
+      className="border-b border-teal-600 bg-navy-900"
+    >
       <div className="mx-auto grid w-full max-w-[1200px] gap-5 px-5 py-6 sm:px-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:items-start lg:gap-10">
         <div>
-          <p className="flex items-center gap-2.5 font-heading text-[17px] font-bold text-white">
+          <h2
+            id="crisis-signpost-heading"
+            className="flex items-center gap-2.5 font-heading text-[17px] font-bold text-white"
+          >
             <LifeBuoy aria-hidden="true" className="size-5 shrink-0 text-teal-400" />
             {signpost.heading}
-          </p>
+          </h2>
           <p className="mt-2.5 max-w-[68ch] text-[14px] leading-relaxed text-mist">
             {signpost.body}
           </p>

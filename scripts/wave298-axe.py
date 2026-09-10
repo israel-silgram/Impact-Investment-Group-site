@@ -1,11 +1,22 @@
-"""Wave 298 accessibility gate: axe-core over the pages this wave changed.
+"""Wave 298 gate: the footer census over EVERY page, then axe over four.
 
-Runs axe against the STATIC build (the same HTML GitHub Pages serves) at 360
-and 1440, on the pages the brief's gate names (/legal and /contact) plus the
-two other surfaces this wave touched (/ for the footer, /partner-with-resident
-for the crisis signpost), and then checks the three things R298-1 names that
-axe cannot: exactly one h1 per page, every legal link reachable by keyboard
-alone, and every legal link at least 24px on its smallest side.
+Two passes, and the first one is the point of the wave.
+
+THE FOOTER CENSUS proves R298-1 the only way it can honestly be proved: by
+enumerating every `index.html` the static build emits and asserting, in each
+one, all four legal labels and exactly one `<nav aria-label="Legal and
+policies">`. Auditing four representative pages would have said nothing about
+the other fourteen, and "every footer carries the legal links" is a claim about
+every page or it is not a claim at all. The census is a file check, needs no
+browser, and runs first so a missing link fails fast.
+
+THE AXE PASS then runs against the STATIC build (the same HTML GitHub Pages
+serves) at 360 and 1440, on the pages the brief's gate names (/legal and
+/contact) plus the two other surfaces this wave touched (/ for the footer,
+/partner-with-resident for the crisis signpost), and checks the three things
+R298-1 needs that axe cannot answer: exactly one h1 per page, every legal link
+reachable by keyboard alone, and every legal link at least 24px on its smallest
+side.
 
 BOTH BUILDS ARE AUDITED. The footer changed on every route, so there is no
 unchanged page inside the after build to use as a control. `BEFORE_DIR` is a
@@ -20,14 +31,17 @@ copy (`npm pack axe-core && tar xzf axe-core-*.tgz`):
     BEFORE_DIR=/tmp/w298/before AFTER_DIR=/tmp/w298/after \
         AXE=/tmp/w298/axe/package/axe.min.js python scripts/wave298-axe.py
 
-Exits non-zero if this wave adds any violation, or if one of the three manual
-checks fails.
+Exits non-zero if the census fails on any page, if this wave adds any
+violation, or if one of the three manual checks fails.
 """
 
 import functools
+import glob
+import io
 import http.server
 import json
 import os
+import re
 import socketserver
 import threading
 
@@ -52,6 +66,46 @@ AXE_OPTIONS = {
 }
 
 LEGAL_LINK_LABELS = ["Terms of Service", "Privacy Policy", "Disclaimer", "Legal"]
+
+# The nav's accessible name. Deliberately NOT "Legal": one of the links inside
+# it is called Legal, and a region sharing that name announces as "Legal,
+# navigation" immediately before "Legal, link".
+LEGAL_NAV_LABEL = "Legal and policies"
+
+
+def footer_census(after_dir: str) -> list:
+    """Assert the four legal links on every page the static build emits.
+
+    Returns the list of failures, and prints the page count and the routes so
+    the wave report can quote a measured number rather than an assumed one.
+    """
+    failures = []
+    paths = sorted(glob.glob(os.path.join(after_dir, "**", "index.html"), recursive=True))
+    print(f"footer census: {len(paths)} index.html files emitted by the static build")
+
+    nav_open = re.compile(r'<nav[^>]*aria-label="([^"]*)"')
+    for p in paths:
+        route = os.path.dirname(os.path.relpath(p, after_dir)).replace(os.sep, "/")
+        route = "/" + route if route not in (".", "") else "/"
+        html = io.open(p, encoding="utf-8").read()
+
+        navs = [n for n in nav_open.findall(html) if n == LEGAL_NAV_LABEL]
+        if len(navs) != 1:
+            failures.append(f"{route}: {len(navs)} nav[aria-label='{LEGAL_NAV_LABEL}'], expected 1")
+
+        # ">Legal<" rather than "Legal", because the bare word also appears in
+        # "Legal and policies" on the nav itself, so a page that had lost the
+        # link entirely would still pass a substring test.
+        missing = [
+            label
+            for label in LEGAL_LINK_LABELS
+            if (">Legal<" if label == "Legal" else label) not in html
+        ]
+        for label in missing:
+            failures.append(f"{route}: no '{label}' in the footer")
+
+        print(f"  {route:34} navs={len(navs)}  labels={4 - len(missing)}/4")
+    return failures
 
 
 class Quiet(http.server.SimpleHTTPRequestHandler):
@@ -110,15 +164,17 @@ def manual_checks(page, base: str, path: str, width: int, failures: list):
     if h1s != 1:
         failures.append(f"{path} @{width}: {h1s} h1 elements, expected exactly 1")
 
-    nav = page.locator("footer nav[aria-label='Legal']")
+    nav = page.locator(f"footer nav[aria-label='{LEGAL_NAV_LABEL}']")
     if nav.count() != 1:
-        failures.append(f"{path} @{width}: footer has {nav.count()} Legal navs, expected 1")
+        failures.append(
+            f"{path} @{width}: footer has {nav.count()} '{LEGAL_NAV_LABEL}' navs, expected 1"
+        )
         return
 
     for label in LEGAL_LINK_LABELS:
         link = nav.get_by_role("link", name=label, exact=False).first
         if link.count() == 0:
-            failures.append(f"{path} @{width}: no '{label}' link in the footer Legal nav")
+            failures.append(f"{path} @{width}: no '{label}' link in the footer legal nav")
             continue
         box = link.bounding_box()
         if box is None:
@@ -140,8 +196,9 @@ def manual_checks(page, base: str, path: str, width: int, failures: list):
     for _ in range(400):
         page.keyboard.press("Tab")
         text = page.evaluate(
-            "() => { const a = document.activeElement; "
-            "return a && a.closest(\"nav[aria-label='Legal']\") ? a.innerText.trim() : ''; }"
+            "label => { const a = document.activeElement; "
+            "return a && a.closest(`nav[aria-label='${label}']`) ? a.innerText.trim() : ''; }",
+            LEGAL_NAV_LABEL,
         )
         for label in LEGAL_LINK_LABELS:
             if text.startswith(label):
@@ -162,7 +219,8 @@ def main():
 
     added = []
     impacts = {}
-    failures = []
+    failures = footer_census(AFTER_DIR)
+    print()
     # /legal did not exist before this wave, so it has no control of its own.
     # Its control is the CHROME: every finding the header and footer already
     # produced, at the base commit, on the pages that did exist. A footer
@@ -196,8 +254,8 @@ def main():
 
     print()
     for f in failures:
-        print("MANUAL FAIL:", f)
-    print(json.dumps({"new_violation_nodes": len(added), "manual_failures": len(failures)}))
+        print("FAIL:", f)
+    print(json.dumps({"new_violation_nodes": len(added), "failures": len(failures)}))
     raise SystemExit(1 if (added or failures) else 0)
 
 

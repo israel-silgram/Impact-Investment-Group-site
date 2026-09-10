@@ -426,7 +426,14 @@ export function EnquiryForm({
          */}
         <p className="max-w-[70ch] text-[12px] leading-snug text-slate-muted">
           <span className="font-semibold text-mist">{collectionNotice.controller}</span>{" "}
-          {collectionNotice.purpose} {collectionNotice.registration} ·{" "}
+          {collectionNotice.purpose} {collectionNotice.contactLead}{" "}
+          <a
+            href={`mailto:${collectionNotice.contactAddress}`}
+            className="font-semibold text-teal-400 underline underline-offset-4 transition-colors duration-200 hover:text-white"
+          >
+            {collectionNotice.contactAddress}
+          </a>
+          . {collectionNotice.registration} ·{" "}
           <a
             href={collectionNotice.linkHref}
             target="_blank"

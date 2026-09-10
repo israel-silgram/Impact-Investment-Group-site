@@ -305,15 +305,35 @@ export function SiteFooter() {
            *
            * They sit ABOVE the notice, not inside it: a link buried in an
            * 11px grey paragraph is the "technically present" that the CMA
-           * guidance on misleading omissions is about. 13px, slate-ink on the
-           * cream (6.2:1), 44px targets on touch, and they wrap to a second
-           * line at 360 rather than scrolling sideways.
+           * guidance on misleading omissions is about. 13px, 44px targets on
+           * touch, and they wrap to a second line at 360 rather than
+           * scrolling sideways.
+           *
+           * ⚠ THEY RESOLVE TO NAVY, NOT TO MIST, AND THAT IS WORTH KNOWING
+           * BEFORE YOU TOUCH THE CLASSES. `text-mist` on the cream maps to
+           * slate-ink at 6.2:1, which is what the notice below gets. These
+           * links carry `hover:text-white` as well, and the unlayered
+           * `.section-light [class*="text-white"]` rule matches that class
+           * string at ALL times, not only on hover, so it wins and the links
+           * render navy-900 at 16.75:1. Measured, not deduced. The upshot is
+           * good either way, and the same rule is why the hover state does
+           * nothing here; the underline is what carries the affordance.
            *
            * ⚠ THE ORDER IS FIXED and matches the platform's own footer:
            * Terms, Privacy, Disclaimer, Legal. Do not reorder or drop one to
            * save a line. (Wave 298, R298-1.)
+           *
+           * ⚠ THE REGION IS "Legal and policies", NOT "Legal". One of the
+           * links inside it is called Legal, and a nav with the same
+           * accessible name announces as "Legal, navigation" immediately
+           * before "Legal, link", which gives a screen-reader user no way to
+           * tell the container from its contents. The wave 298 gate asserts
+           * this exact string on every prerendered page.
            */}
-          <nav aria-label="Legal" className="mt-4 border-t border-navy-700 pt-3.5 sm:mt-5 sm:pt-4">
+          <nav
+            aria-label="Legal and policies"
+            className="mt-4 border-t border-navy-700 pt-3.5 sm:mt-5 sm:pt-4"
+          >
             <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-0.5 text-[13px]">
               {legalLinks.map((item) =>
                 item.external ? (

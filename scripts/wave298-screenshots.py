@@ -83,14 +83,14 @@ def main():
             shoot(page, after, "/legal/", "#company-heading ~ dl, dl", "legal-company-block", width)
             # The notice at collection, beside the submit control.
             shoot(page, after, "/contact/", "form", "contact-form", width)
-            # The crisis signpost, above the fold on the resident page. It is
-            # an aria-label'd region rather than a heading-labelled one (it
-            # sits above the page's h1), so it is found by its label text.
+            # The crisis signpost, above the fold on the resident page. Found
+            # by the id its heading carries rather than by the heading text,
+            # so rewording the copy does not silently stop taking the shot.
             shoot(
                 page,
                 after,
                 "/partner-with-resident/",
-                "main section[aria-label='If you need help now']",
+                "main section[aria-labelledby='crisis-signpost-heading']",
                 "resident-crisis-signpost",
                 width,
             )

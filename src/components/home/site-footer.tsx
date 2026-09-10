@@ -149,7 +149,14 @@ export function SiteFooter() {
        * called to fix. If you change one footer, change both.
        */}
       <div className="border-t border-navy-700">
-        <nav aria-label="Legal" className="mx-auto w-full max-w-[1440px] px-5 pt-8 sm:px-8">
+        {/* "Legal and policies", not "Legal": one of the links inside is
+            called Legal, and a region with the same accessible name announces
+            as "Legal, navigation" right before "Legal, link". Same string as
+            the live footer, which the wave 298 gate asserts on every page. */}
+        <nav
+          aria-label="Legal and policies"
+          className="mx-auto w-full max-w-[1440px] px-5 pt-8 sm:px-8"
+        >
           <ul className="flex flex-wrap items-center gap-x-5 gap-y-0.5 text-[13px]">
             {legalLinks.map((item) =>
               item.external ? (

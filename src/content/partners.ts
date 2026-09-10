@@ -707,7 +707,7 @@ export const partnerProfiles: PartnerProfile[] = [
        * still carries the assessment and statutory-decision qualification and
        * is not replaced by this.
        */
-      body: "This page describes a network that looks for homes that may suit you. It is not an emergency service and it cannot house you today. A person from the housing and support team confirms every match before anything happens. If you need help now, these lines are open to anyone.",
+      body: "This page describes a network that looks for homes that may suit you. It is not an emergency service and it cannot house you today. A person from the housing and support team confirms every match before anything happens. If you need help now, these lines are there for anyone.",
     },
   },
 ];

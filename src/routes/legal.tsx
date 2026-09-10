@@ -59,6 +59,24 @@ const title = "Legal and company information · Impact Investment Group UK Limit
 const description =
   "Registered company name, number, registered office and jurisdiction for Impact Investment Group UK Limited, with its public registrations and the documents that govern its services.";
 
+/*
+ * ⚠ ABSOLUTE, NOT ROOT-RELATIVE. A canonical URL and an og:url are only
+ * meaningful as absolute URLs: `/legal` in a `rel="canonical"` is resolved
+ * against whatever origin happens to be serving the markup, so a preview
+ * deployment or a scraper's cache can end up declaring itself canonical, and
+ * `og:url` is read out of context by crawlers that have no base to resolve
+ * against at all.
+ *
+ * The origin is this repo's `public/CNAME`, which is what GitHub Pages serves
+ * from. If the domain moves, that file and this constant move together.
+ *
+ * Every other route on this site still emits root-relative values here. That
+ * is the same defect and it is not this wave's to fix; a small follow-up
+ * should lift this constant somewhere shared and use it everywhere.
+ */
+const siteOrigin = "https://impactinvestmentgroup.co.uk";
+const canonical = `${siteOrigin}/legal`;
+
 export const Route = createFileRoute("/legal")({
   component: LegalPage,
   head: () => ({
@@ -68,10 +86,10 @@ export const Route = createFileRoute("/legal")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/legal" },
+      { property: "og:url", content: canonical },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/legal" }],
+    links: [{ rel: "canonical", href: canonical }],
   }),
 });
 
