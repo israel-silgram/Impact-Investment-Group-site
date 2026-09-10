@@ -95,15 +95,17 @@ the three static platform-stat tiles. The insurance card is
 ## 3. The verified company record
 
 Read from the **Companies House public register**, read only, by WebFetch, on
-**9 September 2026**:
-`https://find-and-update.company-information.service.gov.uk/company/16650494`
+**9 September 2026**: the company profile page,
+`https://find-and-update.company-information.service.gov.uk/company/16650494`,
+and its filing history, `/filing-history`.
 
 | Field | Value | Evidence |
 |---|---|---|
 | Registered company name | Impact Investment Group UK Limited | Company page heading |
 | Company registration number | 16650494 | Company page |
-| Registered office, as the register prints it | `Renewal Trust Business, Centre 3 Hawksworth St, Nottingham, NG3 2EG` | Company page, verbatim |
-| Registered office, as the site prints it | `Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG` | The tidied reading, accepted by Callum on 9 Sep 2026 (O-4) |
+| Registered office, **as filed** | `Renewal Trust Business Centre 3 Hawksworth St Nottingham NG3 2EG` | **Form AD01, filed 29 May 2026**, quoted verbatim from the filing history |
+| Registered office, as the profile page prints it | `Renewal Trust Business, Centre 3 Hawksworth St, Nottingham, NG3 2EG` | Company page, verbatim |
+| Registered office, as this site prints it | `Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG` | Accepted by Callum on 9 Sep 2026 (O-4). Differs from the filing: see below |
 | Jurisdiction of registration | England and Wales | Advanced search filtered to `companyJurisdiction=england-wales` returns this company |
 | Company type | Private limited company | Company page |
 | Incorporated | 14 August 2025 | Company page |
@@ -114,27 +116,47 @@ Two other companies match the name loosely and are **not** this one: IMPACT GROU
 (UK) LIMITED (05391046, London) and IMPACT GROUP UK HOLDINGS LTD (15928699,
 dissolved 3 Feb 2026).
 
-**On the registered office, and the one place this wave departs from the
-register.** Companies House assembles the address from separate fields and its
-own comma lands mid-name: the premises field is `Renewal Trust Business` and the
-first address line is `Centre 3 Hawksworth St`, so what is really "Renewal Trust
-Business Centre, 3 Hawksworth Street" prints with the comma inside the building
-name. **Callum accepted the tidied reading on 9 September 2026 (O-4)** and the
-site prints it. It departs from the register in exactly three ways and no
-others: the comma moves from inside "Business, Centre" to after "Centre", `St`
-is expanded to `Street`, and the comma before the postcode is dropped.
-`registeredOfficeAsRegistered` in `src/content/legal.ts` holds the register's
-exact string beside it, is never rendered, and exists so the two can always be
-compared.
+**On the registered office, and the one place this wave departs from the filed
+address.** There are three strings in play.
 
-**That decision was needed because an earlier draft of this wave made exactly
-those three edits while its comment described the change as comma-only.** The
+The company profile page assembles the address from separate fields and its own
+comma lands mid-name: the premises field is `Renewal Trust Business` and the
+first address line is `Centre 3 Hawksworth St`. That is why it prints
+`Renewal Trust Business, Centre 3 Hawksworth St, Nottingham, NG3 2EG`.
+
+**The filing settles it.** Form AD01 of 29 May 2026 records the change of
+registered office and prints the new address as one unbroken, unpunctuated line:
+`Registered office address changed from New Broad Street House 35 New Broad
+Street London EC2M 1NH England to Renewal Trust Business Centre 3 Hawksworth St
+Nottingham NG3 2EG on 29 May 2026`. So the building name really is "Renewal
+Trust Business Centre", the profile page's comma really is a field-split
+artefact, and the street really is **"3 Hawksworth St"**, abbreviated.
+
+**Callum accepted the tidied reading on 9 September 2026 (O-4)** and the site
+prints `Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG`.
+Against the filed form that makes one substantive change, expanding `St` to
+`Street`, and adds two commas the filing does not carry. `src/content/legal.ts`
+holds all three strings: `registeredOffice` is what renders,
+`registeredOfficeAsRegistered` is the profile page's, and
+`registeredOfficeAsFiled` is the AD01's. Neither of the last two is rendered;
+they exist so anyone can check the reasoning without repeating the lookup.
+
+**⚠ THE PLATFORM AND THE SITE CURRENTLY DISCLOSE THE SAME ADDRESS IN TWO
+DIFFERENT FORMS.** Wave 297 is `ready` printing
+`Renewal Trust Business Centre, 3 Hawksworth St, Nottingham, NG3 2EG`, following
+the AD01 exactly. This wave prints `Street` and drops the comma before the
+postcode. Both are defensible readings of the same filing and only one of them
+should ship. **It is a one-line edit on either side and it is Callum's call.**
+Section 11 item 3 carries it forward as a landing blocker.
+
+**One reason this got a decision at all:** an earlier draft of this wave made
+these edits while its comment described the change as comma-only. The
 independent review pass caught it, the address was reverted to the register's
 string, and it is printed tidied again now only because Callum said so. The
 difference between the two states is not the string; it is that one was a silent
-assumption and the other is a decision on the record. The cleaner fix remains
-correcting the premises field at Companies House, after which the two strings
-become the same.
+assumption and the other is a decision on the record. The cleanest fix of all
+remains correcting the premises field at Companies House, after which the
+profile page, the filing and both properties read the same.
 
 The vault's `IIP_MASTER_SOURCE_OF_TRUTH.md` independently records `3 Hawksworth
 Street, Nottingham NG3 2EG` as Elevate Supported Living's registered office,
@@ -390,11 +412,25 @@ exactly checkable and slightly odd to read, or the tidied form.
 *Callum's decision, 9 September 2026:* print the tidied form,
 **`Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG`**.
 
-`registeredOfficeAsRegistered` keeps the register's exact string beside it, is
-never rendered, and exists so the two can always be compared. The three
-departures are named in the code comment with the date and the decision. The
-better fix is still to correct the premises field at Companies House, after
-which both strings become the same and the note can go.
+`registeredOfficeAsRegistered` (the profile page's string) and
+`registeredOfficeAsFiled` (the AD01's) sit beside it, unrendered, so the
+reasoning can be checked without repeating the lookup. The departures are named
+in the code comment with the date and the decision.
+
+**⚠ AND THIS IS NOW THE ONE PLACE WHERE THE TWO WAVES DISAGREE.** Wave 297 went
+to the filing history for its evidence and prints
+`Renewal Trust Business Centre, 3 Hawksworth St, Nottingham, NG3 2EG`, which is
+the AD01 verbatim apart from punctuation. This site prints `Street` and no comma
+before the postcode. **Both properties would disclose the same registered office
+in two different forms, which is exactly the kind of small inconsistency a
+solicitor or a council procurement officer notices.** Neither is wrong; they
+should simply match. A one-line edit in `src/content/legal.ts` here, or in
+`packages/branding/config.ts` there. Callum picks. The AD01's own `St` is the
+easier one to defend, because it is what the company actually filed.
+
+The cleanest fix of all is still to correct the premises field at Companies
+House, after which the profile page, the filing and both properties read the
+same and none of this matters.
 
 **O-5 · One click to confirm the ICO registration. STILL OPEN, and it is the
 one published value on this site that no machine in this session could check.**
@@ -700,14 +736,33 @@ defect. The element-cropped shots are unaffected.
    wave adds one rule in the light-sections block, about 500 lines away.
 2. **Merge `origin/main` into this branch, never rebase**, and re-run the build
    and the axe gate afterwards, because the footer is layout.
-3. **Wave 297 must say the same things.** Same company record (section 3), same
-   registered-office rendering (O-4), same three `impactig.co.uk` mailboxes
-   (O-1), same controller (O-2), same insurance position (O-3). If 297's own
-   Companies House lookup disagrees with section 3, stop and reconcile before
-   either lands. Until 297 has moved the platform's Terms and Privacy Policy,
-   those documents still name `legal@` and `privacy@impactinvestmentplatform.com`
-   and still make "the platform" the controller, and a reader clicking through
-   from this site will see the difference.
+3. **⚠ WAVE 297 IS ALSO `ready`, AND THE TWO WAVES DISAGREE ABOUT TWO THINGS.
+   Both are one-line edits and both should be settled before either lands.**
+
+   *The registered office.* 297 prints
+   `Renewal Trust Business Centre, 3 Hawksworth St, Nottingham, NG3 2EG`,
+   sourced to form AD01 of 29 May 2026, which is the strongest evidence there
+   is and which this wave has independently confirmed. This site prints
+   `Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG`,
+   which Callum accepted on 9 September 2026 before that filing had been
+   quoted to him. The difference is `St` against `Street` and one comma.
+   Neither is wrong; they should match. `registeredOffice` in
+   `src/content/legal.ts` here, `COMPANY_DETAILS` in
+   `packages/branding/config.ts` there. **The AD01's own `St` is the easier one
+   to defend, because it is what the company filed.**
+
+   *The mailboxes.* 297's report, written before Callum's evening decision,
+   still prints `legal@impactinvestmentplatform.com` and
+   `privacy@impactinvestmentplatform.com` and asks him to confirm them. **He
+   has since retired both** (O-1): legal and data protection go to
+   `admin@impactig.co.uk`, support to `support@impactig.co.uk`, general
+   enquiries stay `hello@impactig.co.uk`. 297's own report says this is "one
+   edit to `COMPANY_DETAILS`". Until that edit is made, the platform's Terms
+   and Privacy Policy publish two addresses this site has retired, and the
+   published documents are what a reader relies on.
+
+   Everything else agrees: same company name, same number `16650494`, same
+   jurisdiction, same controller (O-2), same insurance position (O-3).
 4. **When 297 lands, one sentence on `/legal` should change.** The replacement
    for `policiesNote` is written out in O-2 and in the comment above it in
    `src/content/legal.ts`. It is a one-line edit and it is the last thing

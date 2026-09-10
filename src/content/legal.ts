@@ -9,31 +9,47 @@
  * missing one.
  *
  *   Source:    https://find-and-update.company-information.service.gov.uk/company/16650494
+ *              and its filing history, form AD01 filed 29 May 2026
  *   Read on:   9 September 2026 (wave 298)
  *
- * ON THE REGISTERED OFFICE: THE SITE PRINTS A TIDIED FORM, AND CALLUM
- * ACCEPTED IT ON 9 SEPTEMBER 2026 (wave 298, question O-4). Companies House
- * assembles the address from separate fields and its own comma lands mid-name:
+ * ON THE REGISTERED OFFICE. There are THREE strings in play and it is worth a
+ * minute to know which is which.
  *
- *   "Renewal Trust Business, Centre 3 Hawksworth St, Nottingham, NG3 2EG"
+ * 1. WHAT THE COMPANY ACTUALLY FILED. The AD01 of 29 May 2026 prints the
+ *    address as one unbroken line, with no field splitting and no punctuation:
  *
- * The premises field is "Renewal Trust Business" and the first address line is
- * "Centre 3 Hawksworth St", so the comma sits inside what is really "Renewal
- * Trust Business Centre, 3 Hawksworth Street". `registeredOffice` prints that
- * reading. It departs from the register in exactly THREE ways, and there are
- * no others:
+ *      "Renewal Trust Business Centre 3 Hawksworth St Nottingham NG3 2EG"
  *
- *   1. the comma moves from inside "Business, Centre" to after "Centre"
- *   2. "St" is expanded to "Street"
- *   3. the comma before the postcode is dropped
+ *    This is the best evidence there is, and `registeredOfficeAsFiled` holds
+ *    it. Note "St", not "Street".
  *
- * ⚠ THOSE THREE ARE A DECISION, NOT A LICENCE. An earlier draft made exactly
- * the same three edits while its comment described the change as comma-only,
- * which is how a small improvement quietly becomes an unverified claim. Any
- * further departure needs Callum again, and `registeredOfficeAsRegistered`
- * below keeps the register's exact string so the two can always be compared.
- * The cleaner fix is to correct the premises field at Companies House, after
- * which both strings become the same and this note can go.
+ * 2. WHAT THE COMPANY PROFILE PAGE SHOWS. The same address, reassembled from
+ *    separate fields, with Companies House's own comma landing mid-name:
+ *
+ *      "Renewal Trust Business, Centre 3 Hawksworth St, Nottingham, NG3 2EG"
+ *
+ *    The premises field is "Renewal Trust Business" and the first address line
+ *    is "Centre 3 Hawksworth St". `registeredOfficeAsRegistered` holds it, and
+ *    the AD01 is what proves the split is an artefact rather than the name.
+ *
+ * 3. WHAT THIS SITE PRINTS. `registeredOffice`, accepted by Callum on
+ *    9 September 2026 (wave 298, question O-4). Against the FILED form it makes
+ *    one substantive change and adds punctuation the filing does not carry:
+ *
+ *      "St" is expanded to "Street"
+ *      commas are inserted after "Centre" and after "Nottingham"
+ *
+ * ⚠ THAT EXPANSION IS A DECISION, NOT A LICENCE, AND WAVE 297 DOES NOT MAKE
+ * IT. The platform prints "3 Hawksworth St", following the AD01 exactly, so
+ * the two properties currently disclose the same registered office in two
+ * different forms. One of them should move before both land, and it is a
+ * one-line edit either way. Callum's call; see the wave 298 report, O-4.
+ *
+ * An earlier draft of this file made the same edits while describing the
+ * change as comma-only, which is how a small improvement quietly becomes an
+ * unverified claim. Any further departure needs Callum again. The cleanest fix
+ * of all is to correct the premises field at Companies House, after which the
+ * profile page, the filing and the site all read the same.
  */
 
 export interface CompanyRecordField {
@@ -48,13 +64,19 @@ export const companyRecord = {
   number: "16650494",
   registeredOffice: "Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG",
   /**
-   * The register's own string, character for character. NOT rendered: it is
-   * here so that what Companies House actually says survives beside the tidied
-   * form above, and so a reader or an auditor comparing the two can see
-   * precisely which three things differ. Never edit this to match the tidy.
+   * The company profile page's string, character for character, comma splice
+   * and all. NOT rendered. Never edit it to match the tidy: its whole job is
+   * to preserve what a reader checking the profile page will actually see.
    */
   registeredOfficeAsRegistered:
     "Renewal Trust Business, Centre 3 Hawksworth St, Nottingham, NG3 2EG",
+  /**
+   * What the company FILED, from form AD01 of 29 May 2026, unbroken and
+   * unpunctuated. NOT rendered. This is the strongest evidence of the address
+   * and it is what wave 297 follows on the platform, so it is also the string
+   * to reconcile against if the two properties are ever made to agree.
+   */
+  registeredOfficeAsFiled: "Renewal Trust Business Centre 3 Hawksworth St Nottingham NG3 2EG",
   jurisdiction: "England and Wales",
   companyType: "Private limited company",
   incorporated: "14 August 2025",
