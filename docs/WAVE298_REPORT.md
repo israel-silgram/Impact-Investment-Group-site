@@ -575,13 +575,15 @@ head, which is what CI and Lovable actually see:
 | `src/content/legal.ts` | new | **0** | 0 |
 | `src/content/partners.ts` | 0 | 0 | 0 |
 | `src/content/site.ts` | 0 | 0 | 0 |
+| `src/routes/contact.tsx` | 3 | 3 | 0 |
 | `src/routes/legal.tsx` | new | **0** | 0 |
 | `src/routes/sitemap[.]xml.ts` | 0 | 0 | 0 |
 | `vite.config.ts` | 0 | 0 | 0 |
-| **total** | **12** | **12** | **0** |
+| **total** | **15** | **15** | **0** |
 
 Every remaining problem is the same pre-existing prettier finding on the same
-content. The four this wave did add were fixed by hand (`739f5a6`) rather than
+content. `src/routes/contact.tsx` joined this table in the 10 September mailbox
+pass and arrived carrying three of its own; it leaves carrying the same three. The four this wave did add were fixed by hand (`739f5a6`) rather than
 with `eslint --fix`, so that no file was rewritten from CRLF to LF: that is the
 trap wave 295 hit, where a two-line change became a 1,114-line diff on a
 Lovable-synced repo.
@@ -870,7 +872,7 @@ makes it the safe home for the shared value.
 | **Render census, every emitted page (NEW)** | **18 of 18 render: 0 new page errors, body text present, one h1, one legal nav** |
 | axe, 4 pages x 2 widths, against the base build | **0 new violation nodes, 0 failures** |
 | Em dashes authored | **0**, in this pass and across the wave |
-| Committed-content lint | unchanged, section 7 |
+| Committed-content lint, twelve files including `src/routes/contact.tsx` | **15 to 15, zero added.** Section 7 |
 
 ### 12.6 The render census, and why it now exists
 
