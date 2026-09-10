@@ -96,11 +96,27 @@ export const pickerContent = {
   lede: "Pick the one that fits you and we will ask a handful of questions that actually apply to you, and none that do not. It takes about two minutes, and the answers decide what gets built first.",
   gridLabel: "I am registering as",
   footnote:
-    "Registering costs nothing and commits you to nothing. It puts you at the front of the queue when the platform opens, and it puts your answer in the room while we are still deciding what it does.",
+    "Registering costs nothing and commits you to nothing. It puts you on the list before the platform opens, and it puts your answer in the room while we are still deciding what it does.",
 } as const;
 
 /** The divider in the hero, above the same ten tiles. */
 export const registerAsDivider = "Register to join the waitlist as";
+
+/**
+ * WHICH WORDS THE PERSON AGREED TO, sent with every registration as
+ * `consent_version`.
+ *
+ * ⚠️ BUMP THIS THE SAME DAY ANY CONSENT LABEL CHANGES, and treat that as the
+ * point of the field. A stored `consent_email: true` is worth nothing on its
+ * own: under UK GDPR what has to be demonstrable is what the person was
+ * actually shown, and the only way to reconstruct that from a row is the
+ * version stamp beside it. The labels this stamp covers are `consentBlock`
+ * below, `residentHealthConsent`, and `registerPrivacy.body`.
+ *
+ * Date stamped rather than numbered so the row itself says when, and so two
+ * people editing copy in the same week cannot both claim "v2".
+ */
+export const CONSENT_VERSION = "2026-09-10";
 
 /* ─────────────────────────────────────────────────────────────────────────
  * Shared blocks
@@ -127,21 +143,92 @@ export const consentBlock = {
 } as const;
 
 /**
- * ⚠️ THE SITE HAS NO PRIVACY NOTICE PAGE. There is no /privacy route to link
- * to, so this line links to the ICO register entry, which is a real
- * destination anyone can check, rather than to a 404. When a privacy notice is
- * published, point `href` at it and change `linkLabel` to "Read our privacy
- * notice". Flagged to Callum in docs/WAVE295_REPORT.md.
+ * The privacy line. Wording proposed by wave 298 and authorised by Callum on
+ * 9 Sep 2026, and it is not ours to reword without him.
+ *
+ * ⚠️ THE OLD LINE SAID WE DO NOT PASS ANSWERS TO ANYONE OUTSIDE THE GROUP,
+ * WHICH WAS NOT TRUE. The registration is emailed and texted by third-party
+ * suppliers and hosted on someone else's machines, so it names them as a class
+ * instead of pretending they do not exist. It also names the controller,
+ * because a data subject who wants to exercise a right has to know who to
+ * write to, and gives the mailbox that answers those.
+ *
+ * The link now points at the platform's published Privacy Policy. The site
+ * itself still has no /privacy route of its own; that is why the href is
+ * absolute and off-site.
  */
 export const registerPrivacy = {
-  body: "We store your answers to shape what the platform does and to match you when it opens. We do not sell them and we do not pass them to anyone outside Impact Investment Group. Registered with the ICO under ZB957755.",
-  linkLabel: "Check our ICO registration",
-  href: "https://ico.org.uk/ESDWebPages/Search",
+  body: "Impact Investment Group UK Limited is the data controller. We store your answers to shape what the platform does and to match you when it opens. We do not sell them, and we share them only with the suppliers that run our email, text messages and hosting. Registered with the ICO under ZB957755. Questions about your data: admin@impactig.co.uk",
+  linkLabel: "Read the Privacy Policy",
+  href: "https://app.impactinvestmentgroup.co.uk/privacy",
 } as const;
 
-/** The site's existing generic failure line, so a failure reads the same everywhere. */
-export const registerFailureLine =
-  "That did not send. Please try again, or email hello@impactig.co.uk directly.";
+/**
+ * THE RESIDENT PAGE'S SPECIAL-CATEGORY CONSENT.
+ *
+ * ⚠️ REQUIRED, UNTICKED, AND ONLY WHERE IT APPLIES. Three of that page's
+ * answers are health or disability data about the person filling it in, and
+ * two more are about somebody else entirely: "Someone I care for" and "A young
+ * person I support". That is Article 9 special-category data, and the lawful
+ * basis the rest of this form runs on does not reach it. So the page asks, in
+ * words, and refuses to send those particular answers without a yes.
+ *
+ * It is deliberately NOT one of the two alert boxes. Those are optional and
+ * the form submits happily without them. This one gates the answers it names
+ * and nothing else: leave every one of those options alone and this box never
+ * has to be ticked.
+ */
+export const residentHealthConsent = {
+  id: "consentHealth",
+  label:
+    "I agree that you may use what I have told you about health, disability or support needs to look for suitable housing for me or the person I am helping",
+  /** Shown only when one of the options below has been chosen. */
+  requiredMessage:
+    "Please tick the box above so we may use what you told us about health, disability or support needs. Or clear those answers and send the rest.",
+} as const;
+
+/**
+ * The resident answers that turn `residentHealthConsent` from optional into
+ * required. Values, not ids: these are the option strings themselves, so the
+ * gate cannot drift from the words on the page.
+ */
+export const RESIDENT_SPECIAL_CATEGORY_OPTIONS = {
+  who_for: ["Someone I care for", "A young person I support"],
+  home_needs: ["Adapted for a disability", "Somewhere with support attached"],
+} as const;
+
+/**
+ * WHAT THE FORM SAYS WHEN IT DOES NOT SEND, and it says three different things
+ * because there are three different situations and only one of them is worth
+ * retrying.
+ *
+ * ⚠️ "Please try again" ON A RATE LIMIT OR A REFUSAL IS A LIE, and a costly
+ * one: it sends somebody back round a form they just filled in to hit the same
+ * wall. `network` is the only branch where trying again is the right advice.
+ */
+export const registerFailureLines = {
+  /** Offline, DNS, CORS, a timeout, or the backend answering 5xx. */
+  network: "That did not send. Please try again, or email hello@impactig.co.uk directly.",
+  /** 429. The backend rate limits this endpoint. */
+  rateLimited:
+    "That was sent a moment ago. Please wait a minute and try once more, or email hello@impactig.co.uk.",
+  /** Any other 4xx: the payload was refused, so retrying it changes nothing. */
+  rejected:
+    "We could not accept that. Nothing has been lost: email hello@impactig.co.uk and a person will add you by hand.",
+} as const;
+
+/** How long the form waits for the backend before it gives up and says so. */
+export const SUBMIT_TIMEOUT_MS = 15000;
+
+/**
+ * The floor on how fast a registration can be filled in and still be believed.
+ *
+ * Not a captcha, and never will be: this page is for people in housing
+ * difficulty as well as for fund managers, and a puzzle gate excludes the
+ * wrong ones. Three seconds is under any human's time on a page with five
+ * questions and four fields, and above any script's.
+ */
+export const MIN_TIME_ON_FORM_MS = 3000;
 
 export const contactFieldLabels = {
   name: "Your name",
@@ -149,17 +236,33 @@ export const contactFieldLabels = {
   emailHelp: "Where the one message that says it is open will go.",
   organisation: "Organisation",
   phone: "Phone",
-  phoneHelp: "Optional. Only needed if you ticked the text box above.",
+  phoneHelp: "Optional, UK numbers only. Only needed if you ticked the text box above.",
+  /** The honeypot's label. Never seen by a person; read by a scraper. */
+  honeypot: "Company website",
 } as const;
 
 /**
- * PRICE BANDS, PROPOSED AND NOT CONFIRMED. Callum's to sign off, per R295-4.
+ * ⚠️ THE SITE NORMALISES THE PHONE NUMBER, NOT THE BACKEND. `07700 900123`,
+ * `+44 7700 900123` and `00447700900123` are the same number and a person will
+ * type any of them, so the browser puts it in E.164 before it posts and the
+ * platform stores one shape. Wave 294 should refuse anything that is not
+ * already `+44` followed by ten digits rather than try to repair it: two
+ * normalisers that disagree is how a wait list ends up texting nobody.
+ */
+export const phoneMessage = "Please use a UK number, starting 07 or +44.";
+
+/**
+ * PRICE BANDS, CONFIRMED BY CALLUM ON 9 SEP 2026, exactly as proposed.
  *
  * Two ladders, because the question means a different thing to a housing
  * association with a software line in its budget than to a landlord with four
  * houses. Both carry an honest bottom rung: somebody who would only use it
  * free is a real answer and a useful one, and leaving that rung off would push
  * them into a band they do not mean, which is worse than not asking.
+ *
+ * These are now a PRICING INSTRUMENT and not a draft. Moving a band edge makes
+ * every answer already collected against the old edges incomparable with the
+ * new ones, so a change here is a change to the data, not to some copy.
  */
 export const orgBudgetOptions = [
   "It would have to be free to us",
@@ -219,7 +322,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     label: "Investor",
     eyebrow: "Register to join the waitlist",
     h1: "Tell us the deal you want to see, and see it first",
-    lede: "We are building the platform that matches funded capital to housing demand councils and providers have already declared. Answer six questions now and your criteria are in the matching engine on the day it opens, before anything is advertised anywhere.",
+    lede: "We are building the platform that matches funded capital to the housing demand councils and providers publish. Answer five questions now and your criteria are in the matching engine on the day it opens, before anything is advertised anywhere.",
     offer: [
       { icon: "Clock", text: "First look at matched opportunities, ahead of the general list" },
       {
@@ -228,7 +331,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
       },
       {
         icon: "ShieldCheck",
-        text: "Every opportunity underwritten on named public data, with its source shown",
+        text: "Every opportunity to be underwritten on named public data, with its source shown",
       },
     ],
     askOrganisation: true,
@@ -296,7 +399,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
       heading: "You are on the list",
       body: "Your criteria are recorded against your email address. Nobody will call you, and there is nothing else you need to do.",
       next: [
-        "Your answers go into what we are building this week, not at launch",
+        "Your answers go into what we are still deciding to build, not into a pile for launch day",
         "One email when the platform opens, and none between now and then unless you asked for them",
         "Matching against your criteria starts on day one, not after you set it all up again",
       ],
@@ -310,14 +413,17 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     label: "Landlord",
     eyebrow: "Register to join the waitlist",
     h1: "Tell us what you own, and we will bring the demand to you",
-    lede: "Councils and providers are already telling us where they need homes. Answer six questions about your property and what you want from a lease, and when the platform opens your stock is matched against that demand instead of sitting on a portal.",
+    lede: "Councils and providers publish where they need homes. Answer six questions about your property and what you want from a lease, and when the platform opens your stock is put in front of that demand instead of sitting on a portal.",
     offer: [
-      { icon: "MapPin", text: "Your property matched against declared demand, not guessed at" },
+      { icon: "MapPin", text: "Your property matched against published demand, not guessed at" },
       {
         icon: "MessageSquareQuote",
         text: "A say in what we build, while the roadmap is still open",
       },
-      { icon: "ShieldCheck", text: "Named providers and councils, not anonymous enquiries" },
+      {
+        icon: "ShieldCheck",
+        text: "Named providers and councils on the platform, not anonymous enquiries",
+      },
     ],
     askOrganisation: true,
     organisationLabel: "Company name, or your own name if you let personally",
@@ -396,13 +502,13 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
       heading: "You are on the list",
       body: "What you own and what you want from a lease are recorded against your email address. Nobody will call you, and there is nothing else you need to do.",
       next: [
-        "Your answers go into what we are building this week, not at launch",
+        "Your answers go into what we are still deciding to build, not into a pile for launch day",
         "One email when the platform opens, and none between now and then unless you asked for them",
-        "Your property is matched against declared demand from day one",
+        "Your property is matched against published demand from the day it opens",
       ],
     },
     metaDescription:
-      "Join the Impact Investment Platform waiting list as a landlord. Tell us what you own and what you want from a lease, and we will match it against declared demand.",
+      "Join the Impact Investment Platform waiting list as a landlord. Tell us what you own and what you want from a lease, and we will match it against published demand.",
   },
 
   {
@@ -410,11 +516,11 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     label: "Developer",
     eyebrow: "Register to join the waitlist",
     h1: "Know where the demand is before you commit to the site",
-    lede: "The hardest part of a supported housing scheme is not building it, it is knowing there is an end user waiting at the other end. Answer six questions and when the platform opens you can read declared demand by area before you buy the land.",
+    lede: "The hardest part of a supported housing scheme is not building it, it is knowing there is an end user waiting at the other end. Answer six questions and when the platform opens you can read published demand by area before you buy the land.",
     offer: [
       {
         icon: "Map",
-        text: "Declared demand by area, so a scheme has an end user before it starts",
+        text: "Published demand by area, so a scheme can have an end user before it starts",
       },
       {
         icon: "MessageSquareQuote",
@@ -497,13 +603,13 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
       heading: "You are on the list",
       body: "What you build and where you build it are recorded against your email address. Nobody will call you, and there is nothing else you need to do.",
       next: [
-        "Your answers go into what we are building this week, not at launch",
+        "Your answers go into what we are still deciding to build, not into a pile for launch day",
         "One email when the platform opens, and none between now and then unless you asked for them",
-        "Demand by area is there to read from day one, not after a sales process",
+        "Demand by area is there to read from the day it opens, not after a sales process",
       ],
     },
     metaDescription:
-      "Join the Impact Investment Platform waiting list as a developer. Read declared demand by area before you commit to a site.",
+      "Join the Impact Investment Platform waiting list as a developer. Read published demand by area before you commit to a site.",
   },
 
   {
@@ -513,14 +619,14 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     h1: "Stock, partners and demand, in one view",
     lede: "Acquisition, disposal, leasing and finding the right support partner are four separate searches today, in four separate places. Answer six questions and help us make them one. Your answers shape the build while it is still being decided.",
     offer: [
-      { icon: "Network", text: "Stock, support partners and declared demand in one view" },
+      { icon: "Network", text: "Stock, support partners and published demand in one view" },
       {
         icon: "MessageSquareQuote",
         text: "A say in what we build, while the roadmap is still open",
       },
       {
         icon: "ShieldCheck",
-        text: "Every figure underwritten on named public data, with its source shown",
+        text: "Every figure to be underwritten on named public data, with its source shown",
       },
     ],
     askOrganisation: true,
@@ -594,13 +700,13 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
       heading: "You are on the list",
       body: "What you need and where you operate are recorded against your email address. Nobody will call you, and there is nothing else you need to do.",
       next: [
-        "Your answers go into what we are building this week, not at launch",
+        "Your answers go into what we are still deciding to build, not into a pile for launch day",
         "One email when the platform opens, and none between now and then unless you asked for them",
         "Stock, partners and demand are matched against your areas from day one",
       ],
     },
     metaDescription:
-      "Join the Impact Investment Platform waiting list as a housing association. Stock, support partners and declared demand in one view.",
+      "Join the Impact Investment Platform waiting list as a housing association. Stock, support partners and published demand in one view.",
   },
 
   {
@@ -608,13 +714,13 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     label: "Local Authority",
     eyebrow: "Register to join the waitlist",
     h1: "Tell us where the pressure is, and we will go and find the homes",
-    lede: "The platform exists to turn a council's declared need into property that actually appears. Answer six questions about where your pressure is hardest, and that need is in the system while we are still choosing which areas to open first.",
+    lede: "The platform exists to turn a council's stated need into property that actually appears. Answer six questions about where your pressure is hardest, and that need is in the system while we are still choosing which areas to open first.",
     offer: [
-      { icon: "Map", text: "Your declared need matched against real supply, by area" },
+      { icon: "Map", text: "Your stated need matched against real supply, by area" },
       { icon: "MessageSquareQuote", text: "A say in which areas and which needs we open first" },
       {
         icon: "ShieldCheck",
-        text: "Every figure underwritten on named public data, with its source shown",
+        text: "Every figure to be underwritten on named public data, with its source shown",
       },
     ],
     askOrganisation: true,
@@ -696,7 +802,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
       heading: "You are on the list",
       body: "Where your pressure is and where you place are recorded against your email address. Nobody will call you, and there is nothing else you need to do.",
       next: [
-        "Your answers go into what we are building this week, not at launch",
+        "Your answers go into what we are still deciding to build, not into a pile for launch day",
         "One email when the platform opens, and none between now and then unless you asked for them",
         "Your areas and your pressures are weighted in which regions we open first",
       ],
@@ -782,7 +888,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
       heading: "You are on the list",
       body: "What you deliver and where you need property are recorded against your email address. Nobody will call you, and there is nothing else you need to do.",
       next: [
-        "Your answers go into what we are building this week, not at launch",
+        "Your answers go into what we are still deciding to build, not into a pile for launch day",
         "One email when the platform opens, and none between now and then unless you asked for them",
         "Landlords and developers are matched against your catchment from day one",
       ],
@@ -868,7 +974,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
       heading: "You are on the list",
       body: "Who you support and where you need property are recorded against your email address. Nobody will call you, and there is nothing else you need to do.",
       next: [
-        "Your answers go into what we are building this week, not at launch",
+        "Your answers go into what we are still deciding to build, not into a pile for launch day",
         "One email when the platform opens, and none between now and then unless you asked for them",
         "Landlords and councils are matched against your areas from day one",
       ],
@@ -882,7 +988,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     label: "Social Worker",
     eyebrow: "Register to join the waitlist",
     h1: "One place to look, instead of ringing round",
-    lede: "You already know what the person in front of you needs. What you do not have is anywhere to look. Answer six questions about the placements you are trying to make, and they shape the search we are building.",
+    lede: "You already know what the person in front of you needs. What you do not have is anywhere to look. Answer five questions about the placements you are trying to make, and they shape the search we are building.",
     offer: [
       { icon: "ClipboardList", text: "One place to look, instead of a list of numbers to ring" },
       {
@@ -953,7 +1059,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
       heading: "You are on the list",
       body: "The placements you are trying to make are recorded against your email address. Nobody will call you, and there is nothing else you need to do.",
       next: [
-        "Your answers go into what we are building this week, not at launch",
+        "Your answers go into what we are still deciding to build, not into a pile for launch day",
         "One email when the platform opens, and none between now and then unless you asked for them",
         "The search is built around the placements you told us about",
       ],
@@ -967,7 +1073,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     label: "Broker",
     eyebrow: "Register to join the waitlist",
     h1: "Both sides of your deal, on one platform",
-    lede: "You spend half your time finding stock for buyers and the other half finding buyers for stock. Answer six questions about what you broker and where, and when the platform opens both sides are already on it.",
+    lede: "You spend half your time finding stock for buyers and the other half finding buyers for stock. Answer five questions about what you broker and where, and when the platform opens both sides are already on it.",
     offer: [
       { icon: "Handshake", text: "Funded buyers and real stock on the same platform" },
       {
@@ -1032,7 +1138,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
       heading: "You are on the list",
       body: "What you broker and where you operate are recorded against your email address. Nobody will call you, and there is nothing else you need to do.",
       next: [
-        "Your answers go into what we are building this week, not at launch",
+        "Your answers go into what we are still deciding to build, not into a pile for launch day",
         "One email when the platform opens, and none between now and then unless you asked for them",
         "Both sides of your deal are matched against your areas from day one",
       ],
@@ -1108,14 +1214,19 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
           "I am planning ahead",
         ],
       },
-      {
-        id: "situation_detail",
-        label: "Anything you want us to know?",
-        help: "Only if you want to. It helps us look for the right thing.",
-        kind: "textarea",
-        placeholder: "In your own words",
-        maxLength: 2000,
-      },
+      /*
+       * ⚠️ THE OPEN "Anything you want us to know?" BOX IS DELETED, NOT MOVED.
+       *
+       * On a page a person in housing difficulty lands on, a free-text box is
+       * an invitation to write about a diagnosis, a court order, an abusive
+       * ex-partner or a child's needs, and this site's privacy notice does not
+       * yet say what happens to any of that. The other questions here are
+       * closed lists we chose, so we know in advance what we are asking for
+       * and can say so; a free-text box is the one field where we cannot.
+       *
+       * It comes back when the privacy notice covers free text, and not
+       * before. Recorded in docs/WAVE295_REPORT.md under "Review fixes".
+       */
     ],
     submitLabel: "Add me to the list",
     success: {

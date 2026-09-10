@@ -614,9 +614,11 @@ function ServicesPage() {
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Button variant="primary" asChild>
-              <Link to={registerRoute.to}>
-                {servicesClose.cta}
-              </Link>
+              {/* registerRoute.label, NOT servicesClose.cta. Every control
+                  that opens the wait list says the same words: this one used
+                  to say something of its own, which is how a page ends up
+                  offering what looks like two different actions. */}
+              <Link to={registerRoute.to}>{registerRoute.label}</Link>
             </Button>
             <Button variant="secondary" asChild withArrow={false}>
               <Link to="/contact">Contact Us</Link>

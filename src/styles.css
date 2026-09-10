@@ -48,18 +48,19 @@
      belongs to #AE4E30, the ink below. Measured, both of them, in
      docs/WAVE295_REPORT.md. */
 
-  /* ⚠️ --color-orange-400 IS RETIRED AND MUST NOT COME BACK.
-     It was #f0a886, the kit's light terracotta, and wave 295 used it to carry
-     small orange text on navy where orange-500 could not reach 4.5:1. Callum,
-     after reading the wave 295 report: there is ONE orange on this site, the
-     one in the wait-list button, and it is the one every orange word is set
-     in. Where it did not pass, THE SURFACE MOVED, not the orange. Every such
-     surface is listed in docs/WAVE295_REPORT.md under "One orange".
-     Reintroducing a lighter orange for text puts two oranges back on the page,
-     which is the exact thing this wave existed to end. */
-  /* Fills, graphics, icon glyphs and large headline words. 4.01:1 on navy-800
+  /* ⚠️ THERE IS ONE ORANGE ON THIS SITE AND IT IS THE ONE BELOW. A lighter
+     step above it existed for a day, to carry small orange text on navy where
+     500 could not reach 4.5:1. Callum, after reading the wave 295 report: one
+     orange, the wait-list button's, for every orange word. Where it did not
+     pass, THE SURFACE MOVED, not the orange, and every such surface is listed
+     in docs/WAVE295_REPORT.md under "One orange". Adding a lighter orange for
+     text puts two oranges back on the page, which is the exact thing that
+     wave existed to end.
+
+     Fills, graphics, icon glyphs and large headline words. 4.01:1 on navy-800
      clears AA for large text and clears 1.4.11 for non-text marks. It is not a
-     small-text colour on any ground: that is 400 on navy and 700 on cream. */
+     small-text colour on any ground: small orange text needs navy-950 or
+     darker, and on the cream it is 700. */
   --color-orange-500: #c15f3c;
   /* The button fill. White on it is 5.34:1, full AA for normal text, where
      the old amber's #e56600 was 3.4:1 and only ever cleared large text. */
@@ -85,6 +86,11 @@
   --color-surface: #ffffff; /* card and content surfaces, only ever on mist-bg */
   --color-slate: #647289; /* borders, rules, small caps, body copy on white cards */
   --color-slate-ink: #4e5a6e; /* body copy directly on the cream — 6.2:1 */
+  /* Error text on a light ground. 5.46:1 on white and 4.85:1 on the cream.
+     `.section-light` swaps --destructive for this; see the note on that
+     token. On /contact the form's own panel is turned white by that block, so
+     this is the value its validation messages actually render in. */
+  --color-destructive-on-light: #c92a2a;
 
   /* Type */
   --font-display: "Anton", "Barlow", system-ui, sans-serif;
@@ -123,9 +129,24 @@
   --muted-foreground: #7f91ac;
   --accent: #1e9e8f;
   --accent-foreground: #ffffff;
-  /* Error and validation states only — deliberately not a brand orange, so a
-     failed field never reads as a call to action. */
-  --destructive: #d9430a;
+  /* ERROR AND VALIDATION TEXT. Deliberately not a brand orange, so a failed
+     field never reads as the call to action, and picked for the DARK ground
+     because that is where the forms live: 4.57:1 on the register form's panel
+     and 5.04:1 on navy-950, against a 4.5:1 body floor. It was #d9430a, which
+     is 4.05:1 on that panel and failed.
+
+     ⚠️ ONE VALUE CANNOT SERVE BOTH GROUNDS AND THE ARITHMETIC SAYS SO, so do
+     not go looking for a cleverer red. To clear 4.5:1 on white the luminance
+     must be at most 0.1833; to clear it on the register form's panel it must
+     be at least 0.2143. The window is empty. `.section-light` therefore
+     re-points this to `--color-destructive-on-light` below, exactly the way
+     that block already re-points orange, teal and white.
+
+     `--destructive-foreground` is white at 3.91:1 on this fill, which clears
+     AA for large text only. That pairing is used by the shadcn `destructive`
+     button and badge variants, neither of which this site renders anywhere;
+     if one is ever used for a real control, re-measure it first. */
+  --destructive: #e5484d;
   --destructive-foreground: #ffffff;
   --border: #0a2a52;
   --input: #0a2a52;
@@ -616,17 +637,31 @@
   color: var(--color-teal-600);
 }
 
-/* The light oranges are 2.1:1, 3.76:1 and 4.75:1 on the cream and are never
-   text there, so any 400/500/600 word that lands in a light section falls back
-   to navy ink; the accent survives as icons, borders and fills. orange-700 is
-   deliberately not listed: at 5.78:1 it is the one orange that may carry text
-   here, at body size and not only large (wave 295 moved it from 4.1:1).
-   Icons and validation errors are exempt too: the first is a permitted accent,
-   the second has to stay distinguishable. */
+/* Neither does the error red. --destructive is picked for the dark forms
+   (4.57:1 there, 4.05:1 for the red it replaced); on white it would be 3.91:1.
+   This is the same swap, for the same reason, as the three rules around it.
+   It is deliberately NOT inside the orange guard below: an error must stay an
+   error on every ground, never fall back to navy ink. */
+.section-light [class*="text-destructive"] {
+  color: var(--color-destructive-on-light);
+}
+
+/* orange-500 and orange-600 are 3.76:1 and 4.75:1 on the cream, so a 500 or
+   600 word that lands in a light section falls back to navy ink; the accent
+   survives as icons, borders and fills. orange-700 is deliberately not listed:
+   at 5.78:1 it is the one orange that may carry text here, at body size and
+   not only large.
+
+   ⚠️ THE 400 ARM WAS DROPPED WITH THE TOKEN. It matched nothing once the
+   lighter orange was retired, and a selector arm that cannot fire is a
+   selector arm somebody re-adds the colour behind.
+
+   Icons and validation errors are exempt: the first is a permitted accent, and
+   the second must never fall back to navy ink, because an error that reads
+   like body copy is not an error. Errors have their own light-ground colour a
+   few rules above. */
 .section-light
-  :is([class*="text-orange-4"], [class*="text-orange-5"], [class*="text-orange-6"]):not(svg):not(
-    [role="alert"]
-  ) {
+  :is([class*="text-orange-5"], [class*="text-orange-6"]):not(svg):not([role="alert"]) {
   color: var(--color-navy-900);
 }
 

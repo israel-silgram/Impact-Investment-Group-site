@@ -50,3 +50,42 @@ if (Math.max(...blocks) > 6 || Math.min(...blocks) < 3) {
   console.error("REFUTER FAILED: a role is outside the three-to-six range.");
   process.exit(1);
 }
+
+/**
+ * ⚠️ THE LEDE COUNTS THE QUESTIONS OUT LOUD, SO THE COUNT HAS TO BE TRUE.
+ *
+ * Three ledes promised six questions over a page that renders five. Nobody
+ * spotted it because the number lives in prose and the questions live in an
+ * array, and prose does not get type checked. This does. Change the questions
+ * without changing the sentence and this fails.
+ */
+const WORDS: Record<string, number> = {
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+};
+
+let ledeFailures = 0;
+console.log("\nThe number each lede says out loud, against the blocks it renders:");
+for (const role of registerRoleContent) {
+  const said = role.lede.match(/\bAnswer (three|four|five|six|seven|eight)\b/i);
+  const rendered = role.questions.filter((q) => !q.tail).length;
+  if (!said) {
+    console.log(`  --   ${role.id}: the lede names no number (${rendered} blocks)`);
+    continue;
+  }
+  const claimed = WORDS[said[1]!.toLowerCase()]!;
+  const ok = claimed === rendered;
+  if (!ok) ledeFailures += 1;
+  console.log(
+    `  ${ok ? "ok" : "!!"}   ${role.id}: lede says ${said[1]} (${claimed}), page renders ${rendered}`,
+  );
+}
+if (ledeFailures) {
+  console.error(`
+REFUTER FAILED: ${ledeFailures} lede(s) name the wrong number of questions.`);
+  process.exit(1);
+}

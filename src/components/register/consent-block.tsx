@@ -13,8 +13,17 @@ import type { WaitlistFormValues } from "@/components/register/waitlist-form";
  * still a person whose answers we want. A pre-ticked box would also not be a
  * consent under UK GDPR, which is the other reason it will not be added later.
  *
- * The privacy line is not a link to a privacy notice, because the site does
- * not have one yet. See the note on `registerPrivacy` in content/register.ts.
+ * The privacy line names the controller, says who the answers are shared with
+ * and gives the mailbox that answers data questions. Wording is Callum's, and
+ * it is not ours to reword: see `registerPrivacy` in content/register.ts. The
+ * link is absolute and off-site because the platform publishes the policy and
+ * this site still has no /privacy route of its own.
+ *
+ * The resident page's special-category consent is NOT here. It is required
+ * rather than optional, it applies only to that page and only to some of its
+ * answers, and putting a required box in a fieldset headed "Want us to tell
+ * you when it opens?" would misdescribe both. It lives in the form, beside the
+ * answers it gates.
  */
 export function ConsentBlock({ register }: { register: UseFormRegister<WaitlistFormValues> }) {
   return (

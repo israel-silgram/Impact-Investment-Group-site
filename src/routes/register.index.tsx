@@ -22,11 +22,11 @@ export const Route = createFileRoute("/register/")({
   component: RegisterPickerPage,
   head: () => ({
     meta: [
-      { title: "Register to join the waitlist — The Impact Investment Platform" },
+      { title: "Register to join the waitlist | The Impact Investment Platform" },
       { name: "description", content: pickerContent.lede },
       {
         property: "og:title",
-        content: "Register to join the waitlist — The Impact Investment Platform",
+        content: "Register to join the waitlist | The Impact Investment Platform",
       },
       { property: "og:description", content: pickerContent.lede },
       { property: "og:type", content: "website" },

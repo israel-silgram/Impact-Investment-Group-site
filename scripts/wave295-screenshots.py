@@ -70,6 +70,22 @@ def shoot(page, url: str, name: str, width: int, full=True, before_shot=None):
     print(f"  {out}")
 
 
+def reveal_resident_consent(page):
+    """Choose a health answer so the special-category consent appears."""
+    page.check("input[type=checkbox][value='Adapted for a disability']")
+    page.wait_for_selector("#consentHealth", timeout=5000)
+    page.evaluate("scrollTo(0, 0)")
+    page.wait_for_timeout(400)
+
+
+def show_errors(page):
+    """Submit an empty form so every validation message is on screen."""
+    page.click("button[type=submit]")
+    page.wait_for_selector("[role=alert]", timeout=10000)
+    page.evaluate("scrollTo(0, 0)")
+    page.wait_for_timeout(400)
+
+
 def fill_and_submit(page):
     """Fill the investor form the way a person would, then submit it."""
     page.fill("#name", "Dana Whitfield")
@@ -118,6 +134,22 @@ def main():
                 "role-investor-success",
                 width,
                 before_shot=fill_and_submit,
+            )
+            # The two states the review turned on, and neither is in the
+            # prerendered HTML: they exist only once somebody touches the form.
+            shoot(
+                page,
+                after + "/register/investor",
+                "role-investor-errors",
+                width,
+                before_shot=show_errors,
+            )
+            shoot(
+                page,
+                after + "/register/resident",
+                "role-resident-consent",
+                width,
+                before_shot=reveal_resident_consent,
             )
 
         browser.close()

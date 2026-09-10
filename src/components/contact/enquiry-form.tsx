@@ -101,10 +101,17 @@ function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNo
   );
 }
 
+/*
+ * ⚠️ `text-destructive`, NEVER an orange, and this form is why the rule is
+ * written down twice. On /contact the `.section-light` block turns this
+ * panel's `bg-navy-800/50` WHITE, so the error text sits on white, where the
+ * brand orange is 4.23:1 at 13px against a 4.5:1 floor. It also reads as the
+ * page's call to action, which a failure is the opposite of.
+ */
 function ErrorText({ id, children }: { id: string; children?: string | undefined }) {
   if (!children) return null;
   return (
-    <p id={id} role="alert" className="text-[13px] font-medium text-orange-500">
+    <p id={id} role="alert" className="text-[13px] font-medium text-destructive">
       {children}
     </p>
   );
@@ -413,7 +420,7 @@ export function EnquiryForm({
         <p className="font-heading text-sm font-semibold text-mist">{config.reply}</p>
         <p className="text-[12px] leading-snug text-slate-muted">{privacyLine}</p>
         {failed ? (
-          <p role="alert" className="text-[13px] font-medium text-orange-500">
+          <p role="alert" className="text-[13px] font-medium text-destructive">
             That did not send. Please try again, or email hello@impactig.co.uk directly.
           </p>
         ) : null}

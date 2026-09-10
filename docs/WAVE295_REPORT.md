@@ -363,13 +363,11 @@ source shown"**, verbatim from the platform's own phrasing.
 Every string is in section 8, printed from `src/content/register.ts` by `scripts/wave295-copy.ts`
 rather than pasted here, so the report cannot drift from the product.
 
-**One deliberate exception to the no-em-dash canon, and only one.** The two new routes' `<title>`
-tags read `Register to join the waitlist — The Impact Investment Platform`, because every other
-page on the site already uses that separator (`Contact — ...`, `Partner with X — ...`) and two
-pages formatted differently from the other seven is a visible inconsistency in a browser tab. It
-is matching an established pattern rather than authoring prose. Every other em dash this wave
-wrote, in comments and in copy, has been removed; the ones remaining in the diff are pre-existing
-lines that a formatter moved.
+~~One deliberate exception to the no-em-dash canon.~~ **WITHDRAWN, section 12 item 9.** The two new
+routes' `<title>` tags used the separator every other page uses, on the argument that matching an
+established pattern is not authoring prose. The review did not accept it and it is not worth
+arguing: they are pipes now. **There is no em dash anywhere this wave authored.** The ones remaining
+in the diff are pre-existing lines that a formatter moved.
 
 ---
 
@@ -439,13 +437,13 @@ environment variable, because it audits the build and the site does not ship it.
 
 ### Three things I need you to confirm
 
-1. **The orange hex.** The site now carries the platform's live `#C15F3C`, not the brief's `#C6613F`, for the reasons in section 2. Say the word if you want `#C6613F` anyway.
-2. **The price bands.** Proposed, not confirmed, per R295-4. Two ladders, in section 8. Both carry an honest bottom rung ("it would have to be free to us"), because a person who would only use it free is a real answer and leaving that rung off pushes them into a band they do not mean.
+1. ~~**The orange hex.**~~ **SETTLED at `#C15F3C` by Callum on 9 Sep.** The site carries the platform's live value, not the brief's retired `#C6613F`, for the reasons in section 2.
+2. ~~**The price bands.** Proposed, not confirmed.~~ **CONFIRMED by Callum on 9 Sep, exactly as proposed.** Two ladders, in section 8. Both carry an honest bottom rung ("it would have to be free to us"), because a person who would only use it free is a real answer and leaving that rung off pushes them into a band they do not mean.
 3. ~~**The hero's orange headline** is the lighter terracotta.~~ **SETTLED, and section 11 is the answer.** You read this and ruled that there is one orange. "Delivering Support" is now `#c15f3c`, the same as the button, and the photograph behind it gave way instead: 14% to 7%, with the wash over it raised. It measures 4.16:1 at 360px and 4.23:1 at 1440px against a 3:1 floor, up from 3.55:1 and 3.78:1. Compare `hero-before-1440.webp` with `hero-after-1440.webp`.
 
 ### Three things this wave could not finish
 
-1. **The site has no privacy notice page.** R295-3 asks for a link to one and there is no `/privacy` route to link to. Rather than ship a link to a 404, the privacy line names what we store, says we do not sell it, cites ICO ZB957755 and links to the ICO register, which is a real destination anyone can check. When a privacy notice exists, `registerPrivacy` in `content/register.ts` is a two-line change.
+1. ~~**The site has no privacy notice page.**~~ **ANSWERED, section 12 item 2.** The privacy line now names Impact Investment Group UK Limited as the controller, says the answers are shared with the suppliers that run email, texts and hosting, and links to the platform's published Privacy Policy at `https://app.impactinvestmentgroup.co.uk/privacy`. The site itself still has no `/privacy` route of its own, which is why that href is absolute and off-site.
 2. **Wave 294's endpoint is not live.** The form posts to `{apiBase}/public/waitlist` and will show its failure line until wave 294 answers there. The success state in the screenshots is real: the form is filled and submitted through the actual React handler and only the network answer is stubbed. **`main` should not move until that endpoint is up**, which is what the brief already says.
 3. **Nine roles ask about their organisation and the tenth does not.** A resident has no organisation, and asking would be a small insult. Wave 294's model needs `organisation` to be genuinely optional.
 
@@ -1131,6 +1129,8 @@ layout would see.
 | `picker-{360,768,1440}.webp` | `/register` |
 | `role-investor-{360,768,1440}.webp` | `/register/investor` |
 | `role-investor-success-{360,768,1440}.webp` | the same page after a real submit |
+| `role-investor-errors-{360,768,1440}.webp` | the error state after an empty submit (section 12 item 3) |
+| `role-resident-consent-{360,768,1440}.webp` | the resident page with the special-category consent revealed (section 12 item 2) |
 
 ---
 
@@ -1165,7 +1165,10 @@ layout would see.
 **Tools, not shipped**
 
 `scripts/wave295-contrast.cjs`, `wave295-contract.ts`, `wave295-copy.ts`,
-`wave295-payload-example.ts`, `wave295-screenshots.py`, `wave295-axe.py`.
+`wave295-payload-example.ts`, `wave295-screenshots.py`, `wave295-axe.py`,
+`wave295-orange-audit.py`, `wave295-behaviour.py`, and the two one-shot appliers
+`wave295-surfaces.py` and `wave295-review-content.py`, which are kept because they
+are the record of exactly which strings and surfaces moved and why.
 
 ---
 
@@ -1303,7 +1306,286 @@ reverted again. It is the one blob in this repository stored with CRLF endings.
 
 ---
 
-## 12 · Status
+---
+
+## 12 · Review fixes and decisions
+
+Callum's decisions of 9 September evening, and an independent review of the diff. Both are in.
+
+### Callum's decisions
+
+| | |
+|---|---|
+| **The price bands** | **Accepted exactly as proposed.** Both ladders are marked confirmed in `content/register.ts` and are now a pricing instrument, not a draft: moving a band edge makes every answer already collected against the old edges incomparable with the new ones. |
+| **The orange** | **Settled at `#C15F3C`.** No further change; section 11 stands. |
+| **The data controller** | **Impact Investment Group UK Limited**, named in the privacy line. |
+| **The mailboxes** | `admin@impactig.co.uk` for legal and data protection, `support@impactig.co.uk` for support. The privacy line gives `admin@`. |
+
+### 1 · BLOCKER, the payload was not the platform's contract
+
+The envelope was camelCase (`consentEmail`, `consentSms`) because that is what the site's older
+enquiry POST does. The platform stores snake_case, so every key would have needed translating on
+arrival, which is a rename waiting to be got wrong. **The whole envelope is snake_case now**, and
+`consent_version` is new.
+
+```
+role, name, email, phone, organisation, answers, consent_email, consent_sms, consent_version, source
+```
+
+- `phone` and `organisation` are **omitted when absent**, never sent null: the platform's site-enquiry model uses `extra="forbid"` and a null is a different thing from a missing key.
+- `phone` is **E.164 or absent**, never as typed.
+- `answers` is the free-shaped object of snake_case question ids in section 4.
+- `consent_version` is `"2026-09-10"`, exported as `CONSENT_VERSION` from `content/register.ts`. **Bump it the same day any consent label changes.** A stored `consent_email: true` is worth nothing on its own: what has to be demonstrable under UK GDPR is what the person was actually shown, and the version stamp beside the row is the only way to reconstruct that.
+- `source` is the constant `"site-register"`.
+- No `utm`: the site does not carry one, so it does not invent one.
+
+⚠️ **The resident's special-category consent travels inside `answers` as `health_data_consent`**, so
+the envelope stays exactly the ten keys above. **Wave 294 should consider promoting it to a column of
+its own.** It is Article 9 consent and it is the one field a regulator would ask to see in isolation;
+it is inside `answers` here only to keep the contract the review specified.
+
+`scripts/wave295-payload-example.ts` **asserts and no longer prints**, and that change is the point:
+the old script printed the camelCase envelope happily for days. It now checks, on payloads built by
+the function the form calls, that no key is outside the contract, that none is missing but the two
+that may be, that every key is snake_case, that `consent_version` is the constant and not a literal,
+that `phone` is normalised, and that a submission with neither consent box ticked is still valid and
+records neither. **29 assertions, all passing.**
+
+### 2 · BLOCKER, the privacy line and the resident page
+
+The old line said we do not pass answers to anyone outside the group. **That was not true**: the
+registration is emailed and texted by third-party suppliers and hosted on someone else's machines.
+The line Callum authorised is the one that ships, verbatim:
+
+> Impact Investment Group UK Limited is the data controller. We store your answers to shape what the
+> platform does and to match you when it opens. We do not sell them, and we share them only with the
+> suppliers that run our email, text messages and hosting. Registered with the ICO under ZB957755.
+> Questions about your data: admin@impactig.co.uk
+
+Link: **Read the Privacy Policy**, `https://app.impactinvestmentgroup.co.uk/privacy`.
+
+**The resident page's special-category consent.** Four of that page's answers are health, disability
+or third-party data: `Adapted for a disability`, `Somewhere with support attached`, `Someone I care
+for`, `A young person I support`. That is Article 9 data and the basis the rest of the form runs on
+does not reach it. The page now carries one required, unticked box whose label is Callum's:
+
+> I agree that you may use what I have told you about health, disability or support needs to look for
+> suitable housing for me or the person I am helping
+
+It appears only once one of those answers is chosen, it is not one of the two optional alert boxes,
+and **the form posts nothing at all until it is ticked**. Choose none of those answers and the box
+never appears and nothing is gated.
+
+⚠️ **The open "Anything you want us to know?" textarea is DELETED from the resident page, not
+moved.** On a page a person in housing difficulty lands on, a free-text box invites a diagnosis, a
+court order, an abusive ex-partner or a child's needs, and the privacy notice does not yet say what
+happens to any of that. The other questions there are closed lists we chose, so we know in advance
+what we are asking for; free text is the one field where we cannot. **It comes back when the privacy
+notice covers free text, and not before.** That took the resident page from five question blocks to
+four, still inside R295-4's three to six.
+
+### 3 · MAJOR, error text
+
+`text-orange-500` on a 13px validation message is both a contrast failure and a category error: it
+tells a person that the thing which just went wrong is the thing they are meant to press. Both forms
+use `text-destructive` now.
+
+⚠️ **The reviewer's fix did not work as given, and the arithmetic says why.** `--destructive` was
+`#d9430a`, which is **4.05:1** on the register form's panel, worse than the orange it replaced.
+Worse, the two forms sit on opposite grounds: `.section-light` turns the contact form's
+`bg-navy-800/50` **white**, so its errors are read on white while the register form's are read on
+navy. To clear 4.5:1 on white a colour's luminance must be at most 0.1833; to clear it on the
+register panel it must be at least 0.2143. **The window is empty: one value cannot serve both.**
+
+So `--destructive` is picked for the dark ground and `.section-light` re-points it for the light one,
+which is exactly what that block already does for orange, teal and white:
+
+| Token | Value | Where it is read | Measured in the browser |
+|---|---|---|---|
+| `--destructive` | `#e5484d` | the register form, on navy | **4.81:1** at 13px |
+| `--color-destructive-on-light` | `#c92a2a` | the contact form, on white | **5.46:1** at 13px |
+
+Both measured on the built pages by driving an invalid submit, not calculated. `--destructive-foreground`
+is white at 3.91:1 on the new fill, which clears AA for large text only; that pairing belongs to the
+shadcn `destructive` button and badge variants, **neither of which this site renders anywhere**, and
+it is noted in `styles.css` so the next person to use one re-measures first.
+
+`scripts/wave295-axe.py` now **submits an empty form before its checks**, so the error state is in
+the DOM when axe runs. It also runs the success state, for the same reason: both are the parts of a
+form most likely to fail a check and the parts a crawl of prerendered HTML never sees.
+
+### 4 · MAJOR, the success state was silent
+
+It replaces the form in place, so nothing navigates and nothing announced. A screen-reader user
+pressed submit and heard silence; a keyboard user's focus was on a button that no longer existed,
+which drops focus to the top of the document. The panel now takes `tabIndex={-1}` and a ref, focuses
+itself in an effect, and wraps its heading and body in `role="status"`. Status and not `alert`: this
+is good news, and `alert` is assertive enough to cut off whatever is being read at the time. The axe
+run asserts focus actually moved.
+
+### 5 · MAJOR, the phone
+
+Validated as a UK number with its own message, **"Please use a UK number, starting 07 or +44."**, and
+normalised to E.164 before it posts.
+
+⚠️ **THE SITE NORMALISES, NOT THE BACKEND.** `07700 900123`, `+44 7700 900123`, `00447700900123` and
+`(07700) 900-123` are one number and a person will type any of them, so the browser puts it in E.164
+and the platform stores one shape. **Wave 294 should refuse anything that is not already `+44`
+followed by ten digits rather than try to repair it**: two normalisers that disagree is how a wait
+list ends up texting nobody. Ten cases are asserted in the payload script, three of which must be
+refused.
+
+### 6 · MAJOR, the submit had one failure mode for three situations
+
+"Please try again" on a rate limit or a refusal is a lie, and a costly one: it sends somebody back
+round a form they just filled in to hit the same wall.
+
+| Status | What the page says |
+|---|---|
+| **429** | That was sent a moment ago. Please wait a minute and try once more, or email hello@impactig.co.uk. |
+| **any other 4xx** | We could not accept that. Nothing has been lost: email hello@impactig.co.uk and a person will add you by hand. |
+| **5xx, network, DNS, CORS, timeout** | That did not send. Please try again, or email hello@impactig.co.uk directly. |
+
+The fetch is wrapped in an `AbortController` with a **15 second timeout**. A fetch to a host that
+accepts the connection and then says nothing never settles on its own, and `isSubmitting` is tied to
+that promise, so without the timeout the button stays on "Sending" forever. All three branches are
+driven in a browser and each asserts the button came back off "Sending".
+
+### 7 · MAJOR, spam control
+
+An off-screen honeypot and a floor on time-on-form. **No captcha, and there will not be one:** this
+page is for people in housing difficulty as well as for fund managers, and a puzzle gate to save a
+handful of junk rows is the wrong trade.
+
+⚠️ **The honeypot is moved off screen, never `display: none` or `hidden`.** A scraper worth
+defending against skips fields it can see are hidden, and some browsers skip them on autofill too. It
+is a real, focusable `tabindex="-1"` input parked outside the viewport and `aria-hidden`, so it costs
+a keyboard or screen-reader user nothing. **`MIN_TIME_ON_FORM_MS` is 3000**, under any human's time on
+a page with five questions and four fields and above any script's. Both branches show the success
+state without posting: telling a script it was blocked is telling it what to change.
+
+### 8 · MAJOR, one control said something different
+
+`/platform`'s closing band rendered `servicesClose.cta` while every other register control rendered
+`registerRoute.label`. It renders `registerRoute.label` now, so that page no longer appears to offer
+two different actions.
+
+### 9 · MINOR
+
+- **The three ledes that promised six questions and rendered five** (investor, social worker, broker) say five. `scripts/wave295-contract.ts` **parses the number out of each lede and asserts it against the blocks that role renders**, and exits non-zero on a mismatch. All ten roles agree.
+- **`rg orange-400 src` returns zero.** The tombstone comment still named the token, so it was rewritten to warn without naming it, and the dead `text-orange-4` arm of the `.section-light` guard is gone. A selector arm that cannot fire is a selector arm somebody re-adds the colour behind.
+- **The three `title` and `og:title` em dashes** are pipes. There is now no em dash anywhere this wave authored, including the exception section 5 used to record, which is struck.
+- **`consent-block.tsx`** was already committed at `e2d3f3b` and shows in `git diff 8f15cdb..HEAD` as 68 added lines. This turn changes it again, so it is unambiguously in the diff for review.
+
+### Every string reworded, before and after
+
+| Before | After |
+|---|---|
+| matches funded capital to housing demand councils and providers **have already declared**. **Answer six questions** now | matches funded capital to **the housing demand councils and providers publish**. **Answer five questions** now |
+| **Councils and providers are already telling us** where they need homes | **Councils and providers publish** where they need homes |
+| **Every opportunity underwritten** on named public data, with its source shown | **Every opportunity to be underwritten** on named public data, with its source shown |
+| **Every figure underwritten** on named public data, with its source shown | **Every figure to be underwritten** on named public data, with its source shown |
+| Named providers and councils, not anonymous enquiries | Named providers and councils **on the platform**, not anonymous enquiries |
+| **Declared** demand by area, so a scheme **has** an end user before it starts | **Published** demand by area, so a scheme **can have** an end user before it starts |
+| you can read **declared** demand by area before you buy the land | you can read **published** demand by area before you buy the land |
+| Demand by area is there to read **from day one**, not after a sales process | Demand by area is there to read **from the day it opens**, not after a sales process |
+| your stock is **matched against** that demand instead of sitting on a portal | your stock is **put in front of** that demand instead of sitting on a portal |
+| Your property matched against **declared** demand, not guessed at | Your property matched against **published** demand, not guessed at |
+| Your property is matched against **declared demand from day one** | Your property is matched against **published demand from the day it opens** |
+| Your **declared** need matched against real supply, by area | Your **stated** need matched against real supply, by area |
+| Stock, support partners and **declared** demand in one view | Stock, support partners and **published** demand in one view |
+| turn a council's **declared** need into property that actually appears | turn a council's **stated** need into property that actually appears |
+| It puts you at the **front of the queue** when the platform opens | It puts you **on the list before** the platform opens |
+| Your answers go into what we are building **this week**, not at launch | Your answers go into **what we are still deciding to build, not into a pile for launch day** |
+| Answer **six** questions about the placements you are trying to make | Answer **five** questions about the placements you are trying to make |
+| Answer **six** questions about what you broker and where | Answer **five** questions about what you broker and where |
+| a landlord ... we will match it against **declared demand** (meta description) | ... **published demand** |
+| a developer. Read **declared demand** by area (meta description) | Read **published demand** by area |
+
+The "this week" line appears once per role, so that row is **nine** occurrences; the underwriting and
+published-demand rows account for **sixteen** more. Every one moves a present-tense claim the product
+cannot evidence yet into what it intends to do, without weakening the offer.
+
+### The prerender, reconciled
+
+```
+[prerender] Crawling: /
+[prerender] Crawling: /the-problem
+[prerender] Crawling: /solutions
+[prerender] Crawling: /platform
+[prerender] Crawling: /about
+[prerender] Crawling: /contact
+[prerender] Crawling: /register
+[prerender] Crawling: /register/investor
+[prerender] Crawling: /register/landlord
+[prerender] Crawling: /register/developer
+[prerender] Crawling: /register/housing-association
+[prerender] Crawling: /register/local-authority
+[prerender] Crawling: /register/care-provider
+[prerender] Crawling: /register/support-provider
+[prerender] Crawling: /register/social-worker
+[prerender] Crawling: /register/broker
+[prerender] Crawling: /register/resident
+[prerender] Crawling: /partner-with-broker
+[prerender] Crawling: /partner-with-care-provider
+[prerender] Crawling: /partner-with-developer
+[prerender] Crawling: /partner-with-housing-association
+[prerender] Crawling: /partner-with-investor
+[prerender] Crawling: /partner-with-landlord
+[prerender] Crawling: /partner-with-local-authority
+[prerender] Crawling: /partner-with-resident
+[prerender] Crawling: /partner-with-social-worker
+[prerender] Crawling: /partner-with-support-provider
+[prerender] Crawling: /partners
+[prerender] Crawling: /register/
+[prerender] Crawling: /contact?enquiry=waitlist&amp;type=waitlist
+[prerender] Crawling: /contact?enquiry=partner&amp;type=partner
+[prerender] Crawling: /contact?enquiry=demo&amp;type=demo
+[prerender] Crawling: /contact?enquiry=investor&amp;type=investor
+[prerender] Crawling: /contact?enquiry=media&amp;type=media
+[prerender] Crawling: /contact?enquiry=support&amp;type=support
+[prerender] Prerendered 35 pages:
+```
+
+**35 crawled, 35 prerendered, 0 retries.** On disk:
+
+```
+ls dist/client/register/*/index.html | wc -l   ->  10   (the ten role pages)
+ls dist/client/register/index.html             ->   1   (the picker)
+```
+
+Eleven `/register` pages, twenty-four everything else, thirty-five in total. The count reconciles
+with the crawl log line for line.
+
+### The gates, on this tree
+
+| Gate | Result |
+|---|---|
+| `tsc --noEmit` | clean on every file this wave touches; only the three pre-existing errors remain |
+| `npm run lint` on the changed files | **0 errors**, 5 `react-refresh` warnings of the kind `button.tsx` already carried |
+| `STATIC_BUILD=true npm run build` | **35 pages, 0 retries** |
+| `scripts/wave295-payload-example.ts` | **29 assertions, all pass** |
+| `scripts/wave295-behaviour.py` | **21 behaviours, all pass**, driven in a browser |
+| `scripts/wave295-contract.ts` | contract printed, block cap and lede numbers asserted |
+| `scripts/wave295-axe.py` | **27 checks green**, including the invalid submit and the success state at both widths |
+| `scripts/wave295-orange-audit.py` | 30 orange words, **0 below threshold** |
+| `rg orange-400 src` | **zero** |
+| em dashes authored | **zero**, titles included |
+
+`scripts/wave295-behaviour.py` is new and is where the review's fixes are actually proved: the
+special-category gate posts nothing until the box is ticked, the phone is refused and then normalised
+on the wire, the honeypot and the time floor each post nothing while still showing success, and each
+of 429, 422 and 503 produces its own line with the button back off "Sending".
+
+### Screenshots
+
+Twenty-one now, at 360, 768 and 1440. Two are new and each shows a state that is not in the
+prerendered HTML: `role-investor-errors-*` is the error state after an empty submit, and
+`role-resident-consent-*` is the resident page with the special-category consent revealed.
+
+---
+
+## 13 · Status
 
 Every acceptance line in the brief is true, except the one that cannot be: wave 294's endpoint does
 not exist yet, so the form posts into a 404 until it does. The Landing-Queue row is `ready`.
@@ -1311,5 +1593,10 @@ not exist yet, so the form posts into a 404 until it does. The Landing-Queue row
 Callum's "one orange" change is in and is section 11: one orange for every word and every button,
 `#c15f3c`, with five surfaces moved and the hero photograph pulled back so that nothing had to be
 lightened. Thirty orange words measured on the rendered pages, none below its threshold.
+
+Callum's decisions of 9 September evening and the independent review of the diff are in and are
+section 12: both blockers closed, seven majors and five minors closed, the payload now the
+platform's snake_case contract with a consent version on it, and a new browser-driven behaviour
+suite that proves the parts of a form that only exist once somebody presses the button.
 
 **`main` was not pushed, merged or rebased. No force-push, no rebase of pushed commits.**

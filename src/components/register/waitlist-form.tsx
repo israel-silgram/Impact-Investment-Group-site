@@ -7,8 +7,14 @@ import { Button } from "@/components/ui/button";
 import { ConsentBlock } from "@/components/register/consent-block";
 import { SuccessState } from "@/components/register/success-state";
 import {
+  CONSENT_VERSION,
+  MIN_TIME_ON_FORM_MS,
+  RESIDENT_SPECIAL_CATEGORY_OPTIONS,
+  SUBMIT_TIMEOUT_MS,
   contactFieldLabels,
-  registerFailureLine,
+  phoneMessage,
+  registerFailureLines,
+  residentHealthConsent,
   type RegisterQuestion,
   type RegisterRoleContent,
 } from "@/content/register";
@@ -28,9 +34,12 @@ import { cn } from "@/lib/utils";
  * more than an abandoned one, and a required question a visitor cannot answer
  * on the spot ("how many placements a year?") is the one that loses them.
  *
- * The single exception is a coherence rule, not a gate: tick the text-me box
- * and leave the phone blank and the form asks for the number, because the
- * alternative is promising somebody a text we have no way to send.
+ * Two exceptions, and neither is a marketing gate:
+ *   1. Tick the text-me box and leave the phone blank and the form asks for
+ *      the number, because the alternative is promising a text we cannot send.
+ *   2. On the resident page, answer one of the health, disability or
+ *      third-party options and the special-category consent is required. See
+ *      `residentHealthConsent` in content/register.ts.
  *
  * ── WHERE IT POSTS ────────────────────────────────────────────────────────
  *
@@ -46,6 +55,12 @@ export interface WaitlistFormValues {
   phone?: string;
   consentEmail: boolean;
   consentSms: boolean;
+  /** Resident page only. Gates the special-category answers, nothing else. */
+  consentHealth?: boolean;
+  /**
+   * ⚠️ ALWAYS EMPTY WHEN A PERSON SENDS THIS. See the honeypot in the form.
+   */
+  website?: string;
   /**
    * ⚠️ `unknown`, and NOT `string | string[]`, because that is not what
    * react-hook-form puts here. An untouched radio group reads back as `null`
@@ -56,6 +71,53 @@ export interface WaitlistFormValues {
    * at all. `buildWaitlistPayload` is the one place that narrows them.
    */
   answers: Record<string, unknown>;
+}
+
+/** The values actually chosen for a question, as strings, with the noise gone. */
+function chosen(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    // react-hook-form fills the unticked slots of a checkbox array with
+    // `false`, so this drops everything that is not a real answer.
+    return value.filter((entry): entry is string => typeof entry === "string" && entry !== "");
+  }
+  return typeof value === "string" && value.trim() !== "" ? [value.trim()] : [];
+}
+
+/**
+ * Has this resident chosen anything that is health, disability or somebody
+ * else's data? The gate reads the option STRINGS, so it cannot drift from the
+ * words on the page.
+ */
+export function touchesSpecialCategory(values: WaitlistFormValues): boolean {
+  return Object.entries(RESIDENT_SPECIAL_CATEGORY_OPTIONS).some(([questionId, gated]) =>
+    chosen(values.answers?.[questionId]).some((answer) =>
+      (gated as readonly string[]).includes(answer),
+    ),
+  );
+}
+
+/**
+ * A UK number in E.164, or null if it is not one.
+ *
+ * `07700 900123`, `+44 7700 900123`, `0044 7700 900123` and `(07700) 900123`
+ * are the same number and a person will type any of them. The platform stores
+ * one shape. See `phoneMessage` in content/register.ts for which side owns
+ * this, and why it is only one side.
+ */
+export function toE164UK(raw: string | undefined): string | null {
+  if (!raw) return null;
+  const digits = raw.replace(/[\s().-]/g, "");
+  const body = digits.startsWith("+44")
+    ? digits.slice(3)
+    : digits.startsWith("0044")
+      ? digits.slice(4)
+      : digits.startsWith("44") && digits.length >= 12
+        ? digits.slice(2)
+        : digits.startsWith("0")
+          ? digits.slice(1)
+          : null;
+  if (body === null || !/^\d{9,10}$/.test(body)) return null;
+  return `+44${body}`;
 }
 
 /**
@@ -73,9 +135,11 @@ function schemaFor(role: RegisterRoleContent) {
       name: z.string().trim().min(2, "Please give your full name").max(100),
       email: z.string().trim().email("Please use an email address we can reach you on").max(255),
       organisation,
-      phone: z.string().trim().max(40, "That is longer than a phone number").optional(),
+      phone: z.string().trim().max(40).optional(),
       consentEmail: z.boolean(),
       consentSms: z.boolean(),
+      consentHealth: z.boolean().optional(),
+      website: z.string().optional(),
       // Every question is optional, so this has to accept what an untouched
       // control reads back as: `null` from a radio group, `false` from a
       // checkbox, and `false` in the unticked slots of a checkbox array. The
@@ -93,55 +157,91 @@ function schemaFor(role: RegisterRoleContent) {
         .default({}),
     })
     .superRefine((values, ctx) => {
-      if (values.consentSms && !values.phone?.trim()) {
+      const typed = values as unknown as WaitlistFormValues;
+      const phone = typed.phone?.trim();
+      if (phone && toE164UK(phone) === null) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["phone"], message: phoneMessage });
+      }
+      if (typed.consentSms && !phone) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["phone"],
           message: "Add a number so we can text you, or untick the text box.",
         });
       }
+      if (role.id === "resident" && touchesSpecialCategory(typed) && !typed.consentHealth) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["consentHealth"],
+          message: residentHealthConsent.requiredMessage,
+        });
+      }
     });
 }
 
 /**
- * The wire payload. Blank answers are dropped rather than sent empty, so a
- * stored registration says what somebody actually told us and not which boxes
- * they walked past. Keys are the question ids from content/register.ts, which
- * are snake_case and stable; the envelope around them is camelCase, matching
- * the shape the site's existing enquiry POST already uses.
+ * THE WIRE PAYLOAD, AND IT IS THE PLATFORM'S CONTRACT, NOT THE SITE'S HABIT.
+ *
+ * ⚠️ EVERY KEY IS snake_case, INCLUDING THE ENVELOPE. The first cut sent
+ * `consentEmail` and `consentSms` camelCase because that is what the site's
+ * older enquiry POST does, and the review caught it: the platform stores
+ * snake_case columns, and a wire name that has to be translated on arrival is
+ * a rename waiting to be got wrong. The exact key set is asserted by
+ * scripts/wave295-payload-example.ts and written out in docs/WAVE295_REPORT.md
+ * so wave 294 can accept exactly it.
+ *
+ * `phone` is E.164 or absent, never as typed. `organisation` and `phone` are
+ * omitted rather than sent null, because the platform's site-enquiry model
+ * uses `extra="forbid"` and a null is a different thing from a missing key.
+ *
+ * ⚠️ THE RESIDENT'S SPECIAL-CATEGORY CONSENT TRAVELS INSIDE `answers`, as
+ * `health_data_consent`, to keep this envelope exactly the ten keys the
+ * contract names. It is Article 9 consent and it arguably deserves a column of
+ * its own; that call is wave 294's and it is flagged in the report.
  */
 export function buildWaitlistPayload(role: RegisterRoleContent, values: WaitlistFormValues) {
   const answers: Record<string, string | string[]> = {};
 
   for (const question of role.questions) {
-    const value = values.answers?.[question.id];
-    if (Array.isArray(value)) {
-      // react-hook-form fills the unticked slots of a checkbox array with
-      // `false`, so this drops everything that is not a real answer.
-      const picked = value.filter(
-        (entry): entry is string => typeof entry === "string" && entry !== "",
-      );
-      if (picked.length > 0) answers[question.id] = picked;
-    } else if (typeof value === "string" && value.trim() !== "") {
-      answers[question.id] = value.trim();
-    }
+    const picked = chosen(values.answers?.[question.id]);
+    if (picked.length === 0) continue;
+    answers[question.id] = Array.isArray(values.answers?.[question.id]) ? picked : picked[0]!;
   }
 
-  const phone = values.phone?.trim();
+  if (role.id === "resident" && touchesSpecialCategory(values)) {
+    answers["health_data_consent"] = values.consentHealth ? "yes" : "no";
+  }
+
+  const phone = toE164UK(values.phone);
   const organisation = values.organisation?.trim();
 
   return {
     role: role.id,
     name: values.name.trim(),
     email: values.email.trim(),
-    ...(organisation ? { organisation } : {}),
     ...(phone ? { phone } : {}),
+    ...(organisation ? { organisation } : {}),
     answers,
-    consentEmail: Boolean(values.consentEmail),
-    consentSms: Boolean(values.consentSms),
+    consent_email: Boolean(values.consentEmail),
+    consent_sms: Boolean(values.consentSms),
+    consent_version: CONSENT_VERSION,
     source: "site-register",
   };
 }
+
+/** The exact envelope keys, in order. The refuter script asserts against this. */
+export const WAITLIST_PAYLOAD_KEYS = [
+  "role",
+  "name",
+  "email",
+  "phone",
+  "organisation",
+  "answers",
+  "consent_email",
+  "consent_sms",
+  "consent_version",
+  "source",
+] as const;
 
 const fieldClass =
   "min-h-11 w-full rounded-[10px] border border-navy-600 bg-navy-950 px-4 py-3 text-[15px] text-white placeholder:text-slate-muted focus-visible:border-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400";
@@ -160,10 +260,20 @@ function FieldLabel({ htmlFor, children }: { htmlFor: string; children: React.Re
   );
 }
 
+/**
+ * ⚠️ `text-destructive`, NEVER an orange. Two reasons and both matter.
+ *
+ * The brand orange is the one action a page exists to get, so setting a
+ * failure in it tells a person the thing that just went wrong is the thing
+ * they are meant to press. And it does not pass: `#c15f3c` is 4.23:1 on this
+ * form's ground at 13px, under the 4.5:1 body floor. `--destructive` is picked
+ * for the dark ground and `.section-light` re-points it for the light one, the
+ * same way that block already re-points orange, teal and white.
+ */
 function ErrorText({ id, children }: { id: string; children?: string | undefined }) {
   if (!children) return null;
   return (
-    <p id={id} role="alert" className="text-[13px] font-medium text-orange-500">
+    <p id={id} role="alert" className="text-[13px] font-medium text-destructive">
       {children}
     </p>
   );
@@ -268,7 +378,9 @@ function Question({
 
 export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
   const [sent, setSent] = React.useState(false);
-  const [failed, setFailed] = React.useState(false);
+  const [failure, setFailure] = React.useState<keyof typeof registerFailureLines | null>(null);
+  /** When this form first rendered. See MIN_TIME_ON_FORM_MS. */
+  const mountedAt = React.useRef(Date.now());
 
   const resolver = React.useMemo(
     () => zodResolver(schemaFor(role) as unknown as z.ZodType<WaitlistFormValues>),
@@ -278,6 +390,7 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<WaitlistFormValues>({
     resolver,
@@ -286,25 +399,68 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
       email: "",
       organisation: "",
       phone: "",
-      // ⚠️ BOTH FALSE. Never pre-tick a consent: it is not a consent if it is.
+      // ⚠️ ALL THREE FALSE. Never pre-tick a consent: it is not a consent if it is.
       consentEmail: false,
       consentSms: false,
+      consentHealth: false,
+      website: "",
       answers: {},
     },
   });
 
+  // The resident page only asks for the health consent once an answer needs
+  // it, so the box has to appear the moment one is chosen rather than sit
+  // there on a page where it applies to nothing.
+  const watched = watch();
+  const needsHealthConsent =
+    role.id === "resident" && touchesSpecialCategory(watched as WaitlistFormValues);
+
   const onSubmit = async (values: WaitlistFormValues) => {
-    setFailed(false);
+    setFailure(null);
+
+    // ── Spam, and nothing a person will ever notice ───────────────────────
+    //
+    // Two cheap signals, no captcha. A captcha on this page would gate people
+    // in housing difficulty behind a puzzle to save us a handful of junk rows,
+    // and that trade is the wrong way round.
+    //
+    // Both branches show the SUCCESS state without posting. Telling a script
+    // it was blocked is telling it what to change.
+    const tooFast = Date.now() - mountedAt.current < MIN_TIME_ON_FORM_MS;
+    if (values.website || tooFast) {
+      setSent(true);
+      return;
+    }
+
+    // ⚠️ A TIMEOUT, OR THE BUTTON STAYS ON "SENDING" FOREVER. A fetch to a
+    // host that accepts the connection and then says nothing never settles on
+    // its own, and `isSubmitting` is tied to this promise.
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS);
+
     try {
       const res = await fetch(apiUrl("/public/waitlist"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(buildWaitlistPayload(role, values)),
+        signal: controller.signal,
       });
-      if (!res.ok) throw new Error("Request failed");
-      setSent(true);
+
+      if (res.ok) {
+        setSent(true);
+      } else if (res.status === 429) {
+        setFailure("rateLimited");
+      } else if (res.status >= 400 && res.status < 500) {
+        // The payload was refused. Trying again sends the same payload.
+        setFailure("rejected");
+      } else {
+        setFailure("network");
+      }
     } catch {
-      setFailed(true);
+      // Offline, DNS, CORS, or the abort above. All of them are worth a retry.
+      setFailure("network");
+    } finally {
+      clearTimeout(timer);
     }
   };
 
@@ -339,6 +495,28 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
             );
           })}
       </div>
+
+      {needsHealthConsent ? (
+        <div className="mt-8 rounded-[var(--radius-panel)] border border-teal-600 bg-teal-950 p-5">
+          <label
+            htmlFor={residentHealthConsent.id}
+            className="flex min-h-11 cursor-pointer items-start gap-3 text-[15px] leading-relaxed text-white"
+          >
+            <input
+              id={residentHealthConsent.id}
+              type="checkbox"
+              className="mt-1 size-4 shrink-0 accent-teal-500"
+              aria-invalid={!!errors.consentHealth}
+              aria-describedby={errors.consentHealth ? "consentHealth-error" : undefined}
+              {...register("consentHealth")}
+            />
+            <span>{residentHealthConsent.label}</span>
+          </label>
+          <div className="mt-2">
+            <ErrorText id="consentHealth-error">{errors.consentHealth?.message}</ErrorText>
+          </div>
+        </div>
+      ) : null}
 
       <hr className="mt-10 border-navy-700" />
 
@@ -413,6 +591,26 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
         </div>
       </div>
 
+      {/*
+       * The honeypot.
+       *
+       * ⚠️ MOVED OFF SCREEN, NEVER `display: none` OR `hidden`. A scraper that
+       * is worth defending against skips fields it can see are hidden, and
+       * some browsers skip them on autofill too. This one is a real, focusable
+       * -1 field that simply sits outside the viewport, so a script filling
+       * "every input" fills it and a person never meets it.
+       *
+       * `aria-hidden` plus `tabIndex={-1}` keeps it away from screen readers
+       * and off the tab order, so it costs a keyboard user nothing.
+       */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
+      >
+        <label htmlFor="website">{contactFieldLabels.honeypot}</label>
+        <input id="website" type="text" tabIndex={-1} autoComplete="off" {...register("website")} />
+      </div>
+
       <div className="mt-8">
         <ConsentBlock register={register} />
       </div>
@@ -423,9 +621,9 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
             {isSubmitting ? "Sending…" : role.submitLabel}
           </Button>
         </div>
-        {failed ? (
-          <p role="alert" className="text-[14px] font-medium text-orange-500">
-            {registerFailureLine}
+        {failure ? (
+          <p role="alert" className="text-[14px] font-medium text-destructive">
+            {registerFailureLines[failure]}
           </p>
         ) : null}
       </div>

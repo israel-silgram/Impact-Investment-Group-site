@@ -5,6 +5,15 @@ STATIC build (the same HTML GitHub Pages will serve), and then checks the three
 things R295-3 names that axe does not: one h1 per page, a 44px minimum on every
 interactive target, and a keyboard order that reaches the submit button.
 
+⚠️ IT ALSO RUNS THE TWO STATES THAT ARE NOT IN THE HTML. A form's error
+messages and its success panel are the parts of it most likely to fail a
+contrast or a labelling check, and they are exactly the parts a crawl of the
+prerendered markup never sees, because neither exists until somebody presses
+the button. So the run submits an empty form to put the error state in the DOM,
+and submits a valid one against a stubbed 200 to put the success panel there,
+and audits both. The review asked for the first; the second is owed for the
+same reason.
+
 axe-core is not a dependency of this repo and must not become one: it is a
 build-time auditor, not something the site ships. Point AXE at an extracted
 copy (`npm pack axe-core && tar xzf ...`):
@@ -76,6 +85,13 @@ TARGET_JS = """
   for (const el of root.querySelectorAll(sel)) {
     const r = el.getBoundingClientRect();
     if (r.width === 0 && r.height === 0) continue;         // not rendered
+    // Not a TARGET: WCAG 2.2 SC 2.5.8 sizes the things a person aims at, and
+    // an element taken out of the accessibility tree and out of the tab order
+    // is not one of them. This is the spam honeypot, a 1px field parked off
+    // screen that a person never meets and a scraper does, and the success
+    // panel, which takes tabindex -1 only so focus can land on it.
+    if (el.closest('[aria-hidden="true"]')) continue;
+    if (el.getAttribute('tabindex') === '-1') continue;
     // A native radio or checkbox is 16px by design; what has to be 44px is the
     // thing a finger lands on, which is its <label>. Measure that instead.
     const box = (el.type === 'radio' || el.type === 'checkbox')
@@ -160,6 +176,74 @@ def main():
                 if small:
                     failures += 1
                     print("      under 44px: " + json.dumps(small[:6]))
+
+        # ── The error state ───────────────────────────────────────────────
+        #
+        # Submitting an empty form trips every required field at once, which is
+        # the densest the error state ever gets. Run at 360 as well: the panel
+        # is narrowest there and the messages wrap.
+        for width in WIDTHS:
+            page.set_viewport_size({"width": width, "height": 900})
+            page.goto(base + "/register/investor/", wait_until="networkidle")
+            page.click("button[type=submit]")
+            page.wait_for_selector("[role=alert]", timeout=10000)
+            alerts = len(page.query_selector_all("[role=alert]"))
+            page.add_script_tag(content=axe_src)
+            result = page.evaluate("async (opts) => await axe.run('main', opts)", AXE_OPTIONS)
+            serious = [v for v in result["violations"] if v["impact"] in ("serious", "critical")]
+            mark = "FAIL" if (serious or alerts == 0) else "ok  "
+            print(f"{mark} {width:>4}px /register/investor INVALID SUBMIT"
+                  f"      axe:{len(result['violations']):<2} alerts:{alerts}")
+            if alerts == 0:
+                failures += 1
+                print("      no [role=alert] in the DOM: the error state never rendered")
+            for v in serious:
+                failures += 1
+                print(f"      {v['impact']}: {v['id']} - {v['help']}")
+                for node in v["nodes"][:3]:
+                    print(f"        {node['target']}")
+
+        # ── The success state ─────────────────────────────────────────────
+        #
+        # Wave 294's endpoint is not live, so the POST is answered 200 here.
+        # The FORM is real: it is filled and submitted through the actual React
+        # handler and only the network answer is stubbed.
+        page.context.route(
+            "**/public/waitlist",
+            lambda route: route.fulfill(
+                status=200, content_type="application/json", body='{"ok":true}'
+            ),
+        )
+        for width in WIDTHS:
+            page.set_viewport_size({"width": width, "height": 900})
+            page.goto(base + "/register/investor/", wait_until="networkidle")
+            page.fill("#name", "Dana Whitfield")
+            page.fill("#email", "dana@northfieldcapital.co.uk")
+            page.fill("#organisation", "Northfield Capital")
+            # MIN_TIME_ON_FORM_MS: submit sooner and the form treats it as a
+            # script and shows success without posting, which would still give
+            # a success panel but would not prove the real path.
+            page.wait_for_timeout(3200)
+            page.click("button[type=submit]")
+            page.wait_for_selector("[role=status]", timeout=15000)
+            page.add_script_tag(content=axe_src)
+            result = page.evaluate("async (opts) => await axe.run('main', opts)", AXE_OPTIONS)
+            serious = [v for v in result["violations"] if v["impact"] in ("serious", "critical")]
+            focused = page.evaluate(
+                "() => document.activeElement?.getAttribute('tabindex') === '-1'"
+            )
+            mark = "FAIL" if (serious or not focused) else "ok  "
+            print(f"{mark} {width:>4}px /register/investor SUCCESS STATE"
+                  f"      axe:{len(result['violations']):<2} focus-moved:{focused}")
+            if not focused:
+                failures += 1
+                print("      focus did not move to the success panel")
+            for v in serious:
+                failures += 1
+                print(f"      {v['impact']}: {v['id']} - {v['help']}")
+                for node in v["nodes"][:3]:
+                    print(f"        {node['target']}")
+        page.context.unroute("**/public/waitlist")
 
         # Keyboard order on one role page: tab from the top and confirm the
         # submit button is reachable without a mouse, and that nothing before

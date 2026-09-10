@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Link } from "@tanstack/react-router";
 import { HandHeart } from "lucide-react";
 
@@ -16,17 +17,47 @@ import type { RegisterRoleContent } from "@/content/register";
  * `next` is deliberately not a tick list. The brand rule is that a tick is an
  * icon, and the site replaced every checkmark with one; these are numbered
  * because they happen in order.
+ *
+ * ── HOW ANYBODY NOT LOOKING AT THE SCREEN FINDS OUT ───────────────────────
+ *
+ * ⚠️ THIS PANEL REPLACES THE FORM IN PLACE, so nothing navigates and nothing
+ * announces. Without the two things below, a screen-reader user pressed
+ * submit, heard silence, and had no way to know whether it sent; a keyboard
+ * user's focus was on a button that no longer exists, which drops focus to the
+ * top of the document.
+ *
+ *   `role="status"` on the region that carries the heading and the body, so
+ *   the outcome is read out when it appears. Status and not `alert`: this is
+ *   good news, and `alert` is assertive enough to cut off whatever is being
+ *   read at the time.
+ *
+ *   `tabIndex={-1}` plus a focus() in an effect, so the keyboard lands on the
+ *   panel rather than nowhere, and the next Tab goes to the one action here.
  */
 export function SuccessState({ role }: { role: RegisterRoleContent }) {
-  return (
-    <div className="rounded-[var(--radius-panel)] border border-teal-600 bg-teal-950 p-6 sm:p-8">
-      <span className="grid size-11 place-items-center rounded-full border border-teal-500">
-        {/* Affirmation, not a tick. The heading already says it arrived. */}
-        <HandHeart aria-hidden="true" className="size-5 text-teal-400" />
-      </span>
+  const panel = React.useRef<HTMLDivElement | null>(null);
 
-      <h2 className="mt-5 font-heading text-[26px] font-bold text-white">{role.success.heading}</h2>
-      <p className="measure mt-3 text-[15px] leading-relaxed text-mist">{role.success.body}</p>
+  React.useEffect(() => {
+    panel.current?.focus();
+  }, []);
+
+  return (
+    <div
+      ref={panel}
+      tabIndex={-1}
+      className="rounded-[var(--radius-panel)] border border-teal-600 bg-teal-950 p-6 sm:p-8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
+    >
+      <div role="status">
+        <span className="grid size-11 place-items-center rounded-full border border-teal-500">
+          {/* Affirmation, not a tick. The heading already says it arrived. */}
+          <HandHeart aria-hidden="true" className="size-5 text-teal-400" />
+        </span>
+
+        <h2 className="mt-5 font-heading text-[26px] font-bold text-white">
+          {role.success.heading}
+        </h2>
+        <p className="measure mt-3 text-[15px] leading-relaxed text-mist">{role.success.body}</p>
+      </div>
 
       <p className="eyebrow mt-8 text-teal-400">What happens next</p>
       <ol className="mt-4 flex flex-col gap-3">
