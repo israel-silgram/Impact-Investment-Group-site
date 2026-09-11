@@ -912,3 +912,220 @@ hydration mismatch on the contact page means React discards the server-rendered
 markup for the mismatched subtree and re-renders it on the client, which is a
 flash of changed content for a real visitor on the one page that asks them to
 type something.
+
+
+---
+
+## 13. The merge with wave 295, 11 Sep 2026 15:00 UK
+
+The site push gate opened at 15:00 UK on 11 September 2026: wave 294's
+waitlist endpoint went live on the platform at `4a746cc0`, so waves 295 and
+298 go to the site's `main` together. This section is the record of the
+merge that makes one branch carry both. It is a merge pass only: no feature
+work, no copy change, beyond what resolving the three conflicts required.
+
+**Merge commit:** `b4710ef` (`git merge origin/feat/wave295-register-to-join-the-waitlist`,
+no rebase, no reset, no force-push). Parents `c20e335` (this branch) and
+`2718c00` (wave 295's head). Pushed to `origin/feat/wave298-the-site-names-its-company`.
+`origin/main` was `8f15cdb` before this pass and is `8f15cdb` after it: not
+pushed, merged into, or rebased.
+
+### 13.1 The three conflicts, both sides kept
+
+| File | The conflict | Resolution |
+|---|---|---|
+| `vite.config.ts` | Both waves appended to the static build's `pages` array: 298 added the `/legal` entry, 295 added `/register` plus the ten `registerRolePaths` entries. | Both entries kept, concatenated in the same array. Neither wave's imports or helper functions needed to change. |
+| `src/routes/sitemap[.]xml.ts` | Same shape: 298 appended `/legal`, 295 appended `/register` and the ten role paths. | Both kept. The two waves' imports (`partnerProfiles`, `registerRoleIds`) had already auto-merged cleanly above the conflict. |
+| `src/components/contact/enquiry-form.tsx` | Both waves edited the submit-failure paragraph. 295 changed its colour class from `text-orange-400` to `text-destructive`, because `.section-light` turns this panel's background white on `/contact` and the brand orange fails contrast there (the reasoning is written out at the top of the file, where 295 made the same change to the shared `ErrorText` component). 298 changed its text from a hard-coded `hello@impactig.co.uk` to an interpolated `{contactDetails.email}`, because `hello@` was never a real mailbox. | Both kept: `text-destructive` (295's contrast fix) with `{contactDetails.email}` (298's mailbox fix) in the same paragraph. Comment rewritten to explain both changes together rather than picking one wave's comment over the other's. |
+
+Everything else auto-merged with no conflict, including files both waves
+touched:
+
+- `src/content/site.ts`: 295's `registerRoute` (now `{ label: "Register to
+  join the waitlist", to: "/register" }`, replacing the old
+  `/contact?enquiry=waitlist` destination) sits beside 298's `legalNotice`,
+  `trustRegistrations` and `contactDetails.email` (reading
+  `generalEnquiriesAddress` from `content/legal.ts`). Confirmed by reading
+  the merged file directly, not assumed from a clean auto-merge.
+- `src/styles.css`: 295's retinted `@theme` orange scale
+  (`--color-orange-500: #c15f3c`, down from the brief's `#ff7a29`) sits above
+  298's `.section-light :focus-visible` rule, about 500 lines apart as both
+  waves' reports predicted.
+- `src/components/site-footer.tsx`: 295's `registerRoute.to` (no `search`
+  param now that `/register` is its own route) and 298's `legalLinks` /
+  `"Legal and policies"` nav both render. `contactDetails.email` resolves
+  through to `enquires@impactig.co.uk` here too.
+- `src/routeTree.gen.ts`: auto-merged with no conflict, then verified rather
+  than trusted. A full `STATIC_BUILD=true npm run build` was run on the
+  merged tree (section 13.3) and its freshly generated `routeTree.gen.ts` was
+  compared byte-for-byte against the auto-merged, committed one: identical
+  (19,009 bytes both). The committed file was not hand-edited.
+
+**`src/content/register.ts` (`registerPrivacy`, wave 295's) was read and left
+untouched, as instructed: no copy change in a merge pass.** It already
+reads:
+
+> "Impact Investment Group UK Limited is the data controller. We store your
+> answers to shape what the platform does and to match you when it opens. We
+> do not sell them, and we share them only with the suppliers that run our
+> email, text messages and hosting. Registered with the ICO under ZB957755.
+> Questions about your data: admin@impactig.co.uk"
+
+which names the controller, gives a monitored data-questions address and
+cites the ICO reference: the substance of wave 298's O-6 proposal. Whether
+wave 295 incorporated that proposal directly or arrived at equivalent wording
+independently was not investigated, because doing so would not change the
+outcome of this pass (leave it alone) and is outside a merge task's remit.
+**O-6 in section 5 is stale** in one respect: it still frames this as an
+outstanding gap. It is not one. The next person to touch this report should
+strike O-6 or mark it resolved; this pass did not edit section 5, because
+that would itself be a copy change.
+
+### 13.2 Committed-content lint, no file worse than its worse parent
+
+Every `.ts`/`.tsx`/`.css` file either wave's report or this merge touched was
+extracted from three states (`git show <sha>:<path>`, not the working tree,
+to avoid Windows CRLF noise) and linted: `8f15cdb`-relative base as wave 298
+last measured it (`c20e335`, called `298base` below), wave 295's own head
+(`2718c00`, `295head`), and the merged, staged blob (`MERGED`).
+
+| File | 298base | 295head | MERGED |
+|---|---|---|---|
+| `src/components/about/director-card.tsx` | 0 | 0 | 0 |
+| `src/components/contact/enquiry-form.tsx` | 3 | 3 | 3 |
+| `src/components/home/hero.tsx` | 37 | 0 | 0 |
+| `src/components/page-shell.tsx` | 0 | 0 | 0 |
+| `src/components/platform/delivery-spine.tsx` | 0 | 0 | 0 |
+| `src/components/register/consent-block.tsx` | 0 | 0 | 0 |
+| `src/components/register/role-icon.tsx` | 0 | 2 | 2 |
+| `src/components/register/role-picker.tsx` | 0 | 0 | 0 |
+| `src/components/register/success-state.tsx` | 0 | 0 | 0 |
+| `src/components/register/waitlist-form.tsx` | 0 | 3 | 3 |
+| `src/components/site-footer.tsx` | 0 | 0 | 0 |
+| `src/components/site-header.tsx` | 0 | 0 | 0 |
+| `src/components/ui/button.tsx` | 4 | 1 | 1 |
+| `src/content/about.ts` | 0 | 0 | 0 |
+| `src/content/audiences.ts` | 10 | 0 | 0 |
+| `src/content/register.ts` | 0 | 0 | 0 |
+| `src/content/site.ts` | 0 | 0 | 0 |
+| `src/routes/about.tsx` | 7 | 0 | 0 |
+| `src/routes/platform.tsx` | 475 | 478 | 478 |
+| `src/routes/register.$role.tsx` | 0 | 0 | 0 |
+| `src/routes/register.index.tsx` | 0 | 0 | 0 |
+| `src/routes/sitemap[.]xml.ts` | 0 | 0 | 0 |
+| `src/routes/solutions.tsx` | 4 | 0 | 0 |
+| `vite.config.ts` | 0 | 0 | 0 |
+| **total** | **540** | **487** | **487** |
+
+**No file's `MERGED` count exceeds the higher of its two parents' counts.**
+Where a file moved (`hero.tsx` 37 to 0, `audiences.ts` 10 to 0, `about.tsx` 7
+to 0, `solutions.tsx` 4 to 0, `button.tsx` 4 to 1), that is wave 295's own
+prior cleanup carrying through the merge unchanged, not something this pass
+did. `platform.tsx`'s 475 to 478 is wave 295's own three-line addition to a
+file already known (both waves' reports say so) to be the one blob in the
+repo stored with CRLF, which inflates its prettier count independent of
+content.
+
+The repository's whole `npm run lint` number remains not a gate, for the
+reason both waves' reports already recorded (`core.autocrlf` noise
+overwhelms it). It was not re-run in this pass.
+
+### 13.3 The build, the two censuses, and both axe scripts
+
+Run in the foreground throughout, nothing backgrounded, every output read.
+
+`STATIC_BUILD=true npm run build`: **exit 0. 29 pages emitted** (18 from wave
+298, 11 new from wave 295: `/register` plus ten `/register/<role>` pages),
+up from 18 before this merge. `failOnError` did not trip.
+
+`scripts/wave298-axe.py` (`BEFORE_DIR` the wave 298 base-commit build,
+`AFTER_DIR` this merged build):
+
+- **Footer census: 29 of 29 pages, 4 of 4 legal labels, exactly 1
+  `"Legal and policies"` nav, every page.** Includes all ten new `/register/*`
+  pages, which inherit the shared footer and therefore the legal links
+  without any change of their own.
+- **Render census: 29 of 29 pages load with 0 new uncaught page errors, body
+  text present, one `h1`, one legal nav.** `/contact/` still carries the
+  pre-existing React #418 hydration mismatch recorded in section 12.6,
+  confirmed present at `8f15cdb` and therefore not new here either.
+- **axe (WCAG 2.2 AA + best practice), the four pages this script audits, at
+  360 and 1440: one new finding**, described in section 13.4. Every other
+  page/width combination shows `new=0`, several with more pre-existing
+  problems fixed than before (`/legal/` now shows 18 fixed rather than 16,
+  because wave 295's own contrast work on shared chrome and its orange retint
+  independently corrected some things too).
+
+`scripts/wave298-axe.py` therefore exits 1, on that one finding alone.
+
+`scripts/wave295-axe.py` (`AFTER_DIR` the same merged build): **exit 0, "No
+serious or critical violations."** All ten `/register/<role>` pages, the
+picker, the invalid-submit state, the success state and the keyboard-order
+check on `/register/investor/` all pass. The three `landmark-*` findings it
+prints for every page are the same pre-existing baseline it already reports
+against `/contact/` and `/about/` in its own script, unchanged by the merge.
+
+**Em dash count across the full merge diff (`git diff c20e335`, all files,
+screenshots excluded): 0.**
+
+### 13.4 The one axe finding, fully traced, not fixed
+
+`scripts/wave298-axe.py` flags one new `serious` `color-contrast` violation
+on `/partner-with-resident/`, at both 360 and 1440:
+
+> `<span class="font-mono text-[10px] font-bold text-orange-500">01 / 03</span>`
+
+**This is not a conflict-resolution defect.** `src/components/partners/partner-page.tsx`,
+which renders this span, is byte-for-byte identical before and after the
+merge (`git diff c20e335 HEAD -- src/components/partners/partner-page.tsx` is
+empty): the merge commit does not touch this file at all, because wave 295
+never touched it and there was nothing to reconcile.
+
+**The cause is the retint, meeting markup neither wave's own gate audited
+together.** Wave 295 retinted `--color-orange-500` from `#ff7a29` to
+`#c15f3c` (`src/styles.css`, `@theme`), a change already flagged for Callum's
+confirmation in wave 295's own report (the brief's hex was the platform's
+retired one; 295 took the platform's live ramp instead). Measured:
+
+| Colour | On | Ratio |
+|---|---|---|
+| old orange-500 `#ff7a29` | navy-800 `#041c3d` | 6.51:1 (passes) |
+| new orange-500 `#c15f3c` | navy-800 `#041c3d` | 4.01:1 (fails, needs 4.5:1 at 10px) |
+| new orange-500 `#c15f3c` | navy-900 `#00112b` | 4.46:1 (fails, needs 4.5:1) |
+
+The span sits on `bg-navy-800/86`, which composites to within a few thousandths
+of navy-800 alone. This is not a resident-page or crisis-signpost issue: the
+same span, from the same shared `PartnerPlatformStack` component, was checked
+directly on `/partner-with-investor/`, `/partner-with-broker/` and
+`/partner-with-developer/` (none of which carry wave 298's crisis signpost)
+and fails identically on all three. It is present on all ten
+`partner-with-*` pages.
+
+**It would exist on wave 295's branch alone, with or without this merge.**
+`partner-page.tsx` and the ten `partner-with-*` routes are inherited by wave
+295's branch unchanged from `origin/main`; the only thing that changed is the
+shared `--color-orange-500` token, which 295 edited directly. Wave 295's own
+`scripts/wave295-axe.py` never audits a `partner-with-*` page (its `PAGES`
+list is the register routes only, its `BASELINES` are `/contact/` and
+`/about/`), so this gap in coverage, not a merge interaction, is why neither
+wave's own gate caught it before now. It surfaces here only because this
+pass runs wave 298's gate, which does audit `/partner-with-resident/`,
+against a tree that now carries wave 295's retint.
+
+**Not fixed in this pass.** This session's remit is the merge: resolve
+conflicts so both waves' behaviour survives, and gate the result; it does not
+extend to adjudicating an open colour question wave 295's own report already
+routed to Callum, and it does not extend to editing a file neither wave's
+conflict touched. Changing `text-orange-500` to something else on this span
+is a design decision (which shade, and whether the orange/teal semantic split
+CLAUDE.md documents should hold here) that belongs with whoever resolves the
+orange-retint question, not with a merge pass. Flagged in the Landing-Queue
+row as a follow-up.
+
+### 13.5 What this section did not do
+
+No file was edited outside the three conflicts and this report. No copy was
+changed (`registerPrivacy` read and left alone, per section 13.1). No design
+or colour decision was made (section 13.4). The `../iigs-uc295` worktree was
+never touched; wave 295's own commits, screenshots and reports were pulled in
+by the merge exactly as that branch had them, unedited.
