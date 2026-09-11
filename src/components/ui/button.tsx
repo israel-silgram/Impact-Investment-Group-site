@@ -18,25 +18,27 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        /* Flat orange-600 fill, never the amber orange-500: white on 500 is
-           2.6:1 and fails, white on 600 is 3.4:1 and passes at 16px semibold.
+        /* Flat orange-600 fill, never orange-500: white on 500 is 4.23:1 and
+           passes for large text only, white on 600 is 5.34:1 and passes at
+           any size (wave 295, the platform's orange; it was 2.6 and 3.4).
            Hover lifts and deepens the shadow rather than lightening the fill. */
         primary:
           "rounded-full bg-orange-600 px-6 text-white shadow-[var(--shadow-action)] hover:-translate-y-0.5 hover:shadow-[0_16px_34px_-12px_var(--color-orange-500)]",
         secondary:
           "rounded-full border border-teal-500 bg-transparent px-6 text-teal-400 hover:bg-teal-950 hover:text-white",
-        ghost:
-          "nav-underline rounded-none bg-transparent px-1 text-white hover:text-white",
+        ghost: "nav-underline rounded-none bg-transparent px-1 text-white hover:text-white",
         // shadcn-internal variants, retained for library components
         default: "rounded-md bg-primary px-4 text-primary-foreground hover:bg-primary/90",
         destructive:
           "rounded-md bg-destructive px-4 text-destructive-foreground hover:bg-destructive/90",
-        outline: "rounded-md border border-navy-600 bg-transparent px-4 text-white hover:bg-navy-800",
+        outline:
+          "rounded-md border border-navy-600 bg-transparent px-4 text-white hover:bg-navy-800",
         link: "text-teal-400 underline-offset-4 hover:underline",
       },
       size: {
-        /* Every button label stays at 16px / weight 600 minimum — white on
-           orange-600 is 3.4:1 and only clears AA at large text. Never shrink
+        /* Every button label stays at 16px / weight 600 minimum. White on
+           orange-600 is 5.34:1 since wave 295 and no longer depends on the
+           size, but a primary action is not a small control. Never shrink
            these, including on mobile. */
         default: "min-h-11 px-6 text-base",
         sm: "min-h-11 px-4 text-base",
@@ -52,8 +54,7 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   /** Adds the sliding ArrowRight used on primary actions. */
   withArrow?: boolean;

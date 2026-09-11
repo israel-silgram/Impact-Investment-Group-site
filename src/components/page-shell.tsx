@@ -27,9 +27,7 @@ export function PageShell({
         <PreReleaseBadge className="mb-5" />
         <div className="flex flex-wrap items-center gap-4">
           <Button variant="primary" asChild>
-            <Link to={registerRoute.to} search={registerRoute.search}>
-              {registerRoute.label}
-            </Link>
+            <Link to={registerRoute.to}>{registerRoute.label}</Link>
           </Button>
           <Button variant="secondary" asChild withArrow={false}>
             <Link to="/contact">Contact Us</Link>

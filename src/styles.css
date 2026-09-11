@@ -29,17 +29,45 @@
   --color-navy-700: #0a2a52;
   --color-navy-600: #143c6b;
 
-  /* Orange — the action colour.
-     500 is the approved brand amber sampled from Mock-up 1. White on it is
-     2.6:1 and FAILS, so it is only ever an icon, a fill or a headline word on
-     navy. 600 is the button fill: white on it is 3.4:1, which passes for
-     16px semibold and above. */
-  --color-orange-400: #ff7a29;
-  --color-orange-500: #ff7a29;
-  --color-orange-600: #e56600;
-  /* The only orange that reads as TEXT on cream: 4.1:1, large text only.
-     500 is 2.3:1 there and 600 is 3.0:1 — both fail. */
-  --color-orange-700: #c25400;
+  /* Orange, the action colour. THE PLATFORM'S ORANGE (wave 295).
+     The site used to carry the Mock-up 1 amber #ff7a29. It now carries the
+     terracotta the platform ships, so that a visitor who registers here and
+     signs in there sees one brand and not two.
+
+     500 and 600 are the platform's own tokens, lifted unchanged from the
+     platform repo's docs/BRAND_KIT.md:
+       --color-orange-500 = --brand-primary      fills, graphics, marks
+       --color-orange-600 = --brand-primary-ink  the fill of any text control
+     400 is the platform's light terracotta, which the kit permits on a navy
+     ground only. 700 is derived here, because the platform has no cream as
+     dark as ours and so has no token for body text on it.
+
+     ⚠ NOT #C6613F. That is the orange the platform RETIRED in wave 34, and
+     the platform's own test suite now fails the build on its reintroduction.
+     Its white ratio is 4.05:1, not the 5.3:1 sometimes quoted for it: 5.34:1
+     belongs to #AE4E30, the ink below. Measured, both of them, in
+     docs/WAVE295_REPORT.md. */
+
+  /* ⚠️ THERE IS ONE ORANGE ON THIS SITE AND IT IS THE ONE BELOW. A lighter
+     step above it existed for a day, to carry small orange text on navy where
+     500 could not reach 4.5:1. Callum, after reading the wave 295 report: one
+     orange, the wait-list button's, for every orange word. Where it did not
+     pass, THE SURFACE MOVED, not the orange, and every such surface is listed
+     in docs/WAVE295_REPORT.md under "One orange". Adding a lighter orange for
+     text puts two oranges back on the page, which is the exact thing that
+     wave existed to end.
+
+     Fills, graphics, icon glyphs and large headline words. 4.01:1 on navy-800
+     clears AA for large text and clears 1.4.11 for non-text marks. It is not a
+     small-text colour on any ground: small orange text needs navy-950 or
+     darker, and on the cream it is 700. */
+  --color-orange-500: #c15f3c;
+  /* The button fill. White on it is 5.34:1, full AA for normal text, where
+     the old amber's #e56600 was 3.4:1 and only ever cleared large text. */
+  --color-orange-600: #ae4e30;
+  /* Orange TEXT on the cream, at body size: 5.78:1 on mist-bg, 5.25:1 on
+     cream-card, 6.50:1 on white. 500 is 3.76:1 there and 600 is 4.75:1. */
+  --color-orange-700: #9a4429;
 
   /* Teal — second accent. Muted, never neon. */
   --color-teal-400: #2fbaaa;
@@ -58,6 +86,11 @@
   --color-surface: #ffffff; /* card and content surfaces, only ever on mist-bg */
   --color-slate: #647289; /* borders, rules, small caps, body copy on white cards */
   --color-slate-ink: #4e5a6e; /* body copy directly on the cream — 6.2:1 */
+  /* Error text on a light ground. 5.46:1 on white and 4.85:1 on the cream.
+     `.section-light` swaps --destructive for this; see the note on that
+     token. On /contact the form's own panel is turned white by that block, so
+     this is the value its validation messages actually render in. */
+  --color-destructive-on-light: #c92a2a;
 
   /* Type */
   --font-display: "Anton", "Barlow", system-ui, sans-serif;
@@ -83,9 +116,12 @@
   --card-foreground: #ffffff;
   --popover: #041c3d;
   --popover-foreground: #ffffff;
-  --primary: #ff7a29;
-  /* White on the brand amber is 2.6:1. Anything filled with --primary carries
-     navy ink, not white. Orange-filled buttons use --color-orange-600. */
+  /* Follows --color-orange-500. */
+  --primary: #c15f3c;
+  /* Navy ink on the terracotta is 4.46:1, white on it 4.23:1, so the navy stays
+     the better of the two. Text-bearing orange controls do not use --primary
+     anyway: brand buttons fill with --color-orange-600, where the text is
+     white at 5.34:1. */
   --primary-foreground: #00112b;
   --secondary: #06302e;
   --secondary-foreground: #2fbaaa;
@@ -93,9 +129,24 @@
   --muted-foreground: #7f91ac;
   --accent: #1e9e8f;
   --accent-foreground: #ffffff;
-  /* Error and validation states only — deliberately not a brand orange, so a
-     failed field never reads as a call to action. */
-  --destructive: #d9430a;
+  /* ERROR AND VALIDATION TEXT. Deliberately not a brand orange, so a failed
+     field never reads as the call to action, and picked for the DARK ground
+     because that is where the forms live: 4.57:1 on the register form's panel
+     and 5.04:1 on navy-950, against a 4.5:1 body floor. It was #d9430a, which
+     is 4.05:1 on that panel and failed.
+
+     ⚠️ ONE VALUE CANNOT SERVE BOTH GROUNDS AND THE ARITHMETIC SAYS SO, so do
+     not go looking for a cleverer red. To clear 4.5:1 on white the luminance
+     must be at most 0.1833; to clear it on the register form's panel it must
+     be at least 0.2143. The window is empty. `.section-light` therefore
+     re-points this to `--color-destructive-on-light` below, exactly the way
+     that block already re-points orange, teal and white.
+
+     `--destructive-foreground` is white at 3.91:1 on this fill, which clears
+     AA for large text only. That pairing is used by the shadcn `destructive`
+     button and badge variants, neither of which this site renders anywhere;
+     if one is ever used for a real control, re-measure it first. */
+  --destructive: #e5484d;
   --destructive-foreground: #ffffff;
   --border: #0a2a52;
   --input: #0a2a52;
@@ -103,11 +154,11 @@
   --chart-1: #1e9e8f;
   --chart-2: #2fbaaa;
   --chart-3: #143c6b;
-  --chart-4: #ff7a29;
+  --chart-4: #c15f3c;
   --chart-5: #7f91ac;
   --sidebar: #041c3d;
   --sidebar-foreground: #c6d2e4;
-  --sidebar-primary: #ff7a29;
+  --sidebar-primary: #c15f3c;
   --sidebar-primary-foreground: #00112b;
   --sidebar-accent: #0a2a52;
   --sidebar-accent-foreground: #ffffff;
@@ -267,6 +318,19 @@
   box-shadow: var(--shadow-panel);
 }
 
+/* A panel sunk to navy-950 instead of navy-800.
+ *
+ * For cards whose own labels are SMALL and ORANGE. Since wave 295 there is one
+ * orange on this site, `#c15f3c`, the wait-list button's fill, and it reaches
+ * the 4.5:1 body floor only on a ground at or below navy-950: on navy-800 it
+ * is 4.01:1 and on navy-700 3.39:1. The card moves; the orange does not.
+ *
+ * Applied after `panel` in the class list, and defined after it here, so it
+ * wins the background and inherits the border, radius and shadow. */
+@utility panel-deep {
+  background-color: var(--color-navy-950);
+}
+
 @utility teal-wash {
   background-color: var(--color-teal-950);
 }
@@ -422,6 +486,10 @@
   &:focus-visible::after {
     transform: scaleX(1);
   }
+  /* One orange: the label is the same terracotta as the underline and as the
+     wait-list button. It reaches 4.5:1 at 15px because the HEADER GROUND was
+     darkened to navy-950 for it, not because the orange was lightened. See
+     .site-chrome below and docs/WAVE295_REPORT.md. */
   &[data-status="active"] {
     color: var(--color-orange-500);
   }
@@ -496,12 +564,12 @@
     background-image:
       linear-gradient(
         100deg,
-        color-mix(in oklab, var(--color-orange-400) 82%, transparent),
+        color-mix(in oklab, var(--color-orange-500) 82%, transparent),
         color-mix(in oklab, var(--color-orange-500) 88%, transparent)
       ),
       var(--fill-image);
     background-blend-mode: normal, normal;
-    -webkit-text-stroke: 1px color-mix(in oklab, var(--color-orange-400) 55%, transparent);
+    -webkit-text-stroke: 1px color-mix(in oklab, var(--color-orange-500) 55%, transparent);
   }
 }
 
@@ -516,7 +584,8 @@
  * Contrast rules that must not break:
  *   slate (#647289) on the cream is 4.33:1 — fails AA for body copy.
  *   Body copy directly on the cream is therefore slate-ink (6.2:1).
- *   Orange is never text on the cream (2.3:1) — icons and fills only.
+ *   Orange 400/500/600 is never text on the cream (2.1:1, 3.76:1, 4.75:1)
+ *   Icons and fills only. orange-700 is the one that may (5.78:1).
  *   slate is only for body copy on white cards (4.87:1), plus borders,
  *   rules and small caps labels.
  *
@@ -583,16 +652,31 @@
   color: var(--color-teal-600);
 }
 
-/* The light oranges are 2.3:1 and 3.0:1 on the cream and are never text there,
-   so any 400/500/600 word that lands in a light section falls back to navy ink;
-   the accent survives as icons, borders and fills. orange-700 is deliberately
-   not listed — at 4.1:1 it is the one orange that may carry large text here.
-   Icons and validation errors are exempt too: the first is a permitted accent,
-   the second has to stay distinguishable. */
+/* Neither does the error red. --destructive is picked for the dark forms
+   (4.57:1 there, 4.05:1 for the red it replaced); on white it would be 3.91:1.
+   This is the same swap, for the same reason, as the three rules around it.
+   It is deliberately NOT inside the orange guard below: an error must stay an
+   error on every ground, never fall back to navy ink. */
+.section-light [class*="text-destructive"] {
+  color: var(--color-destructive-on-light);
+}
+
+/* orange-500 and orange-600 are 3.76:1 and 4.75:1 on the cream, so a 500 or
+   600 word that lands in a light section falls back to navy ink; the accent
+   survives as icons, borders and fills. orange-700 is deliberately not listed:
+   at 5.78:1 it is the one orange that may carry text here, at body size and
+   not only large.
+
+   ⚠️ THE 400 ARM WAS DROPPED WITH THE TOKEN. It matched nothing once the
+   lighter orange was retired, and a selector arm that cannot fire is a
+   selector arm somebody re-adds the colour behind.
+
+   Icons and validation errors are exempt: the first is a permitted accent, and
+   the second must never fall back to navy ink, because an error that reads
+   like body copy is not an error. Errors have their own light-ground colour a
+   few rules above. */
 .section-light
-  :is([class*="text-orange-4"], [class*="text-orange-5"], [class*="text-orange-6"]):not(svg):not(
-    [role="alert"]
-  ) {
+  :is([class*="text-orange-5"], [class*="text-orange-6"]):not(svg):not([role="alert"]) {
   color: var(--color-navy-900);
 }
 
@@ -663,7 +747,9 @@
  */
 
 .section-light .section-dark {
-  background-color: var(--color-navy-900);
+  /* navy-950, not navy-900, since wave 295's "one orange": the 13px orange
+     link inside this island reaches 4.5:1 only at or below navy-950. */
+  background-color: var(--color-navy-950);
   border: 1px solid var(--color-navy-700);
   border-radius: var(--radius-panel);
   box-shadow: var(--shadow-panel);
@@ -855,23 +941,30 @@
    `hero-ground-street.webp` is a compressed derivative of `our-purpose-band.png`,
    which is now the only place that photograph appears.
 
-   The picture runs at 14%. At that strength the veil is no longer carrying
-   contrast — a flat 14% already measures white/62 at 5.99:1 — so it has been
-   lightened to 18/4/36, enough to ground the foot of the section without
-   swallowing the reduction it sits over. Lightest around 38% down, where the
-   opaque photographs sit and nothing has to be read through it.
+   ── WAVE 295, "ONE ORANGE": THE VEIL IS CARRYING CONTRAST AGAIN ────────
 
-   Worst case, measured against the brightest pixel of every row of the image:
-     white 13.3:1 · white/62 6.1:1 · orange-500 5.1:1.
-   At 18% those were 11.8 / 5.6 / 4.5, and at 25% 9.7 / 4.9 / 3.7 — all
-   passing, but the orange headline had little room left at the top end. If
-   the opacity goes back up, re-measure rather than assuming. */
+   The headline word "Delivering Support" is the site's one orange, `#c15f3c`,
+   and it is set over this photograph. It used to be a lighter tint chosen so
+   it would clear the photograph; Callum retired that tint, so the picture had
+   to give way instead. The photograph is at 7% and the wash is 34/30/46.
+
+   THE CEILING HERE IS 4.46:1 AND NO WASH CAN BEAT IT, because this wash is
+   navy-900 and the section behind it is navy-900: at 100% the ground would BE
+   navy-900, where the orange measures 4.46:1. The headline is large text and
+   answers to the 3:1 floor, so that ceiling is ample; what the wash buys is
+   the margin between "just over the line" and "not close to it".
+
+   Measured against the pixels the headline's own glyphs cover, by
+   scripts/wave295-orange-audit.py:
+     before, photo 14% and wash 18/4/36:  3.55:1 at 360px, 3.78:1 at 1440px
+     after,  photo  7% and wash 34/30/46: see docs/WAVE295_REPORT.md
+   Re-run that script rather than assuming, if either number moves. */
 .hero-ground {
   background-image: linear-gradient(
     to bottom,
-    color-mix(in oklab, var(--color-navy-900) 18%, transparent) 0%,
-    color-mix(in oklab, var(--color-navy-900) 4%, transparent) 38%,
-    color-mix(in oklab, var(--color-navy-900) 36%, transparent) 100%
+    color-mix(in oklab, var(--color-navy-900) 34%, transparent) 0%,
+    color-mix(in oklab, var(--color-navy-900) 30%, transparent) 38%,
+    color-mix(in oklab, var(--color-navy-900) 46%, transparent) 100%
   );
 }
 
@@ -945,8 +1038,9 @@
    that breathes outward, which is the one thing on the plate that reads as
    "press me".
 
-   White on orange-600 is 3.4:1 and only clears AA as LARGE text, which is why
-   the label is locked at 16px semibold. Do not shrink it to fit. */
+   White on orange-600 is 5.34:1 since wave 295 moved it to the platform's
+   #ae4e30, so the label now clears AA at any size. It stays locked at 16px
+   semibold anyway: it is a primary action, and it used to be 3.4:1. */
 .flip-plate-hint {
   color: var(--color-white);
 }

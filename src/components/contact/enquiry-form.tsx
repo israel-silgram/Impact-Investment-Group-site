@@ -102,10 +102,17 @@ function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNo
   );
 }
 
+/*
+ * ⚠️ `text-destructive`, NEVER an orange, and this form is why the rule is
+ * written down twice. On /contact the `.section-light` block turns this
+ * panel's `bg-navy-800/50` WHITE, so the error text sits on white, where the
+ * brand orange is 4.23:1 at 13px against a 4.5:1 floor. It also reads as the
+ * page's call to action, which a failure is the opposite of.
+ */
 function ErrorText({ id, children }: { id: string; children?: string | undefined }) {
   if (!children) return null;
   return (
-    <p id={id} role="alert" className="text-[13px] font-medium text-orange-400">
+    <p id={id} role="alert" className="text-[13px] font-medium text-destructive">
       {children}
     </p>
   );
@@ -446,9 +453,12 @@ export function EnquiryForm({
           </a>
         </p>
         {failed ? (
-          <p role="alert" className="text-[13px] font-medium text-orange-400">
-            {/* The general address, read from content/site.ts rather than typed
-                out again. This line is the one a person sees when the form has
+          <p role="alert" className="text-[13px] font-medium text-destructive">
+            {/* text-destructive, not orange (wave 295): on /contact the
+                .section-light block turns this panel's background white, and
+                the brand orange fails contrast there. The general address,
+                read from content/site.ts rather than typed out again (wave
+                298): this line is the one a person sees when the form has
                 already failed them, so it is the worst possible place for a
                 stale mailbox. */}
             That did not send. Please try again, or email {contactDetails.email} directly.

@@ -80,13 +80,16 @@ export function DeliverySpine({ className }: { className?: string }) {
                       aria-hidden="true"
                       className={cn(
                         "grid size-7 place-items-center rounded-full font-heading text-xs font-bold",
-                        /* Navy ink on the amber fill: white on orange-500 is 2.6:1. */
+                        /* Navy ink on the orange fill, at 4.67:1. Written when
+                           white on orange-500 was 2.6:1; since wave 295 white is
+                           4.23:1 there, which would also pass at this size, but
+                           the navy is still the higher of the two. */
                         orange ? "bg-orange-500 text-navy-950" : "bg-navy-700 text-teal-400",
                       )}
                     >
                       {i + 1}
                     </span>
-                    <span className={cn("eyebrow", orange ? "text-orange-400" : "text-teal-400")}>
+                    <span className={cn("eyebrow", orange ? "text-orange-500" : "text-teal-400")}>
                       {step.spine}
                     </span>
                   </span>
@@ -96,7 +99,7 @@ export function DeliverySpine({ className }: { className?: string }) {
                     className={cn(
                       "text-[12px] font-semibold uppercase tracking-[0.12em] transition-opacity duration-200",
                       open ? "opacity-100" : "opacity-0",
-                      orange ? "text-orange-400" : "text-teal-400",
+                      orange ? "text-orange-500" : "text-teal-400",
                     )}
                   >
                     {step.meta}

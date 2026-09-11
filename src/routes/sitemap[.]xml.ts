@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { partnerProfiles } from "@/content/partners";
+import { registerRoleIds } from "@/content/register";
 
 // TODO: replace with your project URL once a project name or custom domain is set.
 const BASE_URL = "";
@@ -38,6 +39,15 @@ export const Route = createFileRoute("/sitemap.xml")({
           // is also still "", which would make every <loc> relative and
           // invalid. Pre-existing, measured in wave 298, reported there.
           { path: "/legal", changefreq: "yearly", priority: "0.3" },
+          // The wait list. The picker outranks the ten role pages because it
+          // is the one somebody arrives on; the role pages are what they land
+          // on next, and each is worth indexing in its own right.
+          { path: "/register", changefreq: "monthly", priority: "0.9" },
+          ...registerRoleIds.map((id) => ({
+            path: `/register/${id}`,
+            changefreq: "monthly" as const,
+            priority: "0.7",
+          })),
         ];
 
         const urls = entries.map((e) =>

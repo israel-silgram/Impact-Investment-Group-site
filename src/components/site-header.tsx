@@ -117,7 +117,7 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 bg-navy-900/92 backdrop-blur-md transition-colors duration-200",
+        "sticky top-0 z-50 bg-navy-950 transition-colors duration-200",
         overLight
           ? "border-b border-[color-mix(in_oklab,var(--color-slate)_25%,transparent)]"
           : scrolled
@@ -177,7 +177,7 @@ export function SiteHeader() {
                         </div>
 
                         <div className="grid grid-cols-[250px_1fr]">
-                          <div className="flex min-h-[360px] flex-col bg-orange-500 p-6 text-navy-950">
+                          <div className="flex min-h-[360px] flex-col bg-orange-600 p-6 text-white">
                             <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.13em]">
                               One network
                             </p>
@@ -253,9 +253,7 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-5 xl:flex">
           <Button variant="primary" size="sm" asChild withArrow={false}>
-            <Link to={registerRoute.to} search={registerRoute.search}>
-              {registerRoute.label}
-            </Link>
+            <Link to={registerRoute.to}>{registerRoute.label}</Link>
           </Button>
           <Link
             to="/contact"
@@ -376,9 +374,7 @@ export function SiteHeader() {
 
           <div className="flex flex-col items-center gap-5">
             <Button variant="primary" asChild className="w-full" withArrow={false}>
-              <Link to={registerRoute.to} search={registerRoute.search}>
-                {registerRoute.label}
-              </Link>
+              <Link to={registerRoute.to}>{registerRoute.label}</Link>
             </Button>
             <Link
               to="/contact"

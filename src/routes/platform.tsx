@@ -41,9 +41,10 @@ import {
  * cream bands carry `.section-light`, which re-points it. `panel` is already a
  * navy card on navy and a white card on cream, so no card is told which ground
  * it is on. The only conditional is the accent orange — `.section-light`
- * rewrites orange-500 to navy ink, and orange-700, the one it lets through, is
- * 4.1:1 on cream and needs large text to pass, which is why emphasised lines
- * are set at 19px semibold.
+ * rewrites orange-500 to navy ink, and orange-700 is the one it lets through.
+ * The 19px semibold on emphasised lines was the size orange-700 needed to
+ * pass as large text at 4.1:1; wave 295 took it to 5.78:1, so the size is now
+ * kept for rhythm rather than for contrast.
  */
 
 export const Route = createFileRoute("/platform")({
@@ -256,7 +257,7 @@ function DifferenceStory() {
                     className={cn(
                       "group flex min-h-[64px] items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-all duration-300",
                       selected
-                        ? "translate-x-0 border-teal-600/45 bg-navy-700/80 shadow-[0_10px_30px_-18px_rgba(36,210,195,0.7)] lg:translate-x-1"
+                        ? "translate-x-0 border-teal-600/45 bg-navy-950 shadow-[0_10px_30px_-18px_rgba(36,210,195,0.7)] lg:translate-x-1"
                         : "border-transparent bg-transparent hover:border-navy-700 hover:bg-navy-800",
                     )}
                   >
@@ -613,9 +614,11 @@ function ServicesPage() {
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Button variant="primary" asChild>
-              <Link to={registerRoute.to} search={registerRoute.search}>
-                {servicesClose.cta}
-              </Link>
+              {/* registerRoute.label, NOT servicesClose.cta. Every control
+                  that opens the wait list says the same words: this one used
+                  to say something of its own, which is how a page ends up
+                  offering what looks like two different actions. */}
+              <Link to={registerRoute.to}>{registerRoute.label}</Link>
             </Button>
             <Button variant="secondary" asChild withArrow={false}>
               <Link to="/contact">Contact Us</Link>
