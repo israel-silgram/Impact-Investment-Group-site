@@ -1,6 +1,7 @@
-"""Wave 298 gate: the footer census over EVERY page, then axe over four.
+"""Wave 298 gate: the footer census, the render census, and axe, all over
+EVERY emitted page.
 
-Two passes, and the first one is the point of the wave.
+Three passes.
 
 THE FOOTER CENSUS proves R298-1 the only way it can honestly be proved: by
 enumerating every `index.html` the static build emits and asserting, in each
@@ -22,18 +23,24 @@ than a source defect, which is exactly why it needs a standing check: a flake
 that ships is a blank page on the live site.
 
 THE AXE PASS then runs against the STATIC build (the same HTML GitHub Pages
-serves) at 360 and 1440, on the pages the brief's gate names (/legal and
-/contact) plus the two other surfaces this wave touched (/ for the footer,
-/partner-with-resident for the crisis signpost), and checks the three things
-R298-1 needs that axe cannot answer: exactly one h1 per page, every legal link
-reachable by keyboard alone, and every legal link at least 24px on its smallest
-side.
+serves) at 360 and 1440, on EVERY page the build emits (`PAGES` used to be a
+fixed list of four representative routes; the release check of 11 Sep 2026
+found a contrast regression that had landed on all ten partner-with-* pages
+and was never once audited, because only one of the ten was ever on that
+list, so the list is gone and every emitted page is read from the build
+instead), and checks the three things R298-1 needs that axe cannot answer:
+exactly one h1 per page, every legal link reachable by keyboard alone, and
+every legal link at least 24px on its smallest side.
 
 BOTH BUILDS ARE AUDITED. The footer changed on every route, so there is no
 unchanged page inside the after build to use as a control. `BEFORE_DIR` is a
 build of the base commit, and a violation that fires in both is pre-existing
 chrome that this wave neither introduced nor was asked to fix. Only findings
-that appear in `after` and not in `before` belong to this wave.
+that appear in `after` and not in `before` belong to this wave. A page with no
+counterpart in `BEFORE_DIR` (every /register/* page, and /legal) borrows a
+`chrome_control` built from every page that does have one, so a finding common
+to the shared header or footer never reads as new just because the page
+carrying it is new.
 
 axe-core is not a dependency of this repo and must not become one: it is a
 build-time auditor, not something the site ships. Point AXE at an extracted
@@ -62,9 +69,14 @@ BEFORE_DIR = os.environ["BEFORE_DIR"]
 AFTER_DIR = os.environ["AFTER_DIR"]
 AXE = os.environ["AXE"]
 
-# The trailing slash matters: the prerenderer writes `autoSubfolderIndex`
-# directories, so `/legal` without it is a 404 from the static server.
-PAGES = ["/", "/contact/", "/legal/", "/partner-with-resident/"]
+# ⚠️ RELEASE CHECK, 11 SEP 2026: EVERY EMITTED PAGE, NOT FOUR OF THEM. This
+# script used to audit a fixed list of four representative pages. That is
+# exactly how the orange-500 retint's contrast failure survived two merges
+# unnoticed: it landed on all ten partner-with-* pages, and only one of them
+# was ever on this list. PAGES is now computed from the build itself in
+# main(), via `routes_in(AFTER_DIR)`, so a page this script has never heard of
+# is audited the first time it exists rather than the first time somebody
+# remembers to add it here.
 WIDTHS = [360, 1440]
 
 # WCAG 2.2 AA plus the best-practice set. Incomplete ("review-item") results
@@ -83,9 +95,18 @@ LEGAL_LINK_LABELS = ["Terms of Service", "Privacy Policy", "Disclaimer", "Legal"
 # navigation" immediately before "Legal, link".
 LEGAL_NAV_LABEL = "Legal and policies"
 
+# ⚠️ RETIRED 10 SEP 2026 (CALLUM). This mailbox does not exist and never did.
+# It survived in src/content/register.ts until the release check of 11 Sep
+# 2026 caught four more copies of it, in a file the earlier hello@ sweep never
+# read. The census below is why that cannot happen silently again: it fails
+# any page whose HTML carries this string, not just the pages this script
+# already knew to look at.
+RETIRED_MAILBOX = "hello@impactig.co.uk"
+
 
 def footer_census(after_dir: str) -> list:
-    """Assert the four legal links on every page the static build emits.
+    """Assert the four legal links on every page the static build emits, and
+    that none of them carries the retired mailbox.
 
     Returns the list of failures, and prints the page count and the routes so
     the wave report can quote a measured number rather than an assumed one.
@@ -115,7 +136,14 @@ def footer_census(after_dir: str) -> list:
         for label in missing:
             failures.append(f"{route}: no '{label}' in the footer")
 
-        print(f"  {route:34} navs={len(navs)}  labels={4 - len(missing)}/4")
+        retired_count = html.count(RETIRED_MAILBOX)
+        if retired_count:
+            failures.append(f"{route}: carries the retired mailbox {retired_count} time(s)")
+
+        print(
+            f"  {route:34} navs={len(navs)}  labels={4 - len(missing)}/4  "
+            f"retired_mailbox={retired_count}"
+        )
     return failures
 
 
@@ -307,42 +335,68 @@ def main():
     before = f"http://127.0.0.1:{before_port}"
     after = f"http://127.0.0.1:{after_port}"
 
+    pages = routes_in(AFTER_DIR)
+    before_routes = set(routes_in(BEFORE_DIR))
+    shared = [p for p in pages if p in before_routes]
+    new_only = [p for p in pages if p not in before_routes]
+    print(f"axe pass: {len(pages)} pages total, {len(shared)} with their own before "
+          f"build, {len(new_only)} new since {BEFORE_DIR} (their control is the "
+          f"chrome: every finding shared header/footer/section markup already "
+          f"produced on a page that did exist)")
+
     added = []
     impacts = {}
     failures = footer_census(AFTER_DIR)
     print()
-    # /legal did not exist before this wave, so it has no control of its own.
-    # Its control is the CHROME: every finding the header and footer already
-    # produced, at the base commit, on the pages that did exist. A footer
-    # finding is not this page's doing just because this page is new.
+    per_page_summary = []
+    # Pages with no before-build counterpart (every /register/* page, and
+    # /legal) borrow this as their control instead of a real before/after
+    # diff. Built up from every SHARED page's real before-result, across both
+    # widths, so a finding common to the site's chrome never reads as "new"
+    # just because the page carrying it is new.
     chrome_control: set = set()
+
+    # Shared pages first, new-only pages second: chrome_control has to be
+    # complete (built from every shared page's real before-result) before a
+    # single new-only page borrows it, and page paths do not sort that way on
+    # their own (/legal/ sorts before /partner-with-*/, alphabetically, but
+    # needs the chrome those pages establish).
+    ordered = shared + new_only
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
         failures += render_census(page, after, before, AFTER_DIR, BEFORE_DIR)
         print()
-        for path in PAGES:
+
+        for path in ordered:
             for width in WIDTHS:
                 after_set, after_impacts = audit(page, after, path, width, axe_source)
                 impacts.update(after_impacts)
-                if path == "/legal/":
-                    before_set = set(chrome_control)
-                else:
+                if path in before_routes:
                     before_set, _ = audit(page, before, path, width, axe_source)
                     chrome_control |= before_set
+                else:
+                    before_set = set(chrome_control)
                 new = sorted(after_set - before_set)
                 fixed = sorted(before_set - after_set)
                 print(
-                    f"{path:28} @{width:<5} after={len(after_set):3} "
+                    f"{path:34} @{width:<5} after={len(after_set):3} "
                     f"before={len(before_set):3} new={len(new):3} fixed={len(fixed):3}"
                 )
+                per_page_summary.append((path, width, len(after_set), len(new)))
                 for item in new:
                     rule = item.split("::")[0]
                     print(f"    NEW  [{impacts.get(rule, '?')}] {item}")
                     added.append((path, width, item, impacts.get(rule, "?")))
                 manual_checks(page, after, path, width, failures)
         browser.close()
+
+    print()
+    print("Per-page result table (axe: total after / new since control):")
+    for path, width, after_count, new_count in per_page_summary:
+        flag = "PASS" if new_count == 0 else "FAIL"
+        print(f"  {flag}  {path:34} @{width:<5} after={after_count:3} new={new_count:3}")
 
     print()
     for f in failures:

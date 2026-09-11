@@ -31,6 +31,7 @@
  */
 
 import { registerRoles, type AudienceRole } from "@/content/audiences";
+import { generalEnquiriesAddress } from "@/content/legal";
 
 /* ─────────────────────────────────────────────────────────────────────────
  * Question shapes
@@ -205,16 +206,22 @@ export const RESIDENT_SPECIAL_CATEGORY_OPTIONS = {
  * ⚠️ "Please try again" ON A RATE LIMIT OR A REFUSAL IS A LIE, and a costly
  * one: it sends somebody back round a form they just filled in to hit the same
  * wall. `network` is the only branch where trying again is the right advice.
+ *
+ * ⚠️ THE ADDRESS IS INTERPOLATED, NEVER TYPED OUT AGAIN. These three lines
+ * carried a hard-coded copy of the retired general mailbox until the release
+ * check of 11 Sep 2026 caught it: that address does not exist and never did
+ * (Callum, 10 Sep 2026). See the note on `generalEnquiriesAddress` in
+ * content/legal.ts for which address is real and why the old one is not to be
+ * reinstated. `generalEnquiriesAddress` is the single source; this is the
+ * same fix wave 298 made in enquiry-form.tsx's failure line.
  */
 export const registerFailureLines = {
   /** Offline, DNS, CORS, a timeout, or the backend answering 5xx. */
-  network: "That did not send. Please try again, or email hello@impactig.co.uk directly.",
+  network: `That did not send. Please try again, or email ${generalEnquiriesAddress} directly.`,
   /** 429. The backend rate limits this endpoint. */
-  rateLimited:
-    "That was sent a moment ago. Please wait a minute and try once more, or email hello@impactig.co.uk.",
+  rateLimited: `That was sent a moment ago. Please wait a minute and try once more, or email ${generalEnquiriesAddress}.`,
   /** Any other 4xx: the payload was refused, so retrying it changes nothing. */
-  rejected:
-    "We could not accept that. Nothing has been lost: email hello@impactig.co.uk and a person will add you by hand.",
+  rejected: `We could not accept that. Nothing has been lost: email ${generalEnquiriesAddress} and a person will add you by hand.`,
 } as const;
 
 /** How long the form waits for the backend before it gives up and says so. */
@@ -1235,7 +1242,7 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
       next: [
         "We look for the right thing in the right place, not whatever is nearest",
         "One message when the platform opens, and nothing else unless you asked for it",
-        "If your situation changes, write to hello@impactig.co.uk and we will update it",
+        `If your situation changes, write to ${generalEnquiriesAddress} and we will update it`,
       ],
     },
     metaDescription:

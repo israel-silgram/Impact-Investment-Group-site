@@ -565,7 +565,17 @@ function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
                 Active checkpoint
               </span>
               <span aria-hidden="true" className="h-px flex-1 bg-teal-400/30" />
-              <span className="font-mono text-[10px] font-bold text-orange-500">
+              {/* text-mist, not text-orange-500. Wave 295's retint took
+                  orange-500 to #c15f3c, which measures 4.01:1 on navy-800
+                  here (release check, 11 Sep 2026), under the 4.5:1 floor
+                  this 10px bold text needs (too small to count as WCAG large
+                  text). text-mist is the token the body copy two lines below
+                  already uses on this same panel: 11.09:1 here, comfortably
+                  clear. Orange stays reserved for what still passes: fills,
+                  buttons, large headings, light-surface text. If a lighter
+                  orange tint is approved for small text on navy, this is the
+                  one place to bring it back. */}
+              <span className="font-mono text-[10px] font-bold text-mist">
                 0{activeStep + 1} / 03
               </span>
             </div>

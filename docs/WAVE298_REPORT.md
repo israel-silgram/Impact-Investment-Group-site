@@ -1129,3 +1129,269 @@ changed (`registerPrivacy` read and left alone, per section 13.1). No design
 or colour decision was made (section 13.4). The `../iigs-uc295` worktree was
 never touched; wave 295's own commits, screenshots and reports were pulled in
 by the merge exactly as that branch had them, unedited.
+
+
+---
+
+## 14. Release-check fixes, 11 Sep 2026 15:35 UK
+
+The operator's release check of the merged branch (`bafe370`, carrying wave
+295) held the push on one BLOCKER and two MAJORs. All four items in the
+check, including the two MINORs, are closed in this pass. No copy change and
+no feature work beyond what each item required.
+
+### 14.1 BLOCKER: four more copies of the retired mailbox, in a file the
+earlier sweep never read
+
+`src/content/register.ts` still named `hello@impactig.co.uk` in four places,
+a mailbox Callum ruled on 10 September 2026 does not exist: the three
+`registerFailureLines` strings (`network`, `rateLimited`, `rejected`,
+rendered through `waitlist-form.tsx` by `registerFailureLines[failure]`) and
+the resident success panel's third `next` line
+(`"If your situation changes, write to hello@..."`). The earlier sweep (wave
+298's mailbox pass, 10 Sep) checked `enquiry-form.tsx` and the shared content
+files; it never read `content/register.ts`, which wave 295 owned and wave 298
+never touched.
+
+**Fixed the same way the earlier fix did it**: all four now interpolate
+`generalEnquiriesAddress`, imported directly from `src/content/legal.ts`
+(the single source, confirmed in the previous pass's report), never a second
+literal. `registerFailureLines`'s three values became template literals;
+`content/register.ts` gained one import line.
+
+**Full sweep, whole repository (not just `src/`), excluding `node_modules`,
+`.git` and `dist`:**
+
+| Location | `hello@impactig.co.uk` mentions | Permitted |
+|---|---|---|
+| `src/content/legal.ts`, one code comment | 1 | **Yes.** The comment warning against reinstating the retired address, named as the one permitted mention. |
+| Every other file under `src/`, `scripts/`, `public/` | 0 | n/a |
+| `docs/WAVE295_REPORT.md`, `docs/WAVE298_REPORT.md` | several, all in historical before/after tables and dated narrative | **Treated as exempt, not swept.** These are dated records of what a string used to say; rewriting them to remove the old string would rewrite history rather than record it, which section 14.4 below explicitly forbids for `WAVE295_REPORT.md` specifically and this pass applies the same principle to both reports. |
+| `dist/client/` (the built output) | 0 | n/a, and the only count that reaches a reader |
+
+**One further, necessary occurrence, outside the "0 in the report" count and
+named here rather than hidden**: `scripts/wave298-axe.py` now defines
+`RETIRED_MAILBOX = "hello@impactig.co.uk"`, because the sweep this item asks
+for cannot check for a string without holding that string somewhere. This is
+tooling, not shipped content: the script is a build-time auditor nothing
+under `src/` imports, matching the standing rule for every `wave*-*.py`
+script in this repo.
+
+**The census now fails any page whose HTML carries the retired address.**
+`footer_census()` in `scripts/wave298-axe.py` counts `RETIRED_MAILBOX`
+occurrences in every emitted `index.html` and fails the page if the count is
+non-zero, printed per page as `retired_mailbox=N`. Run on the rebuilt tree:
+**29 of 29 pages, `retired_mailbox=0` on every one.**
+
+### 14.2 MAJOR: the orange-500 retint's contrast regression, fixed with the
+site's existing light-ink token, not a new colour
+
+**The regression, confirmed and measured live.** Wave 295's retint took
+`--color-orange-500` to `#c15f3c`. Two small-text usages on navy fail the
+4.5:1 floor as a result: the step counter on all ten `partner-with-*` pages
+(`partner-page.tsx`, `font-mono text-[10px] font-bold text-orange-500`) and
+two 12px uppercase labels in `platform/delivery-spine.tsx` (`.eyebrow` and a
+`text-[12px] font-semibold uppercase` span, both toggled `orange
+? "text-orange-500" : "text-teal-400"`). Neither is large text under WCAG
+(large text is 18px normal or roughly 18.66px/14pt bold; these are 10-12px).
+
+**Measured, not deduced, on the live built pages, before and after, via
+Playwright reading the actual rasterised pixel colour behind the text**
+(`getImageData` on a 1x1 canvas, which forces the browser's real composited
+sRGB value regardless of whether the CSS behind it is `oklab()`,
+`color-mix()` or a flat hex):
+
+| Page | Element | Colour | Background | Size/weight | Ratio |
+|---|---|---|---|---|---|
+| `/partner-with-investor/` | step counter, **before** | `rgb(193, 95, 60)` (orange-500) | `rgb(3, 28, 61)` | 10px/700 | **4.02:1 FAIL** |
+| `/partner-with-resident/` | step counter, **before** | `rgb(193, 95, 60)` | `rgb(3, 28, 61)` | 10px/700 | **4.02:1 FAIL** |
+| `/partner-with-broker/` | step counter, **before** | `rgb(193, 95, 60)` | `rgb(3, 28, 61)` | 10px/700 | **4.02:1 FAIL** |
+| `/partner-with-investor/` | step counter, **after** | `rgb(198, 210, 228)` (mist) | `rgb(3, 28, 61)` | 10px/700 | **11.10:1 PASS** |
+| `/partner-with-resident/` | step counter, **after** | `rgb(198, 210, 228)` | `rgb(3, 28, 61)` | 10px/700 | **11.10:1 PASS** |
+| `/partner-with-broker/` | step counter, **after** | `rgb(198, 210, 228)` | `rgb(3, 28, 61)` | 10px/700 | **11.10:1 PASS** |
+
+Identical across all three pages sampled: the fix and the failure are both
+uniform across the ten `partner-with-*` pages, all of which share the one
+`PartnerPlatformStack` component.
+
+**`delivery-spine.tsx` is calculated, not measured, and the report says so
+rather than presenting it as a live reading.** The component is not imported
+by any route in this repository (`grep -rn "delivery-spine\|DeliverySpine"
+src/` matches only its own file) and is therefore unreachable by any built
+page, by the axe census, or by a browser to screenshot. Its two labels sit
+inside a `section-dark` panel with a background photograph and a gradient
+(`from-navy-950 via-navy-950/80 to-navy-900/60`) behind a further
+`bg-navy-900/70` fill on the button itself, which has no single flat colour
+to measure without rendering the component somewhere, and adding a route to
+do that would be feature work this pass does not do. Calculated instead
+against the three solid navy tokens the rest of this codebase's accessibility
+notes already use as reference points:
+
+| Background | orange-500 (before) | text-mist (after) |
+|---|---|---|
+| navy-950 `#000b1c` | 4.67:1 (borderline pass at this exact shade, fails at 10-12px against the true composite, which is darker) | 12.91:1 |
+| navy-900 `#00112b` | 4.46:1 **FAIL** | 12.32:1 |
+| navy-800 `#041c3d` | 4.01:1 **FAIL** | 11.09:1 |
+
+The true composited background (photograph plus gradient plus the button's
+own 70%-opacity fill) is darker than plain navy-900 through most of the
+panel, so the calculated navy-900/navy-800 rows are the closer estimate and
+both show a real failure.
+
+**The fix: one existing token, no new one added, exactly as Callum ruled.**
+Both files' orange-on-navy small text now reads `text-mist`
+(`--color-mist: #c6d2e4`), which is not a new decision: it is the token the
+body copy immediately beside each fixed span already used (`partner-page.tsx`'s
+readout paragraph two lines below the step counter; `delivery-spine.tsx`'s
+own `step.detail` span, one line below the eyebrow). Nothing else moved.
+Every button fill, every large heading and every light-surface (cream) use of
+orange is untouched; `border-orange-500`, `bg-orange-500` and the large-text
+`text-orange-500` headline spans elsewhere in `partner-page.tsx` were read
+and left alone, because they either are not text (fills, borders) or clear
+3:1/4.5:1 comfortably at their actual size (headline spans are `clamp(2.7rem,
+5.6vw, 5rem)` and larger).
+
+**The alternative needs Callum's word, so the shipped fix is the safe
+reading.** A lighter tint of orange-500, calibrated to clear 4.5:1 on navy at
+these sizes while still reading as orange, is a real option and was not
+taken: it is a colour decision (a new shade, even if not a new token name),
+and Callum's ruling for this pass was to keep one orange and add no colour
+token, not to introduce a tint. `text-mist` is therefore the shipped reading
+until and unless Callum asks for a tinted orange instead, at which point it
+is a two-span, one-file-plus-one-dead-file change.
+
+**Per-page axe result table, all 29 pages, both widths, `scripts/wave298-axe.py`
+against the wave 298 base-commit build as control, run twice for stability,
+identical both times:**
+
+```
+PASS  /about/                            @360   after= 10 new=  0
+PASS  /about/                            @1440  after= 10 new=  0
+PASS  /contact/                          @360   after= 11 new=  0
+PASS  /contact/                          @1440  after= 11 new=  0
+PASS  /                                  @360   after=  7 new=  0
+PASS  /                                  @1440  after=  7 new=  0
+PASS  /partner-with-broker/              @360   after=  8 new=  0
+PASS  /partner-with-broker/              @1440  after=  8 new=  0
+PASS  /partner-with-care-provider/       @360   after=  8 new=  0
+PASS  /partner-with-care-provider/       @1440  after=  8 new=  0
+PASS  /partner-with-developer/           @360   after=  8 new=  0
+PASS  /partner-with-developer/           @1440  after=  8 new=  0
+PASS  /partner-with-housing-association/ @360   after=  8 new=  0
+PASS  /partner-with-housing-association/ @1440  after=  8 new=  0
+PASS  /partner-with-investor/            @360   after=  8 new=  0
+PASS  /partner-with-investor/            @1440  after=  8 new=  0
+PASS  /partner-with-landlord/            @360   after=  8 new=  0
+PASS  /partner-with-landlord/            @1440  after=  8 new=  0
+PASS  /partner-with-local-authority/     @360   after=  8 new=  0
+PASS  /partner-with-local-authority/     @1440  after=  8 new=  0
+PASS  /partner-with-resident/            @360   after=  8 new=  0
+PASS  /partner-with-resident/            @1440  after=  8 new=  0
+PASS  /partner-with-social-worker/       @360   after=  8 new=  0
+PASS  /partner-with-social-worker/       @1440  after=  8 new=  0
+PASS  /partner-with-support-provider/    @360   after=  8 new=  0
+PASS  /partner-with-support-provider/    @1440  after=  8 new=  0
+PASS  /partners/                         @360   after= 18 new=  0
+PASS  /partners/                         @1440  after= 18 new=  0
+PASS  /platform/                         @360   after= 10 new=  0
+PASS  /platform/                         @1440  after= 10 new=  0
+PASS  /solutions/                        @360   after= 13 new=  0
+PASS  /solutions/                        @1440  after= 13 new=  0
+PASS  /the-problem/                      @360   after=  8 new=  0
+PASS  /the-problem/                      @1440  after=  8 new=  0
+PASS  /legal/                            @360   after=  5 new=  0
+PASS  /legal/                            @1440  after=  5 new=  0
+PASS  /register/broker/                  @360   after=  8 new=  0
+PASS  /register/broker/                  @1440  after=  8 new=  0
+PASS  /register/care-provider/           @360   after=  8 new=  0
+PASS  /register/care-provider/           @1440  after=  8 new=  0
+PASS  /register/developer/               @360   after=  8 new=  0
+PASS  /register/developer/               @1440  after=  8 new=  0
+PASS  /register/housing-association/     @360   after=  8 new=  0
+PASS  /register/housing-association/     @1440  after=  8 new=  0
+PASS  /register/                         @360   after=  8 new=  0
+PASS  /register/                         @1440  after=  8 new=  0
+PASS  /register/investor/                @360   after=  8 new=  0
+PASS  /register/investor/                @1440  after=  8 new=  0
+PASS  /register/landlord/                @360   after=  8 new=  0
+PASS  /register/landlord/                @1440  after=  8 new=  0
+PASS  /register/local-authority/         @360   after=  8 new=  0
+PASS  /register/local-authority/         @1440  after=  8 new=  0
+PASS  /register/resident/                @360   after=  8 new=  0
+PASS  /register/resident/                @1440  after=  8 new=  0
+PASS  /register/social-worker/           @360   after=  8 new=  0
+PASS  /register/social-worker/           @1440  after=  8 new=  0
+PASS  /register/support-provider/        @360   after=  8 new=  0
+PASS  /register/support-provider/        @1440  after=  8 new=  0
+```
+
+**0 serious or critical violations on every one of the 29 pages, at both
+widths.** No page failed for a reason outside this item; there is nothing to
+list for Callum from this run. `{"new_violation_nodes": 0, "failures": 0}`,
+both runs.
+
+**Why the gate itself had to change to catch this at all**, recorded because
+it explains the size of the diff in `scripts/wave298-axe.py`: the script's
+axe pass used to audit a fixed `PAGES` list of four representative routes.
+The orange-500 regression landed on all ten `partner-with-*` pages and only
+one of the ten (`/partner-with-resident/`) was ever on that list. `PAGES` is
+gone; the axe pass now reads every route from `routes_in(AFTER_DIR)`, the
+same helper the render census already used, splits them into pages that have
+a real before-build counterpart and pages that do not, and runs the shared
+pages first so a `chrome_control` set (every finding common to the site's
+header and footer) is complete before any new-only page borrows it. This
+makes the gate durably comprehensive: a future regression on any page,
+existing or new, is now audited rather than depending on someone remembering
+to add that page to a list.
+
+### 14.3 MINOR: how `apiUrl` resolves its base in the GitHub Pages build
+
+`src/lib/api.ts` reads `import.meta.env["VITE_API_BASE"]` at build time and
+falls back to a hardcoded constant,
+`FALLBACK_API_BASE = "https://iip-backend-cy7o.onrender.com"`, if that
+variable is unset or blank. `.github/workflows/deploy.yml`'s `Build static
+site` step sets exactly two environment variables for the build,
+`STATIC_BUILD` and `BASE_PATH`; `VITE_API_BASE` is not one of them anywhere
+in the workflow, and no other workflow file in this repository sets it
+either. **The GitHub Pages build therefore always resolves `apiBase` to the
+hardcoded fallback**, `https://iip-backend-cy7o.onrender.com`, the
+Render-assigned host the file's own comment says was confirmed against the
+platform's `render.yaml`. The waitlist form (`waitlist-form.tsx`, via
+`apiUrl`) and the enquiry form both post there in production. Nothing in
+`src/lib/api.ts` was changed.
+
+### 14.4 MINOR: `docs/WAVE295_REPORT.md` section 8, the superseded privacy
+copy
+
+Section 8 is a copy dump generated by `scripts/wave295-copy.ts` from an
+earlier state of `src/content/register.ts`, and two of its bullets, "Privacy
+line" and "Privacy link", have not matched the shipped code since
+`registerPrivacy` was rewritten on 10 September 2026 (`CONSENT_VERSION` in
+that file is stamped that date). **The existing bullets were left exactly as
+written**, because editing them in place would rewrite what this section
+said at the time it was written, which is history. A new, dated sub-heading,
+"Superseded 11 Sep 2026: the privacy line and its link, as they ship now",
+was added immediately after the existing list, printing `registerPrivacy.body`,
+`registerPrivacy.linkLabel` and `registerPrivacy.href` from
+`src/content/register.ts` verbatim, plus one line noting the Failure-line
+bullet is also superseded by this same pass's BLOCKER fix (section 14.1),
+without duplicating that fix's detail. No other section of
+`docs/WAVE295_REPORT.md` was touched.
+
+### 14.5 The gate, in full
+
+Run in the foreground throughout; nothing backgrounded, every output read.
+
+| Gate | Result |
+|---|---|
+| `STATIC_BUILD=true npm run build` | rc 0, **29 pages** (`dist/client/**/index.html`), unchanged from before this pass: no route added or removed, only content and one CSS class per fixed span |
+| `hello@impactig.co.uk` sweep, whole repository | 1 permitted mention (`content/legal.ts`'s comment), 0 elsewhere in shipped source |
+| `hello@impactig.co.uk` sweep, `dist/client/` | **0** |
+| Committed-content lint (`git show HEAD:path` vs `git show :path`, LF-normalized) | `content/register.ts` 0 to 0, `platform/delivery-spine.tsx` 0 to 0, `components/partners/partner-page.tsx` 4 real findings to 4 (unchanged, all pre-existing and none on the lines this pass touched) |
+| `tsc --noEmit` | 22 errors, identical to the standing baseline (18 `partner-page.tsx`, 2 `about.tsx`, 2 `vite.config.ts`); 0 in any file this pass edited |
+| `scripts/wave298-axe.py` (footer census + render census + axe, all 29 pages) | **exit 0.** Footer census 29/29, 4/4 labels, `retired_mailbox=0` on every page. Render census 29/29, 0 new page errors. axe 58/58 page-width combinations PASS, 0 new violation nodes. Run twice, identical both times. |
+| `scripts/wave295-axe.py` | **exit 0**, "No serious or critical violations," unchanged from the merge pass |
+| Em dash count, every line added in this pass (`git diff --cached`, staged) | **0** |
+
+No file was edited outside the four items above and this report section.
+`../iigs-uc295` was never touched.

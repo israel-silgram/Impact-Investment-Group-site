@@ -492,6 +492,35 @@ Printed from `src/content/register.ts` by `scripts/wave295-copy.ts`. Every strin
 - **phoneHelp** `Optional. Only needed if you ticked the text box above.`
 - **Success page's one other action** `See what we are building -> /platform`
 
+### Superseded 11 Sep 2026: the privacy line and its link, as they ship now
+
+The release check of 11 Sep 2026 15:35 UK found that the **Privacy line** and
+**Privacy link** bullets above, printed when this section was first written,
+are no longer what the site sends. `src/content/register.ts` was changed
+independently of this section (`CONSENT_VERSION` there is stamped
+`2026-09-10`) and this section was never brought back into agreement with it.
+Rather than edit the bullets above, which is history, this is what
+`registerPrivacy` in `src/content/register.ts` reads verbatim today:
+
+- **Privacy line** `Impact Investment Group UK Limited is the data controller. We store your answers to shape what the platform does and to match you when it opens. We do not sell them, and we share them only with the suppliers that run our email, text messages and hosting. Registered with the ICO under ZB957755. Questions about your data: admin@impactig.co.uk`
+- **Privacy link** `Read the Privacy Policy -> https://app.impactinvestmentgroup.co.uk/privacy`
+
+Two changes from the superseded bullets: the line now names the controller
+and gives an address for a data question, where it previously gave neither;
+and the link now points at the platform's own published Privacy Policy,
+where it previously pointed at the ICO's public register search, which is
+evidence the company is registered, not a statement of what the company does
+with data.
+
+The **Failure line** bullet above is also superseded, by the release check's
+BLOCKER fix in the same pass: `hello@impactig.co.uk` was never a real
+mailbox (Callum, 10 Sep 2026) and every occurrence in
+`src/content/register.ts`, including that line, now reads
+`enquires@impactig.co.uk`, interpolated from `generalEnquiriesAddress` in
+`src/content/legal.ts` rather than typed out again. See
+`docs/WAVE298_REPORT.md`, "Release-check fixes, 11 Sep 15:35 UK", for the
+full sweep.
+
 ### Price bands, PROPOSED and yours to confirm
 
 Organisation ladder (investor, developer, housing association, local authority, care provider, support provider, broker):

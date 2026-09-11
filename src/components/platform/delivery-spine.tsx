@@ -89,17 +89,26 @@ export function DeliverySpine({ className }: { className?: string }) {
                     >
                       {i + 1}
                     </span>
-                    <span className={cn("eyebrow", orange ? "text-orange-500" : "text-teal-400")}>
+                    {/* text-mist, not text-orange-500, on the orange branch.
+                        .eyebrow is 11-12px bold: too small to count as WCAG
+                        large text, and orange-500 measures 4.01-4.67:1 on
+                        this panel's navy, under the 4.5:1 floor (release
+                        check, 11 Sep 2026). text-mist is what step.detail
+                        already uses two lines below. The teal branch is
+                        unchanged: teal-400 already passes here. */}
+                    <span className={cn("eyebrow", orange ? "text-mist" : "text-teal-400")}>
                       {step.spine}
                     </span>
                   </span>
                   <span className="heading-tight text-lg font-bold text-white">{step.title}</span>
                   <span className="text-sm leading-snug text-mist">{step.detail}</span>
+                  {/* text-mist, not text-orange-500, on the orange branch.
+                      Same fix and same reason as the eyebrow span above. */}
                   <span
                     className={cn(
                       "text-[12px] font-semibold uppercase tracking-[0.12em] transition-opacity duration-200",
                       open ? "opacity-100" : "opacity-0",
-                      orange ? "text-orange-500" : "text-teal-400",
+                      orange ? "text-mist" : "text-teal-400",
                     )}
                   >
                     {step.meta}
