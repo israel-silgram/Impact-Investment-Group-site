@@ -1,0 +1,41 @@
+export const registrationJourney = {
+  accountTitle: "Create your account",
+  accountIntro:
+    "Start with your details. Then tell us what matters to you, one question at a time.",
+  email: "Email address",
+  phone: "Phone number",
+  password: "Password",
+  confirmPassword: "Confirm password",
+  passwordHelp: "At least 10 characters, including a letter and a number.",
+  create: "Create account & continue",
+  creating: "Creating your account…",
+  pending: "Your registration is saved. Account access opens after activation.",
+  surveyIntro: "Your preferences",
+  optional: "Optional. Your account registration is already saved.",
+  continue: "Save & continue",
+  saving: "Saving…",
+  back: "Back",
+  skip: "Skip this question",
+  finish: "Save & finish",
+  later: "Finish for now",
+  saved: "Saved",
+  doneTitle: "You're registered",
+  doneBody:
+    "Your registration and saved preferences are recorded. We'll use your contact choices for follow-up and suitable opportunities. Platform access is subject to activation.",
+  signIn: "Already registered? Sign in",
+  name: "What should we call you?",
+  organisation: "Which organisation are you with?",
+  errors: {
+    email: "Enter a valid email address.",
+    phone: "Enter a UK phone number, starting 0 or +44.",
+    password: "Use 10 to 128 characters, with at least one letter and one number.",
+    confirmPassword: "Your passwords do not match.",
+    network: "We couldn't confirm the save. Your answers are still here. Please try again.",
+    rateLimited: "Too many attempts. Please wait a minute, then try again.",
+    rejected: "We couldn't save these details. Check your entries and try again.",
+    expired:
+      "This registration session has expired. Your earlier saves are safe. Contact us if you need to update your preferences.",
+    weakPassword:
+      "Please choose a less common password with at least 10 characters, a letter and a number.",
+  },
+} as const;

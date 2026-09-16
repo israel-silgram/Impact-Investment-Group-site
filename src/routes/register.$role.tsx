@@ -1,19 +1,15 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import * as Icons from "lucide-react";
 import { ArrowLeft, LifeBuoy } from "lucide-react";
 
-import { RoleIcon, icon as resolveIcon } from "@/components/register/role-icon";
-import { WaitlistForm } from "@/components/register/waitlist-form";
-import { Reveal } from "@/components/ui/reveal";
+import { RoleIcon } from "@/components/register/role-icon";
+import { RegistrationFlow } from "@/components/register/registration-flow";
 import { getRegisterRole, residentUrgentNote } from "@/content/register";
 import { crisisLines, crisisNote } from "@/content/site";
 
 /**
  * /register/<role>: one page per role, asking that role its own questions.
  *
- * ONE h1, which is the role's own headline and not a field name. The offer
- * strip above the form is the argument for filling it in; the form is the
- * form. Everything either page says comes from content/register.ts.
+ * The flow owns the single h1 and shows account details before preferences.
  *
  * The resident page carries the crisis numbers above the questions. They are
  * in the footer of every page already, and they are here as well for the same
@@ -52,25 +48,13 @@ export const Route = createFileRoute("/register/$role")({
   },
 });
 
-function OfferIcon({ name }: { name: string }) {
-  const Glyph = resolveIcon(name as keyof typeof Icons);
-  return (
-    <span
-      aria-hidden="true"
-      className="grid size-11 shrink-0 place-items-center rounded-full border-[1.5px] border-white/28"
-    >
-      <Glyph size={20} strokeWidth={1.6} className="text-teal-400" />
-    </span>
-  );
-}
-
 function RegisterRolePage() {
   const { role } = Route.useLoaderData();
 
   return (
-    <main>
-      <section className="mx-auto w-full max-w-[1200px] px-5 py-12 sm:px-8 lg:py-20">
-        <Reveal>
+    <div className="registration-page">
+      <section className="mx-auto w-full max-w-[1040px] px-5 py-8 sm:px-8 lg:py-12">
+        <div className="mx-auto mb-8 flex max-w-[820px] flex-wrap items-center justify-between gap-4">
           <Link
             to="/register"
             className="inline-flex min-h-11 items-center gap-2 text-[14px] font-medium text-mist transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
@@ -79,36 +63,14 @@ function RegisterRolePage() {
             All roles
           </Link>
 
-          <div className="mt-6 flex items-start gap-4">
-            <RoleIcon roleId={role.id} size="lg" />
-            <div className="min-w-0">
-              <p className="eyebrow text-teal-400">{role.eyebrow}</p>
-              <h1 className="heading-tight mt-3 text-balance text-[clamp(1.75rem,3.2vw,2.75rem)] font-bold text-white">
-                {role.h1}
-              </h1>
-            </div>
+          <div className="flex items-center gap-3">
+            <RoleIcon roleId={role.id} />
+            <p className="font-heading text-lg font-semibold text-white">{role.label}</p>
           </div>
-
-          <p className="measure mt-5 text-[17px] leading-relaxed text-mist">{role.lede}</p>
-        </Reveal>
-
-        {/* The offer. Teal, not orange: these are reasons, not the action. */}
-        <Reveal index={1} className="mt-10">
-          <ul className="grid gap-4 md:grid-cols-3">
-            {role.offer.map((item) => (
-              <li
-                key={item.text}
-                className="flex items-start gap-4 rounded-[14px] border border-navy-700 bg-navy-800/50 p-5"
-              >
-                <OfferIcon name={item.icon} />
-                <span className="text-[15px] leading-relaxed text-mist">{item.text}</span>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
+        </div>
 
         {role.id === "resident" ? (
-          <Reveal index={2} className="mt-10">
+          <div className="mx-auto mb-8 max-w-[820px]">
             <aside className="rounded-[14px] border border-teal-600 bg-teal-950 p-5 sm:p-6">
               <div className="flex items-start gap-3">
                 <LifeBuoy aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-teal-400" />
@@ -131,13 +93,11 @@ function RegisterRolePage() {
                 </div>
               </div>
             </aside>
-          </Reveal>
+          </div>
         ) : null}
 
-        <Reveal index={3} className="mt-12">
-          <WaitlistForm role={role} />
-        </Reveal>
+        <RegistrationFlow key={role.id} role={role} />
       </section>
-    </main>
+    </div>
   );
 }

@@ -94,7 +94,7 @@ export interface RegisterRoleContent {
 export const pickerContent = {
   eyebrow: "The waiting list",
   h1: "Register to join the waitlist",
-  lede: "Pick the one that fits you and we will ask a handful of questions that actually apply to you, and none that do not. It takes about two minutes, and the answers decide what gets built first.",
+  lede: "Choose the role that fits you. Create your account, then tell us your preferences one question at a time.",
   gridLabel: "I am registering as",
   footnote:
     "Registering costs nothing and commits you to nothing. It puts you on the list before the platform opens, and it puts your answer in the room while we are still deciding what it does.",
@@ -344,6 +344,26 @@ export const registerRoleContent: readonly RegisterRoleContent[] = [
     askOrganisation: true,
     organisationLabel: "Organisation or fund",
     questions: [
+      {
+        id: "preferred_regions",
+        label: "Which regions would you like to invest in?",
+        help: "Choose as many as you like. You can add specific towns or areas next.",
+        kind: "multi",
+        options: [
+          "North East",
+          "North West",
+          "Yorkshire and the Humber",
+          "East Midlands",
+          "West Midlands",
+          "East of England",
+          "London",
+          "South East",
+          "South West",
+          "Scotland",
+          "Wales",
+          "Anywhere in England, Scotland or Wales",
+        ],
+      },
       {
         id: "investment_focus",
         label: "What are you looking to fund?",

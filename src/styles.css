@@ -1262,3 +1262,109 @@
     max-width: 1440px;
   }
 }
+
+/* Registration: scoped motion, existing brand colours and keyboard focus. */
+.registration-page,
+.registration-picker {
+  background-image: radial-gradient(
+    ellipse at 50% 5%,
+    color-mix(in srgb, var(--color-teal-500) 9%, transparent),
+    transparent 52%
+  );
+}
+
+.registration-panel {
+  box-shadow: 0 24px 80px color-mix(in srgb, var(--color-navy-950) 55%, transparent);
+}
+
+.registration-heading {
+  scroll-margin-top: 130px;
+}
+
+.registration-heading:focus {
+  outline: none;
+}
+
+.registration-resident {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(115deg, var(--color-navy-800), var(--color-teal-950));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-teal-400) 18%, transparent),
+    0 0 45px color-mix(in srgb, var(--color-teal-500) 16%, transparent);
+}
+
+.registration-resident::before {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 30px;
+  background: radial-gradient(
+    ellipse,
+    color-mix(in srgb, var(--color-teal-400) 18%, transparent),
+    transparent 72%
+  );
+  filter: blur(12px);
+}
+
+.registration-resident:hover,
+.registration-resident:focus-visible {
+  box-shadow:
+    0 0 0 1px var(--color-teal-400),
+    0 0 55px color-mix(in srgb, var(--color-teal-500) 26%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .registration-step {
+    animation: registration-enter 380ms var(--ease-out-soft) both;
+  }
+  .registration-resident::before {
+    animation: registration-glow 4s ease-in-out 1;
+  }
+  .registration-progress {
+    transition: width 380ms var(--ease-out-soft);
+  }
+  .registration-input {
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+  .registration-option:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes registration-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes registration-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .registration-flow *,
+  .registration-resident,
+  .registration-resident::before {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
 
 import { RoleIcon } from "@/components/register/role-icon";
 import { registerRoles } from "@/content/audiences";
@@ -13,22 +14,27 @@ import { cn } from "@/lib/utils";
  * nothing else: a second thing to look at on a chooser is a second thing to
  * hesitate over.
  *
- * The resident tile keeps its teal ring. It is a way out of a page built for
- * organisations, not another pitch, and it has to look different to be one.
+ * The resident route has a centred, illuminated card of its own.
  */
 export function RolePicker({ labelledBy }: { labelledBy: string }) {
   return (
     <ul aria-labelledby={labelledBy} className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {registerRoles.map((role) => (
-        <li key={role.id} className="flex">
+        <li
+          key={role.id}
+          className={cn(
+            "flex",
+            role.id === "resident" && "relative mt-6 justify-center sm:col-span-2 lg:col-span-3",
+          )}
+        >
           <Link
             to="/register/$role"
             params={{ role: role.id }}
             className={cn(
               "group flex min-h-11 w-full items-center gap-4 rounded-[14px] border bg-navy-800/60 p-5 text-left transition-all duration-200 ease-out",
-              "hover:-translate-y-0.5 hover:bg-navy-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400",
+              "motion-safe:hover:-translate-y-0.5 hover:bg-navy-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-400",
               role.tone === "route-out"
-                ? "border-teal-600 hover:border-teal-500"
+                ? "registration-resident max-w-[540px] justify-center gap-5 border-teal-400 px-6 py-7 sm:py-8"
                 : "border-navy-700 hover:border-orange-500/70",
             )}
           >
@@ -39,6 +45,12 @@ export function RolePicker({ labelledBy }: { labelledBy: string }) {
               </span>
               <span className="text-[14px] leading-[1.45] text-mist">{role.detail}</span>
             </span>
+            {role.id === "resident" && (
+              <ArrowUpRight
+                aria-hidden="true"
+                className="ml-auto size-6 shrink-0 text-teal-400 transition-transform motion-safe:group-hover:-translate-y-1 motion-safe:group-hover:translate-x-1"
+              />
+            )}
           </Link>
         </li>
       ))}
