@@ -12,7 +12,7 @@ The survey displays one large question at a time, saves on Continue, supports Ba
 
 - Static production build and Pages postbuild passed; all ten role pages were prerendered. Production assets contain the production API origin, no local mock origin.
 - Changed-file ESLint passed with zero errors.
-- TypeScript reports 22 inherited diagnostics in unchanged `partner-page.tsx`, `about.tsx` and `vite.config.ts`; none in changed files. The prior wave report records these same files as baseline failures. A whole-repository clean typecheck is not claimed.
+- TypeScript reports 22 inherited diagnostics in unchanged `partner-page.tsx`, `about.tsx` and `vite.config.ts`; none in changed files. A fresh clean archive of base `18183f2` produced exactly the same diagnostic messages and locations. A whole-repository clean typecheck is not claimed.
 - Nine transport tests passed with 25 assertions. Removing the successful-save response guard made the suite fail; restoring it passed.
 - Browser checks: empty fields and mismatched passwords send zero requests; account save precedes questions; selection saves; a failed save retains answers; retry succeeds; Back restores text; Skip removes a previously saved answer; Finish sends the current answer and completes.
 - Resident sensitive choice without consent stays on its question and sends no survey request; consent allows progression.
