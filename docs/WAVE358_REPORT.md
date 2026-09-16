@@ -22,7 +22,7 @@ The survey displays one large question at a time, saves on Continue, supports Ba
 - Motion is bounded and disabled under reduced-motion preference. Existing brand tokens, fonts and resident urgent-help block are retained.
 - Consolidated independent review found the uncertain-retry issue and the account SMS preference confirmation gap. Both were fixed and re-reviewed without blockers; backend security, persistence and consent regression results are in the platform repository's wave report.
 
-Browser submissions used a local mock API and synthetic details. No production test accounts were created, and no email or text was sent by these tests.
+Browser resilience checks used a local mock API. A further browser-to-real-backend integration check used a fresh isolated SQLite database, a random local signing key, disabled schedulers and blocked remote sockets. The form created the pending user and linked registration before questions, saved selected regions into InvestorProfile and SavedSearch, and Finish for now persisted the current text answer and completion marker. All test details were synthetic. No production test accounts were created, and no email or text was sent by these tests.
 
 ## Scope and release
 
