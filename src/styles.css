@@ -10,15 +10,28 @@
 @import "@fontsource-variable/jetbrains-mono";
 
 /*
- * THE IMPACT INVESTMENT PLATFORM — DESIGN SYSTEM
+ * THE IMPACT INVESTMENT PLATFORM. DESIGN SYSTEM.
  *
  * Single source of truth for colour, type and motion.
  * Components must never hardcode a hex value: use the tokens below.
  *
+ * WAVE 412, 19 Sep 2026. THE SITE IS LIGHT BY DEFAULT.
+ * Callum's director read the site and found it much too dark: navy
+ * everywhere, on every route, in every band. So the ground moved. White is
+ * the page, cream is the alternating band, and navy is now INK and
+ * STRUCTURE (headings, body text, rules, the logo's neutral parts) rather
+ * than the surface everything sits on.
+ *
  * Colour proportion target on any screen:
- *   navy 70% · white/neutral 20% · teal 7% · orange 3%
+ *   white and cream 75 to 80% · navy 10 to 15%, as ink and islands ·
+ *   teal 5% · orange 3%
  * Orange marks the one action a page exists to get. Teal marks
  * secondary actions, active states, verification and data.
+ *
+ * A NAVY ISLAND is a rounded plate inside a light section, allowed only
+ * where darkness does a job: the demand map's glow, and the crisis card
+ * that has to stand out. At most one inside <main> per route, never in the
+ * first viewport, never the header, never a whole section's ground.
  */
 
 @theme {
@@ -92,6 +105,40 @@
      this is the value its validation messages actually render in. */
   --color-destructive-on-light: #c92a2a;
 
+  /* ---------------------------------------------------------------------
+     THE LIGHT SITE READS THESE BY NAME (wave 412).
+
+     Everything above is the palette; these are the jobs. A component asks
+     for `bg-page`, `text-ink`, `border-rule`, and it is correct on the
+     light ground without knowing which navy or slate is behind the name.
+     The navy scale above stays exactly as it was, because navy is still
+     the ink and still the two islands. It simply stopped being the ground.
+
+     Measured on #ffffff and on the cream #f7f1e6 (wave 412 report):
+       ink        #00112b  18.83:1 on white, 16.75:1 on cream
+       ink-muted  #4e5a6e   6.97:1 on white,  6.20:1 on cream
+       ink-soft   #647289   4.87:1 on white,  4.33:1 on cream, so it is for
+                            white cards, rules and small caps, never body
+                            copy directly on the cream
+       teal-600   #17796f   5.25:1 on white,  4.67:1 on cream
+       orange-700 #9a4429   6.50:1 on white,  5.78:1 on cream
+     --------------------------------------------------------------------- */
+  --color-page: #ffffff; /* THE PAGE GROUND */
+  --color-page-alt: #f7f1e6; /* the alternating band, same value as mist-bg */
+  --color-ink: #00112b; /* navy-900 as type, not as ground */
+  --color-ink-muted: #4e5a6e; /* body copy on the cream */
+  --color-ink-soft: #647289; /* small caps, captions, body on white cards */
+  /* One real colour for the hairline that rules the whole light site. The
+     `--slate-20` composite below now points AT this rather than beside it,
+     so `border-rule` and every existing `--slate-20` reference are the same
+     pixel and cannot drift apart. */
+  --color-rule: color-mix(in oklab, #647289 20%, transparent);
+  /* The soft tinted discs behind icon glyphs. 12%, which is the lightest
+     tint that still reads as a plate rather than as a smudge, and light
+     enough that the glyph above it keeps its own ratio against the page. */
+  --color-tint-orange: color-mix(in oklab, #c15f3c 12%, transparent);
+  --color-tint-teal: color-mix(in oklab, #17796f 12%, transparent);
+
   /* Type */
   --font-display: "Anton", "Barlow", system-ui, sans-serif;
   --font-heading: "Barlow", system-ui, sans-serif;
@@ -108,27 +155,35 @@
   --duration-reveal: 500ms;
 }
 
-/* shadcn semantic layer, mapped onto the brand palette. */
+/* shadcn semantic layer, mapped onto the brand palette.
+ *
+ * WAVE 412: re-pointed to the light ground. These names are what every
+ * shadcn library component reads, and while they said navy, a `<Card>` or a
+ * `<Popover>` dropped anywhere on the site came out dark on a white page.
+ * Every value below is measured against the surface it lands on; the pairs
+ * are in docs/WAVE412_REPORT.md. */
 :root {
-  --background: #00112b;
-  --foreground: #ffffff;
-  --card: #041c3d;
-  --card-foreground: #ffffff;
-  --popover: #041c3d;
-  --popover-foreground: #ffffff;
-  /* Follows --color-orange-500. */
-  --primary: #c15f3c;
-  /* Navy ink on the terracotta is 4.46:1, white on it 4.23:1, so the navy stays
-     the better of the two. Text-bearing orange controls do not use --primary
-     anyway: brand buttons fill with --color-orange-600, where the text is
-     white at 5.34:1. */
-  --primary-foreground: #00112b;
-  --secondary: #06302e;
-  --secondary-foreground: #2fbaaa;
-  --muted: #041c3d;
-  --muted-foreground: #7f91ac;
-  --accent: #1e9e8f;
-  --accent-foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #00112b; /* 18.83:1 */
+  --card: #ffffff;
+  --card-foreground: #00112b;
+  --popover: #ffffff;
+  --popover-foreground: #00112b;
+  /* WAVE 412: follows --color-orange-600, not 500. On the dark site the
+     primary fill was 500 with NAVY ink on it, because white on 500 is only
+     4.23:1. On a white page a 500 fill is also a weak edge against the
+     ground. 600 with white on it is 5.34:1, which is the same pairing the
+     brand `primary` button already used, so the library components and the
+     brand button now agree instead of differing by one step. */
+  --primary: #ae4e30;
+  --primary-foreground: #ffffff; /* 5.34:1 */
+  /* The teal tint plate with teal-600 on it. */
+  --secondary: color-mix(in oklab, #17796f 12%, #ffffff);
+  --secondary-foreground: #17796f;
+  --muted: #f7f1e6; /* the cream */
+  --muted-foreground: #4e5a6e; /* 6.20:1 on the cream, 6.97:1 on white */
+  --accent: #17796f;
+  --accent-foreground: #ffffff; /* 5.25:1 */
   /* ERROR AND VALIDATION TEXT. Deliberately not a brand orange, so a failed
      field never reads as the call to action, and picked for the DARK ground
      because that is where the forms live: 4.57:1 on the register form's panel
@@ -146,24 +201,30 @@
      AA for large text only. That pairing is used by the shadcn `destructive`
      button and badge variants, neither of which this site renders anywhere;
      if one is ever used for a real control, re-measure it first. */
-  --destructive: #e5484d;
-  --destructive-foreground: #ffffff;
-  --border: #0a2a52;
-  --input: #0a2a52;
-  --ring: #2fbaaa;
+  /* WAVE 412: the light value is now the only value. The note above was
+     written when the forms lived on navy and one token could not serve both
+     grounds; the forms are on white and cream now, so the window that was
+     empty no longer has to be straddled. #c92a2a is 5.46:1 on white and
+     4.85:1 on the cream, and the `.section-light` swap that used to make
+     this happen per-section is simply the default. */
+  --destructive: #c92a2a;
+  --destructive-foreground: #ffffff; /* 5.46:1 */
+  --border: color-mix(in oklab, #647289 20%, transparent);
+  --input: color-mix(in oklab, #647289 20%, transparent);
+  --ring: #17796f;
   --chart-1: #1e9e8f;
   --chart-2: #2fbaaa;
   --chart-3: #143c6b;
   --chart-4: #c15f3c;
   --chart-5: #7f91ac;
-  --sidebar: #041c3d;
-  --sidebar-foreground: #c6d2e4;
-  --sidebar-primary: #c15f3c;
-  --sidebar-primary-foreground: #00112b;
-  --sidebar-accent: #0a2a52;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #0a2a52;
-  --sidebar-ring: #2fbaaa;
+  --sidebar: #f7f1e6;
+  --sidebar-foreground: #00112b;
+  --sidebar-primary: #ae4e30;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: color-mix(in oklab, #17796f 12%, #ffffff);
+  --sidebar-accent-foreground: #17796f;
+  --sidebar-border: color-mix(in oklab, #647289 20%, transparent);
+  --sidebar-ring: #17796f;
 
   /* Composite tokens */
   --gradient-action: linear-gradient(100deg, var(--color-orange-500), var(--color-orange-600));
@@ -173,7 +234,9 @@
   --glow-headline: 0 0 44px rgb(0 11 28 / 0.85);
 
   /* Light-section composites */
-  --slate-20: color-mix(in oklab, var(--color-slate) 20%, transparent);
+  /* Kept as a name because half the stylesheet and several components say
+     `--slate-20`; it is now one alias of `--color-rule`, not a second value. */
+  --slate-20: var(--color-rule);
   --shadow-card: 0 1px 2px rgb(0 17 43 / 0.04), 0 8px 24px rgb(0 17 43 / 0.06);
   --shadow-card-hover: 0 2px 4px rgb(0 17 43 / 0.06), 0 16px 40px rgb(0 17 43 / 0.12);
 }
@@ -226,7 +289,9 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--color-navy-950);
+    /* WAVE 412: white, so overscroll at either end of the page shows the
+       page rather than a black band under it. */
+    background-color: var(--color-page);
   }
 
   html.lenis,
@@ -243,8 +308,8 @@
   }
 
   body {
-    background-color: var(--color-navy-900);
-    color: var(--color-foreground);
+    background-color: var(--color-page);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -260,10 +325,19 @@
     font-weight: 700;
   }
 
+  /* WAVE 412: teal-600 is the site's focus ring, because the site's ground
+     is light. teal-400 is 2.41:1 on white and 2.14:1 on the cream, well
+     under the 3:1 that SC 1.4.11 and 2.4.11 want of a focus indicator;
+     teal-600 is 5.25:1 and 4.67:1. The two navy islands put it back to 400
+     on their own ground (7.82:1 there), just below. */
   :focus-visible {
-    outline: 2px solid var(--color-teal-400);
+    outline: 2px solid var(--color-teal-600);
     outline-offset: 2px;
     border-radius: 4px;
+  }
+
+  .section-dark :focus-visible {
+    outline-color: var(--color-teal-400);
   }
 
   ::selection {
@@ -311,28 +385,32 @@
 
 /* ---------- Surface utilities ---------- */
 
+/* THE CARD. White, a hairline rule, a soft shadow and the 16px panel radius.
+   Wave 412 turned this from the navy plate it used to be: `panel` is the most
+   used surface on the site, so it is the single edit that moves the most
+   pixels. Inside a `.section-dark` island it is restored to navy, below. */
 @utility panel {
-  background-color: var(--color-navy-800);
-  border: 1px solid var(--color-navy-700);
+  background-color: var(--color-page);
+  border: 1px solid var(--color-rule);
   border-radius: var(--radius-panel);
-  box-shadow: var(--shadow-panel);
+  box-shadow: var(--shadow-card);
 }
 
-/* A panel sunk to navy-950 instead of navy-800.
+/* The quieter card: cream instead of white, for a card that sits ON white and
+ * needs to separate from it, or for a second tier inside a cream band.
  *
- * For cards whose own labels are SMALL and ORANGE. Since wave 295 there is one
- * orange on this site, `#c15f3c`, the wait-list button's fill, and it reaches
- * the 4.5:1 body floor only on a ground at or below navy-950: on navy-800 it
- * is 4.01:1 and on navy-700 3.39:1. The card moves; the orange does not.
+ * It used to be a panel sunk to navy-950, for cards whose own labels were
+ * small and orange. That reason survives the inversion intact and only
+ * changes direction: the one orange, `#c15f3c`, reaches the 4.5:1 body floor
+ * on no light ground at all, so small orange text is `--color-orange-700`
+ * (5.78:1 on the cream, 6.50:1 on white) and the card is free to be either.
+ * The wave 295 ruling is unchanged: where a pairing fails THE SURFACE MOVES,
+ * never the orange.
  *
  * Applied after `panel` in the class list, and defined after it here, so it
  * wins the background and inherits the border, radius and shadow. */
 @utility panel-deep {
-  background-color: var(--color-navy-950);
-}
-
-@utility teal-wash {
-  background-color: var(--color-teal-950);
+  background-color: var(--color-page-alt);
 }
 
 /* ---------- Motion ---------- */
