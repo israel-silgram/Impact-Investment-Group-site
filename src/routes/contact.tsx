@@ -54,9 +54,7 @@ const searchSchema = z.object({
 });
 
 function toRouteId(value: string | undefined): EnquiryRouteId {
-  return enquiryRouteIds.includes(value as EnquiryRouteId)
-    ? (value as EnquiryRouteId)
-    : "waitlist";
+  return enquiryRouteIds.includes(value as EnquiryRouteId) ? (value as EnquiryRouteId) : "waitlist";
 }
 
 export const Route = createFileRoute("/contact")({
@@ -108,7 +106,7 @@ function ContactPage() {
               <p className="eyebrow tracking-[0.14em] text-orange-700">{contactHero.eyebrow}</p>
               <h1
                 id="contact-heading"
-                className="heading-tight mt-3 max-w-[16ch] text-balance text-[clamp(2.125rem,5.4vw,3.75rem)] font-extrabold tracking-[-0.03em] text-white"
+                className="heading-tight mt-3 max-w-[16ch] text-balance text-[clamp(2.125rem,5.4vw,3.75rem)] font-extrabold tracking-[-0.03em] text-ink"
               >
                 {contactHero.title}
               </h1>
@@ -116,23 +114,23 @@ function ContactPage() {
                 <li>
                   <a
                     href={`mailto:${contactDetails.email}`}
-                    className="flex min-h-11 items-center gap-2.5 font-heading text-[clamp(1rem,1.7vw,1.25rem)] font-bold text-white transition-colors duration-200 hover:text-teal-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+                    className="flex min-h-11 items-center gap-2.5 font-heading text-[clamp(1rem,1.7vw,1.25rem)] font-bold text-ink transition-colors duration-200 hover:text-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                   >
-                    <Mail aria-hidden="true" className="size-[18px] shrink-0 text-teal-500" />
+                    <Mail aria-hidden="true" className="size-[18px] shrink-0 text-teal-600" />
                     {contactDetails.email}
                   </a>
                 </li>
                 <li>
                   <a
                     href={telHref(contactDetails.phone)}
-                    className="flex min-h-11 items-center gap-2.5 font-heading text-[clamp(1rem,1.7vw,1.25rem)] font-bold text-white transition-colors duration-200 hover:text-teal-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+                    className="flex min-h-11 items-center gap-2.5 font-heading text-[clamp(1rem,1.7vw,1.25rem)] font-bold text-ink transition-colors duration-200 hover:text-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                   >
-                    <Phone aria-hidden="true" className="size-[18px] shrink-0 text-teal-500" />
+                    <Phone aria-hidden="true" className="size-[18px] shrink-0 text-teal-600" />
                     {contactDetails.phone}
                   </a>
                 </li>
-                <li className="flex min-h-11 items-center gap-2.5 text-sm text-slate-muted">
-                  <Clock aria-hidden="true" className="size-4 shrink-0 text-teal-500" />
+                <li className="flex min-h-11 items-center gap-2.5 text-sm text-ink-muted">
+                  <Clock aria-hidden="true" className="size-4 shrink-0 text-teal-600" />
                   {contactDetails.hours}
                 </li>
               </ul>
@@ -171,8 +169,14 @@ function ContactPage() {
                         className={cn(
                           "min-h-10 cursor-pointer rounded-full border px-4 font-heading text-[13.5px] font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
                           active
-                            ? "border-teal-600 bg-teal-600 text-white"
-                            : "border-navy-700 bg-navy-900 text-white hover:border-teal-600",
+                            ? /* White on the teal-600 fill is 5.25:1 and is the
+                                 measured pairing; `text-page` rather than
+                                 `text-white` so the light remap's substring
+                                 rule cannot repaint it navy on the teal while
+                                 the unconverted files still depend on that
+                                 rule. */
+                              "border-teal-600 bg-teal-600 text-page"
+                            : "border-rule bg-page text-ink hover:border-teal-600",
                         )}
                       >
                         {option.label}
@@ -189,20 +193,26 @@ function ContactPage() {
 
             {/* ── The rail ────────────────────────────────────────────── */}
             <div>
-              
-
               {/* Care information, not marketing. Duplicated from the footer on
-                  purpose — see the note at the top of this file. */}
+                  purpose — see the note at the top of this file.
+
+                  WAVE 412: THIS ROUTE'S ONE NAVY ISLAND. Everything else on
+                  /contact is cream and white, and this card is the one block a
+                  person in trouble has to find on a page otherwise built for
+                  procurement enquiries. `data-accent="teal"` gives it the teal
+                  rule the footer's copy carries, so the two read as the same
+                  card on two pages. */}
               <section
                 aria-labelledby="crisis-heading"
-                className="mt-7 rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800 p-4"
+                data-accent="teal"
+                className="section-dark mt-7 p-4"
               >
                 <p className="flex items-center gap-2">
                   <LifeBuoy aria-hidden="true" className="size-4 shrink-0 text-orange-500" />
-                  <span
-                    id="crisis-heading"
-                    className="eyebrow tracking-[0.14em] text-orange-700"
-                  >
+                  {/* Orange TEXT on navy is orange-500 at 4.46:1, not the
+                      orange-700 the light grounds take, which would be 2.0:1
+                      here. The island rules restore it; this class says so. */}
+                  <span id="crisis-heading" className="eyebrow tracking-[0.14em] text-orange-500">
                     In a crisis
                   </span>
                 </p>
@@ -211,7 +221,13 @@ function ContactPage() {
                     <li key={line.label}>
                       <a
                         href={telHref(line.detail)}
-                        className="flex min-h-11 items-center justify-between gap-3 border-b border-navy-700 text-[13px] text-mist last:border-b-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+                        /* INSIDE AN ISLAND THE CLASSES ARE THE ISLAND'S. Navy
+                           rules, mist body, white figure and the teal-400 focus
+                           ring: the dark palette, written out, because that is
+                           what this plate actually is. Converting these to
+                           `border-rule` and `text-ink` would be honest about
+                           the site and wrong about the card. */
+                        className="flex min-h-11 items-center justify-between gap-3 border-b border-navy-700 text-[13px] text-mist last:border-b-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
                       >
                         {line.label}
                         <span className="font-heading text-[14px] font-bold text-white">
@@ -228,13 +244,13 @@ function ContactPage() {
         </div>
       </section>
 
-      {/* ── 3 · FAQ ── navy ───────────────────────────────────────────────── */}
-      <section aria-labelledby="faq-heading" className="border-t border-navy-700 bg-navy-900">
+      {/* ── 3 · FAQ ── white, after two cream sections ────────────────────── */}
+      <section aria-labelledby="faq-heading" className="border-t border-rule bg-page">
         <div className="mx-auto w-full max-w-[900px] px-5 py-14 sm:px-8 lg:py-16">
-          <p className="eyebrow tracking-[0.14em] text-teal-400">{faqEyebrow}</p>
+          <p className="eyebrow tracking-[0.14em] text-teal-600">{faqEyebrow}</p>
           <h2
             id="faq-heading"
-            className="heading-tight mt-2.5 text-balance text-[clamp(1.5rem,2.8vw,2rem)] font-extrabold tracking-[-0.02em] text-white"
+            className="heading-tight mt-2.5 text-balance text-[clamp(1.5rem,2.8vw,2rem)] font-extrabold tracking-[-0.02em] text-ink"
           >
             {faqHeading}
           </h2>
@@ -245,18 +261,22 @@ function ContactPage() {
           <div className="mt-7 flex flex-col gap-2.5">
             {faq.map((item, i) => (
               <Reveal key={item.id} index={i}>
-                <details className="group rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/60 open:bg-navy-800">
-                  <summary className="flex cursor-pointer list-none items-start justify-between gap-4 p-4 font-heading text-[15.5px] font-bold text-white [&::-webkit-details-marker]:hidden">
+                {/* A white row with a hairline and the card shadow, deepening
+                    when it opens. On the dark site the open state was a step
+                    up in navy; on a white page the equivalent is a step up in
+                    lift, because there is nowhere lighter to go. */}
+                <details className="group rounded-[var(--radius-panel)] border border-rule bg-page shadow-[var(--shadow-card)] transition-shadow duration-200 open:shadow-[var(--shadow-card-hover)]">
+                  <summary className="flex cursor-pointer list-none items-start justify-between gap-4 p-4 font-heading text-[15.5px] font-bold text-ink [&::-webkit-details-marker]:hidden">
                     {item.q}
                     <Plus
                       aria-hidden="true"
-                      className="mt-0.5 size-4 shrink-0 text-teal-400 transition-transform duration-200 group-open:rotate-45"
+                      className="mt-0.5 size-4 shrink-0 text-teal-600 transition-transform duration-200 group-open:rotate-45"
                       strokeWidth={2}
                     />
                   </summary>
                   <div className="flex flex-col gap-3 px-4 pb-4">
                     {item.a.map((paragraph) => (
-                      <p key={paragraph} className="text-[13.5px] leading-relaxed text-mist">
+                      <p key={paragraph} className="text-[13.5px] leading-relaxed text-ink-muted">
                         {paragraph}
                       </p>
                     ))}

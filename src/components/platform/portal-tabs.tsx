@@ -13,7 +13,7 @@ export function PortalTabs() {
       <div
         role="tablist"
         aria-label="Portals"
-        className="flex flex-wrap gap-2 border-b border-navy-700 pb-3"
+        className="flex flex-wrap gap-2 border-b border-rule pb-3"
       >
         {portals.map((p) => {
           const isActive = p.id === active;
@@ -27,10 +27,10 @@ export function PortalTabs() {
               aria-controls={`portal-panel-${p.id}`}
               onClick={() => setActive(p.id)}
               className={cn(
-                "min-h-11 cursor-pointer border-b-2 px-4 font-heading text-sm font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400",
+                "min-h-11 cursor-pointer border-b-2 px-4 font-heading text-sm font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
                 isActive
-                  ? "border-teal-500 text-white"
-                  : "border-transparent text-slate-muted hover:text-mist",
+                  ? "border-teal-600 text-ink"
+                  : "border-transparent text-ink-muted hover:text-ink-muted",
               )}
             >
               {p.label}
@@ -54,10 +54,10 @@ export function PortalTabs() {
             ] as const
           ).map(([term, detail]) => (
             <div key={term} className="border-l-2 border-teal-600 pl-5">
-              <dt className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-teal-400">
+              <dt className="font-heading text-xs font-bold uppercase tracking-[0.16em] text-teal-600">
                 {term}
               </dt>
-              <dd className="measure mt-2 text-base leading-relaxed text-mist">{detail}</dd>
+              <dd className="measure mt-2 text-base leading-relaxed text-ink-muted">{detail}</dd>
             </div>
           ))}
         </dl>
@@ -71,7 +71,7 @@ export function PortalTabs() {
                     <th
                       key={col}
                       scope="col"
-                      className="border-b border-navy-700 pb-3 pr-4 text-xs font-semibold uppercase tracking-[0.12em] text-slate-muted"
+                      className="border-b border-rule pb-3 pr-4 text-xs font-semibold uppercase tracking-[0.12em] text-ink-muted"
                     >
                       {col}
                     </th>
@@ -85,8 +85,8 @@ export function PortalTabs() {
                       <td
                         key={i}
                         className={cn(
-                          "border-b border-navy-800 py-3 pr-4 text-sm",
-                          i === 0 ? "font-heading font-semibold text-white" : "text-mist",
+                          "border-b border-rule py-3 pr-4 text-sm",
+                          i === 0 ? "font-heading font-semibold text-ink" : "text-ink-muted",
                         )}
                       >
                         {cell}

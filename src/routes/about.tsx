@@ -35,8 +35,8 @@ import {
  *
  * ── How the two grounds are handled ───────────────────────────────────────
  *
- * Everything is written in the DARK idiom — `text-white`, `text-mist`,
- * `text-teal-400`, `panel`, `border-navy-700` — and the cream sections carry
+ * Everything is written in the DARK idiom — `text-ink`, `text-ink-muted`,
+ * `text-teal-600`, `panel`, `border-rule` — and the cream sections carry
  * `.section-light`, which re-points all of it onto the light palette. That is
  * what the stylesheet is built to do, and it is why there is not a single
  * conditional colour in this file. `panel` in particular is a utility that is
@@ -82,7 +82,7 @@ export const Route = createFileRoute("/about")({
 /**
  * Emphasis inside a summary line.
  *
- * "ink" is bold in the section's strongest text colour — `text-white`, which
+ * "ink" is bold in the section's strongest text colour — `text-ink`, which
  * `.section-light` re-points to navy-900, so it is black on cream and white on
  * navy without a conditional.
  *
@@ -107,14 +107,14 @@ function Rich({ parts, tone, small }: { parts: Seg[]; tone: "rust" | "teal"; sma
    * is now a style choice and not a failure being avoided. Ink is 16.8:1 and
    * still reads as emphasis. On NAVY `small` changes nothing.
    */
-  const accent = tone === "teal" ? "text-orange-500" : small ? "text-white" : "text-orange-700";
+  const accent = tone === "teal" ? "text-orange-500" : small ? "text-ink" : "text-orange-700";
   return (
     <>
       {parts.map((part, i) =>
         typeof part === "string" ? (
           <span key={i}>{part}</span>
         ) : (
-          <strong key={i} className={cn("font-bold", part.em === "accent" ? accent : "text-white")}>
+          <strong key={i} className={cn("font-bold", part.em === "accent" ? accent : "text-ink")}>
             {part.t}
           </strong>
         ),
@@ -142,7 +142,7 @@ function Emphasise({ text, terms }: { text: string; terms: string[] }) {
     <>
       {text.split(new RegExp(`(${pattern})`, "g")).map((chunk, i) =>
         terms.includes(chunk) ? (
-          <strong key={i} className="font-semibold text-white">
+          <strong key={i} className="font-semibold text-ink">
             {chunk}
           </strong>
         ) : (
@@ -166,9 +166,9 @@ const CAST = [
 
 /** Per-card accents, so a row of data does not read as one block of colour. */
 const ACCENT = {
-  teal: { text: "text-teal-400", bar: "bg-teal-400", disc: "bg-teal-400 text-navy-900" },
-  orange: { text: "text-orange-700", bar: "bg-orange-600", disc: "bg-orange-600 text-white" },
-  white: { text: "text-white", bar: "bg-white/70", disc: "bg-white text-navy-900" },
+  teal: { text: "text-teal-600", bar: "bg-teal-600", disc: "bg-teal-600 text-page" },
+  orange: { text: "text-orange-700", bar: "bg-orange-600", disc: "bg-orange-600 text-page" },
+  white: { text: "text-ink", bar: "bg-white/70", disc: "bg-white text-navy-900" },
 } as const;
 
 /**
@@ -207,8 +207,8 @@ function Band({
     <section
       aria-labelledby={id}
       className={cn(
-        "relative isolate border-t border-navy-700",
-        light ? "section-light" : "bg-navy-900",
+        "relative isolate border-t border-rule",
+        light ? "section-light" : "bg-page",
         image && "overflow-hidden",
       )}
     >
@@ -259,7 +259,7 @@ function Head({
       <p
         className={cn(
           "eyebrow tracking-[0.14em]",
-          tone === "rust" ? "text-orange-700" : "text-teal-400",
+          tone === "rust" ? "text-orange-700" : "text-teal-600",
         )}
       >
         {eyebrow}
@@ -267,7 +267,7 @@ function Head({
       <Tag
         id={id}
         className={cn(
-          "heading-tight mt-2.5 text-balance font-extrabold tracking-[-0.02em] text-white",
+          "heading-tight mt-2.5 text-balance font-extrabold tracking-[-0.02em] text-ink",
           hero ? "text-[clamp(2rem,4.6vw,3.25rem)]" : "text-[clamp(1.5rem,2.8vw,2rem)]",
         )}
       >
@@ -280,7 +280,7 @@ function Head({
 /** Sub-head inside a band. */
 function SubHead({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="heading-tight mt-10 text-balance text-[clamp(1.25rem,2.2vw,1.5rem)] font-bold text-white">
+    <h3 className="heading-tight mt-10 text-balance text-[clamp(1.25rem,2.2vw,1.5rem)] font-bold text-ink">
       {children}
     </h3>
   );
@@ -320,8 +320,8 @@ function Summary({
                    floor was where orange-700 on the cream stopped counting as
                    large text; wave 295 lifted that (5.78:1, any size), so the
                    floor is now typographic. */
-                "max-w-[48ch] text-[clamp(1.25rem,2.1vw,1.5rem)] font-semibold leading-[1.35] text-white"
-              : "max-w-[56ch] text-[16.5px] leading-[1.6] text-mist",
+                "max-w-[48ch] text-[clamp(1.25rem,2.1vw,1.5rem)] font-semibold leading-[1.35] text-ink"
+              : "max-w-[56ch] text-[16.5px] leading-[1.6] text-ink-muted",
             centre && "text-center",
           )}
         >
@@ -346,11 +346,11 @@ function AboutPage() {
               tone="teal"
               hero
             />
-            <Summary lines={summaries.whoWeAre!} tone="teal" />
+            <Summary lines={summaries["whoWeAre"]!} tone="teal" />
           </Reveal>
 
           <div className="mt-9">
-            <p className="eyebrow tracking-[0.14em] text-teal-400">{teamTitle}</p>
+            <p className="eyebrow tracking-[0.14em] text-teal-600">{teamTitle}</p>
             <ul
               aria-label="Leadership team"
               className="mt-3.5 grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5"
@@ -445,7 +445,7 @@ function AboutPage() {
        */}
       <Band id="why-heading" light image="/images/why-estate-aerial.webp">
         <Head eyebrow={whyWeExist.eyebrow} title={whyWeExist.title} id="why-heading" tone="rust" />
-        <Summary lines={summaries.whyWeExist!} tone="rust" />
+        <Summary lines={summaries["whyWeExist"]!} tone="rust" />
 
         <SubHead>{problemHeading}</SubHead>
         <ul className="mt-5">
@@ -456,7 +456,7 @@ function AboutPage() {
                 key={figure.id}
                 index={i}
                 as="li"
-                className="border-b border-navy-700 last:border-b-0"
+                className="border-b border-rule last:border-b-0"
               >
                 <div className="flex flex-col gap-2 py-4 sm:flex-row sm:items-baseline sm:gap-7">
                   {/* Fluid, not fixed: "176,130" and "£102m / yr" are very
@@ -472,14 +472,14 @@ function AboutPage() {
                   </p>
                   <div className="min-w-0 flex-1">
                     <p className={cn("eyebrow", accent.text)}>{figure.kind}</p>
-                    <p className="mt-1 text-[14px] leading-snug text-white">{figure.label}</p>
+                    <p className="mt-1 text-[14px] leading-snug text-ink">{figure.label}</p>
                   </div>
                   {/* A figure without its source does not go on this page. */}
                   <a
                     href={figure.href}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex shrink-0 items-start gap-1 text-[11px] font-semibold leading-snug text-teal-400 transition-colors duration-200 hover:text-white sm:max-w-[17rem]"
+                    className="inline-flex shrink-0 items-start gap-1 text-[11px] font-semibold leading-snug text-teal-600 transition-colors duration-200 hover:text-ink sm:max-w-[17rem]"
                   >
                     <span>Source: {figure.source}</span>
                     <ArrowUpRight aria-hidden="true" className="mt-px size-3 shrink-0" />
@@ -514,7 +514,7 @@ function AboutPage() {
        */}
       <Band id="what-heading">
         <Head eyebrow={whatWeDo.eyebrow} title={whatWeDo.title} id="what-heading" />
-        <p className="mt-4 max-w-[44ch] text-[clamp(1.375rem,2.4vw,1.625rem)] font-semibold leading-[1.32] text-white">
+        <p className="mt-4 max-w-[44ch] text-[clamp(1.375rem,2.4vw,1.625rem)] font-semibold leading-[1.32] text-ink">
           Three companies. <strong className="font-bold text-orange-500">One chain.</strong> No gap
           for a person to fall through.
         </p>
@@ -522,13 +522,13 @@ function AboutPage() {
         <ol className="mt-8 grid items-stretch gap-4 md:grid-cols-3">
           {accountableChain.map((step, i) => {
             const accent = chainAccents[i % chainAccents.length]!;
-            const line = accent === "orange" ? "text-orange-500" : "text-teal-400";
+            const line = accent === "orange" ? "text-orange-500" : "text-teal-600";
             // Outlined, not washed. A 10.5px word on a 16% wash of its
             // own colour measured 3.52:1; on the card behind it, 4.67:1.
             const chip =
               accent === "orange"
                 ? "border border-orange-500/45 text-orange-500"
-                : "border border-teal-400/45 text-teal-400";
+                : "border border-teal-600/45 text-teal-600";
             return (
               <Reveal key={step.id} index={i} as="li" className="h-full">
                 {/* pb-[104px] reserves the character's corner. Without it the
@@ -540,10 +540,10 @@ function AboutPage() {
                   )}
                 >
                   <p className={cn("eyebrow", line)}>{`0${i + 1}`}</p>
-                  <h4 className="heading-tight mt-1.5 max-w-[16ch] font-heading text-[clamp(1.125rem,1.7vw,1.3125rem)] font-extrabold tracking-[-0.015em] text-white">
+                  <h4 className="heading-tight mt-1.5 max-w-[16ch] font-heading text-[clamp(1.125rem,1.7vw,1.3125rem)] font-extrabold tracking-[-0.015em] text-ink">
                     {step.claim}
                   </h4>
-                  <p className="mt-2.5 max-w-[32ch] text-[12.5px] leading-relaxed text-mist">
+                  <p className="mt-2.5 max-w-[32ch] text-[12.5px] leading-relaxed text-ink-muted">
                     {step.detail}
                   </p>
                   <p
@@ -572,13 +572,13 @@ function AboutPage() {
         {/* The compliance notice. It is a NOTICE, not body copy — the shield,
             the tinted strip and the bolded negatives are all there so it reads
             as one. See content/about.ts for what may and may not be cut. */}
-        <div className="mt-7 flex items-start gap-3 rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/40 p-4">
+        <div className="mt-7 flex items-start gap-3 rounded-[var(--radius-panel)] border border-rule bg-page/40 p-4">
           <ShieldAlert
             aria-hidden="true"
-            className="mt-px size-[17px] shrink-0 text-slate-muted"
+            className="mt-px size-[17px] shrink-0 text-ink-muted"
             strokeWidth={1.8}
           />
-          <p className="max-w-[104ch] text-[12.5px] leading-relaxed text-slate-muted">
+          <p className="max-w-[104ch] text-[12.5px] leading-relaxed text-ink-muted">
             <Emphasise text={chainNotice} terms={chainNoticeEmphasis} />
           </p>
         </div>

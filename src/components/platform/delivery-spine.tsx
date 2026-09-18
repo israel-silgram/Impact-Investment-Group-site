@@ -15,7 +15,11 @@ export function DeliverySpine({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "section-dark relative overflow-hidden rounded-panel border border-navy-700",
+        /* Kept as a NAVY ISLAND: this is a photograph with white type set
+           over it, so the plate has to be dark or the type has nothing to sit
+           on. It is the one island this component would spend if it were
+           rendered; nothing imports it today (see docs/WAVE412_REPORT.md). */
+        "section-dark relative overflow-hidden rounded-panel",
         className,
       )}
     >
@@ -69,10 +73,10 @@ export function DeliverySpine({ className }: { className?: string }) {
                   onFocus={() => setOpenId(step.id)}
                   onClick={() => setOpenId(open ? null : step.id)}
                   className={cn(
-                    "group flex min-h-11 w-full cursor-pointer flex-col items-start gap-2 rounded-panel border bg-navy-900/70 p-4 text-left backdrop-blur-sm transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400",
+                    "group flex min-h-11 w-full cursor-pointer flex-col items-start gap-2 rounded-panel border bg-page/70 p-4 text-left backdrop-blur-sm transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
                     orange
                       ? "border-orange-500/60 hover:border-orange-500"
-                      : "border-navy-600 hover:border-teal-400",
+                      : "border-rule hover:border-teal-600",
                   )}
                 >
                   <span className="flex items-center gap-2">
@@ -84,31 +88,31 @@ export function DeliverySpine({ className }: { className?: string }) {
                            white on orange-500 was 2.6:1; since wave 295 white is
                            4.23:1 there, which would also pass at this size, but
                            the navy is still the higher of the two. */
-                        orange ? "bg-orange-500 text-navy-950" : "bg-navy-700 text-teal-400",
+                        orange ? "bg-orange-500 text-navy-950" : "bg-page text-teal-600",
                       )}
                     >
                       {i + 1}
                     </span>
-                    {/* text-mist, not text-orange-500, on the orange branch.
+                    {/* text-ink-muted, not text-orange-500, on the orange branch.
                         .eyebrow is 11-12px bold: too small to count as WCAG
                         large text, and orange-500 measures 4.01-4.67:1 on
                         this panel's navy, under the 4.5:1 floor (release
-                        check, 11 Sep 2026). text-mist is what step.detail
+                        check, 11 Sep 2026). text-ink-muted is what step.detail
                         already uses two lines below. The teal branch is
                         unchanged: teal-400 already passes here. */}
-                    <span className={cn("eyebrow", orange ? "text-mist" : "text-teal-400")}>
+                    <span className={cn("eyebrow", orange ? "text-ink-muted" : "text-teal-600")}>
                       {step.spine}
                     </span>
                   </span>
-                  <span className="heading-tight text-lg font-bold text-white">{step.title}</span>
-                  <span className="text-sm leading-snug text-mist">{step.detail}</span>
-                  {/* text-mist, not text-orange-500, on the orange branch.
+                  <span className="heading-tight text-lg font-bold text-ink">{step.title}</span>
+                  <span className="text-sm leading-snug text-ink-muted">{step.detail}</span>
+                  {/* text-ink-muted, not text-orange-500, on the orange branch.
                       Same fix and same reason as the eyebrow span above. */}
                   <span
                     className={cn(
                       "text-[12px] font-semibold uppercase tracking-[0.12em] transition-opacity duration-200",
                       open ? "opacity-100" : "opacity-0",
-                      orange ? "text-mist" : "text-teal-400",
+                      orange ? "text-ink-muted" : "text-teal-600",
                     )}
                   >
                     {step.meta}

@@ -38,7 +38,7 @@ type AccountField = "email" | "phone" | "password" | "confirmPassword";
 type Details = Record<AccountField, string>;
 const emptyDetails: Details = { email: "", phone: "", password: "", confirmPassword: "" };
 const fieldClass =
-  "registration-input min-h-14 w-full rounded-xl border border-navy-600 bg-navy-950 px-4 py-3 text-base text-white placeholder:text-slate-muted focus-visible:border-teal-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400";
+  "registration-input min-h-14 w-full rounded-xl border border-rule bg-page px-4 py-3 text-base text-ink placeholder:text-ink-muted focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600";
 
 function sensitiveAnswers(answers: SurveyAnswers): boolean {
   return Object.entries(RESIDENT_SPECIAL_CATEGORY_OPTIONS).some(([id, options]) => {
@@ -96,14 +96,14 @@ function QuestionInput({
         {(question.options ?? []).map((option) => (
           <label
             key={option}
-            className="registration-option relative flex min-h-20 cursor-pointer items-center gap-4 rounded-2xl border border-navy-600 bg-navy-950/70 p-5 text-base leading-relaxed text-mist transition-all hover:border-teal-400 has-checked:border-teal-400 has-checked:bg-teal-950 has-checked:text-white has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-teal-400"
+            className="registration-option relative flex min-h-20 cursor-pointer items-center gap-4 rounded-2xl border border-rule bg-page/70 p-5 text-base leading-relaxed text-ink-muted transition-all hover:border-teal-600 has-checked:border-teal-600 has-checked:bg-tint-teal has-checked:text-ink has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-teal-600"
           >
             <input
               type={question.kind === "multi" ? "checkbox" : "radio"}
               name={question.id}
               value={option}
               checked={selected.includes(option)}
-              className="size-5 shrink-0 accent-teal-400"
+              className="size-5 shrink-0 accent-teal-600"
               onChange={(event) =>
                 onChange(
                   question.kind === "single"
@@ -324,7 +324,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
           aria-current={stage === "account" ? "step" : undefined}
           className={cn(
             "flex items-center gap-2",
-            stage === "account" ? "text-white" : "text-teal-400",
+            stage === "account" ? "text-ink" : "text-teal-600",
           )}
         >
           <span className="grid size-8 place-items-center rounded-full border border-current font-mono text-xs">
@@ -332,12 +332,12 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
           </span>
           Your account
         </li>
-        <li aria-hidden="true" className="h-px flex-1 bg-navy-600" />
+        <li aria-hidden="true" className="h-px flex-1 bg-rule" />
         <li
           aria-current={stage === "survey" ? "step" : undefined}
           className={cn(
             "flex items-center gap-2",
-            stage === "account" ? "text-mist" : "text-white",
+            stage === "account" ? "text-ink-muted" : "text-ink",
           )}
         >
           <span className="grid size-8 place-items-center rounded-full border border-current font-mono text-xs">
@@ -348,11 +348,11 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
       </ol>
 
       {stage === "account" ? (
-        <div className="registration-panel rounded-3xl border border-navy-600 bg-navy-800 p-6 sm:p-10">
+        <div className="registration-panel rounded-3xl border border-rule bg-page p-6 sm:p-10">
           <div className="registration-step">
             <span
               aria-hidden="true"
-              className="mb-5 inline-grid size-12 place-items-center rounded-2xl border border-teal-500/50 bg-teal-950 text-teal-400"
+              className="mb-5 inline-grid size-12 place-items-center rounded-2xl border border-teal-600/50 bg-tint-teal text-teal-600"
             >
               <LockKeyhole size={22} />
             </span>
@@ -360,11 +360,13 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
               ref={heading}
               id="registration-heading"
               tabIndex={-1}
-              className="registration-heading font-heading text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-white"
+              className="registration-heading font-heading text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-ink"
             >
               {copy.accountTitle}
             </h1>
-            <p className="mt-3 max-w-xl text-base leading-relaxed text-mist">{copy.accountIntro}</p>
+            <p className="mt-3 max-w-xl text-base leading-relaxed text-ink-muted">
+              {copy.accountIntro}
+            </p>
             <form onSubmit={submitAccount} noValidate className="mt-8" aria-busy={busy}>
               <fieldset
                 disabled={busy || !ready || accountFrozen}
@@ -373,7 +375,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                 <legend className="sr-only">Your account details</legend>
                 {(["email", "phone", "password", "confirmPassword"] as const).map((field) => (
                   <div key={field}>
-                    <label htmlFor={field} className="mb-2 block text-sm font-semibold text-white">
+                    <label htmlFor={field} className="mb-2 block text-sm font-semibold text-ink">
                       {copy[field]}
                     </label>
                     <div className="relative">
@@ -418,7 +420,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                           aria-label={`${showPassword ? "Hide" : "Show"} ${field === "password" ? "password" : "password confirmation"}`}
                           aria-pressed={showPassword}
                           onClick={() => setShowPassword((current) => !current)}
-                          className="absolute inset-y-1 right-1 grid w-12 place-items-center rounded-lg text-mist hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
+                          className="absolute inset-y-1 right-1 grid w-12 place-items-center rounded-lg text-ink-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-teal-600"
                         >
                           {showPassword ? (
                             <EyeOff aria-hidden="true" size={19} />
@@ -429,7 +431,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                       )}
                     </div>
                     {field === "password" && (
-                      <p id="password-help" className="mt-2 text-sm leading-relaxed text-mist">
+                      <p id="password-help" className="mt-2 text-sm leading-relaxed text-ink-muted">
                         {copy.passwordHelp}
                       </p>
                     )}
@@ -455,12 +457,9 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                   onChange={(event) => setHoneypot(event.target.value)}
                 />
               </div>
-              <fieldset
-                disabled={busy || accountFrozen}
-                className="mt-7 border-t border-navy-600 pt-6"
-              >
+              <fieldset disabled={busy || accountFrozen} className="mt-7 border-t border-rule pt-6">
                 <legend className="sr-only">{consentBlock.heading}</legend>
-                <p className="mb-3 text-sm text-mist">{consentBlock.help}</p>
+                <p className="mb-3 text-sm text-ink-muted">{consentBlock.help}</p>
                 {[
                   {
                     id: "registration-email-consent",
@@ -477,31 +476,31 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                 ].map((consent) => (
                   <label
                     key={consent.id}
-                    className="flex min-h-11 cursor-pointer items-start gap-3 py-2 text-sm leading-relaxed text-mist"
+                    className="flex min-h-11 cursor-pointer items-start gap-3 py-2 text-sm leading-relaxed text-ink-muted"
                   >
                     <input
                       id={consent.id}
                       type="checkbox"
                       checked={consent.value}
                       onChange={(event) => consent.set(event.target.checked)}
-                      className="mt-0.5 size-5 shrink-0 accent-teal-400"
+                      className="mt-0.5 size-5 shrink-0 accent-teal-600"
                     />
                     <span>{consent.label}</span>
                   </label>
                 ))}
               </fieldset>
-              <p className="mt-5 text-sm leading-relaxed text-mist">
+              <p className="mt-5 text-sm leading-relaxed text-ink-muted">
                 <a
                   href={registerPrivacy.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-teal-400 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-teal-400"
+                  className="text-teal-600 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-teal-600"
                 >
                   {registerPrivacy.linkLabel}
                 </a>
               </p>
-              <details className="mt-3 text-sm leading-relaxed text-mist">
-                <summary className="min-h-11 cursor-pointer py-2 focus-visible:outline-2 focus-visible:outline-teal-400">
+              <details className="mt-3 text-sm leading-relaxed text-ink-muted">
+                <summary className="min-h-11 cursor-pointer py-2 focus-visible:outline-2 focus-visible:outline-teal-600">
                   How we use your details
                 </summary>
                 <p className="pb-4">{registerPrivacy.body}</p>
@@ -525,7 +524,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
               <p className="mt-5 text-center text-sm">
                 <a
                   href="https://app.impactinvestmentgroup.co.uk/auth/login"
-                  className="inline-flex min-h-11 items-center text-mist underline underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
+                  className="inline-flex min-h-11 items-center text-ink-muted underline underline-offset-4 hover:text-ink focus-visible:outline-2 focus-visible:outline-teal-600"
                 >
                   {copy.signIn}
                 </a>
@@ -535,15 +534,15 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
         </div>
       ) : stage === "survey" ? (
         <div
-          className="registration-panel rounded-3xl border border-navy-600 bg-navy-800 p-6 sm:p-10"
+          className="registration-panel rounded-3xl border border-rule bg-page p-6 sm:p-10"
           aria-busy={busy}
         >
           <div className="mb-7 flex flex-wrap items-center justify-between gap-3 text-sm">
-            <span className="inline-flex items-center gap-2 text-teal-400">
+            <span className="inline-flex items-center gap-2 text-teal-600">
               <ShieldCheck aria-hidden="true" size={18} />
               Registration saved
             </span>
-            <span className="font-mono text-mist">
+            <span className="font-mono text-ink-muted">
               {String(index + 1).padStart(2, "0")} / {String(questions.length).padStart(2, "0")}
             </span>
           </div>
@@ -554,10 +553,10 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
             aria-valuemax={questions.length}
             aria-valuenow={index + 1}
             aria-valuetext={`Question ${index + 1} of ${questions.length}`}
-            className="mb-9 h-1 overflow-hidden rounded-full bg-navy-600"
+            className="mb-9 h-1 overflow-hidden rounded-full bg-rule"
           >
             <div
-              className="registration-progress h-full rounded-full bg-teal-400"
+              className="registration-progress h-full rounded-full bg-teal-600"
               style={{ width: `${((index + 1) / questions.length) * 100}%` }}
             />
           </div>
@@ -570,7 +569,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
             <fieldset disabled={busy} className="min-w-0">
               <legend className="sr-only">{copy.surveyIntro}</legend>
               <div key={question.id} className="registration-step min-h-[280px]">
-                <p className="eyebrow mb-4 flex items-center gap-2 text-teal-400">
+                <p className="eyebrow mb-4 flex items-center gap-2 text-teal-600">
                   {question.id === "regions" || question.id === "location" ? (
                     <MapPin aria-hidden="true" size={16} />
                   ) : null}
@@ -580,12 +579,12 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                   ref={heading}
                   id="registration-heading"
                   tabIndex={-1}
-                  className="registration-heading font-heading text-[clamp(1.9rem,4vw,2.8rem)] font-bold leading-tight text-white"
+                  className="registration-heading font-heading text-[clamp(1.9rem,4vw,2.8rem)] font-bold leading-tight text-ink"
                 >
                   {question.label}
                 </h1>
                 {question.help && (
-                  <p id="question-help" className="mt-3 text-base leading-relaxed text-mist">
+                  <p id="question-help" className="mt-3 text-base leading-relaxed text-ink-muted">
                     {question.help}
                   </p>
                 )}
@@ -602,8 +601,8 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                 </div>
               </div>
               {needsHealthConsent && (
-                <div className="mt-6 rounded-2xl border border-teal-500 bg-teal-950 p-5">
-                  <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-white">
+                <div className="mt-6 rounded-2xl border border-teal-600 bg-tint-teal p-5">
+                  <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-ink">
                     <input
                       id="health-consent"
                       type="checkbox"
@@ -614,7 +613,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                       }}
                       aria-invalid={healthError}
                       aria-describedby={healthError ? "health-error" : undefined}
-                      className="mt-1 size-5 shrink-0 accent-teal-400"
+                      className="mt-1 size-5 shrink-0 accent-teal-600"
                     />
                     <span>{residentHealthConsent.label}</span>
                   </label>
@@ -630,7 +629,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                   {failureMessage}
                 </p>
               )}
-              <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-navy-600 pt-6">
+              <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-6">
                 <button
                   type="button"
                   disabled={index === 0}
@@ -639,7 +638,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                     setFailure(null);
                     setHealthError(false);
                   }}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-sm font-semibold text-mist hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400 disabled:invisible"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-sm font-semibold text-ink-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-teal-600 disabled:invisible"
                 >
                   <ArrowLeft aria-hidden="true" size={17} />
                   {copy.back}
@@ -661,41 +660,44 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                 <button
                   type="button"
                   onClick={() => void saveStep(index === questions.length - 1, true)}
-                  className="min-h-11 rounded-lg px-2 text-mist underline underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
+                  className="min-h-11 rounded-lg px-2 text-ink-muted underline underline-offset-4 hover:text-ink focus-visible:outline-2 focus-visible:outline-teal-600"
                 >
                   {copy.skip}
                 </button>
                 <button
                   type="button"
                   onClick={() => void saveStep(true)}
-                  className="min-h-11 rounded-lg px-2 text-mist underline underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-teal-400"
+                  className="min-h-11 rounded-lg px-2 text-ink-muted underline underline-offset-4 hover:text-ink focus-visible:outline-2 focus-visible:outline-teal-600"
                 >
                   {copy.later}
                 </button>
               </div>
             </fieldset>
           </form>
-          <p role="status" className="mt-4 text-center text-sm leading-relaxed text-mist">
+          <p role="status" className="mt-4 text-center text-sm leading-relaxed text-ink-muted">
             {saved ? `${copy.saved}. ` : ""}
             {copy.optional}
           </p>
         </div>
       ) : (
-        <div className="registration-panel registration-step rounded-3xl border border-teal-500 bg-navy-800 p-8 text-center sm:p-12">
+        <div className="registration-panel registration-step rounded-3xl border border-teal-600 bg-page p-8 text-center sm:p-12">
           <span
             aria-hidden="true"
-            className="mx-auto grid size-20 place-items-center rounded-full border border-teal-400 bg-teal-950 text-teal-400"
+            className="mx-auto grid size-20 place-items-center rounded-full border border-teal-600 bg-tint-teal text-teal-600"
           >
             <HandHeart size={34} strokeWidth={1.6} />
           </span>
           <h1
             ref={heading}
             tabIndex={-1}
-            className="registration-heading mt-7 font-heading text-4xl font-bold text-white"
+            className="registration-heading mt-7 font-heading text-4xl font-bold text-ink"
           >
             {copy.doneTitle}
           </h1>
-          <p role="status" className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-mist">
+          <p
+            role="status"
+            className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-ink-muted"
+          >
             {copy.doneBody}
           </p>
           <Button asChild variant="secondary" size="lg" className="mt-8">
@@ -704,7 +706,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
               <ArrowRight aria-hidden="true" />
             </Link>
           </Button>
-          <p className="mt-6 text-sm text-mist">
+          <p className="mt-6 text-sm text-ink-muted">
             <Mail aria-hidden="true" size={16} className="mr-2 inline" />
             {copy.pending}
           </p>

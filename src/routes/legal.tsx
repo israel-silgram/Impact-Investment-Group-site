@@ -98,7 +98,7 @@ function SectionIcon({ children }: { children: React.ReactNode }) {
      value; the stroke is navy and the accent is teal, because everything on
      this page is verification, not action. */
   return (
-    <span className="grid size-[60px] shrink-0 place-items-center rounded-full border border-navy-700 text-teal-400">
+    <span className="grid size-[60px] shrink-0 place-items-center rounded-full border border-rule text-teal-600">
       {children}
     </span>
   );
@@ -127,14 +127,16 @@ function LegalPage() {
                 text, so it needs 4.5:1 and orange-700 gives 4.1:1. The brand
                 kit already says eyebrows on cream are teal; axe caught this
                 page not following it. */}
-            <p className="eyebrow tracking-[0.14em] text-teal-400">{legalPageEyebrow}</p>
+            <p className="eyebrow tracking-[0.14em] text-teal-600">{legalPageEyebrow}</p>
             <h1
               id="legal-heading"
-              className="heading-tight mt-3 max-w-[14ch] text-balance text-[clamp(2.125rem,5.4vw,3.75rem)] font-extrabold tracking-[-0.03em] text-white"
+              className="heading-tight mt-3 max-w-[14ch] text-balance text-[clamp(2.125rem,5.4vw,3.75rem)] font-extrabold tracking-[-0.03em] text-ink"
             >
               {legalPageTitle}
             </h1>
-            <p className="measure mt-5 text-[17px] leading-relaxed text-mist">{legalPageLead}</p>
+            <p className="measure mt-5 text-[17px] leading-relaxed text-ink-muted">
+              {legalPageLead}
+            </p>
           </Reveal>
         </div>
       </section>
@@ -147,7 +149,7 @@ function LegalPage() {
               <SectionIcon>
                 <Landmark aria-hidden="true" className="size-6" strokeWidth={1.6} />
               </SectionIcon>
-              <h2 id="company-heading" className="font-heading text-[26px] font-bold text-white">
+              <h2 id="company-heading" className="font-heading text-[26px] font-bold text-ink">
                 The company
               </h2>
             </div>
@@ -155,8 +157,8 @@ function LegalPage() {
             <dl className="mt-7 grid gap-x-10 gap-y-5 sm:grid-cols-2">
               {companyRecordFields.map((field) => (
                 <div key={field.label} className="flex flex-col gap-1">
-                  <dt className="eyebrow text-slate-muted">{field.label}</dt>
-                  <dd className="font-heading text-[17px] font-semibold leading-snug text-white">
+                  <dt className="eyebrow text-ink-muted">{field.label}</dt>
+                  <dd className="font-heading text-[17px] font-semibold leading-snug text-ink">
                     {field.value}
                   </dd>
                 </div>
@@ -166,13 +168,13 @@ function LegalPage() {
             {/* The verify link is the point of the block. It is a real anchor
                 with a visible label, not an icon: it is how a reader proves the
                 four values above without taking our word for any of them. */}
-            <p className="mt-7 text-[13px] leading-relaxed text-slate-muted">
+            <p className="mt-7 text-[13px] leading-relaxed text-ink-muted">
               Read from the Companies House public register on {companyRecord.verifiedOn}.{" "}
               <a
                 href={companyRecord.registerHref}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-baseline gap-1 font-semibold text-teal-400 underline underline-offset-4 transition-colors duration-200 hover:text-white"
+                className="inline-flex items-baseline gap-1 font-semibold text-teal-600 underline underline-offset-4 transition-colors duration-200 hover:text-ink"
               >
                 {companyRecord.registerLabel}
                 <ArrowUpRight aria-hidden="true" className="size-3.5 self-center" />
@@ -193,7 +195,7 @@ function LegalPage() {
               </SectionIcon>
               <h2
                 id="registrations-heading"
-                className="font-heading text-[26px] font-bold text-white"
+                className="font-heading text-[26px] font-bold text-ink"
               >
                 Registrations and cover
               </h2>
@@ -205,7 +207,7 @@ function LegalPage() {
                 register, on the same page whose footer says it is not. The
                 second sentence exists to close that reading and must not be
                 dropped while that card is here. */}
-            <p className="measure mt-4 text-[15px] leading-relaxed text-mist">
+            <p className="measure mt-4 text-[15px] leading-relaxed text-ink-muted">
               Each of these is checkable on the register that issues it, and a listing is not an
               approval of anything the company does. The FCA reference below belongs to the
               insurance broker, not to this company.
@@ -215,11 +217,11 @@ function LegalPage() {
           <ul className="mt-7 grid gap-4 md:grid-cols-3">
             {trustRegistrations.map((reg, index) => (
               <Reveal key={reg.id} index={index} as="li" className="panel flex flex-col gap-2 p-5">
-                <p className="eyebrow text-slate-muted">{reg.category}</p>
-                <p className="font-heading text-[17px] font-semibold text-white">{reg.label}</p>
-                <p className="font-mono text-[13px] text-mist">{reg.reference}</p>
+                <p className="eyebrow text-ink-muted">{reg.category}</p>
+                <p className="font-heading text-[17px] font-semibold text-ink">{reg.label}</p>
+                <p className="font-mono text-[13px] text-ink-muted">{reg.reference}</p>
                 {reg.details?.map((detail) => (
-                  <p key={detail} className="text-[12px] leading-snug text-slate-muted">
+                  <p key={detail} className="text-[12px] leading-snug text-ink-muted">
                     {detail}
                   </p>
                 ))}
@@ -227,7 +229,7 @@ function LegalPage() {
                   href={reg.verifyHref}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="mt-auto inline-flex min-h-11 items-center gap-1 pt-2 text-[13px] font-semibold text-teal-400 underline underline-offset-4 transition-colors duration-200 hover:text-white"
+                  className="mt-auto inline-flex min-h-11 items-center gap-1 pt-2 text-[13px] font-semibold text-teal-600 underline underline-offset-4 transition-colors duration-200 hover:text-ink"
                 >
                   {reg.verifyLabel}
                   <ArrowUpRight aria-hidden="true" className="size-3.5 shrink-0" />
@@ -247,11 +249,13 @@ function LegalPage() {
               <SectionIcon>
                 <ScrollText aria-hidden="true" className="size-6" strokeWidth={1.6} />
               </SectionIcon>
-              <h2 id="documents-heading" className="font-heading text-[26px] font-bold text-white">
+              <h2 id="documents-heading" className="font-heading text-[26px] font-bold text-ink">
                 The documents
               </h2>
             </div>
-            <p className="measure mt-4 text-[15px] leading-relaxed text-mist">{policiesNote}</p>
+            <p className="measure mt-4 text-[15px] leading-relaxed text-ink-muted">
+              {policiesNote}
+            </p>
           </Reveal>
 
           <ul className="mt-7 grid gap-4 md:grid-cols-3">
@@ -262,13 +266,13 @@ function LegalPage() {
                 as="li"
                 className="panel flex flex-col gap-2 p-5"
               >
-                <p className="font-heading text-[17px] font-semibold text-white">{doc.label}</p>
-                <p className="text-[13px] leading-relaxed text-slate-muted">{doc.description}</p>
+                <p className="font-heading text-[17px] font-semibold text-ink">{doc.label}</p>
+                <p className="text-[13px] leading-relaxed text-ink-muted">{doc.description}</p>
                 <a
                   href={doc.href}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="mt-auto inline-flex min-h-11 items-center gap-1 pt-2 text-[13px] font-semibold text-teal-400 underline underline-offset-4 transition-colors duration-200 hover:text-white"
+                  className="mt-auto inline-flex min-h-11 items-center gap-1 pt-2 text-[13px] font-semibold text-teal-600 underline underline-offset-4 transition-colors duration-200 hover:text-ink"
                 >
                   Read the {doc.label}
                   <ArrowUpRight aria-hidden="true" className="size-3.5 shrink-0" />
@@ -288,7 +292,7 @@ function LegalPage() {
               <SectionIcon>
                 <Mail aria-hidden="true" className="size-6" strokeWidth={1.6} />
               </SectionIcon>
-              <h2 id="contacts-heading" className="font-heading text-[26px] font-bold text-white">
+              <h2 id="contacts-heading" className="font-heading text-[26px] font-bold text-ink">
                 Contacting the company
               </h2>
             </div>
@@ -296,11 +300,11 @@ function LegalPage() {
             <dl className="mt-7 grid gap-x-10 gap-y-5 sm:grid-cols-3">
               {legalMailboxes.map((box) => (
                 <div key={box.address} className="flex flex-col gap-1">
-                  <dt className="eyebrow text-slate-muted">{box.purpose}</dt>
+                  <dt className="eyebrow text-ink-muted">{box.purpose}</dt>
                   <dd>
                     <a
                       href={`mailto:${box.address}`}
-                      className="inline-flex min-h-11 items-center break-all font-heading text-[15px] font-semibold text-white underline underline-offset-4 transition-colors duration-200 hover:text-teal-400"
+                      className="inline-flex min-h-11 items-center break-all font-heading text-[15px] font-semibold text-ink underline underline-offset-4 transition-colors duration-200 hover:text-teal-600"
                     >
                       {box.address}
                     </a>
@@ -309,12 +313,12 @@ function LegalPage() {
               ))}
             </dl>
 
-            <p className="mt-6 text-[13px] leading-relaxed text-slate-muted">
+            <p className="mt-6 text-[13px] leading-relaxed text-ink-muted">
               {mailboxesNote} Post can be sent to the registered office above. To ask a question
               about this site rather than about the company,{" "}
               <Link
                 to="/contact"
-                className="font-semibold text-teal-400 underline underline-offset-4 transition-colors duration-200 hover:text-white"
+                className="font-semibold text-teal-600 underline underline-offset-4 transition-colors duration-200 hover:text-ink"
               >
                 use the contact form
               </Link>

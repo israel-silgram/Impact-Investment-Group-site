@@ -15,6 +15,13 @@ import { cn } from "@/lib/utils";
  * hesitate over.
  *
  * The resident route has a centred, illuminated card of its own.
+ *
+ * WAVE 412: FRIENDLY TILES, NOT OUTLINES. These were translucent navy plates
+ * with a hairline. They are now white cards with the site's rule and card
+ * shadow, and they LIFT: 2px with the shadow deepening, on hover and on focus
+ * alike. The focus arm is the point of the change rather than a bonus, because
+ * a chooser that only answers to a mouse is a chooser that answers to half its
+ * visitors, and this is the page a resident reaches.
  */
 export function RolePicker({ labelledBy }: { labelledBy: string }) {
   return (
@@ -31,24 +38,24 @@ export function RolePicker({ labelledBy }: { labelledBy: string }) {
             to="/register/$role"
             params={{ role: role.id }}
             className={cn(
-              "group flex min-h-11 w-full items-center gap-4 rounded-[14px] border bg-navy-800/60 p-5 text-left transition-all duration-200 ease-out",
-              "motion-safe:hover:-translate-y-0.5 hover:bg-navy-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-400",
+              "group flex min-h-11 w-full items-center gap-4 rounded-[14px] border bg-page p-5 text-left shadow-[var(--shadow-card)] transition-all duration-200 ease-out",
+              "motion-safe:hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)] focus-visible:-translate-y-0.5 focus-visible:shadow-[var(--shadow-card-hover)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-600",
               role.tone === "route-out"
-                ? "registration-resident max-w-[540px] justify-center gap-5 border-teal-400 px-6 py-7 sm:py-8"
-                : "border-navy-700 hover:border-orange-500/70",
+                ? "registration-resident max-w-[540px] justify-center gap-5 border-teal-600 px-6 py-7 sm:py-8"
+                : "border-rule hover:border-orange-500/70",
             )}
           >
             <RoleIcon roleId={role.id} size="lg" />
             <span className="flex min-w-0 flex-col gap-1">
-              <span className="font-heading text-[19px] font-semibold leading-snug text-white">
+              <span className="font-heading text-[19px] font-semibold leading-snug text-ink">
                 {role.label}
               </span>
-              <span className="text-[14px] leading-[1.45] text-mist">{role.detail}</span>
+              <span className="text-[14px] leading-[1.6] text-ink-muted">{role.detail}</span>
             </span>
             {role.id === "resident" && (
               <ArrowUpRight
                 aria-hidden="true"
-                className="ml-auto size-6 shrink-0 text-teal-400 transition-transform motion-safe:group-hover:-translate-y-1 motion-safe:group-hover:translate-x-1"
+                className="ml-auto size-6 shrink-0 text-teal-600 transition-transform motion-safe:group-hover:-translate-y-1 motion-safe:group-hover:translate-x-1"
               />
             )}
           </Link>

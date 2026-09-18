@@ -244,16 +244,16 @@ export const WAITLIST_PAYLOAD_KEYS = [
 ] as const;
 
 const fieldClass =
-  "min-h-11 w-full rounded-[10px] border border-navy-600 bg-navy-950 px-4 py-3 text-[15px] text-white placeholder:text-slate-muted focus-visible:border-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400";
+  "min-h-11 w-full rounded-[10px] border border-rule bg-page px-4 py-3 text-[15px] text-ink placeholder:text-ink-muted focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600";
 
 const optionClass =
-  "flex min-h-11 cursor-pointer items-start gap-3 rounded-[10px] border border-navy-700 bg-navy-950 px-4 py-3 text-[15px] leading-snug text-mist transition-colors hover:border-teal-500 has-checked:border-teal-500 has-checked:bg-teal-950";
+  "flex min-h-11 cursor-pointer items-start gap-3 rounded-[10px] border border-rule bg-page px-4 py-3 text-[15px] leading-snug text-ink-muted transition-colors hover:border-teal-600 has-checked:border-teal-600 has-checked:bg-tint-teal";
 
 function FieldLabel({ htmlFor, children }: { htmlFor: string; children: React.ReactNode }) {
   return (
     <label
       htmlFor={htmlFor}
-      className="font-heading text-sm font-semibold uppercase tracking-[0.08em] text-mist"
+      className="font-heading text-sm font-semibold uppercase tracking-[0.08em] text-ink-muted"
     >
       {children}
     </label>
@@ -301,11 +301,11 @@ function Question({
   if (question.kind === "single" || question.kind === "multi") {
     return (
       <fieldset>
-        <legend className="font-heading text-[19px] font-semibold leading-snug text-white">
+        <legend className="font-heading text-[19px] font-semibold leading-snug text-ink">
           {question.label}
         </legend>
         {question.help ? (
-          <p id={helpId} className="mt-1.5 text-[14px] leading-relaxed text-slate-muted">
+          <p id={helpId} className="mt-1.5 text-[14px] leading-relaxed text-ink-muted">
             {question.help}
           </p>
         ) : null}
@@ -315,7 +315,7 @@ function Question({
               <input
                 type={question.kind === "single" ? "radio" : "checkbox"}
                 value={option}
-                className="mt-0.5 size-4 shrink-0 accent-teal-500"
+                className="mt-0.5 size-4 shrink-0 accent-teal-600"
                 aria-describedby={helpId}
                 {...register(name)}
               />
@@ -340,14 +340,14 @@ function Question({
           // as a heading here and the page would read as seven questions
           // again, which is the whole thing the tail exists to avoid.
           question.tail
-            ? "text-[15px] font-medium text-mist"
-            : "text-[19px] font-semibold text-white",
+            ? "text-[15px] font-medium text-ink-muted"
+            : "text-[19px] font-semibold text-ink",
         )}
       >
         {question.label}
       </label>
       {question.help ? (
-        <p id={helpId} className="text-[14px] leading-relaxed text-slate-muted">
+        <p id={helpId} className="text-[14px] leading-relaxed text-ink-muted">
           {question.help}
         </p>
       ) : null}
@@ -470,7 +470,7 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/50 p-5 sm:p-8"
+      className="rounded-[var(--radius-panel)] border border-rule bg-page/50 p-5 sm:p-8"
     >
       <div className="flex flex-col gap-10">
         {role.questions
@@ -497,15 +497,15 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
       </div>
 
       {needsHealthConsent ? (
-        <div className="mt-8 rounded-[var(--radius-panel)] border border-teal-600 bg-teal-950 p-5">
+        <div className="mt-8 rounded-[var(--radius-panel)] border border-teal-600 bg-tint-teal p-5">
           <label
             htmlFor={residentHealthConsent.id}
-            className="flex min-h-11 cursor-pointer items-start gap-3 text-[15px] leading-relaxed text-white"
+            className="flex min-h-11 cursor-pointer items-start gap-3 text-[15px] leading-relaxed text-ink"
           >
             <input
               id={residentHealthConsent.id}
               type="checkbox"
-              className="mt-1 size-4 shrink-0 accent-teal-500"
+              className="mt-1 size-4 shrink-0 accent-teal-600"
               aria-invalid={!!errors.consentHealth}
               aria-describedby={errors.consentHealth ? "consentHealth-error" : undefined}
               {...register("consentHealth")}
@@ -518,9 +518,9 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
         </div>
       ) : null}
 
-      <hr className="mt-10 border-navy-700" />
+      <hr className="mt-10 border-rule" />
 
-      <h2 className="mt-10 font-heading text-[19px] font-semibold text-white">
+      <h2 className="mt-10 font-heading text-[19px] font-semibold text-ink">
         Where do we reach you?
       </h2>
 
@@ -549,7 +549,7 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
             aria-describedby={errors.email ? "email-error" : "email-help"}
             {...register("email")}
           />
-          <p id="email-help" className="text-[13px] leading-snug text-slate-muted">
+          <p id="email-help" className="text-[13px] leading-snug text-ink-muted">
             {contactFieldLabels.emailHelp}
           </p>
           <ErrorText id="email-error">{errors.email?.message}</ErrorText>
@@ -566,7 +566,7 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
               aria-describedby={errors.organisation ? "organisation-error" : "organisation-help"}
               {...register("organisation")}
             />
-            <p id="organisation-help" className="text-[13px] leading-snug text-slate-muted">
+            <p id="organisation-help" className="text-[13px] leading-snug text-ink-muted">
               {role.organisationLabel}
             </p>
             <ErrorText id="organisation-error">{errors.organisation?.message}</ErrorText>
@@ -584,7 +584,7 @@ export function WaitlistForm({ role }: { role: RegisterRoleContent }) {
             aria-describedby={errors.phone ? "phone-error" : "phone-help"}
             {...register("phone")}
           />
-          <p id="phone-help" className="text-[13px] leading-snug text-slate-muted">
+          <p id="phone-help" className="text-[13px] leading-snug text-ink-muted">
             {contactFieldLabels.phoneHelp}
           </p>
           <ErrorText id="phone-error">{errors.phone?.message}</ErrorText>

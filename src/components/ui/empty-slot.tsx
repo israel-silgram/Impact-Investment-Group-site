@@ -19,22 +19,22 @@ export function EmptySlot({
   return (
     <div
       className={cn(
-        "flex min-h-[168px] flex-col items-center justify-center gap-3 rounded-[var(--radius-panel)] border border-dashed border-navy-600 p-6 text-center",
+        "flex min-h-[168px] flex-col items-center justify-center gap-3 rounded-[var(--radius-panel)] border border-dashed border-rule p-6 text-center",
         className,
       )}
     >
       {initials ? (
         <span
           aria-hidden="true"
-          className="grid size-12 place-items-center rounded-full border border-navy-600 font-heading text-sm font-semibold text-slate-muted"
+          className="grid size-12 place-items-center rounded-full border border-rule font-heading text-sm font-semibold text-ink-muted"
         >
           {initials}
         </span>
       ) : null}
-      <p className="font-heading text-sm font-semibold uppercase tracking-[0.14em] text-slate-muted">
+      <p className="font-heading text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted">
         {label}
       </p>
-      {detail ? <p className="max-w-[36ch] text-[12px] text-slate-muted">{detail}</p> : null}
+      {detail ? <p className="max-w-[36ch] text-[12px] text-ink-muted">{detail}</p> : null}
     </div>
   );
 }

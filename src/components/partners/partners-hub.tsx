@@ -83,28 +83,28 @@ const ecosystemStages = [
     label: "Need, assessment and direction",
     roles: ["local-authority", "social-worker"],
     columns: "sm:grid-cols-2",
-    node: "bg-teal-500",
+    node: "bg-teal-600",
   },
   {
     number: "02",
     label: "Property, capital and connections",
     roles: ["broker", "investor", "landlord", "developer"],
     columns: "sm:grid-cols-2 lg:grid-cols-4",
-    node: "bg-orange-500",
+    node: "bg-orange-600",
   },
   {
     number: "03",
     label: "Housing, care and support delivery",
     roles: ["housing-association", "care-provider", "support-provider"],
     columns: "sm:grid-cols-3",
-    node: "bg-teal-500",
+    node: "bg-teal-600",
   },
   {
     number: "04",
     label: "The person and the outcome",
     roles: ["resident"],
     columns: "mx-auto max-w-[650px]",
-    node: "bg-orange-500",
+    node: "bg-orange-600",
   },
 ] as const;
 
@@ -120,7 +120,7 @@ function RoleIcon({ profile }: { profile: PartnerProfile }) {
 function FlowConnector() {
   return (
     <div aria-hidden="true" className="flex h-12 items-center justify-center">
-      <ArrowDown className="size-5 text-mist" strokeWidth={1.8} />
+      <ArrowDown className="size-5 text-ink-muted" strokeWidth={1.8} />
     </div>
   );
 }
@@ -206,24 +206,20 @@ export function PartnersHub() {
         </div>
       </section>
 
-      <section
-        id="ecosystem"
-        aria-labelledby="ecosystem-heading"
-        className="scroll-mt-20 bg-navy-900"
-      >
+      <section id="ecosystem" aria-labelledby="ecosystem-heading" className="scroll-mt-20 bg-page">
         <div className="mx-auto w-full max-w-[1080px] px-5 py-14 sm:px-8 lg:py-20">
           <Reveal className="mx-auto max-w-[760px] text-center">
-            <p className="eyebrow tracking-[0.14em] text-teal-400">One connected ecosystem</p>
+            <p className="eyebrow tracking-[0.14em] text-teal-600">One connected ecosystem</p>
             <h2
               id="ecosystem-heading"
-              className="heading-tight mx-auto mt-3 text-balance text-[clamp(2.2rem,4.6vw,3.8rem)] font-extrabold leading-[0.98] text-white"
+              className="heading-tight mx-auto mt-3 text-balance text-[clamp(2.2rem,4.6vw,3.8rem)] font-extrabold leading-[0.98] text-ink"
             >
               <span className="block">Ten partners.</span>
               <span className="block text-orange-500 sm:whitespace-nowrap">
                 One connected outcome.
               </span>
             </h2>
-            <p className="mx-auto mt-5 max-w-[58ch] text-[16px] leading-relaxed text-mist sm:text-[18px]">
+            <p className="mx-auto mt-5 max-w-[58ch] text-[16px] leading-relaxed text-ink-muted sm:text-[18px]">
               See how each role moves a housing need towards a suitable home. Select any partner to
               explore its part.
             </p>
@@ -239,13 +235,19 @@ export function PartnersHub() {
                     <div className="mb-4 flex items-center justify-center gap-3 text-center">
                       <span
                         className={cn(
-                          "grid size-8 place-items-center rounded-full font-mono text-[10px] font-bold text-navy-950",
+                          /* White, not navy. The numeral sits on a teal-600
+                             or orange-500 fill: navy on teal-600 is 3.75:1
+                             and fails at 10px, where white on it is 5.25:1.
+                             `text-page` rather than `text-white` so the light
+                             remap's substring rule cannot repaint it while the
+                             unconverted files still rely on that rule. */
+                          "grid size-8 place-items-center rounded-full font-mono text-[10px] font-bold text-page",
                           stage.node,
                         )}
                       >
                         {stage.number}
                       </span>
-                      <h3 className="font-heading text-[17px] font-extrabold text-white sm:text-[18px]">
+                      <h3 className="font-heading text-[17px] font-extrabold text-ink sm:text-[18px]">
                         {stage.label}
                       </h3>
                     </div>
@@ -263,21 +265,21 @@ export function PartnersHub() {
             })}
           </div>
 
-          <Reveal className="mx-auto mt-10 max-w-[820px] border-t border-navy-600 pt-8">
+          <Reveal className="mx-auto mt-10 max-w-[820px] border-t border-rule pt-8">
             <div className="flex flex-col items-center justify-between gap-6 text-center sm:flex-row sm:text-left">
               <div>
-                <p className="font-heading text-[20px] font-extrabold text-white">
+                <p className="font-heading text-[20px] font-extrabold text-ink">
                   Select any partner to explore its role.
                 </p>
                 <div className="mt-3 flex flex-wrap justify-center gap-x-5 gap-y-2 sm:justify-start">
-                  <span className="inline-flex items-center gap-2 text-[11px] text-slate-muted">
-                    <i className="size-2 rounded-full bg-teal-500" /> Need and delivery
+                  <span className="inline-flex items-center gap-2 text-[11px] text-ink-muted">
+                    <i className="size-2 rounded-full bg-teal-600" /> Need and delivery
                   </span>
-                  <span className="inline-flex items-center gap-2 text-[11px] text-slate-muted">
+                  <span className="inline-flex items-center gap-2 text-[11px] text-ink-muted">
                     <i className="size-2 rounded-full bg-orange-500" /> Property and capital
                   </span>
-                  <span className="inline-flex items-center gap-2 text-[11px] text-slate-muted">
-                    <i className="size-2 rounded-full bg-navy-900" /> Person and outcome
+                  <span className="inline-flex items-center gap-2 text-[11px] text-ink-muted">
+                    <i className="size-2 rounded-full bg-page" /> Person and outcome
                   </span>
                 </div>
               </div>

@@ -12,11 +12,17 @@ import { cn } from "@/lib/utils";
  * landlord a house and the picker would show them something else, on two pages
  * one click apart. It is one map now, in one place.
  *
- * The treatment is the brand's: a 24px Lucide glyph centred in a ring, stroke
- * 1.6, white on navy, with EXACTLY ONE detail element in the accent colour and
- * never two. `accent` is that one element; `baseOrange` is for the roles whose
- * whole glyph is the accent (the handshake), where there is nothing to pick
- * out of it.
+ * The treatment is the brand's: a 24px Lucide glyph, stroke 1.6, with EXACTLY
+ * ONE detail element in the accent colour and never two. `accent` is that one
+ * element; `baseOrange` is for the roles whose whole glyph is the accent (the
+ * handshake), where there is nothing to pick out of it.
+ *
+ * WAVE 412 CHANGED WHAT IS BEHIND THE GLYPH, NOT THE GLYPH. It used to be a
+ * 1.5px white hairline ring on navy; on a white page a white ring is nothing
+ * at all, and a hairline ring is the coldest mark a light page can carry. It
+ * is now a soft 12% orange disc, the same plate the human icons take
+ * everywhere else on the site. The stroke follows the brand rule onto the new
+ * ground: navy ink rather than white, with the one accent still orange.
  *
  * The accents are orange because every one of them is a person, a heart or a
  * hand. Teal belongs to data, and there is no data in a role tile.
@@ -42,7 +48,7 @@ export const icon = (name?: keyof typeof Icons): LucideIcon =>
   name ? ((Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle) : Icons.Circle;
 
 /**
- * The ring is 48px in the hero, where ten of them share one row, and 60px on
+ * The disc is 48px in the hero, where ten of them share one row, and 60px on
  * the picker, where the tile is the whole page and the brand spec's 60px fits.
  */
 export function RoleIcon({ roleId, size = "sm" }: { roleId: string; size?: "sm" | "lg" }) {
@@ -55,21 +61,26 @@ export function RoleIcon({ roleId, size = "sm" }: { roleId: string; size?: "sm" 
     <span
       aria-hidden="true"
       className={cn(
-        "relative grid shrink-0 place-items-center rounded-full border-[1.5px] border-white/28",
+        "relative grid shrink-0 place-items-center rounded-full bg-tint-orange",
         large ? "size-[60px]" : "size-12",
       )}
     >
       <Base
         size={large ? 26 : 24}
         strokeWidth={1.6}
-        className={spec.baseOrange ? "text-orange-500" : "text-white"}
+        /* orange-600 rather than 500 where the whole glyph is the
+            accent: on the orange tint, 600 is 4.60:1 against white and 4.11:1
+            against the cream, where 500 is 3.9 and 3.5. Both clear the 3:1 a
+            graphic answers to; 600 clears it on the cream too, which is where
+            these tiles actually sit. */
+        className={spec.baseOrange ? "text-orange-600" : "text-ink"}
       />
       {Accent ? (
         <Accent
           size={large ? 13 : 12}
           strokeWidth={2}
           className={cn(
-            "absolute text-orange-500",
+            "absolute text-orange-600",
             large ? "bottom-1.5 right-1.5" : "bottom-1 right-1",
           )}
         />

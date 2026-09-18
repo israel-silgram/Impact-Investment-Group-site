@@ -43,11 +43,11 @@ function RegisterPickerPage() {
       <section className="mx-auto w-full max-w-[1200px] px-5 py-14 sm:px-8 lg:py-24">
         <Reveal className="text-center">
           <PreReleaseBadge className="mx-auto mb-6 w-fit" />
-          <p className="eyebrow text-teal-400">{pickerContent.eyebrow}</p>
-          <h1 className="heading-tight mt-4 text-balance text-[clamp(1.75rem,3.2vw,2.75rem)] font-bold text-white">
+          <p className="eyebrow text-teal-600">{pickerContent.eyebrow}</p>
+          <h1 className="heading-tight mt-4 text-balance text-[clamp(1.75rem,3.2vw,2.75rem)] font-bold text-ink">
             {pickerContent.h1}
           </h1>
-          <p className="measure mx-auto mt-5 text-[17px] leading-relaxed text-mist">
+          <p className="measure mx-auto mt-5 text-[17px] leading-relaxed text-ink-muted">
             {pickerContent.lede}
           </p>
         </Reveal>
@@ -55,7 +55,7 @@ function RegisterPickerPage() {
         <Reveal index={1} className="mt-12">
           <h2
             id="register-picker-grid"
-            className="text-center font-heading text-sm font-semibold uppercase tracking-[0.14em] text-mist"
+            className="text-center font-heading text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted"
           >
             {pickerContent.gridLabel}
           </h2>
@@ -65,7 +65,7 @@ function RegisterPickerPage() {
         </Reveal>
 
         <Reveal index={2} className="mt-10">
-          <p className="measure mx-auto text-center text-[14px] leading-relaxed text-mist">
+          <p className="measure mx-auto text-center text-[14px] leading-relaxed text-ink-muted">
             {pickerContent.footnote}
           </p>
         </Reveal>

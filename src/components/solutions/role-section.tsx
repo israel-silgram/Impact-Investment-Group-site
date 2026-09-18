@@ -20,8 +20,8 @@ function PortalPreview({ role }: { role: RoleSection }) {
   return (
     <LiveWindow ariaLabel={`${role.title} portal preview — ${portal.state}`}>
       <div className="flex items-baseline justify-between gap-4">
-        <p className="eyebrow text-teal-400">{portal.state}</p>
-        <p className="text-[12px] text-slate-muted">
+        <p className="eyebrow text-teal-600">{portal.state}</p>
+        <p className="text-[12px] text-ink-muted">
           {portal.columns[0]} · {portal.columns[1]}
         </p>
       </div>
@@ -29,21 +29,21 @@ function PortalPreview({ role }: { role: RoleSection }) {
         {portal.rows.map((row) => (
           <li
             key={row.primary}
-            className="flex items-center justify-between gap-4 rounded-[var(--radius-panel)] border border-navy-700 bg-navy-900/50 px-4 py-3"
+            className="flex items-center justify-between gap-4 rounded-[var(--radius-panel)] border border-rule bg-page/50 px-4 py-3"
           >
             <span className="min-w-0">
-              <span className="block truncate font-heading text-sm font-semibold text-white">
+              <span className="block truncate font-heading text-sm font-semibold text-ink">
                 {row.primary}
               </span>
-              <span className="block truncate text-[12px] text-slate-muted">{row.secondary}</span>
+              <span className="block truncate text-[12px] text-ink-muted">{row.secondary}</span>
             </span>
-            <span className="shrink-0 font-heading text-sm font-semibold text-teal-400">
+            <span className="shrink-0 font-heading text-sm font-semibold text-teal-600">
               {row.value}
             </span>
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-[12px] text-slate-muted">{portal.footnote}</p>
+      <p className="mt-3 text-[12px] text-ink-muted">{portal.footnote}</p>
       <div className="mt-5">
         <Button variant="secondary" size="sm" asChild>
           <Link to="/platform">
@@ -62,12 +62,12 @@ function RoleBody({ role }: { role: RoleSection }) {
     <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-10">
       <div className="flex flex-col gap-8">
         <div>
-          <h3 className="eyebrow text-slate-muted">What the platform does for me</h3>
+          <h3 className="eyebrow text-ink-muted">What the platform does for me</h3>
           <ul className="mt-5 flex flex-col gap-4">
             {role.bullets.map((bullet) => (
               <li
                 key={bullet.text}
-                className="flex items-center gap-4 text-sm leading-relaxed text-mist"
+                className="flex items-center gap-4 text-sm leading-relaxed text-ink-muted"
               >
                 <IconCircle icon={bulletIcon(bullet.icon)} size="brand" tone={bullet.tone} />
                 <span>{bullet.text}</span>
@@ -75,22 +75,22 @@ function RoleBody({ role }: { role: RoleSection }) {
             ))}
           </ul>
           {role.terms ? (
-            <p className="measure mt-5 text-sm leading-relaxed text-mist">{role.terms}</p>
+            <p className="measure mt-5 text-sm leading-relaxed text-ink-muted">{role.terms}</p>
           ) : null}
           {role.qualifier ? (
-            <p className="measure mt-3 text-[12px] leading-relaxed text-slate-muted">
+            <p className="measure mt-3 text-[12px] leading-relaxed text-ink-muted">
               {role.qualifier}
             </p>
           ) : null}
           {role.riskLine ? (
-            <p className="measure mt-4 text-[12px] leading-relaxed text-slate-muted">
+            <p className="measure mt-4 text-[12px] leading-relaxed text-ink-muted">
               {role.riskLine}
             </p>
           ) : null}
         </div>
 
         <div>
-          <h3 className="eyebrow text-slate-muted">Proof</h3>
+          <h3 className="eyebrow text-ink-muted">Proof</h3>
           <EmptySlot
             className="mt-4"
             label="Case study slot · empty until real"
@@ -108,7 +108,7 @@ function RoleBody({ role }: { role: RoleSection }) {
       </div>
 
       <div>
-        <h3 className="eyebrow text-slate-muted">Your portal</h3>
+        <h3 className="eyebrow text-ink-muted">Your portal</h3>
         <div className="mt-4">
           <PortalPreview role={role} />
         </div>
@@ -127,17 +127,17 @@ export function RoleSectionBlock({ role }: { role: RoleSection }) {
       as="section"
       id={role.slug}
       aria-labelledby={`${role.slug}-heading`}
-      className="scroll-mt-28 border-t border-navy-700 py-12 lg:py-16"
+      className="scroll-mt-28 border-t border-rule py-12 lg:py-16"
     >
       <div className="flex items-start gap-4">
         <IconCircle icon={Icon} size="sm" />
         <div className="min-w-0">
-          <p className="eyebrow text-teal-400">
+          <p className="eyebrow text-teal-600">
             {role.number} · {role.title}
           </p>
           <h2
             id={`${role.slug}-heading`}
-            className="heading-tight mt-3 text-balance text-[clamp(1.5rem,2.6vw,2.25rem)] font-bold text-white"
+            className="heading-tight mt-3 text-balance text-[clamp(1.5rem,2.6vw,2.25rem)] font-bold text-ink"
           >
             {role.promise}
           </h2>
@@ -151,10 +151,10 @@ export function RoleSectionBlock({ role }: { role: RoleSection }) {
             aria-expanded={open}
             aria-controls={bodyId}
             onClick={() => setOpen((v) => !v)}
-            className="mt-6 flex min-h-11 w-full cursor-pointer items-center justify-between gap-4 rounded-[var(--radius-panel)] border border-navy-700 bg-navy-900/50 px-5 text-left transition-colors duration-200 hover:border-navy-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
+            className="mt-6 flex min-h-11 w-full cursor-pointer items-center justify-between gap-4 rounded-[var(--radius-panel)] border border-rule bg-page/50 px-5 text-left transition-colors duration-200 hover:border-rule focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
           >
-            <span className="py-3 text-sm text-mist">{role.cardLine}</span>
-            <span className="flex items-center gap-2 font-heading text-xs font-semibold uppercase tracking-[0.08em] text-teal-400">
+            <span className="py-3 text-sm text-ink-muted">{role.cardLine}</span>
+            <span className="flex items-center gap-2 font-heading text-xs font-semibold uppercase tracking-[0.08em] text-teal-600">
               {open ? "Close" : "See detail"}
               <ChevronDown
                 aria-hidden="true"

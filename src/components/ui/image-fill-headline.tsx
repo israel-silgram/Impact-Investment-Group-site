@@ -39,10 +39,7 @@ export function ImageFillHeadline({
       {lines.map((line, i) => (
         <span
           key={`${line.text}-${i}`}
-          className={cn(
-            "block",
-            line.tone === "orange" ? "text-orange-500" : "text-white",
-          )}
+          className={cn("block", line.tone === "orange" ? "text-orange-500" : "text-ink")}
           style={
             {
               "--fill-image": `url(${line.image})`,

@@ -14,7 +14,7 @@ export function DotMeter({
 }) {
   return (
     <div className={cn("flex items-center justify-between gap-4", className)}>
-      <span className="font-heading text-sm font-semibold text-mist">{label}</span>
+      <span className="font-heading text-sm font-semibold text-ink-muted">{label}</span>
       <span
         role="img"
         aria-label={`${label}: ${filled} out of ${total}`}
@@ -26,7 +26,7 @@ export function DotMeter({
             aria-hidden="true"
             className={cn(
               "size-2.5 rounded-full",
-              i < filled ? "bg-teal-500" : "border border-navy-600",
+              i < filled ? "bg-teal-600" : "border border-rule",
             )}
           />
         ))}

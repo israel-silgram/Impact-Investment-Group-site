@@ -26,12 +26,7 @@ export function ProcessRail({
   compact?: boolean;
 }) {
   return (
-    <ol
-      className={cn(
-        "flex flex-col gap-8 md:flex-row md:items-start md:gap-0",
-        className,
-      )}
-    >
+    <ol className={cn("flex flex-col gap-8 md:flex-row md:items-start md:gap-0", className)}>
       {steps.map((step, i) => (
         <li
           key={step.id}
@@ -41,7 +36,7 @@ export function ProcessRail({
           {i < steps.length - 1 ? (
             <span
               aria-hidden="true"
-              className="absolute left-[27px] top-14 h-[calc(100%+2rem)] w-px bg-navy-600 md:hidden"
+              className="absolute left-[27px] top-14 h-[calc(100%+2rem)] w-px bg-rule md:hidden"
             />
           ) : null}
 
@@ -49,7 +44,7 @@ export function ProcessRail({
           {i < steps.length - 1 ? (
             <span
               aria-hidden="true"
-              className="absolute top-7 hidden h-px w-full translate-x-1/2 bg-navy-600 md:block"
+              className="absolute top-7 hidden h-px w-full translate-x-1/2 bg-rule md:block"
             >
               <span className="absolute left-1/2 top-1/2 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange-500" />
             </span>
@@ -59,12 +54,12 @@ export function ProcessRail({
             icon={step.icon}
             size="lg"
             tone={step.active ? "orange" : "white"}
-            className="relative z-10 bg-navy-900"
+            className="relative z-10 bg-page"
           />
           <div className="min-w-0 md:px-3">
-            <h3 className="font-heading text-base font-semibold text-white">{step.title}</h3>
+            <h3 className="font-heading text-base font-semibold text-ink">{step.title}</h3>
             {compact ? null : (
-              <p className="mt-1 text-sm leading-snug text-mist">{step.description}</p>
+              <p className="mt-1 text-sm leading-snug text-ink-muted">{step.description}</p>
             )}
           </div>
         </li>

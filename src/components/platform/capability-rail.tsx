@@ -27,10 +27,10 @@ export function CapabilityRail({
                 aria-current={isActive ? "true" : undefined}
                 onClick={() => onSelect(link.id)}
                 className={cn(
-                  "flex min-h-11 w-full cursor-pointer items-center rounded-r-[6px] border-l-2 px-4 text-left font-heading text-sm font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400",
+                  "flex min-h-11 w-full cursor-pointer items-center rounded-r-[6px] border-l-2 px-4 text-left font-heading text-sm font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
                   isActive
-                    ? "border-teal-500 bg-navy-800/60 text-white"
-                    : "border-navy-700 text-slate-muted hover:border-navy-600 hover:text-mist",
+                    ? "border-teal-600 bg-page/60 text-ink"
+                    : "border-rule text-ink-muted hover:border-rule hover:text-ink-muted",
                 )}
               >
                 {link.label}
@@ -51,10 +51,10 @@ export function CapabilityRail({
                 aria-current={isActive ? "true" : undefined}
                 onClick={() => onSelect(link.id)}
                 className={cn(
-                  "min-h-11 cursor-pointer rounded-full border px-4 font-heading text-xs font-semibold uppercase tracking-[0.08em] transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400",
+                  "min-h-11 cursor-pointer rounded-full border px-4 font-heading text-xs font-semibold uppercase tracking-[0.08em] transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
                   isActive
-                    ? "border-teal-500 bg-teal-950 text-teal-400"
-                    : "border-navy-700 text-slate-muted hover:border-navy-600 hover:text-mist",
+                    ? "border-teal-600 bg-tint-teal text-teal-600"
+                    : "border-rule text-ink-muted hover:border-rule hover:text-ink-muted",
                 )}
               >
                 {link.label}

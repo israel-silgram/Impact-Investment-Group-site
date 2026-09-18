@@ -24,13 +24,13 @@ export function AiTeam() {
           return (
             <Reveal as="li" key={person.id} index={i} className="h-full">
               <div className="panel flex h-full flex-col overflow-hidden">
-                <span aria-hidden="true" className="block h-[3px] w-full bg-teal-500" />
+                <span aria-hidden="true" className="block h-[3px] w-full bg-teal-600" />
                 <div className="flex flex-1 flex-col gap-4 p-6">
                   <IconCircle icon={Icon} size="lg" tone="teal" />
-                  <h3 className="heading-tight text-xl font-bold text-white">
+                  <h3 className="heading-tight text-xl font-bold text-ink">
                     {person.name} · {person.role}
                   </h3>
-                  <p className="text-sm leading-relaxed text-mist">{person.body}</p>
+                  <p className="text-sm leading-relaxed text-ink-muted">{person.body}</p>
                 </div>
               </div>
             </Reveal>
@@ -51,13 +51,12 @@ export function AiTeam() {
           />
         </Reveal>
         <Reveal className="md:col-span-2">
-          <p className="eyebrow text-teal-400">{aiTeam.workedExampleLabel}</p>
+          <p className="eyebrow text-teal-600">{aiTeam.workedExampleLabel}</p>
           <div className="mt-3">
             <MatchPanel tabLabel="Peter’s analysis" />
           </div>
         </Reveal>
       </div>
-
 
       {/* Flow strip — only the final step is orange */}
       <Reveal className="mt-10">
@@ -69,7 +68,7 @@ export function AiTeam() {
                 {i > 0 ? (
                   <ArrowRight
                     aria-hidden="true"
-                    className={cn("size-4 shrink-0", orange ? "text-orange-500" : "text-teal-500")}
+                    className={cn("size-4 shrink-0", orange ? "text-orange-500" : "text-teal-600")}
                   />
                 ) : null}
                 <span
@@ -88,9 +87,7 @@ export function AiTeam() {
         </ol>
       </Reveal>
 
-      <p className="measure mt-6 text-[13px] leading-relaxed text-slate-muted">
-        {aiTeam.disclaimer}
-      </p>
+      <p className="measure mt-6 text-[13px] leading-relaxed text-ink-muted">{aiTeam.disclaimer}</p>
     </div>
   );
 }

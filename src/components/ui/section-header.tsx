@@ -25,19 +25,22 @@ export function SectionHeader({
     <div className={cn("flex flex-col gap-4", centred && "items-center text-center", className)}>
       {eyebrow ? (
         <div className={cn("flex items-center gap-3", centred && "justify-center")}>
-          <span aria-hidden="true" className="h-px w-8 bg-navy-600" />
+          <span aria-hidden="true" className="h-px w-8 bg-rule" />
           <span
-            className={cn("eyebrow", eyebrowTone === "teal" ? "text-teal-400" : "text-slate-muted")}
+            className={cn("eyebrow", eyebrowTone === "teal" ? "text-teal-600" : "text-ink-muted")}
           >
             {eyebrow}
           </span>
         </div>
       ) : null}
-      <Heading id={id} className="heading-tight text-balance text-[clamp(1.75rem,3.2vw,2.75rem)] font-bold text-white">
+      <Heading
+        id={id}
+        className="heading-tight text-balance text-[clamp(1.75rem,3.2vw,2.75rem)] font-bold text-ink"
+      >
         {title}
       </Heading>
       {lead ? (
-        <p className={cn("measure text-base leading-relaxed text-mist", centred && "mx-auto")}>
+        <p className={cn("measure text-base leading-relaxed text-ink-muted", centred && "mx-auto")}>
           {lead}
         </p>
       ) : null}

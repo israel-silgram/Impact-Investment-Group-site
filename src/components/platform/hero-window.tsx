@@ -23,12 +23,12 @@ export function HeroWindow() {
           {heroSummary.metrics.map((metric) => (
             <div
               key={metric.id}
-              className="rounded-[var(--radius-panel)] border border-navy-700 bg-navy-900/60 p-4"
+              className="rounded-[var(--radius-panel)] border border-rule bg-page/60 p-4"
             >
-              <p className="font-heading text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-none text-white">
+              <p className="font-heading text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-none text-ink">
                 {metric.value}
               </p>
-              <p className="mt-2 text-xs uppercase tracking-[0.14em] text-slate-muted">
+              <p className="mt-2 text-xs uppercase tracking-[0.14em] text-ink-muted">
                 {metric.label}
               </p>
             </div>
@@ -44,10 +44,10 @@ export function HeroWindow() {
             ].map(([term, detail]) => (
               <div
                 key={term}
-                className="flex flex-wrap items-baseline justify-between gap-2 border-b border-navy-700 pb-3 last:border-0 last:pb-0"
+                className="flex flex-wrap items-baseline justify-between gap-2 border-b border-rule pb-3 last:border-0 last:pb-0"
               >
-                <dt className="font-heading text-sm font-semibold text-white">{term}</dt>
-                <dd className="text-sm text-slate-muted">{detail}</dd>
+                <dt className="font-heading text-sm font-semibold text-ink">{term}</dt>
+                <dd className="text-sm text-ink-muted">{detail}</dd>
               </div>
             ))}
           </dl>
@@ -56,15 +56,15 @@ export function HeroWindow() {
             {heroSummary.rows.map((row) => (
               <li
                 key={row.id}
-                className="flex items-center justify-between gap-4 rounded-[10px] border border-navy-700 bg-navy-900/40 px-4 py-3"
+                className="flex items-center justify-between gap-4 rounded-[10px] border border-rule bg-page/40 px-4 py-3"
               >
                 <span className="min-w-0">
-                  <span className="block truncate font-heading text-sm font-semibold text-white">
+                  <span className="block truncate font-heading text-sm font-semibold text-ink">
                     {row.property}
                   </span>
-                  <span className="text-[12px] text-slate-muted">{row.rooms}</span>
+                  <span className="text-[12px] text-ink-muted">{row.rooms}</span>
                 </span>
-                <span className="shrink-0 font-heading text-sm font-bold text-teal-400">
+                <span className="shrink-0 font-heading text-sm font-bold text-teal-600">
                   {row.score}%
                 </span>
               </li>

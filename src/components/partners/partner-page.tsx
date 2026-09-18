@@ -57,20 +57,17 @@ function CrisisSignpost({ signpost }: { signpost: NonNullable<PartnerProfile["cr
 
        An earlier revision made this a <p> to keep the outline clean and lost
        the heading. If you change it back, know what you are trading away. */
-    <section
-      aria-labelledby="crisis-signpost-heading"
-      className="border-b border-teal-600 bg-navy-900"
-    >
+    <section aria-labelledby="crisis-signpost-heading" className="border-b border-teal-600 bg-page">
       <div className="mx-auto grid w-full max-w-[1200px] gap-5 px-5 py-6 sm:px-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:items-start lg:gap-10">
         <div>
           <h2
             id="crisis-signpost-heading"
-            className="flex items-center gap-2.5 font-heading text-[17px] font-bold text-white"
+            className="flex items-center gap-2.5 font-heading text-[17px] font-bold text-ink"
           >
-            <LifeBuoy aria-hidden="true" className="size-5 shrink-0 text-teal-400" />
+            <LifeBuoy aria-hidden="true" className="size-5 shrink-0 text-teal-600" />
             {signpost.heading}
           </h2>
-          <p className="mt-2.5 max-w-[68ch] text-[14px] leading-relaxed text-mist">
+          <p className="mt-2.5 max-w-[68ch] text-[14px] leading-relaxed text-ink-muted">
             {signpost.body}
           </p>
         </div>
@@ -79,7 +76,7 @@ function CrisisSignpost({ signpost }: { signpost: NonNullable<PartnerProfile["cr
           <ul className="flex flex-col gap-1.5 text-[14px]">
             {crisisLines.map((line) => (
               <li key={line.label} className="flex items-baseline justify-between gap-4">
-                <span className="text-mist">{line.label}</span>
+                <span className="text-ink-muted">{line.label}</span>
                 {/* 44px BOTH WAYS, at every width, not just on touch. These
                     are crisis numbers: the person tapping one may be
                     distressed, on a phone, one-handed. The rest of the site
@@ -94,14 +91,14 @@ function CrisisSignpost({ signpost }: { signpost: NonNullable<PartnerProfile["cr
                     bad target whether or not it conforms. */}
                 <a
                   href={`tel:${line.detail.replace(/\s/g, "")}`}
-                  className="inline-flex min-h-11 min-w-11 items-center justify-end font-heading font-semibold text-white underline underline-offset-4 transition-colors duration-200 hover:text-teal-400"
+                  className="inline-flex min-h-11 min-w-11 items-center justify-end font-heading font-semibold text-ink underline underline-offset-4 transition-colors duration-200 hover:text-teal-600"
                 >
                   {line.detail}
                 </a>
               </li>
             ))}
           </ul>
-          <p className="mt-2.5 font-heading text-[14px] font-semibold text-white">{crisisNote}</p>
+          <p className="mt-2.5 font-heading text-[14px] font-semibold text-ink">{crisisNote}</p>
         </div>
       </div>
     </section>
@@ -291,12 +288,18 @@ const connectedNetworkPresentations: Record<string, ConnectedNetworkPresentation
 };
 
 function ConnectedNetworkDiagram({ profile }: { profile: PartnerProfile }) {
+  /* `noUncheckedIndexedAccess` makes an index read `T | undefined`, so the
+     `??` fallback is still `T | undefined` and every use of it downstream was
+     an error. The fallback key is a literal that is present in the record by
+     construction, hence the assertion; and TS4111 wants a record's own index
+     signature read with a bracket rather than a dot. Twenty of the twenty-two
+     inherited tsc errors were these two shapes. (Wave 412.) */
   const presentation =
-    connectedNetworkPresentations[profile.id] ?? connectedNetworkPresentations.investor;
+    connectedNetworkPresentations[profile.id] ?? connectedNetworkPresentations["investor"]!;
 
   return (
     <Reveal className="mt-10">
-      <figure className="overflow-hidden rounded-3xl border border-navy-600 bg-navy-950 shadow-[0_30px_90px_rgba(0,0,0,0.28)]">
+      <figure className="overflow-hidden rounded-3xl border border-rule bg-page shadow-[0_30px_90px_rgba(0,0,0,0.28)]">
         <img
           src={presentation.image}
           alt={presentation.alt}
@@ -386,27 +389,24 @@ const roleGuideImages = [
 ] as const;
 
 function PartnerRoleLedger({ profile }: { profile: PartnerProfile }) {
-  const presentation = rolePresentations[profile.id] ?? rolePresentations.investor;
+  const presentation = rolePresentations[profile.id] ?? rolePresentations["investor"]!;
 
   return (
     <section
       id="role"
       aria-labelledby="role-heading"
-      className="relative scroll-mt-20 overflow-hidden bg-navy-900"
+      className="relative scroll-mt-20 overflow-hidden bg-page"
     >
       <div className="relative mx-auto w-full max-w-[1200px] px-5 py-16 sm:px-8 lg:py-20">
         <Reveal className="mx-auto max-w-[850px] text-center">
-          <p className="eyebrow tracking-[0.14em] text-teal-400">
-            01 · {presentation.eyebrow}
-          </p>
+          <p className="eyebrow tracking-[0.14em] text-teal-600">01 · {presentation.eyebrow}</p>
           <h2
             id="role-heading"
-            className="heading-tight mt-3 text-[clamp(2.2rem,5vw,4rem)] font-extrabold leading-none text-white"
+            className="heading-tight mt-3 text-[clamp(2.2rem,5vw,4rem)] font-extrabold leading-none text-ink"
           >
-            {presentation.lead}{" "}
-            <span className="text-orange-500">{presentation.accent}</span>
+            {presentation.lead} <span className="text-orange-500">{presentation.accent}</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-[72ch] text-[16px] leading-relaxed text-mist sm:text-[18px]">
+          <p className="mx-auto mt-5 max-w-[72ch] text-[16px] leading-relaxed text-ink-muted sm:text-[18px]">
             {profile.whoTheyAre}
           </p>
         </Reveal>
@@ -429,7 +429,7 @@ function PartnerRoleLedger({ profile }: { profile: PartnerProfile }) {
                   <span className="hidden sm:inline">
                     {presentation.guideLabels[index] ?? "Guide"}
                   </span>
-                  <span className="grid size-10 shrink-0 place-items-end overflow-hidden rounded-full border-2 border-orange-500 bg-navy-800">
+                  <span className="grid size-10 shrink-0 place-items-end overflow-hidden rounded-full border-2 border-orange-500 bg-page">
                     <img
                       src={roleGuideImages[index] ?? roleGuideImages[0]}
                       alt=""
@@ -457,7 +457,7 @@ function PartnerRoleLedger({ profile }: { profile: PartnerProfile }) {
               alt="Green impact guide"
               className="absolute bottom-0 right-0 z-10 w-[58%] object-contain drop-shadow-[0_22px_24px_rgba(0,0,0,0.34)]"
             />
-            <p className="absolute inset-x-0 -bottom-4 z-40 text-center font-mono text-[10px] font-semibold uppercase tracking-[0.11em] text-teal-400">
+            <p className="absolute inset-x-0 -bottom-4 z-40 text-center font-mono text-[10px] font-semibold uppercase tracking-[0.11em] text-teal-600">
               {presentation.guideLabels.join(" · ")}
             </p>
           </Reveal>
@@ -469,28 +469,28 @@ function PartnerRoleLedger({ profile }: { profile: PartnerProfile }) {
 
 function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
   const [activeStep, setActiveStep] = useState(0);
-  const presentation = platformPresentations[profile.id] ?? platformPresentations.investor;
+  const presentation = platformPresentations[profile.id] ?? platformPresentations["investor"]!;
 
   return (
     <section
       aria-labelledby="platform-heading"
-      className="relative isolate overflow-hidden bg-navy-950"
+      className="relative isolate overflow-hidden bg-page"
     >
       <div
         aria-hidden="true"
-        className="absolute left-1/2 top-[48%] -z-10 size-[660px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-400/5 blur-[110px]"
+        className="absolute left-1/2 top-[48%] -z-10 size-[660px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-600/5 blur-[110px]"
       />
 
       <div className="relative mx-auto w-full max-w-[1200px] px-5 py-16 sm:px-8 lg:py-20">
         <Reveal className="mx-auto max-w-[880px] text-center">
-          <p className="eyebrow tracking-[0.16em] text-teal-400">02 · Through the platform</p>
+          <p className="eyebrow tracking-[0.16em] text-teal-600">02 · Through the platform</p>
           <h2
             id="platform-heading"
-            className="heading-tight mx-auto mt-4 max-w-[17ch] text-[clamp(2.7rem,5.6vw,5rem)] font-extrabold leading-[0.94] tracking-[-0.04em] text-white"
+            className="heading-tight mx-auto mt-4 max-w-[17ch] text-[clamp(2.7rem,5.6vw,5rem)] font-extrabold leading-[0.94] tracking-[-0.04em] text-ink"
           >
             {presentation.lead} <span className="text-orange-500">{presentation.accent}</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-[62ch] text-[16px] font-semibold leading-relaxed text-mist sm:text-[18px]">
+          <p className="mx-auto mt-5 max-w-[62ch] text-[16px] font-semibold leading-relaxed text-ink-muted sm:text-[18px]">
             {profile.platformIntro}
           </p>
         </Reveal>
@@ -530,22 +530,22 @@ function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
                   aria-pressed={selected}
                   onClick={() => setActiveStep(index)}
                   onMouseEnter={() => setActiveStep(index)}
-                  className="group grid grid-cols-[56px_1fr] items-center gap-4 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-400 sm:block sm:text-center"
+                  className="group grid grid-cols-[56px_1fr] items-center gap-4 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-600 sm:block sm:text-center"
                 >
                   <span
                     className={`relative z-10 grid size-14 place-items-center rounded-full border-[3px] font-mono text-[12px] font-bold transition-all duration-300 sm:mx-auto sm:mb-5 ${
                       selected
                         ? "scale-110 border-orange-500 bg-orange-500 text-navy-950 shadow-[0_0_26px_rgba(255,107,0,0.55)]"
-                        : "border-mist bg-navy-950 text-white group-hover:border-teal-400"
+                        : "border-mist bg-page text-ink group-hover:border-teal-600"
                     }`}
                   >
                     0{index + 1}
                   </span>
                   <span>
-                    <span className="block font-heading text-[20px] font-extrabold text-white">
+                    <span className="block font-heading text-[20px] font-extrabold text-ink">
                       {presentation.labels[index]}
                     </span>
-                    <span className="mt-1 block text-[13px] font-medium text-slate-muted">
+                    <span className="mt-1 block text-[13px] font-medium text-ink-muted">
                       {presentation.readoutTitles[index]}
                     </span>
                   </span>
@@ -558,37 +558,37 @@ function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
         <Reveal className="mx-auto mt-12 max-w-[720px] sm:mt-14">
           <div
             aria-live="polite"
-            className="border-l-4 border-orange-500 bg-navy-800/86 px-6 py-5 shadow-[0_20px_55px_rgba(0,0,0,0.28)] backdrop-blur-sm sm:px-8 sm:py-6"
+            className="border-l-4 border-orange-500 bg-page/86 px-6 py-5 shadow-[0_20px_55px_rgba(0,0,0,0.28)] backdrop-blur-sm sm:px-8 sm:py-6"
           >
             <div className="flex items-center gap-3">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-teal-400">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-teal-600">
                 Active checkpoint
               </span>
-              <span aria-hidden="true" className="h-px flex-1 bg-teal-400/30" />
-              {/* text-mist, not text-orange-500. Wave 295's retint took
+              <span aria-hidden="true" className="h-px flex-1 bg-teal-600/30" />
+              {/* text-ink-muted, not text-orange-500. Wave 295's retint took
                   orange-500 to #c15f3c, which measures 4.01:1 on navy-800
                   here (release check, 11 Sep 2026), under the 4.5:1 floor
                   this 10px bold text needs (too small to count as WCAG large
-                  text). text-mist is the token the body copy two lines below
+                  text). text-ink-muted is the token the body copy two lines below
                   already uses on this same panel: 11.09:1 here, comfortably
                   clear. Orange stays reserved for what still passes: fills,
                   buttons, large headings, light-surface text. If a lighter
                   orange tint is approved for small text on navy, this is the
                   one place to bring it back. */}
-              <span className="font-mono text-[10px] font-bold text-mist">
+              <span className="font-mono text-[10px] font-bold text-ink-muted">
                 0{activeStep + 1} / 03
               </span>
             </div>
-            <p className="mt-4 font-heading text-[clamp(1.45rem,2.5vw,2rem)] font-extrabold leading-tight text-white">
+            <p className="mt-4 font-heading text-[clamp(1.45rem,2.5vw,2rem)] font-extrabold leading-tight text-ink">
               {presentation.readoutTitles[activeStep]}
             </p>
-            <p className="mt-2 text-[15px] font-medium leading-relaxed text-mist sm:text-[16px]">
+            <p className="mt-2 text-[15px] font-medium leading-relaxed text-ink-muted sm:text-[16px]">
               {profile.platformSteps[activeStep]}
             </p>
           </div>
         </Reveal>
 
-        <p className="mx-auto mt-8 max-w-[760px] text-center text-[13px] font-medium text-teal-400">
+        <p className="mx-auto mt-8 max-w-[760px] text-center text-[13px] font-medium text-teal-600">
           {profile.whyJoin}
         </p>
       </div>
@@ -602,7 +602,7 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
   const isInvestor = profile.id === "investor";
   const visual = stageVisuals[profile.stage];
   const networkPresentation =
-    connectedNetworkPresentations[profile.id] ?? connectedNetworkPresentations.investor;
+    connectedNetworkPresentations[profile.id] ?? connectedNetworkPresentations["investor"]!;
 
   return (
     <main>
@@ -610,7 +610,7 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
 
       <section
         aria-labelledby={headingId}
-        className={`section-light relative isolate overflow-hidden border-b border-navy-700 ${
+        className={`section-light relative isolate overflow-hidden border-b border-rule ${
           isInvestor ? "min-h-[540px]" : "min-h-[610px]"
         }`}
       >
@@ -643,7 +643,7 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
               </div>
             ) : (
               <div className="mt-7 flex items-center gap-3">
-                <span className="grid size-11 place-items-center bg-navy-900 text-teal-400">
+                <span className="grid size-11 place-items-center bg-page text-teal-600">
                   <RoleIcon profile={profile} className="size-5" />
                 </span>
                 <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.13em] text-orange-700">
@@ -694,21 +694,18 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
 
       <PartnerPlatformStack profile={profile} />
 
-      <section
-        aria-labelledby="network-heading"
-        className="relative overflow-hidden bg-navy-900"
-      >
+      <section aria-labelledby="network-heading" className="relative overflow-hidden bg-page">
         <div className="relative mx-auto w-full max-w-[1200px] px-5 py-16 sm:px-8 lg:py-20">
           <Reveal className="mx-auto max-w-[820px] text-center">
-            <p className="eyebrow tracking-[0.14em] text-teal-400">03 · The connected network</p>
+            <p className="eyebrow tracking-[0.14em] text-teal-600">03 · The connected network</p>
             <h2
               id="network-heading"
-              className="heading-tight mt-3 text-[clamp(2.2rem,5vw,4rem)] font-extrabold leading-none text-white"
+              className="heading-tight mt-3 text-[clamp(2.2rem,5vw,4rem)] font-extrabold leading-none text-ink"
             >
               {networkPresentation.lead}{" "}
               <span className="text-orange-500">{networkPresentation.accent}</span>
             </h2>
-            <p className="mx-auto mt-5 max-w-[68ch] text-[16px] leading-relaxed text-mist">
+            <p className="mx-auto mt-5 max-w-[68ch] text-[16px] leading-relaxed text-ink-muted">
               {profile.impactIntro}
             </p>
           </Reveal>
@@ -722,10 +719,7 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
                 index={index}
                 className="flex gap-3 rounded-2xl border-2 border-orange-500 bg-mist-bg p-5 text-navy-900 transition-transform duration-300 hover:-translate-y-1"
               >
-                <CheckCircle2
-                  aria-hidden="true"
-                  className="mt-0.5 size-5 shrink-0 text-teal-700"
-                />
+                <CheckCircle2 aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-teal-700" />
                 <p className="font-heading text-[15px] font-bold leading-snug text-navy-900">
                   {point}
                 </p>
@@ -734,16 +728,11 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
           </div>
 
           {profile.importantNote ? (
-            <Reveal
-              className="mt-8 flex gap-4 rounded-2xl border border-orange-500/30 bg-orange-500/7 p-4"
-            >
+            <Reveal className="mt-8 flex gap-4 rounded-2xl border border-orange-500/30 bg-orange-500/7 p-4">
               <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-orange-500" />
-              <p className="text-[12px] leading-relaxed text-slate-muted">
-                {profile.importantNote}
-              </p>
+              <p className="text-[12px] leading-relaxed text-ink-muted">{profile.importantNote}</p>
             </Reveal>
           ) : null}
-
         </div>
       </section>
     </main>

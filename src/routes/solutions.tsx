@@ -89,14 +89,14 @@ function SolutionsPage() {
             <p className="eyebrow tracking-[0.14em] text-orange-700">{solutionHero.eyebrow}</p>
             <h1
               id="solution-heading"
-              className="heading-tight mt-3.5 max-w-[15ch] font-heading text-[clamp(2.5rem,7.6vw,6rem)] font-extrabold leading-[0.98] tracking-[-0.04em] text-white"
+              className="heading-tight mt-3.5 max-w-[15ch] font-heading text-[clamp(2.5rem,7.6vw,6rem)] font-extrabold leading-[0.98] tracking-[-0.04em] text-ink"
             >
               {solutionHero.headA}{" "}
               {/* orange-700, not orange-500: on the cream the brighter orange is
                   3.76:1 and `.section-light` rewrites it to navy ink anyway. */}
               <span className="text-orange-700">{solutionHero.headB}</span>
             </h1>
-            <p className="mt-5 max-w-[56ch] text-[19px] leading-relaxed text-mist">
+            <p className="mt-5 max-w-[56ch] text-[19px] leading-relaxed text-ink-muted">
               {solutionHero.lead}
             </p>
           </Reveal>
@@ -104,12 +104,12 @@ function SolutionsPage() {
       </section>
 
       {/* ── 2 · Five layers ── navy ───────────────────────────────────────── */}
-      <section aria-labelledby="layers-heading" className="border-t border-navy-700 bg-navy-900">
+      <section aria-labelledby="layers-heading" className="border-t border-rule bg-page">
         <div className="mx-auto w-full max-w-[1200px] px-5 py-11 sm:px-8">
-          <p className="eyebrow tracking-[0.14em] text-teal-400">How a deal is built</p>
+          <p className="eyebrow tracking-[0.14em] text-teal-600">How a deal is built</p>
           <h2
             id="layers-heading"
-            className="heading-tight mt-2.5 max-w-[22ch] text-balance text-[clamp(1.625rem,3.8vw,2.75rem)] font-extrabold tracking-[-0.02em] text-white"
+            className="heading-tight mt-2.5 max-w-[22ch] text-balance text-[clamp(1.625rem,3.8vw,2.75rem)] font-extrabold tracking-[-0.02em] text-ink"
           >
             A workable deal has <span className="text-orange-500">five layers</span>. We keep them
             connected.
@@ -123,23 +123,25 @@ function SolutionsPage() {
                     {/* The stagger is the cascade. It is capped at 26px a step —
                         deeper and the last row loses too much width to read. */}
                     <div
-                      className="mt-[7px] flex items-center gap-[18px] rounded-r-xl border-l-[3px] border-teal-400 bg-linear-to-r from-teal-600/25 to-transparent px-4 py-[11px]"
+                      className="mt-[7px] flex items-center gap-[18px] rounded-r-xl border-l-[3px] border-teal-600 bg-linear-to-r from-teal-600/25 to-transparent px-4 py-[11px]"
                       style={{ marginLeft: `${i * 26}px` }}
                     >
-                      <span className="font-heading text-[20px] font-extrabold text-teal-400">
+                      <span className="font-heading text-[20px] font-extrabold text-teal-600">
                         {layer.number}
                       </span>
                       <span>
-                        <span className="block font-heading text-[18px] font-extrabold text-white">
+                        <span className="block font-heading text-[18px] font-extrabold text-ink">
                           {layer.title}
                         </span>
-                        <span className="mt-0.5 block text-[13px] text-mist">{layer.detail}</span>
+                        <span className="mt-0.5 block text-[13px] text-ink-muted">
+                          {layer.detail}
+                        </span>
                       </span>
                     </div>
                   </Reveal>
                 ))}
               </ol>
-              <p className="mt-5 max-w-[52ch] font-heading text-[19px] font-bold text-white">
+              <p className="mt-5 max-w-[52ch] font-heading text-[19px] font-bold text-ink">
                 {dealLayersKicker}
               </p>
             </div>
@@ -159,12 +161,12 @@ function SolutionsPage() {
       </section>
 
       {/* ── 3 · Who owns which layer ── cream ─────────────────────────────── */}
-      <section aria-labelledby="owners-heading" className="section-light border-t border-navy-700">
+      <section aria-labelledby="owners-heading" className="section-light border-t border-rule">
         <div className="mx-auto w-full max-w-[1200px] px-5 py-14 sm:px-8">
           <p className="eyebrow tracking-[0.14em] text-orange-700">Who touches which layer</p>
           <h2
             id="owners-heading"
-            className="heading-tight mt-2.5 max-w-[24ch] text-balance text-[clamp(1.625rem,3.8vw,2.75rem)] font-extrabold tracking-[-0.02em] text-white"
+            className="heading-tight mt-2.5 max-w-[24ch] text-balance text-[clamp(1.625rem,3.8vw,2.75rem)] font-extrabold tracking-[-0.02em] text-ink"
           >
             Eight partners. <span className="text-orange-700">Clear responsibilities.</span>
           </h2>
@@ -190,7 +192,7 @@ function SolutionsPage() {
                         className={cn("grid grid-cols-[56px_1fr] gap-[22px]", !last && "pb-[18px]")}
                       >
                         <div className="relative text-center">
-                          <span className="grid size-11 place-items-center rounded-full bg-teal-600 font-heading text-[15px] font-extrabold text-white">
+                          <span className="grid size-11 place-items-center rounded-full bg-teal-600 font-heading text-[15px] font-extrabold text-page">
                             {row.number}
                           </span>
                           {/* The thread between the discs. Decorative — the
@@ -225,7 +227,7 @@ function SolutionsPage() {
                   );
                 })}
               </ol>
-              <p className="mt-5 max-w-[56ch] text-[14px] leading-relaxed text-mist">
+              <p className="mt-5 max-w-[56ch] text-[14px] leading-relaxed text-ink-muted">
                 {layerOwnersKicker}
               </p>
             </div>
@@ -234,25 +236,23 @@ function SolutionsPage() {
       </section>
 
       {/* ── 4 · The product ── navy ───────────────────────────────────────── */}
-      <section aria-labelledby="product-heading" className="border-t border-navy-700 bg-navy-900">
+      <section aria-labelledby="product-heading" className="border-t border-rule bg-page">
         <div className="mx-auto grid w-full max-w-[1200px] items-center gap-9 px-5 py-14 sm:px-8 lg:grid-cols-[minmax(0,1fr)_340px]">
           <div>
-            <p className="eyebrow tracking-[0.14em] text-teal-400">{productPitch.eyebrow}</p>
+            <p className="eyebrow tracking-[0.14em] text-teal-600">{productPitch.eyebrow}</p>
             <h2
               id="product-heading"
-              className="heading-tight mt-3 max-w-[20ch] text-balance text-[clamp(1.75rem,4.4vw,3.125rem)] font-extrabold tracking-[-0.02em] text-white"
+              className="heading-tight mt-3 max-w-[20ch] text-balance text-[clamp(1.75rem,4.4vw,3.125rem)] font-extrabold tracking-[-0.02em] text-ink"
             >
               {productPitch.headA} <span className="text-orange-500">{productPitch.headB}</span>.
             </h2>
-            <p className="mt-3.5 text-[17px] leading-relaxed text-mist">{productPitch.lead}</p>
+            <p className="mt-3.5 text-[17px] leading-relaxed text-ink-muted">{productPitch.lead}</p>
 
             <ul className="mt-6 flex flex-col gap-5 sm:flex-row sm:gap-6">
               {productPitch.items.map((item) => (
                 <li key={item.title} className="flex-1 border-t-2 border-teal-600 pt-3">
-                  <p className="font-heading text-[16.5px] font-extrabold text-white">
-                    {item.title}
-                  </p>
-                  <p className="mt-1.5 text-[13px] leading-snug text-mist">{item.detail}</p>
+                  <p className="font-heading text-[16.5px] font-extrabold text-ink">{item.title}</p>
+                  <p className="mt-1.5 text-[13px] leading-snug text-ink-muted">{item.detail}</p>
                 </li>
               ))}
             </ul>
@@ -262,7 +262,7 @@ function SolutionsPage() {
             <div className="mt-7">
               <Link
                 to="/platform"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-teal-400 bg-teal-600 px-6 py-3 font-heading text-[15px] font-bold text-white shadow-[0_0_0_4px_color-mix(in_oklab,var(--color-teal-400)_18%,transparent),0_12px_30px_-10px_color-mix(in_oklab,var(--color-teal-400)_60%,transparent)] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-teal-600 bg-teal-600 px-6 py-3 font-heading text-[15px] font-bold text-page shadow-[0_0_0_4px_color-mix(in_oklab,var(--color-teal-400)_18%,transparent),0_12px_30px_-10px_color-mix(in_oklab,var(--color-teal-400)_60%,transparent)] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
               >
                 {productPitch.cta}
                 <span aria-hidden="true">→</span>
@@ -285,14 +285,14 @@ function SolutionsPage() {
       {/* ── The safeguarding signpost ─────────────────────────────────────
           Not marketing. Someone who needs housing has landed on a page selling
           property to investors, and this is their route out. It stays. */}
-      <section aria-label="Looking for a home" className="border-t border-navy-700 bg-navy-800">
+      <section aria-label="Looking for a home" className="border-t border-rule bg-page">
         <div className="mx-auto w-full max-w-[1200px] px-5 py-4 text-center sm:px-8">
-          <p className="mx-auto max-w-[96ch] text-[13px] leading-relaxed text-mist">
+          <p className="mx-auto max-w-[96ch] text-[13px] leading-relaxed text-ink-muted">
             {lookingForHome.body}{" "}
             <Link
               to="/contact"
               search={{ enquiry: lookingForHome.enquiry, type: lookingForHome.enquiry }}
-              className="font-bold text-teal-400 underline-offset-2 hover:underline"
+              className="font-bold text-teal-600 underline-offset-2 hover:underline"
             >
               {lookingForHome.action} →
             </Link>

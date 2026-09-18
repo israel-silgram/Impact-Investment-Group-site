@@ -25,21 +25,13 @@ import {
 
 const base = {
   name: z.string().trim().min(2, "Please give your full name").max(100),
-  email: z
-    .string()
-    .trim()
-    .email("Use a valid work email address")
-    .max(255),
+  email: z.string().trim().email("Use a valid work email address").max(255),
   organisation: z.string().trim().min(2, "Please name your organisation").max(150),
   role: z.string().trim().min(1, "Please select your role"),
 };
 
 function schemaFor(route: EnquiryRouteId) {
-  const message = z
-    .string()
-    .trim()
-    .min(10, "Please give us a little more detail")
-    .max(2000);
+  const message = z.string().trim().min(10, "Please give us a little more detail").max(2000);
 
   switch (route) {
     case "investor":
@@ -54,11 +46,7 @@ function schemaFor(route: EnquiryRouteId) {
       return z.object({
         ...base,
         message,
-        holdings: z
-          .string()
-          .trim()
-          .min(10, "Tell us what you hold or what you need")
-          .max(2000),
+        holdings: z.string().trim().min(10, "Tell us what you hold or what you need").max(2000),
         entityType: z.string().trim().min(1, "Please choose an entity type"),
       });
     case "media":
@@ -89,13 +77,13 @@ type FormValues = {
 };
 
 const fieldClass =
-  "min-h-11 w-full rounded-[10px] border border-navy-600 bg-navy-950 px-4 py-3 text-sm text-white placeholder:text-slate-muted focus-visible:border-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400";
+  "min-h-11 w-full rounded-[10px] border border-rule bg-page px-4 py-3 text-sm text-ink placeholder:text-ink-muted focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600";
 
 function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNode }) {
   return (
     <label
       htmlFor={htmlFor}
-      className="font-heading text-sm font-semibold uppercase tracking-[0.08em] text-mist"
+      className="font-heading text-sm font-semibold uppercase tracking-[0.08em] text-ink-muted"
     >
       {children}
     </label>
@@ -105,7 +93,7 @@ function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNo
 /*
  * ⚠️ `text-destructive`, NEVER an orange, and this form is why the rule is
  * written down twice. On /contact the `.section-light` block turns this
- * panel's `bg-navy-800/50` WHITE, so the error text sits on white, where the
+ * panel's `bg-page/50` WHITE, so the error text sits on white, where the
  * brand orange is 4.23:1 at 13px against a 4.5:1 floor. It also reads as the
  * page's call to action, which a failure is the opposite of.
  */
@@ -171,13 +159,13 @@ export function EnquiryForm({
 
   if (sent) {
     return (
-      <div className="rounded-[var(--radius-panel)] border border-teal-600 bg-teal-950 p-8">
-        <span className="grid size-11 place-items-center rounded-full border border-teal-500">
+      <div className="rounded-[var(--radius-panel)] border border-teal-600 bg-tint-teal p-8">
+        <span className="grid size-11 place-items-center rounded-full border border-teal-600">
           {/* Affirmation, not a tick — the copy already says "received". */}
-          <HandHeart aria-hidden="true" className="size-5 text-teal-400" />
+          <HandHeart aria-hidden="true" className="size-5 text-teal-600" />
         </span>
-        <h3 className="mt-5 font-heading text-xl font-bold text-white">Enquiry received</h3>
-        <p className="measure mt-3 text-sm leading-relaxed text-mist">
+        <h3 className="mt-5 font-heading text-xl font-bold text-ink">Enquiry received</h3>
+        <p className="measure mt-3 text-sm leading-relaxed text-ink-muted">
           Routed to our {config.routedTo.toLowerCase()}. {config.reply}.
         </p>
         <div className="mt-6">
@@ -193,10 +181,10 @@ export function EnquiryForm({
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/50 p-6 sm:p-8"
+      className="rounded-[var(--radius-panel)] border border-rule bg-page/50 p-6 sm:p-8"
     >
-      <p className="eyebrow text-teal-400">{config.label}</p>
-      <p className="mt-2 text-sm text-slate-muted">
+      <p className="eyebrow text-teal-600">{config.label}</p>
+      <p className="mt-2 text-sm text-ink-muted">
         Routed to our {config.routedTo.toLowerCase()} · {config.reply.toLowerCase()}
       </p>
 
@@ -342,32 +330,32 @@ export function EnquiryForm({
           </div>
 
           {route === "demo" ? (
-            <fieldset className="rounded-[var(--radius-panel)] border border-navy-600 bg-navy-950 p-5">
-              <legend className="px-1 font-heading text-sm font-semibold uppercase tracking-[0.08em] text-mist">
+            <fieldset className="rounded-[var(--radius-panel)] border border-rule bg-page p-5">
+              <legend className="px-1 font-heading text-sm font-semibold uppercase tracking-[0.08em] text-ink-muted">
                 Or pick a slot
               </legend>
               <div className="mt-3 flex flex-col gap-2">
                 {previewSlots.map((slot) => (
                   <label
                     key={slot}
-                    className="flex min-h-11 cursor-pointer items-center gap-3 rounded-[10px] border border-navy-700 px-4 text-sm text-mist transition-colors hover:border-teal-500 has-checked:border-teal-500 has-checked:bg-teal-950"
+                    className="flex min-h-11 cursor-pointer items-center gap-3 rounded-[10px] border border-rule px-4 text-sm text-ink-muted transition-colors hover:border-teal-600 has-checked:border-teal-600 has-checked:bg-tint-teal"
                   >
                     <input
                       type="radio"
                       value={slot}
-                      className="size-4 accent-teal-500"
+                      className="size-4 accent-teal-600"
                       {...register("slot")}
                     />
                     {slot}
                   </label>
                 ))}
               </div>
-              <p className="mt-4 text-[12px] leading-snug text-slate-muted">
+              <p className="mt-4 text-[12px] leading-snug text-ink-muted">
                 Example slots · illustrative
               </p>
-              <div className="mt-3 flex items-center gap-3 rounded-[10px] border border-dashed border-navy-600 p-4">
-                <CalendarClock aria-hidden="true" className="size-4 shrink-0 text-teal-500" />
-                <span className="text-[12px] leading-snug text-slate-muted">
+              <div className="mt-3 flex items-center gap-3 rounded-[10px] border border-dashed border-rule p-4">
+                <CalendarClock aria-hidden="true" className="size-4 shrink-0 text-teal-600" />
+                <span className="text-[12px] leading-snug text-ink-muted">
                   Calendar embed slot — live availability appears here once the booking calendar is
                   connected.
                 </span>
@@ -394,10 +382,10 @@ export function EnquiryForm({
 
       {route === "investor" ? (
         <div className="mt-6 flex flex-col gap-2">
-          <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-[10px] border border-navy-600 bg-navy-950 p-4 text-sm leading-relaxed text-mist">
+          <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-[10px] border border-rule bg-page p-4 text-sm leading-relaxed text-ink-muted">
             <input
               type="checkbox"
-              className="mt-0.5 size-4 shrink-0 accent-teal-500"
+              className="mt-0.5 size-4 shrink-0 accent-teal-600"
               aria-invalid={!!errors.acknowledgement}
               aria-describedby={errors.acknowledgement ? "acknowledgement-error" : undefined}
               {...register("acknowledgement")}
@@ -418,7 +406,7 @@ export function EnquiryForm({
                 : "Send enquiry"}
           </Button>
         </div>
-        <p className="font-heading text-sm font-semibold text-mist">{config.reply}</p>
+        <p className="font-heading text-sm font-semibold text-ink-muted">{config.reply}</p>
         {/*
          * THE NOTICE AT COLLECTION, beside the submit control.
          *
@@ -432,12 +420,12 @@ export function EnquiryForm({
          * size the site already used, slate on the navy panel, and it must not
          * be shrunk further to fit a layout. (Wave 298, R298-3.)
          */}
-        <p className="max-w-[70ch] text-[12px] leading-snug text-slate-muted">
-          <span className="font-semibold text-mist">{collectionNotice.controller}</span>{" "}
+        <p className="max-w-[70ch] text-[12px] leading-snug text-ink-muted">
+          <span className="font-semibold text-ink-muted">{collectionNotice.controller}</span>{" "}
           {collectionNotice.purpose} {collectionNotice.contactLead}{" "}
           <a
             href={`mailto:${collectionNotice.contactAddress}`}
-            className="font-semibold text-teal-400 underline underline-offset-4 transition-colors duration-200 hover:text-white"
+            className="font-semibold text-teal-600 underline underline-offset-4 transition-colors duration-200 hover:text-ink"
           >
             {collectionNotice.contactAddress}
           </a>
@@ -446,7 +434,7 @@ export function EnquiryForm({
             href={collectionNotice.linkHref}
             target="_blank"
             rel="noreferrer noopener"
-            className="font-semibold text-teal-400 underline underline-offset-4 transition-colors duration-200 hover:text-white"
+            className="font-semibold text-teal-600 underline underline-offset-4 transition-colors duration-200 hover:text-ink"
           >
             {collectionNotice.linkLabel}
             <span className="sr-only"> (opens in a new tab)</span>

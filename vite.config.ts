@@ -11,10 +11,10 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // GitHub Pages build. Opt-in only: set STATIC_BUILD=true (see .github/workflows/deploy.yml).
 // Everything below is inert for Lovable / Cloudflare builds, which stay SSR.
-const isStaticBuild = process.env.STATIC_BUILD === "true";
+const isStaticBuild = process.env["STATIC_BUILD"] === "true";
 // Project pages are served from https://<user>.github.io/<repo>/, so assets and
 // the router need that prefix. Override with BASE_PATH for a custom domain.
-const basePath = process.env.BASE_PATH ?? "/";
+const basePath = process.env["BASE_PATH"] ?? "/";
 
 /**
  * The ten wait-list role pages, read off the same list the site renders from.

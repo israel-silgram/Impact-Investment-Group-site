@@ -87,16 +87,13 @@ function TheProblemPage() {
             key={section.id}
             aria-labelledby={`${section.id}-heading`}
             className={cn(
-              "relative overflow-hidden border-t border-navy-700",
-              light ? "section-light" : "bg-navy-900",
+              "relative overflow-hidden border-t border-rule",
+              light ? "section-light" : "bg-page",
             )}
           >
             <div className="mx-auto w-full max-w-[1200px] px-5 py-14 sm:px-8 lg:py-16">
               <div
-                className={cn(
-                  "relative",
-                  portrait && (onLeft ? "lg:pl-[290px]" : "lg:pr-[290px]"),
-                )}
+                className={cn("relative", portrait && (onLeft ? "lg:pl-[290px]" : "lg:pr-[290px]"))}
               >
                 {portrait ? (
                   <img
@@ -118,7 +115,7 @@ function TheProblemPage() {
                     <p
                       className={cn(
                         "eyebrow tracking-[0.14em]",
-                        light ? "text-orange-700" : "text-teal-400",
+                        light ? "text-orange-700" : "text-teal-600",
                       )}
                     >
                       {section.eyebrow}
@@ -133,16 +130,16 @@ function TheProblemPage() {
                       aria-hidden="true"
                       className={cn(
                         "mt-3 font-heading text-[clamp(2.75rem,6.6vw,5rem)] font-extrabold leading-[0.94] tracking-[-0.035em]",
-                        light ? "text-orange-700" : "text-teal-400",
+                        light ? "text-orange-700" : "text-teal-600",
                       )}
                     >
                       {section.headline}
                     </p>
-                    <p className="mt-3.5 max-w-[32ch] text-[15px] leading-relaxed text-mist">
+                    <p className="mt-3.5 max-w-[32ch] text-[15px] leading-relaxed text-ink-muted">
                       {section.lead}
                     </p>
                     {section.source ? (
-                      <p className="mt-3.5 max-w-[46ch] text-[11px] leading-relaxed text-slate-muted">
+                      <p className="mt-3.5 max-w-[46ch] text-[11px] leading-relaxed text-ink-muted">
                         {section.source}
                       </p>
                     ) : null}
@@ -153,14 +150,14 @@ function TheProblemPage() {
                       {section.rows.map((r) => (
                         <li
                           key={r.label}
-                          className="flex items-baseline justify-between gap-4 border-b border-navy-700 py-3 last:border-b-0"
+                          className="flex items-baseline justify-between gap-4 border-b border-rule py-3 last:border-b-0"
                         >
-                          <p className="text-[13.5px] leading-snug text-mist">{r.label}</p>
+                          <p className="text-[13.5px] leading-snug text-ink-muted">{r.label}</p>
                           {r.value ? (
                             <p
                               className={cn(
                                 "shrink-0 font-heading text-[19px] font-extrabold",
-                                light ? "text-navy-900" : "text-teal-400",
+                                light ? "text-navy-900" : "text-teal-600",
                               )}
                             >
                               {r.value}
@@ -176,9 +173,6 @@ function TheProblemPage() {
           </section>
         );
       })}
-
-      
-
     </main>
   );
 }

@@ -60,7 +60,7 @@ import { cn } from "@/lib/utils";
  * the taller face so nothing jumps.
  *
  * ⚠️ THE GROUND TRAVELS WITH THE FACE, NOT THE SECTION. The front carries
- * `.section-light` and the back `bg-navy-900`; the <section> is transparent. A
+ * `.section-light` and the back `bg-page`; the <section> is transparent. A
  * background on the section shows through the crossfade as a flash of the wrong
  * colour.
  */
@@ -132,7 +132,7 @@ function StatTile({ stat, filled }: { stat: (typeof purposeStats)[number]; fille
       <p
         className={cn(
           "mt-2 text-[13px] font-bold leading-snug",
-          filled ? "text-[#ffffff]" : "text-white",
+          filled ? "text-[#ffffff]" : "text-ink",
         )}
       >
         {stat.label}
@@ -143,7 +143,7 @@ function StatTile({ stat, filled }: { stat: (typeof purposeStats)[number]; fille
       <p
         className={cn(
           "mt-1 max-h-0 overflow-hidden text-[11px] leading-snug opacity-0 transition-all duration-300 group-hover:max-h-16 group-hover:opacity-100",
-          filled ? "text-[rgba(255,255,255,0.85)]" : "text-slate-muted",
+          filled ? "text-[rgba(255,255,255,0.85)]" : "text-ink-muted",
         )}
       >
         {stat.basis}
@@ -225,7 +225,7 @@ export function MissionSolution() {
             <p className="eyebrow tracking-[0.14em] text-orange-700">{purposeCopy.eyebrow}</p>
             <h2
               id="mission-heading"
-              className="heading-tight mt-2 max-w-[24ch] text-balance font-heading text-[clamp(1.625rem,3.2vw,2.375rem)] font-extrabold tracking-[-0.025em] text-white"
+              className="heading-tight mt-2 max-w-[24ch] text-balance font-heading text-[clamp(1.625rem,3.2vw,2.375rem)] font-extrabold tracking-[-0.025em] text-ink"
             >
               {/* The emphasis is picked out of the title rather than the title
                   being split into two fields — one source of truth for the
@@ -368,7 +368,7 @@ export function MissionSolution() {
             </div>
           </div>
 
-          <p className="mt-3.5 text-[11px] leading-relaxed text-slate-muted">{purposeStatsNote}</p>
+          <p className="mt-3.5 text-[11px] leading-relaxed text-ink-muted">{purposeStatsNote}</p>
         </div>
       </div>
 
@@ -376,15 +376,15 @@ export function MissionSolution() {
       <div
         className={cn(
           faceBase,
-          "bg-navy-900",
+          "bg-page",
           showSolution ? "opacity-100" : "pointer-events-none opacity-0",
         )}
         aria-hidden={!showSolution}
       >
         <div className="mx-auto w-full max-w-[1440px] px-5 py-11 sm:px-8 lg:py-12">
           <Reveal>
-            <p className="eyebrow tracking-[0.14em] text-teal-400">{solutionCopy.eyebrow}</p>
-            <h2 className="heading-tight mt-2 max-w-[24ch] text-balance font-heading text-[clamp(1.625rem,3.2vw,2.375rem)] font-extrabold tracking-[-0.025em] text-white">
+            <p className="eyebrow tracking-[0.14em] text-teal-600">{solutionCopy.eyebrow}</p>
+            <h2 className="heading-tight mt-2 max-w-[24ch] text-balance font-heading text-[clamp(1.625rem,3.2vw,2.375rem)] font-extrabold tracking-[-0.025em] text-ink">
               {/* The last of the three carries the accent — the same rhythm the
                   closing strapline uses everywhere else on the site. */}
               {solutionCopy.title.split(". ").map((part, i, all) => (
@@ -407,8 +407,8 @@ export function MissionSolution() {
                     strokeWidth={1.2}
                     className="pointer-events-none absolute -right-8 -top-8 size-48 text-[#ffffff] opacity-[0.14]"
                   />
-                  <p className="eyebrow tracking-[0.14em] text-white/85">{impactProof.eyebrow}</p>
-                  <p className="mt-1.5 flex flex-wrap items-baseline gap-x-3 font-heading font-extrabold leading-none tracking-[-0.04em] text-white">
+                  <p className="eyebrow tracking-[0.14em] text-ink/85">{impactProof.eyebrow}</p>
+                  <p className="mt-1.5 flex flex-wrap items-baseline gap-x-3 font-heading font-extrabold leading-none tracking-[-0.04em] text-ink">
                     <span className="text-[clamp(2.25rem,4vw,3rem)]">
                       {impactProof.multiplier.from.figure}
                     </span>
@@ -426,14 +426,14 @@ export function MissionSolution() {
                   {/* ⚠️ ILLUSTRATIVE, AND IT SAYS SO. A conversion model, not a
                       delivered result. The disclaimer travels with the figure
                       and is not a caption a later layout pass may trim. */}
-                  <p className="mt-2.5 text-[11.5px] leading-snug text-white/85">
+                  <p className="mt-2.5 text-[11.5px] leading-snug text-ink/85">
                     {impactProof.multiplier.disclaimer}
                   </p>
                 </div>
               </Reveal>
 
               <Reveal index={1}>
-                <div className="group relative h-[150px] overflow-hidden rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800">
+                <div className="group relative h-[150px] overflow-hidden rounded-[var(--radius-panel)] border border-rule bg-page shadow-[var(--shadow-card)]">
                   <img
                     src="/images/ai-team/trio-wave.webp"
                     alt=""
@@ -444,8 +444,8 @@ export function MissionSolution() {
                     className="absolute -bottom-1 right-2 h-[152px] w-auto translate-y-3 transition-transform duration-700 ease-out group-hover:translate-y-0"
                   />
                   <div className="absolute inset-y-0 left-0 flex max-w-[54%] flex-col justify-center p-5">
-                    <p className="eyebrow tracking-[0.14em] text-teal-400">Who it is for</p>
-                    <p className="heading-tight mt-0.5 font-heading text-[17px] font-extrabold text-white">
+                    <p className="eyebrow tracking-[0.14em] text-teal-600">Who it is for</p>
+                    <p className="heading-tight mt-0.5 font-heading text-[17px] font-extrabold text-ink">
                       Everyone in the chain, in one place
                     </p>
                   </div>
@@ -458,16 +458,16 @@ export function MissionSolution() {
                   on navy, and it carries the roster inside it for the same
                   reason the bullets moved: one fewer box. */}
               <Reveal index={1}>
-                <div className="rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800 p-6">
-                  <p className="eyebrow tracking-[0.14em] text-teal-400">The platform</p>
-                  <p className="mt-2 max-w-[70ch] text-[13.5px] leading-relaxed text-mist">
+                <div className="rounded-[var(--radius-panel)] border border-rule bg-page p-6 shadow-[var(--shadow-card)]">
+                  <p className="eyebrow tracking-[0.14em] text-teal-600">The platform</p>
+                  <p className="mt-2 max-w-[70ch] text-[13.5px] leading-relaxed text-ink-muted">
                     {solutionCopy.assertion}
                   </p>
                   <ul className="mt-4 flex flex-wrap gap-2">
                     {solutionCopy.roster.map((name) => (
                       <li
                         key={name}
-                        className="rounded-full border border-teal-600 px-3 py-1.5 text-[11.5px] font-semibold text-white"
+                        className="rounded-full border border-teal-600 px-3 py-1.5 text-[11.5px] font-semibold text-ink"
                       >
                         {name}
                       </li>
@@ -485,9 +485,16 @@ export function MissionSolution() {
                       <div
                         className={cn(
                           "group relative flex h-full w-full flex-col overflow-hidden rounded-[var(--radius-panel)] p-5 transition-all duration-300 hover:-translate-y-1",
+                          /* ⚠ THE FILLED CARD KEEPS WHITE INK. White on
+                             teal-600 is 5.25:1; navy on it is 3.58:1 and
+                             fails, which is exactly what a blanket
+                             text-white-to-text-ink conversion would have done
+                             here. `text-page` rather than `text-white` so the
+                             light remap's substring rule cannot reach it while
+                             the unconverted files still rely on that rule. */
                           filled
-                            ? "bg-teal-600"
-                            : "border border-navy-700 bg-navy-800 hover:border-teal-600",
+                            ? "bg-teal-600 shadow-[var(--shadow-card)]"
+                            : "border border-rule bg-page shadow-[var(--shadow-card)] hover:border-teal-600 hover:shadow-[var(--shadow-card-hover)]",
                         )}
                       >
                         <Glyph
@@ -495,18 +502,23 @@ export function MissionSolution() {
                           strokeWidth={1.5}
                           className={cn(
                             "absolute -right-3 -top-3 size-20 opacity-[0.14]",
-                            filled ? "text-white" : "text-teal-400",
+                            filled ? "text-page" : "text-teal-600",
                           )}
                         />
                         <span
                           className={cn(
                             "font-heading text-[11px] font-extrabold tracking-[0.14em]",
-                            filled ? "text-white/80" : "text-teal-400",
+                            filled ? "text-page/80" : "text-teal-600",
                           )}
                         >
                           {stage.number}
                         </span>
-                        <p className="heading-tight mt-1 font-heading text-[15px] font-extrabold text-white">
+                        <p
+                          className={cn(
+                            "heading-tight mt-1 font-heading text-[15px] font-extrabold",
+                            filled ? "text-page" : "text-ink",
+                          )}
+                        >
                           {stage.name}
                         </p>
                         <ul className="mt-2.5 flex flex-col gap-1.5">
@@ -514,8 +526,8 @@ export function MissionSolution() {
                             <li
                               key={point.text}
                               className={cn(
-                                "text-[11.5px] leading-snug",
-                                filled ? "text-white/90" : "text-mist",
+                                "text-[11.5px] leading-[1.6]",
+                                filled ? "text-page/90" : "text-ink-muted",
                               )}
                             >
                               {point.text}
@@ -539,8 +551,8 @@ export function MissionSolution() {
             </div>
           </div>
 
-          <p className="mt-3.5 text-[11px] leading-relaxed text-slate-muted">
-            <Link to="/solutions" className="font-semibold text-teal-400 hover:text-white">
+          <p className="mt-3.5 text-[11px] leading-relaxed text-ink-muted">
+            <Link to="/solutions" className="font-semibold text-teal-600 hover:text-orange-700">
               Read how it works →
             </Link>
           </p>

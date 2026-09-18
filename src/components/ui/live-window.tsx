@@ -32,15 +32,12 @@ export function LiveWindow({
   const select = onTabChange ?? setInternal;
 
   return (
-    <figure
-      aria-label={ariaLabel}
-      className={cn("section-dark panel overflow-hidden not-prose m-0", className)}
-    >
+    <figure aria-label={ariaLabel} className={cn("panel overflow-hidden not-prose m-0", className)}>
       {tabs?.length ? (
         <div
           role="tablist"
           aria-label="Interface views"
-          className="flex flex-wrap gap-2 border-b border-navy-700 bg-navy-900/40 p-3"
+          className="flex flex-wrap gap-2 border-b border-rule bg-page/40 p-3"
         >
           {tabs.map((tab) => {
             const active = tab.id === current;
@@ -54,8 +51,8 @@ export function LiveWindow({
                 className={cn(
                   "min-h-11 cursor-pointer rounded-full border px-4 font-heading text-xs font-semibold uppercase tracking-[0.08em] transition-colors duration-200",
                   active
-                    ? "border-teal-500 bg-teal-950 text-teal-400"
-                    : "border-navy-700 text-slate-muted hover:border-navy-600 hover:text-mist",
+                    ? "border-teal-600 bg-tint-teal text-teal-600"
+                    : "border-rule text-ink-muted hover:border-rule hover:text-ink-muted",
                 )}
               >
                 {tab.label}
@@ -68,7 +65,7 @@ export function LiveWindow({
       <div className="p-4 sm:p-6">{children}</div>
 
       {label ? (
-        <figcaption className="border-t border-navy-700 px-4 py-3 text-[12px] text-slate-muted sm:px-6">
+        <figcaption className="border-t border-rule px-4 py-3 text-[12px] text-ink-muted sm:px-6">
           {label}
         </figcaption>
       ) : null}
