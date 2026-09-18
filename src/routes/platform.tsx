@@ -78,7 +78,7 @@ const ACCENT = {
      axe caught on /platform at both widths in wave 412). The bar and the text
      stay 500: a 3px rule is a graphic at 4.23:1 on white, and `text` is only
      ever set on a heading. */
-  orange: { text: "text-orange-500", bar: "bg-orange-500", disc: "bg-orange-600 text-page" },
+  orange: { text: "text-orange-700", bar: "bg-orange-500", disc: "bg-orange-600 text-page" },
   white: { text: "text-ink", bar: "bg-white/70", disc: "bg-white text-navy-900" },
 } as const;
 
@@ -279,6 +279,8 @@ function DifferenceStory() {
                     <span>
                       <span
                         className={cn(
+                          /* 10px bold: text, so the orange is 700 (6.50:1 on
+                             white) rather than 500 (4.22:1). */
                           "block text-[10px] font-bold uppercase tracking-[0.11em]",
                           selected ? accent.text : "text-ink-muted",
                         )}

@@ -107,7 +107,11 @@ function Rich({ parts, tone, small }: { parts: Seg[]; tone: "rust" | "teal"; sma
    * is now a style choice and not a failure being avoided. Ink is 16.8:1 and
    * still reads as emphasis. On NAVY `small` changes nothing.
    */
-  const accent = tone === "teal" ? "text-orange-500" : small ? "text-ink" : "text-orange-700";
+  /* Wave 412: the teal branch took orange-500, which is 3.75:1 on the cream
+   * and failed at eyebrow size once the light remap was gone. Every orange
+   * WORD on a light ground is orange-700 now; 500 survives as a rule, a chip
+   * border and an icon glyph, where the floor is 3:1. */
+  const accent = tone === "teal" ? "text-orange-700" : small ? "text-ink" : "text-orange-700";
   return (
     <>
       {parts.map((part, i) =>
@@ -522,12 +526,16 @@ function AboutPage() {
         <ol className="mt-8 grid items-stretch gap-4 md:grid-cols-3">
           {accountableChain.map((step, i) => {
             const accent = chainAccents[i % chainAccents.length]!;
-            const line = accent === "orange" ? "text-orange-500" : "text-teal-600";
+            /* The step numeral is an 11px eyebrow, so it is text and takes
+               orange-700 (5.78:1 on the cream). The chip BORDER beside it
+               stays orange-500 at 45%: a rule is a graphic and answers to
+               3:1. */
+            const line = accent === "orange" ? "text-orange-700" : "text-teal-600";
             // Outlined, not washed. A 10.5px word on a 16% wash of its
             // own colour measured 3.52:1; on the card behind it, 4.67:1.
             const chip =
               accent === "orange"
-                ? "border border-orange-500/45 text-orange-500"
+                ? "border border-orange-500/45 text-orange-700"
                 : "border border-teal-600/45 text-teal-600";
             return (
               <Reveal key={step.id} index={i} as="li" className="h-full">

@@ -673,7 +673,7 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
               className={`mt-6 max-w-[58ch] text-[18px] leading-relaxed sm:text-[20px] ${
                 isInvestor
                   ? "border-l-4 border-orange-700 pl-4 font-semibold text-navy-800"
-                  : "text-slate"
+                  : "text-ink-muted"
               }`}
             >
               {profile.summary}

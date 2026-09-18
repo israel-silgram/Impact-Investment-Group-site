@@ -152,7 +152,7 @@ function PartnerCard({ profile, outcome = false }: { profile: PartnerProfile; ou
       <h3 className="mt-3 font-heading text-[16px] font-extrabold leading-tight">
         {profile.label}
       </h3>
-      <p className={cn("mt-1.5 max-w-[32ch] text-[11px] leading-relaxed", "text-slate")}>
+      <p className={cn("mt-1.5 max-w-[32ch] text-[11px] leading-[1.6]", "text-ink-muted")}>
         {detail.description}
       </p>
 

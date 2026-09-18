@@ -52,6 +52,13 @@ it. Per page, per width:
   5. AXE REPORTS NO SERIOUS OR CRITICAL COLOUR-CONTRAST VIOLATION. Inverting a
      palette is exactly the operation that turns passing text into failing
      text, so this runs on every page rather than on a sample.
+  6. THE PAGE HAS WORDS ON IT. At least 60 characters of rendered text.
+     Trivial, and it is the assertion that caught the most serious defect of
+     the run: /404 was serving a BLANK PAGE, because 404.html was a copy of
+     the home shell and hydrating the home route's dehydrated state against an
+     unknown URL threw before the first paint. A blank page is light, has no
+     dark pixels, no overflow and no contrast violations, and passes every
+     other check here perfectly.
 
 `--baseline` re-runs 2, 3 and 4 as MEASUREMENTS ONLY, with nothing asserted and
 no images kept, so the same code can read a build of `origin/main` and produce
@@ -98,6 +105,7 @@ PAGES = [
     ("/this-route-does-not-exist", "404"),
 ]
 
+MIN_TEXT_CHARS = 60
 DARK_PIXEL_CEILING = 0.15
 LIGHT_GROUND_FLOOR = 0.8
 DARK_PIXEL_LUMINANCE = 0.2
@@ -302,6 +310,7 @@ def main() -> None:
                 islands = page.evaluate(
                     "() => document.querySelectorAll('main .section-dark').length"
                 )
+                text_chars = page.evaluate("() => document.body.innerText.trim().length")
 
                 masks = page.evaluate(MASKS)
                 target = out / f"{slug}-{width}.png"
@@ -320,6 +329,7 @@ def main() -> None:
                     f"ground={ground * 100:5.2f}%  "
                     f"body_L={body_luminance:.3f}  header_L={header_luminance:.3f}  "
                     f"islands={islands}  axe={len(violations)}  "
+                    f"text={text_chars}  "
                     f"scrollWidth={overflow[0]}/{overflow[1]}"
                 )
                 rows.append(
@@ -338,6 +348,11 @@ def main() -> None:
 
                 if not args.baseline:
                     where = f"{slug} @ {width}"
+                    if text_chars < MIN_TEXT_CHARS:
+                        failures.append(
+                            f"{where}: only {text_chars} characters of rendered text. "
+                            f"The page is blank or nearly so."
+                        )
                     if not fits:
                         failures.append(
                             f"{where}: horizontal overflow, "

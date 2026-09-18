@@ -328,6 +328,11 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Headings are INK by default. On the dark site this was carried by the
+     light-section remap, which set every heading inside a light band to
+     navy-900; wave 412 deleted that block, so the default belongs here, where
+     a base rule can state it once for the whole site. An island puts it back
+     to white on its own ground (see .section-dark below). */
   h1,
   h2,
   h3,
@@ -336,6 +341,7 @@
   h6 {
     font-family: var(--font-heading);
     font-weight: 700;
+    color: var(--color-ink);
   }
 
   /* WAVE 412: teal-600 is the site's focus ring, because the site's ground
@@ -407,6 +413,17 @@
   border: 1px solid var(--color-rule);
   border-radius: var(--radius-panel);
   box-shadow: var(--shadow-card);
+  transition:
+    transform var(--duration-hover) var(--ease-out-soft),
+    box-shadow var(--duration-hover) var(--ease-out-soft);
+  /* The lift is part of the card, not part of the page it sits on. It used to
+     be declared by the light-section remap, which wave 412 deleted; a card
+     that rises 2px under the pointer is friendlier than one that does not, so
+     it moved here rather than going with it. */
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+  }
 }
 
 /* The quieter card: cream instead of white, for a card that sits ON white and
@@ -701,42 +718,47 @@
 }
 
 /* =====================================================================
- * THE LIGHT SITE (was: LIGHT SECTIONS)
+ * THE LIGHT SITE
  *
- * This block is the site's measured translation of the dark palette onto
- * the light one: navy plates to white cards, white type to navy ink, the
- * lighter teals down a step, the orange guard. It was written for sections
- * marked `.section-light` and it was correct there for three waves.
+ * ── WHAT USED TO BE HERE ──────────────────────────────────────────────
  *
- * WAVE 412 SCOPED IT TO `body`. Every selector below reads
- * `:is(body, .section-light)`, so the translation is what the whole site
- * does by default and a `.section-light` band is now only a CREAM GROUND,
- * not a different set of rules. The two arms are kept rather than collapsed
- * to `body` alone for two reasons: the specificity is unchanged, so nothing
- * in the cascade below reorders; and `.section-light` still has to out-rank
- * the island rules when a light section is nested inside one.
+ * A remap. Three waves of this site were navy by default, and a section
+ * marked `.section-light` re-pointed the dark palette used inside it onto
+ * the light one: `bg-navy-800` became a white card, `text-white` became
+ * navy ink, `text-teal-400` stepped down to 600, and so on, all of it
+ * matched on class-name SUBSTRINGS at a specificity that beat Tailwind's
+ * own utilities.
  *
- * ⚠ THIS IS A SAFETY NET, NOT THE FINISHED STATE. A component whose class
- * says `bg-navy-800` while it renders white is a lie the next reader pays
- * for. Wave 412 step 2 converts components to the honest light classes file
- * by file; what is left is listed in docs/WAVE412_REPORT.md. When the list
- * is empty, delete everything here except the island rules below.
+ * Wave 412 scoped that block to `body` so the whole site read light in one
+ * commit, then converted every component to the light classes file by file,
+ * and then DELETED IT. It is gone on purpose. A class that says
+ * `bg-navy-800` while it renders white is a lie the next reader pays for,
+ * and a stylesheet that rewrites what a component asked for is a stylesheet
+ * nobody can reason about from the markup.
  *
- * Contrast rules that must not break:
- *   slate (#647289) on the cream is 4.33:1 — fails AA for body copy.
- *   Body copy directly on the cream is therefore slate-ink (6.2:1).
- *   Orange 400/500/600 is never text on the cream (2.1:1, 3.76:1, 4.75:1)
- *   Icons and fills only. orange-700 is the one that may (5.78:1).
- *   slate is only for body copy on white cards (4.87:1), plus borders,
- *   rules and small caps labels.
+ * What is left below is only what a light site actually needs: the cream
+ * band, the two navy islands, and the icon plates.
  *
- * Written unlayered so it outranks Tailwind's layered utilities. The
- * boundary between a light and a dark section is always a hard edge:
- * no gradients, no fades.
+ * ⚠ DO NOT BRING IT BACK. If a component looks wrong on the light ground,
+ * fix the component. The names to reach for are in `@theme`: `bg-page`,
+ * `bg-page-alt`, `text-ink`, `text-ink-muted`, `text-ink-soft`,
+ * `border-rule`, `bg-tint-orange`, `bg-tint-teal`.
+ *
+ * ── THE BAND ──────────────────────────────────────────────────────────
+ *
+ * `body` is white. `.section-light` is the cream alternating band. The
+ * boundary between the two is always a hard edge: no gradients, no fades.
+ *
+ * Contrast rules that must not break, measured on the cream #f7f1e6:
+ *   ink-soft (#647289) is 4.33:1 and FAILS for body copy. Body copy on the
+ *     cream is ink-muted (6.20:1); ink-soft is for rules, small caps and
+ *     body copy on a white card (4.87:1 there).
+ *   orange-500 and orange-600 are 3.76:1 and 4.75:1 and are NEVER text on
+ *     the cream. orange-700 is 5.78:1 and is the one that may be.
+ *   teal-400 is 2.14:1. The teal that carries text on a light ground is
+ *     always 600.
  * ===================================================================== */
 
-/* The cream band. `body` is white; this is the alternating ground, and the
-   boundary between the two is always a hard edge: no gradients, no fades. */
 .section-light {
   background-color: var(--color-page-alt);
   /* Body copy directly on the cream. */
@@ -744,202 +766,26 @@
   border-color: var(--color-rule);
 }
 
-/* ⚠ THE FOCUS RING MOVED OUT OF THIS BLOCK IN WAVE 412 and is now in the
-   base layer, where teal-600 is the ring for the whole site and the two navy
-   islands put it back to teal-400 on their own ground. Wave 298 found the
-   failure here (teal-400 is 2.14:1 on the cream against a 3:1 floor for SC
-   1.4.11 and 2.4.11) and fixed it per light section; on a light site there is
-   nothing left for a per-section rule to do. */
+/* ---------------------------------------------------------------------------
+ * NAVY ISLANDS
+ *
+ * A rounded plate that keeps its darkness inside a light section, allowed
+ * only where darkness does a job. There are two on the site: the demand map's
+ * plate, whose luminous dot field and orange halos are light ADDED to darkness
+ * and wash out on white, and the crisis card in the footer and on /contact,
+ * which has to be the one block a person in trouble cannot miss.
+ *
+ * At most ONE inside <main> per route, never in the first viewport, never the
+ * header, never a whole section's ground. scripts/wave412-screenshots.py
+ * counts them on every page at both widths and fails at two.
+ *
+ * The markup inside an island is written in the DARK classes, because that is
+ * what the plate is: `text-white`, `text-mist`, `border-navy-700`,
+ * `text-orange-500`, `outline-teal-400`. The rules below restate the palette
+ * for anything that arrives carrying the light ones instead.
+ * ------------------------------------------------------------------------- */
 
-/* Surfaces: navy panels become white cards. */
-:is(body, .section-light) [class*="bg-navy-"] {
-  background-color: var(--color-surface);
-}
-
-/* Borders, dividers, table rules. */
-:is(body, .section-light) [class*="border-navy-"] {
-  border-color: var(--slate-20);
-}
-
-:is(body, .section-light) [class*="border-dashed"] {
-  border-color: color-mix(in oklab, var(--color-slate) 40%, transparent);
-}
-
-/* Type. */
-:is(body, .section-light) :is(h1, h2, h3, h4, h5, h6) {
-  color: var(--color-navy-900);
-}
-
-:is(body, .section-light) [class*="text-white"]:not([class*="orange"]) {
-  color: var(--color-navy-900);
-}
-
-/* ⚠ THE ESCAPE HATCH IS `text-page`, NOT `text-white`.
-   The rule above matches the SUBSTRING `text-white` on the class attribute at
-   all times, which is what makes it a safety net and also what makes it blunt:
-   a genuinely white label sitting on a small dark plate that is not a marked
-   island (the skip link, the navy button inside the mega menu's orange block,
-   the numeral on the teal stat card) would be repainted navy on navy and
-   disappear. Those use `text-page`, which is the same #ffffff by a name this
-   selector does not match. The `:not([class*="orange"])` arm does the same job
-   for anything filled with the brand orange, where white is the measured
-   pairing at 5.34:1. */
-
-:is(body, .section-light) [class*="text-mist"] {
-  color: var(--color-slate-ink);
-}
-
-/* ⚠ SLATE IS NOT A BODY COLOUR ON THE CREAM, AND THIS RULE USED TO MAKE IT
-   ONE. `--color-slate` (#647289) is 4.87:1 on white but 4.33:1 on the cream,
-   under the 4.5:1 body floor, and axe reported it on the partner cards, the
-   contact page and the footer on every wave that ran a pass. Wave 298 fixed
-   one paragraph by hand and listed the rest as out of scope. Wave 412 fixes
-   the rule instead: every `text-slate` and `text-slate-muted` on a light
-   ground resolves to ink-muted, 6.20:1 on the cream and 6.97:1 on white.
-
-   The match is on `text-slate` rather than on `text-slate-muted`, so it
-   catches the bare `text-slate` the partner cards use as well. Slate survives
-   where it belongs: borders, rules, and the small caps labels that are
-   graphics rather than sentences. */
-:is(body, .section-light) [class*="text-slate"] {
-  color: var(--color-ink-muted);
-}
-
-/* A BARE `bg-teal-950` IS A DARK PLATE and the light site has none outside
-   its two islands. It was the "selected" and "supporting" fill everywhere: the
-   register asides, the success state, the contact form's note. On the light
-   ground each one became a dark rectangle with navy ink sitting on it at
-   1.31:1, which axe caught on both register pages.
-
-   It resolves to the 12% teal tint, which is the same plate the data icons and
-   the secondary button hover use, so the family holds.
-
-   ⚠ THE `:not` ARM IS LOAD-BEARING. `[class*="bg-teal-950"]` also matches a
-   VARIANT class such as `has-checked:bg-teal-950`, and an attribute selector
-   cannot tell that the variant has not fired: without the guard every
-   unchecked option would render as though it were selected. A Tailwind variant
-   always carries a colon before the utility, so excluding `:bg-teal-950`
-   leaves exactly the bare ones. The variant forms are converted by hand, file
-   by file, in step 2. */
-:is(body, .section-light) [class*="bg-teal-950"]:not([class*=":bg-teal-950"]) {
-  background-color: var(--color-tint-teal);
-}
-
-/* The lighter teals do not hold on a light ground. */
-:is(body, .section-light) :is([class*="text-teal-400"], [class*="text-teal-500"]) {
-  color: var(--color-teal-600);
-}
-
-/* Neither does the error red. --destructive is picked for the dark forms
-   (4.57:1 there, 4.05:1 for the red it replaced); on white it would be 3.91:1.
-   This is the same swap, for the same reason, as the three rules around it.
-   It is deliberately NOT inside the orange guard below: an error must stay an
-   error on every ground, never fall back to navy ink. */
-:is(body, .section-light) [class*="text-destructive"] {
-  color: var(--color-destructive-on-light);
-}
-
-/* orange-500 and orange-600 are 3.76:1 and 4.75:1 on the cream, so a 500 or
-   600 word that lands in a light section falls back to navy ink; the accent
-   survives as icons, borders and fills. orange-700 is deliberately not listed:
-   at 5.78:1 it is the one orange that may carry text here, at body size and
-   not only large.
-
-   ⚠️ THE 400 ARM WAS DROPPED WITH THE TOKEN. It matched nothing once the
-   lighter orange was retired, and a selector arm that cannot fire is a
-   selector arm somebody re-adds the colour behind.
-
-   Icons and validation errors are exempt: the first is a permitted accent, and
-   the second must never fall back to navy ink, because an error that reads
-   like body copy is not an error. Errors have their own light-ground colour a
-   few rules above. */
-:is(body, .section-light)
-  :is([class*="text-orange-5"], [class*="text-orange-6"]):not(svg):not([role="alert"]) {
-  color: var(--color-navy-900);
-}
-
-/* WHITE ON A FILLED TEAL PLATE STAYS WHITE, 5.25:1.
-   The `text-white` rule above matches a substring and cannot see what is
-   behind the text, so a white label on a teal-600 fill (the 44px icon discs on
-   /solutions, the enquiry-type pill on /contact) was being repainted navy at
-   3.58:1. This restores it, for a BARE `bg-teal-600` only: the `:not` arm
-   excludes variant classes such as `hover:bg-teal-600`, where the fill is not
-   there yet and white would be white on white. Two selectors because the fill
-   and the label are sometimes the same element and sometimes not. */
-:is(body, .section-light) [class*="bg-teal-600"]:not([class*=":bg-teal-600"]) [class*="text-white"],
-:is(body, .section-light) [class*="bg-teal-600"]:not([class*=":bg-teal-600"])[class*="text-white"] {
-  color: var(--color-white);
-}
-
-/* Body copy sitting on a white card may use slate. */
-:is(body, .section-light) .panel :is(p, li),
-:is(body, .section-light) [class*="bg-navy-"] [class*="text-mist"] {
-  color: var(--color-slate);
-}
-
-/* Cards: white surface, 12px radius, hairline slate rule, soft shadow.
-   This is what finally gives the cards depth. */
-:is(body, .section-light) .panel,
-:is(body, .section-light) [class*="bg-navy-"][class*="rounded"]:not([class*="rounded-full"]) {
-  background-color: var(--color-surface);
-  border: 1px solid var(--slate-20);
-  border-radius: 12px;
-  box-shadow: var(--shadow-card);
-  transition:
-    transform var(--duration-hover) var(--ease-out-soft),
-    box-shadow var(--duration-hover) var(--ease-out-soft);
-}
-
-:is(body, .section-light) .panel:hover,
-:is(body, .section-light) [class*="bg-navy-"][class*="rounded"]:not([class*="rounded-full"]):hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-card-hover);
-}
-
-/* Data and progress bars: teal-500 fill on a slate 12% track. */
-:is(body, .section-light) [class*="rounded-full"][class*="bg-navy-"] {
-  background-color: color-mix(in oklab, var(--color-slate) 12%, transparent);
-  box-shadow: none;
-}
-
-/* Icon circles: 1px slate stroke at 30%, icon in teal-600. */
-:is(body, .section-light) [class*="rounded-full"][class*="border-navy-"] {
-  background-color: var(--color-surface);
-  border-color: color-mix(in oklab, var(--color-slate) 30%, transparent);
-}
-
-/* A left-ruled accent panel keeps its accent colour, not the card rule. */
-:is(body, .section-light) [class*="border-l-2"],
-:is(body, .section-light) [class*="border-l-4"] {
-  border-left-width: 4px;
-}
-
-/* Deliberately muted, institutional panels: slate tint over mist-bg with a
-   2px slate left rule. Calm and non-promotional by design. */
-:is(body, .section-light) .panel-slate,
-:is(body, .section-light) .panel-slate:hover {
-  background-color: color-mix(in oklab, var(--color-slate) 8%, var(--color-mist-bg));
-  border: 0;
-  border-left: 2px solid var(--color-slate);
-  border-radius: 12px;
-  box-shadow: none;
-  transform: none;
-}
-
-:is(body, .section-light) .panel-slate :is(p, li, span, dt, dd) {
-  color: var(--color-slate-ink);
-}
-
-/* ---------- Dark islands inside a light section ----------
- * Live product windows and the portals demo keep the navy ground even when
- * the section around them is light: that is where orange has to pop. These
- * rules restate the dark palette at higher specificity than the light
- * mappings above, so they win wherever they are nested.
- */
-
-:is(body, .section-light) .section-dark {
-  /* navy-950, not navy-900, since wave 295's "one orange": the 13px orange
-     link inside this island reaches 4.5:1 only at or below navy-950. */
+.section-dark {
   background-color: var(--color-navy-950);
   border: 1px solid var(--color-navy-700);
   border-radius: var(--radius-panel);
@@ -947,96 +793,49 @@
   color: var(--color-mist);
 }
 
-:is(body, .section-light) .section-dark:hover {
+.section-dark:hover {
   transform: none;
   box-shadow: var(--shadow-panel);
 }
 
-/* An island may keep an accent rule instead of the navy hairline. The footer's
-   crisis card is the one that does: teal-600 around a navy plate is what marks
-   it as care information rather than another card. Written as a data attribute
-   so the marker stays on the island itself and cannot be applied by accident
-   through a utility class. */
-:is(body, .section-light) .section-dark[data-accent="teal"] {
+/* An island may carry an accent rule instead of the navy hairline. The crisis
+   card is the one that does, on both the pages it appears on: teal-600 around
+   a navy plate is what marks it as care information rather than another card.
+   A data attribute rather than a class, so it cannot arrive by accident
+   through a utility. */
+.section-dark[data-accent="teal"] {
   border-color: var(--color-teal-600);
 }
 
-/* Investor journey panels stay navy inside the cream platform section. */
-:is(body, .section-light) .investor-dark-panel.investor-dark-panel {
-  background-color: var(--color-navy-900) !important;
-}
-
-:is(body, .section-light) .section-dark [class*="bg-navy-950"] {
-  background-color: var(--color-navy-950);
-}
-:is(body, .section-light) .section-dark [class*="bg-navy-900"] {
-  background-color: var(--color-navy-900);
-}
-:is(body, .section-light) .section-dark [class*="bg-navy-800"] {
-  background-color: var(--color-navy-800);
-}
-:is(body, .section-light) .section-dark [class*="bg-navy-"][class*="rounded"] {
-  border-color: var(--color-navy-700);
-  border-radius: var(--radius-panel);
-  box-shadow: none;
-}
-:is(body, .section-light) .section-dark [class*="rounded-full"][class*="bg-navy-"] {
-  background-color: var(--color-navy-800);
-}
-:is(body, .section-light) .section-dark [class*="border-navy-"],
-:is(body, .section-light) .section-dark [class*="divide-navy-"] {
-  border-color: var(--color-navy-700);
-}
-:is(body, .section-light) .section-dark [class*="border-dashed"] {
-  border-color: var(--color-navy-600);
-}
-:is(body, .section-light) .section-dark :is(h1, h2, h3, h4, h5, h6),
-:is(body, .section-light) .section-dark [class*="text-white"] {
+.section-dark :is(h1, h2, h3, h4, h5, h6) {
   color: var(--color-white);
 }
-:is(body, .section-light) .section-dark [class*="text-mist"],
-:is(body, .section-light) .section-dark .panel :is(p, li) {
-  color: var(--color-mist);
-}
-:is(body, .section-light) .section-dark [class*="text-slate-muted"] {
-  color: var(--color-slate-muted);
-}
-:is(body, .section-light) .section-dark [class*="text-teal-400"] {
-  color: var(--color-teal-400);
-}
-:is(body, .section-light) .section-dark [class*="text-teal-500"] {
-  color: var(--color-teal-500);
-}
 
-/* ⚠ A SAFETY RULE FOR THE CONVERTED CLASSES.
- *
- * Wave 412's step 2 replaces `bg-navy-800` with `bg-page`, `text-white` with
- * `text-ink` and `border-navy-700` with `border-rule` file by file. Those
- * names mean the LIGHT ground by construction, so a converted component that
- * ever ends up nested inside an island would paint navy ink on navy. The
- * island's own markup is written in the dark classes on purpose and needs
- * none of this; it is here so that the day somebody drops a converted card
- * into the demand map plate or the crisis card, the result is legible rather
- * than blank.
- *
- * If you are reading this because something inside an island looks wrong: the
- * fix is to write that markup in the dark classes, not to extend this rule. */
-:is(body, .section-light) .section-dark :is([class*="text-ink"], [class*="text-page"]) {
+/* ⚠ A SAFETY NET FOR THE LIGHT CLASSES, NOT A SECOND REMAP.
+   `bg-page`, `text-ink` and `border-rule` mean the light ground by
+   construction, so a component written for the page and then nested inside an
+   island would paint navy ink on navy. The island's own markup needs none of
+   this. It is here so that the day somebody drops a converted card into the
+   map plate or the crisis card, the result is legible rather than blank.
+
+   If you are reading this because something inside an island looks wrong: the
+   fix is to write that markup in the dark classes, not to widen these rules. */
+.section-dark :is([class*="text-ink"], [class*="text-page"]) {
   color: var(--color-mist);
 }
-:is(body, .section-light) .section-dark [class*="border-rule"] {
+.section-dark [class*="border-rule"] {
   border-color: var(--color-navy-700);
 }
-:is(body, .section-light) .section-dark [class*="bg-page"] {
+.section-dark [class*="bg-page"] {
   background-color: var(--color-navy-800);
 }
-:is(body, .section-light) .section-dark [class*="text-teal-600"] {
+.section-dark [class*="text-teal-600"] {
   color: var(--color-teal-400);
 }
 
-/* Panels nested inside a dark island stay dark too. */
-:is(body, .section-light) .section-dark .panel,
-:is(body, .section-light) .section-dark .panel:hover {
+/* A panel nested inside an island stays dark too. */
+.section-dark .panel,
+.section-dark .panel:hover {
   background-color: var(--color-navy-800);
   border: 1px solid var(--color-navy-700);
   border-radius: var(--radius-panel);
@@ -1044,78 +843,10 @@
   transform: none;
 }
 
-/* Dark islands, restated last at higher specificity: some light-mode card
-   mappings share the same specificity and would otherwise win on order. */
-:is(body, .section-light) .section-dark.section-dark [class*="bg-navy-950"] {
-  background-color: var(--color-navy-950);
-}
-:is(body, .section-light) .section-dark.section-dark [class*="bg-navy-900"] {
-  background-color: var(--color-navy-900);
-}
-:is(body, .section-light) .section-dark.section-dark [class*="bg-navy-800"] {
-  background-color: var(--color-navy-800);
-}
-:is(body, .section-light) .section-dark.section-dark [class*="bg-navy-700"] {
-  background-color: var(--color-navy-700);
-}
-:is(body, .section-light) .section-dark.section-dark [class*="bg-navy-"][class*="rounded"] {
-  border-color: var(--color-navy-700);
-  border-radius: var(--radius-panel);
-  box-shadow: none;
-}
-:is(body, .section-light) .section-dark.section-dark [class*="border-navy-600"] {
-  border-color: var(--color-navy-600);
-}
-:is(body, .section-light) .section-dark.section-dark :is(h1, h2, h3, h4, h5, h6),
-:is(body, .section-light) .section-dark.section-dark [class*="text-white"] {
-  color: var(--color-white);
-}
-:is(body, .section-light) .section-dark.section-dark [class*="text-mist"] {
-  color: var(--color-mist);
-}
-/* Orange is 7.2:1 on navy, so inside a dark island it stays orange — this must
-   outrank the light-section guard that turns orange text to navy ink. */
-:is(body, .section-light) .section-dark.section-dark [class*="text-orange-"] {
-  color: var(--color-orange-500);
-}
-
 /* ---------------------------------------------------------------------------
- * Icon-circle tones
- * Cycled across a grid so the tiles have life in them. Explicit classes so
- * the .section-light remap can't muddy them: each tone declares its own
- * dark-ground and light-ground values. Orange stays scarce — one per grid.
- * ------------------------------------------------------------------------- */
-.icon-tone {
-  border-width: 1px;
-  border-style: solid;
-}
-.icon-tone-teal {
-  border-color: color-mix(in oklab, var(--color-teal-500) 70%, transparent);
-  background-color: color-mix(in oklab, var(--color-teal-950) 45%, transparent);
-  color: var(--color-teal-400);
-}
-.icon-tone-orange {
-  border-color: color-mix(in oklab, var(--color-orange-500) 70%, transparent);
-  background-color: color-mix(in oklab, var(--color-orange-500) 12%, transparent);
-  color: var(--color-orange-500);
-}
-.icon-tone-slate {
-  border-color: color-mix(in oklab, var(--color-slate) 60%, transparent);
-  background-color: color-mix(in oklab, var(--color-slate) 18%, transparent);
-  color: var(--color-slate-muted);
-}
-.icon-tone-navy {
-  border-color: var(--color-navy-600);
-  background-color: color-mix(in oklab, var(--color-navy-600) 35%, transparent);
-  color: var(--color-mist);
-}
-.icon-tone-white {
-  border-color: var(--color-navy-600);
-  background-color: color-mix(in oklab, var(--color-navy-900) 60%, transparent);
-  color: var(--color-white);
-}
-
-/* WAVE 412: A SOFT TINTED DISC, NOT A THIN RING.
+ * ICON PLATES
+ *
+ * WAVE 412: A SOFT TINTED DISC, NOT A THIN RING.
  *
  * The dark site drew every icon as a 24px glyph inside a 60px circle outlined
  * by a 1px hairline. That reads as engineering: precise, cold, and on a white
@@ -1143,61 +874,64 @@
  *
  * The plates are translucent, so on the cream they darken with the ground.
  * The cream column is therefore the binding one, and both accents clear the
- * graphic floor there with room; neither is text, so 4.5:1 is not the bar. */
-:is(body, .section-light) .icon-tone-teal {
+ * graphic floor there with room; neither is text, so 4.5:1 is not the bar.
+ *
+ * Tones are cycled across a grid so the tiles have life in them. Orange stays
+ * scarce: one per grid, and only where the subject is a person, a hand or a
+ * heart. Teal is data.
+ * ------------------------------------------------------------------------- */
+.icon-tone {
+  border-width: 1px;
+  border-style: solid;
   border-color: transparent;
+}
+.icon-tone-teal {
   background-color: var(--color-tint-teal);
   color: var(--color-teal-600);
 }
-:is(body, .section-light) .icon-tone-orange {
-  border-color: transparent;
+.icon-tone-orange {
   background-color: var(--color-tint-orange);
   color: var(--color-orange-600);
 }
-:is(body, .section-light) .icon-tone-slate {
-  border-color: transparent;
+.icon-tone-slate {
   background-color: color-mix(in oklab, var(--color-slate) 10%, transparent);
   color: var(--color-ink-muted);
 }
-:is(body, .section-light) .icon-tone-navy {
-  border-color: transparent;
+.icon-tone-navy {
   background-color: color-mix(in oklab, var(--color-navy-900) 8%, transparent);
   color: var(--color-ink);
 }
 /* The one tone that keeps an edge: its plate IS the page, so without a rule
    there is nothing to see. It is the tone for an icon sitting on the cream or
    on a tinted card and needing to read as a white disc. */
-:is(body, .section-light) .icon-tone-white {
+.icon-tone-white {
   border-color: var(--color-rule);
   background-color: var(--color-page);
   color: var(--color-ink);
 }
 
-/* Inside a NAVY ISLAND the tones go back to their dark values. The light
-   block above is scoped to `body`, so on specificity alone it would follow an
-   icon into the island and paint a pale tint with a teal-600 glyph on navy.
-   Three class selectors beat two, so these win wherever they are nested. */
-:is(body, .section-light) .section-dark .icon-tone-teal {
+/* Inside a navy island the tones go back to their dark values. */
+.section-dark .icon-tone-teal {
   border-color: color-mix(in oklab, var(--color-teal-500) 70%, transparent);
   background-color: color-mix(in oklab, var(--color-teal-950) 45%, transparent);
   color: var(--color-teal-400);
 }
-:is(body, .section-light) .section-dark .icon-tone-orange {
+.section-dark .icon-tone-orange {
   border-color: color-mix(in oklab, var(--color-orange-500) 70%, transparent);
   background-color: color-mix(in oklab, var(--color-orange-500) 12%, transparent);
   color: var(--color-orange-500);
 }
-:is(body, .section-light) .section-dark .icon-tone-slate {
+.section-dark .icon-tone-slate {
   border-color: color-mix(in oklab, var(--color-slate) 60%, transparent);
   background-color: color-mix(in oklab, var(--color-slate) 18%, transparent);
   color: var(--color-slate-muted);
 }
-:is(body, .section-light) .section-dark .icon-tone-navy {
+.section-dark .icon-tone-navy {
   border-color: var(--color-navy-600);
   background-color: color-mix(in oklab, var(--color-navy-600) 35%, transparent);
   color: var(--color-mist);
 }
-:is(body, .section-light) .section-dark .icon-tone-white {
+.section-dark .icon-tone-white {
   border-color: var(--color-navy-600);
   background-color: color-mix(in oklab, var(--color-navy-900) 60%, transparent);
   color: var(--color-white);
