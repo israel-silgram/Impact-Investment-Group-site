@@ -51,12 +51,18 @@ export const Route = createFileRoute("/")({
       { property: "og:url", content: "https://impactinvestmentgroup.co.uk/" },
       /* The link card WhatsApp, LinkedIn and X draw. Absolute URL, 1200 x 630,
          under 300 KB: WhatsApp ignores a relative path and a larger file. */
-      { property: "og:image", content: "https://impactinvestmentgroup.co.uk/images/brand/og-default.png" },
+      {
+        property: "og:image",
+        content: "https://impactinvestmentgroup.co.uk/images/brand/og-default.png",
+      },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: "Impact Investment Group logo" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "https://impactinvestmentgroup.co.uk/images/brand/og-default.png" },
+      {
+        name: "twitter:image",
+        content: "https://impactinvestmentgroup.co.uk/images/brand/og-default.png",
+      },
     ],
     links: [{ rel: "canonical", href: "https://impactinvestmentgroup.co.uk/" }],
   }),
@@ -104,18 +110,27 @@ function HomePage() {
           620 × 760 viewBox — width is the only thing that controls its height.
           560px puts it at ~686px tall, which is roughly the height of the left
           column beside it, so the two balance. */}
-      <section aria-labelledby="demand-heading" className="border-t border-navy-700 bg-navy-900">
+      {/*
+       * WAVE 412: THE SECTION IS LIGHT AND THE MAP IS THE ISLAND.
+       *
+       * The cream band rather than the page white, because everything in the
+       * left column is a card and a card needs a ground to sit on. The map
+       * itself keeps its darkness on its own rounded plate inside this
+       * section; see the note on that plate in demand-map.tsx for why the dot
+       * field cannot follow the page into the light.
+       */}
+      <section aria-labelledby="demand-heading" className="section-light border-t border-rule">
         <div className="mx-auto w-full max-w-[1440px] px-5 py-10 sm:px-8">
           <div className="grid gap-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,600px)] lg:items-stretch">
             <div className="flex min-w-0 flex-col">
-              <p className="eyebrow text-teal-400">{demandMapCopy.eyebrow}</p>
+              <p className="eyebrow text-teal-600">{demandMapCopy.eyebrow}</p>
               <h2
                 id="demand-heading"
-                className="heading-tight mt-2 max-w-[20ch] text-balance text-[clamp(1.5rem,2.8vw,2rem)] font-bold text-white"
+                className="heading-tight mt-2 max-w-[20ch] text-balance text-[clamp(1.5rem,2.8vw,2rem)] font-bold text-ink"
               >
                 {demandMapCopy.title}
               </h2>
-              <p className="mt-2.5 max-w-[52ch] text-[13.5px] leading-[1.6] text-mist">
+              <p className="measure mt-2.5 text-[13.5px] leading-[1.65] text-ink-muted">
                 {demandMapCopy.lead}
               </p>
 
@@ -127,25 +142,35 @@ function HomePage() {
                   <li
                     key={stat.label}
                     className={cn(
-                      "rounded-xl border p-3",
-                      stat.emphasis ? "border-teal-600 bg-teal-600" : "border-navy-700 bg-navy-800",
+                      "rounded-xl border p-3 shadow-[var(--shadow-card)]",
+                      /* The emphasised figure keeps its teal fill and its
+                         white numeral (5.25:1); the other two are white cards
+                         with a teal-600 numeral on white (5.25:1) and navy ink
+                         under it. Same three cards, same hierarchy, read the
+                         other way up. */
+                      stat.emphasis ? "border-teal-600 bg-teal-600" : "border-rule bg-page",
                     )}
                   >
                     <span
                       className={cn(
                         "block font-heading text-[22px] font-extrabold leading-none tracking-[-0.02em]",
-                        stat.emphasis ? "text-white" : "text-teal-400",
+                        stat.emphasis ? "text-page" : "text-teal-600",
                       )}
                     >
                       {stat.value}
                     </span>
-                    <span className="mt-1.5 block text-[12px] font-semibold leading-snug text-white">
+                    <span
+                      className={cn(
+                        "mt-1.5 block text-[12px] font-semibold leading-snug",
+                        stat.emphasis ? "text-page" : "text-ink",
+                      )}
+                    >
                       {stat.label}
                     </span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-2 flex items-center gap-1.5 text-[11px] font-semibold text-teal-400">
+              <p className="mt-2 flex items-center gap-1.5 text-[11px] font-semibold text-teal-600">
                 <Icons.Activity aria-hidden="true" className="size-3" />
                 {platformStatsSource}
               </p>
@@ -161,10 +186,10 @@ function HomePage() {
                       className="mt-0.5"
                     />
                     <div className="min-w-0">
-                      <h3 className="heading-tight text-[14.5px] font-bold text-white">
+                      <h3 className="heading-tight text-[14.5px] font-bold text-ink">
                         {statement.heading}
                       </h3>
-                      <p className="mt-1 max-w-[62ch] text-[12.5px] leading-[1.55] text-mist">
+                      <p className="mt-1 max-w-[62ch] text-[12.5px] leading-[1.6] text-ink-muted">
                         {statement.body}
                       </p>
                     </div>
@@ -194,7 +219,7 @@ function HomePage() {
 
               {/* mt-auto keeps the note at the foot of the column, level with
                   the bottom of the map rather than floating up the middle. */}
-              <p className="mt-auto flex items-start gap-2 pt-7 text-[11px] leading-[1.55] text-slate-muted">
+              <p className="mt-auto flex items-start gap-2 pt-7 text-[11px] leading-[1.6] text-ink-muted">
                 <Icons.Info aria-hidden="true" className="mt-px size-3.5 shrink-0" />
                 {demandMapCopy.illustrativeNote}
               </p>
@@ -210,14 +235,14 @@ function HomePage() {
               share one line — both saved a row each, and every word of them is
               still here. ODbL requires the OpenStreetMap credit wherever its
               data is used. */}
-          <div className="mt-8 border-t border-navy-700 pt-4">
+          <div className="mt-8 border-t border-rule pt-4">
             <div className="flex flex-col items-center gap-3">
-              <h3 className="eyebrow tracking-[0.14em] text-teal-400">{dataSourcesEyebrow}</h3>
+              <h3 className="eyebrow tracking-[0.14em] text-teal-600">{dataSourcesEyebrow}</h3>
               <ul className="flex flex-wrap items-center justify-center gap-3">
                 {dataSources.map((source) => (
                   <li
                     key={source.id}
-                    className="inline-flex h-14 items-center justify-center rounded-lg bg-white px-4 py-2"
+                    className="inline-flex h-14 items-center justify-center rounded-lg border border-rule bg-white px-4 py-2"
                   >
                     <img
                       src={source.logo}
@@ -233,11 +258,11 @@ function HomePage() {
               </ul>
             </div>
 
-            <p className="mt-2.5 text-center text-[11px] leading-relaxed text-slate-muted">
+            <p className="mt-2.5 text-center text-[11px] leading-relaxed text-ink-muted">
               {dataSourcesDisclaimer} · {openStreetMapAttribution} ·{" "}
               <Link
                 to="/about"
-                className="font-semibold text-teal-400 transition-colors duration-200 hover:text-white"
+                className="font-semibold text-teal-600 transition-colors duration-200 hover:text-orange-700"
               >
                 Where our data comes from
               </Link>
@@ -258,7 +283,7 @@ function HomePage() {
           measure at 15px so it fits two lines instead of three; and the four
           points run as one centred row of 32px rings rather than a two-column
           block of 60px ones, which alone was 176px of the old height. Padding
-          drops from 96px to 40/48px. Everything stays centred on one axis. */}
+          drops from 96px to 40/48px. Everything stays centred on one axis. */}
     </>
   );
 }

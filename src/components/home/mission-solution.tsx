@@ -175,7 +175,7 @@ function FlipBar({
     <button
       type="button"
       onClick={onFlip}
-      className="group flex w-full cursor-pointer items-center justify-between gap-4 rounded-[var(--radius-panel)] bg-linear-to-r from-orange-600 to-orange-500 px-6 py-4 text-left transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400"
+      className="group flex w-full cursor-pointer items-center justify-between gap-4 rounded-[var(--radius-panel)] bg-linear-to-r from-orange-600 to-orange-500 px-6 py-4 text-left transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
     >
       <span className="min-w-0">
         <span className="block font-heading text-[10px] font-extrabold uppercase tracking-[0.16em] text-[rgba(255,255,255,0.78)]">
@@ -256,7 +256,9 @@ export function MissionSolution() {
                     strokeWidth={1.2}
                     className="pointer-events-none absolute -right-8 -top-8 size-48 text-[#ffffff] opacity-[0.14]"
                   />
-                  <p className="eyebrow tracking-[0.14em] text-[rgba(255,255,255,0.88)]">{hero.label}</p>
+                  <p className="eyebrow tracking-[0.14em] text-[rgba(255,255,255,0.88)]">
+                    {hero.label}
+                  </p>
                   <p className="mt-1.5 font-heading text-[clamp(3rem,6.6vw,4.75rem)] font-extrabold leading-none tracking-[-0.04em] text-[#ffffff]">
                     <CountUpFigure value={hero.value} />
                   </p>
@@ -294,16 +296,20 @@ export function MissionSolution() {
 
             {/* ── right column ─────────────────────────────────────────── */}
             <div className="flex flex-1 flex-col gap-3.5">
-              {/* NAVY ON CREAM. The single biggest lift out of "dull": a dark
-                  tile in a light grid is the highest-contrast thing on the
-                  band, so the sentence the section is arguing lands first. The
-                  bullets live inside it — one fewer box, one fewer gap. */}
+              {/* THE LOUDEST CARD ON THE BAND, AND IT IS NO LONGER THE
+                  DARKEST ONE. This was a navy tile on the cream, put there
+                  because a dark tile in a light grid is the highest-contrast
+                  thing on the band and the sentence the section argues had to
+                  land first. Wave 412 kept the job and changed the means: a
+                  white card with a 4px orange rule across the top. It is still
+                  the one card the eye goes to, and it is no longer the second
+                  navy island on a route that has already spent its one on the
+                  demand map. The bullets still live inside it, one fewer box
+                  and one fewer gap. */}
               <Reveal index={1}>
-                <div className="section-dark p-6">
-                  <p className="eyebrow tracking-[0.14em] text-teal-400">
-                    {challengeCopy.eyebrow}
-                  </p>
-                  <h3 className="heading-tight mt-1.5 font-heading text-[clamp(1.25rem,2.1vw,1.5rem)] font-extrabold text-white">
+                <div className="rounded-[var(--radius-panel)] border border-rule border-t-4 border-t-orange-500 bg-page p-6 shadow-[var(--shadow-card)]">
+                  <p className="eyebrow tracking-[0.14em] text-teal-600">{challengeCopy.eyebrow}</p>
+                  <h3 className="heading-tight mt-1.5 font-heading text-[clamp(1.25rem,2.1vw,1.5rem)] font-extrabold text-ink">
                     {challengeCopy.title}
                   </h3>
                   <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
@@ -316,17 +322,26 @@ export function MissionSolution() {
                             strokeWidth={1.9}
                             className={cn(
                               "mt-px size-4 shrink-0",
-                              point.tone === "orange" ? "text-[#ff7a29]" : "text-[#2fbaaa]",
+                              /* Two hard-coded hexes lived here, and one of
+                                 them was #ff7a29, the amber this site retired
+                                 in wave 295. Both are tokens now, and both are
+                                 measured as GRAPHICS on white against the 3:1
+                                 floor of SC 1.4.11: orange-500 is 4.23:1 and
+                                 teal-600 is 5.25:1. The old pair was 2.3:1 and
+                                 2.41:1, which failed on any light ground. */
+                              point.tone === "orange" ? "text-orange-500" : "text-teal-600",
                             )}
                           />
-                          <span className="text-[12.5px] leading-snug text-mist">{point.text}</span>
+                          <span className="text-[12.5px] leading-[1.6] text-ink-muted">
+                            {point.text}
+                          </span>
                         </li>
                       );
                     })}
                   </ul>
                   <Link
                     to="/the-problem"
-                    className="mt-4 inline-flex items-center gap-1.5 font-heading text-[13px] font-bold text-teal-400 transition-colors duration-200 hover:text-orange-500"
+                    className="mt-4 inline-flex items-center gap-1.5 font-heading text-[13px] font-bold text-teal-600 transition-colors duration-200 hover:text-orange-700"
                   >
                     See the full picture
                     <Icons.ArrowRight aria-hidden="true" className="size-3.5" />

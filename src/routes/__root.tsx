@@ -16,7 +16,6 @@ import { SiteFooter } from "@/components/site-footer";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { siteDescription } from "@/content/site";
 
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -85,13 +84,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "The Impact Investment Platform" },
       {
         name: "description",
-        content:
-          siteDescription,
+        content: siteDescription,
       },
       { property: "og:site_name", content: "The Impact Investment Platform" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "theme-color", content: "#00112B" },
+      /* Follows the HEADER ground, which is what sits under the browser's
+         own bar. Navy here on a white header put a dark strip above the page
+         on Android and in installed PWAs. */
+      { name: "theme-color", content: "#FFFFFF" },
     ],
     links: [
       {
@@ -128,10 +129,10 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <SmoothScroll />
-      <div className="flex min-h-screen flex-col bg-navy-900">
+      <div className="flex min-h-screen flex-col bg-page">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-navy-800 focus:px-4 focus:py-3 focus:text-sm focus:text-white"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-ink focus:px-4 focus:py-3 focus:text-sm focus:text-page focus:shadow-[var(--shadow-card-hover)]"
         >
           Skip to content
         </a>
@@ -144,5 +145,4 @@ function RootComponent() {
       </div>
     </QueryClientProvider>
   );
-
 }

@@ -8,13 +8,16 @@ import { cn } from "@/lib/utils";
 /**
  * Brand buttons.
  *
- * primary   — the ONE orange action a page exists to get. Never two different
- *             primary actions on the same page.
- * secondary — teal outline. Everything that is not the page's goal.
- * ghost     — text with an animated teal underline.
+ * primary   the ONE orange action a page exists to get. Never two different
+ *           primary actions on the same page.
+ * secondary teal outline. Everything that is not the page's goal.
+ * ghost     text with an animated teal underline.
+ *
+ * Every label and every rule below is measured against the LIGHT ground the
+ * site has had since wave 412. A variant added here is measured too.
  */
 const buttonVariants = cva(
-  "group inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 whitespace-nowrap font-heading text-base font-semibold transition-all duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+  "group inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 whitespace-nowrap font-heading text-base font-semibold transition-all duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -24,16 +27,22 @@ const buttonVariants = cva(
            Hover lifts and deepens the shadow rather than lightening the fill. */
         primary:
           "rounded-full bg-orange-600 px-6 text-white shadow-[var(--shadow-action)] hover:-translate-y-0.5 hover:shadow-[0_16px_34px_-12px_var(--color-orange-500)]",
+        /* WAVE 412, the light ground. The outline was teal-500 with a
+           teal-400 label and a teal-950 fill on hover, all three of which were
+           chosen against navy: on white the label is 2.41:1 and the hover
+           fill is a black hole in the middle of a light page. It is now
+           teal-600 throughout (5.25:1 on white, 4.67:1 on the cream) filling
+           to the 12% teal tint, which is the same tint the data icon plates
+           use, so a secondary action and a data icon read as one family. */
         secondary:
-          "rounded-full border border-teal-500 bg-transparent px-6 text-teal-400 hover:bg-teal-950 hover:text-white",
-        ghost: "nav-underline rounded-none bg-transparent px-1 text-white hover:text-white",
+          "rounded-full border border-teal-600 bg-transparent px-6 text-teal-600 hover:bg-tint-teal hover:text-teal-600",
+        ghost: "nav-underline rounded-none bg-transparent px-1 text-ink hover:text-teal-600",
         // shadcn-internal variants, retained for library components
         default: "rounded-md bg-primary px-4 text-primary-foreground hover:bg-primary/90",
         destructive:
           "rounded-md bg-destructive px-4 text-destructive-foreground hover:bg-destructive/90",
-        outline:
-          "rounded-md border border-navy-600 bg-transparent px-4 text-white hover:bg-navy-800",
-        link: "text-teal-400 underline-offset-4 hover:underline",
+        outline: "rounded-md border border-rule bg-transparent px-4 text-ink hover:bg-page-alt",
+        link: "text-teal-600 underline-offset-4 hover:underline",
       },
       size: {
         /* Every button label stays at 16px / weight 600 minimum. White on

@@ -30,8 +30,6 @@ export function SiteHeader() {
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
   const partnersCloseTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const [overLight, setOverLight] = React.useState(false);
-
   const openPartnersMenu = () => {
     if (partnersCloseTimerRef.current) clearTimeout(partnersCloseTimerRef.current);
     setPartnersOpen(true);
@@ -43,13 +41,13 @@ export function SiteHeader() {
   };
 
   React.useEffect(() => {
+    // WAVE 412: the header is light on every route, so it no longer has to
+    // ask what is under it. The probe that used to run here read
+    // elementFromPoint on every scroll frame to decide whether to draw a rule;
+    // the rule is now always there, and the only thing scroll changes is the
+    // shadow that lifts the bar off the content sliding beneath it.
     const onScroll = () => {
       setScrolled(window.scrollY > 8);
-      // Context-aware chrome: the header never inverts to white — the logo and
-      // the orange action need the dark ground — but it gains a slate rule when
-      // the section beneath it is a light one, so it does not float.
-      const below = document.elementFromPoint(window.innerWidth / 2, 84);
-      setOverLight(Boolean(below?.closest(".section-light")));
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -115,19 +113,29 @@ export function SiteHeader() {
   }, [open]);
 
   return (
+    /*
+     * WAVE 412: A LIGHT HEADER.
+     *
+     * White at 92% with a blur behind it, so the page reads through the bar
+     * as it scrolls rather than hiding under a navy slab. The 8% that is not
+     * white is what makes the blur visible at all; at 100% there is nothing
+     * to see through. `supports-[backdrop-filter]` keeps the bar opaque on
+     * browsers that cannot blur, where 92% white over moving content is
+     * simply muddy.
+     *
+     * The rule underneath is permanent. It is the only thing separating a
+     * white bar from a white page, so it cannot be a scroll state.
+     */
     <header
       className={cn(
-        "sticky top-0 z-50 bg-navy-950 transition-colors duration-200",
-        overLight
-          ? "border-b border-[color-mix(in_oklab,var(--color-slate)_25%,transparent)]"
-          : scrolled
-            ? "border-b border-navy-700"
-            : "border-b border-transparent",
+        "sticky top-0 z-50 border-b border-rule bg-header transition-shadow duration-200",
+        "supports-[backdrop-filter]:backdrop-blur-md",
+        scrolled && "shadow-[var(--shadow-card)]",
       )}
     >
       <div className="mx-auto flex min-h-[76px] w-full max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8">
         <Link to="/" className="shrink-0 rounded-md" aria-label="Impact Investment Platform — home">
-          <Logo variant="on-navy" />
+          <Logo variant="on-cream" />
         </Link>
 
         <nav aria-label="Main" className="hidden self-stretch xl:block">
@@ -145,9 +153,14 @@ export function SiteHeader() {
                         <Link
                           to="/partners"
                           className={cn(
-                            "nav-link inline-flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200",
+                            "nav-link inline-flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap text-[15px] font-medium text-ink transition-colors duration-200",
+                            /* orange-700, not 500: this is 15px TEXT on a
+                               white bar, where 500 is 4.23:1 and 700 is
+                               6.50:1. The underline under it stays 500,
+                               because a 2px rule is a graphic and answers to
+                               3:1 rather than 4.5:1. */
                             (pathname === "/partners" || pathname.startsWith("/partner-with-")) &&
-                              "text-orange-500",
+                              "text-orange-700",
                           )}
                         >
                           Partners
@@ -165,13 +178,13 @@ export function SiteHeader() {
                         sideOffset={0}
                         onMouseEnter={openPartnersMenu}
                         onMouseLeave={schedulePartnersMenuClose}
-                        className="w-[660px] rounded-none border-x border-b border-t-2 border-x-navy-600 border-b-navy-600 border-t-orange-500 bg-navy-950 p-0 text-white shadow-[0_28px_65px_rgba(0,0,0,0.42)]"
+                        className="w-[660px] rounded-none border-x border-b border-t-2 border-x-rule border-b-rule border-t-orange-500 bg-page p-0 text-ink shadow-[var(--shadow-card-hover)]"
                       >
-                        <div className="flex items-center justify-between border-b border-navy-700 px-5 py-3.5">
-                          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-teal-400">
+                        <div className="flex items-center justify-between border-b border-rule px-5 py-3.5">
+                          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-teal-600">
                             Partners
                           </p>
-                          <span className="font-mono text-[9px] uppercase tracking-[0.08em] text-slate-muted">
+                          <span className="font-mono text-[9px] uppercase tracking-[0.08em] text-ink-soft">
                             10 partner pathways
                           </span>
                         </div>
@@ -190,11 +203,16 @@ export function SiteHeader() {
                               </p>
                               <DropdownMenuItem
                                 asChild
-                                className="mt-5 cursor-pointer rounded-none p-0 text-white focus:bg-navy-800 focus:text-white"
+                                className="mt-5 cursor-pointer rounded-none p-0 text-page focus:bg-ink focus:text-page"
                               >
+                                {/* The one navy left on this bar, and it is
+                                    deliberate: a navy button inside the orange
+                                    feature block. White on navy-900 is
+                                    18.83:1, and nothing lighter would separate
+                                    from the orange behind it. */}
                                 <Link
                                   to="/partners"
-                                  className="group flex min-h-12 w-full items-center gap-3 bg-navy-950 px-4 py-3 text-white transition-colors hover:bg-navy-800"
+                                  className="group flex min-h-12 w-full items-center gap-3 bg-ink px-4 py-3 text-page transition-colors hover:bg-navy-800"
                                 >
                                   <NetworkMark />
                                   <span className="text-[13px] font-semibold">
@@ -211,17 +229,17 @@ export function SiteHeader() {
                               <DropdownMenuItem
                                 key={partner.id}
                                 asChild
-                                className="cursor-pointer rounded-none p-0 focus:bg-navy-800 focus:text-white"
+                                className="cursor-pointer rounded-none p-0 focus:bg-page-alt focus:text-ink"
                               >
                                 <Link
                                   to={partner.path}
                                   className={cn(
-                                    "group relative flex min-h-14 w-full items-center gap-2.5 px-3 py-2 text-[12px] font-semibold leading-tight text-mist transition-colors hover:bg-navy-800 hover:text-white",
+                                    "group relative flex min-h-14 w-full items-center gap-2.5 px-3 py-2 text-[12px] font-semibold leading-tight text-ink-muted transition-colors hover:bg-page-alt hover:text-ink",
                                     pathname === partner.path &&
-                                      "bg-navy-800 text-white before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:bg-orange-500",
+                                      "bg-page-alt text-ink before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:bg-orange-500",
                                   )}
                                 >
-                                  <span className="w-5 shrink-0 font-mono text-[9px] text-orange-500">
+                                  <span className="w-5 shrink-0 font-mono text-[9px] text-orange-700">
                                     {String(index + 1).padStart(2, "0")}
                                   </span>
                                   <span>{partner.label}</span>
@@ -240,7 +258,7 @@ export function SiteHeader() {
                     <Link
                       to={item.to}
                       activeOptions={{ exact: true }}
-                      className="nav-link inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-medium text-white transition-colors duration-200"
+                      className="nav-link inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-medium text-ink transition-colors duration-200"
                     >
                       {item.label}
                     </Link>
@@ -258,7 +276,7 @@ export function SiteHeader() {
           <Link
             to="/contact"
             search={loginSearch}
-            className="inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-normal text-mist transition-colors duration-200 hover:text-white"
+            className="inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-normal text-ink transition-colors duration-200 hover:text-orange-700"
           >
             Log in
           </Link>
@@ -270,7 +288,7 @@ export function SiteHeader() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="inline-grid size-11 cursor-pointer place-items-center rounded-full border border-navy-600 text-white transition-colors duration-200 hover:bg-navy-800 xl:hidden"
+          className="inline-grid size-11 cursor-pointer place-items-center rounded-full border border-rule text-ink transition-colors duration-200 hover:bg-page-alt xl:hidden"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
@@ -282,10 +300,10 @@ export function SiteHeader() {
           role="dialog"
           aria-modal="true"
           aria-label="Site menu"
-          className="absolute inset-x-0 top-0 z-50 flex h-dvh flex-col bg-navy-950 px-5 pb-8 pt-6 xl:hidden"
+          className="absolute inset-x-0 top-0 z-50 flex h-dvh flex-col bg-page px-5 pb-8 pt-6 xl:hidden"
         >
           <div className="flex items-center justify-between">
-            <Logo variant="on-navy" />
+            <Logo variant="on-cream" />
             <button
               type="button"
               aria-label="Close menu"
@@ -293,7 +311,7 @@ export function SiteHeader() {
                 setOpen(false);
                 triggerRef.current?.focus();
               }}
-              className="inline-grid size-11 cursor-pointer place-items-center rounded-full border border-navy-600 text-white"
+              className="inline-grid size-11 cursor-pointer place-items-center rounded-full border border-rule text-ink"
             >
               <X className="size-5" />
             </button>
@@ -311,9 +329,9 @@ export function SiteHeader() {
                         aria-controls="mobile-partner-links"
                         onClick={() => setMobilePartnersOpen((value) => !value)}
                         className={cn(
-                          "flex w-full items-center justify-between font-heading text-[28px] font-semibold text-white",
+                          "flex w-full items-center justify-between font-heading text-[28px] font-semibold text-ink",
                           (pathname === "/partners" || pathname.startsWith("/partner-with-")) &&
-                            "text-orange-500",
+                            "text-orange-700",
                         )}
                       >
                         Partners
@@ -328,12 +346,12 @@ export function SiteHeader() {
                       {mobilePartnersOpen ? (
                         <ol
                           id="mobile-partner-links"
-                          className="mt-4 grid gap-1 border-l border-teal-400/35 pl-4"
+                          className="mt-4 grid gap-1 border-l border-teal-600/35 pl-4"
                         >
                           <li>
                             <Link
                               to="/partners"
-                              className="flex min-h-10 items-center gap-3 rounded-none px-2 text-[15px] font-semibold text-white hover:bg-navy-800"
+                              className="flex min-h-10 items-center gap-3 rounded-none px-2 text-[15px] font-semibold text-ink hover:bg-page-alt"
                             >
                               <NetworkMark />
                               Explore the ecosystem
@@ -343,9 +361,9 @@ export function SiteHeader() {
                             <li key={partner.id}>
                               <Link
                                 to={partner.path}
-                                className="flex min-h-10 items-center gap-3 rounded-none px-2 text-[15px] font-semibold text-mist hover:bg-navy-800 hover:text-white"
+                                className="flex min-h-10 items-center gap-3 rounded-none px-2 text-[15px] font-semibold text-ink-muted hover:bg-page-alt hover:text-ink"
                               >
-                                <span className="font-mono text-[10px] text-orange-500">
+                                <span className="font-mono text-[10px] text-orange-700">
                                   {String(index + 1).padStart(2, "0")}
                                 </span>
                                 {partner.label}
@@ -361,7 +379,7 @@ export function SiteHeader() {
                       <Link
                         to={item.to}
                         activeOptions={{ exact: true }}
-                        className="font-heading text-[28px] font-semibold text-white data-[status=active]:text-orange-500"
+                        className="font-heading text-[28px] font-semibold text-ink data-[status=active]:text-orange-700"
                       >
                         {item.label}
                       </Link>
@@ -379,7 +397,7 @@ export function SiteHeader() {
             <Link
               to="/contact"
               search={loginSearch}
-              className="inline-flex min-h-11 items-center text-[15px] font-normal text-mist"
+              className="inline-flex min-h-11 items-center text-[15px] font-normal text-ink"
             >
               Log in
             </Link>
@@ -392,7 +410,7 @@ export function SiteHeader() {
 
 function ArrowMark() {
   return (
-    <span aria-hidden="true" className="ml-auto text-[13px] text-teal-400">
+    <span aria-hidden="true" className="ml-auto text-[13px] text-teal-600">
       →
     </span>
   );
@@ -402,7 +420,7 @@ function NetworkMark() {
   return (
     <span
       aria-hidden="true"
-      className="grid size-5 place-items-center border border-teal-400/45 text-[10px] text-teal-400"
+      className="grid size-5 place-items-center border border-teal-600/45 text-[10px] text-teal-600"
     >
       10
     </span>

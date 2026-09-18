@@ -42,7 +42,7 @@ export function CouncilPanel() {
   return (
     <section
       aria-labelledby="commissioning-councils"
-      className="border-y border-navy-700 bg-navy-800 py-6 sm:py-7"
+      className="border-y border-rule bg-page py-6 sm:py-7"
     >
       {/* The full sentence stays in the accessibility tree; the visible line is
           shorter than the heading a screen reader wants here. */}
@@ -60,13 +60,11 @@ export function CouncilPanel() {
           content/trust.ts; see the note there before you do. */}
       <p className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1 px-5 text-center sm:px-8">
         {councilsCount ? (
-          <span className="font-heading text-[clamp(1.75rem,3.4vw,2.25rem)] font-extrabold leading-none tracking-[-0.02em] text-teal-400">
+          <span className="font-heading text-[clamp(1.75rem,3.4vw,2.25rem)] font-extrabold leading-none tracking-[-0.02em] text-teal-600">
             {councilsCount}
           </span>
         ) : null}
-        <span className="eyebrow tracking-[0.14em] text-teal-400">
-          {councilsStatement}
-        </span>
+        <span className="eyebrow tracking-[0.14em] text-teal-600">{councilsStatement}</span>
       </p>
 
       <LogoMarquee

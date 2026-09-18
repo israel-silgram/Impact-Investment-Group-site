@@ -54,10 +54,12 @@ export function SiteFooter() {
        * puts the apex exactly on the top edge — that is what stops it reading
        * as a wave. preserveAspectRatio="none" stretches one path to any width.
        *
-       * ⚠️ ON A PAGE WHOSE LAST SECTION IS CREAM the two top corners show the
-       * page ground through them, which reads as a navy strip. That is the
-       * known cost of a transparent divider and it is NOT fixed by deleting
-       * the arch — see restore-footer.cjs.
+       * ⚠️ ON A PAGE WHOSE LAST SECTION IS CREAM the two top corners used to
+       * show the page ground through them, which read as a navy strip. WAVE
+       * 412 ENDED THAT by making the page white: the corners now show white
+       * beside cream, which is the site's own band rhythm rather than a
+       * defect. The divider is still transparent and still stretches one
+       * path to any width; nothing about it changed but what is behind it.
        */}
       <div
         aria-hidden="true"
@@ -84,7 +86,7 @@ export function SiteFooter() {
          * cap once broke "Delivering / Support." across two lines. A beat can
          * never split; the line either fits or wraps at a full stop.
          */}
-        <section aria-labelledby="funnel-heading" className="border-b border-navy-700">
+        <section aria-labelledby="funnel-heading" className="border-b border-rule">
           <div className="mx-auto w-full max-w-[1440px] px-5 pb-8 pt-1 text-center sm:px-8">
             <h2 id="funnel-heading" className="sr-only">
               Register your interest
@@ -97,7 +99,7 @@ export function SiteFooter() {
                   aria-hidden="true"
                   className={
                     "heading-tight inline-block whitespace-nowrap font-heading text-[clamp(1.25rem,2.4vw,1.875rem)] font-extrabold leading-[1.2] tracking-[-0.02em] " +
-                    (i === 1 ? "text-orange-700" : "text-white") +
+                    (i === 1 ? "text-orange-700" : "text-ink") +
                     (i < 2 ? " mr-2" : "")
                   }
                 >
@@ -105,14 +107,14 @@ export function SiteFooter() {
                 </span>
               ))}
             </p>
-            <p className="mx-auto mt-2.5 max-w-[58ch] text-[13.5px] leading-relaxed text-mist">
+            <p className="mx-auto mt-2.5 max-w-[58ch] text-[13.5px] leading-relaxed text-ink-muted">
               {/* orange-700 is the one orange that carries text on the cream.
                   5.78:1 since wave 295, where it was 4.1:1 and this 13.5px
                   line only passed by being called emphasis. It passes now on
                   its own terms. */}
               <strong className="font-bold text-orange-700">30+ years</strong> across property,
               housing, care and support — not an estate agency, a{" "}
-              <strong className="font-bold text-white">national network</strong>.
+              <strong className="font-bold text-ink">national network</strong>.
             </p>
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
               <Button variant="primary" asChild>
@@ -138,30 +140,36 @@ export function SiteFooter() {
             {/* Logo + contact */}
             <div className="flex flex-col gap-3">
               <Logo variant="on-cream" />
-              <p className="max-w-[74ch] text-[12px] leading-relaxed text-slate-muted">
+              {/* ink-muted, not ink-soft. This is 12px body copy sitting
+                  directly on the cream, where ink-soft is 4.33:1 and fails
+                  AA; ink-muted is 6.20:1. Wave 298 recorded this paragraph
+                  and its neighbours as a known failure it was not scoped to
+                  fix. Wave 412 is scoped to it: the axe run in the gate
+                  allows zero serious colour-contrast violations. */}
+              <p className="max-w-[74ch] text-[12px] leading-relaxed text-ink-muted">
                 {siteDescription}
               </p>
-              <ul className="flex flex-col gap-1.5 text-[13px] text-mist">
+              <ul className="flex flex-col gap-1.5 text-[13px] text-ink-muted">
                 <li className="flex items-center gap-2">
-                  <Mail aria-hidden="true" className="size-3.5 shrink-0 text-teal-500" />
+                  <Mail aria-hidden="true" className="size-3.5 shrink-0 text-teal-600" />
                   <a
-                    className="transition-colors duration-200 hover:text-white"
+                    className="transition-colors duration-200 hover:text-orange-700"
                     href={`mailto:${contactDetails.email}`}
                   >
                     {contactDetails.email}
                   </a>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Phone aria-hidden="true" className="size-3.5 shrink-0 text-teal-500" />
+                  <Phone aria-hidden="true" className="size-3.5 shrink-0 text-teal-600" />
                   <a
-                    className="transition-colors duration-200 hover:text-white"
+                    className="transition-colors duration-200 hover:text-orange-700"
                     href={`tel:${contactDetails.phone.replace(/\s/g, "")}`}
                   >
                     {contactDetails.phone}
                   </a>
                 </li>
-                <li className="flex items-center gap-2 text-slate-muted">
-                  <Clock aria-hidden="true" className="size-3.5 shrink-0 text-teal-500" />
+                <li className="flex items-center gap-2 text-ink-muted">
+                  <Clock aria-hidden="true" className="size-3.5 shrink-0 text-teal-600" />
                   {contactDetails.hours}
                 </li>
               </ul>
@@ -169,13 +177,13 @@ export function SiteFooter() {
 
             {/* Site */}
             <nav aria-label="Footer site links" className="flex flex-col gap-2.5">
-              <h2 className="eyebrow text-slate-muted">Site</h2>
+              <h2 className="eyebrow text-teal-600">Site</h2>
               <ul className="flex flex-col gap-1 text-[13px]">
                 {footerSiteLinks.map((item) => (
                   <li key={item.to}>
                     <Link
                       to={item.to}
-                      className="inline-flex min-h-11 items-center text-mist transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-px"
+                      className="inline-flex min-h-11 items-center text-ink-muted transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:py-px"
                     >
                       {item.label}
                     </Link>
@@ -186,14 +194,14 @@ export function SiteFooter() {
 
             {/* Contact routes */}
             <nav aria-label="Enquiry routes" className="flex flex-col gap-2.5">
-              <h2 className="eyebrow text-slate-muted">Contact routes</h2>
+              <h2 className="eyebrow text-teal-600">Contact routes</h2>
               <ul className="flex flex-col gap-1 text-[13px]">
                 {contactRoutes.map((item) => (
                   <li key={item.enquiry}>
                     <Link
                       to="/contact"
                       search={{ enquiry: item.enquiry, type: item.enquiry }}
-                      className="inline-flex min-h-11 items-center text-mist transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-px"
+                      className="inline-flex min-h-11 items-center text-ink-muted transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:py-px"
                     >
                       {item.label}
                     </Link>
@@ -205,13 +213,13 @@ export function SiteFooter() {
             {/* Partner routes stay compact in two equal columns: five links on
               each side, followed by the partnership enquiry action. */}
             <nav aria-label="Partner pages" className="flex flex-col gap-2.5">
-              <h2 className="eyebrow text-slate-muted">Our Partners</h2>
+              <h2 className="eyebrow text-teal-600">Our Partners</h2>
               <ul className="grid grid-flow-col grid-cols-2 grid-rows-5 gap-x-5 gap-y-1 text-[13px]">
                 {partnerProfiles.map((partner) => (
                   <li key={partner.id}>
                     <Link
                       to={partner.path}
-                      className="inline-flex min-h-11 items-center text-mist transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-px"
+                      className="inline-flex min-h-11 items-center text-ink-muted transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:py-px"
                     >
                       {partner.label}
                     </Link>
@@ -221,18 +229,35 @@ export function SiteFooter() {
               <Link
                 to="/contact"
                 search={{ enquiry: "partner", type: "partner" }}
-                className="inline-flex min-h-11 items-center gap-1 font-heading text-[13px] font-semibold text-teal-400 transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-px"
+                className="inline-flex min-h-11 items-center gap-1 font-heading text-[13px] font-semibold text-teal-600 transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:py-px"
               >
                 Become a Partner
                 <ArrowUpRight aria-hidden="true" className="size-3.5" />
               </Link>
             </nav>
 
-            {/* In a crisis — care information, not marketing. Every number and
-              the 999 note are untouched; only the padding and type moved. */}
+            {/* In a crisis: care information, not marketing. Every number and
+              the 999 note are untouched; only the padding and type moved.
+
+              WAVE 412 MADE THIS A NAVY ISLAND AND SAID SO. It was already
+              painted navy by hand, with arbitrary `bg-[var(--color-navy-900)]`
+              values chosen precisely because they do not match the
+              `bg-navy-*` substring the light remap looks for. That worked and
+              it was a trick. The card now carries `section-dark`, which is the
+              site's word for "this plate stays dark on purpose", so the wave
+              412 screenshot gate can count the islands on a page and fail if
+              a third one appears. `data-accent="teal"` keeps the teal rule
+              that the island rule would otherwise paint navy.
+
+              It earns the darkness: this is the one block on the page a
+              person in trouble has to find, and on a cream footer nothing
+              else would separate from it. It sits in the FOOTER, outside
+              <main>, so it does not spend the one island a route is
+              allowed. */}
             <section
               aria-labelledby="crisis-heading"
-              className="flex flex-col gap-2.5 self-start rounded-[var(--radius-panel)] border border-[var(--color-teal-600)] bg-[var(--color-navy-900)] p-4 text-[var(--color-mist-bg)]"
+              data-accent="teal"
+              className="section-dark flex flex-col gap-2.5 self-start rounded-[var(--radius-panel)] p-4 text-[var(--color-mist-bg)]"
             >
               <h2
                 id="crisis-heading"
@@ -263,7 +288,7 @@ export function SiteFooter() {
           <ul className="grid gap-2.5 md:grid-cols-3">
             {trustRegistrations.map((reg) => (
               <li key={reg.id} className="panel flex flex-col gap-0.5 px-3 py-2.5 text-center">
-                <p className="font-heading text-[13px] font-semibold leading-tight text-white">
+                <p className="font-heading text-[13px] font-semibold leading-tight text-ink">
                   {reg.label}
                 </p>
                 {/* Category, reference and the verify link all on one line. The
@@ -271,16 +296,16 @@ export function SiteFooter() {
                   the card; inline it is the same words in ~20px less height.
                   It stays a real anchor with a visible label — it is how a
                   visitor checks the registration is genuine. */}
-                <p className="text-[11px] leading-snug text-slate-muted">
+                <p className="text-[11px] leading-snug text-ink-soft">
                   <span className="uppercase tracking-[0.1em]">{reg.category}</span>
                   <span aria-hidden="true"> · </span>
-                  <span className="font-mono text-mist">{reg.reference}</span>
+                  <span className="font-mono text-ink-muted">{reg.reference}</span>
                   <span aria-hidden="true"> · </span>
                   <a
                     href={reg.verifyHref}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex items-baseline gap-0.5 font-semibold text-teal-400 transition-colors duration-200 hover:text-white"
+                    className="inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orange-700"
                   >
                     {reg.verifyLabel}
                     <ArrowUpRight aria-hidden="true" className="size-3 self-center" />
@@ -289,7 +314,7 @@ export function SiteFooter() {
                 {/* Published terms verbatim, run inline instead of stacked —
                   same words, fewer lines. */}
                 {reg.details?.length ? (
-                  <p className="text-[11px] leading-snug text-slate-muted">
+                  <p className="text-[11px] leading-snug text-ink-soft">
                     {reg.details.join(" · ")}
                   </p>
                 ) : null}
@@ -309,15 +334,14 @@ export function SiteFooter() {
            * touch, and they wrap to a second line at 360 rather than
            * scrolling sideways.
            *
-           * ⚠ THEY RESOLVE TO NAVY, NOT TO MIST, AND THAT IS WORTH KNOWING
-           * BEFORE YOU TOUCH THE CLASSES. `text-mist` on the cream maps to
-           * slate-ink at 6.2:1, which is what the notice below gets. These
-           * links carry `hover:text-white` as well, and the unlayered
-           * `.section-light [class*="text-white"]` rule matches that class
-           * string at ALL times, not only on hover, so it wins and the links
-           * render navy-900 at 16.75:1. Measured, not deduced. The upshot is
-           * good either way, and the same rule is why the hover state does
-           * nothing here; the underline is what carries the affordance.
+           * ⚠ THEY USED TO RESOLVE TO NAVY BY ACCIDENT, and wave 412 made
+           * that deliberate. The classes were `text-mist hover:text-white`,
+           * and the unlayered remap matched the `text-white` substring at ALL
+           * times rather than only on hover, so the links rendered navy-900
+           * whatever state they were in and the hover did nothing. They are
+           * now `text-ink-muted` (6.20:1 on the cream) with a real
+           * `hover:text-orange-700` (5.78:1), so the hover state is a state
+           * again. The underline carries the affordance either way.
            *
            * ⚠ THE ORDER IS FIXED and matches the platform's own footer:
            * Terms, Privacy, Disclaimer, Legal. Do not reorder or drop one to
@@ -332,7 +356,7 @@ export function SiteFooter() {
            */}
           <nav
             aria-label="Legal and policies"
-            className="mt-4 border-t border-navy-700 pt-3.5 sm:mt-5 sm:pt-4"
+            className="mt-4 border-t border-rule pt-3.5 sm:mt-5 sm:pt-4"
           >
             <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-0.5 text-[13px]">
               {legalLinks.map((item) =>
@@ -342,7 +366,7 @@ export function SiteFooter() {
                       href={item.href}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="inline-flex min-h-11 items-center gap-1 font-medium text-mist underline underline-offset-4 transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-1.5"
+                      className="inline-flex min-h-11 items-center gap-1 font-medium text-ink-muted underline underline-offset-4 transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:py-1.5"
                     >
                       {item.label}
                       <ArrowUpRight aria-hidden="true" className="size-3.5 shrink-0" />
@@ -353,7 +377,7 @@ export function SiteFooter() {
                   <li key={item.label}>
                     <Link
                       to={item.href}
-                      className="inline-flex min-h-11 items-center font-medium text-mist underline underline-offset-4 transition-colors duration-200 hover:text-white lg:min-h-0 lg:py-1.5"
+                      className="inline-flex min-h-11 items-center font-medium text-ink-muted underline underline-offset-4 transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:py-1.5"
                     >
                       {item.label}
                     </Link>
@@ -363,15 +387,11 @@ export function SiteFooter() {
             </ul>
           </nav>
 
-          {/* text-mist, NOT text-slate-muted. Inside .section-light the two
-              map to slate-ink (6.2:1 on the cream) and slate (4.33:1), and
-              4.33 fails AA for 11px body copy: axe reported this paragraph
-              on every page of the site. It is the company disclosure this
-              wave exists to make readable, so it is the one line of footer
-              colour the wave changes. The other slate-muted labels in this
-              footer are untouched and still fail; they are listed in the
-              wave 298 report as pre-existing and out of its scope. */}
-          <p className="mx-auto mt-3 max-w-[120ch] text-balance text-center text-[11px] leading-relaxed text-mist">
+          {/* ink-muted, 6.20:1 on the cream. This is the same decision wave
+              298 made through the remap (`text-mist` resolving to slate-ink)
+              said in the class itself, and the other labels wave 298 had to
+              leave failing at 4.33:1 went with it in wave 412. */}
+          <p className="mx-auto mt-3 max-w-[120ch] text-balance text-center text-[11px] leading-relaxed text-ink-muted">
             {legalNotice}
           </p>
         </div>

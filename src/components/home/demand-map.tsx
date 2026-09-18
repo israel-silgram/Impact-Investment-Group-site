@@ -233,15 +233,28 @@ export function DemandMap({
         className,
       )}
     >
-      {/* The map floats on the section — no card, no border, and now no ground
-          of its own either: the `demand-map-ground` radial vignette that used
-          to sit here was removed with the sweeps, so the dot field sits
-          directly on whatever the section's background is. Under "overlay" it
-          takes the whole column and the readout rides over it from lg up,
-          dropping beneath on narrower screens so neither has to shrink. */}
+      {/*
+       * THE MAP'S OWN PLATE. THE ONE NAVY ISLAND ON THIS ROUTE.
+       *
+       * The map used to float on the section with no card and no ground of its
+       * own, because the section behind it was navy already. Wave 412 made the
+       * page light, and this field cannot come with it: it is drawn on a
+       * canvas as thousands of luminous dots, with orange hubs whose halos are
+       * radial gradients fading to transparent. All of that is light ADDED to
+       * darkness. On white the dots wash out, the halos disappear and the mesh
+       * between hubs reads as dirt on the screen.
+       *
+       * So the map keeps its darkness and gives up its full bleed: a rounded
+       * navy plate inside a cream section, which is what rule 2 of this wave
+       * means by an island. `section-dark` is the site's word for it, and the
+       * screenshot gate counts these inside <main> and fails at more than one.
+       *
+       * The readout beside and below it is NOT in here. It is type and
+       * numbers, it belongs to the light page, and it is a white card.
+       */}
       <div
         className={cn(
-          "relative mx-auto w-full",
+          "section-dark relative mx-auto w-full px-3 py-4 sm:px-4 sm:py-5",
           overlay || below ? "max-w-[34rem] lg:max-w-none" : "max-w-[30rem]",
         )}
       >
@@ -346,34 +359,34 @@ export function DemandMap({
         <aside aria-live="polite" className="panel mt-5 p-4">
           <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3">
             <p>
-              <span className="eyebrow block text-teal-400">Selected area</span>
-              <span className="heading-tight mt-1 block font-heading text-xl font-bold text-white">
+              <span className="eyebrow block text-teal-600">Selected area</span>
+              <span className="heading-tight mt-1 block font-heading text-xl font-bold text-ink">
                 {active.name}
               </span>
             </p>
             <p>
-              <span className="text-[11px] uppercase tracking-[0.14em] text-slate-muted">
+              <span className="text-[11px] uppercase tracking-[0.14em] text-ink-soft">
                 Homes sourced
               </span>
-              <span className="block font-heading text-xl font-bold text-white">
+              <span className="block font-heading text-xl font-bold text-ink">
                 {active.homesSourced.toLocaleString("en-GB")}
               </span>
             </p>
             <p>
-              <span className="text-[11px] uppercase tracking-[0.14em] text-slate-muted">
+              <span className="text-[11px] uppercase tracking-[0.14em] text-ink-soft">
                 Potential rooms
               </span>
-              <span className="block font-heading text-xl font-bold text-white">
+              <span className="block font-heading text-xl font-bold text-ink">
                 {active.potentialRooms.toLocaleString("en-GB")}
               </span>
             </p>
             <p className="min-w-[9rem] flex-1">
-              <span className="text-[11px] uppercase tracking-[0.14em] text-slate-muted">
+              <span className="text-[11px] uppercase tracking-[0.14em] text-ink-soft">
                 Demand intensity
               </span>
-              <span className="mt-2 block h-2 w-full overflow-hidden rounded-full bg-navy-700">
+              <span className="mt-2 block h-2 w-full overflow-hidden rounded-full bg-rule">
                 <span
-                  className="block h-full rounded-full bg-teal-500 transition-[width] duration-500 ease-[var(--ease-out-soft)]"
+                  className="block h-full rounded-full bg-teal-600 transition-[width] duration-500 ease-[var(--ease-out-soft)]"
                   style={{ width: `${active.intensity}%` }}
                 />
               </span>
@@ -386,53 +399,51 @@ export function DemandMap({
           />
         </aside>
       ) : (
-      <aside
-        aria-live="polite"
-        className={cn(
-          "panel p-5",
-          overlay &&
-            "mt-6 lg:absolute lg:right-0 lg:top-6 lg:mt-0 lg:w-[17rem] lg:bg-navy-800/85 lg:backdrop-blur-sm",
-        )}
-      >
-        <p className="eyebrow text-teal-400">Selected area</p>
-        <p className="heading-tight mt-2 text-2xl font-bold text-white">{active.name}</p>
+        <aside
+          aria-live="polite"
+          className={cn(
+            "panel p-5",
+            overlay &&
+              "mt-6 lg:absolute lg:right-0 lg:top-6 lg:mt-0 lg:w-[17rem] lg:bg-page/92 lg:backdrop-blur-sm",
+          )}
+        >
+          <p className="eyebrow text-teal-600">Selected area</p>
+          <p className="heading-tight mt-2 text-2xl font-bold text-ink">{active.name}</p>
 
-        <dl className="mt-5 space-y-4">
-          <div>
-            <dt className="text-xs uppercase tracking-[0.14em] text-slate-muted">Homes sourced</dt>
-            <dd className="font-heading text-xl font-bold text-white">
-              {active.homesSourced.toLocaleString("en-GB")}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-xs uppercase tracking-[0.14em] text-slate-muted">
-              Potential rooms
-            </dt>
-            <dd className="font-heading text-xl font-bold text-white">
-              {active.potentialRooms.toLocaleString("en-GB")}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-xs uppercase tracking-[0.14em] text-slate-muted">
-              Demand intensity
-            </dt>
-            <dd className="mt-2">
-              <div className="h-2 w-full overflow-hidden rounded-full bg-navy-700">
-                <div
-                  className="h-full rounded-full bg-teal-500 transition-[width] duration-500 ease-[var(--ease-out-soft)]"
-                  style={{ width: `${active.intensity}%` }}
-                />
-              </div>
-              <span className="sr-only">{active.intensity} out of 100</span>
-            </dd>
-          </div>
-        </dl>
+          <dl className="mt-5 space-y-4">
+            <div>
+              <dt className="text-xs uppercase tracking-[0.14em] text-ink-soft">Homes sourced</dt>
+              <dd className="font-heading text-xl font-bold text-ink">
+                {active.homesSourced.toLocaleString("en-GB")}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-xs uppercase tracking-[0.14em] text-ink-soft">Potential rooms</dt>
+              <dd className="font-heading text-xl font-bold text-ink">
+                {active.potentialRooms.toLocaleString("en-GB")}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-xs uppercase tracking-[0.14em] text-ink-soft">
+                Demand intensity
+              </dt>
+              <dd className="mt-2">
+                <div className="h-2 w-full overflow-hidden rounded-full bg-rule">
+                  <div
+                    className="h-full rounded-full bg-teal-600 transition-[width] duration-500 ease-[var(--ease-out-soft)]"
+                    style={{ width: `${active.intensity}%` }}
+                  />
+                </div>
+                <span className="sr-only">{active.intensity} out of 100</span>
+              </dd>
+            </div>
+          </dl>
 
-        <SourceLine
-          className="mt-5"
-          source="Boundaries: ONS Local Authority Districts (2013) and Natural Earth, Open Government Licence · figures are illustrative interface data"
-        />
-      </aside>
+          <SourceLine
+            className="mt-5"
+            source="Boundaries: ONS Local Authority Districts (2013) and Natural Earth, Open Government Licence · figures are illustrative interface data"
+          />
+        </aside>
       )}
     </div>
   );

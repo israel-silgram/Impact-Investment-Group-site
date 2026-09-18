@@ -48,7 +48,12 @@ export function LogoMarquee({
             // clone is hidden or every council would appear twice.
             {...(i >= items.length ? { "data-clone": "true" } : null)}
             className={cn(
-              "inline-flex shrink-0 items-center justify-center rounded-lg bg-white",
+              /* The hairline is wave 412's, and it is what keeps a white
+                 plate a plate. The lane used to run on a navy band, where
+                 white alone was the whole separation; on the light page the
+                 plate and the ground are the same colour and a crest would
+                 otherwise float in nothing. */
+              "inline-flex shrink-0 items-center justify-center rounded-lg border border-rule bg-white",
               plateClassName ?? "h-14 px-3 py-3",
             )}
           >
@@ -57,10 +62,7 @@ export function LogoMarquee({
               alt=""
               loading="lazy"
               decoding="async"
-              className={cn(
-                "object-contain",
-                imgClassName ?? "h-full w-auto max-w-[9rem]",
-              )}
+              className={cn("object-contain", imgClassName ?? "h-full w-auto max-w-[9rem]")}
             />
           </span>
         ))}

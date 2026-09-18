@@ -109,10 +109,14 @@ export function HomeHero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative isolate flex flex-col justify-center overflow-hidden bg-navy-900 md:min-h-[calc(100svh_-_77px)]"
+      className="relative isolate flex flex-col justify-center overflow-hidden bg-page md:min-h-[calc(100svh_-_77px)]"
     >
-      {/* The street, ghosted. Decorative only — it carries no information the
+      {/* The street, ghosted. Decorative only: it carries no information the
           copy does not, so it is empty-alt and hidden from the tree.
+
+          WAVE 412: the veil over it is white now, not navy. The photograph
+          and its opacity are unchanged; see .hero-ground in styles.css for
+          the wash and for what it costs the orange headline set over it.
 
           z-0 rather than -z-10: a negative index would put it behind the
           section's own navy background and it would never be seen. The content
@@ -147,7 +151,7 @@ export function HomeHero() {
                 height={panel.height}
                 sizes="(min-width: 768px) 30vw, 100vw"
                 fetchPriority="high"
-                className="aspect-[5/4] w-full rounded-xl border border-white/14 object-cover"
+                className="aspect-[5/4] w-full rounded-xl border border-rule object-cover"
               />
               {/* Sized to the panel, so the longest line spans its photograph
                   exactly and the other two centre under theirs. nowrap is safe
@@ -162,8 +166,14 @@ export function HomeHero() {
                      wait-list button. It is set over the ghosted street, so
                      the street gave way rather than the orange: see
                      .hero-ground for the photograph's opacity and the wash
-                     that had to come with it. */
-                  panel.headline.orange ? "text-orange-500" : "text-white",
+                     that had to come with it.
+
+                     It stays orange-500 and does not step down to 700 the way
+                     the nav label did, because this is the largest text on the
+                     site (11.85cqw, never under 40px on a desktop viewport)
+                     and large text answers to 3:1. 500 on white is 4.23:1.
+                     The other two lines are navy ink at 18.83:1. */
+                  panel.headline.orange ? "text-orange-500" : "text-ink",
                 )}
               >
                 {panel.headline.text}
@@ -178,10 +188,7 @@ export function HomeHero() {
             keep orange-500 at 4.01:1 on the navy. */}
         <div className="mt-8 flex items-center justify-center gap-3 sm:gap-4">
           <span aria-hidden="true" className="h-0.5 w-8 shrink-0 bg-orange-500 sm:w-[90px]" />
-          <p
-            id="register-as"
-            className="text-center text-[15px] font-normal leading-snug text-white"
-          >
+          <p id="register-as" className="text-center text-[15px] font-normal leading-snug text-ink">
             {registerAsDivider}
           </p>
           <span aria-hidden="true" className="h-0.5 w-8 shrink-0 bg-orange-500 sm:w-[90px]" />
@@ -196,14 +203,21 @@ export function HomeHero() {
           {registerRoles.map((role) => {
             const detailId = `hero-role-${role.id}-detail`;
             const className =
-              "flex w-full min-h-11 flex-col items-center gap-2.5 rounded-xl border border-white/16 px-2.5 py-3 text-center transition-colors duration-200 hover:border-orange-500/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400";
+              /*
+               * WAVE 412: the ten role tiles are the page's call to action and
+               * they are now friendly tiles rather than wire outlines. White
+               * card, hairline rule, the card shadow, and a 2px lift into the
+               * deeper shadow on hover and on focus alike, so a keyboard gets
+               * the same answer a mouse does.
+               */
+              "flex w-full min-h-11 flex-col items-center gap-2.5 rounded-xl border border-rule bg-page px-2.5 py-3 text-center shadow-[var(--shadow-card)] transition-all duration-200 hover:-translate-y-0.5 hover:border-orange-500/70 hover:shadow-[var(--shadow-card-hover)] focus-visible:-translate-y-0.5 focus-visible:shadow-[var(--shadow-card-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600";
             const body = (
               <>
                 <RoleIcon roleId={role.id} />
                 {/* Two lines reserved: "Housing Association" wraps where the
                     shorter roles do not, and every card in the row has to end
                     at the same height so the detail lines share a baseline. */}
-                <span className="flex min-h-[2.6em] items-center text-[14px] font-semibold leading-snug text-white">
+                <span className="flex min-h-[2.6em] items-center text-[14px] font-semibold leading-snug text-ink">
                   {role.label}
                 </span>
               </>
@@ -225,7 +239,7 @@ export function HomeHero() {
                 </Link>
                 <span
                   id={detailId}
-                  className="mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-white/62"
+                  className="mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-ink-muted"
                 >
                   {role.detail}
                 </span>
@@ -242,9 +256,13 @@ export function HomeHero() {
          * with the wait-list button directly above. At the foot it closes
          * the section, sits on the fold, and competes with nothing.
          *
-         * White wordmark on transparent, keyed from the supplied artwork.
-         * Zoopla's own file is white-on-purple; the purple would fight the
-         * navy, and their reversed mark is the one meant for dark grounds.
+         * WAVE 412: THE NAVY MARK, NOT THE WHITE ONE. Zoopla's own file is
+         * white-on-purple and the site carried their reversed, white-on-
+         * transparent mark, which on a white page is an empty rectangle. The
+         * navy file is the same alpha mask filled with the ink token instead
+         * of white, made by scripts/wave412-zoopla-ink.py and committed. It
+         * is a derived one-colour rendering of a one-colour mark; Zoopla's
+         * own dark colourway should replace it when Callum can ask for it.
          *
          * THE AGREEMENT THAT BACKS THIS CLAIM sits with the backend team â€”
          * it is a Zoopla data agreement for the platform, and the line was
@@ -258,11 +276,11 @@ export function HomeHero() {
          * is the whole of the rollback.
          */}
         <p className="mt-6 flex items-center justify-center gap-2.5">
-          <span className="font-heading text-[10px] font-bold uppercase tracking-[0.16em] text-white/55">
+          <span className="font-heading text-[10px] font-bold uppercase tracking-[0.16em] text-ink-soft">
             Powered by
           </span>
           <img
-            src="/images/brand/zoopla-white.webp"
+            src="/images/brand/zoopla-ink.webp"
             alt="Zoopla"
             width={548}
             height={120}
