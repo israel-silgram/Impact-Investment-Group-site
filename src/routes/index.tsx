@@ -48,10 +48,17 @@ export const Route = createFileRoute("/")({
           "Matching local authorities, care and support providers, landlords and investors to compliant supported housing.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://impactinvestmentgroup.co.uk/" },
+      /* The link card WhatsApp, LinkedIn and X draw. Absolute URL, 1200 x 630,
+         under 300 KB: WhatsApp ignores a relative path and a larger file. */
+      { property: "og:image", content: "https://impactinvestmentgroup.co.uk/images/brand/og-default.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Impact Investment Group logo" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://impactinvestmentgroup.co.uk/images/brand/og-default.png" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: "https://impactinvestmentgroup.co.uk/" }],
   }),
 });
 
