@@ -9,8 +9,20 @@ import * as React from "react";
  * the highest-contrast thing on most of these routes. An image that snaps in
  * at full strength the instant its last byte lands pulls the eye off whatever
  * the visitor was reading, and on a slow connection it does it several times
- * on the way down a page. 300ms of fade turns that into something the eye
- * notices and then ignores, which is what it should be doing.
+ * on the way down a page. 350ms of fade (`--duration-reveal`, the same token
+ * the page's own reveal uses) turns that into something the eye notices and
+ * then ignores, which is what it should be doing.
+ *
+ * ── WHY IT FADES TO THE IMAGE'S OWN OPACITY AND NOT TO 1 ──────────────────
+ *
+ * Four images on this site are decorative washes: the home hero's ground at
+ * 7%, the partner page's hero visual at 20 and 32%, the platform portal art
+ * at 25%, the partners hub band at 70%. Wave 413 shipped this as a keyframe
+ * animation from opacity 0 to opacity 1, and a running animation outranks the
+ * element's own opacity utility, so each of those ramped to FULL STRENGTH for
+ * 350ms and then snapped back down. The rule in styles.css is a TRANSITION
+ * now, whose target is whatever the element's own opacity already is, so a 7%
+ * wash fades to 7% and stops. Nothing here darkens a page.
  *
  * ── WHY IT IS ONE COMPONENT AND NOT A PROP ON FIFTY IMAGES ────────────────
  *
@@ -31,8 +43,8 @@ import * as React from "react";
  *
  *   NOT YET DECODED: `data-img="pending"` hides it for as long as it has
  *   nothing to show anyway, and `load` or `error` moves it to `data-img="in"`,
- *   which is the fade. `error` as well as `load` on purpose: a broken image
- *   must not be a permanently invisible one.
+ *   which releases it into the transition. `error` as well as `load` on
+ *   purpose: a broken image must not be a permanently invisible one.
  *
  * Under reduced motion it does nothing whatsoever: no attribute is ever set,
  * so every photograph simply appears when it appears.

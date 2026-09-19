@@ -1023,22 +1023,45 @@ main[data-route-enter="b"] {
    only on an image that is NOT yet decoded, so an image the server painted or
    the cache already holds never touches these rules and never spends a frame
    at opacity 0. See src/components/image-fade.tsx for why it has to be that
-   way round. Under reduced motion the attribute is never set at all. */
+   way round. Under reduced motion the attribute is never set at all.
+
+   WAVE 413b: AND IT IS A TRANSITION, NOT A KEYFRAME, BECAUSE A KEYFRAME
+   CANNOT KNOW WHAT THE IMAGE'S OWN OPACITY IS.
+
+   This shipped as `animation: img-fade-in` from opacity 0 to opacity 1, and a
+   RUNNING ANIMATION OUTRANKS EVERY NORMAL AUTHOR DECLARATION, including the
+   element's own Tailwind opacity utility. Four images on this site are
+   decorative washes carrying one: the home hero's ground at 7%, the partner
+   page's hero visual at 20 and 32%, the platform portal art at 25% and the
+   partners hub band at 70%. Every one of them that was not decoded when the
+   sweep ran ramped to FULL STRENGTH over 350ms and then snapped back down to
+   its intended alpha when the animation ended and the utility took over
+   again. On the home page that is a full-bleed street photograph at 100%
+   behind the headline, on the page wave 412 existed to lighten, and this
+   wave's own rule is that nothing it adds may darken a page.
+
+   A transition has no such problem. `pending` is the only declared value; the
+   moment it is replaced by `in` the utility's own opacity becomes the
+   transition's target, so the image fades UP TO 7% and stops there. It is
+   unlayered on purpose (Tailwind v4 emits utilities inside @layer utilities,
+   and unlayered CSS beats layered CSS whatever the source order), which is
+   what lets `pending` win while it is set and lose the moment it is not.
+
+   ⚠ AND THE TRANSITION IS ON `in` ALONE, NOT ON `img[data-img]`. A transition
+   takes its timing from the AFTER-change style, so declaring it on both
+   states means the first hop as well (nothing to `pending`) transitions, and
+   that hop runs from 1 to 0: the image fades OUT over 350ms before it fades
+   in. The probe caught exactly that, at a sampled maximum of 1.000 on nine
+   images, the first time this fix was written the obvious way round. On `in`
+   alone, `pending` arrives instantly (no transition is declared on the style
+   being moved to) and `in` interpolates from 0 to whatever the element's own
+   opacity utility says. */
 img[data-img="pending"] {
   opacity: 0;
 }
 
 img[data-img="in"] {
-  animation: img-fade-in var(--duration-reveal) var(--ease-out-soft);
-}
-
-@keyframes img-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  transition: opacity var(--duration-reveal) var(--ease-out-soft);
 }
 
 /* ---------- The demand map, arriving ---------- */

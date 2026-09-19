@@ -10,7 +10,7 @@ it, asserts what each probe is meant to prove, writes the screenshots, and
 exits non-zero the moment anything fails.
 
 Wave 412 proved the site is LIGHT. This proves the motion on top of it is
-HONEST, which on this site means six specific things.
+HONEST, which on this site means seven specific things.
 
   (a) REDUCED MOTION IS REALLY OFF. With `prefers-reduced-motion: reduce`
       emulated, one second after load `document.getAnimations()` holds nothing
@@ -54,6 +54,14 @@ HONEST, which on this site means six specific things.
   (f) THE HOME PAGE SCROLLS WITHOUT BLOCKING. A full top-to-bottom scroll with
       a PerformanceObserver on `longtask`. Reported as a count and the
       durations; the budget is stated below and asserted.
+
+  (g) NO IMAGE FADES PAST ITS OWN OPACITY. With the network throttled, the
+      computed opacity of every image the fade touches is sampled every 16ms
+      from the first byte of the navigation, and the highest value ever seen
+      is compared against the value the image rests at. Four images on this
+      site are decorative washes at 7, 20, 25 and 70 per cent, and wave 413's
+      first draft ramped every one of them to FULL STRENGTH for 350ms before
+      snapping it back, which no settled screenshot can see.
 
 Screenshots of the four states a report cannot describe (the drawer open, the
 condensed header, a step mid-transition, the drawn success mark) go to
@@ -742,6 +750,252 @@ def long_task_probe(browser, base: str, failures: list[str]) -> None:
         )
 
 
+# ---------------------------------------------------------------------------
+# (g) WAVE 413b: AN IMAGE NEVER FADES PAST ITS OWN OPACITY.
+#
+# Wave 413 shipped the photograph fade as a keyframe animation from opacity 0
+# to opacity 1. A running animation outranks every normal author declaration,
+# so for the 350ms it was running the element's own Tailwind opacity utility
+# was ignored, and the four decorative washes on this site (the home hero's
+# ground at 7%, the partner page's hero visual at 20 and 32%, the platform
+# portal art at 25%, the partners hub band at 70%) each ramped to FULL
+# STRENGTH and then snapped back down when the animation ended. On the home
+# page that is a full-bleed street photograph at 100% behind the headline, on
+# the page wave 412 existed to lighten.
+#
+# NEITHER GATE COULD SEE IT. scripts/wave412-screenshots.py shoots a settled
+# page, and everything above here reads a settled page too. The only way to
+# catch it is to WATCH, so this samples the computed opacity of every image
+# the fade touches every 16ms from the first byte of the navigation, and
+# compares the highest value it ever saw against the value the image rests at.
+#
+# ⚠ THE RACE HAS TO BE FORCED, NOT HOPED FOR. On a local server serving a
+# local build the hero photographs are decoded before the bundle has even
+# hydrated: they are `complete`, `ImageFade` never touches them, and the probe
+# reports a clean run having measured nothing. That is exactly why wave 413's
+# own gate came back green over this defect. So the connection is throttled
+# AND every image response is held back IMAGE_HOLD_MS, which puts every image
+# on the page behind the script that fades it, every time.
+IMAGE_WATCH = """
+(() => {
+  // Parallel arrays rather than a Map: the records have to come back over the
+  // wire and the elements have to stay on this side to be re-read afterwards.
+  window.__imgWatch = [];
+  window.__imgEls = [];
+  window.__imgLastChange = performance.now();
+  const seen = new WeakMap();
+
+  const sample = () => {
+    const now = performance.now();
+    for (const img of document.querySelectorAll('img')) {
+      const state = img.getAttribute('data-img');
+      let record = seen.get(img);
+      if (!record) {
+        // Only an image the fade actually touched is this probe's business.
+        // Everything else never had an attribute and never had a fade.
+        if (!state) continue;
+        record = {
+          src: (img.getAttribute('src') || '').split('/').pop(),
+          cls: String(img.className || '').slice(0, 90),
+          max: 0,
+          last: 0,
+          samples: 0,
+          fadedAt: 0,
+          pending: true,
+          faded: false,
+        };
+        seen.set(img, record);
+        window.__imgWatch.push(record);
+        window.__imgEls.push(img);
+        window.__imgLastChange = now;
+      }
+      const opacity = parseFloat(getComputedStyle(img).opacity);
+      if (!Number.isFinite(opacity)) continue;
+      if (Math.abs(opacity - record.last) > 0.0005) window.__imgLastChange = now;
+      if (opacity > record.max) record.max = opacity;
+      record.last = opacity;
+      record.samples += 1;
+      record.pending = state === 'pending';
+      if (state === 'in' && !record.faded) {
+        record.faded = true;
+        record.fadedAt = Math.round(now);
+      }
+    }
+  };
+
+  window.__imgTimer = setInterval(sample, 16);
+  sample();
+})();
+"""
+
+# Scroll the whole page so the `loading="lazy"` images below the fold are
+# fetched too: an image that is never requested never fades, and two of the
+# four washes this arm exists for (the platform portal art, the partners hub
+# band) are below the first screen.
+IMAGE_SCROLL = """
+async () => {
+  const step = Math.round(innerHeight * 0.75);
+  for (let y = 0; y < document.body.scrollHeight; y += step) {
+    scrollTo(0, y);
+    await new Promise((r) => setTimeout(r, 120));
+  }
+  scrollTo(0, 0);
+}
+"""
+
+# The four routes carrying a decorative wash. The fix names / and
+# /partner-with-investor; /platform and /partners are here because the other
+# two of the four images live on them and a number that is not measured is a
+# number that is asserted.
+IMAGE_WATCH_PAGES = ["/", "/partner-with-investor", "/platform", "/partners"]
+
+# How far above its resting value an image may ever be sampled. 0.01 is a
+# hundredth of the opacity range, well under what any screen can show and two
+# orders of magnitude under the 0.93 the home hero's wash was overshooting by
+# before this fix.
+IMAGE_OVERSHOOT = 0.01
+
+# THE FOUR DECORATIVE WASHES, BY THE OPACITY THEY REST AT, AND THE ROUTE EACH
+# ONE IS ON. Named by opacity rather than by filename because three of the
+# four share a file with a full-strength copy of themselves elsewhere on the
+# same page, and because the number is the thing being asserted: an assertion
+# that the home hero's ground rests at 0.07 IS the assertion about the defect.
+# If any one of these is not observed fading, the probe failed to measure the
+# thing it exists for and says so rather than passing.
+IMAGE_GLOB = "**/*.{png,jpg,jpeg,webp,svg,gif,avif}"
+
+REQUIRED_WASH = {
+    "/": ("the home hero's ground", 0.07),
+    "/partner-with-investor": ("the partner page's hero visual", 0.32),
+    "/platform": ("the platform portal art", 0.25),
+    "/partners": ("the partners hub band", 0.70),
+}
+
+# No image has changed opacity for this long, so nothing is still on its way
+# in. Generous, because the scroll asks for the lazy images below the fold
+# after everything else has settled and they answer in their own time.
+QUIET_AFTER_MS = 1500
+
+
+def image_fade_probe(browser, base: str, failures: list[str]) -> None:
+    """(g) No image ever fades past the opacity it is meant to rest at."""
+    for path in IMAGE_WATCH_PAGES:
+        context = browser.new_context(viewport={"width": 1280, "height": 900})
+        page = context.new_page()
+        page.add_init_script(IMAGE_WATCH)
+
+        where = f"image fade probe {path} @ 1280"
+
+        # THE GATE. Every image request is caught and PARKED, unanswered,
+        # until the probe lets it go; the handler only appends, so it never
+        # blocks Playwright's dispatcher the way a sleeping one does. Held in
+        # the browser rather than at the server on purpose: a server that
+        # sleeps on an image response holds a socket, six held sockets starve
+        # the bundle that has to run before anything can be faded, and the
+        # home page came back with nought images touched for exactly that
+        # reason.
+        held = []
+        page.route(IMAGE_GLOB, lambda route: held.append(route))
+
+        try:
+            page.goto(f"{base}{path}", wait_until="domcontentloaded")
+            # The observable fact that `ImageFade` has run and found something
+            # to fade. Everything past here is the fade itself.
+            page.wait_for_selector('img[data-img="pending"]', state="attached", timeout=20000)
+        except Exception as error:
+            failures.append(
+                f"{where}: no image was ever marked pending, so ImageFade either did "
+                f"not run or found nothing to fade behind the gate ({error})."
+            )
+            page.close()
+            context.close()
+            continue
+
+        # Open it, and only then take the interception off: `unroute` discards
+        # the parked routes, so releasing has to come first or every one of
+        # them comes back invalid.
+        released = len(held)
+        for route in held:
+            try:
+                route.continue_()
+            except Exception:
+                released -= 1
+        page.unroute(IMAGE_GLOB)
+        print(f"image fade {path}: {released} image request(s) held until ImageFade had run")
+
+        # Every 16ms from the navigation, for the 1200ms the fix names and
+        # then until the page goes quiet: an image still arriving at 1200ms
+        # has not finished the thing being measured. The scroll in the middle
+        # is what fetches the `loading="lazy"` images below the fold, two of
+        # which are among the four washes this arm exists for.
+        page.wait_for_timeout(1200)
+        page.wait_for_load_state("load")
+        page.evaluate(IMAGE_SCROLL)
+        try:
+            page.wait_for_function(
+                f"() => performance.now() - window.__imgLastChange > {QUIET_AFTER_MS}",
+                timeout=40000,
+            )
+        except Exception:
+            failures.append(
+                f"{where}: the opacity sampler never went quiet, so nothing here was "
+                f"measured. A probe that times out proves nothing."
+            )
+            page.close()
+            context.close()
+            continue
+
+        watched = page.evaluate("() => window.__imgWatch")
+        resting = page.evaluate(
+            "() => window.__imgEls.map((el) => parseFloat(getComputedStyle(el).opacity))"
+        )
+        page.close()
+        context.close()
+
+        faded = [(r, rest) for r, rest in zip(watched, resting) if r["faded"]]
+        never = [r for r in watched if not r["faded"]]
+        print(
+            f"image fade {path}: {len(watched)} image(s) touched, {len(faded)} faded, "
+            f"{len(never)} never requested (lazy, out of view)"
+        )
+        for record, rest in faded:
+            print(
+                f"    {record['src']:<34} resting {rest:.3f} max {record['max']:.3f} "
+                f"final {record['last']:.3f} faded at {record['fadedAt']}ms "
+                f"over {record['samples']} samples"
+            )
+            if record["max"] > rest + IMAGE_OVERSHOOT:
+                failures.append(
+                    f"{where}: {record['src']} was sampled at opacity "
+                    f"{record['max']:.3f} on its way in and rests at {rest:.3f}. An "
+                    f"image that fades past its own opacity darkens the page for as "
+                    f"long as it takes, which is the wave 413 defect this arm exists "
+                    f"to catch. Class: {record['cls']}"
+                )
+            if abs(record["last"] - rest) > 0.001:
+                failures.append(
+                    f"{where}: {record['src']} ended the fade at {record['last']:.3f} "
+                    f"and rests at {rest:.3f}. The fade has to land on the element's "
+                    f"own opacity, not near it."
+                )
+
+        if not faded:
+            failures.append(
+                f"{where}: not one image on this route was seen to fade, so this "
+                f"probe measured nothing, even with {released} image request(s) held "
+                f"until after ImageFade had run."
+            )
+
+        wash_name, wash_opacity = REQUIRED_WASH[path]
+        if not any(abs(rest - wash_opacity) < 0.005 for _, rest in faded):
+            failures.append(
+                f"{where}: {wash_name} rests at {wash_opacity} and was never seen to "
+                f"fade, so the image the whole of probe (g) exists for was not "
+                f"measured on this run. A green result that skipped the defect is "
+                f"how wave 413 shipped it."
+            )
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -848,6 +1102,7 @@ def main() -> None:
         drawer_probe(browser, base, failures)
         step_probe(browser, base, failures)
         long_task_probe(browser, base, failures)
+        image_fade_probe(browser, base, failures)
         browser.close()
 
     shots = sorted(p.name for p in OUT.glob("*.png"))
