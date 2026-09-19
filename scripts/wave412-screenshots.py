@@ -206,24 +206,46 @@ SAMPLE_EVERY = 4
 # the hero band draws the 400px variant into its 392px slot rather than
 # scaling the 1280px original down. The variant is a fresh WebP encode at
 # quality 82 and its pixel statistics are not the original's: more of its
-# pixels land under the 0.2 luminance line. Three readings of this head at
+# pixels land under the 0.2 luminance line. Three readings of that head at
 # 1280: 23.81%, 23.83%, 23.81%.
+#
+# ⚠ ⚠ AND THAT EXPLANATION WAS WRONG, WHICH IS WHY THE RAISE IS GONE.
+#
+# WAVE 414b: THE 1280 CEILING GOES BACK TO 23.70% AND THE 390 CEILING DOWN
+# AGAIN TO 16.70%. The rise at 1280 was not the encoder. The responsive-image
+# script wrote every variant through `image.convert("RGB")`, which DISCARDS an
+# alpha channel rather than compositing it, so the brand lockup's 400w and 640w
+# steps were navy and orange artwork on a SOLID BLACK RECTANGLE, in the header
+# and the footer of all 36 prerendered pages at every width, and `sizes` meant
+# every device picked one of them. Two black plates on every shot are dark
+# pixels, and they are OUTSIDE the photograph masks, so they moved the raw
+# figure and they were part of the 0.0001 the ground figure did not move by.
+# The rel414 re-check found it by looking at the pictures.
+#
+# With the alpha kept, four readings of this head at 1280: 23.64%, 23.65%,
+# 23.56% and 23.64%, so the page is LIGHTER than the head wave 414 raised the
+# ceiling for and lighter than the 413 head that ceiling came from. 23.70% is
+# where it was before the raise, it is 0.05 above the highest of the four, and
+# the raise is simply withdrawn rather than replaced with a new number.
+#
+# At 390, four readings of 16.58%, 16.58%, 16.58% and 16.58%: no spread at all.
+# The ceiling comes down from 16.85% to 16.70%, a RATCHET LOWERED AGAIN, and
+# with wave 414's own 5.36-point drop the figure is 5.51 points below where
+# wave 413 left it.
 #
 # ⚠ THE PAGE IS NOT DARKER AND THE GROUND FIGURE PROVES IT. With the
 # photographs, the map field and the island masked out, the home page reads
-# 9.16% at 1280 against 9.17% before, and 7.08% at 390. The whole of the raw
-# movement is inside the masked rectangles, which is to say inside the
-# pictures, which is to say it is an encoder and not a design. The ground
-# answers to the flat 15% with no ratchet and no exception, and it went down.
+# 9.16% at 1280 against 9.17% before, and 7.25% at 390. The ground answers to
+# the flat 15% with no ratchet and no exception, and it went down.
 #
 # And the 1280 reading is far steadier than it was: the note above records a
-# spread of 0.17 of a point across eight readings, and this head reads 0.02
-# across three. Wave 414 moved the `lenis` wheel-momentum library behind a
+# spread of 0.17 of a point across eight readings, and this head reads 0.09
+# across four. Wave 414 moved the `lenis` wheel-momentum library behind a
 # dynamic import and removed a 596KB icon chunk, so there is markedly less
 # script racing the shutter.
 RAW_CEILING = {
-    ("home", 1280): 0.2385,
-    ("home", 390): 0.1685,
+    ("home", 1280): 0.2370,
+    ("home", 390): 0.1670,
 }
 
 
