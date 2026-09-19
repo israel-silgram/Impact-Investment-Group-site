@@ -71,7 +71,15 @@ function RegisterRolePage() {
 
         {role.id === "resident" ? (
           <div className="mx-auto mb-8 max-w-[820px]">
-            <aside className="rounded-[14px] border border-teal-600 bg-tint-teal p-5 sm:p-6">
+            {/* WHITE, not the teal tint. The numbers are set in teal-600,
+                and teal-600 on the 12% teal tint is 4.46:1 over white and
+                4.00:1 over the cream, both under the 4.5:1 floor that 15px
+                text answers to; over this page's ground it measured 3.58:1.
+                The surface moves, so the plate is white (teal-600 on it is
+                5.25:1) and the teal-600 border still says what the card is.
+                These are crisis telephone numbers; they are the last text on
+                the site that may be hard to read. */}
+            <aside className="rounded-[14px] border border-teal-600 bg-page p-5 sm:p-6">
               <div className="flex items-start gap-3">
                 <LifeBuoy aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-teal-600" />
                 <div>

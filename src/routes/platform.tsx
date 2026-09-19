@@ -599,7 +599,18 @@ function MissionControl() {
               aria-hidden="true"
               className="absolute inset-[15%] animate-spin rounded-full border border-dashed border-teal-600/50 [animation-duration:24s] motion-reduce:animate-none"
             />
-            <div className="absolute inset-[34%] grid place-items-center rounded-full border border-teal-600/50 bg-[radial-gradient(circle,rgba(37,209,194,0.22),var(--color-navy-800)_68%)] text-center shadow-[0_0_65px_rgba(37,209,194,0.22)]">
+            {/* ⚠ THE HUB IS LIGHT, AND ITS TEXT DEPENDS ON IT.
+                Wave 412 stepped this disc's labels from text-white and
+                text-mist to text-ink and text-ink-muted and left the radial
+                gradient ending in navy-800, so navy ink was set on a navy
+                plate: 1.00:1 and 3.29:1, measured off platform-1280.png. axe
+                returned both as INCOMPLETE rather than as violations, which is
+                why the wave 412 gate passed them.
+                The surface moves. The disc is the teal tint fading into the
+                page, both tokens, and the labels read 18.83:1 and 6.97:1 on
+                it. Putting navy back here means putting text-white and
+                text-mist back with it, and declaring the disc an island. */}
+            <div className="absolute inset-[34%] grid place-items-center rounded-full border border-teal-600/50 bg-[radial-gradient(circle,var(--color-tint-teal),var(--color-page)_68%)] text-center shadow-[0_0_65px_rgba(37,209,194,0.22)]">
               <span>
                 <strong className="block font-heading text-ink">One workflow</strong>
                 <small className="text-ink-muted">Find · Price · Prove</small>

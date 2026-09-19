@@ -1293,16 +1293,21 @@
      no sticky descendant breaks, which `hidden` would have done. Found by the
      overflow assertion in scripts/wave412-screenshots.py. */
   overflow-x: clip;
-  /* A pale teal bloom at the top of the register pages, over the cream. It
-     was 9% teal over navy; at 9% over a light ground it is invisible, so it
-     is 14% and the ground beneath it is the cream band rather than the page
-     white, which is what gives the two register routes their own air. */
+  /* ⚠ THE CREAM, AND NOTHING ON TOP OF IT. WAVE 412b.
+     Wave 412 put a 14% teal-500 bloom over this cream (9%, which is what it
+     had been over the navy, is invisible on a light ground). The bloom took
+     the ground under the top of both register routes from the cream's
+     luminance 0.884 down to 0.768, and teal-600 is the colour of the
+     pre-release badge, the step chrome and the crisis numbers: at 0.884 it is
+     4.67:1, with 0.17 of a point in hand, and the bloom spent more than that.
+     Measured on the wave 412 build: the badge on /register read 4.09:1 and
+     the crisis numbers on /register/resident 3.58:1, both under the floor.
+     The arithmetic says a bloom this ground can afford would have to be about
+     4%, which is a bloom nobody can see. So it is gone, and the two register
+     routes read as what rule 10 of the wave brief asked for: a cream ground.
+     The resident halo below is unaffected; it is a glow on a tile, not a tint
+     under the page's text. */
   background-color: var(--color-page-alt);
-  background-image: radial-gradient(
-    ellipse at 50% 5%,
-    color-mix(in srgb, var(--color-teal-500) 14%, transparent),
-    transparent 52%
-  );
 }
 
 /* Wave 412: the card shadow, not a 80px navy bloom. On white the old value

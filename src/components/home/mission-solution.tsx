@@ -177,17 +177,28 @@ function FlipBar({
       onClick={onFlip}
       className="group flex w-full cursor-pointer items-center justify-between gap-4 rounded-[var(--radius-panel)] bg-linear-to-r from-orange-600 to-orange-500 px-6 py-4 text-left transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
     >
+      {/* ⚠ ALL THREE LINES ARE SOLID WHITE, AND THEY HAVE TO BE.
+          They used to be white at 78%, 100% and 88% over an orange-600 to
+          orange-500 gradient, written as two rgba() literals and a hex in a
+          component. Measured off home-1280.png and home-390.png, the ground
+          under them reads rgb(177, 81, 50) and rgb(182, 85, 53), where 78%
+          white is 3.79:1 and 3.60:1 and 88% white is 4.36:1 and 4.11:1, all
+          four under the 4.5:1 floor a 10px and a 12.5px label answers to.
+          Solid white on the same ground is 5.13:1 and 4.84:1.
+          The hierarchy is size and weight now, which is what it should have
+          been: 10px/800 over 17 to 20px/800 over 12.5px/400. And `text-page`
+          is the token, so there is no colour literal left in here. */}
       <span className="min-w-0">
-        <span className="block font-heading text-[10px] font-extrabold uppercase tracking-[0.16em] text-[rgba(255,255,255,0.78)]">
+        <span className="block font-heading text-[10px] font-extrabold uppercase tracking-[0.16em] text-page">
           {label}
         </span>
-        <span className="heading-tight block font-heading text-[clamp(1.0625rem,1.6vw,1.25rem)] font-extrabold text-[#ffffff]">
+        <span className="heading-tight block font-heading text-[clamp(1.0625rem,1.6vw,1.25rem)] font-extrabold text-page">
           {title}
         </span>
-        <span className="block text-[12.5px] text-[rgba(255,255,255,0.88)]">{hint}</span>
+        <span className="block text-[12.5px] text-page">{hint}</span>
       </span>
       <span className="grid size-11 shrink-0 place-items-center rounded-full bg-white/18 transition-transform duration-500 group-hover:rotate-180">
-        <Icons.RefreshCw aria-hidden="true" className="size-5 text-[#ffffff]" />
+        <Icons.RefreshCw aria-hidden="true" className="size-5 text-page" />
       </span>
     </button>
   );
