@@ -425,7 +425,7 @@ function PartnerRoleLedger({ profile }: { profile: PartnerProfile }) {
                 <p className="font-heading text-[16px] font-extrabold leading-snug sm:text-[18px]">
                   {point}
                 </p>
-                <span className="flex items-center justify-end gap-2 font-mono text-[9px] font-semibold uppercase tracking-[0.08em] text-teal-800">
+                <span className="flex items-center justify-end gap-2 font-mono text-[9px] max-lg:text-[12px] font-semibold uppercase tracking-[0.08em] text-teal-800">
                   <span className="hidden sm:inline">
                     {presentation.guideLabels[index] ?? "Guide"}
                   </span>
@@ -461,7 +461,7 @@ function PartnerRoleLedger({ profile }: { profile: PartnerProfile }) {
               alt="Green impact guide"
               className="absolute bottom-0 right-0 z-10 w-[58%] object-contain drop-shadow-[0_22px_24px_rgba(0,0,0,0.34)]"
             />
-            <p className="absolute inset-x-0 -bottom-4 z-40 text-center font-mono text-[10px] font-semibold uppercase tracking-[0.11em] text-teal-600">
+            <p className="absolute inset-x-0 -bottom-4 z-40 text-center font-mono text-[10px] max-lg:text-[12px] font-semibold uppercase tracking-[0.11em] text-teal-600">
               {presentation.guideLabels.join(" · ")}
             </p>
           </Reveal>
@@ -565,7 +565,7 @@ function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
             className="border-l-4 border-orange-500 bg-page/86 px-6 py-5 shadow-[0_20px_55px_rgba(0,0,0,0.28)] backdrop-blur-sm sm:px-8 sm:py-6"
           >
             <div className="flex items-center gap-3">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-teal-600">
+              <span className="font-mono text-[10px] max-lg:text-[12px] font-bold uppercase tracking-[0.14em] text-teal-600">
                 Active checkpoint
               </span>
               <span aria-hidden="true" className="h-px flex-1 bg-teal-600/30" />
@@ -579,7 +579,7 @@ function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
                   buttons, large headings, light-surface text. If a lighter
                   orange tint is approved for small text on navy, this is the
                   one place to bring it back. */}
-              <span className="font-mono text-[10px] font-bold text-ink-muted">
+              <span className="font-mono text-[10px] max-lg:text-[12px] font-bold text-ink-muted">
                 0{activeStep + 1} / 03
               </span>
             </div>
@@ -592,7 +592,7 @@ function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
           </div>
         </Reveal>
 
-        <p className="mx-auto mt-8 max-w-[760px] text-center text-[13px] font-medium text-teal-600">
+        <p className="mx-auto mt-8 max-w-[760px] text-center text-[13px] max-lg:text-[15px] font-medium text-teal-600">
           {profile.whyJoin}
         </p>
       </div>
@@ -641,7 +641,7 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
           <Reveal className="max-w-[730px]">
             <Link
               to="/partners"
-              className="eyebrow inline-flex items-center gap-2 tracking-[0.15em] text-teal-700 transition-colors hover:text-orange-700"
+              className="eyebrow inline-flex min-h-11 items-center gap-2 tracking-[0.15em] text-teal-700 transition-colors hover:text-orange-700 lg:min-h-0"
             >
               <span aria-hidden="true">←</span> The partner ecosystem
             </Link>
@@ -655,7 +655,7 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
                 <span className="grid size-11 place-items-center bg-page text-teal-600">
                   <RoleIcon profile={profile} className="size-5" />
                 </span>
-                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.13em] text-orange-700">
+                <p className="font-mono text-[10px] max-lg:text-[12px] font-semibold uppercase tracking-[0.13em] text-orange-700">
                   {visual.label}
                 </p>
               </div>
@@ -739,7 +739,9 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
           {profile.importantNote ? (
             <Reveal className="mt-8 flex gap-4 rounded-2xl border border-orange-500/30 bg-orange-500/7 p-4">
               <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-orange-500" />
-              <p className="text-[12px] leading-relaxed text-ink-muted">{profile.importantNote}</p>
+              <p className="text-[12px] max-lg:text-[15px] leading-relaxed text-ink-muted">
+                {profile.importantNote}
+              </p>
             </Reveal>
           ) : null}
         </div>

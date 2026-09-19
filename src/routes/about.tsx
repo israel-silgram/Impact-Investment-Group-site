@@ -422,7 +422,7 @@ function AboutPage() {
                     >
                       <span
                         aria-hidden="true"
-                        className="grid size-8 place-items-center rounded-full border border-teal-600/30 font-mono text-[10px] font-semibold text-teal-600"
+                        className="grid size-8 place-items-center rounded-full border border-teal-600/30 font-mono text-[10px] max-lg:text-[12px] font-semibold text-teal-600"
                       >
                         {String(i + 1).padStart(2, "0")}
                       </span>
@@ -430,7 +430,7 @@ function AboutPage() {
                         <h3 className="font-heading text-[15px] font-bold leading-tight text-navy-900">
                           {impact.title}
                         </h3>
-                        <p className="mt-1 text-[12px] leading-[1.45] text-slate-ink">
+                        <p className="mt-1 text-[12px] max-lg:text-[15px] leading-[1.45] text-slate-ink">
                           {impact.body}
                         </p>
                       </div>
@@ -493,14 +493,16 @@ function AboutPage() {
                   </p>
                   <div className="min-w-0 flex-1">
                     <p className={cn("eyebrow", accent.text)}>{figure.kind}</p>
-                    <p className="mt-1 text-[14px] leading-snug text-ink">{figure.label}</p>
+                    <p className="mt-1 text-[14px] max-lg:text-[15px] leading-snug text-ink">
+                      {figure.label}
+                    </p>
                   </div>
                   {/* A figure without its source does not go on this page. */}
                   <a
                     href={figure.href}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex shrink-0 items-start gap-1 text-[11px] font-semibold leading-snug text-teal-600 transition-colors duration-200 hover:text-ink sm:max-w-[17rem]"
+                    className="inline-flex min-h-11 shrink-0 items-center gap-1 text-[11px] max-lg:text-[12px] font-semibold leading-snug text-teal-600 lg:min-h-0 lg:items-start transition-colors duration-200 hover:text-ink sm:max-w-[17rem]"
                   >
                     <span>Source: {figure.source}</span>
                     <ArrowUpRight aria-hidden="true" className="mt-px size-3 shrink-0" />
@@ -568,12 +570,12 @@ function AboutPage() {
                   <h4 className="heading-tight mt-1.5 max-w-[16ch] font-heading text-[clamp(1.125rem,1.7vw,1.3125rem)] font-extrabold tracking-[-0.015em] text-ink">
                     {step.claim}
                   </h4>
-                  <p className="mt-2.5 max-w-[32ch] text-[12.5px] leading-relaxed text-ink-muted">
+                  <p className="mt-2.5 max-w-[32ch] text-[12.5px] max-lg:text-[15px] leading-relaxed text-ink-muted">
                     {step.detail}
                   </p>
                   <p
                     className={cn(
-                      "mt-3 w-fit rounded-full px-3 py-1.5 font-heading text-[10.5px] font-extrabold uppercase tracking-[0.1em]",
+                      "mt-3 w-fit rounded-full px-3 py-1.5 font-heading text-[10.5px] max-lg:text-[12px] font-extrabold uppercase tracking-[0.1em]",
                       chip,
                     )}
                   >
@@ -603,7 +605,7 @@ function AboutPage() {
             className="mt-px size-[17px] shrink-0 text-ink-muted"
             strokeWidth={1.8}
           />
-          <p className="max-w-[104ch] text-[12.5px] leading-relaxed text-ink-muted">
+          <p className="max-w-[104ch] text-[12.5px] max-lg:text-[15px] leading-relaxed text-ink-muted">
             <Emphasise text={chainNotice} terms={chainNoticeEmphasis} />
           </p>
         </div>

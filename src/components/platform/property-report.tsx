@@ -41,7 +41,9 @@ export function PropertyReport() {
         </tbody>
       </table>
 
-      <p className="mt-5 text-[13px] leading-relaxed text-ink-muted">{propertyReportNote}</p>
+      <p className="mt-5 text-[13px] max-lg:text-[15px] leading-relaxed text-ink-muted">
+        {propertyReportNote}
+      </p>
     </div>
   );
 }

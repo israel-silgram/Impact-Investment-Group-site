@@ -61,7 +61,7 @@ export function ConsentBlock({ register }: { register: UseFormRegister<WaitlistF
         </label>
       </div>
 
-      <p className="mt-5 text-[13px] leading-relaxed text-ink-muted">
+      <p className="mt-5 text-[13px] max-lg:text-[15px] leading-relaxed text-ink-muted">
         {registerPrivacy.body}{" "}
         <a
           href={registerPrivacy.href}

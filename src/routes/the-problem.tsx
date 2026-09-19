@@ -139,7 +139,7 @@ function TheProblemPage() {
                       {section.lead}
                     </p>
                     {section.source ? (
-                      <p className="mt-3.5 max-w-[46ch] text-[11px] leading-relaxed text-ink-muted">
+                      <p className="mt-3.5 max-w-[46ch] text-[11px] max-lg:text-[15px] leading-relaxed text-ink-muted">
                         {section.source}
                       </p>
                     ) : null}
@@ -152,7 +152,9 @@ function TheProblemPage() {
                           key={r.label}
                           className="flex items-baseline justify-between gap-4 border-b border-rule py-3 last:border-b-0"
                         >
-                          <p className="text-[13.5px] leading-snug text-ink-muted">{r.label}</p>
+                          <p className="text-[13.5px] max-lg:text-[15px] leading-snug text-ink-muted">
+                            {r.label}
+                          </p>
                           {r.value ? (
                             <p
                               className={cn(

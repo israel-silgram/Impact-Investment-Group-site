@@ -231,7 +231,7 @@ function SolutionsPage() {
                   );
                 })}
               </ol>
-              <p className="mt-5 max-w-[56ch] text-[14px] leading-relaxed text-ink-muted">
+              <p className="mt-5 max-w-[56ch] text-[14px] max-lg:text-[15px] leading-relaxed text-ink-muted">
                 {layerOwnersKicker}
               </p>
             </div>
@@ -291,7 +291,7 @@ function SolutionsPage() {
           property to investors, and this is their route out. It stays. */}
       <section aria-label="Looking for a home" className="border-t border-rule bg-page">
         <div className="mx-auto w-full max-w-[1200px] px-5 py-4 text-center sm:px-8">
-          <p className="mx-auto max-w-[96ch] text-[13px] leading-relaxed text-ink-muted">
+          <p className="mx-auto max-w-[96ch] text-[13px] max-lg:text-[15px] leading-relaxed text-ink-muted">
             {lookingForHome.body}{" "}
             <Link
               to="/contact"

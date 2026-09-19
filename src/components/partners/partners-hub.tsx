@@ -152,7 +152,12 @@ function PartnerCard({ profile, outcome = false }: { profile: PartnerProfile; ou
       <h3 className="mt-3 font-heading text-[16px] font-extrabold leading-tight">
         {profile.label}
       </h3>
-      <p className={cn("mt-1.5 max-w-[32ch] text-[11px] leading-[1.6]", "text-ink-muted")}>
+      <p
+        className={cn(
+          "mt-1.5 max-w-[32ch] text-[11px] max-lg:text-[12px] leading-[1.6]",
+          "text-ink-muted",
+        )}
+      >
         {detail.description}
       </p>
 
@@ -244,7 +249,7 @@ export function PartnersHub() {
                              `text-page` rather than `text-white` so the light
                              remap's substring rule cannot repaint it while the
                              unconverted files still rely on that rule. */
-                          "grid size-8 place-items-center rounded-full font-mono text-[10px] font-bold text-page",
+                          "grid size-8 place-items-center rounded-full font-mono text-[10px] max-lg:text-[12px] font-bold text-page",
                           stage.node,
                         )}
                       >
@@ -275,13 +280,13 @@ export function PartnersHub() {
                   Select any partner to explore its role.
                 </p>
                 <div className="mt-3 flex flex-wrap justify-center gap-x-5 gap-y-2 sm:justify-start">
-                  <span className="inline-flex items-center gap-2 text-[11px] text-ink-muted">
+                  <span className="inline-flex items-center gap-2 text-[11px] max-lg:text-[12px] text-ink-muted">
                     <i className="size-2 rounded-full bg-teal-600" /> Need and delivery
                   </span>
-                  <span className="inline-flex items-center gap-2 text-[11px] text-ink-muted">
+                  <span className="inline-flex items-center gap-2 text-[11px] max-lg:text-[12px] text-ink-muted">
                     <i className="size-2 rounded-full bg-orange-500" /> Property and capital
                   </span>
-                  <span className="inline-flex items-center gap-2 text-[11px] text-ink-muted">
+                  <span className="inline-flex items-center gap-2 text-[11px] max-lg:text-[12px] text-ink-muted">
                     <i className="size-2 rounded-full bg-page" /> Person and outcome
                   </span>
                 </div>

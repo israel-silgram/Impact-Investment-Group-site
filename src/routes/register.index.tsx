@@ -65,7 +65,7 @@ function RegisterPickerPage() {
         </Reveal>
 
         <Reveal index={2} className="mt-10">
-          <p className="measure mx-auto text-center text-[14px] leading-relaxed text-ink-muted">
+          <p className="measure mx-auto text-center text-[14px] max-lg:text-[15px] leading-relaxed text-ink-muted">
             {pickerContent.footnote}
           </p>
         </Reveal>

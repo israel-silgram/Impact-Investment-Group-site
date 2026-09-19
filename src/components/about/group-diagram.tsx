@@ -14,7 +14,7 @@ export function GroupDiagram() {
               <p className="font-heading text-sm font-semibold text-ink-muted">{entity.role}</p>
               <p className="text-sm leading-relaxed text-ink-muted">{entity.body}</p>
               {entity.qualifier ? (
-                <p className="mt-auto text-[12px] leading-relaxed text-ink-muted">
+                <p className="mt-auto text-[12px] max-lg:text-[15px] leading-relaxed text-ink-muted">
                   {entity.qualifier}
                 </p>
               ) : null}

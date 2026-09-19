@@ -77,8 +77,21 @@ type FormValues = {
   deadline?: string;
 };
 
+/*
+ * ⚠ WAVE 414: text-base, NOT text-sm, AND IT IS 16px FOR ONE REASON.
+ *
+ * Safari on iOS zooms the whole page in when a text-entry control under 16px
+ * takes focus, and it does not zoom back out when the field is left. A 14px
+ * field therefore does not just read small: it leaves the visitor on a page
+ * that scrolls sideways for the rest of their visit, halfway through the form
+ * this site exists to have filled in. 16px is the price of that not happening
+ * and there is no way to buy it cheaper: `maximum-scale=1` would buy it by
+ * taking pinch-zoom away from everybody, which is a WCAG 1.4.4 failure.
+ *
+ * The field is min-h-11 already, so the taller line box costs no height.
+ */
 const fieldClass =
-  "min-h-11 w-full rounded-[10px] border border-rule bg-page px-4 py-3 text-sm text-ink placeholder:text-ink-muted aria-invalid:border-destructive focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600";
+  "min-h-11 w-full rounded-[10px] border border-rule bg-page px-4 py-3 text-base text-ink placeholder:text-ink-muted aria-invalid:border-destructive focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600";
 
 function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNode }) {
   return (
@@ -201,7 +214,7 @@ export function EnquiryForm({
       className="rounded-[var(--radius-panel)] border border-rule bg-page/50 p-6 sm:p-8"
     >
       <p className="eyebrow text-teal-600">{config.label}</p>
-      <p className="mt-2 text-sm text-ink-muted">
+      <p className="mt-2 text-sm max-lg:text-[15px] text-ink-muted">
         Routed to our {config.routedTo.toLowerCase()} · {config.reply.toLowerCase()}
       </p>
 
@@ -367,12 +380,12 @@ export function EnquiryForm({
                   </label>
                 ))}
               </div>
-              <p className="mt-4 text-[12px] leading-snug text-ink-muted">
+              <p className="mt-4 text-[12px] max-lg:text-[15px] leading-snug text-ink-muted">
                 Example slots · illustrative
               </p>
               <div className="mt-3 flex items-center gap-3 rounded-[10px] border border-dashed border-rule p-4">
                 <CalendarClock aria-hidden="true" className="size-4 shrink-0 text-teal-600" />
-                <span className="text-[12px] leading-snug text-ink-muted">
+                <span className="text-[12px] max-lg:text-[15px] leading-snug text-ink-muted">
                   Calendar embed slot — live availability appears here once the booking calendar is
                   connected.
                 </span>
@@ -449,7 +462,7 @@ export function EnquiryForm({
          * size the site already used, slate on the navy panel, and it must not
          * be shrunk further to fit a layout. (Wave 298, R298-3.)
          */}
-        <p className="max-w-[70ch] text-[12px] leading-snug text-ink-muted">
+        <p className="max-w-[70ch] text-[12px] max-lg:text-[15px] leading-snug text-ink-muted">
           <span className="font-semibold text-ink-muted">{collectionNotice.controller}</span>{" "}
           {collectionNotice.purpose} {collectionNotice.contactLead}{" "}
           <a

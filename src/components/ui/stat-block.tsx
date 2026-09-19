@@ -68,12 +68,12 @@ export function StatBlock(props: StatBlockProps) {
         </span>
       )}
 
-      <p className="text-[11px] font-semibold uppercase leading-snug tracking-[0.07em] text-[color-mix(in_oklab,var(--color-navy-900)_70%,transparent)]">
+      <p className="text-[11px] max-lg:text-[12px] font-semibold uppercase leading-snug tracking-[0.07em] text-[color-mix(in_oklab,var(--color-navy-900)_70%,transparent)]">
         {label}
       </p>
 
       {props.basis ? (
-        <p className="mt-auto text-[10px] leading-snug text-[color-mix(in_oklab,var(--color-navy-900)_55%,transparent)]">
+        <p className="mt-auto text-[10px] max-lg:text-[12px] leading-snug text-[color-mix(in_oklab,var(--color-navy-900)_55%,transparent)]">
           {props.basis}
         </p>
       ) : null}

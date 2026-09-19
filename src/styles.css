@@ -422,15 +422,28 @@
   }
 }
 
+/* ⚠ WAVE 414: 12px AT EVERY WIDTH, AND THE PHONE GETS THE TRACKING INSTEAD.
+
+   This ran at 0.6875rem (11px) below 768px and 0.75rem (12px) above it: the
+   eyebrow was SMALLEST on the screen that can least afford it, and 11px is
+   under the 12px the brand system declares for it in `CLAUDE.md`. It is 12px
+   everywhere now.
+
+   What a phone gets instead of the missing pixel is AIR. Uppercase at 12px is
+   read letter by letter rather than by word shape, and the thing that helps
+   is tracking, not size. 0.2em below 768px and the designed 0.18em above it.
+   Several call sites override the tracking with their own `tracking-[...]`
+   and are unaffected by the second half of this; none of them overrides the
+   size, so all of them get the first half. */
 @utility eyebrow {
   font-family: var(--font-heading);
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 0.6875rem;
-  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
   line-height: 1.2;
   @media (min-width: 768px) {
-    font-size: 0.75rem;
+    letter-spacing: 0.18em;
   }
 }
 
@@ -1940,6 +1953,117 @@ canvas[data-map="in"] {
   }
 }
 
+/* ── WAVE 414: THE HERO ON A PHONE IS A SNAP STRIP, NOT A STACK ───────
+
+   Three photographs and their three headlines are ONE SENTENCE: providing
+   homes, delivering support, transforming lives. Below 768px they used to
+   stack, and the arithmetic of that is why this rule exists. Measured on the
+   built site before the change:
+
+     360  the band is 998px tall, the wait-list rule is at y=1118 and the
+          first role tile at y=1159, against a fold of 800
+     390  1083px, y=1203 and y=1244, against a fold of 844
+     414  1152px, y=1272 and y=1312, against a fold of 896
+     667x375  1803px, and even the FIRST CAPTION is below the fold at y=586
+
+   So a visitor arriving on a phone saw three pictures and had to scroll a
+   screen and a half before the page's only call to action existed. The role
+   tiles ARE the call to action on this page; there is no button.
+
+   The strip puts one photograph per snap, with 24px of the next one peeking
+   past the right edge so the strip says it is a strip without a control and
+   without a word. Measured after: the caption lands at y=368 and the first
+   role tile at y=545 on a 390x844 screen, so a photograph, its headline, the
+   wait-list rule and two rows of roles are all in the first viewport.
+
+   NO JAVASCRIPT. `scroll-snap-type` and `scroll-snap-align` do the whole of
+   it, so it works on the prerendered HTML before a byte of bundle arrives,
+   and a visitor who swipes gets the same thing as a visitor who drags a
+   scrollbar. The lane is keyboard-scrollable because `hero.tsx` gives it a
+   tab stop and the site's h1 for a name; a scroll container with no tab stop
+   is `scrollable-region-focusable`, which axe returns as serious.
+
+   The scrollbar is hidden because the peek is the affordance and a 15px
+   scrollbar under a photograph on a phone is neither. Nothing here is the
+   only way to reach anything: the three photographs are one sentence and the
+   `sr-only` h1 says all three lines of it. */
+@media (max-width: 767px) {
+  .hero-band {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    /* A horizontal flick inside the strip must not turn into the browser's
+       back gesture or drag the page sideways. */
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .hero-band::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 100% less the 24px peek and the 12px gap. */
+  .hero-panel {
+    flex: 0 0 calc(100% - 2.25rem);
+    scroll-snap-align: start;
+  }
+
+  /* Nothing follows the third, so it takes the full width and can still come
+     to rest against the left edge. */
+  .hero-panel:last-child {
+    flex-basis: 100%;
+  }
+}
+
+/* ── WAVE 414: A PHONE ON ITS SIDE ────────────────────────────
+
+   667 by 375 is a phone held sideways, and it is 375px TALL. The bar wants
+   56px there rather than 72 whatever the width says, because the constraint
+   on a landscape phone is height and 16px is four per cent of everything the
+   visitor can see; the logo comes down to its own 44px phone size with it, so
+   it still clears the bar by 6px either side.
+
+   The strip shows two photographs rather than one, because at 667px wide a
+   single 5:4 photograph is 480px tall on a 375px screen, and the picture caps
+   at a third of the viewport so the headline under it is never the thing that
+   falls off. `object-cover` crops rather than letterboxes, which on a
+   landscape phone is the right trade and the only place on this site where
+   these photographs are cropped at all.
+
+   Scoped under 1024px so a short desktop window keeps the desktop hero. */
+@media (max-height: 480px) and (max-width: 1023px) {
+  :root {
+    --header-height: 56px;
+  }
+
+  .site-header__logo img {
+    height: 2.75rem;
+  }
+
+  .hero-panel {
+    flex-basis: calc(50% - 1.125rem);
+  }
+
+  .hero-panel img {
+    max-height: 30svh;
+  }
+
+  /* And the rhythm above and below the strip comes in with it. The section's
+     vertical padding is written for a screen that is taller than it is wide;
+     on 375px of height, 32px above the photographs and another 32 above the
+     wait-list rule is 17 per cent of everything there is. At 12 and 16 the
+     first row of role tiles reaches the fold, which is the whole point of the
+     strip and the one thing this orientation was still missing. */
+  .hero-shell {
+    padding-top: 0.75rem;
+  }
+
+  .hero-waitlist {
+    margin-top: 1rem;
+  }
+}
+
 /* Hero role row: 2 across on mobile, 3 on tablet, 5 from 1024px, 10 from 1400px.
    Written as one rule so breakpoint order is explicit and cannot be re-sorted. */
 .hero-role-grid {
@@ -2111,6 +2235,91 @@ canvas[data-map="in"] {
   .registration-option:hover,
   .registration-option:focus-within {
     transform: translateY(-2px);
+  }
+}
+
+/* ── WAVE 414: THE REGISTRATION JOURNEY ON A PHONE ─────────────────
+
+   Two sticky bands below 1024px and neither of them is `fixed`, which is the
+   decision the rest of this block follows from. A fixed band leaves a hole in
+   the flow that has to be filled with a padding somebody has to keep in step
+   with its height, and it is another layer to keep out of the back-to-top
+   control's corner. Sticky bands occupy their own space, cannot cover the row
+   beneath them, and stop sticking at the end of the thing they belong to.
+
+   THE CHROME, at the top. "Registration saved", the "03 / 07" counter and the
+   progress bar are the only things on the screen that say how far through a
+   seven-question journey somebody is, and on a 390px screen they scroll away
+   after the first question. They rest at `--header-height`, so the bar never
+   covers them, and they carry the panel's own ground out to its padding edge
+   so the question does not read through them on the way past.
+
+   THE ACTIONS, at the bottom. Measured before this rule: at 390 with the
+   viewport cut to 420px, which is about what an iPhone leaves above an open
+   keyboard, the Continue control was at y=1040 and not reachable with one
+   scroll. It is at the foot of the screen now, while the question is being
+   answered, which is where the one way forward belongs.
+
+   `env(safe-area-inset-bottom)` is not decoration: on a phone with a home
+   indicator the bottom 34px of the screen belongs to the system, and a button
+   placed in it is a button the operating system takes the press for. */
+@media (max-width: 1023px) {
+  .registration-chrome {
+    position: sticky;
+    top: var(--header-height);
+    z-index: 30;
+    /* Out to the panel's padding edge and back again, so the band is the
+       width of the card rather than the width of its text. p-6 is 1.5rem. */
+    margin-inline: -1.5rem;
+    padding: 0.75rem 1.5rem 0;
+    background-color: var(--color-page);
+  }
+
+  .registration-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 30;
+    margin-inline: -1.5rem;
+    padding-inline: 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    background-color: var(--color-page);
+  }
+
+  /* The survey's bar already carries the journey's own top rule in a Tailwind
+     class; the account step's does not, and a bar with a page-coloured ground
+     and nothing above it reads as a button that has come loose. */
+  .registration-actions:not([class*="border-t"]) {
+    border-top: 1px solid var(--color-rule);
+  }
+
+  /* The panel's own foot comes in, because the sticky bar already holds the
+     space the padding was reserving. */
+  .registration-survey {
+    padding-bottom: 1rem;
+  }
+}
+
+/* ⚠ WAVE 414: THE BACK-TO-TOP CONTROL MOVES LEFT ON A PHONE.
+
+   It is `fixed bottom-6 right-5` and 44px across, and the registration
+   journey's Continue button now finishes in that exact corner: at 390 the
+   panel runs almost the full width, so a floating circle at the right gutter
+   lands ON the one control the page exists to have pressed. The gate's
+   fixed-layer assertion is what found it.
+
+   Left rather than lifted, because lifting it would leave a hole above the
+   bottom edge on the twelve routes that have no bar, and because the right
+   thumb zone on a phone is where this site's primary actions already are:
+   the menu button at the top right, the Continue button at the bottom right.
+   A secondary "take me back up" affordance does not belong in that path. It
+   keeps the right-hand corner from 1024px, where it has never collided with
+   anything. */
+@media (max-width: 1023px) {
+  .back-to-top {
+    right: auto;
+    left: 1.25rem;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
 }
 

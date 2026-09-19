@@ -65,7 +65,7 @@ export function SuccessState({ role }: { role: RegisterRoleContent }) {
           <li key={line} className="flex items-start gap-3">
             <span
               aria-hidden="true"
-              className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full border border-teal-600 font-mono text-[11px] font-bold text-teal-600"
+              className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full border border-teal-600 font-mono text-[11px] max-lg:text-[12px] font-bold text-teal-600"
             >
               {index + 1}
             </span>

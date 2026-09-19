@@ -113,8 +113,70 @@ export function DemandMap({
       commissioningAuthorities[0]!.id,
   );
   const [field, setField] = React.useState<DotField | null>(null);
+  /**
+   * ⚠ WAVE 414: ON A PHONE THE POLYGONS ARE NOT THE CONTROL.
+   *
+   * The eighteen authorities are selected by pressing one of 137 invisible
+   * district polygons laid over the dot field. At 1280 the smallest of them
+   * is a comfortable target. At 390 the map is 360px wide and the England
+   * boundary file does not care: Hartlepool renders 4.56 by 3.68 CSS pixels,
+   * Derby 3.48 by 3.56. Wave 414's probe found 137 of them under 44 by 44 on
+   * every phone shot, and no amount of padding can be added to a polygon
+   * whose shape IS its meaning.
+   *
+   * So below 1024px the control is a `<select>`, which the brief names as the
+   * alternative and which a phone renders as a full-height native picker with
+   * a row per option: eighteen targets a thumb cannot miss, in the platform's
+   * own idiom, with no new string anywhere (the options are the authority
+   * names the map already displays and the label is the readout's existing
+   * "Selected area" eyebrow). The polygons stay for the pointer and the
+   * keyboard at 1024 and above, where they were never the problem.
+   *
+   * Defaulted to false and set in an effect, so the prerendered HTML is the
+   * one the desktop wants and nothing here can mismatch at hydration. The
+   * select is in the markup at every width and hidden with CSS, so it is
+   * never content that needs JavaScript to exist; only the polygons' tab
+   * stops are moved by this state, and a tab stop on a control that needs
+   * JavaScript to do anything is no loss when JavaScript has not arrived.
+   */
+  const [coarse, setCoarse] = React.useState(false);
+  React.useEffect(() => {
+    const query = window.matchMedia("(max-width: 1023px)");
+    const read = () => setCoarse(query.matches);
+    read();
+    query.addEventListener("change", read);
+    return () => query.removeEventListener("change", read);
+  }, []);
   const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
   const staticPaths = React.useRef<Path2D[] | null>(null);
+
+  /**
+   * The phone's control, and the desktop's heading, in one place.
+   *
+   * NO NEW STRING. The options are `commissioningAuthorities`' own names,
+   * which the readout already prints, and the accessible name comes from the
+   * "Selected area" eyebrow that is already beside it, wired with
+   * `aria-labelledby`. 16px, because it is a form control and iOS zooms into
+   * anything smaller. min-h-11, because it is the one control on this section
+   * a thumb has to hit.
+   */
+  const pickerId = React.useId();
+
+  const AuthorityPicker = ({ labelledBy }: { labelledBy: string }) => (
+    <select
+      id={pickerId}
+      aria-labelledby={labelledBy}
+      value={activeId}
+      onChange={(event) => setActiveId(event.target.value)}
+      className="mt-1 min-h-11 w-full cursor-pointer rounded-[10px] border border-rule bg-page px-3 py-2 font-heading text-base font-bold text-ink focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 lg:hidden"
+    >
+      {commissioningAuthorities.map((authority) => (
+        <option key={authority.id} value={authority.id}>
+          {authority.name}
+        </option>
+      ))}
+    </select>
+  );
 
   const active: CommissioningAuthority =
     commissioningAuthorities.find((a) => a.id === activeId) ?? commissioningAuthorities[0]!;
@@ -358,15 +420,19 @@ export function DemandMap({
                   d={target.d}
                   fill="transparent"
                   stroke="none"
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`${authority.name} commissioning detail`}
-                  aria-pressed={authority.id === activeId}
+                  role={coarse ? undefined : "button"}
+                  tabIndex={coarse ? undefined : 0}
+                  aria-hidden={coarse ? true : undefined}
+                  aria-label={coarse ? undefined : `${authority.name} commissioning detail`}
+                  aria-pressed={coarse ? undefined : authority.id === activeId}
                   onMouseEnter={select}
                   onFocus={select}
                   onClick={select}
                   onTouchStart={select}
-                  className="cursor-pointer outline-none focus-visible:stroke-teal-400 focus-visible:[stroke-width:2]"
+                  /* pointer-events off below lg as well as the attributes
+                     above, so the polygon is not a target for a thumb either:
+                     the select beneath the map is. */
+                  className="cursor-pointer outline-none focus-visible:stroke-teal-400 focus-visible:[stroke-width:2] max-lg:pointer-events-none"
                 >
                   <title>{authority.name}</title>
                 </path>
@@ -383,14 +449,17 @@ export function DemandMap({
       {below ? (
         <aside aria-live="polite" className="panel mt-5 p-4">
           <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3">
-            <p>
-              <span className="eyebrow block text-teal-600">Selected area</span>
-              <span className="heading-tight mt-1 block font-heading text-xl font-bold text-ink">
+            <p className="w-full lg:w-auto">
+              <span id={`${pickerId}-label`} className="eyebrow block text-teal-600">
+                Selected area
+              </span>
+              <AuthorityPicker labelledBy={`${pickerId}-label`} />
+              <span className="heading-tight mt-1 hidden font-heading text-xl font-bold text-ink lg:block">
                 {active.name}
               </span>
             </p>
             <p>
-              <span className="text-[11px] uppercase tracking-[0.14em] text-ink-soft">
+              <span className="text-[11px] max-lg:text-[12px] uppercase tracking-[0.14em] text-ink-soft">
                 Homes sourced
               </span>
               <span className="block font-heading text-xl font-bold text-ink">
@@ -398,7 +467,7 @@ export function DemandMap({
               </span>
             </p>
             <p>
-              <span className="text-[11px] uppercase tracking-[0.14em] text-ink-soft">
+              <span className="text-[11px] max-lg:text-[12px] uppercase tracking-[0.14em] text-ink-soft">
                 Potential rooms
               </span>
               <span className="block font-heading text-xl font-bold text-ink">
@@ -406,7 +475,7 @@ export function DemandMap({
               </span>
             </p>
             <p className="min-w-[9rem] flex-1">
-              <span className="text-[11px] uppercase tracking-[0.14em] text-ink-soft">
+              <span className="text-[11px] max-lg:text-[12px] uppercase tracking-[0.14em] text-ink-soft">
                 Demand intensity
               </span>
               <span className="mt-2 block h-2 w-full overflow-hidden rounded-full bg-rule">
@@ -432,8 +501,13 @@ export function DemandMap({
               "mt-6 lg:absolute lg:right-0 lg:top-6 lg:mt-0 lg:w-[17rem] lg:bg-page/92 lg:backdrop-blur-sm",
           )}
         >
-          <p className="eyebrow text-teal-600">Selected area</p>
-          <p className="heading-tight mt-2 text-2xl font-bold text-ink">{active.name}</p>
+          <p id={`${pickerId}-label`} className="eyebrow text-teal-600">
+            Selected area
+          </p>
+          <AuthorityPicker labelledBy={`${pickerId}-label`} />
+          <p className="heading-tight mt-2 hidden text-2xl font-bold text-ink lg:block">
+            {active.name}
+          </p>
 
           <dl className="mt-5 space-y-4">
             <div>

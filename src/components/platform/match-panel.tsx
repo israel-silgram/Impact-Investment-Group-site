@@ -34,7 +34,7 @@ export function MatchPanel({ tabLabel = "Match detail" }: { tabLabel?: string })
           ].map((line) => (
             <li
               key={line}
-              className="flex items-start gap-2 text-[13px] leading-relaxed text-ink-muted"
+              className="flex items-start gap-2 text-[13px] max-lg:text-[15px] leading-relaxed text-ink-muted"
             >
               {/* Product-window chrome, not a marketing bullet: the brand's
                   trusted-source glyph at UI scale, never a bare tick. */}

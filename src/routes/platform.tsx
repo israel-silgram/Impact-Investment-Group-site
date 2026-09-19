@@ -249,7 +249,7 @@ function DifferenceStory() {
             role="tablist"
             aria-label="How we differ storyline"
           >
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">
+            <p className="mb-3 font-mono text-[10px] max-lg:text-[12px] uppercase tracking-[0.16em] text-ink-muted">
               Choose a chapter
             </p>
             <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
@@ -273,7 +273,7 @@ function DifferenceStory() {
                   >
                     <span
                       className={cn(
-                        "grid size-8 shrink-0 place-items-center rounded-full border font-mono text-[10px] transition-all duration-300",
+                        "grid size-8 shrink-0 place-items-center rounded-full border font-mono text-[10px] max-lg:text-[12px] transition-all duration-300",
                         selected
                           ? cn(accent.disc, "border-transparent scale-105")
                           : "border-rule text-ink-muted group-hover:text-ink",
@@ -286,13 +286,13 @@ function DifferenceStory() {
                         className={cn(
                           /* 10px bold: text, so the orange is 700 (6.50:1 on
                              white) rather than 500 (4.22:1). */
-                          "block text-[10px] font-bold uppercase tracking-[0.11em]",
+                          "block text-[10px] max-lg:text-[12px] font-bold uppercase tracking-[0.11em]",
                           selected ? accent.text : "text-ink-muted",
                         )}
                       >
                         {chapter.eyebrow}
                       </span>
-                      <span className="mt-0.5 block text-[12px] leading-snug text-ink-muted">
+                      <span className="mt-0.5 block text-[12px] max-lg:text-[15px] leading-snug text-ink-muted">
                         {i === 0 ? "What failed" : i === 1 ? "What we learnt" : "What we built"}
                       </span>
                     </span>
@@ -317,14 +317,14 @@ function DifferenceStory() {
                   <h3 className="heading-tight mt-3 max-w-[19ch] font-heading text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold tracking-[-0.025em] text-ink">
                     {activeChapter.title}
                   </h3>
-                  <p className="mt-4 max-w-[54ch] text-[14px] leading-relaxed text-ink-muted">
+                  <p className="mt-4 max-w-[54ch] text-[14px] max-lg:text-[15px] leading-relaxed text-ink-muted">
                     {activeChapter.body}
                   </p>
                   <ul className="mt-6 grid gap-2.5">
                     {activeChapter.points.map((point) => (
                       <li
                         key={point}
-                        className="flex gap-3 text-[13px] leading-relaxed text-ink-muted"
+                        className="flex gap-3 text-[13px] max-lg:text-[15px] leading-relaxed text-ink-muted"
                       >
                         <span
                           aria-hidden="true"
@@ -377,7 +377,7 @@ function DifferenceStory() {
                 the wave 412b report, measured off the rendered pixels). Its
                 teal sibling two lines down was stepped to 600 in wave 412 and
                 this one was missed. */}
-            <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-rule pt-4 text-[11px] text-ink-muted">
+            <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-rule pt-4 text-[11px] max-lg:text-[12px] text-ink-muted">
               <span className="font-semibold text-orange-700">
                 {leaseComparison[0]!.term} · fixed legacy commitment
               </span>
@@ -396,7 +396,7 @@ function DifferenceStory() {
               className={cn("px-5 py-4", i > 0 && "border-t border-rule sm:border-l sm:border-t-0")}
             >
               <p className="font-heading text-[13px] font-extrabold text-ink">{principle.title}</p>
-              <p className="mt-1 text-[11.5px] leading-relaxed text-ink-muted">
+              <p className="mt-1 text-[11.5px] max-lg:text-[15px] leading-relaxed text-ink-muted">
                 {principle.detail}
               </p>
             </li>
@@ -424,12 +424,12 @@ function DifferenceStory() {
                 {figure.value}
               </strong>
               <span className="text-[12px] text-ink-muted">{figure.label}</span>
-              <span className="text-[10px] text-ink-muted">{figure.source}</span>
+              <span className="text-[10px] max-lg:text-[12px] text-ink-muted">{figure.source}</span>
             </span>
           ))}
         </div>
       </div>
-      <p className="mt-2 text-[10px] text-ink-muted">{compareUpdated}</p>
+      <p className="mt-2 text-[10px] max-lg:text-[12px] text-ink-muted">{compareUpdated}</p>
     </>
   );
 }
@@ -512,7 +512,7 @@ function CharacterPortals() {
                       height={520}
                       className="pointer-events-none absolute bottom-9 left-1/2 z-2 h-[225px] w-[122%] max-w-none -translate-x-1/2 object-contain drop-shadow-[0_14px_22px_rgba(0,0,0,0.35)] transition-transform duration-500 group-hover:-translate-y-2 group-hover:scale-[1.04] motion-reduce:transition-none sm:h-[292px] lg:h-[330px]"
                     />
-                    <strong className="absolute inset-x-1.5 bottom-1.5 z-3 rounded-[10px] bg-page/90 px-1 py-2 font-heading text-[10px] font-semibold text-ink sm:inset-x-2.5 sm:bottom-2.5 sm:px-2 sm:text-[14px]">
+                    <strong className="absolute inset-x-1.5 bottom-1.5 z-3 rounded-[10px] bg-page/90 px-1 py-2 font-heading text-[10px] max-lg:text-[12px] font-semibold text-ink sm:inset-x-2.5 sm:bottom-2.5 sm:px-2 sm:text-[14px]">
                       {PORTAL_LABEL[id]}
                     </strong>
                   </button>
@@ -565,10 +565,10 @@ function CharacterPortals() {
           ) : null}
         </div>
 
-        <p className="mx-auto mt-8 max-w-[72ch] text-center text-[14px] leading-relaxed text-ink-muted">
+        <p className="mx-auto mt-8 max-w-[72ch] text-center text-[14px] max-lg:text-[15px] leading-relaxed text-ink-muted">
           {workflowFooter}
         </p>
-        <p className="mx-auto mt-3 max-w-[72ch] text-center text-[12px] leading-relaxed text-ink-muted">
+        <p className="mx-auto mt-3 max-w-[72ch] text-center text-[12px] max-lg:text-[15px] leading-relaxed text-ink-muted">
           {aiTeamNote}
         </p>
       </div>
@@ -688,7 +688,7 @@ function LivingComic() {
   return (
     <div className="relative font-sans">
       <div className="relative">
-        <p className="text-[0.72rem] font-medium uppercase tracking-[0.17em] text-teal-600">
+        <p className="text-[0.72rem] max-lg:text-[12px] font-medium uppercase tracking-[0.17em] text-teal-600">
           The platform story
         </p>
         <h2
@@ -872,7 +872,9 @@ function ServicesPage() {
                   {i + 1}
                 </span>
                 <h3 className="mt-3.5 font-heading text-[16px] font-bold text-ink">{step.name}</h3>
-                <p className="mt-2 text-[13.5px] leading-relaxed text-ink-muted">{step.body}</p>
+                <p className="mt-2 text-[13.5px] max-lg:text-[15px] leading-relaxed text-ink-muted">
+                  {step.body}
+                </p>
               </div>
             </Reveal>
           ))}

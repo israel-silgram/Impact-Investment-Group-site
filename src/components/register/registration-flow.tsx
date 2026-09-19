@@ -447,7 +447,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
       </ol>
 
       {stage === "account" ? (
-        <div className="registration-panel rounded-3xl border border-rule bg-page p-6 sm:p-10">
+        <div className="registration-panel registration-survey rounded-3xl border border-rule bg-page p-6 sm:p-10">
           {/* No `data-step` here on purpose. This is the first thing the route
               paints and the server painted it; an entrance on it would blink
               away content the visitor is already reading. */}
@@ -561,7 +561,9 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
               </div>
               <fieldset disabled={busy || accountFrozen} className="mt-7 border-t border-rule pt-6">
                 <legend className="sr-only">{consentBlock.heading}</legend>
-                <p className="mb-3 text-sm text-ink-muted">{consentBlock.help}</p>
+                <p className="mb-3 text-sm max-lg:text-[15px] text-ink-muted">
+                  {consentBlock.help}
+                </p>
                 {[
                   {
                     id: "registration-email-consent",
@@ -596,7 +598,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                   href={registerPrivacy.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-teal-600 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-teal-600"
+                  className="inline-flex min-h-11 items-center text-teal-600 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-teal-600 lg:min-h-0"
                 >
                   {registerPrivacy.linkLabel}
                 </a>
@@ -605,7 +607,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                 <summary className="min-h-11 cursor-pointer py-2 focus-visible:outline-2 focus-visible:outline-teal-600">
                   How we use your details
                 </summary>
-                <p className="pb-4">{registerPrivacy.body}</p>
+                <p className="pb-4 text-sm max-lg:text-[15px]">{registerPrivacy.body}</p>
               </details>
               {failureMessage && (
                 <p role="alert" className="my-4 text-sm text-destructive">
@@ -614,18 +616,33 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                     : failureMessage}
                 </p>
               )}
-              <Button
-                type="submit"
-                variant="primary"
-                size="lg"
-                disabled={busy || !ready}
-                className="mt-4 w-full whitespace-normal"
-              >
-                {busy ? (
-                  <Loader2 aria-hidden="true" className="animate-spin motion-reduce:animate-none" />
-                ) : null}
-                {busy ? copy.creating : copy.create}
-              </Button>
+              {/* WAVE 414: THE ACCOUNT STEP GETS THE SAME BOTTOM BAR AS THE
+                  SURVEY, and it is the step that needed it most. This is the
+                  first panel of the journey and the one the route paints, so
+                  it is where the keyboard probe found the defect: at 390 with
+                  the viewport cut to 420px, which is what an iPhone leaves
+                  above an open keyboard, "Create account and continue" sat at
+                  y=1040 and was not reachable with one scroll. Somebody
+                  typing their e-mail address could not see the button that
+                  does something with it. Sticky for the same reasons as the
+                  survey's, with the same safe-area padding. */}
+              <div className="registration-actions mt-4">
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  disabled={busy || !ready}
+                  className="w-full whitespace-normal"
+                >
+                  {busy ? (
+                    <Loader2
+                      aria-hidden="true"
+                      className="animate-spin motion-reduce:animate-none"
+                    />
+                  ) : null}
+                  {busy ? copy.creating : copy.create}
+                </Button>
+              </div>
               <p className="mt-5 text-center text-sm">
                 <a
                   href="https://app.impactinvestmentgroup.co.uk/auth/login"
@@ -639,39 +656,48 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
         </div>
       ) : stage === "survey" ? (
         <div
-          className="registration-panel rounded-3xl border border-rule bg-page p-6 sm:p-10"
+          className="registration-panel registration-survey rounded-3xl border border-rule bg-page p-6 sm:p-10"
           aria-busy={busy}
         >
-          <div className="mb-7 flex flex-wrap items-center justify-between gap-3 text-sm">
-            <span className="inline-flex items-center gap-2 text-teal-600">
-              <ShieldCheck aria-hidden="true" size={18} />
-              Registration saved
-            </span>
-            {/* WAVE 413: this line already said which step you were on; it
+          {/* WAVE 414: THE PROGRESS CHROME IS PINNED UNDER THE BAR ON A PHONE.
+              "Registration saved", "03 / 07" and the bar itself are the only
+              things on this screen that say how far through the journey a
+              visitor is, and on a 390px screen they scroll off the top after
+              the first question. They travel together in one sticky band now,
+              below 1024px, resting at `--header-height` so the header never
+              covers them. See `.registration-chrome` in styles.css. */}
+          <div className="registration-chrome">
+            <div className="mb-7 flex flex-wrap items-center justify-between gap-3 text-sm">
+              <span className="inline-flex items-center gap-2 text-teal-600">
+                <ShieldCheck aria-hidden="true" size={18} />
+                Registration saved
+              </span>
+              {/* WAVE 413: this line already said which step you were on; it
                 says it OUT LOUD now. `aria-live="polite"` on the existing
                 counter, with no new copy, so somebody who cannot see the bar
                 move or the question change is told "03 / 07" when it happens
                 rather than having to go looking. `tabular-nums` because the
                 two figures must not change width as they count. */}
-            <span aria-live="polite" className="font-mono tabular-nums text-ink-muted">
-              {String(index + 1).padStart(2, "0")} / {String(questions.length).padStart(2, "0")}
-            </span>
-          </div>
-          <div
-            role="progressbar"
-            aria-label="Survey progress"
-            aria-valuemin={0}
-            aria-valuemax={questions.length}
-            aria-valuenow={index + 1}
-            aria-valuetext={`Question ${index + 1} of ${questions.length}`}
-            className="mb-9 h-1 overflow-hidden rounded-full bg-rule"
-          >
-            {/* WAVE 413b: scaled from its left edge rather than widened, so
-              the bar's own growth is a transform. The track above clips it. */}
+              <span aria-live="polite" className="font-mono tabular-nums text-ink-muted">
+                {String(index + 1).padStart(2, "0")} / {String(questions.length).padStart(2, "0")}
+              </span>
+            </div>
             <div
-              className="registration-progress h-full w-full rounded-full bg-teal-600"
-              style={{ transform: `scaleX(${(index + 1) / questions.length})` }}
-            />
+              role="progressbar"
+              aria-label="Survey progress"
+              aria-valuemin={0}
+              aria-valuemax={questions.length}
+              aria-valuenow={index + 1}
+              aria-valuetext={`Question ${index + 1} of ${questions.length}`}
+              className="mb-9 h-1 overflow-hidden rounded-full bg-rule"
+            >
+              {/* WAVE 413b: scaled from its left edge rather than widened, so
+              the bar's own growth is a transform. The track above clips it. */}
+              <div
+                className="registration-progress h-full w-full rounded-full bg-teal-600"
+                style={{ transform: `scaleX(${(index + 1) / questions.length})` }}
+              />
+            </div>
           </div>
           <form
             onSubmit={(event) => {
@@ -752,7 +778,29 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                   {failureMessage}
                 </p>
               )}
-              <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-6">
+              {/* WAVE 414: THE BOTTOM BAR, AND IT IS STICKY RATHER THAN FIXED.
+
+                  Measured before: at 390 with the viewport cut to 420px, which
+                  is roughly what an iPhone leaves above an open keyboard, the
+                  Continue control sat at y=1040 and was not reachable with one
+                  scroll, let alone visible while somebody typed. The one way
+                  forward through a seven-question journey was three flicks
+                  away from the answer being given.
+
+                  STICKY, NOT FIXED, and the difference is the whole reason
+                  this needed no spacer. A fixed bar leaves a hole in the flow
+                  that has to be filled with a bottom padding somebody has to
+                  keep in step with the bar's height, and it is a second fixed
+                  layer to keep out of the back-to-top control's corner. A
+                  sticky one occupies its own space, cannot cover the row
+                  beneath it, and stops sticking at the foot of the fieldset,
+                  which is exactly where a visitor no longer needs it.
+
+                  The safe-area padding is the brief's and it is not optional:
+                  on an iPhone with a home indicator the bottom 34px of the
+                  screen is not a place a button may be. See
+                  `.registration-actions` in styles.css. */}
+              <div className="registration-actions mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-6">
                 <button
                   type="button"
                   disabled={index === 0}

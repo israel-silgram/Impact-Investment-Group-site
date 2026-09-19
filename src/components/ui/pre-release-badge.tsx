@@ -12,7 +12,7 @@ export function PreReleaseBadge({ className }: { className?: string }) {
            page of the site, where 400 is 2.14:1 at 11px and 600 is 4.67:1.
            It was the last teal-400 left standing when wave 412 deleted the
            light remap that had been quietly correcting it. */
-        "flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-teal-600",
+        "flex items-center gap-3 text-[11px] max-lg:text-[12px] font-semibold uppercase tracking-[0.18em] text-teal-600",
         className,
       )}
     >

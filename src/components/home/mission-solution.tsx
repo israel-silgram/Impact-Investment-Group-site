@@ -148,7 +148,7 @@ function StatTile({ stat, filled }: { stat: (typeof purposeStats)[number]; fille
           what "too much information" looks like. */}
       <p
         className={cn(
-          "mt-1 max-h-0 overflow-hidden text-[11px] leading-snug opacity-0 transition-all duration-300 group-hover:max-h-16 group-hover:opacity-100",
+          "mt-1 max-h-0 overflow-hidden text-[11px] max-lg:text-[12px] leading-snug opacity-0 transition-all duration-300 group-hover:max-h-16 group-hover:opacity-100",
           /* SOLID white, not 85%. 85% white on the orange-600 fill is 4.32:1
              and about 4.25:1 on the teal-600 one, at 11px, against a 4.5:1
              floor; `text-page` is #ffffff and 5.34:1 on orange-600, 5.25:1 on
@@ -201,7 +201,7 @@ function FlipBar({
           been: 10px/800 over 17 to 20px/800 over 12.5px/400. And `text-page`
           is the token, so there is no colour literal left in here. */}
       <span className="min-w-0">
-        <span className="block font-heading text-[10px] font-extrabold uppercase tracking-[0.16em] text-page">
+        <span className="block font-heading text-[10px] max-lg:text-[12px] font-extrabold uppercase tracking-[0.16em] text-page">
           {label}
         </span>
         <span className="heading-tight block font-heading text-[clamp(1.0625rem,1.6vw,1.25rem)] font-extrabold text-page">
@@ -241,6 +241,21 @@ export function MissionSolution() {
           "section-light",
           showSolution ? "pointer-events-none opacity-0" : "opacity-100",
         )}
+        /* ⚠ WAVE 414: `inert` AS WELL AS `aria-hidden`, AND THE PAIR IS
+           THE POINT. The two faces of this section are stacked in one grid
+           cell and the hidden one was `opacity-0 pointer-events-none
+           aria-hidden`: invisible to the eye, unreachable by a pointer, gone
+           from the accessibility tree, and STILL IN THE TAB ORDER with every
+           link and button inside it focusable. axe returns that as
+           `aria-hidden-focus`, serious, and it was the one serious violation
+           on the home page at every width. On a phone it is worse than a
+           violation: a visitor tabbing or swiping through the page lands in a
+           face nobody can see, twice.
+
+           `inert` is the attribute for exactly this and React 19 passes it
+           through. It takes the subtree out of the tab order, out of the
+           accessibility tree and out of find-in-page in one word. */
+        inert={showSolution}
         aria-hidden={showSolution}
       >
         <div className="mx-auto w-full max-w-[1440px] px-5 py-11 sm:px-8 lg:py-12">
@@ -372,7 +387,7 @@ export function MissionSolution() {
                   </ul>
                   <Link
                     to="/the-problem"
-                    className="mt-4 inline-flex items-center gap-1.5 font-heading text-[13px] font-bold text-teal-600 transition-colors duration-200 hover:text-orange-700"
+                    className="mt-4 inline-flex min-h-11 items-center gap-1.5 font-heading text-[13px] font-bold text-teal-600 lg:min-h-0 transition-colors duration-200 hover:text-orange-700"
                   >
                     See the full picture
                     <Icons.ArrowRight aria-hidden="true" className="size-3.5" />
@@ -399,7 +414,9 @@ export function MissionSolution() {
             </div>
           </div>
 
-          <p className="mt-3.5 text-[11px] leading-relaxed text-ink-muted">{purposeStatsNote}</p>
+          <p className="mt-3.5 text-[11px] max-lg:text-[15px] leading-relaxed text-ink-muted">
+            {purposeStatsNote}
+          </p>
         </div>
       </div>
 
@@ -410,6 +427,7 @@ export function MissionSolution() {
           "bg-page",
           showSolution ? "opacity-100" : "pointer-events-none opacity-0",
         )}
+        inert={!showSolution}
         aria-hidden={!showSolution}
       >
         <div className="mx-auto w-full max-w-[1440px] px-5 py-11 sm:px-8 lg:py-12">
@@ -457,7 +475,7 @@ export function MissionSolution() {
                   {/* ⚠️ ILLUSTRATIVE, AND IT SAYS SO. A conversion model, not a
                       delivered result. The disclaimer travels with the figure
                       and is not a caption a later layout pass may trim. */}
-                  <p className="mt-2.5 text-[11.5px] leading-snug text-ink/85">
+                  <p className="mt-2.5 text-[11.5px] max-lg:text-[12px] leading-snug text-ink/85">
                     {impactProof.multiplier.disclaimer}
                   </p>
                 </div>
@@ -491,14 +509,14 @@ export function MissionSolution() {
               <Reveal index={1}>
                 <div className="rounded-[var(--radius-panel)] border border-rule bg-page p-6 shadow-[var(--shadow-card)]">
                   <p className="eyebrow tracking-[0.14em] text-teal-600">The platform</p>
-                  <p className="mt-2 max-w-[70ch] text-[13.5px] leading-relaxed text-ink-muted">
+                  <p className="mt-2 max-w-[70ch] text-[13.5px] max-lg:text-[15px] leading-relaxed text-ink-muted">
                     {solutionCopy.assertion}
                   </p>
                   <ul className="mt-4 flex flex-wrap gap-2">
                     {solutionCopy.roster.map((name) => (
                       <li
                         key={name}
-                        className="rounded-full border border-teal-600 px-3 py-1.5 text-[11.5px] font-semibold text-ink"
+                        className="rounded-full border border-teal-600 px-3 py-1.5 text-[11.5px] max-lg:text-[12px] font-semibold text-ink"
                       >
                         {name}
                       </li>
@@ -538,7 +556,7 @@ export function MissionSolution() {
                         />
                         <span
                           className={cn(
-                            "font-heading text-[11px] font-extrabold tracking-[0.14em]",
+                            "font-heading text-[11px] max-lg:text-[12px] font-extrabold tracking-[0.14em]",
                             filled ? "text-page/80" : "text-teal-600",
                           )}
                         >
@@ -557,7 +575,7 @@ export function MissionSolution() {
                             <li
                               key={point.text}
                               className={cn(
-                                "text-[11.5px] leading-[1.6]",
+                                "text-[11.5px] max-lg:text-[12px] leading-[1.6]",
                                 filled ? "text-page/90" : "text-ink-muted",
                               )}
                             >
@@ -582,7 +600,7 @@ export function MissionSolution() {
             </div>
           </div>
 
-          <p className="mt-3.5 text-[11px] leading-relaxed text-ink-muted">
+          <p className="mt-3.5 text-[11px] max-lg:text-[15px] leading-relaxed text-ink-muted">
             <Link to="/solutions" className="font-semibold text-teal-600 hover:text-orange-700">
               Read how it works →
             </Link>

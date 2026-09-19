@@ -90,7 +90,9 @@ export function AiTeam() {
         </ol>
       </Reveal>
 
-      <p className="measure mt-6 text-[13px] leading-relaxed text-ink-muted">{aiTeam.disclaimer}</p>
+      <p className="measure mt-6 text-[13px] max-lg:text-[15px] leading-relaxed text-ink-muted">
+        {aiTeam.disclaimer}
+      </p>
     </div>
   );
 }

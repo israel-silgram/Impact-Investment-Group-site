@@ -107,7 +107,7 @@ export function SiteFooter() {
                 </span>
               ))}
             </p>
-            <p className="mx-auto mt-2.5 max-w-[58ch] text-[13.5px] leading-relaxed text-ink-muted">
+            <p className="mx-auto mt-2.5 max-w-[58ch] text-[13.5px] max-lg:text-[15px] leading-relaxed text-ink-muted">
               {/* orange-700 is the one orange that carries text on the cream.
                   5.78:1 since wave 295, where it was 4.1:1 and this 13.5px
                   line only passed by being called emphasis. It passes now on
@@ -146,14 +146,14 @@ export function SiteFooter() {
                   and its neighbours as a known failure it was not scoped to
                   fix. Wave 412 is scoped to it: the axe run in the gate
                   allows zero serious colour-contrast violations. */}
-              <p className="max-w-[74ch] text-[12px] leading-relaxed text-ink-muted">
+              <p className="max-w-[74ch] text-[12px] max-lg:text-[15px] leading-relaxed text-ink-muted">
                 {siteDescription}
               </p>
               <ul className="flex flex-col gap-1.5 text-[13px] text-ink-muted">
                 <li className="flex items-center gap-2">
                   <Mail aria-hidden="true" className="size-3.5 shrink-0 text-teal-600" />
                   <a
-                    className="transition-colors duration-200 hover:text-orange-700"
+                    className="inline-flex min-h-11 items-center transition-colors duration-200 hover:text-orange-700 lg:min-h-0"
                     href={`mailto:${contactDetails.email}`}
                   >
                     {contactDetails.email}
@@ -162,7 +162,7 @@ export function SiteFooter() {
                 <li className="flex items-center gap-2">
                   <Phone aria-hidden="true" className="size-3.5 shrink-0 text-teal-600" />
                   <a
-                    className="transition-colors duration-200 hover:text-orange-700"
+                    className="inline-flex min-h-11 items-center transition-colors duration-200 hover:text-orange-700 lg:min-h-0"
                     href={`tel:${contactDetails.phone.replace(/\s/g, "")}`}
                   >
                     {contactDetails.phone}
@@ -183,7 +183,7 @@ export function SiteFooter() {
                   <li key={item.to}>
                     <Link
                       to={item.to}
-                      className="inline-flex min-h-11 items-center text-ink-muted transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:py-px"
+                      className="inline-flex min-h-11 min-w-11 items-center justify-center px-2 text-ink-muted transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:min-w-0 lg:px-0 lg:py-px"
                     >
                       {item.label}
                     </Link>
@@ -201,7 +201,7 @@ export function SiteFooter() {
                     <Link
                       to="/contact"
                       search={{ enquiry: item.enquiry, type: item.enquiry }}
-                      className="inline-flex min-h-11 items-center text-ink-muted transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:py-px"
+                      className="inline-flex min-h-11 min-w-11 items-center justify-center px-2 text-ink-muted transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:min-w-0 lg:px-0 lg:py-px"
                     >
                       {item.label}
                     </Link>
@@ -219,7 +219,7 @@ export function SiteFooter() {
                   <li key={partner.id}>
                     <Link
                       to={partner.path}
-                      className="inline-flex min-h-11 items-center text-ink-muted transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:py-px"
+                      className="inline-flex min-h-11 min-w-11 items-center justify-center px-2 text-ink-muted transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:min-w-0 lg:px-0 lg:py-px"
                     >
                       {partner.label}
                     </Link>
@@ -296,7 +296,7 @@ export function SiteFooter() {
                   the card; inline it is the same words in ~20px less height.
                   It stays a real anchor with a visible label — it is how a
                   visitor checks the registration is genuine. */}
-                <p className="text-[11px] leading-snug text-ink-soft">
+                <p className="text-[11px] max-lg:text-[15px] leading-snug text-ink-soft">
                   <span className="uppercase tracking-[0.1em]">{reg.category}</span>
                   <span aria-hidden="true"> · </span>
                   <span className="font-mono text-ink-muted">{reg.reference}</span>
@@ -314,7 +314,7 @@ export function SiteFooter() {
                 {/* Published terms verbatim, run inline instead of stacked —
                   same words, fewer lines. */}
                 {reg.details?.length ? (
-                  <p className="text-[11px] leading-snug text-ink-soft">
+                  <p className="text-[11px] max-lg:text-[15px] leading-snug text-ink-soft">
                     {reg.details.join(" · ")}
                   </p>
                 ) : null}
@@ -366,7 +366,7 @@ export function SiteFooter() {
                       href={item.href}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="inline-flex min-h-11 items-center gap-1 font-medium text-ink-muted underline underline-offset-4 transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:py-1.5"
+                      className="inline-flex min-h-11 min-w-11 items-center justify-center gap-1 px-2 font-medium text-ink-muted underline underline-offset-4 transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:min-w-0 lg:px-0 lg:py-1.5"
                     >
                       {item.label}
                       <ArrowUpRight aria-hidden="true" className="size-3.5 shrink-0" />
@@ -377,7 +377,7 @@ export function SiteFooter() {
                   <li key={item.label}>
                     <Link
                       to={item.href}
-                      className="inline-flex min-h-11 items-center font-medium text-ink-muted underline underline-offset-4 transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:py-1.5"
+                      className="inline-flex min-h-11 min-w-11 items-center justify-center px-2 font-medium text-ink-muted underline underline-offset-4 transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:min-w-0 lg:px-0 lg:py-1.5"
                     >
                       {item.label}
                     </Link>
@@ -391,7 +391,7 @@ export function SiteFooter() {
               298 made through the remap (`text-mist` resolving to slate-ink)
               said in the class itself, and the other labels wave 298 had to
               leave failing at 4.33:1 went with it in wave 412. */}
-          <p className="mx-auto mt-3 max-w-[120ch] text-balance text-center text-[11px] leading-relaxed text-ink-muted">
+          <p className="mx-auto mt-3 max-w-[120ch] text-balance text-center text-[11px] max-lg:text-[15px] leading-relaxed text-ink-muted">
             {legalNotice}
           </p>
         </div>

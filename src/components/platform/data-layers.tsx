@@ -37,7 +37,7 @@ export function DataLayers() {
                   {row.layer}
                 </th>
                 <td className="block px-5 pt-2 align-top md:table-cell md:w-[30%] md:py-5">
-                  <span className="md:hidden mr-2 font-heading text-[11px] uppercase tracking-[0.12em] text-ink-muted">
+                  <span className="md:hidden mr-2 font-heading text-[11px] max-lg:text-[12px] uppercase tracking-[0.12em] text-ink-muted">
                     Sources
                   </span>
                   <span className="text-sm leading-relaxed text-teal-600">
@@ -45,7 +45,7 @@ export function DataLayers() {
                   </span>
                 </td>
                 <td className="block px-5 pb-5 pt-2 align-top text-sm leading-relaxed text-ink-muted md:table-cell md:py-5">
-                  <span className="md:hidden mr-2 font-heading text-[11px] uppercase tracking-[0.12em] text-ink-muted">
+                  <span className="md:hidden mr-2 font-heading text-[11px] max-lg:text-[12px] uppercase tracking-[0.12em] text-ink-muted">
                     Gives us
                   </span>
                   {row.gives}

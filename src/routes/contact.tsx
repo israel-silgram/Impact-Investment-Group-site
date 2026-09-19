@@ -168,7 +168,7 @@ function ContactPage() {
                         aria-pressed={active}
                         onClick={() => select(option.id)}
                         className={cn(
-                          "min-h-10 cursor-pointer rounded-full border px-4 font-heading text-[13.5px] font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
+                          "min-h-11 cursor-pointer rounded-full border px-4 font-heading text-[13.5px] font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
                           active
                             ? /* White on the teal-600 fill is 5.25:1 and is the
                                  measured pairing; `text-page` rather than
@@ -281,7 +281,10 @@ function ContactPage() {
                   </summary>
                   <div className="flex flex-col gap-3 px-4 pb-4">
                     {item.a.map((paragraph) => (
-                      <p key={paragraph} className="text-[13.5px] leading-relaxed text-ink-muted">
+                      <p
+                        key={paragraph}
+                        className="text-[13.5px] max-lg:text-[15px] leading-relaxed text-ink-muted"
+                      >
                         {paragraph}
                       </p>
                     ))}

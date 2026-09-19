@@ -130,7 +130,7 @@ function HomePage() {
               >
                 {demandMapCopy.title}
               </h2>
-              <p className="measure mt-2.5 text-[13.5px] leading-[1.65] text-ink-muted">
+              <p className="measure mt-2.5 text-[13.5px] max-lg:text-[15px] leading-[1.65] text-ink-muted">
                 {demandMapCopy.lead}
               </p>
 
@@ -170,7 +170,7 @@ function HomePage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-2 flex items-center gap-1.5 text-[11px] font-semibold text-teal-600">
+              <p className="mt-2 flex items-center gap-1.5 text-[11px] max-lg:text-[12px] font-semibold text-teal-600">
                 {/* WAVE 413: THE ONE SMALL LOOP THIS WAVE ADDS, and the only
                     thing on the site that repeats forever besides the map's
                     node pulse and the council marquee. It is 6px across and it
@@ -199,7 +199,7 @@ function HomePage() {
                       <h3 className="heading-tight text-[14.5px] font-bold text-ink">
                         {statement.heading}
                       </h3>
-                      <p className="mt-1 max-w-[62ch] text-[12.5px] leading-[1.6] text-ink-muted">
+                      <p className="mt-1 max-w-[62ch] text-[12.5px] max-lg:text-[15px] leading-[1.6] text-ink-muted">
                         {statement.body}
                       </p>
                     </div>
@@ -229,7 +229,7 @@ function HomePage() {
 
               {/* mt-auto keeps the note at the foot of the column, level with
                   the bottom of the map rather than floating up the middle. */}
-              <p className="mt-auto flex items-start gap-2 pt-7 text-[11px] leading-[1.6] text-ink-muted">
+              <p className="mt-auto flex items-start gap-2 pt-7 text-[11px] max-lg:text-[15px] leading-[1.6] text-ink-muted">
                 <Icons.Info aria-hidden="true" className="mt-px size-3.5 shrink-0" />
                 {demandMapCopy.illustrativeNote}
               </p>
@@ -268,7 +268,7 @@ function HomePage() {
               </ul>
             </div>
 
-            <p className="mt-2.5 text-center text-[11px] leading-relaxed text-ink-muted">
+            <p className="mt-2.5 text-center text-[11px] max-lg:text-[15px] leading-relaxed text-ink-muted">
               {dataSourcesDisclaimer} · {openStreetMapAttribution} ·{" "}
               <Link
                 to="/about"

@@ -168,7 +168,7 @@ function LegalPage() {
             {/* The verify link is the point of the block. It is a real anchor
                 with a visible label, not an icon: it is how a reader proves the
                 four values above without taking our word for any of them. */}
-            <p className="mt-7 text-[13px] leading-relaxed text-ink-muted">
+            <p className="mt-7 text-[13px] max-lg:text-[15px] leading-relaxed text-ink-muted">
               Read from the Companies House public register on {companyRecord.verifiedOn}.{" "}
               <a
                 href={companyRecord.registerHref}
@@ -221,7 +221,10 @@ function LegalPage() {
                 <p className="font-heading text-[17px] font-semibold text-ink">{reg.label}</p>
                 <p className="font-mono text-[13px] text-ink-muted">{reg.reference}</p>
                 {reg.details?.map((detail) => (
-                  <p key={detail} className="text-[12px] leading-snug text-ink-muted">
+                  <p
+                    key={detail}
+                    className="text-[12px] max-lg:text-[15px] leading-snug text-ink-muted"
+                  >
                     {detail}
                   </p>
                 ))}
@@ -267,7 +270,9 @@ function LegalPage() {
                 className="panel flex flex-col gap-2 p-5"
               >
                 <p className="font-heading text-[17px] font-semibold text-ink">{doc.label}</p>
-                <p className="text-[13px] leading-relaxed text-ink-muted">{doc.description}</p>
+                <p className="text-[13px] max-lg:text-[15px] leading-relaxed text-ink-muted">
+                  {doc.description}
+                </p>
                 <a
                   href={doc.href}
                   target="_blank"
@@ -313,7 +318,7 @@ function LegalPage() {
               ))}
             </dl>
 
-            <p className="mt-6 text-[13px] leading-relaxed text-ink-muted">
+            <p className="mt-6 text-[13px] max-lg:text-[15px] leading-relaxed text-ink-muted">
               {mailboxesNote} Post can be sent to the registered office above. To ask a question
               about this site rather than about the company,{" "}
               <Link

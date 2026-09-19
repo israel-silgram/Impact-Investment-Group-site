@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Link } from "@tanstack/react-router";
 
 import { RoleIcon } from "@/components/register/role-icon";
@@ -106,6 +107,26 @@ const panels = photos.map((photo) => ({
 }));
 
 export function HomeHero() {
+  /**
+   * Whether the photograph lane is a scrolling strip at this width.
+   *
+   * It is the media query `.hero-band` uses, read once after mount and kept
+   * in step with it, and it exists for ONE attribute that CSS cannot set: the
+   * lane's `tabIndex`. Defaulted to false so the prerendered markup is the
+   * desktop grid's and nothing can mismatch at hydration; a keyboard visitor
+   * on a phone gets the tab stop as soon as the bundle lands, and before that
+   * the lane still scrolls with a finger, which is the input a phone has.
+   */
+  const bandRef = React.useRef<HTMLDivElement | null>(null);
+  const [scrollable, setScrollable] = React.useState(false);
+  React.useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const read = () => setScrollable(query.matches);
+    read();
+    query.addEventListener("change", read);
+    return () => query.removeEventListener("change", read);
+  }, []);
+
   return (
     <section
       aria-labelledby="hero-heading"
@@ -149,8 +170,26 @@ export function HomeHero() {
           nothing is ever cropped. From 768px the band is sized off the
           viewport's height rather than the page's width — see .hero-band —
           so the whole section lands inside the first screen. */}
-      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 pt-8 sm:px-8">
-        <div className="hero-band grid grid-cols-1 gap-5 md:grid-cols-3">
+      <div className="hero-shell relative z-10 mx-auto w-full max-w-[1440px] px-5 pt-8 sm:px-8">
+        {/* WAVE 414: below 768px this is a horizontal snap strip rather than a
+            stack. See `.hero-band` in styles.css for the measurement that
+            chose it and for why the scrollbar is hidden.
+
+            THE TAB STOP AND THE NAME. A scroll container that cannot be
+            scrolled from the keyboard is axe's `scrollable-region-focusable`,
+            serious, so the lane takes `tabIndex` below 768 and nowhere else:
+            at 768 and above it is a three-column grid with nothing to scroll
+            and a tab stop on it would be a stop that does nothing. The name
+            is the hero's own `sr-only` h1, which already says all three lines
+            of the sentence the three photographs make, so no string is added
+            here. */}
+        <div
+          ref={bandRef}
+          role="group"
+          aria-labelledby="hero-heading"
+          tabIndex={scrollable ? 0 : undefined}
+          className="hero-band grid grid-cols-1 gap-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-600 md:grid-cols-3"
+        >
           {panels.map((panel) => (
             <figure key={panel.id} className="hero-panel flex flex-col">
               {/* WAVE 413: `loading="eager"` stated rather than left to the
@@ -166,7 +205,7 @@ export function HomeHero() {
                 alt={panel.alt}
                 width={panel.width}
                 height={panel.height}
-                sizes="(min-width: 768px) 30vw, 100vw"
+                sizes="(min-width: 768px) 30vw, 88vw"
                 className="aspect-[5/4] w-full rounded-xl border border-rule object-cover"
               />
               {/* Sized to the panel, so the longest line spans its photograph
@@ -202,7 +241,7 @@ export function HomeHero() {
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 pb-6 sm:px-8">
         {/* Row 2, the wait-list divider. The rules are non-text marks, so they
             keep orange-500 at 4.01:1 on the navy. */}
-        <div className="mt-8 flex items-center justify-center gap-3 sm:gap-4">
+        <div className="hero-waitlist mt-8 flex items-center justify-center gap-3 sm:gap-4">
           <span aria-hidden="true" className="h-0.5 w-8 shrink-0 bg-orange-500 sm:w-[90px]" />
           <p id="register-as" className="text-center text-[15px] font-normal leading-snug text-ink">
             {registerAsDivider}
@@ -292,7 +331,7 @@ export function HomeHero() {
          * is the whole of the rollback.
          */}
         <p className="mt-6 flex items-center justify-center gap-2.5">
-          <span className="font-heading text-[10px] font-bold uppercase tracking-[0.16em] text-ink-soft">
+          <span className="font-heading text-[10px] max-lg:text-[12px] font-bold uppercase tracking-[0.16em] text-ink-soft">
             Powered by
           </span>
           {/* WAVE 414 (rel413b MIN-5): eager, like the other three
