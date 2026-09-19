@@ -308,15 +308,15 @@ from 22 on `origin/main`.
 
 | Gate | Command | Exit | Numbers |
 |---|---|---|---|
-| Lint, changed files | `bunx eslint` on all 47 | **0** | **0 errors**, 5 warnings (all `react-refresh/only-export-components`, all pre-existing patterns) |
+| Lint, changed files | `bunx eslint` on all 52 lintable changed files | **0** | **0 errors**, 7 warnings (all `react-refresh/only-export-components`, all pre-existing patterns). 53 source files changed in all; `styles.css` is not linted by this config |
 | Lint, whole tree | `bunx eslint .` on an LF-normalised copy | 1 | **387 errors / 15 warnings**, against **515 / 15** on the same measurement of `origin/main`. Delta **128 errors better** |
 | Typecheck | `bunx tsc --noEmit` | **0** | **0 errors**, against 22 inherited |
 | Build | `STATIC_BUILD=true bun run build` | **0** | **36 pages prerendered**, 29 HTML files |
 | Prerender postbuild | `node scripts/pages-postbuild.mjs dist/client` | **0** | base `/`, patched 0 files, trimmed 0 duplicated tails on the final build |
 | Screenshots and assertions | `python scripts/wave412-screenshots.py` | **0** | **28 shots, every assertion passed** |
 
-The whole-tree lint improvement is the project's own `prettier` run over the 47 files this
-wave touched: the gate requires 0 errors on a changed file, and in a repository with
+The whole-tree lint improvement is the project's own `prettier` run over the 53 source
+files this wave touched: the gate requires 0 errors on a changed file, and in a repository with
 pre-existing formatting drift that means formatting it. No content was changed by it.
 
 **The screenshot gate asserts, per page, per width:** no horizontal overflow; the body and
