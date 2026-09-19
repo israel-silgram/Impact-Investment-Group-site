@@ -28,16 +28,39 @@ let truncated = 0;
  * of the 29 pages on the build this was written against, and which page it
  * lands on may well move. If it starts affecting many, chase it there rather
  * than widening this.
+ *
+ * ⚠ AND IT ONLY CUTS WHEN WHAT FOLLOWS LOOKS LIKE A PARTIAL TAIL (wave 412b,
+ * MINOR 10 of the rel412 verdict). `indexOf` does not parse HTML: a `</html>`
+ * inside a serialised script payload does not end the document to a browser
+ * but does to this. So before cutting, the remainder has to look like the
+ * broken second copy this exists for and not like a document in its own
+ * right: no second doctype in it, no second <html> open tag, and shorter than
+ * what precedes it. Anything else is left alone and named on stdout, because
+ * a postbuild that silently discards most of a page is worse than the bug it
+ * was written to hide.
  */
 const END = "</html>";
 const trimTail = (p) => {
   const before = readFileSync(p, "utf8");
   const end = before.indexOf(END);
   if (end === -1 || end + END.length >= before.length) return before;
+
+  const head = before.slice(0, end + END.length);
+  const tail = before.slice(end + END.length);
+  const looksLikeAPartialTail =
+    tail.length < head.length && !/<!doctype html/i.test(tail) && !/<html[\s>]/i.test(tail);
+  if (!looksLikeAPartialTail) {
+    console.warn(
+      `pages-postbuild: ${p} has ${tail.length} characters after its first ` +
+        `</html> that do not look like a duplicated tail. LEFT ALONE.`,
+    );
+    return before;
+  }
+
   truncated += 1;
-  const after = before.slice(0, end + END.length);
-  writeFileSync(p, after);
-  return after;
+  console.log(`pages-postbuild: trimmed ${tail.length} characters of duplicated tail from ${p}`);
+  writeFileSync(p, head);
+  return head;
 };
 
 const walk = (d) => {
@@ -89,6 +112,22 @@ walk(dir);
 const shell = readFileSync(join(dir, "index.html"), "utf8");
 const stylesheet = shell.match(/<link[^>]+rel="stylesheet"[^>]*>/)?.[0] ?? "";
 const icon = shell.match(/<link[^>]+rel="icon"[^>]*>/)?.[0] ?? "";
+/*
+ * ⚠ NO STYLESHEET MEANS NO 404 PAGE, AND THE BUILD STOPS HERE (wave 412b,
+ * MINOR 11). This scrape used to fall back to "" and ship an UNSTYLED 404,
+ * and nothing downstream would have said so: an unstyled page is light, has
+ * no horizontal overflow, has words on it and has no resolvable contrast
+ * violation, so the screenshot gate passes it exactly the way it passed the
+ * blank one this replaced. If the build stops emitting a stylesheet link, or
+ * the tag's shape changes, that is a thing to fix rather than to ship.
+ */
+if (!stylesheet) {
+  console.error(
+    `pages-postbuild: no <link rel="stylesheet"> found in ${join(dir, "index.html")}. ` +
+      `The 404 page would ship unstyled, so nothing was written.`,
+  );
+  process.exit(1);
+}
 writeFileSync(
   join(dir, "404.html"),
   `<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/>` +
