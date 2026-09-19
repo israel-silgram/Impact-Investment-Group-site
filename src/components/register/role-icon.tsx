@@ -61,7 +61,11 @@ export function RoleIcon({ roleId, size = "sm" }: { roleId: string; size?: "sm" 
     <span
       aria-hidden="true"
       className={cn(
-        "relative grid shrink-0 place-items-center rounded-full bg-tint-orange",
+        /* `role-plate` is the hook for wave 413's one-step deepening: 12% to
+           18% of the same orange when the tile around it is hovered or
+           focused, so the plate says "this whole tile" rather than leaving the
+           lift to carry it alone. Measured in styles.css. */
+        "role-plate relative grid shrink-0 place-items-center rounded-full bg-tint-orange",
         large ? "size-[60px]" : "size-12",
       )}
     >

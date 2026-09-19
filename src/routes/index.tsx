@@ -171,6 +171,16 @@ function HomePage() {
                 ))}
               </ul>
               <p className="mt-2 flex items-center gap-1.5 text-[11px] font-semibold text-teal-600">
+                {/* WAVE 413: THE ONE SMALL LOOP THIS WAVE ADDS, and the only
+                    thing on the site that repeats forever besides the map's
+                    node pulse and the council marquee. It is 6px across and it
+                    breathes over 2 seconds, which is what makes the word
+                    beside it ("live") legible as a claim about NOW rather than
+                    as a label somebody typed once. Nothing moves and nothing
+                    reflows: it is opacity on an absolutely positioned ring.
+                    Still under reduced motion, where the filled dot and the
+                    Activity glyph say the same thing without moving. */}
+                <span aria-hidden="true" className="live-dot" />
                 <Icons.Activity aria-hidden="true" className="size-3" />
                 {platformStatsSource}
               </p>

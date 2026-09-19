@@ -28,7 +28,12 @@ const AccordionTrigger = React.forwardRef<
       {...props}
     >
       {children}
-      <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
+      {/* WAVE 413: 250ms and the site's easing, matching the row it opens, so
+          the chevron's turn and the row's height are one gesture rather than
+          two of different lengths. This is the shadcn primitive; `Disclosure`
+          is the component the site's own pages use, and it carries the same
+          timing on its Plus/Minus marker. */}
+      <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-250 ease-[var(--ease-out-soft)]" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));
@@ -40,7 +45,12 @@ const AccordionContent = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Content
     ref={ref}
-    className="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    /* The height is one of this wave's two exceptions to transform-and-opacity
+       (the header is the other), and it is not a choice: a disclosure pushes
+       what is under it down the page, and that IS the animation. The library
+       animates exactly one element from 0 to its measured content height;
+       `disclosure-content` in styles.css retimes it to the site's 250ms. */
+    className="disclosure-content overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
     {...props}
   >
     <div className={cn("pb-4 pt-0", className)}>{children}</div>

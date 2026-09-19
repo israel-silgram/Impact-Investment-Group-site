@@ -2,7 +2,7 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { CalendarClock, HandHeart } from "lucide-react";
+import { CalendarClock, HandHeart, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { apiUrl } from "@/lib/api";
 import { contactDetails } from "@/content/site";
@@ -77,7 +77,7 @@ type FormValues = {
 };
 
 const fieldClass =
-  "min-h-11 w-full rounded-[10px] border border-rule bg-page px-4 py-3 text-sm text-ink placeholder:text-ink-muted focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600";
+  "min-h-11 w-full rounded-[10px] border border-rule bg-page px-4 py-3 text-sm text-ink placeholder:text-ink-muted aria-invalid:border-destructive focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600";
 
 function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNode }) {
   return (
@@ -100,7 +100,14 @@ function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNo
 function ErrorText({ id, children }: { id: string; children?: string | undefined }) {
   if (!children) return null;
   return (
-    <p id={id} role="alert" className="text-[13px] font-medium text-destructive">
+    /* WAVE 413: `error-in`, a 150ms fade. A validation message that snaps into
+       existence under a field the visitor is still looking at reads as the
+       page glitching; 150ms reads as an answer. It is an entrance on an
+       element that did not exist a frame ago, so it can never leave anything
+       hidden, and under reduced motion the message is simply there. The field
+       above it changes its border at the same time, off `aria-invalid`, so the
+       state has a second channel that is not this animation. */
+    <p id={id} role="alert" className="error-in text-[13px] font-medium text-destructive">
       {children}
     </p>
   );
@@ -161,8 +168,14 @@ export function EnquiryForm({
     return (
       <div className="rounded-[var(--radius-panel)] border border-teal-600 bg-tint-teal p-8">
         <span className="grid size-11 place-items-center rounded-full border border-teal-600">
-          {/* Affirmation, not a tick — the copy already says "received". */}
-          <HandHeart aria-hidden="true" className="size-5 text-teal-600" />
+          {/* Affirmation, not a tick — the copy already says "received".
+              WAVE 413: and it DRAWS ITSELF, over 400ms, when the panel
+              replaces the form. This panel appears in place, with no
+              navigation and nothing else moving, so the drawing is what marks
+              the moment the enquiry left. Same treatment as the registration
+              flow's saved state, on the same glyph family, for the same
+              reason. */}
+          <HandHeart aria-hidden="true" className="draw-in size-5 text-teal-600" />
         </span>
         <h3 className="mt-5 font-heading text-xl font-bold text-ink">Enquiry received</h3>
         <p className="measure mt-3 text-sm leading-relaxed text-ink-muted">
@@ -399,6 +412,13 @@ export function EnquiryForm({
       <div className="mt-8 flex flex-col gap-3">
         <div>
           <Button type="submit" variant="primary" disabled={isSubmitting}>
+            {/* WAVE 413: the same submit pattern as the registration flow, so
+                the two forms on this site behave identically. The label
+                already changed while the request was in flight; the spinner is
+                what says the change is a WAIT rather than a new label, and the
+                button is already disabled so a second press cannot send a
+                second enquiry. No new copy. */}
+            {isSubmitting ? <Loader2 aria-hidden="true" className="animate-spin" /> : null}
             {isSubmitting
               ? "Sending…"
               : route === "waitlist"
@@ -441,7 +461,7 @@ export function EnquiryForm({
           </a>
         </p>
         {failed ? (
-          <p role="alert" className="text-[13px] font-medium text-destructive">
+          <p role="alert" className="error-in text-[13px] font-medium text-destructive">
             {/* text-destructive, not orange (wave 295): on /contact the
                 .section-light block turns this panel's background white, and
                 the brand orange fails contrast there. The general address,

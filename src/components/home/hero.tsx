@@ -122,8 +122,17 @@ export function HomeHero() {
           section's own navy background and it would never be seen. The content
           wrappers below therefore have to be positioned to paint over it. */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+        {/* WAVE 413: eager, because it is in the first viewport on every
+            screen, and LOW priority, because it is a 7% wash behind the
+            headline rather than one of the three photographs. High priority on
+            all four would have put the wash in the same queue as the pictures
+            the hero actually exists to show. */}
         <img
           src="/images/hero-ground-street.webp"
+          loading="eager"
+          fetchPriority="low"
+          width={1672}
+          height={941}
           alt=""
           decoding="async"
           className="size-full object-cover object-[60%_45%] opacity-[0.07]"
@@ -144,13 +153,20 @@ export function HomeHero() {
         <div className="hero-band grid grid-cols-1 gap-5 md:grid-cols-3">
           {panels.map((panel) => (
             <figure key={panel.id} className="hero-panel flex flex-col">
+              {/* WAVE 413: `loading="eager"` stated rather than left to the
+                  default. These three are the largest thing above the fold on
+                  the home page and the LCP candidate; `fetchpriority="high"`
+                  was already here and now says what it is paired with. Their
+                  width and height were already present, so the band reserves
+                  its space before a byte of image arrives. */}
               <img
                 src={panel.src}
+                loading="eager"
+                fetchPriority="high"
                 alt={panel.alt}
                 width={panel.width}
                 height={panel.height}
                 sizes="(min-width: 768px) 30vw, 100vw"
-                fetchPriority="high"
                 className="aspect-[5/4] w-full rounded-xl border border-rule object-cover"
               />
               {/* Sized to the panel, so the longest line spans its photograph
@@ -281,6 +297,7 @@ export function HomeHero() {
           </span>
           <img
             src="/images/brand/zoopla-ink.webp"
+            loading="lazy"
             alt="Zoopla"
             width={548}
             height={120}

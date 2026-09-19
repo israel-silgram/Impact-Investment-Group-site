@@ -69,6 +69,8 @@ export function Logo({
        */}
       <img
         src={LOCKUP[variant]}
+        loading="eager"
+        fetchPriority="high"
         alt=""
         aria-hidden="true"
         width={711}
@@ -95,6 +97,8 @@ export function LogoMark({
   return (
     <img
       src={MARK[variant]}
+      loading="eager"
+      fetchPriority="high"
       alt=""
       aria-hidden="true"
       width={254}

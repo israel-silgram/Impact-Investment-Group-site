@@ -531,6 +531,7 @@ function CharacterPortals() {
               <div className="relative hidden overflow-hidden bg-[radial-gradient(circle,rgba(37,209,194,0.25),transparent_68%)] md:block">
                 <img
                   src={PORTAL_ART[selected.id as keyof typeof PORTAL_ART]}
+                  loading="lazy"
                   alt={selected.claim.split(" ")[0]}
                   width={347}
                   height={520}
@@ -640,6 +641,7 @@ function MissionControl() {
                 >
                   <img
                     src={PORTAL_ART[key]}
+                    loading="lazy"
                     alt=""
                     aria-hidden="true"
                     className="mx-auto h-[104px] w-full object-contain sm:h-[112px]"
@@ -658,6 +660,7 @@ function MissionControl() {
           >
             <img
               src={PORTAL_ART[activeKey]}
+              loading="lazy"
               alt=""
               aria-hidden="true"
               className="absolute -bottom-5 -right-7 h-[280px] opacity-25 saturate-50 drop-shadow-[0_0_18px_rgba(37,209,194,0.7)]"
@@ -751,6 +754,7 @@ function LivingComic() {
                 </span>
                 <img
                   src={PORTAL_ART[key]}
+                  loading="lazy"
                   alt=""
                   aria-hidden="true"
                   className={cn(
@@ -819,6 +823,7 @@ function ServicesPage() {
           <figure className="panel overflow-hidden">
             <img
               src={servicesHero.image.src}
+              loading="lazy"
               alt={servicesHero.image.alt}
               width={2241}
               height={1207}

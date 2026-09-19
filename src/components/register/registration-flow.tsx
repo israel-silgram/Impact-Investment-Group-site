@@ -6,6 +6,7 @@ import {
   Eye,
   EyeOff,
   HandHeart,
+  Loader2,
   LockKeyhole,
   Mail,
   MapPin,
@@ -34,11 +35,23 @@ import {
 } from "@/lib/registration";
 import { cn } from "@/lib/utils";
 
+/** The step's exit, in ms. Must match `--duration-exit` in styles.css. */
+const STEP_EXIT_MS = 120;
+/** How late the backstop timer may be before it stops waiting for the event. */
+const STEP_EXIT_GRACE_MS = 60;
+
 type AccountField = "email" | "phone" | "password" | "confirmPassword";
 type Details = Record<AccountField, string>;
 const emptyDetails: Details = { email: "", phone: "", password: "", confirmPassword: "" };
+/* WAVE 413: `aria-invalid:border-destructive`. The message under a field is
+   the only thing that used to mark it, and on a form this long the message can
+   be the thing below the fold. The border is where the eye already is, and it
+   is driven off `aria-invalid`, which the fields already set, so the visual
+   state and the announced state cannot drift apart. Colour is not the only
+   channel: the message is still there, still `role="alert"`, and still names
+   what is wrong. */
 const fieldClass =
-  "registration-input min-h-14 w-full rounded-xl border border-rule bg-page px-4 py-3 text-base text-ink placeholder:text-ink-muted focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600";
+  "registration-input min-h-14 w-full rounded-xl border border-rule bg-page px-4 py-3 text-base text-ink placeholder:text-ink-muted aria-invalid:border-destructive focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600";
 
 function sensitiveAnswers(answers: SurveyAnswers): boolean {
   return Object.entries(RESIDENT_SPECIAL_CATEGORY_OPTIONS).some(([id, options]) => {
@@ -159,6 +172,24 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
   const [healthError, setHealthError] = React.useState(false);
   const [answers, setAnswers] = React.useState<SurveyAnswers>({});
   const [index, setIndex] = React.useState(0);
+  /*
+   * ── WAVE 413: THE STEP MOVES IN THE DIRECTION OF TRAVEL ─────────────────
+   *
+   * Forward arrives from the right, Back arrives from the left, and the step
+   * being left fades out over 120ms first. The job is orientation: a survey
+   * with no page change and no URL change gave a visitor nothing at all to
+   * tell "I have moved on" from "my answer did not take". Direction is the
+   * cheapest possible answer, and it is the same one a paper form gives.
+   *
+   * `null` MEANS NO ANIMATION, AND IT IS THE STARTING VALUE. The register
+   * routes are prerendered like every other route here, so the first step a
+   * visitor sees was painted by the server; running an entrance on it is the
+   * wave 412b defect, and the only safe first frame is no animation at all.
+   * Only a move the visitor asked for sets a direction.
+   */
+  const [direction, setDirection] = React.useState<"forward" | "back" | null>(null);
+  const [leaving, setLeaving] = React.useState(false);
+  const moveTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const [busy, setBusy] = React.useState(false);
   const [ready, setReady] = React.useState(false);
   const [accountFrozen, setAccountFrozen] = React.useState(false);
@@ -171,6 +202,8 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
   const accountAttempt = React.useRef<AccountDetails | null>(null);
   const locked = React.useRef(false);
   const heading = React.useRef<HTMLHeadingElement>(null);
+  /** The step being left, so its exit can say when it is over. */
+  const stepRef = React.useRef<HTMLDivElement | null>(null);
   const hasMoved = React.useRef(false);
   const questions = React.useMemo(() => getQuestions(role), [role]);
   const question = questions[index]!;
@@ -180,6 +213,66 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
   // before React has attached the account submit handler.
   React.useEffect(() => {
     setReady(true);
+  }, []);
+
+  React.useEffect(
+    () => () => {
+      if (moveTimer.current) clearTimeout(moveTimer.current);
+    },
+    [],
+  );
+
+  /**
+   * Leave this step, then arrive at the next one.
+   *
+   * The 120ms is the exit, and it is spent while the answer is already away:
+   * `saveStep` awaits the network before it calls this, so the fade is not
+   * latency added to the form, it is the last 120ms of a wait that had nothing
+   * in it. Under reduced motion there is no wait at all and the step simply
+   * changes, which is what rule 4 of this wave asks for: the STATE (a
+   * different question, a longer bar, a new number in the counter) is conveyed
+   * without any of the motion.
+   */
+  const moveTo = React.useCallback((next: number, heading: "forward" | "back") => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let landed = false;
+    const land = () => {
+      if (landed) return;
+      landed = true;
+      if (moveTimer.current) clearTimeout(moveTimer.current);
+      moveTimer.current = null;
+      setDirection(heading);
+      setIndex(next);
+      setLeaving(false);
+    };
+    if (reduced) {
+      land();
+      return;
+    }
+    setLeaving(true);
+
+    /*
+     * ⚠ `animationend`, WITH THE TIMER AS A BACKSTOP AND NOT AS THE CLOCK.
+     *
+     * A setTimeout of STEP_EXIT_MS alone is the obvious way to write this and
+     * it drifts: the timer is scheduled against a busy main thread and fires
+     * some milliseconds after the fade it is supposed to be following, and
+     * those milliseconds sit in the middle of the transition doing nothing.
+     * Measured by the step probe in scripts/wave413-motion.py: 120ms of exit
+     * and 250ms of entrance came to 400ms of wall clock, and the missing 30
+     * were this.
+     *
+     * The animation's own `animationend` fires exactly when the fade is over,
+     * so the new step mounts on the frame the old one finished. The timer
+     * stays as a backstop for the cases where the event never arrives at all
+     * (the element removed mid-animation, a browser that declines to run it),
+     * because a step that never lands is worse than a step that lands late.
+     * Whichever gets there first wins, once.
+     */
+    const node = stepRef.current;
+    if (node) node.addEventListener("animationend", land, { once: true });
+    if (moveTimer.current) clearTimeout(moveTimer.current);
+    moveTimer.current = setTimeout(land, STEP_EXIT_MS + STEP_EXIT_GRACE_MS);
   }, []);
 
   React.useEffect(() => {
@@ -299,9 +392,10 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
       setSaved(true);
       if (finish || index === questions.length - 1) {
         token.current = "";
+        setDirection("forward");
         setStage("done");
       } else {
-        setIndex((current) => current + 1);
+        moveTo(index + 1, "forward");
       }
     } catch (error) {
       setFailure(error instanceof RegistrationError ? error.kind : "network");
@@ -349,6 +443,9 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
 
       {stage === "account" ? (
         <div className="registration-panel rounded-3xl border border-rule bg-page p-6 sm:p-10">
+          {/* No `data-step` here on purpose. This is the first thing the route
+              paints and the server painted it; an entrance on it would blink
+              away content the visitor is already reading. */}
           <div className="registration-step">
             <span
               aria-hidden="true"
@@ -519,6 +616,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                 disabled={busy || !ready}
                 className="mt-4 w-full whitespace-normal"
               >
+                {busy ? <Loader2 aria-hidden="true" className="animate-spin" /> : null}
                 {busy ? copy.creating : copy.create}
               </Button>
               <p className="mt-5 text-center text-sm">
@@ -542,7 +640,13 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
               <ShieldCheck aria-hidden="true" size={18} />
               Registration saved
             </span>
-            <span className="font-mono text-ink-muted">
+            {/* WAVE 413: this line already said which step you were on; it
+                says it OUT LOUD now. `aria-live="polite"` on the existing
+                counter, with no new copy, so somebody who cannot see the bar
+                move or the question change is told "03 / 07" when it happens
+                rather than having to go looking. `tabular-nums` because the
+                two figures must not change width as they count. */}
+            <span aria-live="polite" className="font-mono tabular-nums text-ink-muted">
               {String(index + 1).padStart(2, "0")} / {String(questions.length).padStart(2, "0")}
             </span>
           </div>
@@ -568,7 +672,17 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
           >
             <fieldset disabled={busy} className="min-w-0">
               <legend className="sr-only">{copy.surveyIntro}</legend>
-              <div key={question.id} className="registration-step min-h-[280px]">
+              {/* `key` is the question, so React builds a NEW node on every
+                  move and the entrance animation restarts without anything
+                  having to reset it. `data-step` is the direction it came
+                  from, and `data-leaving` is the 120ms on the way out. */}
+              <div
+                key={question.id}
+                ref={stepRef}
+                data-step={direction ?? undefined}
+                data-leaving={leaving ? "true" : undefined}
+                className="registration-step min-h-[280px]"
+              >
                 <p className="eyebrow mb-4 flex items-center gap-2 text-teal-600">
                   {question.id === "regions" || question.id === "location" ? (
                     <MapPin aria-hidden="true" size={16} />
@@ -634,7 +748,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                   type="button"
                   disabled={index === 0}
                   onClick={() => {
-                    setIndex((current) => current - 1);
+                    moveTo(index - 1, "back");
                     setFailure(null);
                     setHealthError(false);
                   }}
@@ -649,6 +763,15 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                   size="lg"
                   className="flex-1 whitespace-normal sm:flex-none"
                 >
+                  {/* WAVE 413: A SPINNER, AND THE BUTTON ALREADY GOES DEAD.
+                      The label changed while a request was in flight and
+                      nothing else did, which on a slow connection reads as a
+                      press that did not take, and a second press is the last
+                      thing this form needs. The fieldset around it is disabled
+                      on `busy`, so the control cannot be pressed twice; the
+                      spinner is what says why. No new copy: the label was
+                      already `copy.saving`. */}
+                  {busy ? <Loader2 aria-hidden="true" className="animate-spin" /> : null}
                   {busy
                     ? copy.saving
                     : index === questions.length - 1
@@ -675,12 +798,33 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
             </fieldset>
           </form>
           <p role="status" className="mt-4 text-center text-sm leading-relaxed text-ink-muted">
+            {/* WAVE 413: the saved state DRAWS ITSELF, over 400ms, by running
+                a stroke-dashoffset down the glyph's own paths. It is the
+                site's own ShieldCheck and not a new tick: the brand replaced
+                every checkmark on this site with a Lucide icon, and drawing
+                one of those is the version of "a tick draws itself" that does
+                not put a tick back. `key` is the step, so it draws again each
+                time a step saves rather than once for good.
+
+                Under reduced motion the glyph is simply there beside the word,
+                which is the whole state; the drawing was never carrying it. */}
+            {saved ? (
+              <ShieldCheck
+                key={`saved-${index}`}
+                aria-hidden="true"
+                size={16}
+                className="draw-in mr-1.5 inline-block align-[-2px] text-teal-600"
+              />
+            ) : null}
             {saved ? `${copy.saved}. ` : ""}
             {copy.optional}
           </p>
         </div>
       ) : (
-        <div className="registration-panel registration-step rounded-3xl border border-teal-600 bg-page p-8 text-center sm:p-12">
+        <div
+          data-step="forward"
+          className="registration-panel registration-step rounded-3xl border border-teal-600 bg-page p-8 text-center sm:p-12"
+        >
           <span
             aria-hidden="true"
             className="mx-auto grid size-20 place-items-center rounded-full border border-teal-600 bg-tint-teal text-teal-600"

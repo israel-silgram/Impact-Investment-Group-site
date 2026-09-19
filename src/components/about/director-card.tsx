@@ -142,6 +142,7 @@ export function DirectorCard({
         <div className="flex justify-center px-5 pt-6">
           <img
             src={director.portrait}
+            loading="lazy"
             alt={`${director.name}, ${director.role}`}
             width={440}
             height={440}

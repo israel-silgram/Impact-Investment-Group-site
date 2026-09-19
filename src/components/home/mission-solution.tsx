@@ -79,13 +79,19 @@ const icon = (name?: string): LucideIcon =>
  * a UK statistic and the separator must be a comma wherever the visitor is.
  * The static string stays in the accessibility tree: a screen reader should
  * hear "176,130", not a number ticking.
+ *
+ * WAVE 413: `tabular-nums`. Barlow's default figures are proportional, so a 1
+ * is narrower than a 0 and the numeral changed WIDTH on nearly every frame of
+ * the count — six digits jittering left and right for 1.4 seconds under a
+ * headline. Tabular figures all occupy one advance width, so the number counts
+ * up without moving. It is the whole reason the count is watchable.
  */
 function CountUpFigure({ value, className }: { value: string; className?: string }) {
   const target = Number(value.replace(/[^0-9]/g, "")) || 0;
   const { ref, display } = useCountUp(target, 1400);
   return (
     <>
-      <span ref={ref} aria-hidden="true" className={className}>
+      <span ref={ref} aria-hidden="true" className={cn("tabular-nums", className)}>
         {display.toLocaleString("en-GB")}
       </span>
       <span className="sr-only">{value}</span>

@@ -17,7 +17,14 @@ import { cn } from "@/lib/utils";
  * site has had since wave 412. A variant added here is measured too.
  */
 const buttonVariants = cva(
-  "group inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 whitespace-nowrap font-heading text-base font-semibold transition-all duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+  /* WAVE 413: `press`. A pressed control must never look the same as an
+     unpressed one, and on a touchscreen the press is the ONLY feedback there
+     is, because there was no hover state beforehand to have said anything.
+     0.98 for 80ms, from :active, so it costs nothing, cannot get stuck, and
+     fires for Enter and Space exactly as it does for a finger. See the rule
+     in styles.css for why the lift can be 200ms and the press 80ms when both
+     of them look like the transform. */
+  "press group inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 whitespace-nowrap font-heading text-base font-semibold transition-all duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -26,7 +33,11 @@ const buttonVariants = cva(
            any size (wave 295, the platform's orange; it was 2.6 and 3.4).
            Hover lifts and deepens the shadow rather than lightening the fill. */
         primary:
-          "rounded-full bg-orange-600 px-6 text-white shadow-[var(--shadow-action)] hover:-translate-y-0.5 hover:shadow-[0_16px_34px_-12px_var(--color-orange-500)]",
+          /* WAVE 413: the lift is 1px, not 2px, and it answers to the keyboard
+             as well as the pointer. On a filled pill the deepening shadow is
+             what reads as the lift; 2px of travel on top of it made the button
+             look like it was jumping away from the line of text beside it. */
+          "rounded-full bg-orange-600 px-6 text-white shadow-[var(--shadow-action)] hover:-translate-y-px hover:shadow-[0_16px_34px_-12px_var(--color-orange-500)] focus-visible:-translate-y-px focus-visible:shadow-[0_16px_34px_-12px_var(--color-orange-500)]",
         /* WAVE 412, the light ground. The outline was teal-500 with a
            teal-400 label and a teal-950 fill on hover, all three of which were
            chosen against navy: on white the label is 2.41:1 and the hover
@@ -76,7 +87,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const arrow = showArrow ? (
       <ArrowRight
         aria-hidden="true"
-        className="transition-transform duration-200 ease-out group-hover:translate-x-1"
+        /* 3px. Far enough to read as "this goes somewhere", short enough that
+           the gap beside the label does not open up and re-close. The
+           focus-visible arm is the point rather than a bonus: an arrow that
+           only moves for a mouse tells a keyboard user nothing. */
+        className="transition-transform duration-200 ease-out group-hover:translate-x-[3px] group-focus-visible:translate-x-[3px]"
       />
     ) : null;
 

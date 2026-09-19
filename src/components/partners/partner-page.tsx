@@ -432,6 +432,7 @@ function PartnerRoleLedger({ profile }: { profile: PartnerProfile }) {
                   <span className="grid size-10 shrink-0 place-items-end overflow-hidden rounded-full border-2 border-orange-500 bg-page">
                     <img
                       src={roleGuideImages[index] ?? roleGuideImages[0]}
+                      loading="lazy"
                       alt=""
                       className="h-[115%] w-full object-contain object-bottom"
                     />
@@ -444,16 +445,19 @@ function PartnerRoleLedger({ profile }: { profile: PartnerProfile }) {
           <Reveal className="relative mx-auto min-h-[330px] w-full max-w-[340px] lg:min-h-[390px]">
             <img
               src="/images/ai-team/petra.webp"
+              loading="lazy"
               alt="Orange property guide"
               className="absolute bottom-0 left-0 z-30 w-[58%] object-contain drop-shadow-[0_22px_24px_rgba(0,0,0,0.34)]"
             />
             <img
               src="/images/ai-team/peter.webp"
+              loading="lazy"
               alt="Blue investment guide"
               className="absolute bottom-0 left-[25%] z-20 w-[58%] object-contain drop-shadow-[0_22px_24px_rgba(0,0,0,0.34)]"
             />
             <img
               src="/images/ai-team/pippa.webp"
+              loading="lazy"
               alt="Green impact guide"
               className="absolute bottom-0 right-0 z-10 w-[58%] object-contain drop-shadow-[0_22px_24px_rgba(0,0,0,0.34)]"
             />
@@ -616,6 +620,7 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
       >
         <img
           src={visual.image}
+          loading="lazy"
           alt=""
           className="absolute inset-y-0 right-0 -z-10 h-full w-full object-cover object-center opacity-20 [mask-image:linear-gradient(to_left,black_20%,transparent_95%)] sm:w-[68%] sm:opacity-32 lg:w-[58%]"
         />

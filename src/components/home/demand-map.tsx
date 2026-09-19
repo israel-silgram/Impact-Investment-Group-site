@@ -258,9 +258,34 @@ export function DemandMap({
           overlay || below ? "max-w-[34rem] lg:max-w-none" : "max-w-[30rem]",
         )}
       >
+        {/*
+         * ── WAVE 413: THE FIELD IS NOT THERE YET, AND IT SAYS SO ──────────
+         *
+         * `buildDotField()` walks about seven thousand points against the
+         * England boundary file and runs in an idle callback, deliberately, so
+         * it cannot delay the first paint. What that left on the screen in the
+         * meantime was an empty navy plate: no dots, no landmass, nothing to
+         * say whether this was a map still arriving or a map that had failed.
+         * On a slow phone that state lasted long enough to be read as broken.
+         *
+         * The skeleton is a plate with a slow sheen across it, which is the
+         * one shape a visitor already reads as "this is coming". It is
+         * aria-hidden and carries no text; the SVG over it is real and is
+         * already there, so the eighteen authorities are selectable by
+         * keyboard from the first frame whether or not the dots have landed.
+         *
+         * Then the canvas fades in over 300ms rather than appearing between
+         * two frames, because seven thousand luminous dots arriving at once on
+         * a dark plate is a flash.
+         */}
+        {field === null ? (
+          <span aria-hidden="true" className="map-skeleton absolute inset-0" />
+        ) : null}
+
         <canvas
           ref={canvasRef}
           aria-hidden="true"
+          data-map={field === null ? undefined : "in"}
           className="pointer-events-none absolute inset-0 size-full"
         />
 

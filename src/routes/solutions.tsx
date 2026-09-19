@@ -74,6 +74,7 @@ function SolutionsPage() {
       >
         <img
           src="/images/solution-street-blueprint.webp"
+          loading="lazy"
           alt=""
           aria-hidden="true"
           width={1600}

@@ -138,6 +138,7 @@ function ContactPage() {
 
             <img
               src="/images/ai-team/trio-wave.webp"
+              loading="lazy"
               alt=""
               aria-hidden="true"
               width={934}

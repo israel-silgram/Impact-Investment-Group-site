@@ -180,6 +180,31 @@ export function SiteHeader() {
   React.useEffect(() => {
     if (!open) return;
     const panel = panelRef.current;
+    /*
+     * BOTH ELEMENTS, AND THE PREVIOUS VALUES PUT BACK RATHER THAN BLANKED.
+     *
+     * ⚠ TO BE CLEAR ABOUT WHAT WAS AND WAS NOT WRONG: `overflow: hidden` on
+     * <body> alone DOES lock this page today, and wave 413 measured that
+     * rather than assuming it. The used overflow of the root box propagates to
+     * the viewport, and when <html> is `visible` it is <body>'s that
+     * propagates instead. Body alone works only for as long as nobody gives
+     * <html> an overflow of its own, which is one stylesheet rule away and
+     * would fail silently, with the page sliding around behind an open drawer
+     * and no test able to see it. Saying it on both is the version that does
+     * not depend on a condition nothing enforces.
+     *
+     * The restore is the other half. `= ""` assumed these were empty before
+     * the drawer opened; capturing and replacing them means another component
+     * that owns one of these can keep owning it.
+     *
+     * ⚠ AND `overflow: hidden` DOES NOT STOP `scrollTo`. It stops the visitor,
+     * not the script, which is the right behaviour and is also how the first
+     * draft of the drawer probe managed to report a 369px scroll behind a
+     * drawer that was locked correctly. The probe uses a real wheel event now.
+     */
+    const root = document.documentElement;
+    const previous = { root: root.style.overflow, body: document.body.style.overflow };
+    root.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
     const focusables = () =>
       Array.from(
@@ -212,7 +237,8 @@ export function SiteHeader() {
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
+      root.style.overflow = previous.root;
+      document.body.style.overflow = previous.body;
     };
   }, [open]);
 

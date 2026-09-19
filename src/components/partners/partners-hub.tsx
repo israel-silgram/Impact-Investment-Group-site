@@ -174,6 +174,7 @@ export function PartnersHub() {
       <section className="section-light relative isolate overflow-hidden">
         <img
           src="/images/ecosystem-band.jpg"
+          loading="lazy"
           alt=""
           className="absolute inset-y-0 right-0 -z-10 hidden h-full w-[60%] object-cover opacity-70 mix-blend-multiply [mask-image:linear-gradient(to_left,black_35%,transparent_100%)] lg:block"
         />

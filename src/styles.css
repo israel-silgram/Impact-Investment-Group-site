@@ -540,9 +540,28 @@
 }
 
 /* WCAG 2.2.2: motion that starts on its own and runs past five seconds needs
-   a way to stop it. Hover and focus-within are that mechanism. */
+   a way to stop it. Hover and focus-within are that mechanism.
+
+   ⚠ WAVE 413 ADDED THE HOVER ARM. The comment above has said "hover and
+   focus-within" since wave 412 and only `:focus-within` was ever written, so
+   the lane did not stop for a pointer at all: a visitor trying to read a
+   council's name had to tab into a lane whose contents are aria-hidden
+   decoration. Reading the name is the only reason anybody stops it. */
+.logo-marquee:hover .logo-marquee__track,
 .logo-marquee:focus-within .logo-marquee__track {
   animation-play-state: paused;
+}
+
+/* HALF SPEED WHERE THERE IS NO HOVER TO PAUSE IT WITH. On a touch screen the
+   pause above is unreachable: there is no pointer, and tapping a lane of
+   aria-hidden decoration does nothing. So the lane runs at half speed instead,
+   which is the only control this rule can offer a phone and is enough to read
+   a crest by. The sr-only list beside it carries every name regardless, which
+   is what makes this a nicety rather than the only way to the content. */
+@media (hover: none) {
+  .logo-marquee__track {
+    animation-duration: 80s;
+  }
 }
 
 /* Reduced motion: the lane stops dead and wraps instead. The global backstop
@@ -1022,6 +1041,155 @@ img[data-img="in"] {
   }
 }
 
+/* ---------- The demand map, arriving ---------- */
+
+/* The skeleton under the dot field while `buildDotField()` runs in its idle
+   callback. A plate a shade above the island's own navy with one slow sheen
+   crossing it: the shape a visitor already reads as "this is coming", rather
+   than an empty rectangle they read as "this is broken".
+
+   1400ms, which is slower than the sheen a list skeleton usually gets, because
+   this is a 560px plate and a quick sweep across something that size reads as
+   a glare rather than as loading. It stops existing the moment the field
+   lands, so it can never be a permanent loop.
+
+   THE MAP IS THE ONE NAVY ISLAND ON ITS ROUTE, so both of these values are
+   navy, and both are inside `.section-dark` by construction.
+
+   Under reduced motion the sheen is removed outright rather than flattened: an
+   infinite animation flattened to 0.001ms freezes at whichever keyframe the
+   browser lands on, which here would be a stripe parked across the plate. */
+@keyframes map-skeleton-sheen {
+  from {
+    transform: translateX(-60%);
+  }
+  to {
+    transform: translateX(160%);
+  }
+}
+
+.map-skeleton {
+  overflow: hidden;
+  border-radius: inherit;
+  background-color: color-mix(in oklab, var(--color-navy-700) 45%, transparent);
+}
+
+.map-skeleton::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inline-size: 40%;
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--color-navy-600) 55%, transparent),
+    transparent
+  );
+  animation: map-skeleton-sheen 1400ms var(--ease-out-soft) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-skeleton::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* And the field itself arrives rather than appearing. `data-map` is set by the
+   component the moment the dots exist, never in the markup, so there is no
+   state in which a canvas is sitting at opacity 0 waiting to be told. */
+@keyframes map-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+canvas[data-map="in"] {
+  animation: map-fade-in var(--duration-reveal) var(--ease-out-soft);
+}
+
+/* ---------- Validation that answers rather than glitches ---------- */
+
+/* 150ms. A message under a field the visitor is still looking at, appearing
+   between two frames, reads as the page breaking; over 150ms it reads as an
+   answer to what they just did. NO SHAKE AND NO BOUNCE, here or in the
+   registration flow: these forms ask a resident about their housing need, and
+   a form that wobbles at somebody reads as a form that is cross with them.
+
+   The border of the field changes colour at the same moment, off
+   `aria-invalid`, so the state has a channel that is not this animation and is
+   still there under reduced motion. */
+@keyframes error-in {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error-in {
+  animation: error-in var(--duration-fade) var(--ease-out-soft);
+}
+
+/* ---------- Disclosure rows ---------- */
+
+/* 250ms, and the height is THE OTHER of this wave's two exceptions to
+   transform-and-opacity (the header is the first). A disclosure has to push
+   what is under it down the page; that IS the animation, and there is no
+   transform that moves the rest of the document.
+
+   It is one property on one element, it only runs when somebody presses the
+   row, and the library's own keyframes already animate exactly that one
+   element from 0 to its measured content height. What this does is retime them
+   from the library's 200ms to the site's 250ms and give them the site's
+   easing. */
+[data-slot="accordion-content"],
+.disclosure-content {
+  --tw-duration: var(--duration-enter);
+  --tw-ease: var(--ease-out-soft);
+}
+
+/* The marker turns rather than swapping. `Plus` and `Minus` sat one on top of
+   the other and were switched with `hidden`/`block`, which is a state change
+   with no motion in it at all: on a row you have just pressed, the one thing
+   that should confirm the press was the only thing that did not move. They
+   cross-fade through a 180 degree turn now, over the same 250ms the row takes,
+   so the row and its marker are one gesture. Both glyphs are always painted;
+   opacity is what picks between them, so nothing here can leave a marker
+   missing. */
+.disclosure-marker > * {
+  grid-area: 1 / 1;
+  transition:
+    opacity var(--duration-enter) var(--ease-out-soft),
+    rotate var(--duration-enter) var(--ease-out-soft);
+}
+
+.disclosure-marker [data-mark="closed"] {
+  opacity: 1;
+  rotate: 0deg;
+}
+
+.disclosure-marker [data-mark="open"] {
+  opacity: 0;
+  rotate: -180deg;
+}
+
+.group[data-state="open"] .disclosure-marker [data-mark="closed"] {
+  opacity: 0;
+  rotate: 180deg;
+}
+
+.group[data-state="open"] .disclosure-marker [data-mark="open"] {
+  opacity: 1;
+  rotate: 0deg;
+}
+
 /* ---------- Presses that register ---------- */
 
 /* A pressed control must never look like an unpressed one. 0.98 for 80ms is
@@ -1030,14 +1198,89 @@ img[data-img="in"] {
    state to have told the visitor anything beforehand.
 
    `:active` and not a JS press state, so it costs nothing and cannot get
-   stuck; `transform` only, so it never reflows. Keyboard parity comes free:
-   :active fires on Enter and on Space for a button. */
+   stuck. Keyboard parity comes free: :active fires on Enter and on Space for
+   a button, so a keyboard press registers the same way a finger does.
+
+   TWO DURATIONS ON WHAT LOOKS LIKE ONE PROPERTY, AND THIS IS HOW.
+   The hover lift wants 200ms and the press wants 80ms, and both are the
+   transform. Tailwind v4 emits its translate and scale utilities as the
+   INDIVIDUAL `translate` and `scale` properties rather than as a composed
+   `transform`, and those animate independently, so the lift can be slow and
+   the press quick without either fighting the other.
+
+   Unlayered, so it beats the `transition-all duration-200` on the button
+   without an !important. */
 .press {
-  transition: transform 80ms var(--ease-out-soft);
+  transition:
+    translate var(--duration-hover) var(--ease-out-soft),
+    scale 80ms var(--ease-out-soft),
+    box-shadow var(--duration-hover) var(--ease-out-soft),
+    background-color var(--duration-hover) var(--ease-out-soft),
+    border-color var(--duration-hover) var(--ease-out-soft),
+    color var(--duration-hover) var(--ease-out-soft);
 }
 
 .press:active {
-  transform: scale(0.98);
+  scale: 0.98;
+}
+
+/* ---------- Cards that answer to the keyboard as well as the mouse ---------- */
+
+/* `panel` has lifted 2px under the pointer since wave 412. It lifts for the
+   keyboard now too: `:focus-within` because a panel is usually a plain <div>
+   that cannot itself take focus, and what the visitor needs to see is that
+   the card they have tabbed INTO is the one that moved. A card that only
+   answers to a mouse answers to half its visitors, which is the sentence
+   wave 412 wrote about the role tiles and did not carry to the cards. */
+.panel:focus-within {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* THE ICON PLATE DEEPENS ONE STEP when the card it sits in is hovered or
+   focused: 12% of its own colour to 18%. It says "this whole tile is the
+   thing you are pointing at", rather than leaving the lift to carry it alone,
+   and on a touch screen where there is no hover it simply never happens.
+
+   MEASURED, because a deeper plate is a smaller ratio. An icon glyph is a
+   non-text graphic and answers to 3:1 (SC 1.4.11), and at 18%:
+     orange-600 glyph  4.26:1 on white   3.85:1 on the cream
+     teal-600 glyph    4.10:1 on white   3.68:1 on the cream
+   against 4.62 / 4.13 / 4.46 / 4.00 at rest. The worst case keeps 0.68 of a
+   point in hand. 20% was the first try and reached 3.58:1; 18% is a plainly
+   visible deepening that does not spend that much. */
+.group:hover .icon-tone-teal,
+.group:focus-visible .icon-tone-teal,
+.group:focus-within .icon-tone-teal {
+  background-color: color-mix(in oklab, var(--color-teal-600) 18%, transparent);
+}
+
+.group:hover .icon-tone-orange,
+.group:focus-visible .icon-tone-orange,
+.group:focus-within .icon-tone-orange {
+  background-color: color-mix(in oklab, var(--color-orange-500) 18%, transparent);
+}
+
+.group:hover .role-plate,
+.group:focus-visible .role-plate,
+.group:focus-within .role-plate {
+  background-color: color-mix(in oklab, var(--color-orange-500) 18%, transparent);
+}
+
+.role-plate {
+  transition: background-color var(--duration-hover) var(--ease-out-soft);
+}
+
+/* Inside a navy island the plates keep their own dark values, so the deepening
+   above must not reach in: 18% of the light tint over navy is a smudge. */
+.section-dark .group:hover .icon-tone-teal,
+.section-dark .group:focus-within .icon-tone-teal {
+  background-color: color-mix(in oklab, var(--color-teal-950) 60%, transparent);
+}
+
+.section-dark .group:hover .icon-tone-orange,
+.section-dark .group:focus-within .icon-tone-orange {
+  background-color: color-mix(in oklab, var(--color-orange-500) 18%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1736,33 +1979,157 @@ img[data-img="in"] {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .registration-step {
-    animation: registration-enter 380ms var(--ease-out-soft) both;
-  }
   .registration-resident::before {
     animation: registration-glow 4s ease-in-out 1;
   }
+  /* 300ms, down from 380. The bar is the one thing on the page that says how
+     much is left, so it has to finish before the visitor has finished reading
+     the new question. */
   .registration-progress {
-    transition: width 380ms var(--ease-out-soft);
+    transition: width 300ms var(--ease-out-soft);
   }
   .registration-input {
     transition:
       border-color 180ms ease,
       box-shadow 180ms ease;
   }
-  .registration-option:hover {
+  .registration-option:hover,
+  .registration-option:focus-within {
     transform: translateY(-2px);
   }
 }
 
-@keyframes registration-enter {
+/* ⚠ `.registration-step` USED TO CARRY A BLANKET `registration-enter ... both`
+   HERE, AND THAT WAS THE WAVE 412b DEFECT WEARING A DIFFERENT HAT.
+
+   Both register routes are prerendered. The rule applied to the FIRST panel
+   the route paints, so the server painted the account form, the bundle
+   landed, and the backwards fill of an entrance declared with `both` put it
+   back at opacity 0 and faded it in over 380ms. Visible, blink, fade.
+
+   The rule now is the one wave 412b wrote: ANIMATE ONLY WHAT WAS MOVED. A
+   step animates when, and only when, the visitor moved to it, which the
+   component says by putting a DIRECTION on it. The account panel carries no
+   `data-step` at all and matches nothing here. */
+@keyframes step-in-forward {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateX(24px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes step-in-back {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes step-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.registration-step[data-step="forward"] {
+  animation: step-in-forward var(--duration-enter) var(--ease-out-soft);
+}
+
+.registration-step[data-step="back"] {
+  animation: step-in-back var(--duration-enter) var(--ease-out-soft);
+}
+
+/* The 120ms on the way out, and it wins over the entrance above because it is
+   declared after it: a step that is leaving is not also arriving. `forwards`
+   so it holds at 0 for the frame between the fade ending and React swapping
+   the node. NO SHAKE AND NO BOUNCE anywhere in this flow, on purpose: this is
+   a form that asks a resident about their housing need, and a form that
+   wobbles at somebody reads as a form that is cross with them. */
+.registration-step[data-leaving="true"] {
+  animation: step-out var(--duration-exit) ease-in forwards;
+}
+
+/* ---------- A mark that draws itself ---------- */
+
+/* 400ms of stroke-dashoffset down a Lucide glyph's own paths, so the saved
+   state is something the visitor SEES HAPPEN rather than something that was
+   already there when they looked.
+
+   It is the site's own ShieldCheck and not a new tick. The brand replaced
+   every checkmark on this site with an icon from the Lucide set, and drawing
+   one of those is the version of "the tick draws itself" that does not put a
+   tick back on the page.
+
+   48 is comfortably longer than the longest path in a 24px Lucide glyph, so
+   one dash covers the whole of it and the offset runs it on from nothing.
+   `both` is safe here for the same reason it is safe in the drawer: the
+   element is created by the save it reports and has no server paint to take
+   away. Under reduced motion the global block flattens it and the glyph is
+   simply there, which is the entire state. */
+@keyframes draw-in {
+  from {
+    stroke-dashoffset: 48;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.draw-in path,
+.draw-in circle,
+.draw-in polyline,
+.draw-in line {
+  stroke-dasharray: 48;
+  animation: draw-in 400ms var(--ease-out-soft) both;
+}
+
+/* ---------- The live marker's breathing dot ---------- */
+
+/* THE ONE SMALL LOOP THIS WAVE ADDS. 6px, 2 seconds, opacity only, beside the
+   words "live from our platform" on the home page. Its job is to make that
+   line read as a claim about NOW: a static caption saying "live" is a label
+   somebody typed, and a marker that breathes is the same sentence being made
+   again every two seconds.
+
+   It is well under the 5-second threshold WCAG 2.2.2 is written about, it
+   carries no information of its own (the words beside it do), and it is
+   removed outright under reduced motion rather than flattened, because
+   flattening an infinite opacity loop leaves it frozen at whichever keyframe
+   the browser lands on. */
+@keyframes live-dot-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.live-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: var(--color-teal-600);
+  animation: live-dot-breathe 2000ms var(--ease-out-soft) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-dot {
+    animation: none;
+    opacity: 1;
   }
 }
 
