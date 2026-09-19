@@ -320,18 +320,27 @@ export function HomeHero() {
          * transparent mark, which on a white page is an empty rectangle.
          * Wave 412 filled that alpha mask with the site's ink token as an
          * honest stand-in; wave 415 fills it with Zoopla's own published
-         * brand purple, #8046F2, sampled off the "Powered by Zoopla" ribbon
-         * on the platform's listing card and asked for by Callum on 19 Sep
-         * 2026. Made by scripts/wave415-zoopla-purple.py and committed; the
-         * hex lives in that generator and in no component and no token,
-         * because it is a third party's brand colour baked into a third
-         * party's artwork rather than a colour of this palette. Flat, it
-         * measures 5.15:1 on white and 4.58:1 on the cream; as RENDERED,
-         * through the `opacity-90` below, the darkest pixel of it reads
-         * 4.33:1 against this white ground at 360, 390, 414 and 1280. Both
-         * clear the 3:1 a graphic needs. It is still a DERIVED one-colour
-         * rendering of a one-colour mark; Zoopla's own positive colourway
-         * should replace it when Callum can ask for the real file.
+         * brand purple, sampled off the "Powered by Zoopla" ribbon on the
+         * platform's listing card and asked for by Callum on 19 Sep 2026.
+         * Made by scripts/wave415-zoopla-purple.py and committed; the hex
+         * lives in that generator and in no component and no token, because
+         * it is a third party's brand colour baked into a third party's
+         * artwork rather than a colour of this palette.
+         *
+         * 415b: IT DRAWS AT FULL STRENGTH, AND IT HAS TO. Wave 415 drew it
+         * at `opacity-90`, so the page rendered a 90 per cent TINT of the
+         * purple and not the purple: the modal pixel measured (141, 90, 243)
+         * where the file carries (128, 70, 242). Callum asked for the same
+         * colour as the ribbon on the platform's match card, and a tint is
+         * not the same colour, so the opacity is gone. The mark now renders
+         * its own pixels, modal and darkest alike, and measures 5.15:1 flat
+         * on this white ground against the 3:1 SC 1.4.11 asks of a graphic.
+         * Every ratio quoted for this mark names WHICH READING it is, since
+         * the modal pixel and the darkest pixel of a tinted mark differ.
+         *
+         * It is still a DERIVED one-colour rendering of a one-colour mark;
+         * Zoopla's own positive colourway should replace it when Callum can
+         * ask for the real file.
          *
          * THE AGREEMENT THAT BACKS THIS CLAIM sits with the backend team â€”
          * it is a Zoopla data agreement for the platform, and the line was
@@ -356,13 +365,14 @@ export function HomeHero() {
               which is how the re-checker found it. `lazy` on something the
               browser can already see only delays it.
 
-              It stays in probe (b)'s wash list, and it belongs there: the
-              list is every element in the first viewport carrying an opacity
-              under 1, and this one is at 0.90. What that probe asserts is
-              that no first-viewport element is INVISIBLE and that none of
-              them is animated above its resting value; a mark at 0.90 is
-              neither, and taking it out of the list would stop it being
-              checked rather than stop it being wrong. */}
+              415b: IT IS NO LONGER IN PROBE (B)'S WASH LIST, because that
+              list is every first-viewport element carrying an opacity under
+              1 and this one is at 1 now. No check was dropped to get there:
+              the opacity went for a COLOUR reason, and full strength is the
+              state the wash list was forgiving it for not being. The probe
+              still walks it, still asserts it is not INVISIBLE and still
+              asserts nothing animates it above its resting value; it simply
+              no longer needs forgiving. */}
           <img
             src="/images/brand/zoopla-ink.webp"
             loading="eager"
@@ -370,7 +380,7 @@ export function HomeHero() {
             alt="Zoopla"
             width={548}
             height={120}
-            className="h-[18px] w-auto opacity-90"
+            className="h-[18px] w-auto"
           />
         </p>
       </div>
