@@ -85,6 +85,62 @@ function addDot(paths: Path2D[], x: number, y: number, rawT: number) {
   path.arc(x, y, radius, 0, Math.PI * 2);
 }
 
+/**
+ * The phone's control, and the desktop's heading, in one place.
+ *
+ * NO NEW STRING. The options are `commissioningAuthorities`' own names, which
+ * the readout already prints, and the accessible name comes from the
+ * "Selected area" eyebrow that is already beside it, wired with
+ * `aria-labelledby`. 16px, because it is a form control and iOS zooms into
+ * anything smaller. min-h-11, because it is the one control on this section a
+ * thumb has to hit.
+ *
+ * ⚠ DECLARED AT MODULE SCOPE, AND THAT IS THE WHOLE POINT OF IT BEING
+ * HERE. It was first written inside `DemandMap`, beside the hooks. A function
+ * component declared inside another is a NEW TYPE on every render, so React
+ * cannot match it against the last one: it unmounts the old subtree and mounts
+ * a fresh one. Every selection sets `activeId`, which re-renders `DemandMap`,
+ * which threw this `<select>` away and built another, so the node holding
+ * focus was removed and `document.activeElement` fell back to the body. A
+ * keyboard visitor lost the control the moment they used it, and in Chromium a
+ * closed `<select>` fires `change` on an arrow key, so it was lost mid
+ * selection rather than after one. Below 1024px this is the ONLY control the
+ * map has: the polygons are `aria-hidden` with pointer events off. Found by
+ * the rel414 re-check; `scripts/wave414-mobile.py`'s picker probe asserts the
+ * select still holds focus after a keyboard change and that the figures moved.
+ */
+function AuthorityPicker({
+  id,
+  labelledBy,
+  value,
+  onChange,
+}: {
+  id: string;
+  labelledBy: string;
+  value: string;
+  onChange: (id: string) => void;
+}) {
+  return (
+    <select
+      id={id}
+      data-authority-picker=""
+      aria-labelledby={labelledBy}
+      /* There is no autofill token for "which local authority is this reader
+         looking at", and an absent attribute lets a browser guess. */
+      autoComplete="off"
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
+      className="mt-1 min-h-11 w-full cursor-pointer rounded-[10px] border border-rule bg-page px-3 py-2 font-heading text-base font-bold text-ink focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 lg:hidden"
+    >
+      {commissioningAuthorities.map((authority) => (
+        <option key={authority.id} value={authority.id}>
+          {authority.name}
+        </option>
+      ))}
+    </select>
+  );
+}
+
 export function DemandMap({
   className,
   visibleIds,
@@ -161,25 +217,6 @@ export function DemandMap({
    * a thumb has to hit.
    */
   const pickerId = React.useId();
-
-  const AuthorityPicker = ({ labelledBy }: { labelledBy: string }) => (
-    <select
-      id={pickerId}
-      aria-labelledby={labelledBy}
-      /* There is no autofill token for "which local authority is this reader
-         looking at", and an absent attribute lets a browser guess. */
-      autoComplete="off"
-      value={activeId}
-      onChange={(event) => setActiveId(event.target.value)}
-      className="mt-1 min-h-11 w-full cursor-pointer rounded-[10px] border border-rule bg-page px-3 py-2 font-heading text-base font-bold text-ink focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 lg:hidden"
-    >
-      {commissioningAuthorities.map((authority) => (
-        <option key={authority.id} value={authority.id}>
-          {authority.name}
-        </option>
-      ))}
-    </select>
-  );
 
   const active: CommissioningAuthority =
     commissioningAuthorities.find((a) => a.id === activeId) ?? commissioningAuthorities[0]!;
@@ -456,7 +493,12 @@ export function DemandMap({
               <span id={`${pickerId}-label`} className="eyebrow block text-teal-600">
                 Selected area
               </span>
-              <AuthorityPicker labelledBy={`${pickerId}-label`} />
+              <AuthorityPicker
+                id={pickerId}
+                labelledBy={`${pickerId}-label`}
+                value={activeId}
+                onChange={setActiveId}
+              />
               <span className="heading-tight mt-1 hidden font-heading text-xl font-bold text-ink lg:block">
                 {active.name}
               </span>
@@ -507,7 +549,12 @@ export function DemandMap({
           <p id={`${pickerId}-label`} className="eyebrow text-teal-600">
             Selected area
           </p>
-          <AuthorityPicker labelledBy={`${pickerId}-label`} />
+          <AuthorityPicker
+            id={pickerId}
+            labelledBy={`${pickerId}-label`}
+            value={activeId}
+            onChange={setActiveId}
+          />
           <p className="heading-tight mt-2 hidden text-2xl font-bold text-ink lg:block">
             {active.name}
           </p>
