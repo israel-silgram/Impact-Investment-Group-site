@@ -613,3 +613,143 @@ declared.** If a third is ever needed, say why beside it, as these two do.
 about six. Between them they shoot every route at both widths under two motion
 preferences, and the second one found three real defects on this branch before it went
 green.
+
+---
+
+## 13. Fix pass 413b, against the rel413 verdict
+
+The operator's independent re-checker read this wave at `59f36e5` and returned **HOLD, 1
+MAJOR, 13 MINOR**. It found the law of motion followed in the keyframes, reduced motion a
+genuinely first-class path, the drawer correct, the four carried rel412b MINORs done, one
+new string and it the allowed one, and the dash counts right on the patch itself. The hold
+was for one defect. Everything it raised is closed below, and every sentence in sections 1
+to 12 that it showed to be false has been corrected in place rather than only argued with
+here.
+
+### The MAJOR: four photographs ramped to full strength before snapping back
+
+`ImageFade` released a decoded image with `animation: img-fade-in`, a keyframe from
+opacity 0 to opacity 1. **A running animation outranks every normal author declaration**,
+so for the 350ms it ran, the element's own Tailwind opacity utility was ignored; when it
+ended, with no fill mode, the utility took over again. Any `<img>` carrying an opacity
+utility and not `complete` at the sweep therefore went invisible, ramped to **100%** over
+350ms, and snapped back down. On the home page that is a full-bleed street photograph at
+full strength behind the headline, on the page wave 412 existed to lighten, and this
+wave's own brief says nothing it adds may darken a page.
+
+**The fix.** The keyframe is gone. `img[data-img="in"]` carries a `transition` on opacity
+instead, so the target is whatever the element's own opacity already is: a 7% wash fades
+to 7% and stops. The rule is unlayered, which is what lets `data-img="pending"` beat the
+utility while it is set and lose the moment it is not.
+
+**And the transition is on `in` alone, not on `img[data-img]`.** A transition takes its
+timing from the AFTER-change style, so declaring it on both states makes the first hop
+(nothing to `pending`) transition as well, and that hop runs from 1 to 0: the image fades
+OUT before it fades in. The probe caught that at a sampled maximum of **1.000 on nine
+images** the first time this fix was written the obvious way round, which is the honest
+account of why it is written this way.
+
+**Measured, in a browser, on the built site.** Probe (g) in `scripts/wave413-motion.py`
+parks every image request on the four routes carrying a wash until
+`img[data-img="pending"]` exists (the observable fact that `ImageFade` has run), releases
+them, and samples the computed opacity of every image the fade touched every 16ms from the
+navigation until the page goes quiet. A fixed delay would not do: too short and the
+photographs still win the race, too long and six blocked sockets starve the bundle that
+has to run before anything can be faded.
+
+| Wash | Route | Rests at | **Maximum ever sampled** | Ends at |
+|---|---|---|---|---|
+| The home hero's ground (`hero-ground-street.webp`, `opacity-[0.07]`) | `/` | 0.070 | **0.070** | 0.070 |
+| The partner page's hero visual (`opacity-20 sm:opacity-32`) | `/partner-with-investor` | 0.320 | **0.320** | 0.320 |
+| The platform portal art (`opacity-25`) | `/platform` | 0.250 | **0.250** | 0.250 |
+| The partners hub band (`opacity-70`) | `/partners` | 0.700 | **0.700** | 0.700 |
+
+A fifth image has the same shape and is measured with them: the Zoopla ink mark at
+`opacity-90` on the home page, resting 0.900, maximum 0.900.
+
+**And the probe was checked against the defect.** With `styles.css` reverted to the
+keyframe and everything else at this head, the same probe reports a maximum of **1.000 on
+all four** and fails. The verdict's arithmetic, confirmed in a browser rather than taken
+on trust.
+
+`REQUIRED_WASH` asserts that all four were actually observed fading, by the opacity each
+rests at. A green run that skipped the defect is how wave 413 shipped it.
+
+### The thirteen MINORs
+
+| # | What the verdict found | What was done |
+|---|---|---|
+| 1 | `stroke-dasharray: 48` against a `shield-check` path of 58.75, so a sixth of the shield never drew | Each shape is measured with `getTotalLength()` at mount and told its own `--draw-length` (`src/hooks/use-draw-mark.ts`); the fallback is 64, not 48, so an unreached glyph still draws whole. Measured on this build: shield-check **58.75** and 8.49, drawn with **58.76** and 8.49; hand-heart 20.64, **32.16**, 8.49 and 23.5 |
+| 2 | Three layout-property transitions, not two | The magic line is `translateX() scaleX()` on a 1px rule and the progress bar is `scaleX()` on a `w-full` fill. **The header's height is the one exception left beside the accordion's**, and section 1 says so. The line measures **66.28px against a link of 66.28px** at 72px and again at 56px |
+| 3 | Three infinite loops, not one, and the spinner absent from the reduced-motion table | All three named in `styles.css` and in section 2 (live dot 2000ms, map sheen 1400ms, `animate-spin` on three buttons). The spinners take `motion-reduce:animate-none`; the sheen's arm is stated for what it is, the sheen goes and the plate stays. Both are rows in section 3 now |
+| 4 | 350ms called 300 twice, and `--duration-fade` filed an image under 150ms | One number for one thing: 350ms, in the token comment and in both report sentences |
+| 5 | The reduced-motion table overstated what is removed | The press scale and the hover lift both still apply, instantly; only the duration is flattened. Two rows corrected |
+| 6 | The reduced-motion assertion reads `getAnimations()` once and exercises nothing | Probe (j): a card hovered, a button pressed, the drawer opened and closed at 390, a step taken, a disclosure opened, each followed by a read of the moved element's own durations AND of the state it was carrying. **0.001ms** on the card, press, disclosure, drawer panel and backdrop; **0ms** on the step and the bar |
+| 7 | The faded-element check reads the element's own opacity, not the effective one | It is the product of the element's own value and every ancestor's now, so a wrapper at 0 with its words in a child is caught on the child. The three hiding attributes are unchanged |
+| 8 | The drawer trigger had `aria-expanded` and no `aria-controls` | The panel has `id="site-drawer"` and the trigger names it. Asserted in the drawer probe |
+| 9 | The backdrop was an `aria-hidden` `<button>` | A `<div>` with an `onClick`. Escape and the Close control are unchanged as the keyboard paths. Asserted in the drawer probe |
+| 10 | The header sat above the backdrop, so the bar stayed undimmed with a live logo in it | The backdrop is `z-50` after `</header>` in source order and the panel is `z-[60]`. `elementFromPoint` across the whole width of the bar with the drawer open: **backdrop, backdrop, then panel**, and nothing inside `<header>` anywhere |
+| 11 | The magic line hung below the bar's bottom rule, painting over the page | `bottom: 8px` on the list, which is **9px above the header's own bottom** (8px plus the 1px rule) at 72px and at 56px. Re-shot in `condensed-header-1280.png` |
+| 12 | The gate table said "checks weakened: none" while the body disclosed a ratchet raise | The row states both figures and the cause, in the table |
+| 13 | Three above-the-fold decorative washes given `loading="lazy"` | All three `eager`. Every one of the site's 38 `<img>` elements is listed by loading value in section 2 |
+
+### What the probe gained
+
+`scripts/wave413-motion.py` went from six named checks to ten. The four new ones are (g)
+the image-fade opacity ceiling, (h) the self-drawing marks against their own path lengths,
+(i) the magic line's width and position at both bar heights, and (j) reduced motion
+exercised rather than read. Nothing was removed, relaxed or skipped.
+
+### The gate at `8c8d03d`
+
+Every command run in the foreground, in this worktree, at **`8c8d03d`, the last commit on
+this branch that touches the build**. The two commits after it are the screenshots from
+that run and this section, neither of which is in the bundle.
+
+| Gate | Command | Exit | Numbers |
+|---|---|---|---|
+| Lint, changed files | `bunx eslint` on all **24** lintable changed or added files | **0** | **0 errors**, 3 warnings (all `react-refresh/only-export-components`, all pre-existing) |
+| Lint, whole tree | `bunx eslint .` on an LF-normalised export of this head | **0** | **387 errors / 15 warnings** |
+| Lint, whole tree, base | the same, on `748e0fb` | **0** | **387 errors / 15 warnings**. **Delta zero** |
+| Typecheck | `bunx tsc --noEmit` | **0** | **0 errors** |
+| Build | `STATIC_BUILD=true bun run build` | **0** | **36 pages prerendered** |
+| Postbuild | `node scripts/pages-postbuild.mjs dist/client` | **0** | patched 0, trimmed 0 |
+| Wave 412's gate | `python scripts/wave412-screenshots.py` | **0** | **28 shots, every assertion passed.** 279 incomplete axe nodes, **279 measured off the pixels, 0 unmeasured**. Reveal probe minimum opacity **1.000** on both routes. Darkest raw home @ 1280 **23.63%**, darkest ground home @ 1280 **9.17%** |
+| Wave 413's gate | `python scripts/wave413-motion.py` | **0** | 13 routes at 1280 and 390 plus the six standalone probes, the numbers below |
+| U+2014 on 413b's added lines | | | **0** |
+| U+2013 on 413b's added lines | | | **0** |
+| `git diff 748e0fb...HEAD -- src/content` | | | **empty** |
+| New user-facing strings in 413b | | | **none.** `site-drawer` is an id, not copy |
+| Tests or checks weakened in 413b | | | **none.** Four probes added, none removed or relaxed |
+
+**`scripts/wave413-motion.py`, per probe, at this head.**
+
+| Probe | Result |
+|---|---|
+| (a) Reduced motion, settled | **0 animations over 1ms** on all **26** page-width combinations |
+| (a) Reduced motion, opacity | **0 faded elements** in any first viewport |
+| (b) Motion allowed, opacity | **0 faded elements** in any first viewport, on EFFECTIVE opacity. Washes reported in full: the home hero's 0.07 ground and the 0.90 Zoopla mark, the solutions 0.12 blueprint, and the rest |
+| (c) Header | **72 / 56 / 72** on all **26** |
+| (d) Registration step | transition **399ms** against a 450ms budget, press to settled **420ms**, previous question gone from the tree |
+| (d) The drawn mark | shield-check **58.75** and 8.49 against dashes of **58.76** and 8.49 |
+| (e) Drawer | panel **336x844**, backdrop **390x844**, viewport **390x844**, Tab wraps, `scrollY 0 -> 0` under a real wheel, Escape closes, scroll released. `aria-controls="site-drawer"` resolving to the panel, backdrop a `DIV`, and across the bar: **backdrop, backdrop, panel x9**, no `<header>` |
+| (f) Long tasks | **0** over 50ms during a full scroll of `/` |
+| (g) Image fade | `/` **50 images touched, 24 faded**; `/partner-with-investor` 11 and 11; `/platform` 17 and 17; `/partners` 3 and 3. **Not one sampled above its resting opacity** |
+| (h) Draw marks | shield-check longest **58.75**, hand-heart longest **32.16**, both under the 64 fallback |
+| (i) Magic line | **66.28px of line on 66.28px of link**, 2px tall, **9px above the bar's bottom rule**, at 72px and at 56px |
+| (j) Reduced motion, exercised | **0.001ms** on the hovered card, the pressed button, the opened disclosure, the drawer panel and the drawer backdrop; **0ms** on the step and the progress bar. `open` on the disclosure, `aria-modal`/`aria-expanded` on the drawer, `01 / 09` to `02 / 09` on the step |
+
+### What 413b did not do
+
+**The header's height is still a transition on a layout property**, and deliberately so: a
+sticky bar occupies flow, and a transform on it moves the paint without giving the
+viewport back the 16px that is the entire point. It is one property on one element at the
+top of the document, crossed at most once per change of scroll direction. The verdict's
+closing note is right that it reflows the document on every frame of every condense, and
+that it is the first thing wave 414's phone pass should measure on a real device; nothing
+here changes it.
+
+**`Disclosure` (`src/components/ui/disclosure.tsx`) is still not mounted on any route.**
+Probe (j) exercises `/contact`'s native `<details>` FAQ instead, which is the disclosure a
+visitor can actually reach. The Radix component's 250ms retiming is therefore still
+unexercised by any gate, and stays a claim about code nothing renders.
