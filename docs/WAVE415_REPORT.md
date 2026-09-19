@@ -528,7 +528,9 @@ inheriting rel414b MINOR 1's fix, while section 10 item 6 claimed a fourth gate 
 carried a bare `scrollTo` in a loop, a bare `scrollTo(0, 0)` and a blind 600ms wait. Now:
 `settle()` scrolls `behavior: 'instant'` throughout; `to_top()` polls and `main()` **fails the
 named shot** if the page does not rest at 0 before the shutter; and a new `assert_on_screen()`
-polls and **fails** if the card never comes to rest inside the viewport, which is wave 413's
+(renamed `assert_heading_on_screen()` in 415c, rel415b MINOR 3: it measures the heading's own
+box, not the card) polls and **fails** if the heading never comes to rest inside the viewport,
+which is wave 413's
 `assert_scrolled` in the shape this gate needs.
 
 **Both new assertions were broken on purpose and both failed.**

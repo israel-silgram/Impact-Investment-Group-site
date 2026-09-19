@@ -33,7 +33,12 @@ gate was added to the tree without inheriting): `src/styles.css` carries
 issue in a loop, and the bare `scrollTo(0, 0)` after it, were ANIMATED, and
 the blind 600ms wait that followed confirmed nothing. Instant scroll, a polled
 top confirmation that FAILS rather than waits, and a polled confirmation that
-the card really is on screen before the shutter opens.
+the "Prefer WhatsApp?" heading really is on screen before the shutter opens.
+
+WAVE 415c, rel415b MINOR 3: `assert_on_screen` was renamed to
+`assert_heading_on_screen`. It always measured the heading's own 32px box,
+not the card, which at 1280 also holds a QR many times that tall; the name,
+docstring and messages now say so.
 """
 
 import functools
@@ -99,15 +104,20 @@ def to_top(page) -> float:
     return page.evaluate("() => window.scrollY")
 
 
-def assert_on_screen(page, locator, where: str) -> tuple[float, float]:
-    """Poll until the card is inside the viewport, and FAIL if it never is.
+def assert_heading_on_screen(page, locator, where: str) -> tuple[float, float]:
+    """Poll until the heading is inside the viewport, and FAIL if it never is.
 
     `scroll_into_view_if_needed` is a request, and `html { scroll-behavior:
     smooth }` makes the browser's own scrolls animate too. This is the
     `assert_scrolled` of `scripts/wave413-motion.py` in the shape this gate
     needs: the thing the shot exists to show has to be on screen before the
     reading is taken, and a fixed wait after a scroll request proves nothing.
-    Returns the card's top and bottom in viewport coordinates.
+
+    415c, rel415b MINOR 3: named and worded for what it binds. It measures
+    the "Prefer WhatsApp?" HEADING's own box, 32px tall, not the card that
+    contains it; at 1280 the card also holds a QR many times that height,
+    which `main` below asserts visible separately. Returns the heading's top
+    and bottom in viewport coordinates.
     """
     for _ in range(12):
         box = locator.bounding_box()
@@ -117,7 +127,7 @@ def assert_on_screen(page, locator, where: str) -> tuple[float, float]:
         page.wait_for_timeout(100)
     box = locator.bounding_box()
     raise SystemExit(
-        f"{where}: the card never came to rest on screen "
+        f"{where}: the heading never came to rest on screen "
         f"(box={box}, innerHeight={page.evaluate('() => innerHeight')})"
     )
 
@@ -140,7 +150,7 @@ def main() -> None:
             card = page.get_by_role("heading", name="Prefer WhatsApp?")
             card.wait_for(state="visible")
             card.scroll_into_view_if_needed()
-            top, bottom = assert_on_screen(page, card, f"{width}")
+            top, bottom = assert_heading_on_screen(page, card, f"{width}")
 
             qr_visible = page.locator(QR).is_visible()
             button_visible = page.locator(BUTTON).is_visible()
@@ -167,7 +177,7 @@ def main() -> None:
             print(
                 f"{width}: wrote {target.relative_to(ROOT)} "
                 f"(form={form_present}, qr={qr_visible}, button={button_visible}, "
-                f"card on screen at {top:.0f}..{bottom:.0f}, resting scrollY={resting:.1f})"
+                f"heading on screen at {top:.0f}..{bottom:.0f}, resting scrollY={resting:.1f})"
             )
             page.close()
         browser.close()
