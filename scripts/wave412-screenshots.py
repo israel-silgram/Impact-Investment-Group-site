@@ -82,6 +82,7 @@ import functools
 import http.server
 import json
 import socketserver
+import sys
 import threading
 from pathlib import Path
 
@@ -426,12 +427,32 @@ def reveal_probe(browser, base: str, failures: list[str]) -> None:
             )
 
 
-AXE_RUN = """
+# A raw string: the JS below carries a backslash-s regex.
+AXE_RUN = r"""
 async () => {
   const results = await axe.run(document, {
     runOnly: { type: 'rule', values: ['color-contrast'] },
   });
-  return results.violations.flatMap((v) =>
+
+  // Read a CSS colour twice, over white and over black, so the caller can
+  // recover its alpha and composite it over the ground it ACTUALLY sits on.
+  // Parsing `rgba(...)` here would be a second place for the maths to be
+  // wrong; the compositor is already in the browser.
+  const canvas = document.createElement('canvas');
+  canvas.width = 1;
+  canvas.height = 1;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  const read = (value, under) => {
+    ctx.clearRect(0, 0, 1, 1);
+    ctx.fillStyle = under;
+    ctx.fillRect(0, 0, 1, 1);
+    ctx.fillStyle = value;
+    ctx.fillRect(0, 0, 1, 1);
+    const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+    return [r, g, b];
+  };
+
+  const violations = results.violations.flatMap((v) =>
     v.nodes
       .filter((n) => n.impact === 'serious' || n.impact === 'critical')
       .map((n) => ({
@@ -441,11 +462,270 @@ async () => {
         detail: (n.any[0] && n.any[0].message) || '',
       })),
   );
+
+  // INCOMPLETE IS NOT A CLEAN BILL OF HEALTH. axe returns it when it cannot
+  // resolve what is behind the text: a background image, a translucent
+  // ancestor, an absolutely positioned overlay. Those are exactly the places
+  // an inverted palette goes wrong, so every one of them comes back here with
+  // enough information for the caller to measure it off the screenshot.
+  const incomplete = [];
+  for (const rule of results.incomplete) {
+    for (const node of rule.nodes) {
+      const selector = node.target.join(' ');
+      let element = null;
+      try {
+        element = document.querySelector(selector);
+      } catch (error) {
+        element = null;
+      }
+      const entry = {
+        id: rule.id,
+        impact: node.impact || '',
+        target: selector,
+        detail: (node.any[0] && node.any[0].message) || '',
+        text: '',
+        colour: '',
+        overWhite: null,
+        overBlack: null,
+        inks: [],
+        fontSize: 0,
+        fontWeight: 400,
+        rect: null,
+      };
+      if (element) {
+        const style = getComputedStyle(element);
+        const box = element.getBoundingClientRect();
+        entry.text = (element.innerText || element.textContent || '')
+          .trim()
+          .replace(/\s+/g, ' ')
+          .slice(0, 60);
+        entry.colour = style.color;
+        entry.overWhite = read(style.color, '#ffffff');
+        entry.overBlack = read(style.color, '#000000');
+        // Every text colour whose own box OVERLAPS this one. An inline
+        // <span> inside a two-colour headline has its SIBLING'S glyphs inside
+        // its own bounding box, and without this list the ground reader picks
+        // the sibling's ink as the ground and reports 2.90:1 on a headline
+        // anybody can read. The overlap test matters as much as the list: a
+        // white label elsewhere in the same parent would otherwise disqualify
+        // a white GROUND, and then there is nothing left to measure against.
+        const scope = element.parentElement || element;
+        const overlaps = (other) => {
+          const r = other.getBoundingClientRect();
+          return !(
+            r.right <= box.left ||
+            r.left >= box.right ||
+            r.bottom <= box.top ||
+            r.top >= box.bottom
+          );
+        };
+        const inks = new Set([style.color]);
+        if (overlaps(scope)) inks.add(getComputedStyle(scope).color);
+        scope.querySelectorAll('*').forEach((child) => {
+          if (inks.size < 16 && overlaps(child)) inks.add(getComputedStyle(child).color);
+        });
+        entry.inks = [...inks].map((value) => read(value, '#ffffff'));
+        entry.fontSize = parseFloat(style.fontSize) || 0;
+        entry.fontWeight = parseInt(style.fontWeight, 10) || 400;
+        entry.rect = [
+          Math.floor(box.left + scrollX),
+          Math.floor(box.top + scrollY),
+          Math.ceil(box.right + scrollX),
+          Math.ceil(box.bottom + scrollY),
+        ];
+      }
+      incomplete.push(entry);
+    }
+  }
+
+  return { violations, incomplete };
 }
 """
 
+# ---------------------------------------------------------------------------
+# MEASURING WHAT AXE COULD NOT
+#
+# Wave 412 counted `results.violations` and dropped `results.incomplete`, and
+# both of the AA failures the rel412 verdict found were sitting in the second
+# list: the /about sourced-figure ledger, whose band carries a photograph
+# behind it, and the /platform difference card, which is `bg-page/55` under a
+# gradient layer and a blurred radial tint. axe declines to guess at either,
+# and a gate that reads only the first list reports a clean page.
+#
+# So the screenshot answers instead. For each incomplete node: take its
+# bounding box out of the full-page shot, call the MODAL pixel in that box the
+# ground (in a box drawn round a line of text, the ground is most of it), take
+# the element's own computed colour composited onto that ground as the glyph,
+# and measure the pair against the floor its size and weight answer to.
+#
+# A node whose own colour cannot be found anywhere inside its box is not
+# painted where its rect says it is (a closed disclosure, a clipped carousel
+# slide, an element read at the wrong scroll). Those are reported as
+# UNMEASURED and counted, rather than quietly passed.
+
+GLYPH_TOLERANCE = 12  # per channel, enough to tell a glyph from its ground
+# Looser, and only for "is this text painted here at all". A 10px glyph in a
+# condensed mono face can be anti-aliased all the way through and never reach
+# its own colour exactly; 18 per channel is still far nearer the ink than any
+# ground the ink would be legible on.
+PRESENCE_TOLERANCE = 18
+GROUND_SHARE_FLOOR = 0.20  # of the box, or the glyphs have filled it
+GROUND_RING = 4  # px read from just outside the box when they have
+GROUND_MIN_PIXELS = 24  # below this there is nothing to call a ground
+LARGE_TEXT_PX = 24.0
+LARGE_BOLD_PX = 18.66
+LARGE_BOLD_WEIGHT = 700
+AA_BODY = 4.5
+AA_LARGE = 3.0
+
+
+def contrast(first, second) -> float:
+    high = max(luminance(first), luminance(second))
+    low = min(luminance(first), luminance(second))
+    return (high + 0.05) / (low + 0.05)
+
+
+def composite(over_white, over_black, ground):
+    """Recover a colour's alpha from its two readings and lay it on `ground`."""
+    spread = sum(w - b for w, b in zip(over_white, over_black)) / 3
+    alpha = 1 - max(0.0, min(255.0, spread)) / 255
+    return tuple(
+        max(0, min(255, round(black + (1 - alpha) * base)))
+        for black, base in zip(over_black, ground)
+    )
+
+
+def floor_for(font_size: float, font_weight: int) -> float:
+    large = font_size >= LARGE_TEXT_PX or (
+        font_size >= LARGE_BOLD_PX and font_weight >= LARGE_BOLD_WEIGHT
+    )
+    return AA_LARGE if large else AA_BODY
+
+
+def measure_incomplete(path: Path, nodes):
+    """Measure every axe `incomplete` colour-contrast node off the pixels.
+
+    Returns (measured, unmeasured). A measured row is
+    (target, text, colour, size, weight, ground, glyph, ratio, floor).
+    """
+    measured = []
+    unmeasured = []
+    with Image.open(path) as image:
+        rgb = image.convert("RGB")
+        width, height = rgb.size
+        pixels = rgb.load()
+        for node in nodes:
+            label = (
+                node["target"],
+                node["text"] or "(no text)",
+                node["colour"] or "(no colour)",
+            )
+            box = node["rect"]
+            if not box or node["overWhite"] is None:
+                unmeasured.append((*label, "axe named an element the page no longer has"))
+                continue
+            left = max(0, min(width, box[0]))
+            top = max(0, min(height, box[1]))
+            right = max(0, min(width, box[2]))
+            bottom = max(0, min(height, box[3]))
+            if right - left < 2 or bottom - top < 2:
+                unmeasured.append((*label, "no area inside the shot"))
+                continue
+
+            # THE GROUND IS THE MODAL PIXEL INSIDE THE BOX THAT IS NOT A
+            # GLYPH. Inside, and not outside: an element that paints its own
+            # background (a filled button, a badge, a plate over a photograph)
+            # carries its ground WITH it, and a ring read outside such a box
+            # measures the page instead, which reported the partner pages'
+            # primary button as white on cream at 1.14:1.
+            #
+            # "Not a glyph" means: not within tolerance of ANY text colour in
+            # the neighbourhood. The element's own colour is not enough, since
+            # an inline span's bounding box overlaps its siblings' glyphs, and
+            # reading the box whole reported a two-colour headline as 2.90:1
+            # against its own second colour.
+            inks = [tuple(ink) for ink in node["inks"]] or [tuple(node["overWhite"])]
+
+            def is_ink(pixel):
+                return any(
+                    max(abs(a - b) for a, b in zip(pixel, ink)) <= GLYPH_TOLERANCE
+                    for ink in inks
+                )
+
+            counts = {}
+            for y in range(top, bottom):
+                for x in range(left, right):
+                    pixel = pixels[x, y]
+                    counts[pixel] = counts.get(pixel, 0) + 1
+            total = sum(counts.values())
+            clean = {pixel: n for pixel, n in counts.items() if not is_ink(pixel)}
+
+            # A box the glyphs have filled has no ground in it to read, so
+            # fall back to the ring immediately outside: the same place the
+            # rel412 verdict read the /about ledger by hand.
+            if sum(clean.values()) < GROUND_SHARE_FLOOR * total:
+                clean = {}
+                outer = (
+                    max(0, left - GROUND_RING),
+                    max(0, top - GROUND_RING),
+                    min(width, right + GROUND_RING),
+                    min(height, bottom + GROUND_RING),
+                )
+                for y in range(outer[1], outer[3]):
+                    inside_rows = top <= y < bottom
+                    for x in range(outer[0], outer[2]):
+                        if inside_rows and left <= x < right:
+                            continue
+                        pixel = pixels[x, y]
+                        if not is_ink(pixel):
+                            clean[pixel] = clean.get(pixel, 0) + 1
+            if sum(clean.values()) < GROUND_MIN_PIXELS:
+                unmeasured.append((*label, "no ground to read in or around its box"))
+                continue
+            ground = max(clean.items(), key=lambda item: item[1])[0]
+            glyph = composite(node["overWhite"], node["overBlack"], ground)
+
+            # And the glyph has to actually be painted where its rect says it
+            # is. A closed disclosure, a clipped slide or an element read at
+            # the wrong scroll is reported as unmeasured, never as a pass.
+            nearest = 255
+            for y in range(top, bottom):
+                for x in range(left, right):
+                    nearest = min(
+                        nearest, max(abs(a - b) for a, b in zip(pixels[x, y], glyph))
+                    )
+                    if nearest <= PRESENCE_TOLERANCE:
+                        break
+                if nearest <= PRESENCE_TOLERANCE:
+                    break
+            if nearest > PRESENCE_TOLERANCE:
+                unmeasured.append(
+                    (*label, f"its own colour is not painted in its box (nearest {nearest})")
+                )
+                continue
+
+            measured.append(
+                (
+                    node["target"],
+                    node["text"] or "(no text)",
+                    node["colour"],
+                    node["fontSize"],
+                    node["fontWeight"],
+                    ground,
+                    glyph,
+                    contrast(glyph, ground),
+                    floor_for(node["fontSize"], node["fontWeight"]),
+                )
+            )
+    return measured, unmeasured
+
 
 def main() -> None:
+    # Element text comes straight off the page, and the page is full of
+    # middots, arrows and curly quotes. A gate that dies of cp1252 on page 9
+    # has asserted nothing at all about pages 10 to 14.
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--baseline",
@@ -469,6 +749,7 @@ def main() -> None:
 
     failures: list[str] = []
     rows: list[tuple[str, int, float, float, float, int, int, bool]] = []
+    incomplete_tally: list[tuple[str, int, int, int, int]] = []
 
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -493,7 +774,9 @@ def main() -> None:
                 share, ground = dark_shares(target, masks)
 
                 page.add_script_tag(content=axe_source)
-                violations = json.loads(json.dumps(page.evaluate(AXE_RUN)))
+                axe_result = json.loads(json.dumps(page.evaluate(AXE_RUN)))
+                violations = axe_result["violations"]
+                measured, unmeasured = measure_incomplete(target, axe_result["incomplete"])
 
                 body_luminance = luminance(grounds["bodyRgb"])
                 header_luminance = luminance(grounds["barRgb"])
@@ -504,8 +787,24 @@ def main() -> None:
                     f"ground={ground * 100:5.2f}%  "
                     f"body_L={body_luminance:.3f}  header_L={header_luminance:.3f}  "
                     f"islands={islands}  axe={len(violations)}  "
+                    f"incomplete={len(axe_result['incomplete'])}"
+                    f"(measured {len(measured)}, unmeasured {len(unmeasured)})  "
                     f"text={text_chars}  "
                     f"scrollWidth={overflow[0]}/{overflow[1]}"
+                )
+                # Every incomplete node, with the text axe found, the colour it
+                # computed, and the pair read back off this shot's own pixels.
+                for row in measured:
+                    node, words, colour, size, weight, back, ink, value, floor = row
+                    print(
+                        f"    {'ok ' if value >= floor else 'FAIL'} {value:5.2f}:1 "
+                        f"(floor {floor:.1f})  {size:g}px/{weight}  {colour} on "
+                        f"rgb{back} -> rgb{ink}  {node}  \"{words}\""
+                    )
+                for node, words, colour, why in unmeasured:
+                    print(f"    --  unmeasured: {why}  {node}  \"{words}\" {colour}")
+                incomplete_tally.append(
+                    (slug, width, len(axe_result["incomplete"]), len(measured), len(unmeasured))
                 )
                 rows.append(
                     (
@@ -564,12 +863,30 @@ def main() -> None:
                             f"{where}: axe {violation['id']} ({violation['impact']}) "
                             f"on {violation['target']}: {violation['detail']}"
                         )
+                    for row in measured:
+                        node, words, colour, size, weight, back, ink, value, floor = row
+                        if value < floor:
+                            failures.append(
+                                f"{where}: {value:.2f}:1 against a {floor:.1f}:1 floor. "
+                                f"{colour} at {size:g}px/{weight} on rgb{back}, measured "
+                                f"off the shot's pixels because axe returned it as "
+                                f"INCOMPLETE. {node} \"{words}\""
+                            )
 
                 page.close()
 
         if not args.baseline:
             reveal_probe(browser, base, failures)
         browser.close()
+
+    total_incomplete = sum(entry[2] for entry in incomplete_tally)
+    total_measured = sum(entry[3] for entry in incomplete_tally)
+    total_unmeasured = sum(entry[4] for entry in incomplete_tally)
+    print(
+        f"\naxe colour-contrast INCOMPLETE nodes: {total_incomplete} across "
+        f"{len(incomplete_tally)} shots, {total_measured} measured off the pixels, "
+        f"{total_unmeasured} unmeasured."
+    )
 
     worst_raw = max(rows, key=lambda r: r[2])
     worst_ground = max(rows, key=lambda r: r[3])
