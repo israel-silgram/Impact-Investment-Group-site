@@ -12,7 +12,7 @@ import {
 import { faq, faqEyebrow, faqHeading } from "@/content/faq";
 import { contactDetails, crisisLines, crisisNote } from "@/content/site";
 import { cn } from "@/lib/utils";
-import { SIZES_HALF_FROM_TABLET, variantSrcSet } from "@/lib/responsive-image";
+import { SIZES_CARD_ILLUSTRATION, variantSrcSet } from "@/lib/responsive-image";
 
 /**
  * /contact — three sections.
@@ -146,7 +146,7 @@ function ContactPage() {
               height={558}
               className="hidden w-full lg:block"
               srcSet={variantSrcSet("/images/ai-team/trio-wave.webp")}
-              sizes={SIZES_HALF_FROM_TABLET}
+              sizes={SIZES_CARD_ILLUSTRATION}
             />
           </div>
         </div>
@@ -156,47 +156,25 @@ function ContactPage() {
       <section aria-label="Enquiry form" className="section-light">
         <div className="mx-auto w-full max-w-[1200px] px-5 pb-16 pt-6 sm:px-8">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-14">
-            <div>
-              {/* The route changes the fields, the team and the reply time, so
-                  it has to stay choosable — a chip row rather than the grid of
-                  six cards it used to be. */}
-              <p className="eyebrow tracking-[0.14em] text-orange-700">What do you need?</p>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {enquiryRoutes.map((option) => {
-                  const active = option.id === selected;
-                  return (
-                    <li key={option.id}>
-                      <button
-                        type="button"
-                        aria-pressed={active}
-                        onClick={() => select(option.id)}
-                        className={cn(
-                          "min-h-11 cursor-pointer rounded-full border px-4 font-heading text-[13.5px] font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
-                          active
-                            ? /* White on the teal-600 fill is 5.25:1 and is the
-                                 measured pairing; `text-page` rather than
-                                 `text-white` so the light remap's substring
-                                 rule cannot repaint it navy on the teal while
-                                 the unconverted files still depend on that
-                                 rule. */
-                              "border-teal-600 bg-teal-600 text-page"
-                            : "border-rule bg-page text-ink hover:border-teal-600",
-                        )}
-                      >
-                        {option.label}
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
+            {/* ── The rail ───────────────────────────── */}
+            {/* ⚠ WAVE 414: FIRST IN THE DOM, AND THAT IS THE WHOLE CHANGE.
 
-              <div className="mt-7">
-                <EnquiryForm route={selected} prefilledRole={role} />
-              </div>
-            </div>
+                Phone rule 4 is that content order is reading order, and it
+                names this card: "the crisis card comes first". Below 1024px
+                this grid is one column, and the card was the SECOND item in
+                it, which put the three crisis numbers under a full enquiry
+                form with eight fields in it. A person in trouble was asked to
+                scroll past a procurement form to reach a telephone number.
 
-            {/* ── The rail ────────────────────────────────────────────── */}
-            <div>
+                Moved in the MARKUP rather than with `order`, because `order`
+                moves the paint and leaves the reading order, the tab order
+                and the screen reader where they were, which on this card is
+                the half that matters. Desktop is placed back where it was
+                with explicit grid coordinates, so nothing at 1024px and above
+                moves at all; what changes there is that the card now comes
+                first for a keyboard and a screen reader too, which for this
+                card is not a regression. */}
+            <div className="lg:col-start-2 lg:row-start-1">
               {/* Care information, not marketing. Duplicated from the footer on
                   purpose; see the note at the top of this file.
 
@@ -209,7 +187,7 @@ function ContactPage() {
               <section
                 aria-labelledby="crisis-heading"
                 data-accent="teal"
-                className="section-dark mt-7 p-4"
+                className="section-dark p-4 lg:mt-7"
               >
                 <p className="flex items-center gap-2">
                   <LifeBuoy aria-hidden="true" className="size-4 shrink-0 text-orange-500" />
@@ -247,6 +225,44 @@ function ContactPage() {
                 </ul>
                 <p className="mt-2 font-heading text-[12.5px] font-bold text-white">{crisisNote}</p>
               </section>
+            </div>
+            <div className="lg:col-start-1 lg:row-start-1">
+              {/* The route changes the fields, the team and the reply time, so
+                  it has to stay choosable — a chip row rather than the grid of
+                  six cards it used to be. */}
+              <p className="eyebrow tracking-[0.14em] text-orange-700">What do you need?</p>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {enquiryRoutes.map((option) => {
+                  const active = option.id === selected;
+                  return (
+                    <li key={option.id}>
+                      <button
+                        type="button"
+                        aria-pressed={active}
+                        onClick={() => select(option.id)}
+                        className={cn(
+                          "min-h-11 cursor-pointer rounded-full border px-4 font-heading text-[13.5px] font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
+                          active
+                            ? /* White on the teal-600 fill is 5.25:1 and is the
+                                 measured pairing; `text-page` rather than
+                                 `text-white` so the light remap's substring
+                                 rule cannot repaint it navy on the teal while
+                                 the unconverted files still depend on that
+                                 rule. */
+                              "border-teal-600 bg-teal-600 text-page"
+                            : "border-rule bg-page text-ink hover:border-teal-600",
+                        )}
+                      >
+                        {option.label}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <div className="mt-7">
+                <EnquiryForm route={selected} prefilledRole={role} />
+              </div>
             </div>
           </div>
         </div>

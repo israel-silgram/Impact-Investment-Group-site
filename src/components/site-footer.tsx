@@ -137,6 +137,71 @@ export function SiteFooter() {
           {/* Column 1 is given the most width so the description settles on four
             lines rather than six — the single biggest saving in this block. */}
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,0.62fr)_minmax(0,0.9fr)_minmax(0,1.45fr)_minmax(0,1.05fr)] lg:gap-6">
+            {/* ⚠ WAVE 414: FIRST IN THE FOOTER'S MARKUP, AND THEREFORE FIRST
+              ON A PHONE.
+
+              Phone rule 4 names this card: "the crisis card comes first in
+              the footer". Below 1024px these five columns stack in markup
+              order and the crisis card was LAST, under the company
+              description, the six site links, the six contact routes and the
+              ten partner pages. On a 390px screen that is most of a thousand
+              pixels of scroll between a person in trouble and three telephone
+              numbers, on the one block of this site that exists for them.
+
+              Moved in the MARKUP rather than with `order`, because `order`
+              moves the paint and leaves the reading order, the tab order and
+              the screen reader where they were. Desktop is placed back in the
+              fifth column with explicit grid coordinates, so nothing at
+              1024px and above moves; what changes there is that the card now
+              comes first for a keyboard as well, which for this card is not a
+              regression.
+
+              The block below is otherwise untouched, including every word of
+              wave 412's note about why it is a navy island. */}
+            {/* In a crisis: care information, not marketing. Every number and
+              the 999 note are untouched; only the padding and type moved.
+
+              WAVE 412 MADE THIS A NAVY ISLAND AND SAID SO. It was already
+              painted navy by hand, with arbitrary `bg-[var(--color-navy-900)]`
+              values chosen precisely because they do not match the
+              `bg-navy-*` substring the light remap looks for. That worked and
+              it was a trick. The card now carries `section-dark`, which is the
+              site's word for "this plate stays dark on purpose", so the wave
+              412 screenshot gate can count the islands on a page and fail if
+              a third one appears. `data-accent="teal"` keeps the teal rule
+              that the island rule would otherwise paint navy.
+
+              It earns the darkness: this is the one block on the page a
+              person in trouble has to find, and on a cream footer nothing
+              else would separate from it. It sits in the FOOTER, outside
+              <main>, so it does not spend the one island a route is
+              allowed. */}
+            <section
+              aria-labelledby="crisis-heading"
+              data-accent="teal"
+              className="section-dark flex flex-col gap-2.5 self-start lg:col-start-5 lg:row-start-1 rounded-[var(--radius-panel)] p-4 text-[var(--color-mist-bg)]"
+            >
+              <h2
+                id="crisis-heading"
+                className="flex items-center gap-2 eyebrow"
+                style={{ color: "#ffffff" }}
+              >
+                <LifeBuoy aria-hidden="true" className="size-3.5" />
+                In a crisis
+              </h2>
+              <ul className="flex flex-col gap-1.5 text-[13px] text-[var(--color-mist-bg)]">
+                {crisisLines.map((line) => (
+                  <li key={line.label} className="flex items-baseline justify-between gap-3">
+                    <span className="text-[var(--color-mist-bg)]">{line.label}</span>
+                    <span className="font-heading font-semibold">{line.detail}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="font-heading text-[13px] font-semibold text-[var(--color-mist-bg)]">
+                {crisisNote}
+              </p>
+            </section>
+
             {/* Logo + contact */}
             <div className="flex flex-col gap-3">
               <Logo variant="on-cream" />
@@ -235,50 +300,6 @@ export function SiteFooter() {
                 <ArrowUpRight aria-hidden="true" className="size-3.5" />
               </Link>
             </nav>
-
-            {/* In a crisis: care information, not marketing. Every number and
-              the 999 note are untouched; only the padding and type moved.
-
-              WAVE 412 MADE THIS A NAVY ISLAND AND SAID SO. It was already
-              painted navy by hand, with arbitrary `bg-[var(--color-navy-900)]`
-              values chosen precisely because they do not match the
-              `bg-navy-*` substring the light remap looks for. That worked and
-              it was a trick. The card now carries `section-dark`, which is the
-              site's word for "this plate stays dark on purpose", so the wave
-              412 screenshot gate can count the islands on a page and fail if
-              a third one appears. `data-accent="teal"` keeps the teal rule
-              that the island rule would otherwise paint navy.
-
-              It earns the darkness: this is the one block on the page a
-              person in trouble has to find, and on a cream footer nothing
-              else would separate from it. It sits in the FOOTER, outside
-              <main>, so it does not spend the one island a route is
-              allowed. */}
-            <section
-              aria-labelledby="crisis-heading"
-              data-accent="teal"
-              className="section-dark flex flex-col gap-2.5 self-start rounded-[var(--radius-panel)] p-4 text-[var(--color-mist-bg)]"
-            >
-              <h2
-                id="crisis-heading"
-                className="flex items-center gap-2 eyebrow"
-                style={{ color: "#ffffff" }}
-              >
-                <LifeBuoy aria-hidden="true" className="size-3.5" />
-                In a crisis
-              </h2>
-              <ul className="flex flex-col gap-1.5 text-[13px] text-[var(--color-mist-bg)]">
-                {crisisLines.map((line) => (
-                  <li key={line.label} className="flex items-baseline justify-between gap-3">
-                    <span className="text-[var(--color-mist-bg)]">{line.label}</span>
-                    <span className="font-heading font-semibold">{line.detail}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="font-heading text-[13px] font-semibold text-[var(--color-mist-bg)]">
-                {crisisNote}
-              </p>
-            </section>
           </div>
         </div>
 

@@ -19,7 +19,11 @@ import {
 } from "@/content/home";
 import { iconByName } from "@/lib/icon-registry";
 import { cn } from "@/lib/utils";
-import { SIZES_HALF_FROM_TABLET, variantSrcSet } from "@/lib/responsive-image";
+import {
+  SIZES_CARD_ILLUSTRATION,
+  SIZES_HALF_FROM_TABLET,
+  variantSrcSet,
+} from "@/lib/responsive-image";
 
 /**
  * MissionSolution — the need and the answer, as one bento grid with two faces.
@@ -500,7 +504,7 @@ export function MissionSolution() {
                     height={558}
                     className="absolute -bottom-1 right-2 h-[152px] w-auto translate-y-3 transition-transform duration-700 ease-out group-hover:translate-y-0"
                     srcSet={variantSrcSet("/images/ai-team/trio-wave.webp")}
-                    sizes={SIZES_HALF_FROM_TABLET}
+                    sizes={SIZES_CARD_ILLUSTRATION}
                   />
                   <div className="absolute inset-y-0 left-0 flex max-w-[54%] flex-col justify-center p-5">
                     <p className="eyebrow tracking-[0.14em] text-teal-600">Who it is for</p>

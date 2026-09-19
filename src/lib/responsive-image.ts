@@ -69,5 +69,36 @@ export const SIZES_HALF_FROM_TABLET = "(min-width: 768px) 50vw, 100vw";
 /** One of three across from 768px. */
 export const SIZES_THIRD_FROM_TABLET = "(min-width: 768px) 33vw, 100vw";
 
+/**
+ * An illustration that sits inside a card rather than running to the gutters.
+ *
+ * Measured at 390: the AI-team trio renders 254px (65vw) and the capability
+ * band 270px (69vw), and both were declaring 100vw. At two device pixels that
+ * asked for 780px, which picked the 934px ORIGINAL for each: 144KB and 189KB
+ * to draw a quarter-megapixel. A `sizes` that overstates costs the whole
+ * difference, and it is the one part of a `srcset` that nothing checks for
+ * you.
+ */
+export const SIZES_CARD_ILLUSTRATION = "(min-width: 768px) 50vw, 70vw";
+
+/**
+ * The hero's 7% street wash, and the only `sizes` on the site that is
+ * deliberately smaller than the box it fills.
+ *
+ * It is `object-cover` across the whole hero, so by width it wants 100vw, and
+ * at two device pixels that fetched the 960px copy: 124KB, the third largest
+ * thing on the home page. It is painted at SEVEN PER CENT OPACITY behind the
+ * headline. There is no detail in it to resolve at any density.
+ *
+ * ⚠ 320, NOT 640, AND THE DIFFERENCE IS THE DEVICE PIXEL RATIO. `sizes` is
+ * in CSS pixels and the browser multiplies it by the screen's density before
+ * choosing. "640px" on a 2x phone asks for 1280 device pixels, and the
+ * candidates are 400, 640, 960 and the 1672px original, so it picked the
+ * ORIGINAL: worse than the 100vw it replaced. "320px" asks for 640 and gets
+ * the 640. Written down because this is the trap in `sizes` and the first
+ * attempt walked into it.
+ */
+export const SIZES_HERO_WASH = "320px";
+
 /** A portrait or a small square: never more than a quarter of a phone. */
 export const SIZES_PORTRAIT = "(min-width: 1024px) 200px, 30vw";

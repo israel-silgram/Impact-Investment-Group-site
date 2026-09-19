@@ -11,6 +11,30 @@ import {
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+/**
+ * ── WAVE 414: THE THREE FONTS THAT PAINT THE FIRST SCREEN, PRELOADED ────
+ *
+ * Imported for their URLs, not for their contents: `?url` gives the hashed
+ * path Vite emitted, so the preload cannot go stale when the build rehashes
+ * them, which a hand-typed `/assets/barlow-latin-800-normal-s1sAMnoV.woff2`
+ * would on the next build.
+ *
+ * Without this a font is discovered only once the stylesheet has been fetched
+ * AND parsed, which on a slow connection is a whole round trip after the
+ * HTML. The browser paints the fallback, the font lands, and everything
+ * reflows. Wave 414's metric-matched fallback faces (see `styles.css` above
+ * `@theme`) make that reflow cheap; this makes it less likely to happen.
+ *
+ * THREE, NOT FIVE. Barlow 800 is the hero's headline, Barlow 700 is every
+ * section heading and Inter is the body. Barlow 600 and JetBrains Mono are
+ * below the fold on every route and are left to be discovered normally: a
+ * preload for something that is not needed immediately competes with the
+ * things that are, which is the usual way this goes wrong.
+ */
+import barlow700 from "@fontsource/barlow/files/barlow-latin-700-normal.woff2?url";
+import barlow800 from "@fontsource/barlow/files/barlow-latin-800-normal.woff2?url";
+import interVariable from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
+
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -103,6 +127,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+      ...[barlow800, barlow700, interVariable].map((href) => ({
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href,
+        // Fonts are fetched in CORS mode whatever the origin, so a preload
+        // without this is a SECOND download rather than a head start.
+        crossOrigin: "anonymous" as const,
+      })),
     ],
   }),
 

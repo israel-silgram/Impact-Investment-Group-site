@@ -5,7 +5,7 @@ import { RoleIcon } from "@/components/register/role-icon";
 import { registerRoles } from "@/content/audiences";
 import { registerAsDivider } from "@/content/register";
 import { cn } from "@/lib/utils";
-import { SIZES_FULL_BLEED, variantSrcSet } from "@/lib/responsive-image";
+import { SIZES_HERO_WASH, variantSrcSet } from "@/lib/responsive-image";
 
 /**
  * HomeHero — the approved Mock-up 1 composition: three photographs captioned
@@ -159,7 +159,7 @@ export function HomeHero() {
           decoding="async"
           className="size-full object-cover object-[60%_45%] opacity-[0.07]"
           srcSet={variantSrcSet("/images/hero-ground-street.webp")}
-          sizes={SIZES_FULL_BLEED}
+          sizes={SIZES_HERO_WASH}
         />
         <div className="hero-ground absolute inset-0" />
       </div>

@@ -137,12 +137,21 @@ function HomePage() {
               {/* A recorded snapshot, not a live feed — see content/trust.ts.
                   The caption says so once beneath the row rather than three
                   times, once per card, which is also more honest. */}
-              <ul className="mt-6 grid grid-cols-3 gap-2.5">
+              {/* ⚠ WAVE 414: TWO AND ONE ON A PHONE, THREE ACROSS FROM 640px.
+                  At 360 three columns leave 100px a card, and these labels are
+                  phrases rather than words: "Homes sourced to date" wraps to
+                  four lines in 100px at 12px and the row becomes three tall
+                  thin boxes of broken text. Two columns give 155px and two
+                  lines. The third card takes the whole of the second row
+                  rather than leaving a hole beside it, which also puts the
+                  emphasised figure on a line of its own. */}
+              <ul className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
                 {platformStats.map((stat) => (
                   <li
                     key={stat.label}
                     className={cn(
                       "rounded-xl border p-3 shadow-[var(--shadow-card)]",
+                      "last:col-span-2 sm:last:col-span-1",
                       /* The emphasised figure keeps its teal fill and its
                          white numeral (5.25:1); the other two are white cards
                          with a teal-600 numeral on white (5.25:1) and navy ink
