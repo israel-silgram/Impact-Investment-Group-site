@@ -79,6 +79,46 @@ def variants_for(width: int) -> list[int]:
     return [step for step in STEPS if step < width]
 
 
+def has_alpha(image: Image.Image) -> bool:
+    """Whether this frame carries transparency at all.
+
+    A palette image can carry it in `info` rather than in its mode, so both
+    are read. This is the fact the whole alpha check below turns on: a source
+    with transparency whose variant has none is a picture that gained a
+    background nobody drew.
+    """
+    return image.mode in ("RGBA", "LA") or "transparency" in image.info
+
+
+def alpha_failures(sources) -> list[str]:
+    """Every variant on disk that lost the transparency its source has.
+
+    ⚠ THIS IS A GATE, NOT A DIAGNOSTIC, and it runs in both modes. The
+    defect it exists for shipped: two flattened steps of the brand lockup were
+    committed and served, and no assertion in the wave could see them because
+    they are a fact about pixels rather than about markup or about which files
+    exist. A variant is only a variant of its source if it still has the
+    source's channels.
+    """
+    out: list[str] = []
+    for source in sources:
+        with Image.open(source) as image:
+            if not has_alpha(image):
+                continue
+        for step in STEPS:
+            target = source.with_name(f"{source.stem}-{step}.webp")
+            if not target.exists():
+                continue
+            with Image.open(target) as variant:
+                if not has_alpha(variant):
+                    out.append(
+                        f"{target.relative_to(ROOT)} is {variant.mode} while "
+                        f"{source.relative_to(ROOT)} carries an alpha channel: the "
+                        f"transparency was flattened, so this draws on an opaque plate"
+                    )
+    return out
+
+
 MANIFEST = ROOT / "src" / "lib" / "image-variants.ts"
 
 MANIFEST_HEADER = """/**
@@ -164,6 +204,7 @@ def main() -> None:
     for source in sources:
         with Image.open(source) as image:
             width, height = image.size
+            source_has_alpha = has_alpha(image)
             if width < MIN_SOURCE_WIDTH:
                 skipped += 1
                 continue
@@ -189,7 +230,20 @@ def main() -> None:
                             f"{source.relative_to(ROOT)} has no variant at any of {steps}"
                         )
                     break
-                scaled = image.convert("RGB").resize(
+                # ⚠ RGBA WHERE THE SOURCE HAS IT, AND NEVER convert("RGB").
+                # `convert("RGB")` DISCARDS the alpha channel rather than
+                # compositing it, so a transparent pixel keeps whatever RGB it
+                # was carrying underneath, which in a keyed-out brand asset is
+                # 0,0,0. The brand lockup came out of that as navy and orange
+                # artwork on a SOLID BLACK RECTANGLE, in the header and the
+                # footer of every one of the 36 prerendered pages, at every
+                # width. Found by the rel414 re-check reading the shots.
+                # WebP carries alpha in its lossy mode, so an RGBA frame saved
+                # here is a transparent variant at the same quality; nothing
+                # is composited onto anything, because there is no ground here
+                # to composite onto and the page is the ground.
+                mode = "RGBA" if source_has_alpha else "RGB"
+                scaled = image.convert(mode).resize(
                     (step, max(1, round(height * step / width))), Image.LANCZOS
                 )
                 scaled.save(target, "WEBP", quality=QUALITY, method=6)
@@ -225,6 +279,28 @@ def main() -> None:
         f"no smaller than their source, {saved_bytes / 1024 / 1024:.1f}MB saved on "
         f"this run against serving the source at every step."
     )
+    # THE ALPHA CHECK, IN BOTH MODES. A write run has just encoded these, so
+    # it is proving its own output; a `--check` run is proving what is on disk,
+    # which is what the site serves.
+    flattened = alpha_failures(sources)
+    if flattened:
+        print(chr(10) + f"{len(flattened)} FLATTENED VARIANT(S):")
+        for name in flattened:
+            print(f"  - {name}")
+        raise SystemExit(
+            "Delete the files above and re-run "
+            "`python scripts/wave414-responsive-images.py`."
+        )
+    transparent = 0
+    for source in sources:
+        with Image.open(source) as image:
+            if has_alpha(image):
+                transparent += 1
+    print(
+        f"{transparent} referenced sources carry an alpha channel and every variant "
+        f"of them still does."
+    )
+
     if write_manifest(sources, check=args.check) and args.check:
         missing.append(f"{MANIFEST.relative_to(ROOT)} is out of date with the directory")
     if args.check:
