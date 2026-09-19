@@ -67,7 +67,7 @@ import type { LucideIcon } from "lucide-react";
  * glyph is a content typo, and a page that renders with a plain ring is a
  * better way to find one than a page that does not render.
  */
-export const ICONS: Record<string, LucideIcon> = {
+export const ICONS = {
   ArrowLeftRight,
   Baby,
   BrainCircuit,
@@ -106,11 +106,27 @@ export const ICONS: Record<string, LucideIcon> = {
   UserRoundCheck,
   Users,
   UsersRound,
-};
+  /* ⚠ `as const satisfies`, NOT `: Record<string, LucideIcon>`.
 
-/** Resolve a content-supplied name to its component. */
+     An annotation of `Record<string, LucideIcon>` makes `keyof typeof ICONS`
+     exactly `string`, so `RegisteredIconName` was `string` and the
+     compile-time check this file replaced was gone: `roleIcons`' `base:
+     RegisteredIconName` accepted anything, where the old `keyof typeof Icons`
+     was a real union of Lucide's exports. `satisfies` asserts the same thing
+     about the values and keeps the literal key type, so the union is the 38
+     names actually listed and a typo in a call site fails `tsc`. Proved by
+     typing a wrong name and watching the typecheck refuse it. rel414 MIN-7. */
+} as const satisfies Record<string, LucideIcon>;
+
+/** Resolve a content-supplied name to its component.
+
+    The lookup itself still takes an arbitrary string, because the names it
+    resolves come from `src/content` at runtime and a content typo must draw a
+    ring rather than throw. The widening is here, at the one place a string
+    that nobody typechecked enters, and not on the map. */
 export function iconByName(name?: string): LucideIcon {
-  return (name ? ICONS[name] : undefined) ?? Circle;
+  const known = ICONS as Record<string, LucideIcon | undefined>;
+  return (name ? known[name] : undefined) ?? Circle;
 }
 
 /** The names this registry knows, for a content check that wants to assert. */
