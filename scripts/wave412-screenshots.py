@@ -53,6 +53,13 @@ it. Per page, per width:
   5. AXE REPORTS NO SERIOUS OR CRITICAL COLOUR-CONTRAST VIOLATION. Inverting a
      palette is exactly the operation that turns passing text into failing
      text, so this runs on every page rather than on a sample.
+
+     AND EVERY NODE AXE RETURNS AS INCOMPLETE IS MEASURED OFF THE SHOT'S OWN
+     PIXELS, and fails under its floor. A node that cannot be measured at all
+     fails too, which is wave 413's change (rel412b MINOR 3): the unmeasured
+     list used to be printed and tallied and never asserted, so a failing pair
+     hidden inside a closed disclosure would have printed a line and passed
+     the gate. It is 0 on every page, so this grandfathers nothing in.
   6. THE PAGE HAS WORDS ON IT. At least 60 characters of rendered text.
      Trivial, and it is the assertion that caught the most serious defect of
      the run: /404 was serving a BLANK PAGE, because 404.html was a copy of
@@ -890,6 +897,20 @@ def main() -> None:
                                 f"off the shot's pixels because axe returned it as "
                                 f"INCOMPLETE. {node} \"{words}\""
                             )
+                    # AN UNMEASURED NODE IS NOT A PASS. rel412b MINOR 3.
+                    # Until wave 413 this list was printed and tallied and
+                    # nothing more, so a later wave that put a failing pairing
+                    # inside a closed disclosure, a clipped slide or an
+                    # element read at the wrong scroll would have got a
+                    # printed line and a green gate. The count is 0 on every
+                    # page at the head this was added on, so nothing is being
+                    # grandfathered in: it fails on the first one.
+                    for node, words, colour, why in unmeasured:
+                        failures.append(
+                            f"{where}: an axe INCOMPLETE colour-contrast node could not "
+                            f"be measured off the shot ({why}), so its pair is unproven. "
+                            f"{node} \"{words}\" {colour}"
+                        )
 
                 page.close()
 

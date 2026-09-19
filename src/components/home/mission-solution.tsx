@@ -143,7 +143,13 @@ function StatTile({ stat, filled }: { stat: (typeof purposeStats)[number]; fille
       <p
         className={cn(
           "mt-1 max-h-0 overflow-hidden text-[11px] leading-snug opacity-0 transition-all duration-300 group-hover:max-h-16 group-hover:opacity-100",
-          filled ? "text-[rgba(255,255,255,0.85)]" : "text-ink-muted",
+          /* SOLID white, not 85%. 85% white on the orange-600 fill is 4.32:1
+             and about 4.25:1 on the teal-600 one, at 11px, against a 4.5:1
+             floor; `text-page` is #ffffff and 5.34:1 on orange-600, 5.25:1 on
+             teal-600. No gate could ever have reached this line, because it
+             is max-h-0 and opacity-0 until the tile is hovered, so it is in no
+             screenshot and axe never evaluates it. rel412b MINOR 2. */
+          filled ? "text-page" : "text-ink-muted",
         )}
       >
         {stat.basis}
@@ -267,13 +273,21 @@ export function MissionSolution() {
                     strokeWidth={1.2}
                     className="pointer-events-none absolute -right-8 -top-8 size-48 text-[#ffffff] opacity-[0.14]"
                   />
-                  <p className="eyebrow tracking-[0.14em] text-[rgba(255,255,255,0.88)]">
-                    {hero.label}
-                  </p>
+                  {/* SOLID white on both lines here, not 88%. In exact
+                      arithmetic 88% white over orange-600 is 4.496:1, axe
+                      rounds that to 4.50 and passes it, and the pixel
+                      measurement only ever sees the nodes axe hands back as
+                      INCOMPLETE — so a pair failing by less than a rounding
+                      width was invisible to both halves of the gate. Measured
+                      off the wave 412 and 412b home shots alike at 4.46:1.
+                      `text-page` is 5.34:1. The numeral between these two was
+                      already solid white, which is what proved the shortfall
+                      was the alpha and not anti-aliasing. rel412b MINOR 1. */}
+                  <p className="eyebrow tracking-[0.14em] text-page">{hero.label}</p>
                   <p className="mt-1.5 font-heading text-[clamp(3rem,6.6vw,4.75rem)] font-extrabold leading-none tracking-[-0.04em] text-[#ffffff]">
                     <CountUpFigure value={hero.value} />
                   </p>
-                  <p className="mt-2.5 text-[12px] text-[rgba(255,255,255,0.88)]">{hero.basis}</p>
+                  <p className="mt-2.5 text-[12px] text-page">{hero.basis}</p>
                 </div>
               </Reveal>
 

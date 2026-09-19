@@ -252,6 +252,14 @@
   --slate-20: var(--color-rule);
   --shadow-card: 0 1px 2px rgb(0 17 43 / 0.04), 0 8px 24px rgb(0 17 43 / 0.06);
   --shadow-card-hover: 0 2px 4px rgb(0 17 43 / 0.06), 0 16px 40px rgb(0 17 43 / 0.12);
+
+  /* The one teal glow on the site: the MissionControl disc on /platform.
+     It used to be written in the component as a raw rgba(37, 209, 194, 0.22),
+     a literal carried over from the line wave 412 replaced and pointing at a
+     teal the palette no longer has. It is the SAME glow expressed through the
+     token, so the disc cannot drift away from the teal around it.
+     rel412b MINOR 5. */
+  --shadow-glow-teal: 0 0 65px color-mix(in oklab, var(--color-teal-400) 22%, transparent);
 }
 
 @theme inline {

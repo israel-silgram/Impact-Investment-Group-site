@@ -610,7 +610,7 @@ function MissionControl() {
                 page, both tokens, and the labels read 18.83:1 and 6.97:1 on
                 it. Putting navy back here means putting text-white and
                 text-mist back with it, and declaring the disc an island. */}
-            <div className="absolute inset-[34%] grid place-items-center rounded-full border border-teal-600/50 bg-[radial-gradient(circle,var(--color-tint-teal),var(--color-page)_68%)] text-center shadow-[0_0_65px_rgba(37,209,194,0.22)]">
+            <div className="absolute inset-[34%] grid place-items-center rounded-full border border-teal-600/50 bg-[radial-gradient(circle,var(--color-tint-teal),var(--color-page)_68%)] text-center shadow-[var(--shadow-glow-teal)]">
               <span>
                 <strong className="block font-heading text-ink">One workflow</strong>
                 <small className="text-ink-muted">Find · Price · Prove</small>
