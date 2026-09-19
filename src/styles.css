@@ -159,6 +159,19 @@
   --ease-out-soft: cubic-bezier(0.16, 0.84, 0.44, 1);
   --duration-hover: 200ms;
   --duration-reveal: 350ms;
+  /* WAVE 413. One place to retime the site's motion. Entrances take
+     --ease-out-soft; exits take ease-in and are always shorter than the
+     entrance they undo, because a thing leaving should not detain anybody. */
+  --duration-enter: 250ms;
+  --duration-route: 200ms;
+  --duration-fade: 150ms;
+  --duration-exit: 120ms;
+
+  /* The header's two heights. Named because three other things have to agree
+     with them: the condense transition, the scroll-margin every anchor target
+     takes, and the back-to-top control's clearance. */
+  --header-height: 72px;
+  --header-height-condensed: 56px;
 }
 
 /* shadcn semantic layer, mapped onto the brand palette.
@@ -678,6 +691,353 @@
     background-color: var(--color-orange-500);
     transform: scaleX(1);
   }
+}
+
+/* ===========================================================================
+   WAVE 413 - MOTION THAT HELPS
+   ===========================================================================
+
+   Callum, 18 September 2026: "animations that not only look good, but make the
+   site more usable throughout (so they're clever)."
+
+   Every rule below this line is judged against six laws, and each animation is
+   named in docs/WAVE413_REPORT.md with the thing it helps a visitor DO.
+
+     1. IT HAS A JOB. Decoration alone is cut.
+     2. FAST AND PHYSICAL. 150 to 400ms, route transitions 200ms or less,
+        --ease-out-soft for entrances and ease-in for exits. TRANSFORM AND
+        OPACITY ONLY, with exactly two exceptions, and both are named where
+        they are declared: the accordion's height and the header's height.
+        A sticky bar cannot give the viewport space back with a transform.
+     3. NOTHING HIDES CONTENT. No text is ever at opacity 0 waiting for a
+        trigger. Wave 412 fixed `Reveal`; this wave keeps it fixed and adds
+        nothing that could undo it. Everything here either animates an element
+        that has just been created (a drawer, a menu, a step), or animates an
+        element this stylesheet itself put at opacity 0 one frame earlier.
+     4. REDUCED MOTION IS A FIRST-CLASS PATH. The global block below flattens
+        duration; where flattening alone would leave a STATE invisible, there
+        is a per-feature arm beside the rule that needs it. Every state stays
+        conveyed by a colour, a border, an icon or an aria attribute.
+     5. KEYBOARD PARITY. Whatever :hover triggers, :focus-visible triggers.
+     6. NO PARALLAX, NO SCROLL-JACKING beyond the Lenis wheel momentum that
+        already exists on desktop pointers, no cursor followers, no tilt.
+
+   Durations live as tokens so a retiming is one edit:
+     --duration-hover   200ms  hover, press, and the header's condense
+     --duration-enter   250ms  a drawer, an accordion row, a step
+     --duration-route   200ms  <main> arriving on a client navigation
+     --duration-fade    150ms  a menu, a validation message, an image
+     --duration-exit    120ms  anything leaving (paired with ease-in)
+   =========================================================================== */
+
+/* ---------- The header that gets out of the way ---------- */
+
+/* THE HEIGHT IS ANIMATED, AND IT IS ONE OF THIS WAVE'S TWO EXCEPTIONS TO
+   "TRANSFORM AND OPACITY ONLY" (the accordion is the other).
+
+   The point of condensing is that the visitor GETS THE SPACE BACK, and a
+   sticky bar occupies flow: a transform on it would move the paint and leave
+   the 72px hole behind. So it is height, on one element, at the top of the
+   document, with nothing beside it in its own stacking context, crossed at
+   most once per change of scroll direction.
+
+   72px to 56px is 16px of viewport on every route, which on a 667px phone is
+   two and a half per cent of everything the visitor can see at once. */
+.site-header {
+  height: var(--header-height);
+  transition:
+    height var(--duration-hover) var(--ease-out-soft),
+    box-shadow var(--duration-hover) var(--ease-out-soft);
+}
+
+.site-header[data-condensed="true"] {
+  height: var(--header-height-condensed);
+}
+
+/* The logo shrinks with the bar rather than being cropped by it. From the LEFT
+   edge, so the mark stays pinned where the eye already found it. */
+.site-header__logo {
+  display: inline-block;
+  transform-origin: left center;
+  transition: transform var(--duration-hover) var(--ease-out-soft);
+}
+
+.site-header[data-condensed="true"] .site-header__logo {
+  transform: scale(0.85);
+}
+
+/* EVERY ANCHOR TARGET CLEARS THE CONDENSED BAR. `:where()` has zero
+   specificity on purpose: this is the floor, and the several sections that
+   already ask for more room (scroll-mt-20, scroll-mt-28, the registration
+   heading's 130px) keep what they ask for. Any anchor that asks for nothing
+   now clears the bar instead of landing underneath it. */
+:where([id]) {
+  scroll-margin-top: var(--header-height-condensed);
+}
+
+/* ---------- The magic line ---------- */
+
+/* ONE underline for the whole navigation, travelling between the links on
+   hover and on keyboard focus and settling under the route you are on.
+
+   Its job is orientation: a line that MOVES from where you are to what you are
+   pointing at tells you both facts at once, and the eye tracks a single moving
+   object far better than it tracks six fading in and out.
+
+   IT ONLY EXISTS ONCE THE CLIENT HAS MEASURED IT. The component renders
+   nothing here until it has a width, so the prerendered HTML carries no line
+   at all and `data-magic` is absent, which is what leaves the per-link
+   `nav-link` underline in charge. A visitor with no JavaScript keeps exactly
+   the navigation wave 412 shipped. */
+.nav-magic__line {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  height: 2px;
+  /* orange-500: a 2px rule is a GRAPHIC and answers to 3:1, not 4.5:1, and it
+     is 4.23:1 on the white bar. The label above it is orange-700 for the same
+     reason in reverse. */
+  background-color: var(--color-orange-500);
+  transition:
+    transform var(--duration-hover) var(--ease-out-soft),
+    width var(--duration-hover) var(--ease-out-soft);
+  pointer-events: none;
+}
+
+/* The per-link underlines step aside for it, and only once it is really there. */
+.nav-magic[data-magic="on"] .nav-link::after {
+  content: none;
+}
+
+/* Reduced motion: the line still moves, it just arrives instantly (the global
+   block flattens the transition). The state it carries is also carried by the
+   active link's orange-700 label, which is not motion at all, so nothing is
+   lost. Its `width` is the one property on this site outside transform and
+   opacity that is transitioned without being one of the two named exceptions,
+   and it cannot cause layout for anything: nothing shares its absolutely
+   positioned box. */
+
+/* ---------- The drawer ---------- */
+
+/* From the RIGHT, over a dimmed page, rather than a sheet that replaces it.
+   The visitor can see what they were reading behind the panel, which says
+   "this is on top of your page" instead of "you have gone somewhere", and it
+   makes the backdrop an obvious place to press to get back.
+
+   Both of these animate an element that did not exist a frame ago, so neither
+   can ever hide content: the component renders nothing at all while closed. */
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.drawer-panel {
+  animation: drawer-in var(--duration-enter) var(--ease-out-soft);
+}
+
+.drawer-scrim {
+  animation: scrim-in var(--duration-enter) var(--ease-out-soft);
+}
+
+/* The items arrive 30ms apart, so the menu reads as one list settling rather
+   than as eight things appearing at once. `--drawer-delay` is set per item in
+   the component; the global reduced-motion block forces it to 0ms. */
+@keyframes drawer-item-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.drawer-item {
+  animation: drawer-item-in var(--duration-enter) var(--ease-out-soft) both;
+  animation-delay: var(--drawer-delay, 0ms);
+}
+
+/* `both` above is safe HERE and nowhere else on this site. The backwards fill
+   of an entrance paints opacity 0 on the first frame, which is the wave 412b
+   defect when it lands on prerendered content - but a drawer item is created
+   by the click that opens the drawer and has no server paint to take away.
+   Under reduced motion the global block sets the delay to 0 and the duration
+   to 0.001ms, so every item is simply there. */
+
+/* ---------- The Partners menu ---------- */
+
+/* 150ms, a 4px rise, and no zoom: the library's default entrance scales the
+   panel from 95%, which on a 660px menu reads as a lurch. Rising 4px out of
+   its own trigger says where it came from, which is the only thing this
+   animation is for.
+
+   Unlayered, so it beats the `animate-in` utilities Tailwind emits inside
+   @layer utilities without an !important. */
+@keyframes partners-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes partners-menu-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.partners-menu[data-state="open"] {
+  animation: partners-menu-in var(--duration-fade) var(--ease-out-soft);
+}
+
+/* `forwards` because Radix keeps the panel mounted until the animation ends;
+   without it the menu would snap back to full opacity for the last frame. */
+.partners-menu[data-state="closed"] {
+  animation: partners-menu-out var(--duration-exit) ease-in forwards;
+}
+
+/* ---------- The route that arrives ---------- */
+
+/* An 8px rise over 200ms when <main> is replaced by a client navigation.
+
+   Its job is to say "this is a different page" to somebody whose eye is
+   already somewhere in the middle of the viewport. Without it a navigation on
+   this site was a repaint between two frames with nothing to mark it, and the
+   scroll jump to the top read as a glitch rather than as an arrival.
+
+   TWO NAMES, ALTERNATED. The component flips `data-route-enter` between "a"
+   and "b" on every navigation, because changing the animation-name is how a
+   CSS animation is restarted without touching the DOM twice.
+
+   NEITHER IS `both`, AND THE ATTRIBUTE IS ABSENT ON THE FIRST PAINT. Every
+   route here is prerendered; an entrance on the server's own HTML is the wave
+   412b defect, and the only safe first frame is no animation at all. */
+@keyframes route-enter-a {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes route-enter-b {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main[data-route-enter="a"] {
+  animation: route-enter-a var(--duration-route) var(--ease-out-soft);
+}
+
+main[data-route-enter="b"] {
+  animation: route-enter-b var(--duration-route) var(--ease-out-soft);
+}
+
+/* ---------- Back to top ---------- */
+
+/* It is not in the markup until two viewports have gone past, so this is an
+   entrance on an element that did not exist a frame ago. The exit is
+   `forwards` because the component keeps it mounted for exactly as long as the
+   exit takes, and a control fading out must not be pressable. */
+@keyframes back-to-top-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes back-to-top-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.back-to-top[data-state="in"] {
+  animation: back-to-top-in var(--duration-route) var(--ease-out-soft);
+}
+
+.back-to-top[data-state="out"] {
+  animation: back-to-top-out var(--duration-route) ease-in forwards;
+  pointer-events: none;
+}
+
+/* ---------- Photographs that arrive rather than pop ---------- */
+
+/* NOTHING HERE IS EVER IN THE MARKUP. `data-img` is set from the client, and
+   only on an image that is NOT yet decoded, so an image the server painted or
+   the cache already holds never touches these rules and never spends a frame
+   at opacity 0. See src/components/image-fade.tsx for why it has to be that
+   way round. Under reduced motion the attribute is never set at all. */
+img[data-img="pending"] {
+  opacity: 0;
+}
+
+img[data-img="in"] {
+  animation: img-fade-in var(--duration-reveal) var(--ease-out-soft);
+}
+
+@keyframes img-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- Presses that register ---------- */
+
+/* A pressed control must never look like an unpressed one. 0.98 for 80ms is
+   the whole of it: small enough that it cannot be mistaken for a layout
+   change, long enough to be felt on a touchscreen, where there is no hover
+   state to have told the visitor anything beforehand.
+
+   `:active` and not a JS press state, so it costs nothing and cannot get
+   stuck; `transform` only, so it never reflows. Keyboard parity comes free:
+   :active fires on Enter and on Space for a button. */
+.press {
+  transition: transform 80ms var(--ease-out-soft);
+}
+
+.press:active {
+  transform: scale(0.98);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -20,8 +20,51 @@ import { cn } from "@/lib/utils";
  */
 const loginSearch = { enquiry: "waitlist", type: "waitlist" } as const;
 
+/**
+ * ── WAVE 413: THE HEADER GETS OUT OF THE WAY ──────────────────────────────
+ *
+ * Two pieces of motion here, and each one is a job rather than a flourish.
+ *
+ * THE CONDENSE. Past 24px of scroll the bar goes from 72px to 56px, the logo
+ * scales to 0.85 from its left edge, and the card shadow appears. The visitor
+ * gets 16px of viewport back on every route, which on a 667px phone screen is
+ * two and a half percent of everything they can see. It expands again when
+ * they scroll back up, because scrolling up is what someone does when they are
+ * looking for the navigation.
+ *
+ * ⚠ THE HEIGHT IS ANIMATED, AND IT IS THE SECOND EXCEPTION TO THIS WAVE'S
+ * TRANSFORM-AND-OPACITY RULE (the accordion is the first). There is no way to
+ * give the viewport space back with a transform: a sticky bar occupies flow,
+ * and a transform on it moves the paint without moving the space. It is one
+ * property on one element at the top of the document, 200ms, once per crossing
+ * of the threshold. Everything else here is transform and opacity.
+ *
+ * THE MAGIC LINE. One underline that slides between the nav links on hover and
+ * on keyboard focus, and settles on the active route whenever nothing is being
+ * pointed at. It answers "where am I" continuously rather than only at rest,
+ * and because it is one element travelling rather than six fading in and out,
+ * the eye follows it.
+ *
+ * ⚠ IT ONLY EXISTS ONCE IT HAS BEEN MEASURED. The server cannot measure a
+ * link's width, so the prerendered HTML carries no magic line at all and the
+ * per-link `nav-link` underline in styles.css does the work. The moment the
+ * client measures, `data-magic="on"` goes on the list, which is what turns the
+ * per-link underlines off. Without JavaScript the navigation keeps its
+ * underline and its orange active route exactly as before.
+ */
+
+/** Scroll depth, in px, at which the bar condenses. */
+const CONDENSE_AT = 24;
+/** Upward travel, in px, that expands it again. Enough not to flutter. */
+const EXPAND_AFTER_UP = 24;
+
+interface MagicLine {
+  left: number;
+  width: number;
+}
+
 export function SiteHeader() {
-  const [scrolled, setScrolled] = React.useState(false);
+  const [condensed, setCondensed] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [partnersOpen, setPartnersOpen] = React.useState(false);
   const [mobilePartnersOpen, setMobilePartnersOpen] = React.useState(false);
@@ -29,6 +72,11 @@ export function SiteHeader() {
   const panelRef = React.useRef<HTMLDivElement | null>(null);
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
   const partnersCloseTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const navRef = React.useRef<HTMLUListElement | null>(null);
+  const [magic, setMagic] = React.useState<MagicLine | null>(null);
+  /** The link the pointer or the keyboard is on, or null for "the active one". */
+  const hovered = React.useRef<HTMLElement | null>(null);
 
   const openPartnersMenu = () => {
     if (partnersCloseTimerRef.current) clearTimeout(partnersCloseTimerRef.current);
@@ -44,10 +92,29 @@ export function SiteHeader() {
     // WAVE 412: the header is light on every route, so it no longer has to
     // ask what is under it. The probe that used to run here read
     // elementFromPoint on every scroll frame to decide whether to draw a rule;
-    // the rule is now always there, and the only thing scroll changes is the
-    // shadow that lifts the bar off the content sliding beneath it.
+    // the rule is now always there.
+    //
+    // WAVE 413: and the only work this listener does is compare two numbers
+    // and, at most, flip one boolean. Everything expensive is CSS.
+    let last = window.scrollY;
+    let climbed = 0;
     const onScroll = () => {
-      setScrolled(window.scrollY > 8);
+      const y = window.scrollY;
+      const delta = y - last;
+      last = y;
+      if (delta < 0) climbed -= delta;
+      else if (delta > 0) climbed = 0;
+
+      if (y <= CONDENSE_AT) {
+        setCondensed(false);
+        return;
+      }
+      if (delta > 0) {
+        climbed = 0;
+        setCondensed(true);
+      } else if (climbed >= EXPAND_AFTER_UP) {
+        setCondensed(false);
+      }
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -57,6 +124,43 @@ export function SiteHeader() {
       window.removeEventListener("resize", onScroll);
     };
   }, []);
+
+  /**
+   * Where the magic line rests: under the active route, or nowhere if the
+   * visitor is on a route the navigation does not list (/legal, /register).
+   * Measured against the list's own box, so it travels in the list's space.
+   */
+  const settleMagic = React.useCallback(() => {
+    const list = navRef.current;
+    if (!list) return;
+    const target =
+      hovered.current ?? list.querySelector<HTMLElement>('[data-nav-link][data-nav-active="true"]');
+    if (!target) {
+      setMagic(null);
+      return;
+    }
+    const listBox = list.getBoundingClientRect();
+    const box = target.getBoundingClientRect();
+    setMagic({ left: box.left - listBox.left, width: box.width });
+  }, []);
+
+  // Re-measure when the route changes (the active link moves), when the bar
+  // condenses (the list moves with it), and when the window is resized.
+  React.useEffect(() => {
+    hovered.current = null;
+    settleMagic();
+  }, [pathname, condensed, settleMagic]);
+
+  React.useEffect(() => {
+    const onResize = () => settleMagic();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [settleMagic]);
+
+  const pointMagicAt = (element: HTMLElement | null) => {
+    hovered.current = element;
+    settleMagic();
+  };
 
   // Close on route change.
   React.useEffect(() => {
@@ -72,7 +176,7 @@ export function SiteHeader() {
     [],
   );
 
-  // Focus trap + escape while the overlay is open.
+  // Focus trap + escape while the drawer is open.
   React.useEffect(() => {
     if (!open) return;
     const panel = panelRef.current;
@@ -112,6 +216,8 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  const partnersActive = pathname === "/partners" || pathname.startsWith("/partner-with-");
+
   return (
     /*
      * WAVE 412: A LIGHT HEADER.
@@ -127,19 +233,29 @@ export function SiteHeader() {
      * white bar from a white page, so it cannot be a scroll state.
      */
     <header
+      data-condensed={condensed ? "true" : "false"}
       className={cn(
-        "sticky top-0 z-50 border-b border-rule bg-header transition-shadow duration-200",
+        "site-header sticky top-0 z-50 border-b border-rule bg-header",
         "supports-[backdrop-filter]:backdrop-blur-md",
-        scrolled && "shadow-[var(--shadow-card)]",
+        condensed && "shadow-[var(--shadow-card)]",
       )}
     >
-      <div className="mx-auto flex min-h-[76px] w-full max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8">
-        <Link to="/" className="shrink-0 rounded-md" aria-label="Impact Investment Platform — home">
+      <div className="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8">
+        <Link
+          to="/"
+          className="site-header__logo shrink-0 rounded-md"
+          aria-label="Impact Investment Platform — home"
+        >
           <Logo variant="on-cream" />
         </Link>
 
         <nav aria-label="Main" className="hidden self-stretch xl:block">
-          <ul className="flex h-full items-center gap-7">
+          <ul
+            ref={navRef}
+            data-magic={magic ? "on" : undefined}
+            onMouseLeave={() => pointMagicAt(null)}
+            className="nav-magic relative flex h-full items-center gap-7"
+          >
             {primaryNav.map((item) => (
               <React.Fragment key={item.to}>
                 {item.to === "/partners" ? (
@@ -152,6 +268,11 @@ export function SiteHeader() {
                       <DropdownMenuTrigger asChild>
                         <Link
                           to="/partners"
+                          data-nav-link=""
+                          data-nav-active={partnersActive ? "true" : undefined}
+                          onMouseEnter={(event) => pointMagicAt(event.currentTarget)}
+                          onFocus={(event) => pointMagicAt(event.currentTarget)}
+                          onBlur={() => pointMagicAt(null)}
                           className={cn(
                             "nav-link inline-flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap text-[15px] font-medium text-ink transition-colors duration-200",
                             /* orange-700, not 500: this is 15px TEXT on a
@@ -159,15 +280,14 @@ export function SiteHeader() {
                                6.50:1. The underline under it stays 500,
                                because a 2px rule is a graphic and answers to
                                3:1 rather than 4.5:1. */
-                            (pathname === "/partners" || pathname.startsWith("/partner-with-")) &&
-                              "text-orange-700",
+                            partnersActive && "text-orange-700",
                           )}
                         >
                           Partners
                           <ChevronDown
                             aria-hidden="true"
                             className={cn(
-                              "size-3.5 transition-transform",
+                              "size-3.5 transition-transform duration-200 ease-[var(--ease-out-soft)]",
                               partnersOpen && "rotate-180",
                             )}
                           />
@@ -178,7 +298,7 @@ export function SiteHeader() {
                         sideOffset={0}
                         onMouseEnter={openPartnersMenu}
                         onMouseLeave={schedulePartnersMenuClose}
-                        className="w-[660px] rounded-none border-x border-b border-t-2 border-x-rule border-b-rule border-t-orange-500 bg-page p-0 text-ink shadow-[var(--shadow-card-hover)]"
+                        className="partners-menu w-[660px] rounded-none border-x border-b border-t-2 border-x-rule border-b-rule border-t-orange-500 bg-page p-0 text-ink shadow-[var(--shadow-card-hover)]"
                       >
                         <div className="flex items-center justify-between border-b border-rule px-5 py-3.5">
                           <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-teal-600">
@@ -258,6 +378,11 @@ export function SiteHeader() {
                     <Link
                       to={item.to}
                       activeOptions={{ exact: true }}
+                      data-nav-link=""
+                      data-nav-active={pathname === item.to ? "true" : undefined}
+                      onMouseEnter={(event) => pointMagicAt(event.currentTarget)}
+                      onFocus={(event) => pointMagicAt(event.currentTarget)}
+                      onBlur={() => pointMagicAt(null)}
                       className="nav-link inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-medium text-ink transition-colors duration-200"
                     >
                       {item.label}
@@ -266,6 +391,19 @@ export function SiteHeader() {
                 ) : null}
               </React.Fragment>
             ))}
+
+            {/* THE MAGIC LINE. Rendered only once it has been measured, so the
+                prerendered HTML never carries an underline sitting at the
+                wrong place, and a visitor with no JavaScript keeps the
+                per-link one. aria-hidden because it says nothing the active
+                link's own orange does not already say. */}
+            {magic ? (
+              <span
+                aria-hidden="true"
+                className="nav-magic__line"
+                style={{ transform: `translateX(${magic.left}px)`, width: `${magic.width}px` }}
+              />
+            ) : null}
           </ul>
         </nav>
 
@@ -276,7 +414,7 @@ export function SiteHeader() {
           <Link
             to="/contact"
             search={loginSearch}
-            className="inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-normal text-ink transition-colors duration-200 hover:text-orange-700"
+            className="nav-underline inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-normal text-ink transition-colors duration-200 hover:text-orange-700"
           >
             Log in
           </Link>
@@ -288,124 +426,171 @@ export function SiteHeader() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="inline-grid size-11 cursor-pointer place-items-center rounded-full border border-rule text-ink transition-colors duration-200 hover:bg-page-alt xl:hidden"
+          className="press inline-grid size-11 cursor-pointer place-items-center rounded-full border border-rule text-ink transition-colors duration-200 hover:bg-page-alt xl:hidden"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
       </div>
 
-      {open ? (
-        <div
-          ref={panelRef}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Site menu"
-          className="absolute inset-x-0 top-0 z-50 flex h-dvh flex-col bg-page px-5 pb-8 pt-6 xl:hidden"
-        >
-          <div className="flex items-center justify-between">
-            <Logo variant="on-cream" />
-            <button
-              type="button"
-              aria-label="Close menu"
-              onClick={() => {
-                setOpen(false);
-                triggerRef.current?.focus();
-              }}
-              className="inline-grid size-11 cursor-pointer place-items-center rounded-full border border-rule text-ink"
-            >
-              <X className="size-5" />
-            </button>
-          </div>
+      {/* ── THE DRAWER ──────────────────────────────────────────────────────
+          A panel from the right rather than a sheet over the whole screen.
+          The page stays visible behind it, dimmed, so the visitor can see they
+          have opened something on top of what they were reading rather than
+          gone somewhere new — and the backdrop is then a place to press to get
+          back. Escape does the same, focus is trapped inside, the body cannot
+          scroll underneath, and a route change closes it.
 
-          <nav aria-label="Mobile" className="mt-8 min-h-0 flex-1 overflow-y-auto py-4">
-            <ul className="flex flex-col gap-6">
-              {primaryNav.map((item) => (
-                <React.Fragment key={item.to}>
-                  {item.to === "/partners" ? (
-                    <li>
-                      <button
-                        type="button"
-                        aria-expanded={mobilePartnersOpen}
-                        aria-controls="mobile-partner-links"
-                        onClick={() => setMobilePartnersOpen((value) => !value)}
-                        className={cn(
-                          "flex w-full items-center justify-between font-heading text-[28px] font-semibold text-ink",
-                          (pathname === "/partners" || pathname.startsWith("/partner-with-")) &&
-                            "text-orange-700",
-                        )}
-                      >
-                        Partners
-                        <ChevronDown
-                          aria-hidden="true"
+          It is rendered only while open, so nothing here is ever an invisible
+          element waiting for a trigger. */}
+      {open ? (
+        <>
+          {/* The backdrop is a real press target and NOT an announced control:
+              it duplicates the close button beside the logo, and a second
+              "Close menu" in the accessibility tree is noise, not help. Escape
+              and that button are the keyboard paths. */}
+          <button
+            type="button"
+            aria-hidden="true"
+            tabIndex={-1}
+            onClick={() => {
+              setOpen(false);
+              triggerRef.current?.focus();
+            }}
+            className="drawer-scrim fixed inset-0 z-40 cursor-pointer bg-ink/40 xl:hidden"
+          />
+          <div
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
+            className="drawer-panel fixed inset-y-0 right-0 z-50 flex w-[min(21rem,88vw)] flex-col border-l border-rule bg-page px-5 pb-8 pt-6 shadow-[var(--shadow-card-hover)] xl:hidden"
+          >
+            <div className="flex items-center justify-between">
+              <Logo variant="on-cream" />
+              <button
+                type="button"
+                aria-label="Close menu"
+                onClick={() => {
+                  setOpen(false);
+                  triggerRef.current?.focus();
+                }}
+                className="press inline-grid size-11 cursor-pointer place-items-center rounded-full border border-rule text-ink"
+              >
+                <X className="size-5" />
+              </button>
+            </div>
+
+            <nav aria-label="Mobile" className="mt-8 min-h-0 flex-1 overflow-y-auto py-4">
+              <ul className="flex flex-col gap-6">
+                {primaryNav.map((item, index) => (
+                  <React.Fragment key={item.to}>
+                    {item.to === "/partners" ? (
+                      <li className="drawer-item" style={stagger(index)}>
+                        <button
+                          type="button"
+                          aria-expanded={mobilePartnersOpen}
+                          aria-controls="mobile-partner-links"
+                          onClick={() => setMobilePartnersOpen((value) => !value)}
                           className={cn(
-                            "size-5 transition-transform",
-                            mobilePartnersOpen && "rotate-180",
+                            "flex w-full items-center justify-between font-heading text-[26px] font-semibold text-ink",
+                            partnersActive && "text-orange-700",
                           )}
-                        />
-                      </button>
-                      {mobilePartnersOpen ? (
-                        <ol
-                          id="mobile-partner-links"
-                          className="mt-4 grid gap-1 border-l border-teal-600/35 pl-4"
                         >
-                          <li>
-                            <Link
-                              to="/partners"
-                              className="flex min-h-10 items-center gap-3 rounded-none px-2 text-[15px] font-semibold text-ink hover:bg-page-alt"
-                            >
-                              <NetworkMark />
-                              Explore the ecosystem
-                            </Link>
-                          </li>
-                          {partnerProfiles.map((partner, index) => (
-                            <li key={partner.id}>
+                          Partners
+                          <ChevronDown
+                            aria-hidden="true"
+                            className={cn(
+                              "size-5 transition-transform duration-200 ease-[var(--ease-out-soft)]",
+                              mobilePartnersOpen && "rotate-180",
+                            )}
+                          />
+                        </button>
+                        {/* The same orange rule the desktop bar uses for the
+                            route you are on, so the two read as one site. */}
+                        {partnersActive ? (
+                          <span
+                            aria-hidden="true"
+                            className="mt-2 block h-0.5 w-10 bg-orange-500"
+                          />
+                        ) : null}
+                        {mobilePartnersOpen ? (
+                          <ol
+                            id="mobile-partner-links"
+                            className="mt-4 grid gap-1 border-l border-teal-600/35 pl-4"
+                          >
+                            <li>
                               <Link
-                                to={partner.path}
-                                className="flex min-h-10 items-center gap-3 rounded-none px-2 text-[15px] font-semibold text-ink-muted hover:bg-page-alt hover:text-ink"
+                                to="/partners"
+                                className="flex min-h-10 items-center gap-3 rounded-none px-2 text-[15px] font-semibold text-ink hover:bg-page-alt"
                               >
-                                <span className="font-mono text-[10px] text-orange-700">
-                                  {String(index + 1).padStart(2, "0")}
-                                </span>
-                                {partner.label}
+                                <NetworkMark />
+                                Explore the ecosystem
                               </Link>
                             </li>
-                          ))}
-                        </ol>
-                      ) : null}
-                    </li>
-                  ) : null}
-                  {item.to !== "/partners" ? (
-                    <li>
-                      <Link
-                        to={item.to}
-                        activeOptions={{ exact: true }}
-                        className="font-heading text-[28px] font-semibold text-ink data-[status=active]:text-orange-700"
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ) : null}
-                </React.Fragment>
-              ))}
-            </ul>
-          </nav>
+                            {partnerProfiles.map((partner, partnerIndex) => (
+                              <li key={partner.id}>
+                                <Link
+                                  to={partner.path}
+                                  className="flex min-h-10 items-center gap-3 rounded-none px-2 text-[15px] font-semibold text-ink-muted hover:bg-page-alt hover:text-ink"
+                                >
+                                  <span className="font-mono text-[10px] text-orange-700">
+                                    {String(partnerIndex + 1).padStart(2, "0")}
+                                  </span>
+                                  {partner.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ol>
+                        ) : null}
+                      </li>
+                    ) : null}
+                    {item.to !== "/partners" ? (
+                      <li className="drawer-item" style={stagger(index)}>
+                        <Link
+                          to={item.to}
+                          activeOptions={{ exact: true }}
+                          className="font-heading text-[26px] font-semibold text-ink data-[status=active]:text-orange-700"
+                        >
+                          {item.label}
+                        </Link>
+                        {pathname === item.to ? (
+                          <span
+                            aria-hidden="true"
+                            className="mt-2 block h-0.5 w-10 bg-orange-500"
+                          />
+                        ) : null}
+                      </li>
+                    ) : null}
+                  </React.Fragment>
+                ))}
+              </ul>
+            </nav>
 
-          <div className="flex flex-col items-center gap-5">
-            <Button variant="primary" asChild className="w-full" withArrow={false}>
-              <Link to={registerRoute.to}>{registerRoute.label}</Link>
-            </Button>
-            <Link
-              to="/contact"
-              search={loginSearch}
-              className="inline-flex min-h-11 items-center text-[15px] font-normal text-ink"
+            <div
+              className="drawer-item flex flex-col items-center gap-5"
+              style={stagger(primaryNav.length)}
             >
-              Log in
-            </Link>
+              <Button variant="primary" asChild className="w-full" withArrow={false}>
+                <Link to={registerRoute.to}>{registerRoute.label}</Link>
+              </Button>
+              <Link
+                to="/contact"
+                search={loginSearch}
+                className="inline-flex min-h-11 items-center text-[15px] font-normal text-ink"
+              >
+                Log in
+              </Link>
+            </div>
           </div>
-        </div>
+        </>
       ) : null}
     </header>
   );
+}
+
+/** 30ms between drawer items, so the list reads as one thing arriving. */
+function stagger(index: number): React.CSSProperties {
+  return { "--drawer-delay": `${index * 30}ms` } as React.CSSProperties;
 }
 
 function ArrowMark() {

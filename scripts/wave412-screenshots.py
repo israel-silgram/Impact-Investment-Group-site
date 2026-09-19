@@ -151,9 +151,26 @@ SAMPLE_EVERY = 4
 # up to the printed digit, because a ratchet that fails on a coin toss is
 # worse than no ratchet. Lower it when the page gets lighter, not when a run
 # happens to come in low.
+#
+# WAVE 413 RAISED THE 390 FIGURE BY 0.01 OF A POINT, AND THIS IS WHY.
+#
+# The site header is 72px now and was 76px, because it condenses to 56px on
+# scroll and 72 is the number that pair was designed around. Four pixels is
+# nothing in itself, and the arithmetic of one shorter page is nothing either
+# (four rows of white out of roughly nine thousand). What it moves is the
+# SAMPLING GRID: this script reads every 4th pixel from y=0, so taking 4px off
+# the top slides the whole document one full sample step, and every sampled row
+# lands on different content — a different part of a line of text, the gap
+# between two rules rather than a rule. That is worth a hundredth of a point on
+# a page as dense as this one, and it is not the page getting darker.
+#
+# Measured three times on the wave 413 build, same build, same machine:
+#   1280  23.542%  23.553%  23.566%   (ceiling unchanged at 23.57%)
+#    390  22.202%  22.202%  22.205%   (ceiling 22.20% -> 22.21%)
+# The 1280 figure did not need to move. The 390 figure did, by one hundredth.
 RAW_CEILING = {
     ("home", 1280): 0.2357,
-    ("home", 390): 0.2220,
+    ("home", 390): 0.2221,
 }
 
 

@@ -4,16 +4,19 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { ImageFade } from "@/components/image-fade";
+import { BackToTop } from "@/components/ui/back-to-top";
 import { siteDescription } from "@/content/site";
 
 function NotFoundComponent() {
@@ -123,12 +126,51 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * ── WAVE 413: <main> ARRIVES, AND ONLY WHEN IT REALLY IS NEW ──────────────
+ *
+ * A client-side navigation on this site used to replace the whole page between
+ * two frames with nothing to say it had happened. An 8px rise over 200ms is
+ * the smallest thing that reads as "this is a different page" rather than as a
+ * repaint, and it gives the scroll position a beat to land before the eye
+ * starts reading.
+ *
+ * ⚠ IT MUST NOT RUN ON THE FIRST PAINT. Every route here is prerendered, so
+ * the first thing a visitor sees is the server's HTML; running an entrance on
+ * that is the wave 412b defect exactly (`rise-in` with a backwards fill
+ * blinking away content already on the screen). `enter` starts at 0, the
+ * attribute is absent, and the CSS matches nothing at all until the first
+ * navigation.
+ *
+ * The two alternating values are how a CSS animation is restarted without
+ * touching the DOM twice or forcing a reflow: the animation-name changes, so
+ * the browser starts a new one.
+ */
+function useRouteEnter(): "a" | "b" | undefined {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const first = useRef(true);
+  const [enter, setEnter] = useState(0);
+
+  useEffect(() => {
+    if (first.current) {
+      first.current = false;
+      return;
+    }
+    setEnter((value) => value + 1);
+  }, [pathname]);
+
+  if (enter === 0) return undefined;
+  return enter % 2 === 0 ? "a" : "b";
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const routeEnter = useRouteEnter();
 
   return (
     <QueryClientProvider client={queryClient}>
       <SmoothScroll />
+      <ImageFade />
       <div className="flex min-h-screen flex-col bg-page">
         <a
           href="#main"
@@ -137,12 +179,13 @@ function RootComponent() {
           Skip to content
         </a>
         <SiteHeader />
-        <main id="main" className="flex-1">
+        <main id="main" data-route-enter={routeEnter} className="flex-1">
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
         </main>
         <SiteFooter />
       </div>
+      <BackToTop />
     </QueryClientProvider>
   );
 }
