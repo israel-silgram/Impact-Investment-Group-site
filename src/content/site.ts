@@ -51,14 +51,19 @@ export const siteName = "Impact Investment Platform";
  * has been rotated on the other. `rg chat.whatsapp.com` outside this file and
  * the generated SVG returns nothing, and it should stay that way.
  *
- * The label is the link's accessible name, not visible copy. The button beside
- * the QR reads "Open WhatsApp", which says what the control does; a screen
- * reader gets the fuller sentence instead of ten identical "Open WhatsApp"
- * links with no idea what they open.
+ * ⚠ THERE IS NO `label` HERE ANY MORE, AND THAT IS WAVE 415 CLOSING WAVE 411'S
+ * FIRST RULING. It carried "Join our investor WhatsApp community" as the
+ * link's `aria-label`, which set an accessible name that does not contain the
+ * control's visible label, "Open WhatsApp". That fails WCAG 2.5.3 Label in
+ * Name at Level A against the site's stated 2.2 AA standard: someone driving
+ * the page by voice says the words they can see and the control does not
+ * answer to them. Callum ruled on it on 19 Sep 2026 ("WhatsApp: yes both"),
+ * the `aria-label` is gone from src/routes/register.$role.tsx, and the field
+ * went with it rather than sitting here unread. The accessible name is now the
+ * visible text, which is the only arrangement that cannot drift apart.
  */
 export const whatsappCommunity = {
   url: "https://chat.whatsapp.com/DXa179wyz2xI2ffqr3Xjte",
-  label: "Join our investor WhatsApp community",
 } as const;
 
 /**

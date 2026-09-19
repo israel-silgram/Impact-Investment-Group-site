@@ -108,7 +108,8 @@ function RegisterRolePage() {
         <RegistrationFlow key={role.id} role={role} />
 
         {/*
-         * The WhatsApp community, BELOW the form and never above it.
+         * The WhatsApp community, BELOW the form and never above it, and ON
+         * THE INVESTOR PAGE ONLY.
          *
          * The form's own button is the one thing this page exists to get, and
          * an invite offered before it is an invite to leave. Placed here it is
@@ -116,48 +117,63 @@ function RegisterRolePage() {
          * position as well as in styling: teal outline, the site's own
          * secondary, never the orange.
          *
+         * WAVE 415, CALLUM'S RULING OF 19 SEP 2026 ("WhatsApp: yes both"):
+         * the role condition. Wave 411's brief named none, so the card drew
+         * on all ten /register/<role> pages and put a sentence about sourced
+         * deals and their figures in front of a resident looking for a home.
+         * The community is an investor community and the copy says so, so the
+         * page it belongs on is the investor one.
+         *
+         * WAVE 415, THE SAME RULING: the `aria-label` is gone. It set an
+         * accessible name ("Join our investor WhatsApp community") that does
+         * not contain the visible label ("Open WhatsApp"), which fails WCAG
+         * 2.5.3 Label in Name at Level A against the site's stated 2.2 AA
+         * standard: someone driving the page by voice says what they can see
+         * and the control does not answer. The accessible name is now the
+         * visible text.
+         *
+         * WAVE 415, THE LIGHT SITE. Wave 411 was built on origin/main at
+         * 9adb0bb, which is BEFORE wave 412 turned the ground white, so the
+         * card arrived as a navy plate (border-navy-700, bg-navy-800/50,
+         * text-white, text-mist). On this page's cream it would have been a
+         * second navy island inside <main>, which the gate fails at, and
+         * white on navy-800 at 50% over cream is not a contrast pair at all.
+         * The surface moves: it is now the site's own card on the cream,
+         * `panel`, with ink and ink-muted type. No string changed.
+         *
          * The QR is hidden below `sm` on purpose. It is not a decoration that
          * happens to be large: it is a code to be scanned with a second
          * device, and nobody scans the screen they are holding. On a phone the
          * button alone does the whole job, and the image would be 160px of
          * nothing.
          */}
-        <aside className="mx-auto mt-10 w-full max-w-[820px] rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/50 p-5 sm:p-8">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h2 className="font-heading text-[19px] font-semibold text-white">
-                Prefer WhatsApp?
-              </h2>
-              <p className="measure mt-2 text-[15px] leading-relaxed text-mist">
-                Join our investor community for one sourced deal a day and the figures behind it.
-              </p>
-              <Button asChild variant="secondary" className="mt-5">
-                {/*
-                 * The visible label says what the control does; the accessible
-                 * name says where it goes. `whatsappCommunity.label` is that
-                 * fuller sentence, so the constant is used whole rather than
-                 * carried for the url alone.
-                 */}
-                <a
-                  href={whatsappCommunity.url}
-                  target="_blank"
-                  rel="noopener"
-                  aria-label={whatsappCommunity.label}
-                >
-                  Open WhatsApp
-                </a>
-              </Button>
-            </div>
+        {role.id === "investor" ? (
+          <aside className="panel mx-auto mt-10 w-full max-w-[820px] p-5 sm:p-8">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 className="font-heading text-[19px] font-semibold text-ink">
+                  Prefer WhatsApp?
+                </h2>
+                <p className="measure mt-2 text-[15px] leading-relaxed text-ink-muted">
+                  Join our investor community for one sourced deal a day and the figures behind it.
+                </p>
+                <Button asChild variant="secondary" className="mt-5">
+                  <a href={whatsappCommunity.url} target="_blank" rel="noopener">
+                    Open WhatsApp
+                  </a>
+                </Button>
+              </div>
 
-            <img
-              src="/images/whatsapp-community-qr.svg"
-              width="160"
-              height="160"
-              alt="QR code for the Impact Investment Group WhatsApp community"
-              className="hidden shrink-0 rounded-[10px] sm:block"
-            />
-          </div>
-        </aside>
+              <img
+                src="/images/whatsapp-community-qr.svg"
+                width="160"
+                height="160"
+                alt="QR code for the Impact Investment Group WhatsApp community"
+                className="hidden shrink-0 rounded-[10px] sm:block"
+              />
+            </div>
+          </aside>
+        ) : null}
       </section>
     </div>
   );
