@@ -290,12 +290,44 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
       return;
     }
     heading.current?.focus({ preventScroll: true });
-    heading.current?.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "instant"
-        : "smooth",
-      block: "start",
-    });
+    /*
+     * ⚠ THE LAST STEP GOES TO THE TOP OF THE PAGE, NOT TO ITS OWN HEADING.
+     * WAVE 415, rel414b MINOR 5.
+     *
+     * This effect exists so that each new step of a nine-question journey
+     * arrives at the top of the screen instead of wherever the last one
+     * ended, and for the nine questions `block: "start"` on the heading is
+     * exactly right. For the success state it was not: the panel is shorter
+     * than one viewport and sits directly under the page's own chrome, so
+     * aligning its HEADING to the top of the screen left the page at
+     * scrollY 187 on a 390x844 phone, scrolled past the role header and the
+     * back link, to show something that fits on screen without moving at
+     * all. Scrolling to 0 instead puts the whole of it, heading, message and
+     * action, inside the first screen with the page's own chrome above it.
+     *
+     * ⚠ AND NOT BY SKIPPING THE SCROLL. That was tried first and is worse:
+     * somebody reaching the end has scrolled down through nine questions, so
+     * with no scroll at all the success state renders at scrollY 1398 and
+     * 1,025px above the top of the screen, which is to say off it. The gate
+     * measured both, 187 and 1398, before this line was written.
+     *
+     * Invisible until wave 415 made the success probe in
+     * scripts/wave414-mobile.py ASSERT `window.scrollY` instead of merely
+     * reading it: the probe's three boxes are viewport-relative, so "inside
+     * the first screen" only meant anything at 0. The rel414b re-check
+     * called it and the assertion then found the page really was scrolling.
+     *
+     * Focus still moves on every change including this one, because that is
+     * what tells a screen reader where it now is.
+     */
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "instant"
+      : "smooth";
+    if (stage === "done") {
+      window.scrollTo({ top: 0, behavior });
+      return;
+    }
+    heading.current?.scrollIntoView({ behavior, block: "start" });
   }, [stage, index]);
 
   async function submitAccount(event: React.FormEvent<HTMLFormElement>) {

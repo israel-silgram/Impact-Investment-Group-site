@@ -119,6 +119,7 @@ import sys
 import threading
 from pathlib import Path
 
+from PIL import Image
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -361,6 +362,67 @@ def is_defect(entry) -> bool:
     return bool(entry["text"]) or bool(entry["hiding"].strip())
 
 
+def scroll_to(page, y: float) -> float:
+    """Scroll instantly to `y` and return where the page actually came to rest.
+
+    ⚠ `behavior: 'instant'`, NOT A BARE scrollTo. WAVE 415, rel414b MINOR 1.
+    `src/styles.css` carries `scroll-behavior: smooth` on `html`, so every
+    bare `scrollTo(0, y)` a gate issues is ANIMATED, and a fixed
+    `wait_for_timeout` after one is a guess rather than a confirmation. Wave
+    414b found that artefact biting the 375px profile in
+    `scripts/wave414-mobile.py` and fixed it there alone; this script was not
+    in that diff at all and carried five bare `scrollTo`s, one of which is
+    immediately followed by a SAVED SHOT (`condensed-header-1280.png`). The
+    three gates settle the same honest way now: instant scroll, a polled
+    confirmation that FAILS rather than waits, and an assertion on any image
+    that gets written.
+    """
+    for _ in range(12):
+        page.evaluate(f"() => scrollTo({{ top: {y}, behavior: 'instant' }})")
+        page.wait_for_timeout(100)
+        if abs(page.evaluate("() => window.scrollY") - y) <= 0.5:
+            return float(y)
+    return page.evaluate("() => window.scrollY")
+
+
+def to_top(page) -> float:
+    """Put the page at the top and return where it actually is."""
+    return scroll_to(page, 0)
+
+
+def assert_scrolled(page, y: float, failures: list[str], where: str) -> None:
+    """Scroll to `y`, and fail the run if the page did not arrive."""
+    resting = scroll_to(page, y)
+    if abs(resting - y) > 0.5:
+        failures.append(
+            f"{where}: the page would not scroll to y={y:g}, resting at "
+            f"scrollY={resting:g}. Everything read at this position was read "
+            f"at the wrong one."
+        )
+
+
+def has_ink(path: Path, limit: int = 240) -> bool:
+    """Whether a saved clip has any ink in it at all.
+
+    WAVE 415, rel414b MINOR 1's "assert on the saved image itself". The one
+    shot this script takes after a scroll is a 160px clip of the condensed
+    header, and the failure mode a smooth scroll produces there is a clip of
+    blank page: the bar is drawn but the shutter opened while the document was
+    still travelling. An empty clip is now a failure rather than a committed
+    picture of nothing.
+    """
+    with Image.open(path) as image:
+        rgb = image.convert("RGB")
+        width, height = rgb.size
+        pixels = rgb.load()
+        for y in range(0, min(limit, height)):
+            for x in range(0, width, 2):
+                r, g, b = pixels[x, y][:3]
+                if r < 246 or g < 246 or b < 246:
+                    return True
+    return False
+
+
 def header_heights(page) -> tuple[int, int, int]:
     """(at rest, past CONDENSE_SCROLL, back at the top).
 
@@ -369,13 +431,13 @@ def header_heights(page) -> tuple[int, int, int]:
     scroll" is not the claim: the claim is that scrolling cannot change it.
     """
     read = "() => { const h = document.querySelector('header'); return h ? h.offsetHeight : -1; }"
-    page.evaluate("() => scrollTo(0, 0)")
+    to_top(page)
     page.wait_for_timeout(350)
     at_rest = page.evaluate(read)
-    page.evaluate(f"() => scrollTo(0, {CONDENSE_SCROLL})")
+    scroll_to(page, CONDENSE_SCROLL)
     page.wait_for_timeout(350)
     condensed = page.evaluate(read)
-    page.evaluate("() => scrollTo(0, 0)")
+    to_top(page)
     page.wait_for_timeout(350)
     back = page.evaluate(read)
     return at_rest, condensed, back
@@ -407,10 +469,10 @@ FULL_SCROLL = """
 async () => {
   const step = Math.round(innerHeight * 0.6);
   for (let y = 0; y < document.body.scrollHeight; y += step) {
-    scrollTo(0, y);
+    scrollTo({ top: y, behavior: 'instant' });
     await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
   }
-  scrollTo(0, 0);
+  scrollTo({ top: 0, behavior: 'instant' });
   await new Promise((r) => setTimeout(r, 300));
 }
 """
@@ -1047,10 +1109,10 @@ IMAGE_SCROLL = """
 async () => {
   const step = Math.round(innerHeight * 0.75);
   for (let y = 0; y < document.body.scrollHeight; y += step) {
-    scrollTo(0, y);
+    scrollTo({ top: y, behavior: 'instant' });
     await new Promise((r) => setTimeout(r, 120));
   }
-  scrollTo(0, 0);
+  scrollTo({ top: 0, behavior: 'instant' });
 }
 """
 
@@ -1326,7 +1388,7 @@ def magic_line_probe(browser, base: str, failures: list[str]) -> None:
     # inside the bar in both states, because the condense still moves the
     # logo and the shadow even though it no longer moves the box.
     for label, scroll in (("at the top", 0), ("scrolled", CONDENSE_SCROLL)):
-        page.evaluate(f"() => scrollTo(0, {scroll})")
+        assert_scrolled(page, scroll, failures, f"{where} magic line ({label})")
         page.wait_for_timeout(450)
         geometry = page.evaluate(read)
         if geometry is None:
@@ -1474,7 +1536,7 @@ def reduced_exercise_probe(browser, base: str, failures: list[str]) -> None:
     if summary.count() > 0:
         page.evaluate(
             "() => { const s = document.querySelector('details summary');"
-            " s.scrollIntoView({ block: 'center' }); s.click(); }"
+            " s.scrollIntoView({ block: 'center', behavior: 'instant' }); s.click(); }"
         )
         page.wait_for_timeout(150)
         _reduced_durations(page, failures, where, "details", "a disclosure opened")
@@ -1633,12 +1695,22 @@ def main() -> None:
                 tall, condensed, back = header_heights(page)
 
                 if path == "/about" and width == 1280:
-                    page.evaluate(f"() => scrollTo(0, {CONDENSE_SCROLL})")
+                    assert_scrolled(
+                        page, CONDENSE_SCROLL, failures, "condensed-header-1280"
+                    )
                     page.wait_for_timeout(400)
+                    condensed_shot = OUT / "condensed-header-1280.png"
                     page.screenshot(
-                        path=str(OUT / "condensed-header-1280.png"),
+                        path=str(condensed_shot),
                         clip={"x": 0, "y": 0, "width": width, "height": 160},
                     )
+                    # AND THE SHOT ITSELF IS READ. Wave 415, rel414b MINOR 1.
+                    if not has_ink(condensed_shot):
+                        failures.append(
+                            f"condensed-header-1280: {condensed_shot.name} has no "
+                            "ink in it at all. The shutter opened on a blank "
+                            "frame, so the committed picture is not of a header."
+                        )
                 page.close()
 
                 where = f"{slug} @ {width}"

@@ -1581,6 +1581,7 @@ def success_probe(browser, base: str, failures: list[str]) -> None:
 
     print(
         f"success   {BAR_ROUTE} @ {SUCCESS_WIDTH}x{SUCCESS_HEIGHT}  "
+        f"scrollY={read['scrollY']}  "
         f"header_bottom={read['headerBottom']}  vh={read['vh']}  "
         f"heading={read['heading']['top']}..{read['heading']['bottom']} "
         f"{read['heading']['text']!r}  "
@@ -1588,6 +1589,23 @@ def success_probe(browser, base: str, failures: list[str]) -> None:
         f"action={read['action']['top']}..{read['action']['bottom']} "
         f"{read['action']['text']!r}"
     )
+
+    # ⚠ AND scrollY IS ASSERTED, NOT MERELY READ. WAVE 415, rel414b MINOR 5.
+    # The three boxes below are VIEWPORT-relative, so "inside the first
+    # screen" is only what they mean at scrollY 0, and
+    # `src/components/register/registration-flow.tsx` calls `scrollIntoView`
+    # on the very state change this probe has just triggered. 414b read
+    # `scrollY` into this dict and never referenced it again, so the probe
+    # could have passed on a page that had scrolled the success state into
+    # view rather than one that never needed to. This is the one line that
+    # closes the gap between the assertion and the sentence beside it.
+    if read["scrollY"] > 0.5:
+        failures.append(
+            f"{where}: the success state was reached at scrollY="
+            f"{read['scrollY']}, so the page scrolled itself to show it. The "
+            f"three boxes below are viewport-relative and only mean 'in the "
+            f"first screen' at 0."
+        )
 
     for name in ("heading", "message", "action"):
         part = read[name]

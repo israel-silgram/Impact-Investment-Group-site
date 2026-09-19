@@ -560,12 +560,17 @@ image-fade probe still asserts its 32% wash, because that probe runs at 1280.
   at 23.70%. At 390 the ratchet goes down again too, 16.85% to 16.70%, against
   four readings of 16.58%.
 
-**The page is not darker and the ground figure proves it**: with the photographs, the map
-field and the island masked out, the home page reads **9.16% at 1280 against 9.17%
-before**, and 7.08% at 390. The whole of the raw movement is inside the masked rectangles,
-which is to say inside the pictures. The ground answers to the flat 15% with no ratchet and
-no exception, and it went down. `scripts/wave412-screenshots.py` carries all of this where
-the numbers are.
+**The page is not darker, and the ground figure moved both ways** (⚠ CORRECTED BY WAVE
+415, rel414b MINOR 2; the sentence here used to end "and it went down" with one figure in
+it that did and one that did not): with the photographs, the map field and the island
+masked out, the home page reads **9.16% at 1280 against 9.17% before**, which went DOWN by
+0.01 of a point, and **7.25% at 390 against 7.08% before**, which went UP by 0.17. The
+rise at 390 is the `max-lg:leading-[1.6]` reflow moving the `SAMPLE_EVERY = 4` grid the
+share is counted on, worth hundredths of a point at 1280 and more at 390 because the
+column is narrower and every line moved. **Nothing shipped darker**: 7.25% clears its flat
+15% ceiling by 7.75 points, the ground answers to that 15% with no ratchet and no
+exception, and the raw ratchet went down at both widths in the same pass.
+`scripts/wave412-screenshots.py` carries all of this where the numbers are.
 
 The 1280 reading is also far steadier: the wave 413 note records a spread of 0.17 of a
 point across eight readings, and this head reads 0.02 across three, because there is
@@ -820,9 +825,12 @@ so a source whose transparent pixels carry RGB 0,0,0 comes out opaque black.
 pixels, and the candidate list is 400w, 640w and the 711w original, so **every
 device picked the 400w step**. Navy and orange artwork on a black plate, in the
 header and the footer of all 36 prerendered pages, at every width, desktop
-included. Thirteen variants of nine transparent sources were affected: both
-lockups, the Zoopla ink mark, the solution hub and trio, the AI-team trio wave
-and the capability band.
+included. Thirteen variants of **seven** transparent sources were affected (⚠
+CORRECTED BY WAVE 415, rel414b MINOR 4; this said "nine", and the list in the
+same sentence has always been seven): both lockups, the Zoopla ink mark, the
+solution hub and trio, the AI-team trio wave and the capability band. Thirteen
+is right. The distinct stems are `logo-lockup`, `logo-lockup-reverse`,
+`zoopla-ink`, `hub`, `trio`, `trio-wave` and `collective-capability-team`.
 
 **The pipeline keeps RGBA where the source has it** and WebP carries alpha in
 its lossy mode, so a variant is a variant of its source again. Every affected
@@ -843,8 +851,16 @@ relative luminance of the box against the ground framing it in the same shot.
 
 | | before (the flattened variant) | after | floor |
 |---|---|---|---|
-| header lockup, on the white bar | **0.200** | **0.814** (darkest of 70 shots) to 0.823 | 0.80 |
-| footer lockup, on the cream | **0.200** | **0.673** (darkest of 70) to 0.680 | ground minus 0.30 |
+| header lockup, on the white bar | **0.200** | **0.814** (darkest of 65 boxes) to 0.823 | 0.80 |
+| footer lockup, on the cream | **0.200** | **0.673** (darkest of 65) to 0.680 | ground minus 0.30 |
+
+⚠ **CORRECTED BY WAVE 415, rel414b MINOR 4**: both rows said "of 70 shots". It is
+**65**, which is what section 18.8 has always said: the run is 70 shots, but
+`check_logo` is called only where the page is chromed, and the 404 carries no
+header and no footer by design, so 13 chromed routes at 5 profiles is 65 header
+boxes and 65 footer boxes. No figure elsewhere in this report was derived from
+the 70, and the `0.814` and `0.673` minima are unchanged: they are the minimum
+of the set, and the set was always the 65.
 
 The floor is 0.80 where the ground reads white, which is the header, and on any
 ground the mark may be no more than 0.30 darker than the ground beside it. That
@@ -854,9 +870,17 @@ reach 0.80. A black plate is 0.65 darker than its ground; honest artwork is
 0.165 to 0.178 darker.
 
 **The dark-pixel share, home at 1280: 23.81% before, 23.64% after.** The ground
-figure, which is the one that means the page is light, is 9.16% either way,
-because the plates are outside the photograph masks and the ground figure never
-saw them. Wave 414 raised `RAW_CEILING` from 23.70% to 23.85% and blamed a fresh
+figure is 9.16% either way, and ⚠ **CORRECTED BY WAVE 415, rel414b MINOR 3**: the
+sentence here said the plates were OUTSIDE the photograph masks. They were
+INSIDE them. `MASKS` in `scripts/wave412-screenshots.py` is
+`querySelectorAll('img, canvas, svg, .section-dark')` and the lockup is an
+`<img>` measured at 118 by 44 CSS px in `home-390.png` and 140 by 52 in
+`home-768.png`, far over the `width < 2 || height < 2` skip. So 9.16% either way
+is right BECAUSE the plates were masked: the ground figure is silent about this
+defect rather than exonerating of it, and what actually proves the plates are
+gone is the alpha assertion in `scripts/wave414-responsive-images.py` and the
+header and footer luminance readings in `scripts/wave414-mobile.py`, both of
+which read pixels the masks do not hide. Wave 414 raised `RAW_CEILING` from 23.70% to 23.85% and blamed a fresh
 WebP encode; **that was this defect**, and the ceiling is back at 23.70% with
 four readings of 23.64%, 23.65%, 23.56% and 23.64% under it. At 390 the ratchet
 comes down again, 16.85% to 16.70%, against four readings of 16.58%.

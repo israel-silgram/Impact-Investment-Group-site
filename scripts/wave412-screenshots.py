@@ -126,6 +126,11 @@ PAGES = [
 ]
 
 MIN_TEXT_CHARS = 60
+# The deepest the first ink may sit in a chromed shot, in CSS pixels. The bar
+# is 72px tall at 1280 and 56px at 390 and its logo starts about 6px down, so
+# any honest shot reads well under this; the bound is deliberately loose
+# because this asserts THAT THE BAR IS THERE, not where it is. Wave 415.
+HEADER_INK_MAX = 90.0
 DARK_PIXEL_CEILING = 0.15
 LIGHT_GROUND_FLOOR = 0.8
 DARK_PIXEL_LUMINANCE = 0.2
@@ -218,9 +223,23 @@ SAMPLE_EVERY = 4
 # steps were navy and orange artwork on a SOLID BLACK RECTANGLE, in the header
 # and the footer of all 36 prerendered pages at every width, and `sizes` meant
 # every device picked one of them. Two black plates on every shot are dark
-# pixels, and they are OUTSIDE the photograph masks, so they moved the raw
-# figure and they were part of the 0.0001 the ground figure did not move by.
-# The rel414 re-check found it by looking at the pictures.
+# pixels, and they moved the RAW figure, which masks nothing.
+#
+# ⚠ WAVE 415, rel414b MINOR 3: THE SENTENCE THAT WAS HERE HAD IT BACKWARDS.
+# It said the plates were OUTSIDE the photograph masks and that they were
+# therefore part of what the ground figure moved by. `MASKS` below is
+# `querySelectorAll('img, canvas, svg, .section-dark')` and the lockup is an
+# `<img>` whose rendered box the rel414b re-checker measured at 118 by 44 CSS
+# px in home-390.png and 140 by 52 in home-768.png, far over the
+# `width < 2 || height < 2` skip. THE PLATES WERE INSIDE THE MASKS. So the
+# ground figure could not have moved by them and did not: it is SILENT about
+# this defect, which is the opposite of evidence that the page was fine. The
+# conclusion below is right, and it is right for that reason rather than the
+# one that was written here. What actually proves the plates are gone is the
+# alpha assertion in scripts/wave414-responsive-images.py and the header and
+# footer luminance readings in scripts/wave414-mobile.py, both of which read
+# pixels the masks do not hide.
+# The rel414 re-check found the defect by looking at the pictures.
 #
 # With the alpha kept, four readings of this head at 1280: 23.64%, 23.65%,
 # 23.56% and 23.64%, so the page is LIGHTER than the head wave 414 raised the
@@ -233,10 +252,20 @@ SAMPLE_EVERY = 4
 # with wave 414's own 5.36-point drop the figure is 5.51 points below where
 # wave 413 left it.
 #
-# ⚠ THE PAGE IS NOT DARKER AND THE GROUND FIGURE PROVES IT. With the
+# ⚠ THE PAGE IS NOT DARKER, AND THE GROUND FIGURE MOVED BOTH WAYS. With the
 # photographs, the map field and the island masked out, the home page reads
-# 9.16% at 1280 against 9.17% before, and 7.25% at 390. The ground answers to
-# the flat 15% with no ratchet and no exception, and it went down.
+# 9.16% at 1280 against 9.17% before, which went DOWN by 0.01 of a point, and
+# 7.25% at 390 against 7.08% before, which went UP by 0.17.
+#
+# ⚠ WAVE 415, rel414b MINOR 2: THAT SENTENCE USED TO END "and it went down",
+# with one figure that did and one that did not inside it. Both numbers are
+# stated here now. The rise at 390 is the `max-lg:leading-[1.6]` reflow moving
+# the `SAMPLE_EVERY = 4` grid the share is counted on, which wave 413's own
+# note in this file says is worth hundredths of a point and which at 390 is
+# worth more because the column is narrower and every line moved. NOTHING
+# SHIPPED DARKER: 7.25% clears its flat 15% ceiling by 7.75 points, the ground
+# answers to that 15% with no ratchet and no exception, and the raw ratchet
+# went DOWN at both widths in the same pass.
 #
 # And the 1280 reading is far steadier than it was: the note above records a
 # spread of 0.17 of a point across eight readings, and this head reads 0.09
@@ -322,14 +351,67 @@ def dark_shares(path: Path, masks) -> tuple[float, float]:
 
 
 def settle(page):
-    """Scroll the page once so no section is photographed mid-reveal."""
+    """Scroll the page once so no section is photographed mid-reveal.
+
+    ⚠ `behavior: 'instant'`, NOT A BARE scrollTo. WAVE 415, rel414b MINOR 1.
+    `src/styles.css` carries `scroll-behavior: smooth` on `html`, so a bare
+    `scrollTo(0, y)` from script is ANIMATED. This function used to issue
+    eighteen of them in a loop and then one more back to 0, wait a fixed
+    600ms, and photograph whatever was on screen; nothing anywhere confirmed
+    the page had arrived. Wave 414b found that artefact biting its own 375px
+    profile and fixed it in `scripts/wave414-mobile.py` alone, leaving this
+    gate, the one that produces the dark-pixel numbers, with the same bug and
+    no assertion. The three gates now settle the same honest way: instant
+    scroll, a polled confirmation of the top that FAILS rather than waits, and
+    where a shot is saved, an assertion on the saved image itself.
+    """
     page.evaluate(
         "async () => { const step = innerHeight; "
         "for (let y = 0; y < document.body.scrollHeight; y += step) "
-        "{ scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); } "
-        "scrollTo(0, 0); await new Promise(r => setTimeout(r, 200)); }"
+        "{ scrollTo({ top: y, behavior: 'instant' }); "
+        "await new Promise(r => setTimeout(r, 120)); } }"
     )
-    page.wait_for_timeout(600)
+    page.wait_for_timeout(300)
+
+
+def to_top(page) -> float:
+    """Put the page at the top and return where it actually is.
+
+    Returned rather than asserted here, so the caller names the shot in the
+    failure. A page that will not go back to 0 is a page nothing below can be
+    measured on, and a full-page screenshot taken from halfway down is a
+    screenshot of a page mid-reveal. Identical to `to_top` in
+    `scripts/wave414-mobile.py` on purpose: three gates, one settle.
+    """
+    for _ in range(12):
+        page.evaluate("() => scrollTo({ top: 0, behavior: 'instant' })")
+        page.wait_for_timeout(100)
+        if page.evaluate("() => window.scrollY") <= 0.5:
+            return 0.0
+    return page.evaluate("() => window.scrollY")
+
+
+def first_ink_row(path: Path, limit: int = 240):
+    """The first row of the saved shot with any ink in it, in CSS pixels.
+
+    WAVE 415, rel414b MINOR 1's "assert on the saved image itself". This gate
+    shoots full page at deviceScaleFactor 1, so a document pixel is an image
+    pixel and no scaling is needed. The site is white at the top with the
+    sticky bar's own artwork in it, so on every chromed route the first ink is
+    the logo at about 6 CSS px. A shot whose top rows are blank is a shot with
+    no bar in it, which is what a settle that photographs mid-animation
+    produces, and it is the artefact nothing in THIS script could see before.
+    """
+    with Image.open(path) as image:
+        rgb = image.convert("RGB")
+        width, height = rgb.size
+        pixels = rgb.load()
+        for y in range(0, min(limit, height)):
+            for x in range(0, width, 2):
+                r, g, b = pixels[x, y][:3]
+                if r < 246 or g < 246 or b < 246:
+                    return float(y)
+    return None
 
 
 # The computed background-color is read through a canvas rather than parsed.
@@ -875,6 +957,19 @@ def main() -> None:
                 page = browser.new_page(viewport={"width": width, "height": 900})
                 page.goto(f"{base}{path}", wait_until="networkidle")
                 settle(page)
+                # ⚠ AND IT MUST HAVE ARRIVED. WAVE 415, rel414b MINOR 1. The
+                # old settle scrolled smoothly and waited blind; every number
+                # below is read off a page this line has now confirmed is at
+                # the top, and a page that will not go back fails here rather
+                # than quietly producing a dark-pixel share for the wrong
+                # frame.
+                resting = to_top(page)
+                if resting > 0.5:
+                    failures.append(
+                        f"{slug} at {width}: the page would not return to the top "
+                        f"after settle, resting at scrollY={resting:g}. Everything "
+                        f"measured on this shot is measured on the wrong frame."
+                    )
 
                 overflow = page.evaluate(
                     "() => [document.documentElement.scrollWidth, window.innerWidth]"
@@ -889,6 +984,24 @@ def main() -> None:
                 target = out / f"{slug}-{width}.png"
                 page.screenshot(path=str(target), full_page=True)
                 share, ground = dark_shares(target, masks)
+                # AND THE SHOT ITSELF IS READ, at the top, for the bar. Wave
+                # 415, rel414b MINOR 1. The 404 is the one route with no
+                # header, deliberately: scripts/pages-postbuild.mjs writes it
+                # as a standalone document, so it is exempt by name and by
+                # nothing else.
+                if slug != "404":
+                    ink = first_ink_row(target)
+                    if ink is None or ink > HEADER_INK_MAX:
+                        failures.append(
+                            f"{slug} at {width}: the first ink in {target.name} is at "
+                            + (
+                                "nothing in the top 240px"
+                                if ink is None
+                                else f"y={ink:g}"
+                            )
+                            + f", past the {HEADER_INK_MAX:g}px the sticky bar's own "
+                            "artwork occupies. The bar is not in its own shot."
+                        )
 
                 page.add_script_tag(content=axe_source)
                 axe_result = json.loads(json.dumps(page.evaluate(AXE_RUN)))
