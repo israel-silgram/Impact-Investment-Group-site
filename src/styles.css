@@ -167,11 +167,25 @@
   --duration-fade: 150ms;
   --duration-exit: 120ms;
 
-  /* The header's two heights. Named because three other things have to agree
-     with them: the condense transition, the scroll-margin every anchor target
-     takes, and the back-to-top control's clearance. */
-  --header-height: 72px;
-  --header-height-condensed: 56px;
+  /* THE BAR'S ONE HEIGHT, AND IT IS STATIC. WAVE 414.
+     Named because three other things have to agree with it: the scroll-margin
+     every anchor target takes, the root's scroll-padding, and the back-to-top
+     control's clearance.
+
+     56px on a phone and 72px from 640px, because the height is set by the
+     logo inside it: the lockup is `h-11 sm:h-[52px]`, so 44px of artwork on a
+     phone clears a 56px bar with 6px either side and 52px of artwork needs 72.
+     The breakpoint here is the logo's own breakpoint and has to stay that way.
+
+     There was a `--header-height-condensed` beside this and wave 414 retired
+     it. See the block above `.site-header` for what replaced it and why. */
+  --header-height: 56px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --header-height: 72px;
+  }
 }
 
 /* shadcn semantic layer, mapped onto the brand palette.
@@ -767,26 +781,49 @@
 
 /* ---------- The header that gets out of the way ---------- */
 
-/* THE HEIGHT IS ANIMATED, AND IT IS ONE OF THIS WAVE'S TWO EXCEPTIONS TO
-   "TRANSFORM AND OPACITY ONLY" (the accordion is the other).
+/* ⚠ WAVE 414: THE HEIGHT DOES NOT MOVE ANY MORE, AND THAT IS THE WHOLE FIX.
 
-   The point of condensing is that the visitor GETS THE SPACE BACK, and a
-   sticky bar occupies flow: a transform on it would move the paint and leave
-   the 72px hole behind. So it is height, on one element, at the top of the
-   document, with nothing beside it in its own stacking context, crossed at
-   most once per change of scroll direction.
+   Wave 413 animated the bar from 72px to 56px over 200ms to hand the visitor
+   16px of viewport back, and named it one of two exceptions to "transform and
+   opacity only". The rel413 verdict's closing note said it reflowed the
+   document on every frame of every condense and handed the measurement to
+   this wave. Measured, on the 4x-slowed phone profile the brief asks for, at
+   390x844, over five down-and-up scroll cycles that cross the threshold ten
+   times:
 
-   72px to 56px is 16px of viewport on every route, which on a 667px phone is
-   two and a half per cent of everything the visitor can see at once. */
+     home              animated  max 50.10ms  p95 33.40ms  53 to 56 frames over
+                                 17ms  CLS 0.0015 to 0.0115
+     home              static    max 16.80ms  p95 16.80ms  0 frames over 17ms
+                                 CLS 0.0000
+     register/investor animated  max 33.40ms  p99 16.80ms  1 to 2 frames over
+                                 17ms
+     register/investor static    max 16.80ms  p99 16.80ms  0 frames over 17ms
+
+   Three frames' worth of work in one frame's budget, fifty times a scroll, on
+   the page the site exists to be landed on. A snapped height with no
+   transition was measured too and is NOT the answer: it still costs 9 to 15
+   dropped frames and it puts 0.0033 to 0.0092 of layout shift on the page,
+   because an unanimated reflow is still a reflow.
+
+   SO THE BAR HAS ONE HEIGHT AND IT IS STATIC, and the 16px comes back a
+   better way than it did. It used to arrive only after 24px of scroll and go
+   away again on the way back up; now a phone is given it on the first paint
+   and never has it taken away, because --header-height is 56px below 640px.
+   From 640px the bar is 72px, which is what the desktop logo needs and what
+   the hero's own `100svh - 77px` was fitted to, so nothing above a phone
+   moves at all.
+
+   The two things the condense still changes are both FREE: the logo's scale,
+   which is a transform on the compositor, and the box-shadow, which is paint.
+   The bar therefore still visibly tightens under a scroll, which is the job
+   wave 413 gave it; what it no longer does is move the document to do it.
+
+   AND THE LAW OF MOTION IS DOWN TO ONE EXCEPTION. Wave 413 declared two
+   transitions on a layout property, the header's height and the accordion's.
+   The header's is gone, so the accordion's is the only one left on the site. */
 .site-header {
   height: var(--header-height);
-  transition:
-    height var(--duration-hover) var(--ease-out-soft),
-    box-shadow var(--duration-hover) var(--ease-out-soft);
-}
-
-.site-header[data-condensed="true"] {
-  height: var(--header-height-condensed);
+  transition: box-shadow var(--duration-hover) var(--ease-out-soft);
 }
 
 /* The logo shrinks with the bar rather than being cropped by it. From the LEFT
@@ -807,7 +844,16 @@
    heading's 130px) keep what they ask for. Any anchor that asks for nothing
    now clears the bar instead of landing underneath it. */
 :where([id]) {
-  scroll-margin-top: var(--header-height-condensed);
+  scroll-margin-top: var(--header-height);
+}
+
+/* AND THE SAME NUMBER ON THE SCROLLING BOX ITSELF, so a hash in the address
+   bar, a `scrollIntoView` and a skip link all land where an anchor does
+   rather than each finding its own answer. Wave 414: with the bar static this
+   is a single honest figure at last, where before it had to guess which of
+   two heights the bar would be in by the time the scroll finished. */
+html {
+  scroll-padding-top: var(--header-height);
 }
 
 /* ---------- The magic line ---------- */

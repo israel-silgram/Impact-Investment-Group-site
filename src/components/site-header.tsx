@@ -25,19 +25,20 @@ const loginSearch = { enquiry: "waitlist", type: "waitlist" } as const;
  *
  * Two pieces of motion here, and each one is a job rather than a flourish.
  *
- * THE CONDENSE. Past 24px of scroll the bar goes from 72px to 56px, the logo
- * scales to 0.85 from its left edge, and the card shadow appears. The visitor
- * gets 16px of viewport back on every route, which on a 667px phone screen is
- * two and a half percent of everything they can see. It expands again when
- * they scroll back up, because scrolling up is what someone does when they are
- * looking for the navigation.
+ * THE CONDENSE. Past 24px of scroll the logo scales to 0.85 from its left
+ * edge and the card shadow appears, so the bar visibly tightens under the
+ * page. It relaxes again when they scroll back up, because scrolling up is
+ * what someone does when they are looking for the navigation.
  *
- * ⚠ THE HEIGHT IS ANIMATED, AND IT IS THE SECOND EXCEPTION TO THIS WAVE'S
- * TRANSFORM-AND-OPACITY RULE (the accordion is the first). There is no way to
- * give the viewport space back with a transform: a sticky bar occupies flow,
- * and a transform on it moves the paint without moving the space. It is one
- * property on one element at the top of the document, 200ms, once per crossing
- * of the threshold. Everything else here is transform and opacity.
+ * ⚠ WAVE 414: THE BAR'S HEIGHT IS NO LONGER PART OF THIS. Wave 413 animated
+ * it from 72px to 56px to hand 16px of viewport back, and that was a 200ms
+ * relayout of the whole document on every crossing: measured on the 4x-slowed
+ * phone profile it cost the home page up to 50.10ms inside a 16.7ms frame, 53
+ * to 56 dropped frames per scroll. The bar has one static height now, 56px on
+ * a phone and 72px from 640px, so the 16px arrives on the first paint and is
+ * never taken away again, and the two things this file still changes on a
+ * condense are a transform and a shadow. `styles.css` above `.site-header`
+ * carries the measurements. Everything here is transform and opacity.
  *
  * THE MAGIC LINE. One underline that slides between the nav links on hover and
  * on keyboard focus, and settles on the active route whenever nothing is being
@@ -518,6 +519,18 @@ export function SiteHeader() {
             A div with an onClick says the same thing to a pointer and nothing
             at all to the accessibility tree, which is what was wanted.
 
+            ⚠ WAVE 414 (rel413b MIN-6): and it SAYS so now rather than
+            leaving it to be inferred. A plain <div> with no role is already
+            ignored by a screen reader, but "already ignored" is a deduction
+            from an absence, and the next person to give this element a child
+            with text in it would not know that was load-bearing.
+            `aria-hidden="true"` states it. Nothing focusable is inside, so
+            this cannot become the `aria-hidden-focus` violation the <button>
+            version was. It stays POINTER-ONLY on purpose: Escape and the
+            Close control beside the logo are the keyboard paths, and a second
+            "Close menu" in the tree is noise rather than help. Wave 414's
+            drawer probe step presses it at 390 and asserts the panel goes.
+
             ⚠ AND IT IS ABOVE THE HEADER NOW. It shipped at z-40 under a z-50
             bar, so the top of the screen stayed undimmed white with a live
             logo link in it while everything below was at 40%: the one thing
@@ -525,6 +538,7 @@ export function SiteHeader() {
             backdrop is z-50 and comes after </header> in source order, so it
             paints over the bar; the panel is z-[60] and stays over both. */}
           <div
+            aria-hidden="true"
             onClick={() => {
               setOpen(false);
               triggerRef.current?.focus();

@@ -295,9 +295,25 @@ export function HomeHero() {
           <span className="font-heading text-[10px] font-bold uppercase tracking-[0.16em] text-ink-soft">
             Powered by
           </span>
+          {/* WAVE 414 (rel413b MIN-5): eager, like the other three
+              above-the-fold images. The hero is fitted to land inside the
+              first screen from 768px and this line closes it, so the mark is
+              in the first viewport at every width the site is read at; wave
+              413's own probe (b) lists it among the first-viewport washes,
+              which is how the re-checker found it. `lazy` on something the
+              browser can already see only delays it.
+
+              It stays in probe (b)'s wash list, and it belongs there: the
+              list is every element in the first viewport carrying an opacity
+              under 1, and this one is at 0.90. What that probe asserts is
+              that no first-viewport element is INVISIBLE and that none of
+              them is animated above its resting value; a mark at 0.90 is
+              neither, and taking it out of the list would stop it being
+              checked rather than stop it being wrong. */}
           <img
             src="/images/brand/zoopla-ink.webp"
-            loading="lazy"
+            loading="eager"
+            fetchPriority="low"
             alt="Zoopla"
             width={548}
             height={120}

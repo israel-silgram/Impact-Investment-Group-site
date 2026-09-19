@@ -40,8 +40,21 @@ export interface DisclosureItem {
 
 /** The row's own duration, in ms. Must match --duration-enter in styles.css. */
 const ROW_MS = 250;
-/** The condensed header, in px. Must match --header-height-condensed. */
-const HEADER_CONDENSED = 56;
+/**
+ * The bar's height, in px, read off the page rather than copied.
+ *
+ * WAVE 414: this was a hard 56, matching a `--header-height-condensed` that no
+ * longer exists. The bar is static now and 56 on a phone but 72 from 640px, so
+ * a constant would be wrong at one width or the other. The live element is the
+ * only thing that knows, and a sticky bar at the top of the document is
+ * exactly what `getBoundingClientRect().height` is cheap to ask.
+ */
+const HEADER_FALLBACK = 56;
+
+function headerHeight(): number {
+  const bar = document.querySelector("header");
+  return bar ? bar.getBoundingClientRect().height : HEADER_FALLBACK;
+}
 /** Breathing room between the bar and the row it would otherwise hide. */
 const CLEARANCE = 12;
 
@@ -70,7 +83,7 @@ export function Disclosure({ items, className }: { items: DisclosureItem[]; clas
         );
         if (!trigger) return;
         const top = trigger.getBoundingClientRect().top;
-        const floor = HEADER_CONDENSED + CLEARANCE;
+        const floor = headerHeight() + CLEARANCE;
         if (top >= floor) return;
         window.scrollBy({ top: top - floor, behavior: reduced ? "auto" : "smooth" });
       },
