@@ -209,9 +209,13 @@ function ContactPage() {
               >
                 <p className="flex items-center gap-2">
                   <LifeBuoy aria-hidden="true" className="size-4 shrink-0 text-orange-500" />
-                  {/* Orange TEXT on navy is orange-500 at 4.46:1, not the
-                      orange-700 the light grounds take, which would be 2.0:1
-                      here. The island rules restore it; this class says so. */}
+                  {/* Orange TEXT on an island is orange-500, not the
+                      orange-700 the light grounds take. This island's ground
+                      is navy-950, where orange-500 is 4.67:1 and orange-700
+                      is 3.04:1. (4.46:1 is orange-500 on navy-900, which is
+                      the ink colour and not this card's ground; wave 412b
+                      corrected it. Both pass; the old figure understated it,
+                      and 4.46 would have read as a fail.) */}
                   <span id="crisis-heading" className="eyebrow tracking-[0.14em] text-orange-500">
                     In a crisis
                   </span>

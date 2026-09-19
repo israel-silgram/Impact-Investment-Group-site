@@ -44,11 +44,12 @@ it. Per page, per width:
        - deleting the demand map island outright still leaves the page near
          17%, because removing area takes it out of the denominator as well.
 
-     So HOME is listed in RAW_CEILING below with the figure measured at this
-     wave's head. That is not the check being relaxed: the ground assertion
-     still binds at 15% there, the raw figure is still asserted, and it is
-     asserted against a number it can only go down from. Every other route
-     answers to the flat 15% on both.
+     So HOME is listed in RAW_CEILING below at the figure measured at this
+     wave's head, rounded up to the last digit this script prints. That is
+     not the check being relaxed: the ground assertion still binds at 15%
+     there, the raw figure is still asserted, and it is asserted against a
+     number it can only go down from. Every other route answers to the flat
+     15% on both.
   5. AXE REPORTS NO SERIOUS OR CRITICAL COLOUR-CONTRAST VIOLATION. Inverting a
      palette is exactly the operation that turns passing text into failing
      text, so this runs on every page rather than on a sample.
@@ -124,11 +125,18 @@ DARK_PIXEL_LUMINANCE = 0.2
 SAMPLE_EVERY = 4
 
 # Routes whose RAW share cannot reach 15% because of approved photography and
-# the brand fills, with the figure measured at the wave 412 head. A ratchet: a
-# later wave may lower these and may not raise them without saying why here.
+# the brand fills. A RATCHET: a later wave may lower these and may not raise
+# them without saying why here.
+#
+# Each is THE FIGURE MEASURED AT THIS HEAD, rounded up to the 0.01 of a point
+# this script prints and no further. The wave 412 values, 0.240 and 0.230,
+# carried 0.45 and 0.81 points of headroom against measurements of 23.55% and
+# 22.19% while the docstring and the report both called them the measured
+# figure; rel412 MINOR 7 was right that a ratchet with slack in it is not the
+# thing it says it is. Measured at the wave 412b head: 23.56% and 22.19%.
 RAW_CEILING = {
-    ("home", 1280): 0.240,
-    ("home", 390): 0.230,
+    ("home", 1280): 0.2357,
+    ("home", 390): 0.2220,
 }
 
 

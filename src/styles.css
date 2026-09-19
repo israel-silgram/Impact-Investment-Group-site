@@ -354,7 +354,9 @@
      is light. teal-400 is 2.41:1 on white and 2.14:1 on the cream, well
      under the 3:1 that SC 1.4.11 and 2.4.11 want of a focus indicator;
      teal-600 is 5.25:1 and 4.67:1. The two navy islands put it back to 400
-     on their own ground (7.82:1 there), just below. */
+     on their own ground, just below: `.section-dark` paints navy-950, where
+     teal-400 is 8.20:1. (7.82:1 is the figure on navy-900, which is the ink
+     colour and not any island's ground; wave 412b corrected it here.) */
   :focus-visible {
     outline: 2px solid var(--color-teal-600);
     outline-offset: 2px;
