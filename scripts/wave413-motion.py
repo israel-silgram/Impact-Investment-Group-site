@@ -58,10 +58,14 @@ HONEST, which on this site means ten specific things.
       a PerformanceObserver on `longtask`. Reported as a count and the
       durations; the budget is stated below and asserted.
 
-  (g) NO IMAGE FADES PAST ITS OWN OPACITY. With the network throttled, the
-      computed opacity of every image the fade touches is sampled every 16ms
-      from the first byte of the navigation, and the highest value ever seen
-      is compared against the value the image rests at. Four images on this
+  (g) NO IMAGE FADES PAST ITS OWN OPACITY. With every image request PARKED
+      until `ImageFade` has run, the computed opacity of every image the fade
+      touches is sampled every 16ms from the first byte of the navigation, and
+      the highest value ever seen is compared against the value the image
+      rests at. (Wave 414, rel413b MIN-4: this comment used to say "with the
+      network throttled". There is no throttling in this file and never was;
+      what is implemented is the request parking below, which is stronger
+      because it cannot lose the race on a fast machine.) Four images on this
       site are decorative washes at 7, 20, 25 and 70 per cent, and wave 413's
       first draft ramped every one of them to FULL STRENGTH for 350ms before
       snapping it back, which no settled screenshot can see.
@@ -952,9 +956,15 @@ def long_task_probe(browser, base: str, failures: list[str]) -> None:
 # local build the hero photographs are decoded before the bundle has even
 # hydrated: they are `complete`, `ImageFade` never touches them, and the probe
 # reports a clean run having measured nothing. That is exactly why wave 413's
-# own gate came back green over this defect. So the connection is throttled
-# AND every image response is held back IMAGE_HOLD_MS, which puts every image
-# on the page behind the script that fades it, every time.
+# own gate came back green over this defect. So every image response is PARKED
+# UNANSWERED until `img[data-img="pending"]` is attached, which is the
+# observable fact that `ImageFade` has run, and only then released. That puts
+# every image on the page behind the script that fades it, every time.
+#
+# ⚠ WAVE 414, rel413b MIN-4: this comment used to describe a throttled
+# connection and an `IMAGE_HOLD_MS` constant. Neither has ever existed in this
+# file. The parking is what is implemented, it is better than either, and the
+# comment now says what the code does.
 IMAGE_WATCH = """
 (() => {
   // Parallel arrays rather than a Map: the records have to come back over the

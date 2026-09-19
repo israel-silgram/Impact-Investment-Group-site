@@ -57,6 +57,18 @@ A sticky bar occupies flow: a transform on it moves the paint and leaves the 72p
 behind, so the viewport gains nothing at all. It is one property, on one element, at the
 top of the document, crossed at most once per change of scroll direction.
 
+> **SUPERSEDED BY WAVE 414, and the rest of this report is left as wave 413 wrote it.**
+> rel413b MIN-9 asked the phone pass to measure this, and it did: on the 4x-slowed
+> phone profile at 390x844 the animated height cost the home page **up to 50.10ms
+> inside a 16.7ms frame and 53 to 56 dropped frames per scroll**, against a static
+> bar's **16.80ms and none**. The bar has one static height now, 56px below 640px and
+> 72px from 640px, so the 16px this paragraph is about arrives on the first paint
+> instead of after 24px of scroll, and `--header-height-condensed` no longer exists.
+> **Rule 2 therefore has ONE exception on this site and not two**: the disclosure's
+> height, below. Every other sentence in this report about the condense describes what
+> wave 413 shipped, which is what a report is for; `docs/WAVE414_REPORT.md` carries
+> what replaced it.
+
 **The disclosure's height.** A disclosure has to push what is under it down the page.
 That IS the animation, and there is no transform that moves the rest of the document. The
 library already animates exactly one element from 0 to its measured content height; this
@@ -230,12 +242,12 @@ removed outright rather than flattened.
 | Count-up | Counts to the figure over 1.4s | The figure is there, and always was: `useCountUp` initialises to `value` (wave 412b) and refuses to rewind under this preference. |
 | Live dot | Breathes 0.45 to 1 over 2s | **Animation removed, opacity pinned to 1.** A flattened infinite animation freezes wherever it lands; the solid dot and the `Activity` glyph say "live" without it. |
 | Registration step | 120ms exit, 250ms directional entrance | `moveTo` takes its instant branch: the step changes with no fade and no slide. The direction was never the information; the new question, the longer bar and the new counter are. |
-| Progress bar | 300ms width | Jumps to the new width. |
+| Progress bar | 300ms `scaleX` | Jumps to the new length. *(414, rel413b MIN-1: this row said "300ms width" after 413b had already moved the bar off `width` and onto `transform`. The duration was right; the property was the one the fix pass replaced.)* |
 | Saved mark | Draws itself over 400ms | The glyph is simply there beside the word "Saved". |
 | Validation | 150ms fade and 2px rise | The message is there at once, `role="alert"` announces it, and the field border is `destructive` either way. |
 | Disclosure row | 250ms height, marker turns 180 degrees | Opens and closes at once. The marker still changes from Plus to Minus, because opacity picks between two glyphs that are both always painted. The scroll-into-view is a JUMP. |
-| Demand map | Skeleton sheen, then a 300ms canvas fade | **Sheen removed** (an infinite animation, same reason as the live dot). The plate is there while the field builds, and the canvas appears when it is ready. |
-| Photographs | 300ms fade when decoded | **The component returns before it sets anything.** No attribute is written, so no image ever spends a frame at opacity 0. |
+| Demand map | Skeleton sheen, then a 350ms canvas fade | **Sheen removed** (an infinite animation, same reason as the live dot). The plate is there while the field builds, and the canvas appears when it is ready. |
+| Photographs | 350ms fade when decoded | **The component returns before it sets anything.** No attribute is written, so no image ever spends a frame at opacity 0. |
 | Council marquee | 40s lane, pausing on hover and focus | Unchanged from wave 412: the animation is removed and the track wraps, with the clone lane hidden. |
 | Demand map node and hub pulse | 2.6s and 3.2s loops | Unchanged from wave 412: removed outright. |
 | CTA ring | 2.4s pulse | Unchanged from wave 412: removed, leaving a static raised shadow. |
@@ -294,9 +306,11 @@ built from. `--shadow-glow-teal` was added to `styles.css` to replace a literal 
 
 ---
 
-## 5. The gate, measured in this worktree
+## 5. The gate, measured in this worktree, at `59f36e5`
 
-Every command run in the foreground, in this worktree, at the head this branch ends on.
+⚠ **THIS IS THE GATE AS WAVE 413 SHIPPED IT, AT `59f36e5`, AND IT IS NOT THE HEAD THIS BRANCH ENDS ON.** The fix pass that follows the rel413 verdict re-ran the whole gate at `8c8d03d` and its table is section 13. Where the two disagree, section 13 is the later measurement: it lints 24 changed files where this one lints 23, and its probe numbers are the ones taken after the image-fade fix. Both are kept, because a gate table for a head that was superseded is evidence about that head rather than something to delete. *(414, rel413b MIN-3: the sentence here used to claim this was the head the branch ends on, which stopped being true the moment section 13 existed.)*
+
+Every command run in the foreground, in this worktree, at `59f36e5`.
 
 | Gate | Command | Exit | Numbers |
 |---|---|---|---|
@@ -311,7 +325,7 @@ Every command run in the foreground, in this worktree, at the head this branch e
 | Em dashes on this wave's added lines | U+2014 | | **2**, both pre-existing strings re-emitted by prettier (section 7) |
 | En dashes on this wave's added lines | U+2013 | | **0** |
 | `git diff <base>...HEAD -- src/content` | | | **empty** |
-| Tests or checks weakened | | | **One ratchet raised, and it is the home page's RAW dark-pixel ceiling** in `scripts/wave412-screenshots.py`: `("home", 1280)` **0.2357 to 0.2370** and `("home", 390)` **0.2220 to 0.2221**, caused by the three added `<img>` `loading`/`fetchpriority` attributes changing WHEN the hero photographs arrive, so more of them are painted at the moment of the shot. Eight readings, the cause and the reasoning are in the section below. **Nothing else.** The page-GROUND figure that actually means "the page is light" is untouched at a flat 15%, and the gate gained a whole second script, an unmeasured-node failure arm, and the drawer geometry assertion. *(413b: this row used to say "none", which contradicted the body of the same report.)* |
+| Tests or checks weakened | | | **One ratchet raised, and it is the home page's RAW dark-pixel ceiling** in `scripts/wave412-screenshots.py`: `("home", 1280)` **0.2357 to 0.2370** and `("home", 390)` **0.2220 to 0.2221**, caused by the council marquee's phase at the moment of the shot, plus the fourth looping animation this wave put on the page. Eight readings, the cause and the reasoning are in the section below, and that section is now the only account of it. *(414, rel413b MIN-2: this row used to name the three added `loading`/`fetchpriority` attributes instead, which gave a reader two different causes for one number. The `<img>` attributes may contribute; the measured spread of 0.17 of a point across eight readings of the SAME build is the marquee, and that is what the ratchet is set against.)* **Nothing else.** The page-GROUND figure that actually means "the page is light" is untouched at a flat 15%, and the gate gained a whole second script, an unmeasured-node failure arm, and the drawer geometry assertion. *(413b: this row used to say "none", which contradicted the body of the same report.)* |
 
 ### `scripts/wave413-motion.py`, per probe
 
@@ -715,7 +729,7 @@ that run and this section, neither of which is in the bundle.
 | Build | `STATIC_BUILD=true bun run build` | **0** | **36 pages prerendered** |
 | Postbuild | `node scripts/pages-postbuild.mjs dist/client` | **0** | patched 0, trimmed 0 |
 | Wave 412's gate | `python scripts/wave412-screenshots.py` | **0** | **28 shots, every assertion passed.** 279 incomplete axe nodes, **279 measured off the pixels, 0 unmeasured**. Reveal probe minimum opacity **1.000** on both routes. Darkest raw home @ 1280 **23.63%**, darkest ground home @ 1280 **9.17%** |
-| Wave 413's gate | `python scripts/wave413-motion.py` | **0** | 13 routes at 1280 and 390 plus the six standalone probes, the numbers below |
+| Wave 413's gate | `python scripts/wave413-motion.py` | **0** | 13 routes at 1280 and 390 plus the **seven** standalone probes (`drawer_probe`, `step_probe`, `long_task_probe`, `image_fade_probe`, `draw_mark_probe`, `magic_line_probe`, `reduced_exercise_probe`), the numbers below. *(414, rel413b MIN-7: this said six. The adjacent claim of ten named checks (a) to (j) was right.)* |
 | U+2014 on 413b's added lines | | | **0** |
 | U+2013 on 413b's added lines | | | **0** |
 | `git diff 748e0fb...HEAD -- src/content` | | | **empty** |
