@@ -421,8 +421,13 @@ export function EnquiryForm({
                 already changed while the request was in flight; the spinner is
                 what says the change is a WAIT rather than a new label, and the
                 button is already disabled so a second press cannot send a
-                second enquiry. No new copy. */}
-            {isSubmitting ? <Loader2 aria-hidden="true" className="animate-spin" /> : null}
+                second enquiry. No new copy.
+
+                WAVE 413b: and it does not rotate under reduced motion. The
+                dead control and the changed label carry "busy" without it. */}
+            {isSubmitting ? (
+              <Loader2 aria-hidden="true" className="animate-spin motion-reduce:animate-none" />
+            ) : null}
             {isSubmitting
               ? "Sending…"
               : route === "waitlist"

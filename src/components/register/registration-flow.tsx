@@ -621,7 +621,9 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                 disabled={busy || !ready}
                 className="mt-4 w-full whitespace-normal"
               >
-                {busy ? <Loader2 aria-hidden="true" className="animate-spin" /> : null}
+                {busy ? (
+                  <Loader2 aria-hidden="true" className="animate-spin motion-reduce:animate-none" />
+                ) : null}
                 {busy ? copy.creating : copy.create}
               </Button>
               <p className="mt-5 text-center text-sm">
@@ -777,8 +779,17 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                       thing this form needs. The fieldset around it is disabled
                       on `busy`, so the control cannot be pressed twice; the
                       spinner is what says why. No new copy: the label was
-                      already `copy.saving`. */}
-                  {busy ? <Loader2 aria-hidden="true" className="animate-spin" /> : null}
+                      already `copy.saving`.
+
+                      WAVE 413b: and it does not rotate under reduced motion.
+                      The state is still conveyed: the control is dead and the
+                      label has changed, which is the whole of "busy". */}
+                  {busy ? (
+                    <Loader2
+                      aria-hidden="true"
+                      className="animate-spin motion-reduce:animate-none"
+                    />
+                  ) : null}
                   {busy
                     ? copy.saving
                     : index === questions.length - 1

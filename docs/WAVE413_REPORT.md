@@ -32,6 +32,14 @@ reads it where the code is rather than only here.
    `--ease-out-soft` for entrances and `ease-in` for exits, and exits are always shorter
    than the entrance they undo. **Transform and opacity only, with two exceptions**: the
    header's height and the disclosure's height. Both are named below.
+
+   > **Corrected in 413b.** As wave 413 shipped, this sentence was wrong: there were
+   > **three** transitions on a layout property, not two. The magic line transitioned
+   > `width` and the registration progress bar transitioned `width`, and neither was
+   > named here. Both are transforms now (the line is a 1px rule given
+   > `translateX(left) scaleX(width)`, the bar is `w-full` given `scaleX(fraction)`),
+   > measured pixel-exact against the link the line is under at both bar heights, so
+   > the count in this paragraph is now true of the code.
 3. **Nothing hides content.** No text is ever at opacity 0 waiting for a trigger. Wave
    412 fixed `Reveal`; this wave keeps it fixed, removed one place where the same defect
    was already shipping, and adds nothing that could bring it back.
@@ -64,10 +72,17 @@ which wave 412 already had.
 --duration-enter   250ms   a drawer, a disclosure row, a registration step
 --duration-route   200ms   <main> arriving on a client navigation
 --duration-fade    150ms   a menu, a validation message
+--duration-reveal  350ms   a reveal, a photograph, the demand map's canvas
 --duration-exit    120ms   anything leaving (always paired with ease-in)
 --header-height            72px
 --header-height-condensed  56px
 ```
+
+> **Corrected in 413b.** The token comment in `styles.css` filed an image under
+> `--duration-fade`, 150ms; this report said an image fades over 300ms, twice; the
+> code has always used `--duration-reveal`, which is **350ms**. Three numbers for one
+> thing. The number is 350ms, it is what the code does, and it is what both the
+> stylesheet and this report now say.
 
 ---
 
@@ -106,18 +121,20 @@ Twenty-two. Each row is a thing a visitor can do more easily than they could at 
 | # | What moves | Its job |
 |---|---|---|
 | 17 | **The counting figure gets `tabular-nums`** | Barlow's default figures are proportional, so a 1 is narrower than a 0 and the numeral changed WIDTH on nearly every frame: six digits jittering left and right for 1.4 seconds under a headline. This is the whole reason the count is watchable. |
-| 18 | **A 6px dot breathes** beside "live from our platform", 2s | Makes that line read as a claim about NOW. A static caption saying "live" is a label somebody typed; a marker that breathes is the same sentence being made again every two seconds. **The one small loop this wave adds.** |
+| 18 | **A 6px dot breathes** beside "live from our platform", 2s | Makes that line read as a claim about NOW. A static caption saying "live" is a label somebody typed; a marker that breathes is the same sentence being made again every two seconds. **One of the three loops this wave adds, and the only permanent one** (413b: the map's skeleton sheen at 1400ms and `animate-spin` on the three submit buttons are the other two, and each stops existing when the thing it is about finishes). |
 | 19 | **Registration steps move in the direction of travel**: forward from the right, Back from the left, 250ms, the leaving step fading out over 120ms | A survey with no page change and no URL change gave a visitor nothing to tell "I have moved on" from "my answer did not take". Direction is the cheapest possible answer and the same one a paper form gives. |
-| 20 | **The progress bar animates its width**, 300ms | The bar is the only thing on the page that says how much is left, so it has to finish before the visitor has finished reading the new question. |
+| 20 | **The progress bar stretches**, 300ms (`scaleX` from its left edge since 413b; it transitioned `width` as shipped) | The bar is the only thing on the page that says how much is left, so it has to finish before the visitor has finished reading the new question. |
 | 21 | **The saved mark draws itself**, 400ms of `stroke-dashoffset` | Makes the save something the visitor SEES HAPPEN rather than something that was already there when they looked. It is the site's own Lucide `ShieldCheck`, not a new tick: the brand replaced every checkmark here with an icon from that set, and drawing one of those is the version of "the tick draws itself" that does not put a tick back. The same treatment marks the `/contact` success panel. |
 | 22 | **Validation messages fade in**, 150ms, and the field border turns `destructive` | A message appearing between two frames under a field somebody is still looking at reads as the page breaking; over 150ms it reads as an answer. **No shaking and no bouncing anywhere in either form**: these ask a resident about their housing need, and a form that wobbles at somebody reads as a form that is cross with them. |
 
 ### And two that are not animations but belong to the same pass
 
-**The submit spinner**, on both forms. The label already changed while a request was in
-flight and nothing else did, which on a slow connection reads as a press that did not
-take. The control is disabled, so it cannot be pressed twice; the spinner is what says
-why. No new copy: the labels were already `copy.saving` and "Sending".
+**The submit spinner**, on both forms (three buttons). The label already changed while a
+request was in flight and nothing else did, which on a slow connection reads as a press
+that did not take. The control is disabled, so it cannot be pressed twice; the spinner is
+what says why. No new copy: the labels were already `copy.saving` and "Sending".
+**413b: it does not rotate under reduced motion** (`motion-reduce:animate-none`), where
+the dead control and the changed label carry "busy" between them.
 
 **The disclosure keeps your place.** Opening a row further down a long list grows the
 document above wherever the browser had settled, and the row you pressed can end up behind
@@ -142,7 +159,8 @@ competing with the fonts and the bundle. They are explicit now: `eager` with
 the same queue as the pictures the hero exists to show), `lazy` for the remaining
 fourteen.
 
-**And they fade in over 300ms when they decode**, from `src/components/image-fade.tsx`.
+**And they fade in over 350ms when they decode** (`--duration-reveal`; this said 300
+before 413b and the code never did), from `src/components/image-fade.tsx`.
 This is one component rather than a prop on fifty images, and the reason is the invariant:
 an `<img className="fade-in">` whose class carries `opacity: 0` is the wave 412 defect
 with a different name. It walks the document at mount and on every router mutation, and
@@ -187,8 +205,10 @@ removed outright rather than flattened.
 | Drawer | 250ms slide, items 30ms apart | Panel and items are there at once. Focus trap, scroll lock, Escape and the backdrop are unchanged: none of them was ever the animation. |
 | Back to top | 200ms fade in and out, smooth scroll | Appears and disappears at the same two scroll positions, and the scroll is a JUMP. A several-thousand-pixel smooth scroll is the single most nauseating thing a page can do to somebody who set this flag. |
 | Route change | `<main>` rises 8px over 200ms | The new page is simply there. Scroll restoration is the router's and is `auto` either way. |
-| Button press | 0.98 for 80ms | No scale. The disabled state, the spinner and the label change all remain. |
-| Button and card lift | 1px and 2px with a deepening shadow | The shadow difference is still applied, instantly. The focus ring is unchanged. |
+| Button press | 0.98 for 80ms | **Still 0.98, applied instantly.** Corrected in 413b: the global block flattens `transition-duration` only, so `.press:active { scale: 0.98 }` still computes and still applies, it just has no travel. The row used to say "no scale", which was wrong and understated what a visitor gets. |
+| Button and card lift | 1px and 2px with a deepening shadow | **The lift and the shadow are both still applied, instantly.** Corrected in 413b: the row used to credit only the shadow, and the `translate` survives flattening exactly as the shadow does. The focus ring is unchanged. |
+| Submit spinner | `animate-spin`, while a request is in flight | **Does not rotate** (`motion-reduce:animate-none`, added in 413b). The control is disabled and the label has changed, which is the whole of "busy". |
+| Map skeleton plate | A 1400ms sheen crossing it | **The sheen is removed and the plate stays.** The shape that says "this is coming" was the block sitting where the map will be, not the light moving over it. |
 | Icon plate | Tint deepens 12% to 18% over 200ms | Deepens instantly. It is a colour, not a movement. |
 | Count-up | Counts to the figure over 1.4s | The figure is there, and always was: `useCountUp` initialises to `value` (wave 412b) and refuses to rewind under this preference. |
 | Live dot | Breathes 0.45 to 1 over 2s | **Animation removed, opacity pinned to 1.** A flattened infinite animation freezes wherever it lands; the solid dot and the `Activity` glyph say "live" without it. |
@@ -254,7 +274,7 @@ Every command run in the foreground, in this worktree, at the head this branch e
 | Em dashes on this wave's added lines | U+2014 | | **2**, both pre-existing strings re-emitted by prettier (section 7) |
 | En dashes on this wave's added lines | U+2013 | | **0** |
 | `git diff <base>...HEAD -- src/content` | | | **empty** |
-| Tests or checks weakened | | | **none.** The gate gained a whole second script, an unmeasured-node failure arm, and the drawer geometry assertion |
+| Tests or checks weakened | | | **One ratchet raised, and it is the home page's RAW dark-pixel ceiling** in `scripts/wave412-screenshots.py`: `("home", 1280)` **0.2357 to 0.2370** and `("home", 390)` **0.2220 to 0.2221**, caused by the three added `<img>` `loading`/`fetchpriority` attributes changing WHEN the hero photographs arrive, so more of them are painted at the moment of the shot. Eight readings, the cause and the reasoning are in the section below. **Nothing else.** The page-GROUND figure that actually means "the page is light" is untouched at a flat 15%, and the gate gained a whole second script, an unmeasured-node failure arm, and the drawer geometry assertion. *(413b: this row used to say "none", which contradicted the body of the same report.)* |
 
 ### `scripts/wave413-motion.py`, per probe
 

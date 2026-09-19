@@ -745,8 +745,24 @@
      --duration-hover   200ms  hover, press, and the header's condense
      --duration-enter   250ms  a drawer, an accordion row, a step
      --duration-route   200ms  <main> arriving on a client navigation
-     --duration-fade    150ms  a menu, a validation message, an image
+     --duration-fade    150ms  a menu, a validation message
+     --duration-reveal  350ms  a reveal, a photograph, the map's canvas
      --duration-exit    120ms  anything leaving (paired with ease-in)
+
+   ⚠ WAVE 413b: `--duration-fade` USED TO SAY "AND AN IMAGE" AND NEVER WAS.
+   A photograph has always faded on --duration-reveal, which is 350ms, and the
+   report said 300 twice: three numbers for one thing. One number now, and it
+   is the one in the code.
+
+   ⚠ AND THE THREE INFINITE LOOPS THIS WAVE ADDS, NAMED. Rule 2's band is for
+   things that start and finish; a loop is judged instead on whether it can
+   ever be a permanent distraction. The live dot (2000ms, opacity only, well
+   under the five seconds WCAG 2.2.2 is written about, removed outright under
+   reduce); the demand map's skeleton sheen (1400ms, deliberately slower than
+   the band because it crosses a 560px plate, and it stops existing the moment
+   the dot field lands); and `animate-spin` on the three submit buttons, which
+   exists only while a request is in flight and is off under reduce, where the
+   disabled control and the changed label carry "busy" on their own.
    =========================================================================== */
 
 /* ---------- The header that gets out of the way ---------- */
@@ -1089,7 +1105,10 @@ img[data-img="in"] {
 
    Under reduced motion the sheen is removed outright rather than flattened: an
    infinite animation flattened to 0.001ms freezes at whichever keyframe the
-   browser lands on, which here would be a stripe parked across the plate. */
+   browser lands on, which here would be a stripe parked across the plate. THE
+   PLATE ITSELF STAYS, which is the reduced-motion arm: the shape a visitor
+   reads as "this is coming" was never the sheen, it was the block sitting
+   where the map will be. */
 @keyframes map-skeleton-sheen {
   from {
     transform: translateX(-60%);
@@ -2156,8 +2175,10 @@ canvas[data-map="in"] {
 
 /* ---------- The live marker's breathing dot ---------- */
 
-/* THE ONE SMALL LOOP THIS WAVE ADDS. 6px, 2 seconds, opacity only, beside the
-   words "live from our platform" on the home page. Its job is to make that
+/* ONE OF THE THREE LOOPS THIS WAVE ADDS, and the only one that is permanent:
+   the map's skeleton sheen stops existing when the dot field lands and the
+   submit spinners stop existing when the request answers. 6px, 2 seconds,
+   opacity only, beside the words "live from our platform" on the home page. Its job is to make that
    line read as a claim about NOW: a static caption saying "live" is a label
    somebody typed, and a marker that breathes is the same sentence being made
    again every two seconds.
