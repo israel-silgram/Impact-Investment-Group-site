@@ -16,8 +16,14 @@ platform remote carried 410. No collision.
 
 > "Finally ensure that the entire site is built to work with mobile users through out."
 
-**46 source files, 98 generated image variants, 70 new screenshots.** 3,006 lines added
-and 364 removed across 246 files.
+**45 source and script files, 2 reports, 98 generated image variants, 70 new screenshots.** 247 files changed, 5,539 lines added and 367 removed, measured at the 414b head against `9d9cfc1`.
+
+**⚠ A 414b FIX PASS SITS ON TOP OF THIS REPORT.** The operator's independent
+re-checker read the wave on 19 September and returned HOLD with 2 MAJOR and 11
+MINOR. Section 18 is what it found, what changed and what the gate reads now,
+and every sentence in sections 1 to 17 that it showed to be false is corrected
+in place rather than argued with. Where a figure below moved in 414b, the 414b
+figure is the one in the gate table.
 
 ---
 
@@ -35,12 +41,12 @@ asserts. All figures below are from its final run at this head.
 | # | The rule | How it is measured | Result |
 |---|---|---|---|
 | 1 | **Nothing overflows** | `documentElement.scrollWidth` against `innerWidth`, every route, every profile | **0 of 70 shots overflow.** It was already 0 before this wave and it still is |
-| 2 | **Everything is reachable with a thumb** | every visible interactive element's box, and the gap between neighbours | **2,840 targets measured, 0 under 44x44, 0 closer than 8px.** At 390 alone the home page carried 44 undersized targets before |
-| 3 | **Type is readable without zooming** | computed `font-size` of every `p`, `li`, `input`, `select`, `textarea` that renders | **5,265 type nodes measured, 0 under their floor.** 24 to 35 per page failed before |
+| 2 | **Everything is reachable with a thumb** | every visible interactive element's box, and the gap between neighbours, **at the top of the page and again scrolled** | **2,834 targets measured at the top and 2,895 scrolled, 5,729 in all, 0 under 44x44, 0 closer than 8px.** At 390 alone the home page carried 44 undersized targets before, and the scrolled reading 414b added found one more: the condensed header's own logo link, 37.4px tall under its `scale(0.85)` |
+| 3 | **Type is readable without zooming** | computed `font-size`, line box, column measure and heading breaking of every `p`, `li`, `input`, `select`, `textarea` and `h1` to `h6` that renders | **5,265 type nodes measured, 0 under their size floor, 0 under a 1.6 line box, 0 under 30 characters to the line at 360. 655 headings, 0 breaking a word.** 24 to 35 size failures per page before, and 414b found 52 prose nodes under 1.6 and four headings breaking at 768 |
 | 4 | **Content order is reading order** | the crisis card first on `/contact` and in the footer, moved in the markup | done, section 5 |
 | 5 | **Forms work with the keyboard up** | the keyboard probe at 390x420, plus an audit of every field's attributes | done, section 6 |
 | 6 | **Images earn their bytes** | 98 responsive variants, `width`/`height` on every image, a generated manifest | done, section 7 |
-| 7 | **Sticky things behave** | every `position: fixed` element collected and tested pairwise, at the top and scrolled | **6 fixed layers across the run, 0 overlapping** |
+| 7 | **Sticky things behave** | every `position: fixed` element collected and tested pairwise, at the top and scrolled | **0 fixed layers at the top of the page and 61 scrolled, 61 tested pairwise, 0 overlapping.** Wave 414 printed 6 here and asserted on both readings, so the 0 covered more layers than the 6 named; 414b prints both populations |
 | 8 | **Performance is measured on a phone profile** | Lighthouse mobile 13.5.0 against a gzipping server | section 8. Accessibility and best practices CLEARED, performance met on one of four |
 
 Plus, once for the run: the keyboard probe, the drawer-backdrop probe, and a timing table.
@@ -48,6 +54,18 @@ And **0 serious or critical axe violations** on all 70 shots, against the whole 
 rather than colour-contrast alone.
 
 ### The two floors under rule 3, and why there are two
+
+**⚠ STATE IT PLAINLY FIRST, BECAUSE THE NUMBER BESIDE IT IS NOT THE CLAIM A
+READER WILL ASSUME. THE TYPE GATE HAS TWO FLOORS: 15px FOR BODY COPY AND 12px
+FOR SHORT LABELS AND EYEBROWS.** "5,265 type nodes measured, 0 under their
+floor" is therefore NOT the same sentence as "no paragraph on this site is
+under 15px". A `p` or an `li` rendering fewer than 60 characters answers to
+12px, and the basis for the lower figure is `CLAUDE.md`'s own type scale, which
+declares an **Eyebrow at 12px** in the same table that says **Body never below
+15px**. The site was running labels at 9, 10, 10.5, 11 and 11.5px, under its own
+smallest declared size, and those are what the 12px floor caught. rel414 MIN-8
+asked for this to be said rather than left to be read out of the script, and
+this is it.
 
 The brief says "body copy at least 15px". `CLAUDE.md` says "Body never below 15px" in the
 same breath as declaring an **eyebrow at 12px**. Both are authoritative and they only
@@ -375,6 +393,23 @@ GitHub Pages compresses; a number taken without it is not a number about this si
 | `/register/investor` | **83** | **100** | **100** | 92 | 3.1s | 3.8s | 10ms | **0** | 420 KiB |
 | `/partner-with-investor` | **78** | **100** | **100** | 92 | 3.0s | 4.6s | 10ms | **0** | 725 KiB |
 
+**And re-measured at the 414b head**, on the same instrument and the same
+gzipping server. The bytes went UP on every route, by 16 to 27 KiB, and that is
+the cost of the brand lockup having an alpha channel again: a transparent WebP
+is larger than a flattened one, and nine of this site's images are transparent.
+
+| Route | Perf | A11y | Best practices | SEO | FCP | LCP | TBT | CLS | Bytes |
+|---|---|---|---|---|---|---|---|---|---|
+| `/` | **66** | **100** | **100** | 100 | 3.6s | 6.2s | 170ms | **0** | 955 KiB |
+| `/the-problem` | **85** | **100** | **100** | 92 | 2.9s | 3.6s | 10ms | **0** | 421 KiB |
+| `/register/investor` | **81** | **100** | **100** | 92 | 3.1s | 4.0s | 20ms | **0** | 437 KiB |
+| `/partner-with-investor` | **79** | **100** | **100** | 92 | 3.0s | 4.5s | 0ms | **0** | 741 KiB |
+
+`chrome-launcher` raises `EPERM` deleting its own temporary profile directory on
+Windows after each run finishes. It happens after the report is written, the
+JSON is complete, and the scores above are that JSON's. Said here rather than
+swallowed.
+
 Against the brief's floors: **accessibility 95 CLEARED at 100 on all four. Best practices
 90 CLEARED at 100 on all four. Performance 85 MET ON ONE OF FOUR**, and this wave does not
 claim otherwise.
@@ -514,9 +549,16 @@ image-fade probe still asserts its 32% wash, because that probe runs at 1280.
 - **At 390 it falls 22.21% to 16.85%**, because the hero is a snap strip and the first
   screen carries one photograph instead of three. Three readings at this head: 16.78%,
   16.78%, 16.78%. **A ratchet lowered by 5.36 points.**
-- **At 1280 it rises 23.70% to 23.85%**, because the hero band now draws the 400px variant
-  into its 392px slot and a fresh WebP encode's pixel statistics are not the original's.
-  Three readings: 23.81%, 23.83%, 23.81%.
+- **At 1280 it rose 23.70% to 23.85%**, and the reason given here was wrong.
+  ~~because the hero band now draws the 400px variant into its 392px slot and a
+  fresh WebP encode's pixel statistics are not the original's.~~ Three readings
+  at the wave 414 head: 23.81%, 23.83%, 23.81%. **It was the brand lockup on a
+  black plate**, in the header and the footer of every shot, outside the
+  photograph masks, and it is section 18's MAJOR 1. With the alpha kept the page
+  reads **23.64%, 23.65%, 23.56% and 23.64%**, which is lighter than the 413
+  head the ceiling came from, so the raise is WITHDRAWN and the ceiling is back
+  at 23.70%. At 390 the ratchet goes down again too, 16.85% to 16.70%, against
+  four readings of 16.58%.
 
 **The page is not darker and the ground figure proves it**: with the photographs, the map
 field and the island masked out, the home page reads **9.16% at 1280 against 9.17%
@@ -540,7 +582,12 @@ order, the accessibility tree and find-in-page in one word.
 
 ## 12. The gate, measured in this worktree
 
-Every command run in the foreground, in this worktree, at **`82d217b`**.
+**⚠ THE TABLE BELOW IS THE WAVE 414 GATE, RUN AT `82d217b`, AND THE WAVE
+ENDED AT `93d0dcb`.** rel414 MIN-5 is right that that is a gap and that
+`93d0dcb` changed `src/lib/image-variants.ts`, which is linted, typechecked and
+bundled. The table is kept because a gate table for a head is evidence about
+that head. **The gate that answers for the branch is section 18's**, which ran
+whole at the 414b head with every source commit in it.
 
 | Gate | Command | Exit | Numbers |
 |---|---|---|---|
@@ -626,8 +673,13 @@ proposal."
 
 It fails two of the three conditions as the site stands:
 
-1. **The Lighthouse floor is not met** on any of the four routes (68, 85, 83, 78 against
-   85). The condition is unambiguous.
+1. **The Lighthouse floor is met on ONE of the four routes and not on the other
+   three** (`/the-problem` at 85 meets a floor of 85; `/` at 68, `/register/investor`
+   at 83 and `/partner-with-investor` at 78 do not). Sections 1 and 8 say the
+   same thing; an earlier draft of this paragraph said "not met on any", which
+   was wrong, and rel414 MIN-4 caught it. The brief's condition was that the
+   sticky action must pass the floor, and on the route it would live on, the
+   home page, it does not.
 2. **It overlaps two things.** The back-to-top control is a 44px fixed circle at the bottom
    corner, and the registration journey now has its own sticky bottom bar; a third bottom
    layer would need both of them coordinated through a root-level custom property, and rule
@@ -702,6 +754,16 @@ was meant to be dropped or moved to the end on a phone, that is one class.
 
 ---
 
+**8. The tablet and landscape columns, now that there is a number for them.**
+*Recommended default: yes, in a wave of its own.* The measure assertion binds at
+360, where the site meets it with 30.9 characters. At 768 and at 667x375 some
+rows sit side by side and leave columns of 23.2 and 10.3 characters, which is
+narrower than the phone gets. `/about`'s capability card was the worst of them
+and is fixed here because it was breaking headings; the rest are a layout pass
+across several routes and were not in this fix pass's scope.
+
+---
+
 ## 16. What Cowork should show Callum first
 
 1. **`home-390.png`, beside the wave 413 shot of the same page.** It is the change he will
@@ -733,3 +795,331 @@ you.
 
 **The crisis card comes first in the markup**, on `/contact` and in the footer, and the
 desktop position is held with grid coordinates rather than by putting it back.
+
+
+---
+
+## 18. Wave 414b: the fix pass the rel414 re-check asked for
+
+The operator's independent re-checker read the wave at `93d0dcb` on 19 September
+2026 and returned **HOLD, 2 MAJOR, 11 MINOR**. It found the hero strip, the
+reading-order moves, the type and target work, the static header and the four
+carried rel413b items all sound. What held the wave was a picture.
+
+### 18.1 MAJOR 1: the brand lockup was drawn on a solid black rectangle
+
+`scripts/wave414-responsive-images.py` wrote every variant through
+
+```python
+scaled = image.convert("RGB").resize(...)
+```
+
+`Image.convert("RGB")` **discards** an alpha channel rather than compositing it,
+so a source whose transparent pixels carry RGB 0,0,0 comes out opaque black.
+`/images/brand/logo-lockup.webp` is one of those, `sizes` asks for 119 to 140 CSS
+pixels, and the candidate list is 400w, 640w and the 711w original, so **every
+device picked the 400w step**. Navy and orange artwork on a black plate, in the
+header and the footer of all 36 prerendered pages, at every width, desktop
+included. Thirteen variants of nine transparent sources were affected: both
+lockups, the Zoopla ink mark, the solution hub and trio, the AI-team trio wave
+and the capability band.
+
+**The pipeline keeps RGBA where the source has it** and WebP carries alpha in
+its lossy mode, so a variant is a variant of its source again. Every affected
+file was deleted and regenerated.
+
+**And the script now has an assertion for the class rather than the instance:**
+any source with an alpha channel must produce variants that have one, checked
+off the files on disk in both the write mode and `--check`. It catches all
+thirteen on the pre-fix tree and reports **24 referenced sources carrying an
+alpha channel, every variant of them still carrying one** on this one.
+
+**The gate can see it now, which it could not before.** Nothing in wave 414's
+run could: the element was in the DOM, it had a box, it had an accessible name,
+axe was content and the page did not overflow. So the mark is **photographed and
+read**. `scripts/wave414-mobile.py` takes an element capture of the header's and
+the footer's lockup on every route at every profile and measures the mean
+relative luminance of the box against the ground framing it in the same shot.
+
+| | before (the flattened variant) | after | floor |
+|---|---|---|---|
+| header lockup, on the white bar | **0.200** | **0.814** (darkest of 70 shots) to 0.823 | 0.80 |
+| footer lockup, on the cream | **0.200** | **0.673** (darkest of 70) to 0.680 | ground minus 0.30 |
+
+The floor is 0.80 where the ground reads white, which is the header, and on any
+ground the mark may be no more than 0.30 darker than the ground beside it. That
+second form is what makes one assertion work on the white bar and on the cream
+footer, whose own luminance is 0.845 and where no mark with ink in it could
+reach 0.80. A black plate is 0.65 darker than its ground; honest artwork is
+0.165 to 0.178 darker.
+
+**The dark-pixel share, home at 1280: 23.81% before, 23.64% after.** The ground
+figure, which is the one that means the page is light, is 9.16% either way,
+because the plates are outside the photograph masks and the ground figure never
+saw them. Wave 414 raised `RAW_CEILING` from 23.70% to 23.85% and blamed a fresh
+WebP encode; **that was this defect**, and the ceiling is back at 23.70% with
+four readings of 23.64%, 23.65%, 23.56% and 23.64% under it. At 390 the ratchet
+comes down again, 16.85% to 16.70%, against four readings of 16.58%.
+
+### 18.2 MAJOR 2: the demand map's picker was destroyed on every change
+
+`AuthorityPicker` was declared **inside** `DemandMap`, beside the hooks. A
+function component declared inside another is a new type on every render, so
+React cannot match it against the last one: it unmounts the old subtree and
+mounts a fresh one. Every selection sets `activeId`, which re-renders
+`DemandMap`, which threw the `<select>` away and built another, so the node
+holding focus was removed and `document.activeElement` fell back to the body. In
+Chromium a closed `<select>` fires `change` on an arrow key, so a keyboard
+visitor was dropped **mid-selection**. Below 1024px this is the only control the
+map has: wave 414 made the 137 district polygons `aria-hidden` with no tab stop
+and no pointer events.
+
+Hoisted to module scope with the id, the value and the change handler as props.
+**The probe is the shape of the bug:** at 390, focus the select, press
+ArrowDown, and assert the control is still there and that the press did what it
+was for.
+
+> `picker / @ 390  before=('Manchester', focus='select[data-authority-picker]')`
+> `ArrowDown -> after=('Salford', focus='select[data-authority-picker]')`
+> `value_moved=yes  figures_moved=yes`
+
+### 18.3 MINOR 1: the landscape header, and it was the capture
+
+`home-667x375.png` had 56px of empty bar at the top of the image and the first
+ink at y=68. The re-checker could not tell from a still whether the bar was
+missing or the capture was. **It was the capture.** `html` carries
+`scroll-behavior: smooth`, so `settle()`'s closing `scrollTo(0, 0)` ANIMATES,
+and on a landscape phone the home page is 6,751px against a 375px viewport: the
+shutter opened at **scrollY=756**. A `sticky` bar paints where it is stuck, so
+the bar was 756px down its own image.
+
+Every scroll in `settle()` is instant now and the return to the top is
+**confirmed** before the shutter, with a failure printed if it is ever not 0.
+Three assertions were added so this cannot be argued from a still again: the
+header exists, has a box of at least 40px and sits at the top of the document;
+its lockup is measured for light at every profile including landscape; and the
+**saved shot's own first ink** must land inside the header band. The landscape
+shot now reads its first ink at **y=6**, with the bar at 56px and the lockup at
+(32, 6, 118, 44).
+
+### 18.4 MINOR 2 and 10: the scrolled audit, and the bar over the field
+
+**The 44px rule is measured scrolled as well as at the top.** Wave 414 read the
+scrolled audit and used it only for the fixed layers, so the back-to-top control
+it had just moved was the one interactive element on the site whose hit area the
+gate never read. 2,834 targets at the top and **2,895 scrolled**.
+
+**And it found one immediately.** The condensed header puts `scale(0.85)` on the
+logo link, and a transform scales the BOX: the 44px mark was a **37.4px target**
+the moment anybody scrolled, on every route at every phone width. 4px of padding
+above and below makes the resting box 52px, and 52 by 0.85 is 44.2.
+
+**Nothing proved the sticky Continue bar never covers a focused field.** Wave
+414's keyboard probe focused the FIRST input, at the top of the panel, and
+asserted only that it was not under the header. There was no
+`scroll-margin-bottom` anywhere, so a browser bringing a low field into view had
+nothing telling it about the bar at the foot. Every control inside
+`.registration-panel` now carries `scroll-margin-bottom: calc(5rem + env(safe-area-inset-bottom))`,
+which is the bar's 77px measured plus the safe area and a hair.
+
+The probe focuses the **last** field of the account panel and the **last** option
+of the longest survey question, at 390x420, and asserts neither box meets the
+bar's. The journey is walked through its own controls with the two registration
+endpoints stubbed, because this gate serves a static build with no backend.
+
+| Focused | Its box | The bar | Clear |
+|---|---|---|---|
+| `#confirmPassword`, the last account field | 210 to 266 | 343 to 420 | **yes, by 77px** |
+| the 12th of 12 options, "Anywhere in England" | 190 to 284 | 318 to 395 | **yes, by 34px** |
+
+### 18.5 MINOR 3, 4, 5 and 6: the report's own honesty
+
+- **The fixed-layer sentence counted one population and asserted another.** It
+  said "6 fixed layers, 0 overlapping" while testing the top-of-page AND the
+  scrolled readings. Both numbers are printed now: **0 at the top of the page and
+  61 scrolled, 61 tested pairwise, 0 overlapping.** Zero at the top is correct
+  and was always the point: the back-to-top control does not exist until two
+  viewports of scroll.
+- **Section 14 contradicted sections 1 and 8 on the Lighthouse floor.** Corrected
+  in place: met on one of four.
+- **The gate table was at `82d217b` and the head was `93d0dcb`.** Section 12 now
+  says so, and this section's table is the one that answers for the branch.
+- **"3,006 lines added across 246 files" was a count taken at `82d217b`.**
+  Refreshed from the final diff at the top of this report.
+
+### 18.6 MINOR 7: the icon registry lost its compile-time check
+
+`export const ICONS: Record<string, LucideIcon>` makes `keyof typeof ICONS`
+exactly `string`, so `RegisteredIconName` was `string` and `roleIcons`' `base:
+RegisteredIconName` accepted anything, where the `keyof typeof Icons` it
+replaced was a real union of Lucide's exports.
+
+`as const satisfies Record<string, LucideIcon>` asserts the same thing about the
+values and keeps the literal key type. **Proved rather than asserted:** typing
+`HandCoinz` for `HandCoins` in `src/components/register/role-icon.tsx` gives
+
+```
+src/components/register/role-icon.tsx(34,15): error TS2820: Type '"HandCoinz"' is
+not assignable to type '"CircleDollarSign" | "Home" | ... 24 more ... |
+"UsersRound"'. Did you mean '"HandCoins"'?
+```
+
+Reverted; `role-icon.tsx` carries no change and `tsc --noEmit` is 0.
+
+### 18.7 MINOR 8, 9 and 11: the phone rules the gate did not cover
+
+**The two floors are stated plainly** at the head of section 1: 15px for body
+copy, 12px for short labels and eyebrows, with `CLAUDE.md`'s own type scale as
+the basis for the lower one.
+
+**The line box.** Rule 3 asks for 1.6 on body copy and wave 414 collected the
+number without testing it. 52 prose nodes across ten class strings were running
+at 1.375 to 1.45, which at 15px on a phone is exactly what the rule is about:
+the source lines, the compliance badges, `/about`'s ledger captions,
+`/contact`'s and the register journey's small print, `/legal`'s and
+`/platform`'s footnotes, and the standalone 404's one paragraph.
+`max-lg:leading-[1.6]` beside the leading already there, so the class still says
+what it renders at the width it was written for. **Desktop is untouched.**
+
+The floor is read on PROSE, and prose is a shape rather than a tag: a `p` set in
+Barlow, or at 600 and above, or above the 17px lede, is a card's headline
+whatever tag it is written in, and its leading is a brand decision. Under 60
+characters it is a label, which is the same line the size floor already draws.
+
+**The measure.** Read as the column width in characters of the element's own
+text, which is the brief's second form of the rule, and asserted at **360, where
+the brief puts that floor**, and reported at all five profiles.
+
+| Profile | Narrowest column | Where |
+|---|---|---|
+| **360** | **30.9 characters** | `/about`, the leadership impacts. **The floor binds here and is met by 0.9** |
+| 390 | 34.9 | the same paragraph |
+| 414 | 38.2 | the same paragraph |
+| 768 | 23.2 | `/about`'s group-diagram captions |
+| 667x375 | 10.3 | `/about`'s ledger caption beside a fluid figure column |
+
+The average over rendered lines is NOT the measure and would have been the wrong
+instrument: a paragraph's last line is ragged, so `chars / lines` understates a
+three-line column by about a quarter and would have failed columns that read
+perfectly well.
+
+**And 768 found a real defect, which is what a tablet profile is for.**
+`/about`'s capability card started its side-by-side arm at `md`. At exactly 768
+it gave 29 per cent of its width to the illustration's padding and 190px to the
+heading column, leaving 257px for four impacts that then split in two: text
+columns of **48px**, a measure of **5.5 characters**, and four `<h3>` headings
+13 to 36px wider than the box holding them. The arm starts at `lg` now, so a
+tablet gets the stacked layout 390 already uses, and **nothing at 1024 and above
+moves**. After: 23.2 characters and 0 headings breaking.
+
+**Headings.** No heading may be wider than its own content box and none may ask
+for `hyphens: auto` or `word-break: break-all`. **655 measured, 0 breaking.**
+An `sr-only` heading is a 1px clipped box with no rendered measure and is
+skipped rather than failed.
+
+**The success state, readable without scrolling.** Build item 3 ends with it and
+nothing measured it. The probe walks the journey to its end at 390x844 and reads
+the three things that state is:
+
+| | box | first screen |
+|---|---|---|
+| the heading, "You're registered" | 186 to 226 | 56 to 844 |
+| the message, `role="status"` | 242 to 372 | 56 to 844 |
+| the action, "Explore the platform" | 404 to 456 | 56 to 844 |
+
+**The demand map's height, bounded.** Build item 2 asked for it and nothing
+measured it. **In pixels rather than viewports**, because the thing a reader is
+lost in is a distance to scroll: the same band is 2.7 screens upright and 5.5 on
+its side, with nothing about the band changed.
+
+| Profile | The section |
+|---|---|
+| 360 | **2,433px** (3.04 viewports) |
+| 390 | 2,288px (2.71) |
+| 414 | 2,245px (2.51) |
+| 768 | 2,015px (1.97) |
+| 667x375 | 2,055px (5.48) |
+
+**The bound is 2,600px**, the tallest reading plus a tenth, and it is a ratchet:
+a later wave may lower it and may not raise it without saying why in the script.
+
+**And the one route with no chrome is asserted rather than exempted.**
+`scripts/pages-postbuild.mjs` writes `404.html` as a standalone document with no
+header and no footer, because GitHub Pages serves it with no router and no
+chunk. The exemption is a shape: a page with neither must BE that page, which is
+to say it must carry the 404 heading and a link home. A route that loses its
+header still fails, because it will still have its footer.
+
+### 18.8 How each route meets the phone rules
+
+The per-route account the brief asked for and section 1 gave as a per-run total.
+Every row is five shots, at 360, 390, 414, 768 and 667x375. **Every cell that
+can be zero is zero.**
+
+| Route | Shots | Overflows | Targets / under 44 / under 8px apart | Type nodes / under size / under 1.6 / under 30ch | Headings / breaking | Fixed layers / overlapping | axe serious or critical |
+|---|---|---|---|---|---|---|---|
+| `/` | 5 | **0** | 493 / **0** / **0** | 505 / **0** / **0** / **0** | 60 / **0** | 5 / **0** | **0** |
+| `/about` | 5 | **0** | 385 / **0** / **0** | 600 / **0** / **0** / **0** | 105 / **0** | 5 / **0** | **0** |
+| `/platform` | 5 | **0** | 485 / **0** / **0** | 470 / **0** / **0** / **0** | 80 / **0** | 5 / **0** | **0** |
+| `/the-problem` | 5 | **0** | 345 / **0** / **0** | 450 / **0** / **0** / **0** | 20 / **0** | 5 / **0** | **0** |
+| `/solutions` | 5 | **0** | 354 / **0** / **0** | 410 / **0** / **0** / **0** | 40 / **0** | 4 / **0** | **0** |
+| `/partners` | 5 | **0** | 475 / **0** / **0** | 320 / **0** / **0** / **0** | 100 / **0** | 5 / **0** | **0** |
+| `/contact` | 5 | **0** | 585 / **0** / **0** | 450 / **0** / **0** / **0** | 30 / **0** | 5 / **0** | **0** |
+| `/register` | 5 | **0** | 444 / **0** / **0** | 315 / **0** / **0** / **0** | 30 / **0** | 4 / **0** | **0** |
+| `/register/investor` | 5 | **0** | 454 / **0** / **0** | 310 / **0** / **0** / **0** | 25 / **0** | 4 / **0** | **0** |
+| `/register/resident` | 5 | **0** | 455 / **0** / **0** | 335 / **0** / **0** / **0** | 30 / **0** | 5 / **0** | **0** |
+| `/partner-with-investor` | 5 | **0** | 405 / **0** / **0** | 345 / **0** / **0** / **0** | 40 / **0** | 5 / **0** | **0** |
+| `/partner-with-local-authority` | 5 | **0** | 404 / **0** / **0** | 345 / **0** / **0** / **0** | 40 / **0** | 4 / **0** | **0** |
+| `/legal` | 5 | **0** | 435 / **0** / **0** | 405 / **0** / **0** / **0** | 45 / **0** | 5 / **0** | **0** |
+| the 404 | 5 | **0** | 10 / **0** / **0** | 5 / **0** / **0** / **0** | 10 / **0** | 0 / **0** | **0** |
+
+The brand lockup is read on all thirteen chromed routes at all five profiles, 65
+header boxes and 65 footer boxes, and the darkest of each is in section 18.1.
+The 404 carries no chrome by design and is asserted to be that page instead.
+
+Rules 4, 5 and 6 are per-journey rather than per-route and are proved by the
+five standalone probes: the keyboard probe, the drawer-backdrop probe, the
+picker probe, the bar-over-field probe and the success probe, all at 390 and all
+in this section or section 10.
+
+### 18.9 The gate, whole, at the 414b head
+
+Every command run in the foreground, in this worktree, at **`a761058`**, which
+is the last commit that touches a source file, a script or a generated asset.
+The commit after it adds this report and the shots this run wrote, and neither
+is an input to a lint, a typecheck, a build or a gate.
+
+| Gate | Command | Exit | Numbers |
+|---|---|---|---|
+| Lint, changed files | `bunx eslint` on the changed lintable files | **0** | **0 errors** |
+| Lint, whole tree | `bunx eslint .` on an LF-normalised export of this head | **0** | **387 errors / 15 warnings** |
+| Lint, whole tree, base | the same, on `9d9cfc1` | **0** | **387 errors / 15 warnings. DELTA ZERO** |
+| Typecheck | `bunx tsc --noEmit` | **0** | **0 errors** |
+| Build | `STATIC_BUILD=true bun run build` | **0** | **36 pages prerendered** |
+| Postbuild | `node scripts/pages-postbuild.mjs dist/client` | **0** | base `/`, 0 files patched, 0 duplicated tails |
+| **Wave 414's gate** | `python scripts/wave414-mobile.py` | **0** | **70 shots.** 2,834 targets at the top and 2,895 scrolled, **0 under 44x44**, **0 closer than 8px**. 5,265 type nodes, **0 under their size floor, 0 under a 1.6 line box, 0 under 30 characters at 360**. 655 headings, **0 breaking a word**. 61 fixed layers tested pairwise, **0 overlapping**. **0 serious or critical axe violations**. **0 shots overflow**. Darkest lockup box: header **0.814**, footer **0.673** |
+| Wave 412's gate | `python scripts/wave412-screenshots.py` | **0** | **28 shots, every assertion passed.** 275 incomplete axe nodes, **275 measured off the pixels, 0 unmeasured**. Darkest raw home @ 1280 **23.64%** against a ceiling back at 23.70%, darkest ground **9.16%** |
+| Wave 413's gate | `python scripts/wave413-motion.py` | **0** | 13 routes at 1280 and 390 plus all seven standalone probes, green |
+| Responsive images | `python scripts/wave414-responsive-images.py --check` | **0** | every referenced image has its variants, and **24 sources with an alpha channel have variants that still carry one** |
+| Lighthouse mobile | `bunx lighthouse` 13.5.0, four routes, gzipping server | **0** | **66 / 85 / 81 / 79** performance, **100 / 100 / 100 / 100** accessibility, **100 / 100 / 100 / 100** best practices. Section 8 |
+| U+2014 on added lines | | | **0** |
+| U+2013 on added lines | | | **0** |
+| Hex literals on added lines | | | **0** |
+| `git diff 9d9cfc1...HEAD -- src/content` | | | **EMPTY** |
+| New user-facing strings | | | **none.** One attribute added, `data-authority-picker`, which is not a string anybody reads |
+
+**The performance floor is still unmet on three of four routes and this pass did
+not chase it.** It is proposal 1 and it needs a decision about what the home page
+may stop doing, which is Callum's and not a fix pass's. The `/` score moved 68 to
+66 and `/register/investor` 83 to 81, inside this instrument's own run-to-run
+spread and in the direction the 16 to 27 KiB of restored alpha would push it.
+
+### 18.10 What 414b did NOT do
+
+- **The performance floor.** Unmet on `/`, `/register/investor` and
+  `/partner-with-investor`, stated rather than chased, proposal 1.
+- **The narrow columns at 768 and 667x375** beyond the one that was breaking
+  headings. `/about` reads 23.2 characters at 768 and 10.3 at 667x375 against a
+  floor the brief binds at 360 only. Both are now measured and printed on every
+  run, which is the first time this site has had a number for them. Widening
+  them is a layout decision on several routes and is **proposal 8**.
