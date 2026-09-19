@@ -316,7 +316,9 @@ def scroll_to(page, y: float) -> float:
     is the only reading in which the back-to-top control exists at all.
 
     Identical to `scroll_to` in `scripts/wave413-motion.py`. Four gates, one
-    settle, and this is the last of the four.
+    settle. 415c, rel415b MINOR 1: this was not the last bare scroll in this
+    file either. A `scrollBy` in the keyboard probe, below, survived this same
+    conversion and is fixed there.
     """
     for _ in range(12):
         page.evaluate(f"() => scrollTo({{ top: {y}, behavior: 'instant' }})")
@@ -1146,8 +1148,13 @@ def keyboard_probe(browser, base: str, failures: list[str]) -> None:
     reachable = inView
     afterOne = None
     if not inView:
-        page.evaluate("() => scrollBy(0, innerHeight - 80)")
-        page.wait_for_timeout(300)
+        # 415c, rel415b MINOR 1: this was the fourth bare scroll left in the
+        # file after 415b's "this is the last of the four" (above), a
+        # `scrollBy` under the same `scroll-behavior: smooth` that made the
+        # other three unreliable. `scroll_to` polls to a confirmed resting
+        # position instead of guessing at one with a fixed wait.
+        target = page.evaluate("() => window.scrollY + innerHeight - 80")
+        scroll_to(page, target)
         afterOne = page.evaluate(
             """
             () => {
