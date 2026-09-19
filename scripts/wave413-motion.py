@@ -43,11 +43,13 @@ HONEST, which on this site means six specific things.
       disappearance. Two clocks are printed, and STEP_BUDGET_MS below says what
       each one is made of and why the gate sits where it does.
 
-  (e) THE DRAWER TRAPS AND RELEASES. At 390: the menu button opens it, Tab from
-      the last focusable lands back on the first, the page behind does not
-      scroll, and Escape closes it. A drawer that does not trap focus sends a
-      keyboard user into the page behind it with no way of knowing they have
-      left the menu.
+  (e) THE DRAWER TRAPS AND RELEASES, AND IS THE SIZE IT SAYS IT IS. At 390: the
+      menu button opens it, the panel and the backdrop measure the viewport,
+      Tab from the last focusable lands back on the first, the page behind does
+      not scroll, and Escape closes it. A drawer that does not trap focus sends
+      a keyboard user into the page behind it with no way of knowing they have
+      left the menu; a `fixed` drawer inside an ancestor with a backdrop-filter
+      is not fixed to the viewport at all, and passes every other check here.
 
   (f) THE HOME PAGE SCROLLS WITHOUT BLOCKING. A full top-to-bottom scroll with
       a PerformanceObserver on `longtask`. Reported as a count and the
@@ -568,6 +570,38 @@ def drawer_probe(browser, base: str, failures: list[str]) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     page.screenshot(path=str(OUT / "drawer-open-390.png"))
 
+    # AND IT HAS TO BE THE SIZE IT SAYS IT IS.
+    #
+    # `position: fixed` is fixed to the VIEWPORT only while no ancestor has a
+    # transform, a filter or a backdrop-filter; any of those makes the ancestor
+    # the containing block instead. The site header carries
+    # `backdrop-filter: blur`, and for one commit of this wave the drawer was
+    # inside it: a 72px strip of panel with the whole menu spilling out over
+    # the page, and a backdrop covering the header and nothing else.
+    #
+    # Everything above passed on that build. It opened, it trapped focus, it
+    # locked the scroll and Escape closed it. A screenshot found it, which is
+    # exactly the kind of defect a probe is supposed to find first, so the
+    # geometry is measured here now.
+    geometry = page.evaluate(
+        """
+        () => {
+          const panel = document.querySelector('.drawer-panel');
+          const scrim = document.querySelector('.drawer-scrim');
+          const box = (el) => {
+            if (!el) return null;
+            const r = el.getBoundingClientRect();
+            return { w: Math.round(r.width), h: Math.round(r.height) };
+          };
+          return {
+            panel: box(panel),
+            scrim: box(scrim),
+            viewport: { w: innerWidth, h: innerHeight },
+          };
+        }
+        """
+    )
+
     locked = page.evaluate(
         "() => getComputedStyle(document.body).overflow === 'hidden'"
     )
@@ -611,13 +645,30 @@ def drawer_probe(browser, base: str, failures: list[str]) -> None:
     closed = page.evaluate("() => !document.querySelector('.drawer-panel')")
     released = page.evaluate("() => getComputedStyle(document.body).overflow !== 'hidden'")
 
+    panel_box = geometry["panel"]
+    scrim_box = geometry["scrim"]
+    view = geometry["viewport"]
     print(
         f"drawer: opened={opened} body_locked={locked} tab_wraps_to_first={wrapped} "
-        f"scrollY {before}->{after} closed_on_escape={closed} scroll_released={released}"
+        f"scrollY {before}->{after} closed_on_escape={closed} scroll_released={released} "
+        f"panel={panel_box} scrim={scrim_box} viewport={view}"
     )
 
     if not opened:
         failures.append(f"{where}: the menu button did not open a drawer.")
+    if panel_box is None or panel_box["h"] < view["h"] - 1:
+        failures.append(
+            f"{where}: the drawer panel is {panel_box} against a viewport of {view}. "
+            f"A `fixed` panel that is not the height of the viewport is fixed to an "
+            f"ancestor instead, which is what a transform, a filter or a "
+            f"backdrop-filter anywhere above it does."
+        )
+    if scrim_box is None or scrim_box["h"] < view["h"] - 1 or scrim_box["w"] < view["w"] - 1:
+        failures.append(
+            f"{where}: the backdrop is {scrim_box} against a viewport of {view}. It has "
+            f"to cover the page, or most of the page is still a live press target "
+            f"behind an open menu."
+        )
     if not locked:
         failures.append(f"{where}: the body still scrolls while the drawer is open.")
     if not wrapped:

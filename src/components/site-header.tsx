@@ -245,235 +245,259 @@ export function SiteHeader() {
   const partnersActive = pathname === "/partners" || pathname.startsWith("/partner-with-");
 
   return (
-    /*
-     * WAVE 412: A LIGHT HEADER.
-     *
-     * White at 92% with a blur behind it, so the page reads through the bar
-     * as it scrolls rather than hiding under a navy slab. The 8% that is not
-     * white is what makes the blur visible at all; at 100% there is nothing
-     * to see through. `supports-[backdrop-filter]` keeps the bar opaque on
-     * browsers that cannot blur, where 92% white over moving content is
-     * simply muddy.
-     *
-     * The rule underneath is permanent. It is the only thing separating a
-     * white bar from a white page, so it cannot be a scroll state.
-     */
-    <header
-      data-condensed={condensed ? "true" : "false"}
-      className={cn(
-        "site-header sticky top-0 z-50 border-b border-rule bg-header",
-        "supports-[backdrop-filter]:backdrop-blur-md",
-        condensed && "shadow-[var(--shadow-card)]",
-      )}
-    >
-      <div className="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8">
-        <Link
-          to="/"
-          className="site-header__logo shrink-0 rounded-md"
-          aria-label="Impact Investment Platform — home"
-        >
-          <Logo variant="on-cream" />
-        </Link>
-
-        <nav aria-label="Main" className="hidden self-stretch xl:block">
-          <ul
-            ref={navRef}
-            data-magic={magic ? "on" : undefined}
-            onMouseLeave={() => pointMagicAt(null)}
-            className="nav-magic relative flex h-full items-center gap-7"
+    <>
+      {/*
+       * WAVE 412: A LIGHT HEADER.
+       *
+       * White at 92% with a blur behind it, so the page reads through the bar
+       * as it scrolls rather than hiding under a navy slab. The 8% that is not
+       * white is what makes the blur visible at all; at 100% there is nothing
+       * to see through. `supports-[backdrop-filter]` keeps the bar opaque on
+       * browsers that cannot blur, where 92% white over moving content is
+       * simply muddy.
+       *
+       * The rule underneath is permanent. It is the only thing separating a
+       * white bar from a white page, so it cannot be a scroll state.
+       */}
+      <header
+        data-condensed={condensed ? "true" : "false"}
+        className={cn(
+          "site-header sticky top-0 z-50 border-b border-rule bg-header",
+          "supports-[backdrop-filter]:backdrop-blur-md",
+          condensed && "shadow-[var(--shadow-card)]",
+        )}
+      >
+        <div className="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-4 px-5 sm:px-8">
+          <Link
+            to="/"
+            className="site-header__logo shrink-0 rounded-md"
+            aria-label="Impact Investment Platform — home"
           >
-            {primaryNav.map((item) => (
-              <React.Fragment key={item.to}>
-                {item.to === "/partners" ? (
-                  <li
-                    className="flex h-full items-center"
-                    onMouseEnter={openPartnersMenu}
-                    onMouseLeave={schedulePartnersMenuClose}
-                  >
-                    <DropdownMenu modal={false} open={partnersOpen} onOpenChange={setPartnersOpen}>
-                      <DropdownMenuTrigger asChild>
-                        <Link
-                          to="/partners"
-                          data-nav-link=""
-                          data-nav-active={partnersActive ? "true" : undefined}
-                          onMouseEnter={(event) => pointMagicAt(event.currentTarget)}
-                          onFocus={(event) => pointMagicAt(event.currentTarget)}
-                          onBlur={() => pointMagicAt(null)}
-                          className={cn(
-                            "nav-link inline-flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap text-[15px] font-medium text-ink transition-colors duration-200",
-                            /* orange-700, not 500: this is 15px TEXT on a
+            <Logo variant="on-cream" />
+          </Link>
+
+          <nav aria-label="Main" className="hidden self-stretch xl:block">
+            <ul
+              ref={navRef}
+              data-magic={magic ? "on" : undefined}
+              onMouseLeave={() => pointMagicAt(null)}
+              className="nav-magic relative flex h-full items-center gap-7"
+            >
+              {primaryNav.map((item) => (
+                <React.Fragment key={item.to}>
+                  {item.to === "/partners" ? (
+                    <li
+                      className="flex h-full items-center"
+                      onMouseEnter={openPartnersMenu}
+                      onMouseLeave={schedulePartnersMenuClose}
+                    >
+                      <DropdownMenu
+                        modal={false}
+                        open={partnersOpen}
+                        onOpenChange={setPartnersOpen}
+                      >
+                        <DropdownMenuTrigger asChild>
+                          <Link
+                            to="/partners"
+                            data-nav-link=""
+                            data-nav-active={partnersActive ? "true" : undefined}
+                            onMouseEnter={(event) => pointMagicAt(event.currentTarget)}
+                            onFocus={(event) => pointMagicAt(event.currentTarget)}
+                            onBlur={() => pointMagicAt(null)}
+                            className={cn(
+                              "nav-link inline-flex h-full cursor-pointer items-center gap-1.5 whitespace-nowrap text-[15px] font-medium text-ink transition-colors duration-200",
+                              /* orange-700, not 500: this is 15px TEXT on a
                                white bar, where 500 is 4.23:1 and 700 is
                                6.50:1. The underline under it stays 500,
                                because a 2px rule is a graphic and answers to
                                3:1 rather than 4.5:1. */
-                            partnersActive && "text-orange-700",
-                          )}
-                        >
-                          Partners
-                          <ChevronDown
-                            aria-hidden="true"
-                            className={cn(
-                              "size-3.5 transition-transform duration-200 ease-[var(--ease-out-soft)]",
-                              partnersOpen && "rotate-180",
+                              partnersActive && "text-orange-700",
                             )}
-                          />
-                        </Link>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent
-                        align="center"
-                        sideOffset={0}
-                        onMouseEnter={openPartnersMenu}
-                        onMouseLeave={schedulePartnersMenuClose}
-                        className="partners-menu w-[660px] rounded-none border-x border-b border-t-2 border-x-rule border-b-rule border-t-orange-500 bg-page p-0 text-ink shadow-[var(--shadow-card-hover)]"
-                      >
-                        <div className="flex items-center justify-between border-b border-rule px-5 py-3.5">
-                          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-teal-600">
+                          >
                             Partners
-                          </p>
-                          <span className="font-mono text-[9px] uppercase tracking-[0.08em] text-ink-soft">
-                            10 partner pathways
-                          </span>
-                        </div>
-
-                        <div className="grid grid-cols-[250px_1fr]">
-                          <div className="flex min-h-[360px] flex-col bg-orange-600 p-6 text-white">
-                            <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.13em]">
-                              One network
+                            <ChevronDown
+                              aria-hidden="true"
+                              className={cn(
+                                "size-3.5 transition-transform duration-200 ease-[var(--ease-out-soft)]",
+                                partnersOpen && "rotate-180",
+                              )}
+                            />
+                          </Link>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent
+                          align="center"
+                          sideOffset={0}
+                          onMouseEnter={openPartnersMenu}
+                          onMouseLeave={schedulePartnersMenuClose}
+                          className="partners-menu w-[660px] rounded-none border-x border-b border-t-2 border-x-rule border-b-rule border-t-orange-500 bg-page p-0 text-ink shadow-[var(--shadow-card-hover)]"
+                        >
+                          <div className="flex items-center justify-between border-b border-rule px-5 py-3.5">
+                            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-teal-600">
+                              Partners
                             </p>
-                            <div className="mt-auto">
-                              <p className="font-heading text-[34px] font-extrabold leading-none">
-                                Find where you fit.
+                            <span className="font-mono text-[9px] uppercase tracking-[0.08em] text-ink-soft">
+                              10 partner pathways
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-[250px_1fr]">
+                            <div className="flex min-h-[360px] flex-col bg-orange-600 p-6 text-white">
+                              <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.13em]">
+                                One network
                               </p>
-                              <p className="mt-3 max-w-[25ch] text-[12px] font-medium leading-relaxed">
-                                Explore each partner pathway or start with the full ecosystem.
-                              </p>
-                              <DropdownMenuItem
-                                asChild
-                                className="mt-5 cursor-pointer rounded-none p-0 text-page focus:bg-ink focus:text-page"
-                              >
-                                {/* The one navy left on this bar, and it is
+                              <div className="mt-auto">
+                                <p className="font-heading text-[34px] font-extrabold leading-none">
+                                  Find where you fit.
+                                </p>
+                                <p className="mt-3 max-w-[25ch] text-[12px] font-medium leading-relaxed">
+                                  Explore each partner pathway or start with the full ecosystem.
+                                </p>
+                                <DropdownMenuItem
+                                  asChild
+                                  className="mt-5 cursor-pointer rounded-none p-0 text-page focus:bg-ink focus:text-page"
+                                >
+                                  {/* The one navy left on this bar, and it is
                                     deliberate: a navy button inside the orange
                                     feature block. White on navy-900 is
                                     18.83:1, and nothing lighter would separate
                                     from the orange behind it. */}
-                                <Link
-                                  to="/partners"
-                                  className="group flex min-h-12 w-full items-center gap-3 bg-ink px-4 py-3 text-page transition-colors hover:bg-navy-800"
+                                  <Link
+                                    to="/partners"
+                                    className="group flex min-h-12 w-full items-center gap-3 bg-ink px-4 py-3 text-page transition-colors hover:bg-navy-800"
+                                  >
+                                    <NetworkMark />
+                                    <span className="text-[13px] font-semibold">
+                                      Explore the ecosystem
+                                    </span>
+                                    <ArrowMark />
+                                  </Link>
+                                </DropdownMenuItem>
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 content-start gap-0.5 p-3">
+                              {partnerProfiles.map((partner, index) => (
+                                <DropdownMenuItem
+                                  key={partner.id}
+                                  asChild
+                                  className="cursor-pointer rounded-none p-0 focus:bg-page-alt focus:text-ink"
                                 >
-                                  <NetworkMark />
-                                  <span className="text-[13px] font-semibold">
-                                    Explore the ecosystem
-                                  </span>
-                                  <ArrowMark />
-                                </Link>
-                              </DropdownMenuItem>
+                                  <Link
+                                    to={partner.path}
+                                    className={cn(
+                                      "group relative flex min-h-14 w-full items-center gap-2.5 px-3 py-2 text-[12px] font-semibold leading-tight text-ink-muted transition-colors hover:bg-page-alt hover:text-ink",
+                                      pathname === partner.path &&
+                                        "bg-page-alt text-ink before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:bg-orange-500",
+                                    )}
+                                  >
+                                    <span className="w-5 shrink-0 font-mono text-[9px] text-orange-700">
+                                      {String(index + 1).padStart(2, "0")}
+                                    </span>
+                                    <span>{partner.label}</span>
+                                    <ArrowMark />
+                                  </Link>
+                                </DropdownMenuItem>
+                              ))}
                             </div>
                           </div>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </li>
+                  ) : null}
+                  {item.to !== "/partners" ? (
+                    <li>
+                      <Link
+                        to={item.to}
+                        activeOptions={{ exact: true }}
+                        data-nav-link=""
+                        data-nav-active={pathname === item.to ? "true" : undefined}
+                        onMouseEnter={(event) => pointMagicAt(event.currentTarget)}
+                        onFocus={(event) => pointMagicAt(event.currentTarget)}
+                        onBlur={() => pointMagicAt(null)}
+                        className="nav-link inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-medium text-ink transition-colors duration-200"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ) : null}
+                </React.Fragment>
+              ))}
 
-                          <div className="grid grid-cols-2 content-start gap-0.5 p-3">
-                            {partnerProfiles.map((partner, index) => (
-                              <DropdownMenuItem
-                                key={partner.id}
-                                asChild
-                                className="cursor-pointer rounded-none p-0 focus:bg-page-alt focus:text-ink"
-                              >
-                                <Link
-                                  to={partner.path}
-                                  className={cn(
-                                    "group relative flex min-h-14 w-full items-center gap-2.5 px-3 py-2 text-[12px] font-semibold leading-tight text-ink-muted transition-colors hover:bg-page-alt hover:text-ink",
-                                    pathname === partner.path &&
-                                      "bg-page-alt text-ink before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:bg-orange-500",
-                                  )}
-                                >
-                                  <span className="w-5 shrink-0 font-mono text-[9px] text-orange-700">
-                                    {String(index + 1).padStart(2, "0")}
-                                  </span>
-                                  <span>{partner.label}</span>
-                                  <ArrowMark />
-                                </Link>
-                              </DropdownMenuItem>
-                            ))}
-                          </div>
-                        </div>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </li>
-                ) : null}
-                {item.to !== "/partners" ? (
-                  <li>
-                    <Link
-                      to={item.to}
-                      activeOptions={{ exact: true }}
-                      data-nav-link=""
-                      data-nav-active={pathname === item.to ? "true" : undefined}
-                      onMouseEnter={(event) => pointMagicAt(event.currentTarget)}
-                      onFocus={(event) => pointMagicAt(event.currentTarget)}
-                      onBlur={() => pointMagicAt(null)}
-                      className="nav-link inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-medium text-ink transition-colors duration-200"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ) : null}
-              </React.Fragment>
-            ))}
-
-            {/* THE MAGIC LINE. Rendered only once it has been measured, so the
+              {/* THE MAGIC LINE. Rendered only once it has been measured, so the
                 prerendered HTML never carries an underline sitting at the
                 wrong place, and a visitor with no JavaScript keeps the
                 per-link one. aria-hidden because it says nothing the active
                 link's own orange does not already say. */}
-            {magic ? (
-              <span
-                aria-hidden="true"
-                className="nav-magic__line"
-                style={{ transform: `translateX(${magic.left}px)`, width: `${magic.width}px` }}
-              />
-            ) : null}
-          </ul>
-        </nav>
+              {magic ? (
+                <span
+                  aria-hidden="true"
+                  className="nav-magic__line"
+                  style={{ transform: `translateX(${magic.left}px)`, width: `${magic.width}px` }}
+                />
+              ) : null}
+            </ul>
+          </nav>
 
-        <div className="hidden items-center gap-5 xl:flex">
-          <Button variant="primary" size="sm" asChild withArrow={false}>
-            <Link to={registerRoute.to}>{registerRoute.label}</Link>
-          </Button>
-          <Link
-            to="/contact"
-            search={loginSearch}
-            className="nav-underline inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-normal text-ink transition-colors duration-200 hover:text-orange-700"
+          <div className="hidden items-center gap-5 xl:flex">
+            <Button variant="primary" size="sm" asChild withArrow={false}>
+              <Link to={registerRoute.to}>{registerRoute.label}</Link>
+            </Button>
+            <Link
+              to="/contact"
+              search={loginSearch}
+              className="nav-underline inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-normal text-ink transition-colors duration-200 hover:text-orange-700"
+            >
+              Log in
+            </Link>
+          </div>
+
+          <button
+            ref={triggerRef}
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="press inline-grid size-11 cursor-pointer place-items-center rounded-full border border-rule text-ink transition-colors duration-200 hover:bg-page-alt xl:hidden"
           >
-            Log in
-          </Link>
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
         </div>
+      </header>
 
-        <button
-          ref={triggerRef}
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="press inline-grid size-11 cursor-pointer place-items-center rounded-full border border-rule text-ink transition-colors duration-200 hover:bg-page-alt xl:hidden"
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
-      </div>
-
+      {/*
+       * ⚠ THE DRAWER LIVES OUTSIDE <header>, AND IT HAS TO.
+       *
+       * The bar carries `backdrop-filter: blur` (wave 412, so the page
+       * reads through it as it scrolls). An element with a backdrop-filter
+       * becomes the CONTAINING BLOCK for every `position: fixed`
+       * descendant, exactly as `filter` does. So a fixed drawer inside the
+       * header is not fixed to the viewport at all: it is fixed to a 72px
+       * bar, and `inset-y-0` makes it 72px tall.
+       *
+       * That is what it shipped as for one commit of this wave. The scrim
+       * covered the header and nothing else, and the panel was a 72px strip
+       * with the whole menu spilling out of it over the page. Every probe
+       * passed: it opened, it trapped focus, it locked the scroll and it
+       * closed on Escape. It was the SCREENSHOT that showed it, which is why
+       * the drawer probe now measures the panel's height and the scrim's
+       * coverage against the viewport as well.
+       */}
       {/* ── THE DRAWER ──────────────────────────────────────────────────────
-          A panel from the right rather than a sheet over the whole screen.
-          The page stays visible behind it, dimmed, so the visitor can see they
-          have opened something on top of what they were reading rather than
-          gone somewhere new, and the backdrop is then a place to press to get
-          back. Escape does the same, focus is trapped inside, the body cannot
-          scroll underneath, and a route change closes it.
+        A panel from the right rather than a sheet over the whole screen.
+        The page stays visible behind it, dimmed, so the visitor can see they
+        have opened something on top of what they were reading rather than
+        gone somewhere new, and the backdrop is then a place to press to get
+        back. Escape does the same, focus is trapped inside, the body cannot
+        scroll underneath, and a route change closes it.
 
-          It is rendered only while open, so nothing here is ever an invisible
-          element waiting for a trigger. */}
+        It is rendered only while open, so nothing here is ever an invisible
+        element waiting for a trigger. */}
       {open ? (
         <>
           {/* The backdrop is a real press target and NOT an announced control:
-              it duplicates the close button beside the logo, and a second
-              "Close menu" in the accessibility tree is noise, not help. Escape
-              and that button are the keyboard paths. */}
+            it duplicates the close button beside the logo, and a second
+            "Close menu" in the accessibility tree is noise, not help. Escape
+            and that button are the keyboard paths. */}
           <button
             type="button"
             aria-hidden="true"
@@ -532,7 +556,7 @@ export function SiteHeader() {
                           />
                         </button>
                         {/* The same orange rule the desktop bar uses for the
-                            route you are on, so the two read as one site. */}
+                          route you are on, so the two read as one site. */}
                         {partnersActive ? (
                           <span
                             aria-hidden="true"
@@ -610,7 +634,7 @@ export function SiteHeader() {
           </div>
         </>
       ) : null}
-    </header>
+    </>
   );
 }
 

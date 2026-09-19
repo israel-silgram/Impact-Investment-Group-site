@@ -152,24 +152,45 @@ SAMPLE_EVERY = 4
 # worse than no ratchet. Lower it when the page gets lighter, not when a run
 # happens to come in low.
 #
-# WAVE 413 RAISED THE 390 FIGURE BY 0.01 OF A POINT, AND THIS IS WHY.
+# WAVE 413 MOVED BOTH HOME FIGURES, AND NEITHER IS THE PAGE GETTING DARKER.
 #
-# The site header is 72px now and was 76px, because it condenses to 56px on
-# scroll and 72 is the number that pair was designed around. Four pixels is
-# nothing in itself, and the arithmetic of one shorter page is nothing either
-# (four rows of white out of roughly nine thousand). What it moves is the
-# SAMPLING GRID: this script reads every 4th pixel from y=0, so taking 4px off
-# the top slides the whole document one full sample step, and every sampled row
-# lands on different content: a different part of a line of text, the gap
-# between two rules rather than a rule. That is worth a hundredth of a point on
-# a page as dense as this one, and it is not the page getting darker.
+# THE 390 FIGURE, 22.20% to 22.21%. The site header is 72px now and was 76px,
+# because it condenses to 56px on scroll and 72 is the number that pair was
+# designed around. Four pixels is nothing in itself, and the arithmetic of one
+# shorter page is nothing either (four rows of white out of roughly nine
+# thousand). What it moves is the SAMPLING GRID: this script reads every 4th
+# pixel from y=0, so taking 4px off the top slides the whole document one full
+# sample step, and every sampled row lands on different content, a different
+# part of a line of text, the gap between two rules rather than a rule. Eight
+# readings at this head: 22.200%, 22.202% five times, 22.205%. A spread of
+# half a hundredth, and the ceiling sits just above it.
 #
-# Measured three times on the wave 413 build, same build, same machine:
-#   1280  23.542%  23.553%  23.566%   (ceiling unchanged at 23.57%)
-#    390  22.202%  22.202%  22.205%   (ceiling 22.20% -> 22.21%)
-# The 1280 figure did not need to move. The 390 figure did, by one hundredth.
+# THE 1280 FIGURE, 23.57% to 23.70%, AND THIS ONE IS ABOUT SPREAD RATHER THAN
+# LEVEL. Eight readings of the same build on the same machine:
+#
+#   23.47%  23.53%  23.54%  23.55%  23.56%  23.57%  23.57%  23.64%
+#
+# which is 0.17 of a point between the lowest and the highest. The wave 412b
+# note below already said this page cannot be read to the hundredth because it
+# animates; what wave 413 changed is how much. The home page now carries FOUR
+# looping animations rather than three (the council marquee, the map's node
+# pulse, the CTA ring, and this wave's 6px breathing dot on the live marker)
+# and a canvas that fades in over 350ms on first paint, and `settle()` cannot
+# land any of them on the same frame twice. The marquee is the one that
+# actually moves the number: its plates are masked out of the GROUND figure but
+# not out of the RAW one, and the crests on them are dark, so where the lane
+# has got to when the shutter opens is worth a tenth of a point on its own.
+#
+# 23.70% is 0.06 above the highest reading, which is less than a third of the
+# spread. A ceiling set at the exact maximum would fail on a phase of the
+# marquee rather than on a regression, and the wave 412b note below is explicit
+# that that is worse than no ratchet at all.
+#
+# ⚠ THE GROUND FIGURE IS THE ONE THAT MEANS "THE PAGE IS LIGHT", it is 9.17% at
+# its worst here, and it answers to the flat 15% with no ratchet and no
+# exception. Nothing below has been relaxed about that.
 RAW_CEILING = {
-    ("home", 1280): 0.2357,
+    ("home", 1280): 0.2370,
     ("home", 390): 0.2221,
 }
 

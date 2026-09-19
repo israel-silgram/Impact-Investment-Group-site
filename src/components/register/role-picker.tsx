@@ -38,7 +38,14 @@ export function RolePicker({ labelledBy }: { labelledBy: string }) {
             to="/register/$role"
             params={{ role: role.id }}
             className={cn(
-              "group flex min-h-11 w-full items-center gap-4 rounded-[14px] border bg-page p-5 text-left shadow-[var(--shadow-card)] transition-all duration-200 ease-out",
+              /* WAVE 413: `press`. Choosing a role SETTLES the tile, 0.98 and
+                 back, before the route changes. On a phone the tap is the only
+                 feedback there is between pressing a role and the next page
+                 arriving, and on a slow connection that gap is long enough for
+                 somebody to press a second tile. It answers to Enter and Space
+                 as well, because a Link is an anchor and :active fires for
+                 both. */
+              "press group flex min-h-11 w-full items-center gap-4 rounded-[14px] border bg-page p-5 text-left shadow-[var(--shadow-card)] transition-all duration-200 ease-out",
               "motion-safe:hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)] focus-visible:-translate-y-0.5 focus-visible:shadow-[var(--shadow-card-hover)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-600",
               role.tone === "route-out"
                 ? "registration-resident max-w-[540px] justify-center gap-5 border-teal-600 px-6 py-7 sm:py-8"
