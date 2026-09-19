@@ -302,6 +302,30 @@ def settle(page):
     page.wait_for_timeout(300)
 
 
+def scroll_to(page, y: float) -> float:
+    """Scroll instantly to `y` and return where the page actually came to rest.
+
+    WAVE 415b, rel415 MAJOR 3. `settle` above was fixed by 414b and this file
+    was then reported across wave 415 as one of "three gates that now settle
+    identically". IT WAS NOT. Three bare `scrollTo`s survived here untouched,
+    under an `html` that carries `scroll-behavior: smooth`, so all three were
+    ANIMATED and the fixed waits after them confirmed nothing. The worst of
+    them asked for a scroll of up to three viewports, waited 350ms, and read
+    `AUDIT` at whatever position the animation happened to have reached: that
+    reading is the scrolled half of this gate's headline target count and it
+    is the only reading in which the back-to-top control exists at all.
+
+    Identical to `scroll_to` in `scripts/wave413-motion.py`. Four gates, one
+    settle, and this is the last of the four.
+    """
+    for _ in range(12):
+        page.evaluate(f"() => scrollTo({{ top: {y}, behavior: 'instant' }})")
+        page.wait_for_timeout(100)
+        if abs(page.evaluate("() => window.scrollY") - y) <= 0.5:
+            return float(y)
+    return page.evaluate("() => window.scrollY")
+
+
 def to_top(page) -> float:
     """Put the page at the top and return where it actually is.
 
@@ -309,12 +333,23 @@ def to_top(page) -> float:
     failure. A page that will not go back to 0 is a page nothing below can be
     measured on.
     """
-    for _ in range(12):
-        page.evaluate("() => scrollTo({ top: 0, behavior: 'instant' })")
-        page.wait_for_timeout(100)
-        if page.evaluate("() => window.scrollY") <= 0.5:
-            return 0.0
-    return page.evaluate("() => window.scrollY")
+    return scroll_to(page, 0)
+
+
+def assert_scrolled(page, y: float, failures: list[str], where: str) -> float:
+    """Scroll to `y`, fail the run if the page did not arrive, return where.
+
+    A reading taken at an unconfirmed scroll position is a reading of a
+    different page from the one the failure message will name.
+    """
+    resting = scroll_to(page, y)
+    if abs(resting - y) > 0.5:
+        failures.append(
+            f"{where}: the page would not scroll to y={y:g}, resting at "
+            f"scrollY={resting:g}. Everything read at this position was read "
+            f"at the wrong one."
+        )
+    return resting
 
 
 # ---------------------------------------------------------------------------
@@ -1680,16 +1715,24 @@ def timings(browser, base: str) -> list[tuple]:
             page.mouse.up()
         except Exception:
             pass
-        page.evaluate(
-            "async () => { for (let y = 0; y < 2400; y += 300) "
-            "{ scrollTo(0, y); await new Promise(r => setTimeout(r, 90)); } }"
+        # 415b, rel415 MAJOR 3: instant and polled, like everything else.
+        # This sweep is a STIMULUS rather than a measurement, so it is not
+        # asserted, but a bare animated scrollTo in a loop under a 4x CPU
+        # throttle does not deliver the scroll it asks for, and a warm-up that
+        # did not happen is a warm-up that teaches the timings nothing.
+        reach = page.evaluate(
+            "() => Math.max(0, Math.min(document.body.scrollHeight - innerHeight, 2400))"
         )
+        resting = 0.0
+        for y in range(0, int(reach) + 1, 300):
+            resting = scroll_to(page, min(y, reach))
         page.wait_for_timeout(800)
         read = page.evaluate("() => [window.__lcp, window.__cls, window.__inp]")
         rows.append((path, read[0], read[1], read[2]))
         print(
             f"timing    {path:<26} LCP={read[0]:>5}ms  CLS={read[1]:.4f}  "
-            f"INP={read[2]:>4}ms   (4x CPU, slow 4G, 390x844)"
+            f"INP={read[2]:>4}ms   (4x CPU, slow 4G, 390x844, "
+            f"swept to {resting:.0f} of {reach:.0f})"
         )
         ctx.close()
     return rows
@@ -1786,14 +1829,28 @@ def main() -> None:
                     # fixed layer and the assertion is vacuous. Scrolled, the
                     # control is there, and so is anything else a wave adds to
                     # the bottom of the screen.
-                    page.evaluate(
-                        "async () => { scrollTo(0, Math.min(document.body.scrollHeight - "
-                        "innerHeight, innerHeight * 3)); "
-                        "await new Promise(r => setTimeout(r, 350)); }"
+                    #
+                    # ⚠ AND IT IS READ AT A CONFIRMED POSITION (415b, rel415
+                    # MAJOR 3). This used to be a bare animated `scrollTo` of
+                    # up to three viewports followed by a blind 350ms, so the
+                    # scrolled half of this gate's target count was read
+                    # wherever the smooth-scroll animation had got to. The
+                    # target is computed and CLAMPED here rather than in the
+                    # browser, because a page shorter than three viewports
+                    # rests at its own maximum and a poll for the unclamped
+                    # figure would never agree.
+                    reach = page.evaluate(
+                        "() => Math.max(0, Math.min(document.body.scrollHeight - "
+                        "innerHeight, innerHeight * 3))"
                     )
+                    assert_scrolled(page, reach, failures, f"{where}, scrolled")
                     scrolled = page.evaluate(AUDIT)
-                    page.evaluate("() => scrollTo(0, 0)")
-                    page.wait_for_timeout(200)
+                    back = to_top(page)
+                    if back > 0.5:
+                        failures.append(
+                            f"{where}: the page would not return to the top "
+                            f"before axe ran, resting at scrollY={back:g}"
+                        )
 
                     page.add_script_tag(content=axe_source)
                     violations = json.loads(json.dumps(page.evaluate(AXE_RUN)))
