@@ -725,3 +725,57 @@ doing, which is Callum's, and proposal 7 still stands.
    so and 415b changes nothing about it. This wave removed no bytes from the critical path.
 4. **`scripts/wave295-*`, `scripts/wave298-*` and `scripts/wave358-registration.test.ts`** remain
    outside this brief's gates, as in wave 415.
+
+---
+
+# 12. The 415c fix pass
+
+The operator's independent re-checker read the 415b state and returned **HOLD: 1 MAJOR, 5 MINOR**
+(`_cowork_ops/gate/review/rel415b_verdict.md`). It confirmed the shipped site pixel for pixel,
+the wave 411 gate's settle discipline, and the three scrollTo conversions of MAJOR 3 by
+reproducing their arithmetic exactly, and found nothing weakened, no new user-facing string and
+0 dashes over the 415b diff. **The single MAJOR was that section 2 and section 9 of this document
+still stated the pre-fix, `opacity-90` Zoopla figures as current**, unmarked, while the eight
+other wrong sentences the same fix pass produced had each been struck through. All five MINORs
+were report clarity or gate precision, none a weakening.
+
+**MAJOR 1, closed.** Section 2 lines 43 to 50 and section 9 item 3 are now struck through and
+corrected in place, in the same style as the document's other eight corrections, pointing at
+section 11.1: darkest ink pixel **(128, 70, 242)**, L **0.15383**, rendered **5.1052:1** on the
+ground beside it, **5.1520:1** flat on white, **5.0233:1** modal. The rest of the document was
+re-read for any other unmarked pre-fix figure; none was found.
+
+**MINOR 1, closed.** `scripts/wave414-mobile.py` line 1149 carried a bare `scrollBy` followed by
+a blind 300ms wait, the fourth bare scroll left in the file after the docstring at line 318
+called the third one "the last of the four". Converted to the `scroll_to` polled helper, matching
+the three conversions already made at 1685, 1790 and 1795, and the docstring corrected. **No
+number moved**: the gate re-run whole reads 2,839 targets at the top, 2,904 scrolled, 5,743 in
+all, 65 fixed layers tested pairwise, 0 overlapping, identical to the 415b head, because this
+probe's scroll feeds only the "Continue not reachable" assertion, not the tallies. Direction
+confirmed benign, as the re-checker stated: it could only have produced a false failure.
+
+**MINOR 2, closed.** The register-390 "dark share" figures (46.10%, 5.95%) named no method and
+neither is reproducible under any of eight tried definitions; the old shot no longer exists to
+re-derive its figure at all. Both are kept, labelled as unreproducible, and led with the claim
+that does hold up: the re-shot image's two commonest colours are cream (44.39%) and white
+(33.56%), not navy, which is what actually proves the ground changed.
+
+**MINOR 3, closed.** `assert_on_screen` in `scripts/wave411-screenshots.py` measured the "Prefer
+WhatsApp?" heading's own 32px box, never the card, while its docstring, its failure message and
+this report's section 11.2 all said "card". Renamed to `assert_heading_on_screen` and every
+description corrected to match; no assertion widened or narrowed.
+
+**MINOR 4, closed.** Section 11.6 said 33 lines deleted from `src/styles.css`; the diff removes
+34 (9 insertions, 34 deletions). Struck through and corrected.
+
+**MINOR 5, closed.** Recounted from the diff at this pass's own starting head: the 268-line dash
+denominator at section 11.7 is exactly right (8 text files, 268 insertions between `2697d79` and
+`5afc176`). The relayed "292 report lines added by the final commit" was 2 lines out; the true
+figure is 290. No report figure needed to change; the reconciliation is recorded for the next
+reader.
+
+**What was re-run, foreground, and what was not.** None of the above touches `src/` or the build,
+so `tsc`, `eslint`, the build, `wave412-screenshots.py`, `wave413-motion.py` and the
+responsive-image `--check` were not re-run. `python scripts/wave414-mobile.py` (rc 0) and
+`python scripts/wave411-screenshots.py` (rc 0) were, whole, in the foreground, both green, with
+the numbers above. Dashes on every line added by this pass: **0 U+2014, 0 U+2013**.
