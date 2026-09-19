@@ -33,10 +33,23 @@ HONEST, which on this site means ten specific things.
       animation: an entrance that has not been triggered must never be the
       reason a visitor sees nothing.
 
-  (c) THE HEADER CONDENSES AND COMES BACK. 72px at rest, 56px past 300px of
-      scroll, 72px again at the top. Measured on every page at both widths,
-      because a header that forgets to expand on one route is a route whose
-      logo is permanently small.
+  (c) THE HEADER'S HEIGHT NEVER MOVES. Three readings on every page at both
+      widths: at the top, past 300px of scroll, and back at the top. All three
+      must be IDENTICAL, and equal to the one height that width is entitled to
+      (56px below 640px, 72px from 640px).
+
+      ⚠ WAVE 414 REPLACED THIS ASSERTION AND DID NOT WEAKEN IT. Wave 413
+      read 72 / 56 / 72 and passed as long as the bar came back; it therefore
+      permitted the height to move, which is what it was written to check.
+      Wave 414 measured what that movement cost on the 4x-slowed phone
+      profile (up to 50.10ms inside a 16.7ms frame on the home page, 53 to 56
+      dropped frames per scroll) and made the bar a static height, so the
+      phone is handed its 16px on the first paint rather than after 24px of
+      scroll. The assertion now forbids ALL movement, which is a superset of
+      "it came back": every build the old rule passed with a moving bar, this
+      one fails. The condense is still there and still does its two free
+      things, the logo's transform and the card shadow; (i) measures the
+      magic line at both scroll positions as before.
 
   (d) A REGISTRATION STEP COMPLETES INSIDE ITS BUDGET, and the step it replaced
       is gone from the accessibility tree. The network is stubbed (the site
@@ -134,8 +147,12 @@ PAGES = [
     ("/legal", "legal"),
 ]
 
-HEADER_TALL = 72
-HEADER_CONDENSED = 56
+# ⚠ WAVE 414: ONE HEIGHT PER WIDTH, AND IT IS THE SAME AT EVERY SCROLL
+# POSITION. 56px below 640px and 72px from 640px, which is the logo's own
+# breakpoint: the lockup is `h-11 sm:h-[52px]`, so 44px of artwork clears a
+# 56px bar with 6px either side and 52px of artwork needs 72. Read from
+# `--header-height` in styles.css, which is the one place these live.
+HEADER_HEIGHT_AT = {1280: 72, 390: 56}
 CONDENSE_SCROLL = 300
 
 # "Shorter than a frame." The reduced-motion block flattens animation and
@@ -345,7 +362,12 @@ def is_defect(entry) -> bool:
 
 
 def header_heights(page) -> tuple[int, int, int]:
-    """(at rest, past CONDENSE_SCROLL, back at the top)."""
+    """(at rest, past CONDENSE_SCROLL, back at the top).
+
+    Wave 414 expects all three to be the same number. The three readings are
+    kept rather than collapsed to one, because "it is 56px if you never
+    scroll" is not the claim: the claim is that scrolling cannot change it.
+    """
     read = "() => { const h = document.querySelector('header'); return h ? h.offsetHeight : -1; }"
     page.evaluate("() => scrollTo(0, 0)")
     page.wait_for_timeout(350)
@@ -1299,7 +1321,11 @@ def magic_line_probe(browser, base: str, failures: list[str]) -> None:
     }
     """
 
-    for label, scroll in (("tall", 0), ("condensed", CONDENSE_SCROLL)):
+    # WAVE 414: the bar is one height now, so these two are "at the top"
+    # and "scrolled" rather than two heights. The line still has to sit
+    # inside the bar in both states, because the condense still moves the
+    # logo and the shadow even though it no longer moves the box.
+    for label, scroll in (("at the top", 0), ("scrolled", CONDENSE_SCROLL)):
         page.evaluate(f"() => scrollTo(0, {scroll})")
         page.wait_for_timeout(450)
         geometry = page.evaluate(read)
@@ -1656,20 +1682,24 @@ def main() -> None:
                         f"{entry['opacity']} in the first viewport, so something above "
                         f"the fold is waiting for a trigger. \"{entry['text']}\""
                     )
-                if tall != HEADER_TALL:
+                expected = HEADER_HEIGHT_AT[width]
+                if tall != expected:
                     failures.append(
                         f"{where}: the header is {tall}px at the top of the page, "
-                        f"not {HEADER_TALL}px."
+                        f"not the {expected}px this width is entitled to."
                     )
-                if condensed != HEADER_CONDENSED:
+                if condensed != tall:
                     failures.append(
                         f"{where}: the header is {condensed}px after {CONDENSE_SCROLL}px "
-                        f"of scroll, not {HEADER_CONDENSED}px."
+                        f"of scroll and {tall}px at the top. The bar's height must not "
+                        f"move: animating it relaid out the whole document on every "
+                        f"frame of every crossing, which cost the home page up to "
+                        f"50.10ms inside a 16.7ms frame on a 4x-slowed phone."
                     )
-                if back != HEADER_TALL:
+                if back != tall:
                     failures.append(
-                        f"{where}: the header is {back}px back at the top, not "
-                        f"{HEADER_TALL}px. It condensed and did not expand again."
+                        f"{where}: the header is {back}px back at the top and {tall}px "
+                        f"before the scroll. Its height moved."
                     )
 
         drawer_probe(browser, base, failures)

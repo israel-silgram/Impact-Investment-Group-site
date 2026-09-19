@@ -7,6 +7,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { MatchPanel } from "@/components/platform/match-panel";
 import { aiTeam, type Specialist } from "@/content/platform";
 import { cn } from "@/lib/utils";
+import { SIZES_HALF_FROM_TABLET, variantSrcSet } from "@/lib/responsive-image";
 
 const icons: Record<Specialist["icon"], LucideIcon> = {
   search: Search,
@@ -48,6 +49,8 @@ export function AiTeam() {
             height={1280}
             loading="lazy"
             className="h-full w-full rounded-xl object-cover ring-1 ring-navy-700/20"
+            srcSet={variantSrcSet(terraceSubject)}
+            sizes={SIZES_HALF_FROM_TABLET}
           />
         </Reveal>
         <Reveal className="md:col-span-2">

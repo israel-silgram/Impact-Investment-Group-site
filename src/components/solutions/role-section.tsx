@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "@tanstack/react-router";
-import * as Icons from "lucide-react";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,12 +7,12 @@ import { EmptySlot } from "@/components/ui/empty-slot";
 import { IconCircle } from "@/components/ui/icon-circle";
 import { LiveWindow } from "@/components/ui/live-window";
 import { Reveal } from "@/components/ui/reveal";
+import { iconByName } from "@/lib/icon-registry";
 import { cn } from "@/lib/utils";
 import type { RoleSection } from "@/content/solutions";
 import { roleIcons } from "./role-utils";
 
-const bulletIcon = (name: string): LucideIcon =>
-  (Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle;
+const bulletIcon = (name: string): LucideIcon => iconByName(name);
 
 function PortalPreview({ role }: { role: RoleSection }) {
   const { portal } = role;

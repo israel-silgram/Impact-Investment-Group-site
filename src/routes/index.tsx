@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import * as Icons from "lucide-react";
+import { Activity, Info } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { CouncilPanel } from "@/components/home/council-panel";
@@ -20,13 +20,13 @@ import {
   platformStats,
   platformStatsSource,
 } from "@/content/trust";
+import { iconByName } from "@/lib/icon-registry";
 import { cn } from "@/lib/utils";
 
 /** The single orange action this page exists to get. Hero + closing band only. */
 const PRIMARY_LABEL = registerRoute.label;
 
-const icon = (name: string): LucideIcon =>
-  (Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle;
+const icon = (name: string): LucideIcon => iconByName(name);
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -181,7 +181,7 @@ function HomePage() {
                     Still under reduced motion, where the filled dot and the
                     Activity glyph say the same thing without moving. */}
                 <span aria-hidden="true" className="live-dot" />
-                <Icons.Activity aria-hidden="true" className="size-3" />
+                <Activity aria-hidden="true" className="size-3" />
                 {platformStatsSource}
               </p>
 
@@ -230,7 +230,7 @@ function HomePage() {
               {/* mt-auto keeps the note at the foot of the column, level with
                   the bottom of the map rather than floating up the middle. */}
               <p className="mt-auto flex items-start gap-2 pt-7 text-[11px] max-lg:text-[15px] leading-[1.6] text-ink-muted">
-                <Icons.Info aria-hidden="true" className="mt-px size-3.5 shrink-0" />
+                <Info aria-hidden="true" className="mt-px size-3.5 shrink-0" />
                 {demandMapCopy.illustrativeNote}
               </p>
             </div>

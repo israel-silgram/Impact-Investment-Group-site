@@ -1,3 +1,4 @@
+import { variantSrcSet } from "@/lib/responsive-image";
 import { cn } from "@/lib/utils";
 
 /**
@@ -69,6 +70,8 @@ export function Logo({
        */}
       <img
         src={LOCKUP[variant]}
+        srcSet={variantSrcSet(LOCKUP[variant])}
+        sizes="(min-width: 640px) 140px, 119px"
         loading="eager"
         fetchPriority="high"
         alt=""
@@ -97,6 +100,8 @@ export function LogoMark({
   return (
     <img
       src={MARK[variant]}
+      srcSet={variantSrcSet(MARK[variant])}
+      sizes="36px"
       loading="eager"
       fetchPriority="high"
       alt=""

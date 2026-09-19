@@ -189,9 +189,41 @@ SAMPLE_EVERY = 4
 # ⚠ THE GROUND FIGURE IS THE ONE THAT MEANS "THE PAGE IS LIGHT", it is 9.17% at
 # its worst here, and it answers to the flat 15% with no ratchet and no
 # exception. Nothing below has been relaxed about that.
+#
+# ── WAVE 414 MOVED BOTH FIGURES, ONE DOWN A LONG WAY AND ONE UP A LITTLE ──
+#
+# THE 390 FIGURE, 22.21% TO 16.85%, AND IT IS THE HERO. Below 768px the three
+# hero photographs are a horizontal snap strip rather than a stack, so the
+# first screen carries ONE photograph and part of a second instead of three
+# and the page is 735px shorter. Three readings of this head at 390: 16.78%,
+# 16.78%, 16.78%, with a spread of nothing at all. The ceiling is set at
+# 16.85%, which is 0.07 of a point of headroom, and it is a RATCHET LOWERED
+# by 5.36 points. A later wave may lower it again and may not raise it without
+# saying why here, which is the same rule it has always carried.
+#
+# THE 1280 FIGURE, 23.70% TO 23.85%, AND IT IS THE PHOTOGRAPHS THEMSELVES.
+# Wave 414 gave every photograph on the site responsive sources, so at 1280
+# the hero band draws the 400px variant into its 392px slot rather than
+# scaling the 1280px original down. The variant is a fresh WebP encode at
+# quality 82 and its pixel statistics are not the original's: more of its
+# pixels land under the 0.2 luminance line. Three readings of this head at
+# 1280: 23.81%, 23.83%, 23.81%.
+#
+# ⚠ THE PAGE IS NOT DARKER AND THE GROUND FIGURE PROVES IT. With the
+# photographs, the map field and the island masked out, the home page reads
+# 9.16% at 1280 against 9.17% before, and 7.08% at 390. The whole of the raw
+# movement is inside the masked rectangles, which is to say inside the
+# pictures, which is to say it is an encoder and not a design. The ground
+# answers to the flat 15% with no ratchet and no exception, and it went down.
+#
+# And the 1280 reading is far steadier than it was: the note above records a
+# spread of 0.17 of a point across eight readings, and this head reads 0.02
+# across three. Wave 414 moved the `lenis` wheel-momentum library behind a
+# dynamic import and removed a 596KB icon chunk, so there is markedly less
+# script racing the shutter.
 RAW_CEILING = {
-    ("home", 1280): 0.2370,
-    ("home", 390): 0.2221,
+    ("home", 1280): 0.2385,
+    ("home", 390): 0.1685,
 }
 
 

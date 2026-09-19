@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import type { LogoCredit } from "@/content/trust";
+import { intrinsic } from "@/lib/responsive-image";
 
 /**
  * A continuous logo lane, restyled from the production site's
@@ -63,6 +64,8 @@ export function LogoMarquee({
               loading="lazy"
               decoding="async"
               className={cn("object-contain", imgClassName ?? "h-full w-auto max-w-[9rem]")}
+              width={intrinsic(item.logo)?.width}
+              height={intrinsic(item.logo)?.height}
             />
           </span>
         ))}

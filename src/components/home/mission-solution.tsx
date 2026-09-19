@@ -1,6 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import * as React from "react";
-import * as Icons from "lucide-react";
+// WAVE 414: named imports rather than a namespace one. Nothing here was
+// looked up by string, so this file alone was tree-shakable, but a
+// namespace import beside a dynamic one reads as though it is not and the
+// next person to add `Icons[name]` here would be adding it to something
+// that already looked like it allowed that. See director-card.tsx.
+import { ArrowRight, Baby, Circle, House, RefreshCw } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { Reveal, useCountUp } from "@/components/ui/reveal";
@@ -12,7 +17,9 @@ import {
   purposeStatsNote,
   solutionCopy,
 } from "@/content/home";
+import { iconByName } from "@/lib/icon-registry";
 import { cn } from "@/lib/utils";
+import { SIZES_HALF_FROM_TABLET, variantSrcSet } from "@/lib/responsive-image";
 
 /**
  * MissionSolution — the need and the answer, as one bento grid with two faces.
@@ -68,8 +75,7 @@ import { cn } from "@/lib/utils";
 /** Three, because three divides the row. See note 1 above before changing. */
 const SHOWN = ["waiting-lists", "temporary-accommodation", "asset-requirement"] as const;
 
-const icon = (name?: string): LucideIcon =>
-  name ? ((Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle) : Icons.Circle;
+const icon = (name?: string): LucideIcon => iconByName(name);
 
 /**
  * The hero figure, counting.
@@ -210,7 +216,7 @@ function FlipBar({
         <span className="block text-[12.5px] text-page">{hint}</span>
       </span>
       <span className="grid size-11 shrink-0 place-items-center rounded-full bg-white/18 transition-transform duration-500 group-hover:rotate-180">
-        <Icons.RefreshCw aria-hidden="true" className="size-5 text-page" />
+        <RefreshCw aria-hidden="true" className="size-5 text-page" />
       </span>
     </button>
   );
@@ -289,7 +295,7 @@ export function MissionSolution() {
                   empty. */}
               <Reveal className="flex flex-1">
                 <div className="relative flex w-full flex-col justify-end overflow-hidden rounded-[var(--radius-panel)] bg-orange-600 p-6 lg:min-h-[270px]">
-                  <Icons.Baby
+                  <Baby
                     aria-hidden="true"
                     strokeWidth={1.2}
                     className="pointer-events-none absolute -right-8 -top-8 size-48 text-[#ffffff] opacity-[0.14]"
@@ -325,6 +331,8 @@ export function MissionSolution() {
                     width={1600}
                     height={640}
                     className="size-full scale-105 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-110"
+                    srcSet={variantSrcSet("/images/why-estate-aerial.webp")}
+                    sizes={SIZES_HALF_FROM_TABLET}
                   />
                   <div
                     aria-hidden="true"
@@ -390,7 +398,7 @@ export function MissionSolution() {
                     className="mt-4 inline-flex min-h-11 items-center gap-1.5 font-heading text-[13px] font-bold text-teal-600 lg:min-h-0 transition-colors duration-200 hover:text-orange-700"
                   >
                     See the full picture
-                    <Icons.ArrowRight aria-hidden="true" className="size-3.5" />
+                    <ArrowRight aria-hidden="true" className="size-3.5" />
                   </Link>
                 </div>
               </Reveal>
@@ -451,7 +459,7 @@ export function MissionSolution() {
                   bottom-aligned content, same oversized glyph. */}
               <Reveal className="flex flex-1">
                 <div className="relative flex w-full flex-col justify-end overflow-hidden rounded-[var(--radius-panel)] bg-teal-600 p-6 lg:min-h-[270px]">
-                  <Icons.House
+                  <House
                     aria-hidden="true"
                     strokeWidth={1.2}
                     className="pointer-events-none absolute -right-8 -top-8 size-48 text-[#ffffff] opacity-[0.14]"
@@ -464,7 +472,7 @@ export function MissionSolution() {
                     <span className="text-[13px] font-semibold">
                       {impactProof.multiplier.from.label}
                     </span>
-                    <Icons.ArrowRight aria-hidden="true" className="size-6 shrink-0" />
+                    <ArrowRight aria-hidden="true" className="size-6 shrink-0" />
                     <span className="text-[clamp(3rem,6.6vw,4.75rem)]">
                       {impactProof.multiplier.to.figure}
                     </span>
@@ -491,6 +499,8 @@ export function MissionSolution() {
                     width={934}
                     height={558}
                     className="absolute -bottom-1 right-2 h-[152px] w-auto translate-y-3 transition-transform duration-700 ease-out group-hover:translate-y-0"
+                    srcSet={variantSrcSet("/images/ai-team/trio-wave.webp")}
+                    sizes={SIZES_HALF_FROM_TABLET}
                   />
                   <div className="absolute inset-y-0 left-0 flex max-w-[54%] flex-col justify-center p-5">
                     <p className="eyebrow tracking-[0.14em] text-teal-600">Who it is for</p>

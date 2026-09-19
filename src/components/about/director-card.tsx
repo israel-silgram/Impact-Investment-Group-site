@@ -1,11 +1,38 @@
-import * as Icons from "lucide-react";
+import { BrainCircuit, HandCoins, HandHeart, House, Sparkles, UserRound } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import type { Director } from "@/content/about";
+import { SIZES_PORTRAIT, variantSrcSet } from "@/lib/responsive-image";
 
-const icon = (name?: string): LucideIcon =>
-  (name && (Icons as unknown as Record<string, LucideIcon>)[name]) || Icons.UserRound;
+/**
+ * ⚠ WAVE 414: A MAP, NOT `import * as Icons` AND A STRING LOOKUP.
+ *
+ * This read `(Icons as Record<string, LucideIcon>)[name]`, and a dynamic
+ * index into a namespace import is the one shape a bundler cannot see
+ * through: Rollup has to assume any export might be reached, so it keeps them
+ * ALL. `lucide-react` shipped as a 596KB chunk on every route of this site,
+ * against roughly sixty icons actually drawn anywhere on it, and on the
+ * 3.37MB the home page weighed it was the single largest item.
+ *
+ * Five names are ever looked up here, they are the five in `content/about.ts`,
+ * and the fallback is the sixth. A map of six is what the code always meant;
+ * the namespace import was a way of not writing it down.
+ *
+ * If a director gets a new icon, add it here as well as in the content file.
+ * That is the cost, and a build that keeps a whole icon library to avoid a
+ * six-line map is not worth it.
+ */
+const DIRECTOR_ICONS: Record<string, LucideIcon> = {
+  BrainCircuit,
+  HandCoins,
+  HandHeart,
+  House,
+  Sparkles,
+  UserRound,
+};
+
+const icon = (name?: string): LucideIcon => (name && DIRECTOR_ICONS[name]) || UserRound;
 
 /**
  * A person on the team, on a cream card.
@@ -94,6 +121,8 @@ export function DirectorCard({
             width={440}
             height={440}
             className="size-28 shrink-0 rounded-full object-cover ring-4 ring-white shadow-[0_0_0_1px_rgba(7,26,51,0.08)]"
+            srcSet={variantSrcSet(director.portrait)}
+            sizes={SIZES_PORTRAIT}
           />
         ) : (
           <span
@@ -147,6 +176,8 @@ export function DirectorCard({
             width={440}
             height={440}
             className="size-[208px] rounded-full object-cover ring-4 ring-white"
+            srcSet={variantSrcSet(director.portrait)}
+            sizes={SIZES_PORTRAIT}
           />
         </div>
         <div className="flex flex-1 flex-col p-5 text-center">
@@ -207,6 +238,8 @@ export function DirectorCard({
             width={440}
             height={440}
             className="size-[60px] shrink-0 rounded-full object-cover"
+            srcSet={variantSrcSet(director.portrait)}
+            sizes={SIZES_PORTRAIT}
           />
         ) : (
           <span
@@ -265,6 +298,8 @@ export function DirectorCard({
             lead ? "size-20" : "size-14",
             ring,
           )}
+          srcSet={variantSrcSet(director.portrait)}
+          sizes={SIZES_PORTRAIT}
         />
       ) : (
         <span

@@ -900,10 +900,38 @@ def main() -> None:
                     settle(page)
                     where = f"{slug} @ {label}"
 
-                    flow = page.evaluate(OVERFLOW)
-                    audit = page.evaluate(AUDIT)
                     target = OUT / f"{slug}-{label}.png"
                     page.screenshot(path=str(target), full_page=True)
+
+                    # ⚠ BACK TO THE TOP, EXPLICITLY, BEFORE ANYTHING IS READ.
+                    # A full-page screenshot walks the page, and at 667x375
+                    # with a page twenty viewports long it does not always
+                    # hand the scroll position back. The first run of this
+                    # gate read the home page's FIRST screen somewhere around
+                    # the middle of it and reported a photograph from the
+                    # ecosystem band as the hero. Everything below is measured
+                    # from a known scroll or it is measured from nowhere.
+                    page.evaluate("() => scrollTo(0, 0)")
+                    page.wait_for_timeout(250)
+
+                    flow = page.evaluate(OVERFLOW)
+                    audit = page.evaluate(AUDIT)
+
+                    # AND THE FIXED LAYERS ARE READ TWICE, because the second
+                    # reading is the one that can fail. The back-to-top
+                    # control does not exist until two viewports of scroll, so
+                    # at the top of the page there is never more than one
+                    # fixed layer and the assertion is vacuous. Scrolled, the
+                    # control is there, and so is anything else a wave adds to
+                    # the bottom of the screen.
+                    page.evaluate(
+                        "async () => { scrollTo(0, Math.min(document.body.scrollHeight - "
+                        "innerHeight, innerHeight * 3)); "
+                        "await new Promise(r => setTimeout(r, 350)); }"
+                    )
+                    scrolled = page.evaluate(AUDIT)
+                    page.evaluate("() => scrollTo(0, 0)")
+                    page.wait_for_timeout(200)
 
                     page.add_script_tag(content=axe_source)
                     violations = json.loads(json.dumps(page.evaluate(AXE_RUN)))
@@ -912,6 +940,7 @@ def main() -> None:
                     small, tight = check_targets(audit["targets"], failures, where)
                     typebad = check_type(audit["type"], failures, where)
                     clash = check_layers(audit["layers"], failures, where)
+                    clash += check_layers(scrolled["layers"], failures, f"{where}, scrolled")
 
                     print(
                         f"{slug:<30} {label:>8}  "
@@ -919,7 +948,8 @@ def main() -> None:
                         f"{'ok' if fits else 'OVERFLOW'}  "
                         f"targets={len(audit['targets'])}(under44 {small}, tight {tight})  "
                         f"type={len(audit['type'])}(under floor {typebad})  "
-                        f"fixed={len(audit['layers'])}(overlapping {clash})  "
+                        f"fixed={len(audit['layers'])}+{len(scrolled['layers'])} scrolled"
+                        f"(overlapping {clash})  "
                         f"axe={len(violations)}  "
                         f"exempt={audit['exempt']}"
                     )

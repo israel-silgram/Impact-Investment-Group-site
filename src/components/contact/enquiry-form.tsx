@@ -224,6 +224,7 @@ export function EnquiryForm({
           <input
             id="name"
             className={fieldClass}
+            inputMode="text"
             autoComplete="name"
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "name-error" : undefined}
@@ -237,6 +238,7 @@ export function EnquiryForm({
           <input
             id="email"
             type="email"
+            inputMode="email"
             className={fieldClass}
             autoComplete="email"
             aria-invalid={!!errors.email}
@@ -251,6 +253,7 @@ export function EnquiryForm({
           <input
             id="organisation"
             className={fieldClass}
+            inputMode="text"
             autoComplete="organization"
             aria-invalid={!!errors.organisation}
             aria-describedby={errors.organisation ? "organisation-error" : undefined}
@@ -263,6 +266,7 @@ export function EnquiryForm({
           <Label htmlFor="role">Your role</Label>
           <select
             id="role"
+            autoComplete="off"
             className={cn(fieldClass, "cursor-pointer")}
             aria-invalid={!!errors.role}
             aria-describedby={errors.role ? "role-error" : undefined}
@@ -283,6 +287,7 @@ export function EnquiryForm({
             <Label htmlFor="entityType">Entity type</Label>
             <select
               id="entityType"
+              autoComplete="off"
               className={cn(fieldClass, "cursor-pointer")}
               aria-invalid={!!errors.entityType}
               aria-describedby={errors.entityType ? "entityType-error" : undefined}
@@ -351,6 +356,8 @@ export function EnquiryForm({
             <textarea
               id="message"
               rows={6}
+              inputMode="text"
+              autoComplete="off"
               className={cn(fieldClass, "min-h-[140px] resize-y")}
               aria-invalid={!!errors.message}
               aria-describedby={errors.message ? "message-error" : undefined}

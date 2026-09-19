@@ -3,6 +3,7 @@ import * as React from "react";
 import ecosystemBand from "@/assets/ecosystem-band.jpg";
 import { whatWeDo } from "@/content/platform";
 import { cn } from "@/lib/utils";
+import { SIZES_FULL_BLEED, variantSrcSet } from "@/lib/responsive-image";
 
 /**
  * DeliverySpine — the four "what we do for you" steps, drawn with the same
@@ -31,6 +32,8 @@ export function DeliverySpine({ className }: { className?: string }) {
         width={1920}
         height={640}
         className="absolute inset-0 h-full w-full object-cover opacity-40"
+        srcSet={variantSrcSet(ecosystemBand)}
+        sizes={SIZES_FULL_BLEED}
       />
       <div
         aria-hidden="true"

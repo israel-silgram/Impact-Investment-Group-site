@@ -34,6 +34,99 @@
  * first viewport, never the header, never a whole section's ground.
  */
 
+/* ── WAVE 414: METRIC-MATCHED FALLBACK FACES ────────────────────────
+
+   @fontsource ships `font-display: swap`, which is the right choice: text is
+   readable in a fallback face while the real one arrives. What swap costs is
+   a REFLOW when it lands, because the fallback and the real face wrap at
+   different places, and on a phone that reflow is the visitor's place on the
+   page moving under their thumb.
+
+   Measured on the built site at Lighthouse's own mobile emulation, 412x823:
+   `/partner-with-investor` scored a cumulative layout shift of **0.1481**
+   against Google's 0.1 "good" threshold, and 0.1461 of it was one event at
+   2113ms, the moment the fonts landed. One `div.reveal` in the hero went from
+   448px tall to 406px: the heading lost a line, and everything under it moved
+   up 42px.
+
+   The fix is a fallback face that occupies the same space as the real one, so
+   there is nothing to reflow when the swap happens. Every figure below was
+   MEASURED off the woff2 files this site actually ships, with fontTools,
+   against Arial's published metrics (2048 upem, 1854 ascent, -434 descent, 67
+   line gap, 1017 average lowercase advance):
+
+     face         upem  hheaAsc  hheaDesc  avg lowercase advance
+     Barlow 600   1000  1000     -200      489.3
+     Barlow 700   1000  1000     -200      496.6
+     Barlow 800   1000  1000     -200      504.0
+     Inter var    2048  1984     -494      1079.1
+
+   `size-adjust` is the ratio of average lowercase advance per em, which is
+   what decides where a line wraps; the ascent and descent overrides are then
+   the real face's own, divided by that adjustment, so the line box is the
+   same height as well as the same width.
+
+   Three Barlow faces rather than one, because the three weights differ by
+   1.5% in advance and the hero runs at 800 while the section headings run at
+   700. One family with three weights costs three rules and no bytes: `local()`
+   downloads nothing.
+
+   `local()` and nothing else on purpose. If none of the three named faces is
+   installed the rule fails to match, the next family in the stack takes over
+   with no overrides, and the site looks exactly as it did before this block.
+   A fallback that can break something is not a fallback. */
+
+@font-face {
+  font-family: "Barlow fallback";
+  src:
+    local("Helvetica Neue"),
+    local("Helvetica"),
+    local("Arial");
+  font-weight: 600;
+  size-adjust: 98.54%;
+  ascent-override: 101.48%;
+  descent-override: 20.3%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Barlow fallback";
+  src:
+    local("Helvetica Neue"),
+    local("Helvetica"),
+    local("Arial");
+  font-weight: 700;
+  size-adjust: 100.01%;
+  ascent-override: 99.99%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Barlow fallback";
+  src:
+    local("Helvetica Neue"),
+    local("Helvetica"),
+    local("Arial");
+  font-weight: 800;
+  size-adjust: 101.5%;
+  ascent-override: 98.52%;
+  descent-override: 19.7%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter fallback";
+  src:
+    local("Helvetica Neue"),
+    local("Helvetica"),
+    local("Arial");
+  size-adjust: 106.1%;
+  ascent-override: 91.3%;
+  descent-override: 22.73%;
+  line-gap-override: 0%;
+}
+
 @theme {
   /* Navy — the base. The site is dark by default. */
   --color-navy-950: #000b1c;
@@ -146,9 +239,11 @@
   --color-tint-teal: color-mix(in oklab, #17796f 12%, transparent);
 
   /* Type */
-  --font-display: "Anton", "Barlow", system-ui, sans-serif;
-  --font-heading: "Barlow", system-ui, sans-serif;
-  --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
+  /* ⚠ WAVE 414: THE FALLBACK FACES ARE IN THE STACK, AND THAT IS A CLS FIX.
+     See the @font-face block above @theme for the measurements. */
+  --font-display: "Anton", "Barlow", "Barlow fallback", system-ui, sans-serif;
+  --font-heading: "Barlow", "Barlow fallback", system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", "Inter fallback", system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
 
   /* Radii */

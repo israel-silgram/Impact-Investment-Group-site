@@ -14,6 +14,7 @@ import {
   solutionClose,
   solutionHero,
 } from "@/content/solutions";
+import { SIZES_FULL_BLEED, SIZES_THIRD_FROM_TABLET, variantSrcSet } from "@/lib/responsive-image";
 
 /**
  * /solutions — five sections.
@@ -83,6 +84,8 @@ function SolutionsPage() {
           width={1600}
           height={900}
           className="pointer-events-none absolute inset-0 -z-20 size-full object-cover opacity-[0.12]"
+          srcSet={variantSrcSet("/images/solution-street-blueprint.webp")}
+          sizes={SIZES_FULL_BLEED}
         />
         <div
           aria-hidden="true"
@@ -159,6 +162,8 @@ function SolutionsPage() {
               width={453}
               height={1100}
               className="hidden w-full lg:block"
+              srcSet={variantSrcSet("/images/solution/house.webp")}
+              sizes={SIZES_THIRD_FROM_TABLET}
             />
           </div>
         </div>
@@ -184,6 +189,8 @@ function SolutionsPage() {
               width={846}
               height={620}
               className="hidden w-full lg:block"
+              srcSet={variantSrcSet("/images/solution/hub.webp")}
+              sizes={SIZES_THIRD_FROM_TABLET}
             />
 
             <div>
@@ -282,6 +289,8 @@ function SolutionsPage() {
             width={829}
             height={620}
             className="hidden w-full drop-shadow-[0_20px_34px_rgba(0,17,43,0.4)] lg:block"
+            srcSet={variantSrcSet("/images/solution/trio.webp")}
+            sizes={SIZES_THIRD_FROM_TABLET}
           />
         </div>
       </section>

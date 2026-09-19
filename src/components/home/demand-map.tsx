@@ -166,6 +166,9 @@ export function DemandMap({
     <select
       id={pickerId}
       aria-labelledby={labelledBy}
+      /* There is no autofill token for "which local authority is this reader
+         looking at", and an absent attribute lets a browser guess. */
+      autoComplete="off"
       value={activeId}
       onChange={(event) => setActiveId(event.target.value)}
       className="mt-1 min-h-11 w-full cursor-pointer rounded-[10px] border border-rule bg-page px-3 py-2 font-heading text-base font-bold text-ink focus-visible:border-teal-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 lg:hidden"

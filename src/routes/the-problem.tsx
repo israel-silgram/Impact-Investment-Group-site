@@ -5,6 +5,7 @@ import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { cn } from "@/lib/utils";
 import { closingBeats, closingStrapline, registerRoute } from "@/content/site";
 import { problemClose, problemHero, problemSections } from "@/content/problem";
+import { SIZES_HALF_FROM_TABLET, variantSrcSet } from "@/lib/responsive-image";
 
 /**
  * /the-problem — four sections and the shared close.
@@ -107,6 +108,8 @@ function TheProblemPage() {
                       "pointer-events-none absolute bottom-0 hidden h-[302px] w-auto drop-shadow-[0_20px_34px_rgba(0,17,43,0.3)] lg:block",
                       onLeft ? "-left-12" : "-right-12 -scale-x-100",
                     )}
+                    srcSet={variantSrcSet(portrait.src)}
+                    sizes={SIZES_HALF_FROM_TABLET}
                   />
                 ) : null}
 

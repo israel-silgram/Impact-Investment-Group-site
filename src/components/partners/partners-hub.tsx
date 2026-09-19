@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { partnerProfiles, type PartnerProfile } from "@/content/partners";
 import { cn } from "@/lib/utils";
+import { SIZES_FULL_BLEED, intrinsic, variantSrcSet } from "@/lib/responsive-image";
 
 const iconMap: Record<string, LucideIcon> = {
   Building2,
@@ -184,6 +185,10 @@ export function PartnersHub() {
           loading="eager"
           alt=""
           className="absolute inset-y-0 right-0 -z-10 hidden h-full w-[60%] object-cover opacity-70 mix-blend-multiply [mask-image:linear-gradient(to_left,black_35%,transparent_100%)] lg:block"
+          srcSet={variantSrcSet("/images/ecosystem-band.jpg")}
+          sizes={SIZES_FULL_BLEED}
+          width={intrinsic("/images/ecosystem-band.jpg")?.width}
+          height={intrinsic("/images/ecosystem-band.jpg")?.height}
         />
         <div className="mx-auto flex min-h-[500px] w-full max-w-[1200px] items-center px-5 py-12 sm:px-8 lg:py-14">
           <Reveal className="max-w-[760px]">

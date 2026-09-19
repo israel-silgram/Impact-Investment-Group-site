@@ -12,6 +12,7 @@ import {
 import { faq, faqEyebrow, faqHeading } from "@/content/faq";
 import { contactDetails, crisisLines, crisisNote } from "@/content/site";
 import { cn } from "@/lib/utils";
+import { SIZES_HALF_FROM_TABLET, variantSrcSet } from "@/lib/responsive-image";
 
 /**
  * /contact — three sections.
@@ -144,6 +145,8 @@ function ContactPage() {
               width={934}
               height={558}
               className="hidden w-full lg:block"
+              srcSet={variantSrcSet("/images/ai-team/trio-wave.webp")}
+              sizes={SIZES_HALF_FROM_TABLET}
             />
           </div>
         </div>

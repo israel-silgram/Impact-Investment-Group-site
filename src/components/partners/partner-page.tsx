@@ -22,6 +22,12 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import type { PartnerProfile } from "@/content/partners";
 import { crisisLines, crisisNote } from "@/content/site";
+import {
+  SIZES_HALF_FROM_TABLET,
+  SIZES_PORTRAIT,
+  intrinsic,
+  variantSrcSet,
+} from "@/lib/responsive-image";
 
 /**
  * Crisis signposting, drawn only for a profile that carries `crisisSignpost`
@@ -305,6 +311,10 @@ function ConnectedNetworkDiagram({ profile }: { profile: PartnerProfile }) {
           alt={presentation.alt}
           loading="lazy"
           className="aspect-[16/9] w-full object-cover"
+          srcSet={variantSrcSet(presentation.image)}
+          sizes={SIZES_HALF_FROM_TABLET}
+          width={intrinsic(presentation.image)?.width}
+          height={intrinsic(presentation.image)?.height}
         />
       </figure>
     </Reveal>
@@ -448,18 +458,30 @@ function PartnerRoleLedger({ profile }: { profile: PartnerProfile }) {
               loading="lazy"
               alt="Orange property guide"
               className="absolute bottom-0 left-0 z-30 w-[58%] object-contain drop-shadow-[0_22px_24px_rgba(0,0,0,0.34)]"
+              srcSet={variantSrcSet("/images/ai-team/petra.webp")}
+              sizes={SIZES_PORTRAIT}
+              width={intrinsic("/images/ai-team/petra.webp")?.width}
+              height={intrinsic("/images/ai-team/petra.webp")?.height}
             />
             <img
               src="/images/ai-team/peter.webp"
               loading="lazy"
               alt="Blue investment guide"
               className="absolute bottom-0 left-[25%] z-20 w-[58%] object-contain drop-shadow-[0_22px_24px_rgba(0,0,0,0.34)]"
+              srcSet={variantSrcSet("/images/ai-team/peter.webp")}
+              sizes={SIZES_PORTRAIT}
+              width={intrinsic("/images/ai-team/peter.webp")?.width}
+              height={intrinsic("/images/ai-team/peter.webp")?.height}
             />
             <img
               src="/images/ai-team/pippa.webp"
               loading="lazy"
               alt="Green impact guide"
               className="absolute bottom-0 right-0 z-10 w-[58%] object-contain drop-shadow-[0_22px_24px_rgba(0,0,0,0.34)]"
+              srcSet={variantSrcSet("/images/ai-team/pippa.webp")}
+              sizes={SIZES_PORTRAIT}
+              width={intrinsic("/images/ai-team/pippa.webp")?.width}
+              height={intrinsic("/images/ai-team/pippa.webp")?.height}
             />
             <p className="absolute inset-x-0 -bottom-4 z-40 text-center font-mono text-[10px] max-lg:text-[12px] font-semibold uppercase tracking-[0.11em] text-teal-600">
               {presentation.guideLabels.join(" · ")}
@@ -626,7 +648,30 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
           src={visual.image}
           loading="eager"
           alt=""
-          className="absolute inset-y-0 right-0 -z-10 h-full w-full object-cover object-center opacity-20 [mask-image:linear-gradient(to_left,black_20%,transparent_95%)] sm:w-[68%] sm:opacity-32 lg:w-[58%]"
+          /* ⚠ WAVE 414: 10% BELOW 640px, NOT 20%, AND THE SURFACE MOVED
+            BECAUSE THE PAIR FAILED.
+
+            From 640px this photograph is 68% of the band, on the
+            RIGHT, with its mask fading it out before it reaches the
+            words. Below 640px it is the full width at 20% and the
+            heading, the lede and both buttons sit ON it. Wave 414's
+            re-run of the wave 412 gate measured the secondary
+            button's teal-600 label at 4.07:1 off the shot's own
+            pixels, against a 4.5:1 floor, on a ground of
+            rgb(232, 226, 215): the cream with a photograph through
+            it. The flat cream is 4.67:1 and the photograph was
+            spending more than the 0.17 of a point that leaves.
+
+            Wave 295's ruling is that where a pairing fails the
+            SURFACE moves, never the ink, so the photograph gives way
+            on the one width where it is behind the text. The 32% the
+            wave 413 image-fade probe asserts is the `sm` value and is
+            untouched; that probe runs at 1280. */
+          className="absolute inset-y-0 right-0 -z-10 hidden h-full w-full object-cover object-center [mask-image:linear-gradient(to_left,black_20%,transparent_95%)] sm:block sm:w-[68%] sm:opacity-32 lg:w-[58%]"
+          srcSet={variantSrcSet(visual.image)}
+          sizes={SIZES_HALF_FROM_TABLET}
+          width={intrinsic(visual.image)?.width}
+          height={intrinsic(visual.image)?.height}
         />
         <div
           aria-hidden="true"
@@ -678,6 +723,42 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
                 </>
               )}
             </h1>
+            {/* ⚠ WAVE 414: ON A PHONE THE PHOTOGRAPH IS ABOVE THE WORDS,
+                NEVER BEHIND THEM.
+
+                From 640px the picture is a 32% wash on the right of the band,
+                masked away before it reaches the text, and that is the
+                approved composition. Below 640px there is no right-hand side:
+                the wash covered the whole band and the heading, the lede and
+                both buttons sat on top of it. Wave 414's re-run of the wave
+                412 gate measured the secondary button's teal-600 label at
+                4.07:1 off the shot's own pixels against a 4.5:1 floor, and
+                taking the wash from 20% to 10% only reached 4.34:1. The flat
+                cream is 4.67:1, so there was never enough room under that
+                pair for a photograph of any strength.
+
+                So the wash is gone below 640px and the picture is a real
+                photograph instead, at full strength, in the brand's own
+                treatment: 12px radius, a 1px rule, no scrim, which is what
+                `CLAUDE.md` says a photograph on a light ground gets. It sits
+                between the heading and the copy, which is the order phone
+                rule 4 asks for: the heading, then the picture, then the
+                words, then the action.
+
+                `alt=""` and aria-hidden, unchanged from the wash it replaces:
+                it is the same decorative image carrying nothing the copy does
+                not, and `visual.label` beside the eyebrow already names it. */}
+            <img
+              src={visual.image}
+              srcSet={variantSrcSet(visual.image)}
+              sizes="100vw"
+              width={intrinsic(visual.image)?.width}
+              height={intrinsic(visual.image)?.height}
+              loading="eager"
+              alt=""
+              aria-hidden="true"
+              className="mt-6 aspect-[16/10] w-full rounded-xl border border-rule object-cover sm:hidden"
+            />
             <p
               className={`mt-6 max-w-[58ch] text-[18px] leading-relaxed sm:text-[20px] ${
                 isInvestor

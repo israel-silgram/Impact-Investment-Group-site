@@ -151,6 +151,10 @@ function QuestionInput({
     <input
       {...shared}
       type="text"
+      /* WAVE 414: `text` rather than nothing, so a browser that does not
+         infer from `type` still opens the ordinary keyboard rather than
+         whichever one it used last. */
+      inputMode="text"
       autoComplete={
         question.id === "profile_name"
           ? "name"
@@ -492,6 +496,22 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                               : showPassword
                                 ? "text"
                                 : "password"
+                        }
+                        /* ⚠ WAVE 414, PHONE RULE 5: `inputMode` BESIDE
+                           `autoComplete`, AND NOT ON THE PASSWORD.
+
+                           `type` already picks the keyboard in every browser
+                           that honours it, and `inputMode` is what picks it
+                           in the ones that do not, which on a phone is the
+                           difference between an at-sign on the front row and
+                           three taps to find it. It is deliberately ABSENT on
+                           the two password fields: there is no inputMode that
+                           is right for a password, and naming one would tell
+                           the keyboard something about what is being typed
+                           into a field whose whole point is that it does not.
+                        */
+                        inputMode={
+                          field === "email" ? "email" : field === "phone" ? "tel" : undefined
                         }
                         autoComplete={
                           field === "email" ? "email" : field === "phone" ? "tel" : "new-password"

@@ -1,6 +1,6 @@
-import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+import { iconByName, type RegisteredIconName } from "@/lib/icon-registry";
 import { cn } from "@/lib/utils";
 
 /**
@@ -29,7 +29,7 @@ import { cn } from "@/lib/utils";
  */
 export const roleIcons: Record<
   string,
-  { base: keyof typeof Icons; accent?: keyof typeof Icons; baseOrange?: boolean }
+  { base: RegisteredIconName; accent?: RegisteredIconName; baseOrange?: boolean }
 > = {
   investor: { base: "HandCoins", accent: "PoundSterling" },
   landlord: { base: "House" },
@@ -43,9 +43,10 @@ export const roleIcons: Record<
   resident: { base: "UserRound" },
 };
 
-/** Resolves a Lucide name to its component, falling back rather than throwing. */
-export const icon = (name?: keyof typeof Icons): LucideIcon =>
-  name ? ((Icons as unknown as Record<string, LucideIcon>)[name] ?? Icons.Circle) : Icons.Circle;
+/** Resolves a Lucide name to its component, falling back rather than throwing.
+ *  WAVE 414: through `@/lib/icon-registry`, so the bundle carries the glyphs
+ *  the site names rather than the whole library. */
+export const icon = (name?: RegisteredIconName): LucideIcon => iconByName(name);
 
 /**
  * The disc is 48px in the hero, where ten of them share one row, and 60px on

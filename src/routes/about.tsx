@@ -24,6 +24,7 @@ import {
   whyWeExist,
   type Seg,
 } from "@/content/about";
+import { SIZES_HALF_FROM_TABLET, variantSrcSet } from "@/lib/responsive-image";
 
 /**
  * /about — the old production site's layout, on the homepage's section rhythm.
@@ -230,6 +231,8 @@ function Band({
             width={1600}
             height={640}
             className="pointer-events-none absolute inset-0 -z-10 size-full object-cover opacity-[0.10]"
+            srcSet={variantSrcSet(image)}
+            sizes={SIZES_HALF_FROM_TABLET}
           />
           <div
             aria-hidden="true"
@@ -390,6 +393,8 @@ function AboutPage() {
                 height={559}
                 loading="lazy"
                 className="pointer-events-none absolute bottom-[-6px] left-3 w-[min(300px,28%)] select-none object-contain drop-shadow-[0_16px_16px_rgba(7,26,51,0.16)] max-md:w-[270px] max-md:max-w-[78%]"
+                srcSet={variantSrcSet("/images/ai-team/collective-capability-team.png")}
+                sizes={SIZES_HALF_FROM_TABLET}
               />
               <div className="grid min-h-[326px] grid-cols-[190px_minmax(0,1fr)] gap-6 py-[30px] pl-[calc(29%+12px)] pr-7 max-md:grid-cols-1 max-md:gap-0 max-md:pb-[175px] max-md:pl-[22px] max-md:pr-[22px]">
                 <div className="flex flex-col justify-center border-r border-[color-mix(in_oklab,var(--color-navy-900)_13%,transparent)] pr-6 max-md:border-b max-md:border-r-0 max-md:pb-5 max-md:pr-0">

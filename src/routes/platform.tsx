@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import * as Icons from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
@@ -23,6 +23,7 @@ import {
   workflowFooter,
   type Seg,
 } from "@/content/services";
+import { SIZES_HALF_FROM_TABLET, variantSrcSet } from "@/lib/responsive-image";
 
 /**
  * /platform — "Our Services".
@@ -381,7 +382,7 @@ function DifferenceStory() {
               <span className="font-semibold text-orange-700">
                 {leaseComparison[0]!.term} · fixed legacy commitment
               </span>
-              <Icons.ArrowRight aria-hidden="true" className="size-3.5 text-ink" />
+              <ArrowRight aria-hidden="true" className="size-3.5 text-ink" />
               <span className="font-semibold text-teal-600">
                 {leaseComparison[1]!.term} · planned review window
               </span>
@@ -557,7 +558,7 @@ function CharacterPortals() {
                   onClick={() => setSelectedId(null)}
                   className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-teal-600 px-4 py-2.5 font-heading text-[13px] font-bold text-page transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 motion-reduce:transition-none"
                 >
-                  <Icons.ArrowLeft className="size-4" aria-hidden="true" />
+                  <ArrowLeft className="size-4" aria-hidden="true" />
                   Return to the doors
                 </button>
               </div>
@@ -828,6 +829,8 @@ function ServicesPage() {
               width={2241}
               height={1207}
               className="w-full"
+              srcSet={variantSrcSet(servicesHero.image.src)}
+              sizes={SIZES_HALF_FROM_TABLET}
             />
             <figcaption className="px-4 py-2.5 text-center text-[12px] text-ink-muted">
               {servicesHero.image.caption}
@@ -861,6 +864,8 @@ function ServicesPage() {
                   loading="lazy"
                   decoding="async"
                   className="mx-auto h-24 w-auto"
+                  srcSet={variantSrcSet(step.image)}
+                  sizes={SIZES_HALF_FROM_TABLET}
                 />
                 <span
                   aria-hidden="true"
