@@ -223,11 +223,31 @@ removed outright rather than flattened.
 | Demand map node and hub pulse | 2.6s and 3.2s loops | Unchanged from wave 412: removed outright. |
 | CTA ring | 2.4s pulse | Unchanged from wave 412: removed, leaving a static raised shadow. |
 
-**Measured, not asserted.** `scripts/wave413-motion.py` emulates the preference on every
-page at both widths and reads `document.getAnimations()` one second after load.
-**Across 26 page-width combinations, zero animations longer than 1ms survive.** 1ms and
-not 0 because the global block flattens rather than removes, so a survivor shows up at
-exactly 0.001ms and anything real shows up at 120ms or more.
+**Measured, not asserted, and in two halves since 413b.**
+
+**What survives.** `scripts/wave413-motion.py` emulates the preference on every page at
+both widths and reads `document.getAnimations()` one second after load. **Across 26
+page-width combinations, zero animations longer than 1ms survive.** 1ms and not 0
+because the global block flattens rather than removes, so a survivor shows up at exactly
+0.001ms and anything real shows up at 120ms or more.
+
+**What happens when the page is used.** The sentence above is narrower than it used to
+read here, and the rel413 verdict was right about it: a read of `getAnimations()` on a
+settled page proves that nothing LOOPING or FILLED survived the preference, and proves
+nothing whatever about a transition nobody triggered. So probe (j) now EXERCISES them
+under `reduce`: a card is hovered, a button is pressed and released off-target, the
+drawer is opened and closed at 390, a registration step is taken, a disclosure is
+opened. After each one it reads the computed `transition-duration` and
+`animation-duration` **of the element that moved** and asserts both are at or under a
+frame, and then asserts the state that motion was carrying is still there:
+
+| Exercised | Worst duration on the element that moved | The state, without the motion |
+|---|---|---|
+| A card hovered (`.panel`) | **0.001ms** | The shadow and the lift, applied instantly |
+| A button pressed (`.press`) | **0.001ms** | 0.98, applied instantly; the control is still a pressed control |
+| A disclosure opened (`<details>` on `/contact`) | **0.001ms** | `open` is on the element and the answer's text is in the tree |
+| The drawer opened at 390 | **0.001ms** panel, **0.001ms** backdrop | `aria-modal="true"` on the panel, `aria-expanded="true"` on the trigger, Escape still closes it |
+| A registration step taken | **0ms** step, **0ms** bar (the flow's own arm removes them outright) | The `aria-live` counter goes `01 / 09` to `02 / 09` and the bar carries `aria-valuetext="Question 2 of 9"` |
 
 ---
 
@@ -282,7 +302,7 @@ Every command run in the foreground, in this worktree, at the head this branch e
 |---|---|
 | (a) Reduced motion | **0 animations over 1ms** surviving, on all **26** page-width combinations |
 | (a) Reduced motion, opacity | **0 faded elements** in any first viewport |
-| (b) Motion allowed, opacity | **0 faded elements** in any first viewport one second after load. 10 decorative washes across the 26 (photographic grounds at 7% to 70%), each printed in full with its measurement |
+| (b) Motion allowed, opacity | **0 faded elements** in any first viewport one second after load, measured on EFFECTIVE opacity since 413b (the product of the element's own value and every ancestor's, so a wrapper at 0 with its words in a child is caught on the child). 10 decorative washes across the 26 (photographic grounds at 7% to 70%), each printed in full with its measurement |
 | (c) Header | **72 / 56 / 72** on all **26**: at rest, past 300px of scroll, and back at the top |
 | (d) Registration step | transition **397 to 440ms** across runs, press to settled **414 to 544ms**, budget 450. Previous question gone from the accessibility tree: **yes** |
 | (e) Drawer | opens from the menu button, panel **336x844** and backdrop **390x844** against a **390x844** viewport, Tab from the last item wraps to the first, `scrollY 0 -> 0` under a real wheel event, Escape closes it, scroll released |

@@ -10,12 +10,15 @@ it, asserts what each probe is meant to prove, writes the screenshots, and
 exits non-zero the moment anything fails.
 
 Wave 412 proved the site is LIGHT. This proves the motion on top of it is
-HONEST, which on this site means nine specific things.
+HONEST, which on this site means ten specific things.
 
-  (a) REDUCED MOTION IS REALLY OFF. With `prefers-reduced-motion: reduce`
-      emulated, one second after load `document.getAnimations()` holds nothing
-      longer than 1ms, and every element in the first viewport computes to
-      opacity 1. A site that declares a reduced-motion block and then ships one
+  (a) REDUCED MOTION IS REALLY OFF ON A SETTLED PAGE. With
+      `prefers-reduced-motion: reduce` emulated, one second after load
+      `document.getAnimations()` holds nothing longer than 1ms, and every
+      element in the first viewport computes to an effective opacity of 1.
+      This is a check on what SURVIVES the preference: a short unfilled
+      entrance that leaked would have finished and left the list by then, and
+      nothing here is triggered. Probe (j) is the other half. A site that declares a reduced-motion block and then ships one
       animation outside it has not honoured the preference, it has honoured
       most of it, and the visitor who set that flag is the visitor least able
       to tell you which one leaked.
@@ -75,6 +78,16 @@ HONEST, which on this site means nine specific things.
       as well), and a 1px box scaled on X is only the same thing as a box
       given that width if the arithmetic is exact. Measured at both bar
       heights, against the active link's own box.
+
+  (j) AND REDUCED MOTION IS OFF WHEN IT IS ACTUALLY USED. (a) reads
+      `getAnimations()` once on a settled page, which proves that nothing
+      LOOPING or FILLED survives the preference and proves nothing at all
+      about a transition nobody triggered. So the interactions are
+      EXERCISED under `reduce`: a card is hovered, a button is pressed, the
+      drawer is opened and closed at 390, a registration step is taken, a
+      disclosure is opened. After each, the computed transition-duration and
+      animation-duration of the element that moved must be at or under 1ms,
+      and the STATE the motion was carrying must be there without it.
 
 Screenshots of the four states a report cannot describe (the drawer open, the
 condensed header, a step mid-transition, the drawn success mark) go to
@@ -241,7 +254,21 @@ FADED = """
     if (box.width < 1 || box.height < 1) continue;
     const style = getComputedStyle(element);
     if (style.display === 'none' || style.visibility === 'hidden') continue;
-    const opacity = parseFloat(style.opacity);
+    // ⚠ WAVE 413b: THE EFFECTIVE OPACITY, NOT THE ELEMENT'S OWN.
+    //
+    // Opacity composites the WHOLE SUBTREE. A wrapper at 0 with its text at 1
+    // is an invisible paragraph, and reading `getComputedStyle(child).opacity`
+    // says 1 for the child while the parent, having no text node of its own,
+    // is filed as a decorative wash. Both forgiven, nothing seen. So it is the
+    // product of the element's own value and every ancestor's, which is what
+    // the screen actually shows.
+    const own = parseFloat(style.opacity);
+    let opacity = own;
+    for (let parent = element.parentElement; parent; parent = parent.parentElement) {
+      const value = parseFloat(getComputedStyle(parent).opacity);
+      if (Number.isFinite(value)) opacity *= value;
+    }
+    opacity = Math.round(opacity * 10000) / 10000;
     if (opacity >= 0.999) continue;
     faded.push({
       target:
@@ -250,10 +277,13 @@ FADED = """
           ? '.' + element.className.trim().split(/\\s+/).slice(0, 4).join('.')
           : ''),
       opacity,
+      own,
       animating: element.getAnimations().some((a) => a.playState === 'running'),
-      // The element's OWN text, not its subtree's: a wrapper at 20% whose
-      // child is at 100% is not hiding that child, and reading textContent
-      // would say it was.
+      // The element's OWN text, not its subtree's. That is still the right
+      // question now that the opacity above is the effective one: a wrapper
+      // at 20% is reported on its own account AND every element under it
+      // comes out at 0.2 too, so whichever of them is carrying the words is
+      // the one that gets flagged.
       text: [...element.childNodes]
         .filter((n) => n.nodeType === Node.TEXT_NODE)
         .map((n) => n.textContent)
@@ -288,6 +318,14 @@ FADED = """
 #   them has a text node of its own. Something a visitor is meant to READ, at
 #   less than full opacity, one second after the page has settled, is the
 #   defect this probe exists to find.
+#
+#   ⚠ AND THE OPACITY IT ASKS ABOUT IS THE EFFECTIVE ONE (413b). The first
+#   draft read the element's own value, on the premise that a wrapper at 20%
+#   whose child is at 100% is not hiding that child. That premise is false for
+#   opacity, which composites the entire subtree: the child IS at 20% on the
+#   screen and reports 1 to the sampler, so neither was ever flagged. The
+#   value is the product of the element's own and every ancestor's now, so a
+#   wrapper at 0 with its words in a child is caught on the child.
 #
 #   IS THIS SITE'S OWN MACHINERY HIDING IT? `data-revealed="pending"`,
 #   `data-img="pending"` and `data-leaving="true"` are the three attributes
@@ -1178,6 +1216,239 @@ def magic_line_probe(browser, base: str, failures: list[str]) -> None:
             )
 
 
+# ---------------------------------------------------------------------------
+# (j) WAVE 413b: REDUCED MOTION, EXERCISED RATHER THAN READ.
+#
+# Probe (a) reads `document.getAnimations()` once, a second after load, on a
+# page nobody has touched. That is a real check and it is worth having: it
+# proves no looping or filled animation survives the preference. It is NOT the
+# sentence the report used to put over it. A short unfilled entrance that
+# leaked would have finished and left the list long before the read, and no
+# hover, press, drawer, step or disclosure is ever triggered, so none of them
+# was ever measured at all.
+#
+# So this does the things. Under `reduce`, on a real page: hover a card, press
+# a button, open and close the drawer, take a registration step, open a
+# disclosure. After each one it reads the computed transition-duration and
+# animation-duration OF THE ELEMENT THAT MOVED and asserts both are at or
+# under a frame, and then asserts the STATE that motion was carrying is there
+# without it. The second half is the point of rule 4: flattening a duration is
+# only acceptable because the state has another channel.
+DURATIONS = """
+(selector) => {
+  const element = document.querySelector(selector);
+  if (!element) return null;
+  const style = getComputedStyle(element);
+  const ms = (value) =>
+    String(value)
+      .split(',')
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .map((part) => (part.endsWith('ms') ? parseFloat(part) : parseFloat(part) * 1000))
+      .filter((n) => Number.isFinite(n));
+  const all = [...ms(style.transitionDuration), ...ms(style.animationDuration)];
+  return {
+    transition: style.transitionDuration,
+    animation: style.animationDuration,
+    worst: all.length ? Math.max(...all) : 0,
+  };
+}
+"""
+
+
+def _reduced_durations(page, failures, where, selector, what):
+    """Read what is declared on the element that just moved, and assert it."""
+    read = page.evaluate(DURATIONS, selector)
+    if read is None:
+        failures.append(
+            f"{where}: {what} is not on the page ({selector}), so nothing was measured "
+            f"after exercising it."
+        )
+        return
+    print(
+        f"    reduce, {what}: transition {read['transition']} animation "
+        f"{read['animation']}, worst {read['worst']}ms"
+    )
+    if read["worst"] > REDUCED_MAX_MS:
+        failures.append(
+            f"{where}: after exercising {what}, the element that moved still declares "
+            f"{read['worst']}ms (transition {read['transition']}, animation "
+            f"{read['animation']}) under prefers-reduced-motion: reduce."
+        )
+
+
+def reduced_exercise_probe(browser, base: str, failures: list[str]) -> None:
+    """(j) Every interaction this wave added, exercised under `reduce`."""
+
+    # ---- a card hovered and a button pressed, at 1280 ----------------------
+    context = browser.new_context(
+        viewport={"width": 1280, "height": 900}, reduced_motion="reduce"
+    )
+    page = context.new_page()
+    page.goto(f"{base}/contact", wait_until="networkidle")
+    page.wait_for_timeout(400)
+    where = "reduced-motion exercise /contact @ 1280"
+
+    card = page.locator(".panel").first
+    if card.count() > 0:
+        card.hover()
+        page.wait_for_timeout(120)
+        _reduced_durations(page, failures, where, ".panel", "a card on hover")
+    else:
+        failures.append(f"{where}: no `.panel` card to hover, so the lift was not measured.")
+
+    button = page.locator("button.press, a.press").first
+    if button.count() > 0:
+        box = button.bounding_box()
+        page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
+        page.mouse.down()
+        page.wait_for_timeout(120)
+        _reduced_durations(page, failures, where, "button.press, a.press", "a button pressed")
+        # ⚠ RELEASED OFF THE CONTROL. Most `.press` controls on this site are
+        # links, and pressing and releasing on one is a navigation: the first
+        # draft of this measured the press, went to /register, and then
+        # reported that /contact has no disclosure on it.
+        page.mouse.move(2, 2)
+        page.mouse.up()
+        page.wait_for_timeout(120)
+    else:
+        failures.append(f"{where}: no `.press` control to press, so the press was not measured.")
+
+    # ---- a disclosure opened -----------------------------------------------
+    # Activated through the element's own `click()` rather than through the
+    # mouse: the FAQ rows sit inside `Reveal`, which replaces them on mount,
+    # and Playwright's stability check spends its whole timeout waiting for a
+    # node that keeps being swapped underneath it. This is still a real
+    # activation, and `<details>` toggles on it exactly as it does on a press.
+    if "/contact" not in page.url:
+        failures.append(
+            f"{where}: the press navigated to {page.url}; the rest of this probe was "
+            f"measuring the wrong page."
+        )
+    summary = page.locator("details summary").first
+    if summary.count() > 0:
+        page.evaluate(
+            "() => { const s = document.querySelector('details summary');"
+            " s.scrollIntoView({ block: 'center' }); s.click(); }"
+        )
+        page.wait_for_timeout(150)
+        _reduced_durations(page, failures, where, "details", "a disclosure opened")
+        opened = page.evaluate("() => !!document.querySelector('details[open]')")
+        marker = page.evaluate(
+            "() => { const d = document.querySelector('details[open]');"
+            " return d ? d.innerText.trim().length > 0 : false; }"
+        )
+        print(f"    reduce, disclosure: open attribute={opened}, answer has text={marker}")
+        if not opened:
+            failures.append(
+                f"{where}: the disclosure did not report `open` after being pressed. "
+                f"Under reduced motion the row has no travel to say it opened, so the "
+                f"attribute IS the state."
+            )
+        if not marker:
+            failures.append(f"{where}: the opened disclosure has no answer text in it.")
+    else:
+        failures.append(f"{where}: no `<details>` disclosure on /contact to open.")
+
+    page.close()
+    context.close()
+
+    # ---- the drawer, opened and closed, at 390 -----------------------------
+    context = browser.new_context(
+        viewport={"width": 390, "height": 844}, reduced_motion="reduce"
+    )
+    page = context.new_page()
+    page.goto(f"{base}/about", wait_until="networkidle")
+    page.wait_for_timeout(400)
+    where = "reduced-motion exercise /about @ 390"
+
+    page.click("button[aria-label='Open menu']")
+    page.wait_for_timeout(200)
+    _reduced_durations(page, failures, where, ".drawer-panel", "the drawer opened")
+    _reduced_durations(page, failures, where, ".drawer-scrim", "the drawer's backdrop")
+    opened = page.evaluate(
+        """
+        () => {
+          const panel = document.querySelector('.drawer-panel');
+          // The bar's own menu button. The drawer's Partners toggle also
+          // carries aria-expanded, and it lives outside <header>.
+          const trigger = document.querySelector('header button[aria-expanded]');
+          return {
+            panel: !!panel,
+            modal: panel ? panel.getAttribute('aria-modal') : null,
+            expanded: trigger ? trigger.getAttribute('aria-expanded') : null,
+          };
+        }
+        """
+    )
+    print(f"    reduce, drawer: {opened}")
+    if not opened["panel"] or opened["modal"] != "true":
+        failures.append(
+            f"{where}: the drawer did not open, or does not say it is modal, under "
+            f"reduced motion ({opened}). The panel arriving with no slide has to leave "
+            f"the state behind it."
+        )
+    if opened["expanded"] != "true":
+        failures.append(
+            f"{where}: the drawer trigger reports aria-expanded={opened['expanded']} "
+            f"with the drawer open."
+        )
+    page.keyboard.press("Escape")
+    page.wait_for_timeout(200)
+    if page.evaluate("() => !!document.querySelector('.drawer-panel')"):
+        failures.append(f"{where}: Escape did not close the drawer under reduced motion.")
+    page.close()
+    context.close()
+
+    # ---- a registration step taken -----------------------------------------
+    context = browser.new_context(
+        viewport={"width": 1280, "height": 900}, reduced_motion="reduce"
+    )
+    page = context.new_page()
+    stub_registration(page)
+    page.goto(f"{base}/register/investor", wait_until="networkidle")
+    page.wait_for_timeout(400)
+    where = "reduced-motion exercise /register/investor @ 1280"
+
+    page.fill("#email", "wave413b.probe@example.com")
+    page.fill("#phone", "07700900123")
+    page.fill("#password", "Probe413Pass1")
+    page.fill("#confirmPassword", "Probe413Pass1")
+    for box in page.query_selector_all('input[type="checkbox"]'):
+        if box.is_visible() and not box.is_checked():
+            box.check()
+    page.click('button[type="submit"]')
+
+    try:
+        page.wait_for_selector('[role="progressbar"]', timeout=10000)
+    except Exception:
+        failures.append(f"{where}: the survey stage never appeared, so no step was taken.")
+        page.close()
+        context.close()
+        return
+
+    before = page.evaluate("() => document.querySelector('[aria-live]').innerText.trim()")
+    page.click('.registration-flow form button[type="submit"]')
+    page.wait_for_timeout(200)
+    _reduced_durations(page, failures, where, ".registration-step", "a step taken")
+    _reduced_durations(page, failures, where, ".registration-progress", "the progress bar")
+    after = page.evaluate("() => document.querySelector('[aria-live]').innerText.trim()")
+    valuenow = page.evaluate(
+        "() => document.querySelector('[role=\"progressbar\"]').getAttribute('aria-valuetext')"
+    )
+    print(f'    reduce, step: aria-live "{before}" -> "{after}", progress "{valuenow}"')
+    if before == after or not after:
+        failures.append(
+            f"{where}: the step's aria-live counter reads \"{after}\" after the move and "
+            f"\"{before}\" before it. Under reduced motion there is no slide, so the "
+            f"announcement IS how a visitor is told they moved."
+        )
+    if not valuenow:
+        failures.append(f"{where}: the progress bar carries no aria-valuetext after the step.")
+    page.close()
+    context.close()
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -1233,7 +1504,8 @@ def main() -> None:
                 )
                 for entry in washes:
                     print(
-                        f"    wash: opacity {entry['opacity']} on {entry['target']} "
+                        f"    wash: effective opacity {entry['opacity']} "
+                        f"(its own {entry['own']}) on {entry['target']} "
                         f"(no text of its own, nothing hiding it)"
                     )
                 for entry in still_running:
@@ -1287,6 +1559,7 @@ def main() -> None:
         image_fade_probe(browser, base, failures)
         draw_mark_probe(browser, base, failures)
         magic_line_probe(browser, base, failures)
+        reduced_exercise_probe(browser, base, failures)
         browser.close()
 
     shots = sorted(p.name for p in OUT.glob("*.png"))
