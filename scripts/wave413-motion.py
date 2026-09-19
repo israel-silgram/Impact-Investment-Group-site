@@ -401,8 +401,13 @@ def assert_scrolled(page, y: float, failures: list[str], where: str) -> None:
         )
 
 
+# The same number, for the same reason, as `INK_MAX` in
+# `scripts/wave412-screenshots.py`. See `has_ink` below.
+INK_MAX = 200
+
+
 def has_ink(path: Path, limit: int = 240) -> bool:
-    """Whether a saved clip has any ink in it at all.
+    """Whether a saved clip has real ink in it at all.
 
     WAVE 415, rel414b MINOR 1's "assert on the saved image itself". The one
     shot this script takes after a scroll is a 160px clip of the condensed
@@ -410,6 +415,25 @@ def has_ink(path: Path, limit: int = 240) -> bool:
     blank page: the bar is drawn but the shutter opened while the document was
     still travelling. An empty clip is now a failure rather than a committed
     picture of nothing.
+
+    ⚠ 415b, rel415 MINOR 9: WHAT COUNTS AS INK IS NOW TIGHTER THAN "NOT WHITE".
+    The first draft asked whether any channel of any sampled pixel was under
+    246, and the site's cream is `(247, 241, 230)`, whose green and blue are
+    already under it. On any page whose top rows are cream rather than white
+    that test returns the first row it looks at and passes with no bar on the
+    screen at all: it asserted that something non-white was there, not that
+    the bar was. `INK_MAX` is the fix. It asks for a pixel darker on EVERY
+    channel than the darkest channel of either ground this site has (white
+    `(255, 255, 255)` and cream `(247, 241, 230)`, so 230 is the number to
+    beat), which cream cannot satisfy and the bar's navy logo ink `(0, 17, 43)`
+    satisfies easily. Measured over all 28 shots of this gate, the deepest
+    first ink moves from 10 CSS px to 14 and the pixel found changes from a
+    near-white orange fringe to the mark's own arc and the nav's navy.
+
+    It is still a test for INK rather than for the header specifically: it
+    cannot tell the bar from anything else dark in the top `limit` rows. That
+    is the limit of reading a picture, and it is stated here rather than
+    claimed away.
     """
     with Image.open(path) as image:
         rgb = image.convert("RGB")
@@ -417,8 +441,7 @@ def has_ink(path: Path, limit: int = 240) -> bool:
         pixels = rgb.load()
         for y in range(0, min(limit, height)):
             for x in range(0, width, 2):
-                r, g, b = pixels[x, y][:3]
-                if r < 246 or g < 246 or b < 246:
+                if max(pixels[x, y][:3]) < INK_MAX:
                     return True
     return False
 

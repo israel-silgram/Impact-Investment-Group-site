@@ -30,9 +30,13 @@ const AccordionTrigger = React.forwardRef<
       {children}
       {/* WAVE 413: 250ms and the site's easing, matching the row it opens, so
           the chevron's turn and the row's height are one gesture rather than
-          two of different lengths. This is the shadcn primitive; `Disclosure`
-          is the component the site's own pages use, and it carries the same
-          timing on its Plus/Minus marker. */}
+          two of different lengths.
+
+          415b, rel415 MINOR 3 and 4: this used to add "this is the shadcn
+          primitive; `Disclosure` is the component the site's own pages use".
+          `Disclosure` was deleted in wave 415 as unreachable, so this IS the
+          accordion the site has, and the only other expanding row on the site
+          is `/contact`'s native `<details>`, which carries its own timing. */}
       <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-250 ease-[var(--ease-out-soft)]" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>

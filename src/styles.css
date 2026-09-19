@@ -1378,40 +1378,15 @@ canvas[data-map="in"] {
   --tw-ease: var(--ease-out-soft);
 }
 
-/* The marker turns rather than swapping. `Plus` and `Minus` sat one on top of
-   the other and were switched with `hidden`/`block`, which is a state change
-   with no motion in it at all: on a row you have just pressed, the one thing
-   that should confirm the press was the only thing that did not move. They
-   cross-fade through a 180 degree turn now, over the same 250ms the row takes,
-   so the row and its marker are one gesture. Both glyphs are always painted;
-   opacity is what picks between them, so nothing here can leave a marker
-   missing. */
-.disclosure-marker > * {
-  grid-area: 1 / 1;
-  transition:
-    opacity var(--duration-enter) var(--ease-out-soft),
-    rotate var(--duration-enter) var(--ease-out-soft);
-}
-
-.disclosure-marker [data-mark="closed"] {
-  opacity: 1;
-  rotate: 0deg;
-}
-
-.disclosure-marker [data-mark="open"] {
-  opacity: 0;
-  rotate: -180deg;
-}
-
-.group[data-state="open"] .disclosure-marker [data-mark="closed"] {
-  opacity: 0;
-  rotate: 180deg;
-}
-
-.group[data-state="open"] .disclosure-marker [data-mark="open"] {
-  opacity: 1;
-  rotate: 0deg;
-}
+/* WAVE 415b, rel415 MINOR 3: `.disclosure-marker` and its four `[data-mark]`
+   rules used to live here, and wave 415 left them behind when it deleted the
+   only thing that emitted them. `src/components/ui/disclosure.tsx` wrote that
+   class and those attributes on its Plus/Minus marker, and nothing else on
+   this site ever has: `ui/accordion.tsx` below uses a `ChevronDown` with a
+   Tailwind rotate, and `/contact`'s native `<details>` uses a lucide `Plus`
+   with `group-open:rotate-45`. Dead the moment that component went, so they
+   are gone now. `.disclosure-content` just above STAYS: `ui/accordion.tsx`
+   still carries it. */
 
 /* ---------- Presses that register ---------- */
 

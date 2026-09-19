@@ -391,16 +391,42 @@ def to_top(page) -> float:
     return page.evaluate("() => window.scrollY")
 
 
+# Darker than the darkest channel of either ground this site has: white is
+# (255, 255, 255) and the cream band is (247, 241, 230), so 230 is the number
+# to beat and 200 beats it with room. The bar's own navy logo ink is
+# (0, 17, 43). See `first_ink_row` below.
+INK_MAX = 200
+
+
 def first_ink_row(path: Path, limit: int = 240):
-    """The first row of the saved shot with any ink in it, in CSS pixels.
+    """The first row of the saved shot with real ink in it, in CSS pixels.
 
     WAVE 415, rel414b MINOR 1's "assert on the saved image itself". This gate
     shoots full page at deviceScaleFactor 1, so a document pixel is an image
     pixel and no scaling is needed. The site is white at the top with the
     sticky bar's own artwork in it, so on every chromed route the first ink is
-    the logo at about 6 CSS px. A shot whose top rows are blank is a shot with
+    the logo at about 14 CSS px. A shot whose top rows are blank is a shot with
     no bar in it, which is what a settle that photographs mid-animation
     produces, and it is the artefact nothing in THIS script could see before.
+
+    ⚠ 415b, rel415 MINOR 9: WHAT COUNTS AS INK IS NOW TIGHTER THAN "NOT WHITE".
+    The first draft asked whether any channel of any sampled pixel was under
+    246, and the site's cream is `(247, 241, 230)`, whose green and blue are
+    already under it. On any page whose top rows are cream rather than white
+    that test returns the first row it looks at and passes with no bar on the
+    screen at all: it asserted that something non-white was there, not that
+    the bar was. `INK_MAX` is the fix. It asks for a pixel darker on EVERY
+    channel than the darkest channel of either ground this site has (white
+    `(255, 255, 255)` and cream `(247, 241, 230)`, so 230 is the number to
+    beat), which cream cannot satisfy and the bar's navy logo ink `(0, 17, 43)`
+    satisfies easily. Measured over all 28 shots of this gate, the deepest
+    first ink moves from 10 CSS px to 14 and the pixel found changes from a
+    near-white orange fringe to the mark's own arc and the nav's navy.
+
+    It is still a test for INK rather than for the header specifically: it
+    cannot tell the bar from anything else dark in the top `limit` rows. That
+    is the limit of reading a picture, and it is stated here rather than
+    claimed away.
     """
     with Image.open(path) as image:
         rgb = image.convert("RGB")
@@ -408,8 +434,7 @@ def first_ink_row(path: Path, limit: int = 240):
         pixels = rgb.load()
         for y in range(0, min(limit, height)):
             for x in range(0, width, 2):
-                r, g, b = pixels[x, y][:3]
-                if r < 246 or g < 246 or b < 246:
+                if max(pixels[x, y][:3]) < INK_MAX:
                     return float(y)
     return None
 
