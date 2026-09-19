@@ -808,18 +808,29 @@
    at all and `data-magic` is absent, which is what leaves the per-link
    `nav-link` underline in charge. A visitor with no JavaScript keeps exactly
    the navigation wave 412 shipped. */
+/* ⚠ WAVE 413b: IT TRAVELS AND STRETCHES ON transform ALONE.
+
+   This shipped transitioning `transform` AND `width`, which made it the third
+   layout-property transition in a wave whose own report claimed two. A 1px
+   box scaled on X is the same pixels as a box given that width, costs the
+   compositor alone, and cannot reflow anything: nothing shares its absolutely
+   positioned box. `scaleX(n)` on a 1px element measures exactly n px, which
+   the probe asserts against the link the line is under, at both bar heights.
+
+   The height is NOT scaled, because scaleX does not touch it: the rule stays
+   2px at every width it travels to. */
 .nav-magic__line {
   position: absolute;
   bottom: -6px;
   left: 0;
+  width: 1px;
   height: 2px;
+  transform-origin: left center;
   /* orange-500: a 2px rule is a GRAPHIC and answers to 3:1, not 4.5:1, and it
      is 4.23:1 on the white bar. The label above it is orange-700 for the same
      reason in reverse. */
   background-color: var(--color-orange-500);
-  transition:
-    transform var(--duration-hover) var(--ease-out-soft),
-    width var(--duration-hover) var(--ease-out-soft);
+  transition: transform var(--duration-hover) var(--ease-out-soft);
   pointer-events: none;
 }
 
@@ -831,10 +842,7 @@
 /* Reduced motion: the line still moves, it just arrives instantly (the global
    block flattens the transition). The state it carries is also carried by the
    active link's orange-700 label, which is not motion at all, so nothing is
-   lost. Its `width` is the one property on this site outside transform and
-   opacity that is transitioned without being one of the two named exceptions,
-   and it cannot cause layout for anything: nothing shares its absolutely
-   positioned box. */
+   lost. */
 
 /* ---------- The drawer ---------- */
 
@@ -2001,6 +2009,16 @@ canvas[data-map="in"] {
     0 0 55px color-mix(in srgb, var(--color-teal-500) 34%, transparent);
 }
 
+/* ⚠ WAVE 413b: THE FILL STRETCHES ON transform, NOT ON width.
+
+   The bar shipped transitioning `width`, which made it the second of three
+   layout-property transitions in a wave whose report admitted one. The fill
+   is `w-full` and scaled on X from its left edge instead: the same pixels,
+   on the compositor, inside a parent that already clips it. */
+.registration-progress {
+  transform-origin: left center;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .registration-resident::before {
     animation: registration-glow 4s ease-in-out 1;
@@ -2009,7 +2027,7 @@ canvas[data-map="in"] {
      much is left, so it has to finish before the visitor has finished reading
      the new question. */
   .registration-progress {
-    transition: width 300ms var(--ease-out-soft);
+    transition: transform 300ms var(--ease-out-soft);
   }
   .registration-input {
     transition:

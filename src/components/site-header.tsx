@@ -432,7 +432,12 @@ export function SiteHeader() {
                 <span
                   aria-hidden="true"
                   className="nav-magic__line"
-                  style={{ transform: `translateX(${magic.left}px)`, width: `${magic.width}px` }}
+                  /* WAVE 413b: translate AND scale, so the line travels and
+                    stretches on transform alone. The rule is 1px wide in the
+                    stylesheet, so `scaleX(n)` measures exactly n px. */
+                  style={{
+                    transform: `translateX(${magic.left}px) scaleX(${magic.width})`,
+                  }}
                 />
               ) : null}
             </ul>

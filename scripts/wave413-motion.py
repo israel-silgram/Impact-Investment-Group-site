@@ -10,7 +10,7 @@ it, asserts what each probe is meant to prove, writes the screenshots, and
 exits non-zero the moment anything fails.
 
 Wave 412 proved the site is LIGHT. This proves the motion on top of it is
-HONEST, which on this site means eight specific things.
+HONEST, which on this site means nine specific things.
 
   (a) REDUCED MOTION IS REALLY OFF. With `prefers-reduced-motion: reduce`
       emulated, one second after load `document.getAnimations()` holds nothing
@@ -69,6 +69,12 @@ HONEST, which on this site means eight specific things.
       the longest path in either glyph that uses it. Wave 413 wrote the dash
       as a flat 48 on the reasoning that no 24px Lucide path is longer than
       that; `shield-check` is 58.75, so a sixth of the shield never drew.
+
+  (i) THE MAGIC LINE IS EXACTLY AS WIDE AS THE LINK IT IS UNDER. It travels
+      and stretches on `transform` alone now (wave 413 transitioned `width`
+      as well), and a 1px box scaled on X is only the same thing as a box
+      given that width if the arithmetic is exact. Measured at both bar
+      heights, against the active link's own box.
 
 Screenshots of the four states a report cannot describe (the drawer open, the
 condensed header, a step mid-transition, the drawn success mark) go to
@@ -1104,6 +1110,74 @@ def draw_mark_probe(browser, base: str, failures: list[str]) -> None:
             )
 
 
+# ---------------------------------------------------------------------------
+# (i) The magic line's geometry.
+#
+# Wave 413 transitioned the line's `width` as well as its transform, which
+# made it one of three layout-property transitions in a wave that claimed two.
+# It is a 1px rule scaled on X now, which is the compositor's work rather than
+# layout's, and is only correct if `scaleX(n)` really does measure n px
+# against the link the line is under. So it is measured, at both bar heights,
+# because the condense is the one thing that moves the list under it.
+MAGIC_TOLERANCE_PX = 0.5
+
+
+def magic_line_probe(browser, base: str, failures: list[str]) -> None:
+    """(i) The line is the width of the link, at 72px and at 56px."""
+    page = browser.new_page(viewport={"width": 1280, "height": 900})
+    page.goto(f"{base}/about", wait_until="networkidle")
+    page.wait_for_timeout(400)
+    where = "magic line probe /about @ 1280"
+
+    read = """
+    () => {
+      const line = document.querySelector('.nav-magic__line');
+      const link = document.querySelector('[data-nav-link][data-nav-active="true"]');
+      const header = document.querySelector('header');
+      if (!line || !link || !header) return null;
+      const l = line.getBoundingClientRect();
+      const a = link.getBoundingClientRect();
+      const h = header.getBoundingClientRect();
+      return {
+        line: Math.round(l.width * 100) / 100,
+        link: Math.round(a.width * 100) / 100,
+        height: Math.round(l.height * 100) / 100,
+        bar: Math.round(h.height),
+        // How far the line's bottom edge sits ABOVE the bar's bottom rule.
+        above: Math.round((h.bottom - l.bottom) * 100) / 100,
+      };
+    }
+    """
+
+    for label, scroll in (("tall", 0), ("condensed", CONDENSE_SCROLL)):
+        page.evaluate(f"() => scrollTo(0, {scroll})")
+        page.wait_for_timeout(450)
+        geometry = page.evaluate(read)
+        if geometry is None:
+            failures.append(
+                f"{where}: there is no magic line under the active route ({label}), "
+                f"so nothing here was measured."
+            )
+            continue
+        print(
+            f"magic line ({label}): bar {geometry['bar']}px, line {geometry['line']}px "
+            f"against a link of {geometry['link']}px, {geometry['height']}px tall, "
+            f"{geometry['above']}px above the bar's bottom rule"
+        )
+        if abs(geometry["line"] - geometry["link"]) > MAGIC_TOLERANCE_PX:
+            failures.append(
+                f"{where}: the line measures {geometry['line']}px against a link of "
+                f"{geometry['link']}px with the bar at {geometry['bar']}px. A scaled "
+                f"1px rule has to land on the link exactly or the underline is not "
+                f"the underline of anything."
+            )
+        if abs(geometry["height"] - 2) > 0.01:
+            failures.append(
+                f"{where}: the line is {geometry['height']}px tall, not 2px. scaleX "
+                f"must not be touching the height."
+            )
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -1212,6 +1286,7 @@ def main() -> None:
         long_task_probe(browser, base, failures)
         image_fade_probe(browser, base, failures)
         draw_mark_probe(browser, base, failures)
+        magic_line_probe(browser, base, failures)
         browser.close()
 
     shots = sorted(p.name for p in OUT.glob("*.png"))

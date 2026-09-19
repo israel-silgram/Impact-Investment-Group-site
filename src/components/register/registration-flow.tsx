@@ -664,9 +664,11 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
             aria-valuetext={`Question ${index + 1} of ${questions.length}`}
             className="mb-9 h-1 overflow-hidden rounded-full bg-rule"
           >
+            {/* WAVE 413b: scaled from its left edge rather than widened, so
+              the bar's own growth is a transform. The track above clips it. */}
             <div
-              className="registration-progress h-full rounded-full bg-teal-600"
-              style={{ width: `${((index + 1) / questions.length) * 100}%` }}
+              className="registration-progress h-full w-full rounded-full bg-teal-600"
+              style={{ transform: `scaleX(${(index + 1) / questions.length})` }}
             />
           </div>
           <form
