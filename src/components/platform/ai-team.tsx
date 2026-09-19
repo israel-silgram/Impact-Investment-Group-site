@@ -74,8 +74,11 @@ export function AiTeam() {
                 <span
                   className={cn(
                     "inline-flex items-center rounded-full border px-4 py-2 font-heading text-sm font-semibold",
+                    /* 14px semibold: the LABEL is orange-700 (6.50:1 on
+                       white) and only the 1px border stays orange-500, which
+                       is a graphic at 4.23:1 against a 3:1 floor. */
                     orange
-                      ? "border-orange-500 text-orange-500"
+                      ? "border-orange-500 text-orange-700"
                       : "border-teal-600/60 text-teal-600",
                   )}
                 >

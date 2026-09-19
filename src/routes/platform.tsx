@@ -95,10 +95,15 @@ function Rich({ parts, tone }: { parts: Seg[]; tone: "rust" | "teal" }) {
             key={i}
             className={cn(
               "font-bold",
+              /* Both accents are orange-700. `Summary` sets Rich at 19px
+                 semibold, which axe scores as body text rather than large,
+                 and orange-500 is 4.23:1 on white and 3.76:1 on the cream.
+                 The teal branch is not reached on this page today; it is
+                 stepped down so that it cannot fail on the day it is. */
               part.em === "accent"
                 ? tone === "rust"
                   ? "text-orange-700"
-                  : "text-orange-500"
+                  : "text-orange-700"
                 : "text-ink",
             )}
           >
@@ -366,8 +371,14 @@ function DifferenceStory() {
               </div>
             </div>
 
+            {/* 11px semibold, so orange-700 and not orange-500: 500 is
+                4.23:1 on white and 3.76:1 on the cream, under the 4.5:1 body
+                floor, and this card's ground is neither of those flat (see
+                the wave 412b report, measured off the rendered pixels). Its
+                teal sibling two lines down was stepped to 600 in wave 412 and
+                this one was missed. */}
             <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-rule pt-4 text-[11px] text-ink-muted">
-              <span className="font-semibold text-orange-500">
+              <span className="font-semibold text-orange-700">
                 {leaseComparison[0]!.term} · fixed legacy commitment
               </span>
               <Icons.ArrowRight aria-hidden="true" className="size-3.5 text-ink" />
