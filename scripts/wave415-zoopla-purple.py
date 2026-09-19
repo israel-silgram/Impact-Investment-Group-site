@@ -25,9 +25,16 @@ the same as the ribbon on the property listing result/match card."
     #8046F2 on white  #ffffff   5.15:1
     #8046F2 on cream  #f7f1e6   4.58:1
 
-Both clear the 3:1 that WCAG 2.2 SC 1.4.11 asks of a graphic, and the mark
-draws on white in the home hero. The measured figures off the rendered shot
-are in docs/WAVE415_REPORT.md section 2.
+⚠ AND THE FLAT FIGURE IS NOT THE RENDERED ONE, BECAUSE THE CREDIT IS AT 90%.
+src/components/home/hero.tsx draws this mark at `opacity-90`, which wave 413's
+first-viewport wash probe already lists and asserts. Composited at 0.90 over
+the white page the darkest purple pixel reads rgb(140, 88, 243), L = 0.1903,
+which is 4.33:1, measured off the rendered shot at 360, 390, 414 and 1280.
+That is the number that matters and it still clears the 3:1 WCAG 2.2 SC
+1.4.11 asks of a graphic, comfortably; a logotype is exempt from the text
+floors altogether. The mark draws on white in the home hero at every width,
+never on the cream, so 4.58 is the flat cream figure for reference and is not
+a reading of anything on this site today.
 
 ⚠ THIS IS STILL A DERIVED MARK, NOT A SUPPLIED ONE. The fill is now Zoopla's
 published brand purple rather than the site's ink, which is closer to their

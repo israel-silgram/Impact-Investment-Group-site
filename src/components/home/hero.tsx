@@ -325,9 +325,11 @@ export function HomeHero() {
          * 2026. Made by scripts/wave415-zoopla-purple.py and committed; the
          * hex lives in that generator and in no component and no token,
          * because it is a third party's brand colour baked into a third
-         * party's artwork rather than a colour of this palette. It measures
-         * 5.15:1 on the white page ground and 4.58:1 on the cream, both
-         * clear of the 3:1 a graphic needs. It is still a DERIVED one-colour
+         * party's artwork rather than a colour of this palette. Flat, it
+         * measures 5.15:1 on white and 4.58:1 on the cream; as RENDERED,
+         * through the `opacity-90` below, the darkest pixel of it reads
+         * 4.33:1 against this white ground at 360, 390, 414 and 1280. Both
+         * clear the 3:1 a graphic needs. It is still a DERIVED one-colour
          * rendering of a one-colour mark; Zoopla's own positive colourway
          * should replace it when Callum can ask for the real file.
          *
