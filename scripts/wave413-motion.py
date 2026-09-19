@@ -517,9 +517,27 @@ def step_probe(browser, base: str, failures: list[str]) -> None:
     page.wait_for_timeout(200)
     page.screenshot(path=str(OUT / "step-mid-transition-1280.png"))
 
-    # And the saved mark, which draws itself over 400ms when a step saves.
-    page.wait_for_timeout(600)
-    page.screenshot(path=str(OUT / "success-mark-1280.png"))
+    # And the saved mark, caught PART OF THE WAY THROUGH ITS 400ms draw rather
+    # than settled: a picture of a finished tick is a picture of a tick, and
+    # proves nothing about the drawing. A third move, then a crop of the line
+    # the mark sits on, 200ms in.
+    page.wait_for_timeout(700)
+    page.click('.registration-flow form button[type="submit"]')
+    page.wait_for_timeout(200)
+    mark = page.query_selector('.draw-in')
+    if mark:
+        box = mark.bounding_box()
+        page.screenshot(
+            path=str(OUT / "success-mark-1280.png"),
+            clip={
+                "x": max(0, box["x"] - 30),
+                "y": max(0, box["y"] - 18),
+                "width": 460,
+                "height": 52,
+            },
+        )
+    else:
+        page.screenshot(path=str(OUT / "success-mark-1280.png"))
 
     print(
         f"step forward: transition {landed['ms']}ms (budget {STEP_BUDGET_MS}ms), "
