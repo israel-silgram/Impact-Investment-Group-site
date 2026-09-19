@@ -1086,8 +1086,17 @@ in this section or section 10.
 
 Every command run in the foreground, in this worktree, at **`a761058`**, which
 is the last commit that touches a source file, a script or a generated asset.
-The commit after it adds this report and the shots this run wrote, and neither
+The commit after it adds this report and the shots these runs wrote, and neither
 is an input to a lint, a typecheck, a build or a gate.
+
+**And the four that read source were run again at `a018c51` and at the branch's
+final head**, so the gap rel414 MIN-5 found in wave 414 is not repeated here:
+`bunx eslint` on the changed files **0 errors**, `bunx tsc --noEmit` **0**,
+`STATIC_BUILD=true bun run build` **exit 0, 36 pages prerendered**, `node
+scripts/pages-postbuild.mjs dist/client` **exit 0**, at each. Every sha after
+`a761058` changes `docs/WAVE414_REPORT.md` and the images the gates above wrote
+and nothing else, which is why the three screenshot gates and Lighthouse are not
+re-run at them: they have no input in those commits.
 
 | Gate | Command | Exit | Numbers |
 |---|---|---|---|
