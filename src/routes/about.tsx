@@ -456,7 +456,20 @@ function AboutPage() {
         <Summary lines={summaries["whyWeExist"]!} tone="rust" />
 
         <SubHead>{problemHeading}</SubHead>
-        <ul className="mt-5">
+        {/* ⚠ THE LEDGER IS A WHITE PLATE, AND IT HAS TO BE.
+         *
+         * This band carries a photograph behind it at 10%, and where the
+         * photograph is dark the cream ground goes with it: measured off
+         * docs/screenshots/wave412/about-1280.png at the wave 412 head, the
+         * ground behind these rows read (225, 221, 212), luminance 0.7247,
+         * not the flat cream's 0.884. teal-600 on that is 3.87:1, and the
+         * source links are 11px. The band's own eyebrow, numerals and body
+         * copy all cleared their floors; only the small teal did not.
+         *
+         * Wave 295's ruling, which wave 412 restated: where a pairing fails
+         * THE SURFACE MOVES. So the ledger sits on white, where teal-600 is
+         * 5.25:1, and the photograph keeps the band around it. */}
+        <ul className="mt-5 rounded-[var(--radius-panel)] border border-rule bg-page px-5 shadow-[var(--shadow-card)] sm:px-7">
           {problemFigures.map((figure, i) => {
             const accent = ACCENT[figureAccents[i % figureAccents.length]!];
             return (
