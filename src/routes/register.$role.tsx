@@ -3,8 +3,9 @@ import { ArrowLeft, LifeBuoy } from "lucide-react";
 
 import { RoleIcon } from "@/components/register/role-icon";
 import { RegistrationFlow } from "@/components/register/registration-flow";
+import { Button } from "@/components/ui/button";
 import { getRegisterRole, residentUrgentNote } from "@/content/register";
-import { crisisLines, crisisNote } from "@/content/site";
+import { crisisLines, crisisNote, whatsappCommunity } from "@/content/site";
 
 /**
  * /register/<role>: one page per role, asking that role its own questions.
@@ -105,6 +106,58 @@ function RegisterRolePage() {
         ) : null}
 
         <RegistrationFlow key={role.id} role={role} />
+
+        {/*
+         * The WhatsApp community, BELOW the form and never above it.
+         *
+         * The form's own button is the one thing this page exists to get, and
+         * an invite offered before it is an invite to leave. Placed here it is
+         * what someone reads once they have finished, so it is secondary in
+         * position as well as in styling: teal outline, the site's own
+         * secondary, never the orange.
+         *
+         * The QR is hidden below `sm` on purpose. It is not a decoration that
+         * happens to be large: it is a code to be scanned with a second
+         * device, and nobody scans the screen they are holding. On a phone the
+         * button alone does the whole job, and the image would be 160px of
+         * nothing.
+         */}
+        <aside className="mx-auto mt-10 w-full max-w-[820px] rounded-[var(--radius-panel)] border border-navy-700 bg-navy-800/50 p-5 sm:p-8">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="font-heading text-[19px] font-semibold text-white">
+                Prefer WhatsApp?
+              </h2>
+              <p className="measure mt-2 text-[15px] leading-relaxed text-mist">
+                Join our investor community for one sourced deal a day and the figures behind it.
+              </p>
+              <Button asChild variant="secondary" className="mt-5">
+                {/*
+                 * The visible label says what the control does; the accessible
+                 * name says where it goes. `whatsappCommunity.label` is that
+                 * fuller sentence, so the constant is used whole rather than
+                 * carried for the url alone.
+                 */}
+                <a
+                  href={whatsappCommunity.url}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={whatsappCommunity.label}
+                >
+                  Open WhatsApp
+                </a>
+              </Button>
+            </div>
+
+            <img
+              src="/images/whatsapp-community-qr.svg"
+              width="160"
+              height="160"
+              alt="QR code for the Impact Investment Group WhatsApp community"
+              className="hidden shrink-0 rounded-[10px] sm:block"
+            />
+          </div>
+        </aside>
       </section>
     </div>
   );

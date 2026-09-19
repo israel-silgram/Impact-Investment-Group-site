@@ -42,6 +42,26 @@ export const registerRoute = {
 export const siteName = "Impact Investment Platform";
 
 /**
+ * The investor WhatsApp community, offered beside the wait-list form.
+ *
+ * ⚠️ THE INVITE URL EXISTS ONCE, HERE. The card on the registration page reads
+ * it, and so does scripts/make-whatsapp-qr.ts, which is why the QR image in
+ * public/images is generated at build time rather than pasted in: a second
+ * copy of an invite link is a link that keeps working on one surface after it
+ * has been rotated on the other. `rg chat.whatsapp.com` outside this file and
+ * the generated SVG returns nothing, and it should stay that way.
+ *
+ * The label is the link's accessible name, not visible copy. The button beside
+ * the QR reads "Open WhatsApp", which says what the control does; a screen
+ * reader gets the fuller sentence instead of ten identical "Open WhatsApp"
+ * links with no idea what they open.
+ */
+export const whatsappCommunity = {
+  url: "https://chat.whatsapp.com/DXa179wyz2xI2ffqr3Xjte",
+  label: "Join our investor WhatsApp community",
+} as const;
+
+/**
  * The closing line every page ends on — home, About, Our Services, The Problem.
  *
  * ⚠️ THIS LIVES HERE BECAUSE IT IS SITE-WIDE, NOT BECAUSE ANY ONE PAGE OWNS IT.
