@@ -78,12 +78,14 @@ And once for the run, after the pages:
 import argparse
 import functools
 import http.server
+import io
 import json
 import socketserver
 import sys
 import threading
 from pathlib import Path
 
+from PIL import Image
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -155,6 +157,84 @@ CONTROL_MIN_PX = 16.0
 # Sub-pixel: a 43.99609375 box is a 44px box that went through a layout engine.
 EPSILON = 0.05
 
+# ⚠ WAVE 414b: THE BRAND LOCKUP IS MEASURED IN LIGHT, NOT IN MARKUP.
+#
+# The responsive-image script flattened the alpha out of every variant it
+# wrote, so `logo-lockup-400.webp` was navy and orange artwork on a SOLID BLACK
+# RECTANGLE, and `sizes` meant every device picked that step. It shipped in the
+# header and the footer of all 36 prerendered pages at every width, and NOT ONE
+# assertion in this gate could see it: the element was there, it had a box, it
+# had an accessible name, axe was happy, and the page did not overflow. The
+# only witness was a picture.
+#
+# So the mark is now photographed and read. The lockup is a transparent mark on
+# a white bar: its box measures 0.81 of relative luminance with the alpha
+# intact and 0.19 with a black plate under it, so a floor of 0.80 separates the
+# two by four times the distance either one varies. It is an assertion about
+# what a visitor SEES rather than about what the DOM says is there, which is
+# the class of defect it exists for.
+LOGO_LUMINANCE_FLOOR = 0.80
+
+# AND THE SAME READING ON A GROUND THAT IS NOT WHITE.
+#
+# 0.80 is the right floor for the header, whose bar is white: the mark reads
+# 0.822 there with its alpha intact and 0.19 with a plate under it. The FOOTER
+# lockup sits on the cream, whose own relative luminance is 0.845, so no mark
+# with ink in it can reach 0.80 there and a flat floor would be a number about
+# the ground rather than about the mark. What is constant is how much darker
+# than its ground a piece of transparent artwork is allowed to be: 0.178 on the
+# white bar, 0.165 on the cream, against 0.65 for a black plate. The ceiling is
+# 0.30, which is nearly twice the worst honest reading and less than half the
+# defect, and it holds on any ground including a navy one.
+LOGO_INK_MAX = 0.30
+
+# The frame of ground sampled around the mark, in CSS pixels.
+LOGO_GROUND_PAD = 10
+
+# Rule 3's other three halves, which wave 414 collected and did not test.
+#
+# LEADING. 1.6, on running prose only. The brief says "body copy at least 15px
+# and 1.6 line-height"; `CLAUDE.md` sets 1.65 on `body` "so that every explicit
+# leading-* on a headline or a caption still wins". Both hold if "body copy"
+# means prose, and PROSE_MAX_WEIGHT and PROSE_MAX_PX below are what separates
+# prose from a display line: a headline set in Barlow, or at 600 and above, or
+# above the 17px lede, is a headline whatever tag it is written in, and its
+# leading is a brand decision. Everything else in a `p` or an `li` is prose.
+#
+# MEASURE. 30 characters, at the narrowest width. Read as the COLUMN WIDTH in
+# characters of the element's own text (its content box divided by the average
+# advance of the string it is actually setting), which is the brief's own
+# second form of the rule. The average over rendered lines is not the measure:
+# a paragraph's last line is ragged, so `chars / lines` on a three-line
+# paragraph understates the column by about a quarter and would fail a column
+# that reads perfectly well.
+#
+# HEADINGS. No heading may break a word: none may overflow its own content box
+# and none may ask for automatic hyphenation or `break-all`.
+LEADING_MIN = 1.6
+MEASURE_MIN_CHARS = 30.0
+# The profile the measure floor binds at: the narrowest the site is built for.
+NARROWEST = "360"
+PROSE_MAX_WEIGHT = 599
+PROSE_MAX_PX = 17.5
+
+# ⚠ THE DEMAND MAP'S HEIGHT ON A PHONE, AND IT IS A RATCHET.
+#
+# Build item 2 asked for "the section's height bounded so a reader is never
+# lost inside it" and nothing in wave 414 measured it.
+#
+# IN PIXELS RATHER THAN IN VIEWPORTS, because the thing a reader is lost in is
+# a distance to scroll and not a number of screens: the same band is 2.7
+# screens on a 390x844 phone and 5.5 on the same phone turned on its side,
+# where nothing about the band has changed at all. The ceiling is 2,600 CSS
+# pixels, which is the tallest reading of it plus a tenth, and it is a RATCHET:
+# a later wave may lower it and may not raise it without saying why here. The
+# section carries a map, a four-point explanation, three figures, a picker and
+# a source line, so it was never going to be one screen; what the bound stops
+# is it growing.
+DEMAND_SECTION = 'section[aria-labelledby="demand-heading"]'
+DEMAND_MAX_PX = 2600
+
 EXEMPT_REASONS = {
     "inline-in-text": "a link inside a run of text, which the brief exempts",
     "no-area": "not rendered at this width",
@@ -195,14 +275,46 @@ def serve(directory: Path) -> int:
 
 
 def settle(page):
-    """Scroll the page once so nothing is measured or photographed mid-reveal."""
+    """Scroll the page once so nothing is measured or photographed mid-reveal.
+
+    ⚠ EVERY SCROLL HERE IS INSTANT, AND THE RETURN TO THE TOP IS WAITED FOR.
+
+    `html` carries `scroll-behavior: smooth`, so `scrollTo(0, 0)` ANIMATES, and
+    the animation is not over in the 700ms this used to wait. On a landscape
+    phone the home page is 6,751px tall against a 375px viewport and the
+    shutter opened at **scrollY = 756**. A `sticky` header paints where it is
+    stuck, so `home-667x375.png` was written with 56px of EMPTY BAR at the top
+    of the image and the bar itself 756px down it: no logo, no menu button and
+    no hairline where the site puts all three. The rel414 re-check read that
+    shot and could not tell from a still whether the site or the capture was
+    at fault. It was the capture, and a gate that photographs a lie is worse
+    than a gate that photographs nothing.
+
+    So the sweep is instant, the return to the top is instant, and `to_top`
+    below confirms it landed before anything is shot or measured.
+    """
     page.evaluate(
         "async () => { const step = innerHeight; "
         "for (let y = 0; y < document.body.scrollHeight; y += step) "
-        "{ scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); } "
-        "scrollTo(0, 0); await new Promise(r => setTimeout(r, 200)); }"
+        "{ scrollTo({ top: y, behavior: 'instant' }); "
+        "await new Promise(r => setTimeout(r, 120)); } }"
     )
-    page.wait_for_timeout(500)
+    page.wait_for_timeout(300)
+
+
+def to_top(page) -> float:
+    """Put the page at the top and return where it actually is.
+
+    Returned rather than asserted here, so the caller names the shot in the
+    failure. A page that will not go back to 0 is a page nothing below can be
+    measured on.
+    """
+    for _ in range(12):
+        page.evaluate("() => scrollTo({ top: 0, behavior: 'instant' })")
+        page.wait_for_timeout(100)
+        if page.evaluate("() => window.scrollY") <= 0.5:
+            return 0.0
+    return page.evaluate("() => window.scrollY")
 
 
 # ---------------------------------------------------------------------------
@@ -376,12 +488,48 @@ AUDIT = """
       }
       const s = getComputedStyle(el);
       const words = (el.textContent || '').trim().replace(/\\s+/g, ' ');
+      const size = parseFloat(s.fontSize);
+      const lh = s.lineHeight === 'normal' ? size * 1.2 : parseFloat(s.lineHeight);
+      const weight = parseInt(s.fontWeight, 10) || 400;
+
+      // PROSE OR A DISPLAY LINE, and the test is the type rather than the tag.
+      // A card's headline is often written as a `p`; it is set in Barlow, or at
+      // 600 and above, or above the lede's 17px, and its leading and its measure
+      // are brand decisions rather than reading comfort.
+      const prose = !control && weight <= 599 && size <= 17.5 &&
+        !/Barlow|Anton/i.test(s.fontFamily);
+
+      // THE COLUMN, IN CHARACTERS OF THIS ELEMENT'S OWN TEXT. Measured only
+      // where the element is the box its text is laid into: a `p` that is a grid,
+      // or that holds a block child, has no measure of its own.
+      let measure = null;
+      let lines = null;
+      if (prose && s.display.indexOf('block') === 0 &&
+          [...el.children].every((c) => getComputedStyle(c).display.startsWith('inline'))) {
+        const box = el.getBoundingClientRect();
+        const inner = box.height - parseFloat(s.paddingTop) - parseFloat(s.paddingBottom) -
+          parseFloat(s.borderTopWidth) - parseFloat(s.borderBottomWidth);
+        lines = Math.max(1, Math.round(inner / lh));
+        const ctx = (window.__gateCanvas ||
+          (window.__gateCanvas = document.createElement('canvas').getContext('2d')));
+        ctx.font = s.fontStyle + ' ' + s.fontWeight + ' ' + s.fontSize + ' ' + s.fontFamily;
+        const advance = ctx.measureText(words).width / Math.max(1, words.length);
+        const column = box.width - parseFloat(s.paddingLeft) - parseFloat(s.paddingRight) -
+          parseFloat(s.borderLeftWidth) - parseFloat(s.borderRightWidth);
+        measure = advance > 0 ? Math.round((column / advance) * 10) / 10 : null;
+      }
+
       type.push({
         tag,
         control,
+        prose,
         cls: (el.getAttribute('class') || '').slice(0, 120),
         chars: words.length,
-        size: Math.round(parseFloat(s.fontSize) * 100) / 100,
+        size: Math.round(size * 100) / 100,
+        weight,
+        ratio: Math.round((lh / size) * 1000) / 1000,
+        measure,
+        lines,
         leading: s.lineHeight === 'normal'
           ? 'normal'
           : Math.round((parseFloat(s.lineHeight) / parseFloat(s.fontSize)) * 100) / 100,
@@ -389,6 +537,27 @@ AUDIT = """
           .trim().replace(/\\s+/g, ' ').slice(0, 50),
       });
     });
+
+  // --- RULE 3, the headings: no display size may break a word --------------
+  //
+  // A heading with more inline content than its own content box is breaking
+  // somewhere it was not designed to, and `hyphens: auto` or `break-all` is a
+  // heading asking to be broken mid-word. An `sr-only` heading is a 1px clipped
+  // box with no rendered measure at all, so it is skipped rather than failed.
+  const headings = [];
+  document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((el) => {
+    if (!seen(el) || hidden(el)) return;
+    if (el.clientWidth < 2 || el.clientHeight < 2) return;
+    const s = getComputedStyle(el);
+    headings.push({
+      tag: el.tagName.toLowerCase(),
+      over: Math.round((el.scrollWidth - el.clientWidth) * 100) / 100,
+      hyphens: s.hyphens,
+      wordBreak: s.wordBreak,
+      overflowWrap: s.overflowWrap,
+      text: (el.textContent || '').trim().replace(/\\s+/g, ' ').slice(0, 44),
+    });
+  });
 
   // --- RULE 4: fixed layers ------------------------------------------------
   const layers = [];
@@ -407,7 +576,14 @@ AUDIT = """
     });
   });
 
-  return { targets, exempt, type, layers, vw, vh };
+  // The one section build item 2 asked to be bounded and nothing measured.
+  const demandNode = document.querySelector(
+    'section[aria-labelledby="demand-heading"]');
+  const demand = demandNode
+    ? Math.round(demandNode.getBoundingClientRect().height)
+    : null;
+
+  return { targets, exempt, type, headings, layers, demand, vw, vh };
 }
 """
 
@@ -550,6 +726,305 @@ def check_type(entries, failures, where):
                 f"{kind} floor{why}. [{e['cls']}] \"{e['text']}\""
             )
     return len(bad)
+
+
+def check_prose(entries, failures, where, assert_measure: bool):
+    """Rule 3's other two halves: the leading and the measure.
+
+    Both are read on PROSE only, and what prose is was decided in the audit
+    rather than here. Returned as (leading failures, measure failures, the
+    narrowest column seen) so the run can print the minimum it found rather
+    than only the fact that nothing broke.
+
+    ⚠ THE MEASURE IS ASSERTED AT THE NARROWEST PROFILE AND REPORTED AT ALL
+    OF THEM, which is the scope the brief gives it: "line length never under 30
+    characters ON THE NARROWEST WIDTH". 360 is where a column runs out of room
+    on a phone, and it is where the floor binds. It is READ everywhere because
+    a number nobody prints is a number nobody acts on: the tablet and the
+    landscape phone put some of this site's rows side by side and the columns
+    they leave are narrower than the ones a 360 phone gets, which is a real
+    finding and is in the report as a proposal rather than smuggled into a
+    gate the brief did not ask for.
+    """
+    bad_leading = 0
+    bad_measure = 0
+    narrowest = None
+    for e in entries:
+        # THE SAME BODY-OR-LABEL RULE THE SIZE FLOOR ALREADY USES, and for the
+        # same reason. A line box of 1.6 and a measure of 30 characters are
+        # facts about reading a paragraph. "Register to join the waitlist as"
+        # is a divider, "ICO Registered" is a badge and "Selected area" is an
+        # eyebrow: they are scanned, they are one line, and a leading written
+        # for them is a brand decision rather than a reading one. 60 characters
+        # is the line the gate already draws between the two.
+        if not e.get("prose") or e["chars"] < BODY_CHARS:
+            continue
+        if e["ratio"] < LEADING_MIN - 0.001:
+            bad_leading += 1
+            failures.append(
+                f"{where}: <{e['tag']}> sets {e['size']:g}px on a line box of "
+                f"{e['ratio']:g}, under the {LEADING_MIN:g} the brief asks of body "
+                f"copy. [{e['cls']}] \"{e['text']}\""
+            )
+        if e["measure"] is None:
+            continue
+        if narrowest is None or e["measure"] < narrowest[0]:
+            narrowest = (e["measure"], e["text"])
+        if assert_measure and e["measure"] < MEASURE_MIN_CHARS - 0.05:
+            bad_measure += 1
+            failures.append(
+                f"{where}: <{e['tag']}> runs {e['measure']:g} characters to the line, "
+                f"under the {MEASURE_MIN_CHARS:g} the brief floors the measure at. "
+                f"A column this narrow is read a word at a time. "
+                f"[{e['cls']}] \"{e['text']}\""
+            )
+    return bad_leading, bad_measure, narrowest
+
+
+def check_headings(headings, failures, where):
+    """No heading may break a word."""
+    bad = 0
+    for h in headings:
+        if h["over"] > 1:
+            bad += 1
+            failures.append(
+                f"{where}: <{h['tag']}> is {h['over']:g}px wider than its own content "
+                f"box, so it is breaking where it was not drawn to. \"{h['text']}\""
+            )
+        if h["hyphens"] == "auto" or h["wordBreak"] == "break-all" or                 h["overflowWrap"] in ("break-word", "anywhere"):
+            bad += 1
+            failures.append(
+                f"{where}: <{h['tag']}> asks to be broken mid-word "
+                f"(hyphens {h['hyphens']}, word-break {h['wordBreak']}, "
+                f"overflow-wrap {h['overflowWrap']}). \"{h['text']}\""
+            )
+    return bad
+
+
+# ---------------------------------------------------------------------------
+# THE BRAND LOCKUP, MEASURED IN LIGHT. See LOGO_LUMINANCE_FLOOR above for why
+# this exists and what it caught.
+def channel(value: float) -> float:
+    value /= 255
+    return value / 12.92 if value <= 0.03928 else ((value + 0.055) / 1.055) ** 2.4
+
+
+def luminance(rgb) -> float:
+    return 0.2126 * channel(rgb[0]) + 0.7152 * channel(rgb[1]) + 0.0722 * channel(rgb[2])
+
+
+def mean_luminance(pixels) -> float:
+    return sum(luminance(p) for p in pixels) / len(pixels) if pixels else 0.0
+
+
+def box_and_ground(png: bytes, pad: int, scale: int) -> tuple[float, float]:
+    """(the mark's own mean luminance, the mean of the ground framing it).
+
+    The shot is the mark's box grown by `pad` on every side, so the frame is
+    the ground the mark is drawn on and the inside is the mark. Reading the
+    ground from the same capture is what makes this one assertion work on the
+    white bar and on the cream footer without being told which is which.
+    """
+    with Image.open(io.BytesIO(png)) as image:
+        rgb = image.convert("RGB")
+        width, height = rgb.size
+        pixels = rgb.load()
+        edge = pad * scale
+        inside = []
+        frame = []
+        for y in range(height):
+            for x in range(width):
+                if edge <= x < width - edge and edge <= y < height - edge:
+                    inside.append(pixels[x, y])
+                else:
+                    frame.append(pixels[x, y])
+    return mean_luminance(inside), mean_luminance(frame)
+
+
+def check_logo(page, failures, where) -> dict:
+    """Photograph the header's and the footer's lockup and read their light.
+
+    ⚠ AN ELEMENT SCREENSHOT, NOT A CROP OF THE FULL-PAGE ONE, and that is
+    deliberate. The full-page capture of a landscape phone is 27,000 device
+    pixels tall and Chromium takes it by a different path; the element capture
+    is a plain viewport read with the element scrolled into view, so it is the
+    same instrument at all five profiles including the one this gate could not
+    previously see a header in at all.
+    """
+    reading = {}
+    for spot in ("header", "footer"):
+        mark = page.locator(f'{spot} img[src*="logo-lockup"]').first
+        if mark.count() == 0:
+            failures.append(
+                f"{where}: no brand lockup inside <{spot}>. The mark is on every one "
+                f"of the 36 prerendered pages and its absence is not a style question."
+            )
+            continue
+        mark.scroll_into_view_if_needed()
+        page.wait_for_timeout(120)
+        rect = page.evaluate(
+            """
+            (spot) => {
+              const el = document.querySelector(spot + ' img[src*="logo-lockup"]');
+              if (!el) return null;
+              const r = el.getBoundingClientRect();
+              return { x: r.left, y: r.top, width: r.width, height: r.height,
+                       vw: innerWidth, vh: innerHeight };
+            }
+            """,
+            spot,
+        )
+        if rect is None or rect["width"] < 20 or rect["height"] < 20:
+            failures.append(f"{where}: the <{spot}> lockup has no box to measure ({rect}).")
+            continue
+        pad = LOGO_GROUND_PAD
+        clip = {
+            "x": max(0.0, rect["x"] - pad),
+            "y": max(0.0, rect["y"] - pad),
+            "width": min(rect["vw"] - max(0.0, rect["x"] - pad), rect["width"] + pad * 2),
+            "height": min(rect["vh"] - max(0.0, rect["y"] - pad), rect["height"] + pad * 2),
+        }
+        if clip["width"] < rect["width"] + pad * 2 - 0.5 or \
+                clip["height"] < rect["height"] + pad * 2 - 0.5:
+            failures.append(
+                f"{where}: the <{spot}> lockup could not be framed by {pad}px of its own "
+                f"ground inside the viewport ({clip}), so it was not measured."
+            )
+            continue
+        value, ground = box_and_ground(page.screenshot(clip=clip), pad, 2)
+        reading[spot] = value
+        if ground >= 0.95 and value < LOGO_LUMINANCE_FLOOR:
+            failures.append(
+                f"{where}: the <{spot}> lockup's box reads {value:.3f} of relative "
+                f"luminance on a white ground ({ground:.3f}), under the "
+                f"{LOGO_LUMINANCE_FLOOR:.2f} floor. The mark is transparent artwork; a "
+                f"reading this low means something opaque is under it. A flattened WebP "
+                f"variant measures about 0.19 here."
+            )
+        if ground - value > LOGO_INK_MAX:
+            failures.append(
+                f"{where}: the <{spot}> lockup's box reads {value:.3f} against a ground "
+                f"of {ground:.3f}, {ground - value:.3f} darker, over the "
+                f"{LOGO_INK_MAX:.2f} a piece of transparent artwork may be. Something "
+                f"opaque is under the mark."
+            )
+    return reading
+
+
+def first_ink_row(path: Path, scale: int, limit: int = 240):
+    """The first row of the saved shot with any ink in it, in CSS pixels.
+
+    The whole site is white at the top with the bar's own artwork in it, so on
+    every route the first ink is the logo at about 6 CSS px. A shot whose first
+    ink is BELOW the bar is a shot with no bar in it, which is the artefact
+    rel414 MIN-1 read off `home-667x375.png`. Only the top of the image is
+    scanned: this is a header assertion, not a page one.
+    """
+    with Image.open(path) as image:
+        rgb = image.convert("RGB")
+        width, height = rgb.size
+        pixels = rgb.load()
+        for y in range(0, min(limit * scale, height)):
+            for x in range(0, width, 2 * scale):
+                r, g, b = pixels[x, y][:3]
+                if r < 246 or g < 246 or b < 246:
+                    return y / scale
+    return None
+
+
+def chrome_or_static_404(page, failures, where) -> bool:
+    """True when this document carries the site chrome and must be measured.
+
+    ⚠ ONE ROUTE ON THIS SITE HAS NO HEADER AND NO FOOTER, AND IT IS MEANT
+    TO. `scripts/pages-postbuild.mjs` writes `404.html` as a standalone
+    document with the built stylesheet and nothing else: GitHub Pages serves it
+    for any path it does not have, so it must render with no router, no
+    JavaScript and no chunk. A gate that demanded a header there would be
+    demanding the 404 stop being a 404.
+
+    So the exemption is a SHAPE and it is asserted rather than assumed: a page
+    with neither a header nor a footer must BE that page, which is to say it
+    must carry the 404 heading and a link home. A route that loses its header
+    still fails, because it will still have its footer.
+    """
+    read = page.evaluate(
+        """
+        () => {
+          const home = [...document.querySelectorAll('a[href]')]
+            .filter((a) => a.getAttribute('href') === '/').length;
+          const first = document.querySelector('h1');
+          return {
+            header: !!document.querySelector('header'),
+            footer: !!document.querySelector('footer'),
+            h1: first ? (first.textContent || '').trim().slice(0, 12) : null,
+            home,
+          };
+        }
+        """
+    )
+    if read["header"] and read["footer"]:
+        return True
+    if read["header"] or read["footer"]:
+        failures.append(
+            f"{where}: the page has a <header> ({read['header']}) and a <footer> "
+            f"({read['footer']}) that disagree. Every route carries both or it is the "
+            f"standalone 404, which carries neither."
+        )
+        return True
+    if read["h1"] != "404" or read["home"] < 1:
+        failures.append(
+            f"{where}: no <header> and no <footer>, and this is not the standalone 404 "
+            f"either (h1 {read['h1']!r}, {read['home']} links home). The site chrome has "
+            f"gone missing from a route that should have it."
+        )
+        return True
+    print(f"    {where}: the standalone 404, no chrome by design, chrome checks skipped")
+    return False
+
+
+def check_header_painted(page, failures, where) -> dict:
+    """The bar exists, has a box, and sits at the top of the document.
+
+    Nothing in wave 414 asserted the header EXISTS at any profile, and wave
+    413 reads its height only at 1280 and 390. The rel414 re-check found a
+    landscape shot with 56px of empty bar in it and could not tell from a
+    still whether the site or the capture was at fault. This says which.
+    """
+    reading = page.evaluate(
+        """
+        () => {
+          const bar = document.querySelector('header');
+          if (!bar) return null;
+          const r = bar.getBoundingClientRect();
+          const s = getComputedStyle(bar);
+          const mark = bar.querySelector('img[src*="logo-lockup"]');
+          const m = mark ? mark.getBoundingClientRect() : null;
+          return {
+            top: Math.round(r.top), height: Math.round(r.height),
+            position: s.position, display: s.display,
+            mark: m ? [Math.round(m.left), Math.round(m.top),
+                       Math.round(m.width), Math.round(m.height)] : null,
+            src: mark ? (mark.currentSrc || mark.src || '').split('/').pop() : null,
+          };
+        }
+        """
+    )
+    if reading is None:
+        failures.append(f"{where}: no <header> on the route at all.")
+        return {}
+    if reading["height"] < 40:
+        failures.append(
+            f"{where}: the header is {reading['height']}px tall. Below 44 there is no "
+            f"room for the logo or for a 44px menu control."
+        )
+    if reading["top"] > 1:
+        failures.append(
+            f"{where}: the header's top is at {reading['top']} with the page at the top "
+            f"of itself, so the bar is not where the site puts it."
+        )
+    if reading["mark"] is None:
+        failures.append(f"{where}: the header carries no brand lockup.")
+    return reading
 
 
 def check_layers(layers, failures, where):
@@ -778,6 +1253,358 @@ def drawer_probe(browser, base: str, failures: list[str]) -> None:
 
 
 # ---------------------------------------------------------------------------
+# 9. THE PICKER PROBE (rel414 MAJ-2)
+#
+# Below 1024px the demand map has ONE control. The 137 district polygons are
+# `aria-hidden`, carry no tab stop and have pointer events off, so the native
+# `<select>` beneath the map is the whole of the interface. It was declared
+# INSIDE `DemandMap`, beside the hooks, which makes a new component type on
+# every render: React cannot match it against the last one, so it unmounted the
+# node holding focus and mounted a fresh one on every change, and
+# `document.activeElement` fell back to the body. In Chromium a closed select
+# fires `change` on an arrow key, so a keyboard visitor lost the control
+# mid-selection rather than after one.
+#
+# The probe is the shape of the bug: press a key, and assert the control is
+# still there afterwards AND that the press did what it was for.
+PICKER_ROUTE = "/"
+PICKER_WIDTH = 390
+
+
+def picker_probe(browser, base: str, failures: list[str]) -> None:
+    ctx = browser.new_context(
+        viewport={"width": PICKER_WIDTH, "height": 844},
+        is_mobile=True, has_touch=True, device_scale_factor=3,
+    )
+    page = ctx.new_page()
+    page.goto(f"{base}{PICKER_ROUTE}", wait_until="networkidle")
+    page.wait_for_timeout(600)
+    where = f"picker probe {PICKER_ROUTE} @ {PICKER_WIDTH}"
+
+    picker = page.locator("select[data-authority-picker]").first
+    if picker.count() == 0:
+        failures.append(
+            f"{where}: no authority picker on the page. Below 1024px it is the only "
+            f"control the demand map has."
+        )
+        ctx.close()
+        return
+    picker.scroll_into_view_if_needed()
+    page.wait_for_timeout(250)
+    picker.focus()
+    page.wait_for_timeout(150)
+
+    read = """
+        () => {
+          const select = document.querySelector('select[data-authority-picker]');
+          const panel = select ? select.closest('aside, [aria-live]') : null;
+          const active = document.activeElement;
+          return {
+            value: select ? select.value : null,
+            name: select ? select.options[select.selectedIndex].text : null,
+            focus: active ? (active.tagName.toLowerCase() +
+              (active.hasAttribute('data-authority-picker') ? '[data-authority-picker]' : ''))
+              : '(none)',
+            isPicker: !!(active && active.hasAttribute &&
+              active.hasAttribute('data-authority-picker')),
+            // ⚠ THE READOUT WITHOUT THE PICKER IN IT. The panel's own
+            // textContent begins with all eighteen <option> labels, so a
+            // slice of it never reaches the figures and would never move.
+            figures: panel
+              ? (() => {
+                  const copy = panel.cloneNode(true);
+                  copy.querySelectorAll('select').forEach((s) => s.remove());
+                  return (copy.textContent || '').replace(/\\s+/g, ' ').trim().slice(0, 140);
+                })()
+              : null,
+          };
+        }
+    """
+    before = page.evaluate(read)
+    # A keyboard change, which is what a closed select answers to.
+    page.keyboard.press("ArrowDown")
+    page.wait_for_timeout(400)
+    after = page.evaluate(read)
+
+    print(
+        f"picker    {PICKER_ROUTE} @ {PICKER_WIDTH}  before=({before['name']!r}, "
+        f"focus={before['focus']!r})  ArrowDown  ->  after=({after['name']!r}, "
+        f"focus={after['focus']!r})  value_moved="
+        f"{'yes' if before['value'] != after['value'] else 'NO'}  figures_moved="
+        f"{'yes' if before['figures'] != after['figures'] else 'NO'}"
+    )
+
+    if not before["isPicker"]:
+        failures.append(f"{where}: the select did not take focus at all.")
+    if not after["isPicker"]:
+        failures.append(
+            f"{where}: after one keyboard change focus is on {after['focus']!r} rather "
+            f"than the select. The control a phone visitor is using was destroyed under "
+            f"them, which is what a component declared inside its parent does."
+        )
+    if before["value"] == after["value"]:
+        failures.append(
+            f"{where}: the value did not move on ArrowDown, so this probe proved nothing."
+        )
+    if before["figures"] == after["figures"]:
+        failures.append(
+            f"{where}: the selected area's figures did not change with the selection "
+            f"({after['figures']!r})."
+        )
+    ctx.close()
+
+
+# ---------------------------------------------------------------------------
+# 10. THE BAR-OVER-FIELD PROBE, AND THE SUCCESS STATE (rel414 MIN-10, MIN-11)
+#
+# Rule 7 is "sticky things behave", and the shape of the thing it is about is a
+# bar at the foot of the screen resting on the field somebody is typing into.
+# Wave 414's keyboard probe focused the FIRST input, at the top of the panel,
+# and asserted only that it was not under the HEADER, so the bottom bar was
+# never tested against anything. This focuses the LAST field of the account
+# panel and the LAST option of a long survey question, both with the keyboard
+# region simulated at 420px of viewport, and asserts the focused box and the
+# bar's box do not meet.
+#
+# AND IT WALKS THROUGH TO THE SUCCESS STATE, which build item 3 ends with and
+# nothing measured. The two registration endpoints are STUBBED here: this gate
+# serves a static build with no backend, and the assertion is about what the
+# browser does with the panel rather than about what a server returns. Nothing
+# in the component is mocked; the journey is driven through its own controls.
+BAR_HEIGHT = 420
+BAR_ROUTE = "/register/investor"
+BAR_WIDTH = 390
+
+
+def stub_registration(page) -> None:
+    page.route(
+        "**/public/registration",
+        lambda route: route.fulfill(
+            status=200,
+            content_type="application/json",
+            body='{"status": "pending_activation", "registration_token": "wave414b"}',
+        ),
+    )
+    page.route(
+        "**/public/registration/preferences",
+        lambda route: route.fulfill(
+            status=200, content_type="application/json", body='{"status": "saved"}'
+        ),
+    )
+
+
+BOXES = """
+() => {
+  const bar = document.querySelector('.registration-actions');
+  const b = bar ? bar.getBoundingClientRect() : null;
+  const active = document.activeElement;
+  const a = active ? active.getBoundingClientRect() : null;
+  const label = active && active.closest ? active.closest('label') : null;
+  const l = label ? label.getBoundingClientRect() : null;
+  return {
+    bar: b ? { top: b.top, bottom: b.bottom, height: b.height } : null,
+    barPosition: bar ? getComputedStyle(bar).position : null,
+    focused: active ? active.tagName.toLowerCase() +
+      (active.id ? '#' + active.id : '') +
+      (active.getAttribute('value') ? '[' + active.getAttribute('value').slice(0, 20) + ']' : '')
+      : '(none)',
+    box: a ? { top: a.top, bottom: a.bottom } : null,
+    labelBox: l ? { top: l.top, bottom: l.bottom } : null,
+    margin: active ? getComputedStyle(active).scrollMarginBottom : null,
+    vh: innerHeight,
+  };
+}
+"""
+
+
+def assert_clear_of_bar(page, failures, where, what):
+    read = page.evaluate(BOXES)
+    if read["bar"] is None:
+        failures.append(f"{where}: no sticky action bar on the panel, so nothing was tested.")
+        return read
+    box = read["labelBox"] or read["box"]
+    if box is None:
+        failures.append(f"{where}: nothing has focus, so nothing was tested.")
+        return read
+    print(
+        f"bar/field {what:<34} focused={read['focused']!r} "
+        f"box=({box['top']:.0f}..{box['bottom']:.0f}) "
+        f"bar=({read['bar']['top']:.0f}..{read['bar']['bottom']:.0f}, "
+        f"h={read['bar']['height']:.0f}, {read['barPosition']})  "
+        f"scroll-margin-bottom={read['margin']}  vh={read['vh']}  "
+        f"clear={'yes' if box['bottom'] <= read['bar']['top'] + 0.5 else 'NO'}"
+    )
+    if box["bottom"] > read["bar"]["top"] + 0.5 and box["top"] < read["bar"]["bottom"]:
+        failures.append(
+            f"{where}: the focused {what} occupies {box['top']:.0f} to "
+            f"{box['bottom']:.0f} and the sticky action bar occupies "
+            f"{read['bar']['top']:.0f} to {read['bar']['bottom']:.0f}. The bar is over "
+            f"the thing somebody is answering."
+        )
+    return read
+
+
+def bar_probe(browser, base: str, failures: list[str]) -> None:
+    ctx = browser.new_context(
+        viewport={"width": BAR_WIDTH, "height": BAR_HEIGHT},
+        is_mobile=True, has_touch=True, device_scale_factor=3,
+    )
+    page = ctx.new_page()
+    stub_registration(page)
+    page.goto(f"{base}{BAR_ROUTE}", wait_until="networkidle")
+    page.wait_for_timeout(600)
+    where = f"bar probe {BAR_ROUTE} @ {BAR_WIDTH}x{BAR_HEIGHT}"
+
+    # (a) THE LAST FIELD OF THE ACCOUNT PANEL.
+    last = page.locator("#confirmPassword")
+    if last.count() == 0:
+        failures.append(f"{where}: no confirm-password field, so the account panel moved.")
+        ctx.close()
+        return
+    last.focus()
+    page.wait_for_timeout(400)
+    assert_clear_of_bar(page, failures, where, "account field")
+
+    # Through the account step on its own controls.
+    page.fill("#email", "wave414b@example.com")
+    page.fill("#phone", "07700900123")
+    page.fill("#password", "GateProbe2026")
+    page.fill("#confirmPassword", "GateProbe2026")
+    page.locator("form button[type=submit]").first.click()
+    try:
+        page.wait_for_selector(".registration-survey form fieldset", timeout=8000)
+    except Exception:
+        failures.append(f"{where}: the account step did not reach the survey.")
+        ctx.close()
+        return
+    page.wait_for_timeout(600)
+
+    # (b) THE LAST OPTION OF THE LONGEST QUESTION THIS ROLE ASKS.
+    longest = 0
+    for _ in range(12):
+        options = page.locator(".registration-step label")
+        count = options.count()
+        longest = max(longest, count)
+        if count >= 4:
+            options.nth(count - 1).locator("input").first.focus()
+            page.wait_for_timeout(400)
+            assert_clear_of_bar(page, failures, where, f"survey option {count} of {count}")
+            break
+        page.locator("form button[type=submit]").first.click()
+        page.wait_for_timeout(600)
+    else:
+        failures.append(
+            f"{where}: no question with four or more options was reached (longest seen "
+            f"{longest}), so the long-option case was not tested."
+        )
+
+    # (c) THE SUCCESS STATE, READABLE WITHOUT SCROLLING. Build item 3's last
+    # clause, which nothing in wave 414 measured.
+    finish = page.get_by_role("button", name="Finish for now")
+    if finish.count() == 0:
+        failures.append(f"{where}: no way to finish the journey from the survey.")
+        ctx.close()
+        return
+    finish.first.click()
+    ctx.close()
+
+
+SUCCESS_WIDTH = 390
+SUCCESS_HEIGHT = 844
+
+
+def success_probe(browser, base: str, failures: list[str]) -> None:
+    """The success state, at a whole phone screen rather than a keyboard one."""
+    ctx = browser.new_context(
+        viewport={"width": SUCCESS_WIDTH, "height": SUCCESS_HEIGHT},
+        is_mobile=True, has_touch=True, device_scale_factor=3,
+    )
+    page = ctx.new_page()
+    stub_registration(page)
+    page.goto(f"{base}{BAR_ROUTE}", wait_until="networkidle")
+    page.wait_for_timeout(600)
+    where = f"success probe {BAR_ROUTE} @ {SUCCESS_WIDTH}x{SUCCESS_HEIGHT}"
+
+    page.fill("#email", "wave414b@example.com")
+    page.fill("#phone", "07700900123")
+    page.fill("#password", "GateProbe2026")
+    page.fill("#confirmPassword", "GateProbe2026")
+    page.locator("form button[type=submit]").first.click()
+    try:
+        page.wait_for_selector(".registration-survey form fieldset", timeout=8000)
+    except Exception:
+        failures.append(f"{where}: the account step did not reach the survey.")
+        ctx.close()
+        return
+    page.wait_for_timeout(500)
+    finish = page.get_by_role("button", name="Finish for now")
+    if finish.count() == 0:
+        failures.append(f"{where}: no way to finish the journey from the survey.")
+        ctx.close()
+        return
+    finish.first.click()
+    try:
+        page.wait_for_selector("p[role=status]", timeout=8000)
+    except Exception:
+        failures.append(f"{where}: the journey never reached its success state.")
+        ctx.close()
+        return
+    page.wait_for_timeout(900)
+
+    read = page.evaluate(
+        """
+        () => {
+          const panel = document.querySelector('.registration-panel.registration-step');
+          if (!panel) return null;
+          const heading = panel.querySelector('h1');
+          const message = panel.querySelector('p[role=status]');
+          const action = panel.querySelector('a[href]');
+          const box = (el) => {
+            if (!el) return null;
+            const r = el.getBoundingClientRect();
+            return { top: Math.round(r.top), bottom: Math.round(r.bottom),
+                     text: (el.textContent || '').trim().replace(/\\s+/g, ' ').slice(0, 34) };
+          };
+          const bar = document.querySelector('header');
+          return {
+            heading: box(heading), message: box(message), action: box(action),
+            headerBottom: bar ? Math.round(bar.getBoundingClientRect().bottom) : 0,
+            vh: innerHeight, scrollY: Math.round(window.scrollY),
+          };
+        }
+        """
+    )
+    if read is None or not read["heading"]:
+        failures.append(f"{where}: the success panel has no heading to measure.")
+        ctx.close()
+        return
+
+    print(
+        f"success   {BAR_ROUTE} @ {SUCCESS_WIDTH}x{SUCCESS_HEIGHT}  "
+        f"header_bottom={read['headerBottom']}  vh={read['vh']}  "
+        f"heading={read['heading']['top']}..{read['heading']['bottom']} "
+        f"{read['heading']['text']!r}  "
+        f"message={read['message']['top']}..{read['message']['bottom']}  "
+        f"action={read['action']['top']}..{read['action']['bottom']} "
+        f"{read['action']['text']!r}"
+    )
+
+    for name in ("heading", "message", "action"):
+        part = read[name]
+        if part is None:
+            failures.append(f"{where}: the success state has no {name}.")
+            continue
+        if part["top"] < read["headerBottom"] - 1 or part["bottom"] > read["vh"] + 1:
+            failures.append(
+                f"{where}: the success state's {name} occupies {part['top']} to "
+                f"{part['bottom']} against a first screen of {read['headerBottom']} to "
+                f"{read['vh']}. Somebody who has just finished a seven-question journey "
+                f"should not have to scroll to be told so."
+            )
+    ctx.close()
+
+
+# ---------------------------------------------------------------------------
 # 9. THE TIMING TABLE
 #
 # Lighthouse is the number the brief asks for and it runs here, so it is in the
@@ -882,8 +1709,11 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
 
     failures: list[str] = []
-    tally = {"shots": 0, "targets": 0, "small": 0, "tight": 0, "type": 0, "typebad": 0,
-             "layers": 0, "clash": 0, "axe": 0, "overflow": 0}
+    tally = {"shots": 0, "targets": 0, "targets_scrolled": 0, "small": 0, "tight": 0,
+             "type": 0, "typebad": 0, "leadbad": 0, "measbad": 0, "headings": 0,
+             "headbad": 0, "layers": 0, "layers_scrolled": 0, "clash": 0, "axe": 0,
+             "overflow": 0, "narrowest": None, "narrow_by_profile": {},
+             "logo_header": None, "logo_footer": None}
 
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -900,18 +1730,32 @@ def main() -> None:
                     settle(page)
                     where = f"{slug} @ {label}"
 
+                    # ⚠ AT THE TOP BEFORE THE SHUTTER, AND PROVED SO.
+                    # A `sticky` bar paints where it is stuck, so a shot taken
+                    # at scrollY=756 has the header 756px down the image and
+                    # an empty strip where the site draws it. That is what
+                    # `home-667x375.png` was, and the rel414 re-check read it
+                    # as a possible missing header. `settle` no longer leaves
+                    # the page anywhere; this says so in the failure list if
+                    # it ever does again.
+                    resting = to_top(page)
+                    if resting > 0.5:
+                        failures.append(
+                            f"{where}: the page would not return to the top before the "
+                            f"shot (scrollY={resting:.0f}). Everything measured from "
+                            f"here, and the shot itself, would be about a scrolled page."
+                        )
+
                     target = OUT / f"{slug}-{label}.png"
                     page.screenshot(path=str(target), full_page=True)
 
-                    # ⚠ BACK TO THE TOP, EXPLICITLY, BEFORE ANYTHING IS READ.
-                    # A full-page screenshot walks the page, and at 667x375
-                    # with a page twenty viewports long it does not always
-                    # hand the scroll position back. The first run of this
-                    # gate read the home page's FIRST screen somewhere around
-                    # the middle of it and reported a photograph from the
-                    # ecosystem band as the hero. Everything below is measured
-                    # from a known scroll or it is measured from nowhere.
-                    page.evaluate("() => scrollTo(0, 0)")
+                    # A full-page screenshot walks the page, so the position is
+                    # confirmed again after it. The first run of this gate read
+                    # the home page's FIRST screen somewhere around the middle
+                    # of it and reported a photograph from the ecosystem band
+                    # as the hero. Everything below is measured from a known
+                    # scroll or it is measured from nowhere.
+                    to_top(page)
                     page.wait_for_timeout(250)
 
                     flow = page.evaluate(OVERFLOW)
@@ -938,20 +1782,76 @@ def main() -> None:
 
                     fits = flow["scrollWidth"] <= flow["innerWidth"]
                     small, tight = check_targets(audit["targets"], failures, where)
+                    # ⚠ AND THE SCROLLED READING IS MEASURED TOO, which is
+                    # what rel414 MIN-2 found missing. The back-to-top control
+                    # does not exist until two viewports of scroll, so the one
+                    # interactive element this wave MOVED was the one element
+                    # whose hit area the gate never read. Anything a later
+                    # wave puts behind a scroll is now measured with it.
+                    small_s, tight_s = check_targets(
+                        scrolled["targets"], failures, f"{where}, scrolled"
+                    )
                     typebad = check_type(audit["type"], failures, where)
+                    leadbad, measbad, narrowest = check_prose(
+                        audit["type"], failures, where, assert_measure=label == NARROWEST
+                    )
+                    headbad = check_headings(audit["headings"], failures, where)
                     clash = check_layers(audit["layers"], failures, where)
                     clash += check_layers(scrolled["layers"], failures, f"{where}, scrolled")
+                    chromed = chrome_or_static_404(page, failures, where)
+                    bar = check_header_painted(page, failures, where) if chromed else {}
+                    logo = check_logo(page, failures, where) if chromed else {}
+                    to_top(page)
 
+                    # THE SECTION THE BRIEF ASKED TO BE BOUNDED. Only the home
+                    # page carries it at full size; the narrow embeds on
+                    # /platform and /the-problem are a different readout.
+                    if audit["demand"] is not None and slug == "home":
+                        if audit["demand"] > DEMAND_MAX_PX:
+                            failures.append(
+                                f"{where}: the demand map's section is {audit['demand']}px "
+                                f"tall, over the {DEMAND_MAX_PX}px this gate bounds it at. "
+                                f"A band a reader cannot see either end of is a band they "
+                                f"get lost inside."
+                            )
+
+                    # AND THE SHOT ITSELF IS READ, at the top, for the bar.
+                    ink = first_ink_row(target, 2)
+                    if chromed and (ink is None or ink > (bar.get("height") or 0) + 1):
+                        failures.append(
+                            f"{where}: the first ink in {target.name} is at "
+                            f"{'nothing in the top 240px' if ink is None else 'y=%g' % ink}"
+                            f", below a header that measures {bar.get('height')}px in the "
+                            f"live page. The bar is not in its own shot."
+                        )
+
+                    lit = ", ".join(f"{k} {v:.3f}" for k, v in logo.items()) or "none"
+                    column = f"{narrowest[0]:g}ch" if narrowest else "n/a"
+                    band = (
+                        f"  demand_section={audit['demand']}px "
+                        f"({audit['demand'] / audit['vh']:.2f}vh)"
+                        if audit["demand"] is not None
+                        else ""
+                    )
                     print(
                         f"{slug:<30} {label:>8}  "
                         f"scrollWidth={flow['scrollWidth']}/{flow['innerWidth']} "
                         f"{'ok' if fits else 'OVERFLOW'}  "
-                        f"targets={len(audit['targets'])}(under44 {small}, tight {tight})  "
-                        f"type={len(audit['type'])}(under floor {typebad})  "
+                        f"targets={len(audit['targets'])}+{len(scrolled['targets'])} scrolled"
+                        f"(under44 {small + small_s}, tight {tight + tight_s})  "
+                        f"type={len(audit['type'])}(under floor {typebad}, leading {leadbad}, "
+                        f"measure {measbad})  "
+                        f"headings={len(audit['headings'])}(breaking {headbad})  "
                         f"fixed={len(audit['layers'])}+{len(scrolled['layers'])} scrolled"
                         f"(overlapping {clash})  "
                         f"axe={len(violations)}  "
                         f"exempt={audit['exempt']}"
+                    )
+                    print(
+                        f"    header h={bar.get('height')} top={bar.get('top')} "
+                        f"{bar.get('position')} mark={bar.get('mark')} "
+                        f"src={bar.get('src')!r}  first_ink=y{ink}  logo_L={lit}  "
+                        f"narrowest_column={column}{band}"
                     )
                     if not fits:
                         for o in flow["offenders"]:
@@ -991,19 +1891,45 @@ def main() -> None:
 
                     tally["shots"] += 1
                     tally["targets"] += len(audit["targets"])
-                    tally["small"] += small
-                    tally["tight"] += tight
+                    tally["targets_scrolled"] += len(scrolled["targets"])
+                    tally["small"] += small + small_s
+                    tally["tight"] += tight + tight_s
                     tally["type"] += len(audit["type"])
                     tally["typebad"] += typebad
+                    tally["leadbad"] += leadbad
+                    tally["measbad"] += measbad
+                    tally["headings"] += len(audit["headings"])
+                    tally["headbad"] += headbad
                     tally["layers"] += len(audit["layers"])
+                    # TWO POPULATIONS, AND BOTH ARE COUNTED. rel414 MIN-3: the
+                    # wave counted the top-of-page layers and asserted on the
+                    # top AND the scrolled ones, so the 0 beside the 6 covered
+                    # more layers than the 6 named.
+                    tally["layers_scrolled"] += len(scrolled["layers"])
                     tally["clash"] += clash
                     tally["axe"] += len(violations)
                     tally["overflow"] += 0 if fits else 1
+                    if narrowest is not None:
+                        if (tally["narrowest"] is None
+                                or narrowest[0] < tally["narrowest"][0]):
+                            tally["narrowest"] = (narrowest[0], f"{where}: {narrowest[1]}")
+                        seen_here = tally["narrow_by_profile"].get(label)
+                        if seen_here is None or narrowest[0] < seen_here[0]:
+                            tally["narrow_by_profile"][label] = (
+                                narrowest[0], f"{where}: {narrowest[1]}"
+                            )
+                    for spot, value in logo.items():
+                        key = "logo_" + spot
+                        if tally[key] is None or value < tally[key][0]:
+                            tally[key] = (value, where)
                     ctx.close()
 
             print()
             keyboard_probe(browser, base, failures)
             drawer_probe(browser, base, failures)
+            picker_probe(browser, base, failures)
+            bar_probe(browser, base, failures)
+            success_probe(browser, base, failures)
 
         if not args.no_timings:
             print()
@@ -1011,14 +1937,47 @@ def main() -> None:
         browser.close()
 
     if not args.timings_only:
+        narrow = tally["narrowest"]
+        column = f"{narrow[0]:g}ch, {narrow[1]}" if narrow else "not measurable"
         print(
             f"\n{tally['shots']} shots in {OUT.relative_to(ROOT)}. "
-            f"{tally['targets']} interactive targets measured, {tally['small']} under "
-            f"{TARGET_MIN:g}x{TARGET_MIN:g} and {tally['tight']} closer than {TARGET_GAP:g}px. "
-            f"{tally['type']} type nodes measured, {tally['typebad']} under their floor. "
-            f"{tally['layers']} fixed layers, {tally['clash']} overlapping. "
+            f"{tally['targets']} interactive targets measured at the top of the page "
+            f"and {tally['targets_scrolled']} scrolled, "
+            f"{tally['targets'] + tally['targets_scrolled']} in all, "
+            f"{tally['small']} under {TARGET_MIN:g}x{TARGET_MIN:g} and {tally['tight']} "
+            f"closer than {TARGET_GAP:g}px."
+        )
+        print(
+            f"{tally['type']} type nodes measured, {tally['typebad']} under their size "
+            f"floor, {tally['leadbad']} under a line box of {LEADING_MIN:g} and "
+            f"{tally['measbad']} under {MEASURE_MIN_CHARS:g} characters to the line at "
+            f"{NARROWEST}, where that floor binds. Narrowest column of the run: {column}."
+        )
+        for label, _w, _h in profiles:
+            found = tally["narrow_by_profile"].get(label)
+            if found is None:
+                continue
+            print(
+                f"    narrowest column @ {label:>8}: {found[0]:g} characters  "
+                f"({found[1]})" + ("  <- the floor binds here" if label == NARROWEST else "")
+            )
+        print(
+            f"{tally['headings']} headings measured, {tally['headbad']} breaking a word. "
+            f"{tally['layers']} fixed layers at the top of the page and "
+            f"{tally['layers_scrolled']} scrolled, "
+            f"{tally['layers'] + tally['layers_scrolled']} tested pairwise, "
+            f"{tally['clash']} overlapping. "
             f"{tally['axe']} serious or critical axe violations. "
             f"{tally['overflow']} shots overflow."
+        )
+        header_low = tally["logo_header"]
+        footer_low = tally["logo_footer"]
+        print(
+            "brand lockup, darkest box of the run: header "
+            + (f"{header_low[0]:.3f} ({header_low[1]})" if header_low else "not found")
+            + ", footer "
+            + (f"{footer_low[0]:.3f} ({footer_low[1]})" if footer_low else "not found")
+            + f", floor {LOGO_LUMINANCE_FLOOR:.2f}."
         )
 
     if failures:
