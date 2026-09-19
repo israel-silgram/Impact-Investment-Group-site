@@ -40,14 +40,21 @@ Recomputed here rather than carried forward. The regenerated `public/images/bran
 
 ### And the flat figure is not the rendered one
 
-`src/components/home/hero.tsx` draws the credit at `opacity-90`, which wave 413's first-viewport wash probe already lists and asserts. **Measured off a full-page shot of `/` at four widths**, the darkest purple pixel of the rendered mark is `rgb(140, 88, 243)`, L = **0.1903**, against a ground reading `rgb(254, 254, 253)`:
+~~`src/components/home/hero.tsx` draws the credit at `opacity-90`, which wave 413's first-viewport wash probe already lists and asserts. **Measured off a full-page shot of `/` at four widths**, the darkest purple pixel of the rendered mark is `rgb(140, 88, 243)`, L = **0.1903**, against a ground reading `rgb(254, 254, 253)`:
 
 | viewport | rendered ratio |
 |---|---|
 | 360 | **4.33:1** |
 | 390 | **4.33:1** |
 | 414 | **4.33:1** |
-| 1280 | **4.30:1**, the ground there samples `rgb(253, 253, 253)` |
+| 1280 | **4.30:1**, the ground there samples `rgb(253, 253, 253)` |~~
+
+⚠ **CORRECTED in 415c (rel415b MAJOR 1): this passage described the PRE-FIX render and was
+false at the 415b head, unmarked, while eight other wrong sentences in this document were struck
+through.** `opacity-90` is gone (section 11.1). Measured off the shipped shot at 390, the darkest
+ink pixel is **(128, 70, 242)**, L = **0.15383**, rendered **5.1052:1** against the ground
+`(254, 254, 253)`, **5.1520:1** flat on white, **5.0233:1** modal. The full per-viewport table,
+taken at DPR 2 with the mark scrolled into view, is in section 11.1.
 
 Both the flat and the rendered figure clear the **3:1** WCAG 2.2 SC 1.4.11 asks of a graphic, and a logotype is exempt from the text floors altogether. The mark draws **on white at every width**, never on the cream, so 4.58 is a reference figure and not a reading of anything on this site today.
 
@@ -397,7 +404,7 @@ Every one run in the foreground, whole, at `a4d453b`, and read here. `a4d453b` i
 
 1. **"The re-checker measured lossless WebP at about 3.9 times smaller for the same file."** Measured here on the real files, **lossless is 1.32x to 13.12x LARGER, on all 101 variants, without exception**. The 3.9x was a synthetic flat frame. The brief's own escape clause, "if lossless comes out LARGER for a given source, keep lossy for it and say so", is what this wave executed, for every source rather than for some. Section 5.
 2. **"Choose the split by a MEASURED property of the source."** Two candidate properties were measured across all 71 sources and **neither predicts the outcome**: `logo-lockup.webp` is *more* colourful per pixel than most photographs, and `zoopla-ink.webp` is the flattest file on the site and still loses. The only property that predicts the answer is the answer. Section 5.
-3. **"`#8046F2` ... measures 5.14:1 [against white]."** The flat figure is **5.15:1** by the sRGB coefficients, and the **rendered** figure is **4.33:1**, because the credit draws at `opacity-90`, which the brief did not account for. Both clear the 3:1 floor. Section 2.
+3. **"`#8046F2` ... measures 5.14:1 [against white]."** The flat figure is **5.15:1** by the sRGB coefficients. ~~The **rendered** figure is **4.33:1**, because the credit draws at `opacity-90`, which the brief did not account for.~~ **CORRECTED in 415c (rel415b MAJOR 1): `opacity-90` is gone (section 11.1); the rendered figure at this head is 5.1052:1 darkest, 5.0233:1 modal.** Both clear the 3:1 floor. Section 2.
 4. **"Expect a conflict there."** There was **no conflict anywhere** in the wave 411 merge. Section 4.
 5. **"Fourteen components ... none of them rendered."** True, and the brief was right to demand re-verification: it also turns out that **a fifteenth file**, `src/content/process.ts`, cannot survive the fourteenth. Section 3.
 6. **"MINOR 5 ... the success panel is probably shorter than one viewport, in which case `scrollIntoView` is a no-op and the numbers are right."** It is not a no-op. The page was at **scrollY 187**, and the site needed a fix, not just the probe. Section 6.
