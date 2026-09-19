@@ -293,7 +293,7 @@ function DifferenceStory() {
                       >
                         {chapter.eyebrow}
                       </span>
-                      <span className="mt-0.5 block text-[12px] max-lg:text-[15px] leading-snug text-ink-muted">
+                      <span className="mt-0.5 block text-[12px] max-lg:text-[15px] leading-snug max-lg:leading-[1.6] text-ink-muted">
                         {i === 0 ? "What failed" : i === 1 ? "What we learnt" : "What we built"}
                       </span>
                     </span>

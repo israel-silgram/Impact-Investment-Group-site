@@ -223,7 +223,7 @@ function LegalPage() {
                 {reg.details?.map((detail) => (
                   <p
                     key={detail}
-                    className="text-[12px] max-lg:text-[15px] leading-snug text-ink-muted"
+                    className="text-[12px] max-lg:text-[15px] leading-snug max-lg:leading-[1.6] text-ink-muted"
                   >
                     {detail}
                   </p>

@@ -396,12 +396,24 @@ function AboutPage() {
                 width={935}
                 height={559}
                 loading="lazy"
-                className="pointer-events-none absolute bottom-[-6px] left-3 w-[min(300px,28%)] select-none object-contain drop-shadow-[0_16px_16px_rgba(7,26,51,0.16)] max-md:w-[270px] max-md:max-w-[78%]"
+                className="pointer-events-none absolute bottom-[-6px] left-3 w-[min(300px,28%)] select-none object-contain drop-shadow-[0_16px_16px_rgba(7,26,51,0.16)] max-lg:w-[270px] max-lg:max-w-[78%]"
                 srcSet={variantSrcSet("/images/ai-team/collective-capability-team.png")}
                 sizes={SIZES_CARD_ILLUSTRATION}
               />
-              <div className="grid min-h-[326px] grid-cols-[190px_minmax(0,1fr)] gap-6 py-[30px] pl-[calc(29%+12px)] pr-7 max-md:grid-cols-1 max-md:gap-0 max-md:pb-[175px] max-md:pl-[22px] max-md:pr-[22px]">
-                <div className="flex flex-col justify-center border-r border-[color-mix(in_oklab,var(--color-navy-900)_13%,transparent)] pr-6 max-md:border-b max-md:border-r-0 max-md:pb-5 max-md:pr-0">
+              {/* ⚠ THE SIDE-BY-SIDE ARM STARTS AT 1024, NOT AT 768.
+
+                  At exactly 768 this card gave 29 per cent of its width to the
+                  illustration's padding and another 190px to the heading
+                  column, which left 257px for the four impacts, and the `<ol>`
+                  inside then split THAT in two: columns of 128px, a text
+                  column of 48px, and four `<h3>` headings 13 to 36px wider
+                  than the box holding them. Measured by wave 414b's heading
+                  and measure assertions, which are the first thing on this
+                  site to read a tablet as a width rather than as a small
+                  desktop. The stacked arm that 390 already uses is right up to
+                  1024; nothing at 1024 and above moves. */}
+              <div className="grid min-h-[326px] grid-cols-[190px_minmax(0,1fr)] gap-6 py-[30px] pl-[calc(29%+12px)] pr-7 max-lg:grid-cols-1 max-lg:gap-0 max-lg:pb-[175px] max-lg:pl-[22px] max-lg:pr-[22px]">
+                <div className="flex flex-col justify-center border-r border-[color-mix(in_oklab,var(--color-navy-900)_13%,transparent)] pr-6 max-lg:border-b max-lg:border-r-0 max-lg:pb-5 max-lg:pr-0">
                   <p className="eyebrow tracking-[0.14em] text-teal-600">
                     {leadershipCapability.eyebrow}
                   </p>
@@ -439,7 +451,7 @@ function AboutPage() {
                         <h3 className="font-heading text-[15px] font-bold leading-tight text-navy-900">
                           {impact.title}
                         </h3>
-                        <p className="mt-1 text-[12px] max-lg:text-[15px] leading-[1.45] text-slate-ink">
+                        <p className="mt-1 text-[12px] max-lg:text-[15px] leading-[1.45] max-lg:leading-[1.6] text-slate-ink">
                           {impact.body}
                         </p>
                       </div>
@@ -502,7 +514,7 @@ function AboutPage() {
                   </p>
                   <div className="min-w-0 flex-1">
                     <p className={cn("eyebrow", accent.text)}>{figure.kind}</p>
-                    <p className="mt-1 text-[14px] max-lg:text-[15px] leading-snug text-ink">
+                    <p className="mt-1 text-[14px] max-lg:text-[15px] leading-snug max-lg:leading-[1.6] text-ink">
                       {figure.label}
                     </p>
                   </div>

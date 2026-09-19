@@ -317,7 +317,7 @@ export function SiteFooter() {
                   the card; inline it is the same words in ~20px less height.
                   It stays a real anchor with a visible label — it is how a
                   visitor checks the registration is genuine. */}
-                <p className="text-[11px] max-lg:text-[15px] leading-snug text-ink-soft">
+                <p className="text-[11px] max-lg:text-[15px] leading-snug max-lg:leading-[1.6] text-ink-soft">
                   <span className="uppercase tracking-[0.1em]">{reg.category}</span>
                   <span aria-hidden="true"> · </span>
                   <span className="font-mono text-ink-muted">{reg.reference}</span>
@@ -335,7 +335,7 @@ export function SiteFooter() {
                 {/* Published terms verbatim, run inline instead of stacked —
                   same words, fewer lines. */}
                 {reg.details?.length ? (
-                  <p className="text-[11px] max-lg:text-[15px] leading-snug text-ink-soft">
+                  <p className="text-[11px] max-lg:text-[15px] leading-snug max-lg:leading-[1.6] text-ink-soft">
                     {reg.details.join(" · ")}
                   </p>
                 ) : null}

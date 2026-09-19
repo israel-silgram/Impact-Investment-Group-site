@@ -155,7 +155,7 @@ function TheProblemPage() {
                           key={r.label}
                           className="flex items-baseline justify-between gap-4 border-b border-rule py-3 last:border-b-0"
                         >
-                          <p className="text-[13.5px] max-lg:text-[15px] leading-snug text-ink-muted">
+                          <p className="text-[13.5px] max-lg:text-[15px] leading-snug max-lg:leading-[1.6] text-ink-muted">
                             {r.label}
                           </p>
                           {r.value ? (

@@ -140,7 +140,7 @@ writeFileSync(
     `<div class="max-w-md text-center">` +
     `<h1 class="text-7xl font-bold text-foreground">404</h1>` +
     `<h2 class="mt-4 text-xl font-semibold text-foreground">Page not found</h2>` +
-    `<p class="mt-2 text-sm max-lg:text-[15px] text-muted-foreground">` +
+    `<p class="mt-2 text-sm max-lg:text-[15px] max-lg:leading-[1.6] text-muted-foreground">` +
     `The page you&#x27;re looking for doesn&#x27;t exist or has been moved.</p>` +
     `<div class="mt-6"><a href="${base || ""}/" ` +
     `class="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-4 py-2 ` +

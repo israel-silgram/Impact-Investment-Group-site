@@ -581,7 +581,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
               </div>
               <fieldset disabled={busy || accountFrozen} className="mt-7 border-t border-rule pt-6">
                 <legend className="sr-only">{consentBlock.heading}</legend>
-                <p className="mb-3 text-sm max-lg:text-[15px] text-ink-muted">
+                <p className="mb-3 text-sm max-lg:text-[15px] max-lg:leading-[1.6] text-ink-muted">
                   {consentBlock.help}
                 </p>
                 {[
@@ -627,7 +627,9 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                 <summary className="min-h-11 cursor-pointer py-2 focus-visible:outline-2 focus-visible:outline-teal-600">
                   How we use your details
                 </summary>
-                <p className="pb-4 text-sm max-lg:text-[15px]">{registerPrivacy.body}</p>
+                <p className="pb-4 text-sm max-lg:text-[15px] max-lg:leading-[1.6]">
+                  {registerPrivacy.body}
+                </p>
               </details>
               {failureMessage && (
                 <p role="alert" className="my-4 text-sm text-destructive">

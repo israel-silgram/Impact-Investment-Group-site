@@ -935,9 +935,19 @@
 }
 
 /* The logo shrinks with the bar rather than being cropped by it. From the LEFT
-   edge, so the mark stays pinned where the eye already found it. */
+   edge, so the mark stays pinned where the eye already found it.
+
+   ⚠ AND THE PADDING IS THE HIT AREA UNDER THE SCALE. The condensed state
+   puts `scale(0.85)` on this link, and a transform scales the BOX: the 44px
+   mark became a 37.4px target the moment anybody scrolled, on every route at
+   every phone width. Nothing caught it because the gate only ever measured
+   targets at the top of the page, where the bar is not condensed; wave 414b
+   measures the scrolled reading too and this is the first thing it found.
+   4px above and below makes the resting box 52px, and 52 by 0.85 is 44.2, so
+   the target clears the floor in the state it is actually in. */
 .site-header__logo {
   display: inline-block;
+  padding-block: 0.25rem;
   transform-origin: left center;
   transition: transform var(--duration-hover) var(--ease-out-soft);
 }
@@ -2392,6 +2402,27 @@ canvas[data-map="in"] {
      space the padding was reserving. */
   .registration-survey {
     padding-bottom: 1rem;
+  }
+
+  /* ⚠ AND EVERY FIELD KNOWS THE BAR IS THERE.
+
+     A sticky bar cannot cover the row beneath it, but it CAN sit over a field
+     the browser has just scrolled to the foot of the screen, because the
+     browser aligns to the viewport edge and knows nothing about what is
+     resting on it. Nothing proved otherwise: wave 414's keyboard probe
+     focused the FIRST input, which is at the top of the panel, so the one
+     shape rule 7 is about was never tested. rel414 MIN-10.
+
+     `scroll-margin-bottom` is the answer the platform already has: the
+     browser scrolls the element clear by this much when it brings it into
+     view. The figure is the bar's own height plus the safe area, and the bar
+     is 0.75rem of padding, a 3rem control and 0.75rem of padding, so 4.5rem
+     is it and 5rem is it with a rule and a hair of room. Measured by the
+     bar-over-field probe in `scripts/wave414-mobile.py`, which focuses the
+     LAST field of the account panel and the LAST option of a long survey
+     question at 390x420 and asserts neither box meets the bar's. */
+  .registration-panel :is(input, select, textarea, label, button) {
+    scroll-margin-bottom: calc(5rem + env(safe-area-inset-bottom));
   }
 }
 

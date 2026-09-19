@@ -6,7 +6,7 @@ export function SourceLine({ source, className }: { source: string; className?: 
   return (
     <p
       className={cn(
-        "flex items-start gap-1.5 text-[12px] max-lg:text-[15px] leading-snug text-ink-muted",
+        "flex items-start gap-1.5 text-[12px] max-lg:text-[15px] leading-snug max-lg:leading-[1.6] text-ink-muted",
         className,
       )}
     >
