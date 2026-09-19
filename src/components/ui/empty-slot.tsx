@@ -19,7 +19,7 @@ export function EmptySlot({
   return (
     <div
       className={cn(
-        "flex min-h-[168px] flex-col items-center justify-center gap-3 rounded-[var(--radius-panel)] border border-dashed border-rule p-6 text-center",
+        "flex min-h-[168px] flex-col items-center justify-center gap-3 rounded-[var(--radius-panel)] border border-dashed border-rule bg-page-alt p-6 text-center",
         className,
       )}
     >

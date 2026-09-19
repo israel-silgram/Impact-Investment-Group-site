@@ -35,8 +35,13 @@ export function PageShell({
         </div>
       </Reveal>
       <Reveal index={2} className="mt-14">
-        <div className="rounded-[var(--radius-panel)] border border-dashed border-rule p-8">
-          <p className="font-heading text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted">
+        {/* A QUIET DASHED CARD, NOT A WARNING. This is an honest empty state
+            on a page whose copy has not been signed off; it should read as a
+            reserved space, which is cream and a dashed hairline, rather than
+            as something that has gone wrong, which is what an outlined box on
+            a white page looks like. */}
+        <div className="rounded-[var(--radius-panel)] border border-dashed border-rule bg-page-alt p-8">
+          <p className="font-heading text-sm font-semibold uppercase tracking-[0.14em] text-ink-soft">
             Section content slot · empty until approved
           </p>
           <p className="measure mt-3 text-sm text-ink-muted">

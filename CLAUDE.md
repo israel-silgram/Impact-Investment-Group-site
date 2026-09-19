@@ -30,89 +30,181 @@ Do not confuse the two.
 Derived by sampling pixels from two approved mock-ups. These values are final unless
 Callum says otherwise. Nothing in the codebase should use a hard-coded colour.
 
+> **THE SITE IS LIGHT. Updated 19 September 2026, wave 412.**
+>
+> Callum, relaying his director: *"the site is much too dark (the navy everywhere
+> makes it too dark throughout) and needs to instead be much lighter, and brighter
+> ... and more friendly/user friendly throughout."*
+>
+> So the ground moved. **White is the page, cream is the alternating band, and navy
+> is INK and STRUCTURE**: headings, body text, rules, the logo's neutral parts :
+> rather than the surface everything sits on. Everything below this line in section
+> 2 is written for that site. The fonts, the icon system, the logo rules, the
+> imagery rules and the data table are unchanged and still hold.
+>
+> Measured before and after by `scripts/wave412-screenshots.py`, which photographs
+> every route at 1280 and 390 and asserts what it finds. The share of dark pixels
+> on the home page went from **63.55% to 23.43%** at 1280, and the share of the
+> page's own ground, with photographs and the map field masked out, from
+> **48.48% to 8.77%**. `/register/investor` went from 60.55% to 4.44%.
+
 ### Colour tokens
 
 **The design system already exists** in `src/styles.css` under `@theme`. Do NOT invent new
 token names — edit the existing ones. Components must never hard-code a hex.
 
-The existing navy scale is correct and matches the mock-ups. Leave it alone:
+**Ask for a colour by its JOB, not by its shade.** These are the names a component
+should be reaching for, and a component that reaches for one of them is correct on the
+light ground without knowing which navy or slate sits behind it:
 
 ```
---color-navy-950: #000b1c    --color-navy-900: #00112b   (page background)
+--color-page       #ffffff   THE PAGE GROUND
+--color-page-alt   #f7f1e6   the cream alternating band (same value as --color-mist-bg)
+--color-header     rgb(255 255 255 / 0.92)   the sticky bar, blurred
+--color-ink        #00112b   navy-900 as type: headings and body on white
+--color-ink-muted  #4e5a6e   body copy on the cream
+--color-ink-soft   #647289   small caps, captions, body on a white card
+--color-rule       slate at 20%   the hairline that rules the whole site
+--color-tint-orange  orange-500 at 12%   the plate behind a HUMAN icon glyph
+--color-tint-teal    teal-600 at 12%     the plate behind a DATA icon glyph
+```
+
+Tailwind emits `bg-page`, `bg-page-alt`, `text-ink`, `text-ink-muted`, `text-ink-soft`,
+`border-rule`, `bg-tint-orange` and `bg-tint-teal` from these.
+
+The navy scale is unchanged and still correct. It is now the INK and the two islands,
+not the ground:
+
+```
+--color-navy-950: #000b1c    --color-navy-900: #00112b   (ink)
 --color-navy-800: #041c3d    --color-navy-700: #0a2a52    --color-navy-600: #143c6b
 ```
 
-**Three corrections are required:**
+**One orange, three steps of it, and the step is decided by the JOB not by taste.**
+The wave 295 ruling holds: where a pairing fails, THE SURFACE MOVES, never the orange.
 
-| Token | Currently | Change to | Why |
+```
+--color-orange-500: #c15f3c   fills, rules, chip borders, icon glyphs, and a
+                              headline word at 26px and above
+--color-orange-600: #ae4e30   the fill of any text-bearing control. White on it
+                              is 5.34:1, so a button label passes at any size
+--color-orange-700: #9a4429   every orange WORD on a light ground. 6.50:1 on
+                              white, 5.78:1 on the cream
+--color-teal-400:   #2fbaaa   ON NAVY ONLY. 2.41:1 on white
+--color-teal-500:   #1e9e8f   ON NAVY ONLY
+--color-teal-600:   #17796f   the teal of the light site: eyebrows, figures,
+                              icon glyphs, the focus ring, the secondary button
+--color-cream-card: #efe6d6   a card that has to separate from the cream
+```
+
+⚠️ **THERE IS STILL ONE ORANGE AND IT IS `#c15f3c`.** 600 and 700 are steps of it,
+not new oranges, and both were already in the file before this wave. Do not add a
+lighter one for text; that is the exact thing wave 295 existed to end.
+
+### Working on the light grounds: read before building anything
+
+Two grounds, and the cream is the binding one because it is darker. Every figure below
+was measured in wave 412, not carried forward.
+
+| Colour | on white `#ffffff` | on cream `#f7f1e6` | Verdict |
 |---|---|---|---|
-| `--color-orange-500` | `#ee4d00` | `#ff7a29` | Mock-up 1 is the approved brand reference and its orange is amber, not the red-orange of Mock-up 2. `#ff7a29` is already in the file as `orange-400` — promote it. |
-| `--color-orange-600` | `#d9430a` | `#e56600` | Button fills only. White on `#ff7a29` is 2.6:1 and fails; on `#e56600` it is 3.4:1 and passes for large text. |
-| `--color-mist-bg` | `#ebf1f8` | `#f7f1e6` | This is the light-section background. It is currently pale **blue**. Israel asked for **cream**. This single change is most of what "add the cream" means. |
+| `ink` `#00112b` | 18.83:1 | 16.75:1 | **PASS**: the default for headings and for body on white |
+| `ink-muted` `#4e5a6e` | 6.97:1 | 6.20:1 | **PASS**: the default for body on the cream |
+| `ink-soft` `#647289` | 4.87:1 | 4.33:1 | White cards, rules and small caps. **FAILS on the cream for body copy** |
+| `teal-600` `#17796f` | 5.25:1 | 4.67:1 | **PASS**: eyebrows, figures, icon glyphs, the focus ring |
+| `teal-500` `#1e9e8f` | 3.31:1 | 2.95:1 | **FAIL** for text on either |
+| `teal-400` `#2fbaaa` | 2.41:1 | 2.14:1 | **FAIL.** It is the on-navy teal and belongs inside an island |
+| `orange-700` `#9a4429` | 6.50:1 | 5.78:1 | **PASS**: the one orange that carries a word |
+| `orange-600` `#ae4e30` | 5.34:1 | 4.75:1 | Fills. Passes as text on white, fails on the cream |
+| `orange-500` `#c15f3c` | 4.23:1 | 3.76:1 | **NEVER small text.** Rules, chips, glyphs, and a headline at 26px and above |
+| `destructive` `#c92a2a` | 5.46:1 | 4.85:1 | **PASS**: validation errors on either ground |
 
-Add two new tokens alongside them:
+So on any light ground: headings are `ink`, body is `ink` on white and `ink-muted` on
+the cream, eyebrows and figures are `teal-600`, an orange word is `orange-700`, and
+`orange-500` survives as a rule, a chip border, an icon glyph and a large headline word.
+Icon plates are a 12% tint of the glyph's own colour with no ring. Cards are white on the
+cream, or white with a rule and `--shadow-card` on white. **The logo uses its `on-cream`
+variant everywhere on the site**, including in the header.
 
-```
---color-cream-card: #efe6d6;   /* cards sitting on the cream */
---color-orange-700: #c25400;   /* orange TEXT on cream — the only orange readable there */
-```
-
-### Working on cream — read before building any light section
-
-Measured against `#f7f1e6`:
-
-| Colour | Ratio | Verdict |
-|---|---|---|
-| `orange-500` `#ff7a29` | 2.3:1 | **FAIL** — icons and fills only, never text |
-| `orange-600` `#e56600` | 3.0:1 | **FAIL** — do not use for text |
-| `orange-700` `#c25400` | 4.1:1 | Large text only — headline emphasis, 26px+ |
-| `teal-400` `#2fbaaa` | 2.1:1 | **FAIL** on cream (it is the on-navy teal) |
-| `teal-500` `#1e9e8f` | 3.0:1 | **FAIL** for text |
-| `teal-600` `#17796f` | 4.7:1 | **PASS** — eyebrows, stats, icon strokes, body |
-| `navy-900` `#00112b` | 16.8:1 | **PASS** — default body text |
-
-So on a cream section: body text is `navy-900`, eyebrows and stat figures are `teal-600`,
-headline emphasis is `orange-700`, and `orange-500` survives only inside icon glyphs and
-button fills. Icon rings become `rgba(0,17,43,0.18)`. Cards become white or `cream-card`
-with a `border-on-cream`. The logo must use its `on-cream` variant.
-
-The teal scale (`--color-teal-400: #2fbaaa` etc.) already exists and is fine. It is
-under-used rather than missing — see the usage rules below.
-
-`--primary` in the `:root` shadcn layer is `#ee4d00` and must follow `orange-500`.
+`--primary` in the `:root` shadcn layer is `#ae4e30` and follows `orange-600`, with
+white `--primary-foreground`, so the library components and the brand button agree.
 
 ### What each colour is for
 
 Each colour has exactly one job. This is what stops the page drifting section to section,
 which is the specific complaint Israel raised.
 
-- **Navy** — structure only. Backgrounds and containers. Never an accent.
+- **White**: the page. The default ground for every section on every route.
+- **Cream**: rhythm. The alternating band, so a long page is not one flat sheet.
+- **Navy**: INK and STRUCTURE. Headings, body text, rules, the logo's neutral parts.
+  It is a ground in exactly two places on the site, and both are named below.
 - **Orange** — human and action. People, care, hearts, CTAs, the single most important
   phrase in a headline.
 - **Teal** — data and AI. All AI language, statistics, map network lines, data icons,
   charts. The technology voice.
-- **Cream** — breathing room. Alternating light sections so the page isn't one dark slab.
+
+**Colour proportion target on any screen: white and cream 75 to 80% · navy 10 to 15%,
+as ink and islands · teal 5% · orange 3%.**
+
+#### Navy islands
+
+A **navy island** is a rounded plate that keeps its darkness inside a light section. It
+is allowed only where darkness does a job, and there are two on the site:
+
+1. **The demand map's plate.** Its dot field and orange hotspot halos are light ADDED to
+   darkness; on white the dots wash out and the halos disappear.
+2. **The crisis card**, in the footer and on `/contact`. It has to be the one block a
+   person in trouble cannot miss, and on a cream footer nothing else would separate.
+
+The rules: **at most ONE inside `<main>` per route**, never in the first viewport, never
+the header, never a whole section's ground, always a rounded plate inside a light
+section rather than a full-bleed band. Mark it `.section-dark` and write its markup in
+the DARK classes, because that is what the plate is. `scripts/wave412-screenshots.py`
+counts them on every page at both widths and fails at two.
 
 ### Hard accessibility rules (measured, not guessed)
 
+Re-measured in wave 412 against the grounds the site actually has.
+
 | Combination | Ratio | Rule |
 |---|---|---|
-| White on navy-800 | 18.8:1 | Default body text |
-| navy-800 on cream-100 | 16.8:1 | Default text on light sections |
-| orange-500 on navy-800 | 7.2:1 | Safe for headings and body on navy |
-| teal-400 on navy-800 | 7.4:1 | Safe for stats, labels, icons on navy |
-| teal-600 on cream-100 | 5.3:1 | Safe for text and icons on cream |
-| White on orange-600 | 3.4:1 | Button labels only, 16px semibold min |
-| White on orange-500 | 2.6:1 | **NEVER.** This is why buttons use orange-600 |
-| orange-500 on cream-100 | 2.3:1 | **NEVER for text.** Fills and icons only |
+| ink on white | 18.83:1 | Default heading and body text |
+| ink on cream | 16.75:1 | Default heading text on a cream band |
+| ink-muted on cream | 6.20:1 | Default body text on a cream band |
+| ink-soft on white | 4.87:1 | Body on a white card. **Not on the cream**, where it is 4.33:1 |
+| teal-600 on white | 5.25:1 | Eyebrows, figures, icon glyphs, the focus ring |
+| teal-600 on cream | 4.67:1 | The same, on the band |
+| orange-700 on cream | 5.78:1 | Every orange word, at any size |
+| orange-500 on white | 4.23:1 | **Large text and graphics only.** 3:1 floor, not 4.5:1 |
+| White on orange-600 | 5.34:1 | Button labels, at any size |
+| White on teal-600 | 5.25:1 | A label on a filled teal plate |
+| White on orange-500 | 4.23:1 | **NEVER small.** This is why buttons fill with 600 |
+| orange-600 glyph on the 12% orange tint | 4.60:1 white / 4.11:1 cream | Human icon plates |
+| teal-600 glyph on the 12% teal tint | 4.46:1 white / 3.97:1 cream | Data icon plates |
+| White on navy-950 (inside an island) | 19.73:1 | Body text on an island |
+| orange-500 on navy-950 (inside an island) | 4.67:1 | An orange word on an island |
+| teal-400 on navy-950 (inside an island) | 8.20:1 | The focus ring and data type on an island |
+
+**The focus ring is `teal-600` everywhere on the light site** and `teal-400` inside an
+island. WCAG 2.2 wants 3:1 of a focus indicator (SC 1.4.11 and 2.4.11); teal-400 is
+2.41:1 on white, so it cannot be the site ring any more.
+
+**Every page is run through axe-core on every build**, at 1280 and 390, and the gate
+fails on a single serious or critical colour-contrast violation. `origin/main` carried
+between 5 and 15 per page; this branch carries none.
 
 ### Section rhythm
 
-Alternate `navy-800` → `cream-100` → `navy-800` → `cream-100` down the page. Hero and the
-demand map are always navy — the glow effects need darkness.
+Alternate **white → cream → white → cream** down the page. The hero is white. The demand
+map's SECTION is cream and the map itself sits on a navy island inside it, because the
+glow needs darkness and the section around it does not.
+
+The boundary between a white band and a cream one is **always a hard edge**: no
+gradients, no fades.
 
 Section padding is identical everywhere: **96px desktop / 56px mobile.** No exceptions.
-Content max-width 1200px, 24px gutters.
+Content max-width 1200px, 24px gutters. Body copy runs at **1.65 line height**, set once
+on `body` so that every explicit `leading-*` on a headline or a caption still wins.
 
 ### Typography — use the fonts already installed
 
@@ -219,13 +311,25 @@ duotones, colour overlays, visible AI artefacts.
 
 - **Primary button** — orange-600 fill, white 16px semibold, fully rounded pill, 13px/26px
   padding, optional right arrow.
-- **Secondary button** — transparent, 1.5px white border at 40% opacity. Only beside a primary.
-- **Data button** — teal-600 fill. Platform, demo and map actions only.
-- **Card on navy** — navy-700 fill, 1px border-on-navy, 14px radius, 20–24px padding.
-- **Card on cream** — white fill, 1px border-on-cream, 14px radius, 20–24px padding.
-- **Stat figure** — 44px/800, teal-400 on navy or teal-600 on cream, 13px uppercase label
-  at +0.12em tracking.
-- **Hover** — 200ms ease-out. Cards lift 2px and lighten one navy step.
+- **Secondary button**: transparent, 1px teal-600 border, teal-600 label, filling to the
+  12% teal tint on hover. Only beside a primary.
+- **Data button**: teal-600 fill with a white label. Platform, demo and map actions only.
+- **Card on white**: white fill, 1px `border-rule`, `--shadow-card`, 16px radius,
+  20 to 24px padding. The `panel` utility is exactly this.
+- **Card on cream**: the same card. Where one needs to separate from the cream instead,
+  `panel-deep` makes it cream on white.
+- **Icon plate**: a 24px glyph on a soft 12% disc of its own colour, no ring. Orange for
+  human icons, teal for data icons. **One accent per glyph, never two.**
+- **Stat figure**: 44px/800, teal-600 on a light ground or teal-400 inside an island,
+  13px uppercase label at +0.12em tracking.
+- **Header**: white at 92% with `backdrop-filter: blur`, a permanent 1px `border-rule`
+  underneath, navy nav labels, the active route in orange-700 over an orange-500
+  underline, and the register pill in orange-600.
+- **Hover**: 200ms ease-out. Cards lift 2px and the shadow deepens to
+  `--shadow-card-hover`. **A card that lifts on hover lifts on focus too**; a tile that
+  only answers to a mouse answers to half its visitors.
+- **Photography**: 12 to 16px radius, a 1px `border-rule`, and **no scrim on a light
+  ground**.
 
 ---
 
@@ -361,8 +465,22 @@ so it is obvious it is pending. **Never invent a number on this project.**
 
 ## 8. Working rules
 
-- Homepage only. Do not touch other pages without being asked.
+- **The site is light.** White page, cream bands, navy as ink. At most one navy island
+  inside `<main>` per route, and never in the first viewport.
+- **Every colour pair is measured, not assumed**, and the ratio goes in the wave report.
+  `scripts/wave412-screenshots.py` is the gate: it shoots every route at 1280 and 390 and
+  asserts no horizontal overflow, a light body and header, at most one island, a dark
+  pixel share under 15%, no serious axe colour-contrast violation, and that the page has
+  words on it.
+- **No hex in a component.** Every colour comes from `src/styles.css` by name. If a
+  pairing fails, the SURFACE moves, never the orange.
+- **No class that lies.** A component that says `bg-navy-800` renders navy. The light
+  remap that used to translate the dark palette on the fly was deleted in wave 412; do
+  not bring it back, and fix the component instead.
+- **No content is ever invisible without JavaScript.** The `Reveal` utility's resting
+  state is visible and the JS adds the hidden-then-rise state for one frame; anything
+  still pending 900ms after mount reveals anyway.
 - No emoji anywhere in the product.
 - No fabricated data, statistics or citations.
-- Every section must pass the Mock-up 1 consistency test before it is considered done.
-- When a section is finished, state which of Israel's notes it satisfies and which remain open.
+- When a section is finished, state which of the owner's notes it satisfies and which
+  remain open.

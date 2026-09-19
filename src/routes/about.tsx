@@ -29,23 +29,26 @@ import {
  * /about — the old production site's layout, on the homepage's section rhythm.
  *
  *   1 · Who We Are + the team        cream
- *   2 · Why We Exist + the figures   navy
+ *   2 · Why We Exist + the figures   white
  *   3 · What We Do + the chain       cream
- *   4 · Why Partner + the close      navy
+ *   4 · Why Partner + the close      white
  *
  * ── How the two grounds are handled ───────────────────────────────────────
  *
- * Everything is written in the DARK idiom — `text-ink`, `text-ink-muted`,
- * `text-teal-600`, `panel`, `border-rule` — and the cream sections carry
- * `.section-light`, which re-points all of it onto the light palette. That is
- * what the stylesheet is built to do, and it is why there is not a single
- * conditional colour in this file. `panel` in particular is a utility that is
- * a navy card on navy and a white card on cream, so every card here adapts
- * without being told which section it is in.
+ * WAVE 412 REWROTE THIS NOTE BECAUSE THE MECHANISM IT DESCRIBED IS GONE. The
+ * file used to be written in the DARK idiom and rely on `.section-light` to
+ * re-point every colour in it onto the light palette. That remap was deleted;
+ * nothing rewrites a class on this site any more.
  *
- * The one exception is the eyebrow. The old site's rust eyebrow reads well on
- * cream but not on navy, and orange-700 is the only orange `.section-light`
- * lets through as text — so `Head` takes a tone and the navy sections use teal.
+ * So the file is written in the LIGHT idiom, which is the site's only idiom:
+ * `text-ink`, `text-ink-muted`, `text-teal-600`, `panel`, `border-rule`. The
+ * two alternating grounds differ by one class, `.section-light`, and that
+ * class now does one thing: it paints the band cream. `panel` is the white
+ * card on both grounds, so a card still does not need to be told where it is.
+ *
+ * The one conditional left is the eyebrow, and it is a design choice rather
+ * than a contrast one: `Head` takes a tone so the rust eyebrow and the teal
+ * eyebrow can alternate down the page. Both clear AA on both grounds.
  *
  * LOOK comes from the old iip-web About page; COPY is the client's four
  * sections, verbatim; the TEAM layout is kept as built. Blocks that only
@@ -82,14 +85,15 @@ export const Route = createFileRoute("/about")({
 /**
  * Emphasis inside a summary line.
  *
- * "ink" is bold in the section's strongest text colour — `text-ink`, which
- * `.section-light` re-points to navy-900, so it is black on cream and white on
- * navy without a conditional.
+ * "ink" is bold in the section's strongest text colour, `text-ink`, which is
+ * navy-900 on both of the site's grounds: 18.83:1 on white and 16.75:1 on the
+ * cream.
  *
- * "accent" cannot do the same trick. `.section-light` rewrites orange-500 to
- * navy ink, and orange-700 is the one orange it lets through. The claim line
- * is set at 20px minimum, semibold, and the smaller lines under it get
- * `small` so their accents fall back to ink.
+ * "accent" is orange, and on a light ground every orange WORD is orange-700
+ * (5.78:1 on the cream, 6.50:1 on white). 500 is 3.76:1 there and is a rule, a
+ * chip border or a glyph, never a word. The claim line is set at 20px minimum,
+ * semibold, and the smaller lines under it get `small` so their accents fall
+ * back to ink.
  *
  * ⚠ THAT 20px FLOOR WAS A CONTRAST FLOOR AND NO LONGER IS. orange-700 was
  * 4.1:1 on the cream and only cleared AA as large text; since wave 295 it is

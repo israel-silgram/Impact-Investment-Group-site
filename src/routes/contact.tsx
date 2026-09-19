@@ -194,7 +194,7 @@ function ContactPage() {
             {/* ── The rail ────────────────────────────────────────────── */}
             <div>
               {/* Care information, not marketing. Duplicated from the footer on
-                  purpose — see the note at the top of this file.
+                  purpose; see the note at the top of this file.
 
                   WAVE 412: THIS ROUTE'S ONE NAVY ISLAND. Everything else on
                   /contact is cream and white, and this card is the one block a

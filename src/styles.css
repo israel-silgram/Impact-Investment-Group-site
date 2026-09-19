@@ -323,6 +323,12 @@
   body {
     background-color: var(--color-page);
     color: var(--color-ink);
+    /* 1.65, not the 1.5 the reset ships. Callum asked for friendlier, and the
+       cheapest friendliness on a page of institutional prose is air between
+       the lines. It is a BASE value: every explicit `leading-*` on a headline,
+       a numeral or a tight caption still wins, so this reaches body copy and
+       nothing else. */
+    line-height: 1.65;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
