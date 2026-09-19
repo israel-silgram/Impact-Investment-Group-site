@@ -462,7 +462,7 @@ export function SiteHeader() {
           A panel from the right rather than a sheet over the whole screen.
           The page stays visible behind it, dimmed, so the visitor can see they
           have opened something on top of what they were reading rather than
-          gone somewhere new — and the backdrop is then a place to press to get
+          gone somewhere new, and the backdrop is then a place to press to get
           back. Escape does the same, focus is trapped inside, the body cannot
           scroll underneath, and a route change closes it.
 

@@ -82,7 +82,7 @@ const icon = (name?: string): LucideIcon =>
  *
  * WAVE 413: `tabular-nums`. Barlow's default figures are proportional, so a 1
  * is narrower than a 0 and the numeral changed WIDTH on nearly every frame of
- * the count — six digits jittering left and right for 1.4 seconds under a
+ * the count: six digits jittering left and right for 1.4 seconds under a
  * headline. Tabular figures all occupy one advance width, so the number counts
  * up without moving. It is the whole reason the count is watchable.
  */
@@ -283,7 +283,7 @@ export function MissionSolution() {
                       arithmetic 88% white over orange-600 is 4.496:1, axe
                       rounds that to 4.50 and passes it, and the pixel
                       measurement only ever sees the nodes axe hands back as
-                      INCOMPLETE — so a pair failing by less than a rounding
+                      INCOMPLETE, so a pair failing by less than a rounding
                       width was invisible to both halves of the gate. Measured
                       off the wave 412 and 412b home shots alike at 4.46:1.
                       `text-page` is 5.34:1. The numeral between these two was

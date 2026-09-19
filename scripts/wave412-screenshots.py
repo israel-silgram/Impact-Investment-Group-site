@@ -160,7 +160,7 @@ SAMPLE_EVERY = 4
 # (four rows of white out of roughly nine thousand). What it moves is the
 # SAMPLING GRID: this script reads every 4th pixel from y=0, so taking 4px off
 # the top slides the whole document one full sample step, and every sampled row
-# lands on different content — a different part of a line of text, the gap
+# lands on different content: a different part of a line of text, the gap
 # between two rules rather than a rule. That is worth a hundredth of a point on
 # a page as dense as this one, and it is not the page getting darker.
 #
