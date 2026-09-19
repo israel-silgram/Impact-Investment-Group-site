@@ -650,7 +650,7 @@ reproduces section 5's figures exactly, which is an independent confirmation of 
 
 | # | file | what was wrong | what is true |
 |---|---|---|---|
-| 3 | `src/styles.css`, this report | the dead-CSS list named only `.image-fill-line`, justified by a sentence saying the 21 "disclosure" hits were all prose and `disclosure-content` | **false.** `.disclosure-marker` and its four `[data-mark]` rules were dead too, 33 lines, and only the deleted `ui/disclosure.tsx` ever emitted them. **Deleted**, not left as a proposal. `.disclosure-content` stays; `ui/accordion.tsx` uses it |
+| 3 | `src/styles.css`, this report | the dead-CSS list named only `.image-fill-line`, justified by a sentence saying the 21 "disclosure" hits were all prose and `disclosure-content` | **false.** `.disclosure-marker` and its four `[data-mark]` rules were dead too, ~~33 lines~~ **34 lines** (415c, rel415b MINOR 4: the deletion is 9 insertions, 34 deletions against `src/styles.css`; an 8-line comment, five rule bodies of 6, 4, 4, 4 and 4 lines, and 4 blank separators), and only the deleted `ui/disclosure.tsx` ever emitted them. **Deleted**, not left as a proposal. `.disclosure-content` stays; `ui/accordion.tsx` uses it |
 | 4 | `src/components/ui/accordion.tsx` | the comment named `Disclosure` as "the component the site's own pages use" | wave 415 deleted it. Rewritten to say what is true now |
 | 5 | this report, section 4 | "which wave 414 also edited" | **neither 414 nor 414b touched `register.$role.tsx`**; 412 and 412b did. So the clean merge was the expected outcome, not a notable one, and the brief's "expect a conflict there" worked from the same wrong premise this report repeated |
 | 7 | this report, section 7 | "header 0.814, footer 0.673, floor 0.80" | there is no single floor. The header's is `LOGO_LUMINANCE_FLOOR = 0.80`; the footer's is its own ground minus 0.30. Compressed into one number the footer read as 0.127 under a floor it is not measured against. Separated |
@@ -676,6 +676,13 @@ a source file; the head adds only this section and the shots these runs took.
 | Wave 414's gate | `python scripts/wave414-mobile.py` | **0** | **70 shots.** 2,839 targets at the top and **2,904 scrolled, 5,743 in all, 0 under 44x44, 0 closer than 8px.** 5,270 type nodes, **0 under their size floor, 0 under a 1.6 line box, 0 under 30 characters at 360.** 660 headings, **0 breaking a word. 65 fixed layers tested pairwise, 0 overlapping. 0 serious or critical axe violations. 0 shots overflow.** Picker, keyboard, drawer, bar-over-field and success probes all green. Darkest lockup: header **0.814** against its floor of 0.80, footer **0.673** against its own floor of ground minus 0.30 |
 | Wave 411's gate | `python scripts/wave411-screenshots.py` | **0** | **2 shots**, both re-taken. All four assertions green at both widths, card on screen, resting scrollY 0.0 at both |
 | Dashes on added lines | over **268 added lines** in the 415b diff, text files only | | **U+2014: 0. U+2013: 0** |
+
+415c, rel415b MINOR 5: **268 is right, re-derived from the diff at `5afc176` against the branch
+base `2697d79`: 8 text files, 268 insertions exactly**, of which this report's own share at that
+head is 15 (23 changed, 8 removed). The relayed "292 report lines added by the final commit" was
+2 lines out: `git diff --stat 5afc176..1dc370d -- docs/WAVE415_REPORT.md` gives **290 insertions**,
+not 292, and 268 minus the 253 non-report insertions elsewhere in the 415b diff already gives 15,
+which only 290 (not 292) is consistent with. No figure in this document needed to change.
 
 ### Lighthouse mobile at the 415b head
 
