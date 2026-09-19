@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { apiUrl } from "@/lib/api";
 import { contactDetails } from "@/content/site";
 import { cn } from "@/lib/utils";
+import { useDrawMark } from "@/hooks/use-draw-mark";
 import {
   previewSlots,
   entityTypeOptions,
@@ -123,6 +124,9 @@ export function EnquiryForm({
   const config = enquiryRoutes.find((r) => r.id === route) ?? enquiryRoutes[0]!;
   const [sent, setSent] = React.useState(false);
   const [failed, setFailed] = React.useState(false);
+  // WAVE 413b: the success mark's dash, measured off its own path rather than
+  // guessed at 48. See src/hooks/use-draw-mark.ts.
+  const drawMark = useDrawMark();
 
   const resolver = React.useMemo(
     () => zodResolver(schemaFor(route) as unknown as z.ZodType<FormValues>),
@@ -175,7 +179,7 @@ export function EnquiryForm({
               the moment the enquiry left. Same treatment as the registration
               flow's saved state, on the same glyph family, for the same
               reason. */}
-          <HandHeart aria-hidden="true" className="draw-in size-5 text-teal-600" />
+          <HandHeart ref={drawMark} aria-hidden="true" className="draw-in size-5 text-teal-600" />
         </span>
         <h3 className="mt-5 font-heading text-xl font-bold text-ink">Enquiry received</h3>
         <p className="measure mt-3 text-sm leading-relaxed text-ink-muted">

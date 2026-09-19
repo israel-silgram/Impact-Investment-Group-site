@@ -34,6 +34,7 @@ import {
   type SurveyAnswers,
 } from "@/lib/registration";
 import { cn } from "@/lib/utils";
+import { useDrawMark } from "@/hooks/use-draw-mark";
 
 /** The step's exit, in ms. Must match `--duration-exit` in styles.css. */
 const STEP_EXIT_MS = 120;
@@ -172,6 +173,10 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
   const [healthError, setHealthError] = React.useState(false);
   const [answers, setAnswers] = React.useState<SurveyAnswers>({});
   const [index, setIndex] = React.useState(0);
+  // WAVE 413b: the saved mark's dash, measured off its own path rather than
+  // guessed at 48, which left a sixth of the shield undrawn for good. See
+  // src/hooks/use-draw-mark.ts.
+  const drawMark = useDrawMark();
   /*
    * ── WAVE 413: THE STEP MOVES IN THE DIRECTION OF TRAVEL ─────────────────
    *
@@ -811,6 +816,7 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
             {saved ? (
               <ShieldCheck
                 key={`saved-${index}`}
+                ref={drawMark}
                 aria-hidden="true"
                 size={16}
                 className="draw-in mr-1.5 inline-block align-[-2px] text-teal-600"

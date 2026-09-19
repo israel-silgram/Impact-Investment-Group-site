@@ -2094,15 +2094,31 @@ canvas[data-map="in"] {
    one of those is the version of "the tick draws itself" that does not put a
    tick back on the page.
 
-   48 is comfortably longer than the longest path in a 24px Lucide glyph, so
-   one dash covers the whole of it and the offset runs it on from nothing.
+   ⚠ THE DASH IS MEASURED, NOT GUESSED. WAVE 413 GUESSED, AND WAS WRONG.
+
+   This shipped as a flat `stroke-dasharray: 48`, described as comfortably
+   longer than the longest path in a 24px Lucide glyph. Lucide 0.575's
+   `shield-check` outer path measures 58.75 user units, so the stroke covered
+   0 to 48 and the last 10.75 stayed a gap: about a sixth of the shield
+   missing, permanently, on the mark that says a registration step saved. It
+   also meant the draw began with that tail already painted rather than from
+   nothing. `hand-heart`, the other glyph that uses this, is 32.16 and was
+   fine either way.
+
+   Each shape now carries its own `--draw-length`, set from
+   `getTotalLength()` by src/hooks/use-draw-mark.ts in the commit that
+   inserts the glyph, before the first frame. The 64 is a fallback for a glyph
+   the hook never reaches, and it is 64 rather than 48 so that such a glyph
+   still draws WHOLE: too long a dash costs a few milliseconds at the start of
+   the draw, too short a one leaves a gap that never closes.
+
    `both` is safe here for the same reason it is safe in the drawer: the
    element is created by the save it reports and has no server paint to take
    away. Under reduced motion the global block flattens it and the glyph is
    simply there, which is the entire state. */
 @keyframes draw-in {
   from {
-    stroke-dashoffset: 48;
+    stroke-dashoffset: var(--draw-length, 64);
   }
   to {
     stroke-dashoffset: 0;
@@ -2112,8 +2128,11 @@ canvas[data-map="in"] {
 .draw-in path,
 .draw-in circle,
 .draw-in polyline,
-.draw-in line {
-  stroke-dasharray: 48;
+.draw-in line,
+.draw-in polygon,
+.draw-in rect,
+.draw-in ellipse {
+  stroke-dasharray: var(--draw-length, 64);
   animation: draw-in 400ms var(--ease-out-soft) both;
 }
 

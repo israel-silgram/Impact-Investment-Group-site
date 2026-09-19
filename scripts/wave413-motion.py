@@ -10,7 +10,7 @@ it, asserts what each probe is meant to prove, writes the screenshots, and
 exits non-zero the moment anything fails.
 
 Wave 412 proved the site is LIGHT. This proves the motion on top of it is
-HONEST, which on this site means seven specific things.
+HONEST, which on this site means eight specific things.
 
   (a) REDUCED MOTION IS REALLY OFF. With `prefers-reduced-motion: reduce`
       emulated, one second after load `document.getAnimations()` holds nothing
@@ -62,6 +62,13 @@ HONEST, which on this site means seven specific things.
       site are decorative washes at 7, 20, 25 and 70 per cent, and wave 413's
       first draft ramped every one of them to FULL STRENGTH for 350ms before
       snapping it back, which no settled screenshot can see.
+
+  (h) A MARK THAT DRAWS ITSELF DRAWS ALL OF ITSELF. Every shape carrying
+      `.draw-in` has a `stroke-dasharray` at least as long as its own
+      `getTotalLength()`, and the stylesheet's fallback is at least as long as
+      the longest path in either glyph that uses it. Wave 413 wrote the dash
+      as a flat 48 on the reasoning that no 24px Lucide path is longer than
+      that; `shield-check` is 58.75, so a sixth of the shield never drew.
 
 Screenshots of the four states a report cannot describe (the drawer open, the
 condensed header, a step mid-transition, the drawn success mark) go to
@@ -547,6 +554,45 @@ def step_probe(browser, base: str, failures: list[str]) -> None:
     else:
         page.screenshot(path=str(OUT / "success-mark-1280.png"))
 
+    # ⚠ WAVE 413b: AND THE MARK IT JUST DREW DREW ALL OF ITSELF.
+    #
+    # `.draw-in` needs a dash at least as long as the path it is running down.
+    # Wave 413 wrote 48 as a constant and called it comfortably long; Lucide
+    # 0.575's `shield-check` outer path is 58.75 user units, so the stroke
+    # covered 0 to 48 and the last 10.75 stayed a permanent gap. The dash is
+    # measured per shape now (src/hooks/use-draw-mark.ts), and this is the
+    # arm that says so: every shape's own length against its own dasharray,
+    # read off the glyph the flow has this second finished drawing.
+    drawn = page.evaluate(
+        """
+        () => [...document.querySelectorAll('.draw-in')].flatMap((mark) =>
+          [...mark.querySelectorAll('path, circle, polyline, line, polygon, rect, ellipse')]
+            .map((shape) => ({
+              glyph: mark.getAttribute('class').split(/\\s+/).find((c) => c.startsWith('lucide-')) || '(unnamed)',
+              length: Math.round(shape.getTotalLength() * 100) / 100,
+              dash: parseFloat(getComputedStyle(shape).strokeDasharray) || 0,
+            })),
+        )
+        """
+    )
+    for shape in drawn:
+        print(
+            f"draw-in: {shape['glyph']} path length {shape['length']} "
+            f"against a dash of {shape['dash']}"
+        )
+        if shape["dash"] < shape["length"]:
+            failures.append(
+                f"{where}: a `.draw-in` shape on {shape['glyph']} has a dash of "
+                f"{shape['dash']} against a path of {shape['length']}. The stroke "
+                f"stops {round(shape['length'] - shape['dash'], 2)} units short and "
+                f"the gap never closes: the mark ends up permanently unfinished."
+            )
+    if not drawn:
+        failures.append(
+            f"{where}: no `.draw-in` shape was on the page after the save, so the "
+            f"self-drawing mark was not measured."
+        )
+
     print(
         f"step forward: transition {landed['ms']}ms (budget {STEP_BUDGET_MS}ms), "
         f"press to settled {landed['total']}ms, "
@@ -996,6 +1042,68 @@ def image_fade_probe(browser, base: str, failures: list[str]) -> None:
             )
 
 
+# ---------------------------------------------------------------------------
+# (h) The two glyphs that draw themselves, measured.
+#
+# The fallback in styles.css has to be at least as long as the longest path in
+# either of them, because it is what a glyph the hook never reaches draws
+# with. Both are on the home page, so both are measurable without exercising a
+# form: `shield-check` in the platform band and `hand-heart` in the roles
+# band, and Lucide stamps each glyph with its own `lucide-<name>` class.
+DRAW_FALLBACK = 64
+
+DRAWN_GLYPHS = ["lucide-shield-check", "lucide-hand-heart"]
+
+
+def draw_mark_probe(browser, base: str, failures: list[str]) -> None:
+    """(h) The dash the marks fall back on is longer than the paths they draw."""
+    page = browser.new_page(viewport={"width": 1280, "height": 900})
+    page.goto(f"{base}/", wait_until="networkidle")
+    page.wait_for_timeout(300)
+    where = "draw mark probe / @ 1280"
+
+    lengths = page.evaluate(
+        """
+        (glyphs) => {
+          const out = {};
+          for (const glyph of glyphs) {
+            const mark = document.querySelector('.' + glyph);
+            if (!mark) { out[glyph] = null; continue; }
+            const shapes = [...mark.querySelectorAll(
+              'path, circle, polyline, line, polygon, rect, ellipse',
+            )];
+            out[glyph] = shapes.map(
+              (shape) => Math.round(shape.getTotalLength() * 100) / 100,
+            );
+          }
+          return out;
+        }
+        """,
+        DRAWN_GLYPHS,
+    )
+    page.close()
+
+    for glyph, measured in lengths.items():
+        if measured is None:
+            failures.append(
+                f"{where}: {glyph} is not on the home page any more, so the dash "
+                f"this site draws it with was not measured."
+            )
+            continue
+        longest = max(measured) if measured else 0
+        print(
+            f"{glyph}: {len(measured)} path(s), longest {longest}, "
+            f"all {measured}, fallback dash {DRAW_FALLBACK}"
+        )
+        if longest > DRAW_FALLBACK:
+            failures.append(
+                f"{where}: {glyph}'s longest path is {longest} against a fallback "
+                f"dash of {DRAW_FALLBACK}. A dash shorter than the path leaves a gap "
+                f"the draw never closes, which is what `stroke-dasharray: 48` did to "
+                f"shield-check for the whole of wave 413."
+            )
+
+
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -1103,6 +1211,7 @@ def main() -> None:
         step_probe(browser, base, failures)
         long_task_probe(browser, base, failures)
         image_fade_probe(browser, base, failures)
+        draw_mark_probe(browser, base, failures)
         browser.close()
 
     shots = sorted(p.name for p in OUT.glob("*.png"))
