@@ -249,7 +249,9 @@ What the change buys is the **rule** rather than the bytes: flat artwork added l
 
 ### MINOR 1: the smooth-scroll capture bug, fixed in one gate of three
 
-`src/styles.css`, about line 434, carries `scroll-behavior: smooth` on `html`, so **every bare `scrollTo(0, y)` a gate issues is animated** and every fixed `wait_for_timeout` after one is a guess. 414b fixed it in `scripts/wave414-mobile.py` alone.
+`src/styles.css`, about line 434, carries `scroll-behavior: smooth` on `html`, so **every bare `scrollTo(0, y)` a gate issues is animated** and every fixed `wait_for_timeout` after one is a guess.
+
+⚠ **CORRECTED in 415b (rel415 MAJOR 3): "414b fixed it in `scripts/wave414-mobile.py` alone" was wrong, and so was everything this wave built on it.** 414b fixed `settle` in that file. It left **three bare `scrollTo`s** elsewhere in the same file, one of them reading `AUDIT` at an unconfirmed position. This wave then fixed the other two gates and reported all three as done. **Section 11.3 has what was still broken, what it cost, and the two numbers that moved when it was fixed.**
 
 **`scripts/wave412-screenshots.py`**, the gate that produces the dark-pixel numbers:
 
@@ -410,4 +412,290 @@ Every one run in the foreground, whole, at `a4d453b`, and read here. `a4d453b` i
 3. **The second sweep of dead code**, proposal 3: four named things, by the same three-way verification this wave used, which is now written down and repeatable.
 4. **The `srcSet` on the Zoopla credit**, proposal 6, which is the only measured byte saving this wave found and did not take, because it is a markup change to the hero and item 1 was a colour change.
 5. **`/about`'s narrow columns at 768 and 667x375**, carried from 414b and still open.
-6. **The three gates now settle identically.** If a fourth is ever written, it inherits `settle`, `to_top`, `assert_scrolled` and an assertion on its own saved images, or it inherits the bug.
+6. ~~**The three gates now settle identically.**~~ **FALSE when written, TRUE now (rel415 MAJOR 3).** `scripts/wave414-mobile.py` still carried three bare `scrollTo`s when that sentence was written, and there were four gates in the tree rather than three, the fourth being `scripts/wave411-screenshots.py`, which this wave added without running and without giving it `settle` either. **All four settle identically at the 415b head**, and all four carry `settle`, `to_top` and a polled assertion that FAILS rather than waits. If a fifth is ever written it inherits them, or it inherits the bug.
+
+---
+
+# 11. The 415b fix pass
+
+The operator's independent re-checker read this wave and returned **HOLD: 3 MAJOR, 10 MINOR**
+(`_cowork_ops/gate/review/rel415_verdict.md`). It confirmed the deletions, the encoding null
+result and three of the five carried notes under its own measurement, and it agreed that 4.33:1
+is fine for a brand mark. The HOLD was for three things this report stated that the patch and
+the shots contradicted, **one of them the wave's own headline deliverable**.
+
+All three MAJORs are closed and all ten MINORs are closed. **Nine of the thirteen were wrong
+sentences in this document**, and every one is struck through and corrected in place above
+rather than quietly rewritten, so a reader can see what was claimed as well as what is true.
+**I disagreed with none of the thirteen.** Both proposals the re-checker attacked were
+withdrawn, because both were wrong.
+
+## 11.1 MAJOR 2: the mark shipped as a 90 per cent tint of Zoopla's purple, and this report never said so
+
+Callum's instruction was *"the same as the ribbon on the property listing result/match card"*,
+and the platform's ribbon is full strength `#8046F2`. `src/components/home/hero.tsx` drew the
+mark at **`opacity-90`**, so what the page rendered was a 90 per cent tint of the file, measured
+by the re-checker at `(141, 90, 243)` where the file carries `(128, 70, 242)`. **A tint is not
+the same colour.** This report raised eight proposals and none of them was "drop the 0.90", so
+an owner who asked for an exact match had not been told he did not get one.
+
+**`opacity-90` is gone.** It was buying nothing: not a contrast decision, not a layout decision,
+not a wave 413 requirement. Re-measured off a new full-page shot of `/` at DPR 2 with the mark
+scrolled into view:
+
+| viewport | computed opacity | darkest ink pixel | modal ink pixel | ground beside it |
+|---|---|---|---|---|
+| 360 | **1** | **(128, 70, 242)** | (129, 72, 242), 374 of 2,111 | (254, 254, 253) |
+| 390 | **1** | **(128, 70, 242)** | (129, 72, 242), 373 of 2,111 | (254, 254, 253) |
+| 414 | **1** | **(128, 70, 242)** | (129, 72, 242), 373 of 2,111 | (254, 254, 253) |
+| 1280 | **1** | **(128, 70, 242)** | (129, 72, 242), 373 of 2,109 | (253, 253, 253) |
+
+**The darkest pixel is the file's own colour exactly, with zero units of deviation on any
+channel, at every width.** That is the proof the tint is gone: under `opacity-90` the same
+reading was `(140, 88, 243)`.
+
+The modal pixel sits **two units off on green**, and that is not a tint. The mark is a 548px
+source drawn into an 82.2 CSS px box, so at DPR 2 it is resampled into 164 device px and almost
+every pixel of a letterform that thin carries some edge blend. The tint moved the modal pixel
+**13 units on red and 20 on green**; the resample moves it 1 and 2.
+
+| reading | ratio |
+|---|---|
+| flat `#8046F2` on `#ffffff` | **5.152:1** |
+| flat `#8046F2` on the cream `#f7f1e6` | 4.583:1, a reference figure; the mark never draws on the cream |
+| **rendered, darkest pixel, on the ground beside it** | **5.105:1** |
+| **rendered, modal pixel, on the ground beside it** | **5.023:1** |
+
+Against the **3:1** WCAG 2.2 SC 1.4.11 asks of a graphic, and a logotype is exempt from the text
+floors altogether.
+
+**MINOR 2 is closed by construction**: every figure above names which reading it is. The old
+report quoted **4.33:1**, which was the darkest pixel, without saying so, while the modal pixel
+read 4.26:1. Nothing turned on it and nothing turns on it now, but a number whose reading is not
+stated is a number the next reader has to re-derive.
+
+**MINOR 1**, same file: the hex was written into the comment three lines above a sentence saying
+the hex is in no component, and `scripts/wave415-zoopla-purple.py` line 74 goes further and says
+it must never appear in a component at all. The hex is **out of the comment**. `rg 8046F2 src/`
+returns nothing. The generator still carries it and is still the only place it lives.
+
+**Nothing darkened.** The mark is 2,111 ink pixels at DPR 2 on a home page 1280 by about 16,000,
+and the gate's own figures moved **down**: raw 23.59% to **23.56%** at 1280 and ground 9.06% to
+**9.02%**, both inside the page's known tenth-of-a-point run-to-run spread and both under their
+ceilings.
+
+## 11.2 MAJOR 1: wave 411's gate was skipped on a false premise
+
+This report said the script *"was written against the navy card on the pre-412 dark site and its
+assertions are about a surface that no longer exists"*, and proposal 5 recommended deleting it
+on the same ground. **The re-checker read all 104 lines and the premise is false: there is no
+colour, surface or plate assertion anywhere in the file.**
+
+**It was run, at this head, rc 0.**
+
+```
+1280: form=True, qr=True,  button=True, card on screen at 470..502, resting scrollY=0.0
+390:  form=True, qr=False, button=True, card on screen at 462..494, resting scrollY=0.0
+```
+
+All four of its assertions hold, on exactly the one route the card survives on after this wave's
+gating: the `Prefer WhatsApp?` heading, the QR visible if and only if the width is at least 640,
+an `href` starting `https://chat.whatsapp.com/`, and a form on the page.
+
+**The two screenshots are re-shot, not deleted.** `docs/screenshots/wave411/register-1280.png`
+and `register-390.png` were **new files in this branch's diff**, carried in unchanged by the
+merge of `bc3eb4c`, which was built at `9adb0bb` from **before wave 412 turned the ground
+white**. The tree was shipping two committed images of a navy card the site no longer has.
+Measured over `register-390.png` whole:
+
+| | size | dark share | second commonest colour |
+|---|---|---|---|
+| as committed, shot at `9adb0bb` | 390 x 4151 | **46.10%** | navy-800 `(4, 28, 61)` |
+| re-shot at the 415b head | 390 x 4613 | **5.95%** | white `(255, 255, 255)` |
+
+Deleting the pair was the alternative and was not taken: the script works, so the right answer
+is a true picture rather than no picture.
+
+**And it now settles like the other three.** It was added to the tree in this wave without
+inheriting rel414b MINOR 1's fix, while section 10 item 6 claimed a fourth gate would. It
+carried a bare `scrollTo` in a loop, a bare `scrollTo(0, 0)` and a blind 600ms wait. Now:
+`settle()` scrolls `behavior: 'instant'` throughout; `to_top()` polls and `main()` **fails the
+named shot** if the page does not rest at 0 before the shutter; and a new `assert_on_screen()`
+polls and **fails** if the card never comes to rest inside the viewport, which is wave 413's
+`assert_scrolled` in the shape this gate needs.
+
+**Both new assertions were broken on purpose and both failed.**
+
+| break | result |
+|---|---|
+| `to_top` parked at 400 | **rc 1**, "the page would not return to the top before the shutter (scrollY=400.0)" |
+| `assert_on_screen` given an impossible window | **rc 1**, "the card never came to rest on screen (box y=470.5 h=31.3, innerHeight=900)" |
+
+Both reverted, clean re-run rc 0.
+
+**Proposal 5 is withdrawn.** It recommended deleting a working gate on a false premise, which
+would have been the one thing in this wave that removed a check.
+
+## 11.3 MAJOR 3: the mobile gate still had three bare `scrollTo`s, and they were losing ten readings
+
+Section 10 item 6 said *"The three gates now settle identically"*. It was false.
+`scripts/wave414-mobile.py` still carried three bare `scrollTo`s, untouched at the base; this
+wave's only edit to the file was +18 lines inside `success_probe`, which is what let the claim
+through unchecked. Under an `html` carrying `scroll-behavior: smooth` all three were animated:
+
+| line | what it did |
+|---|---|
+| 1685 | the timings warm-up, a loop of eight animated scrolls with a fixed 90ms between them |
+| 1790 | an **animated scroll of up to three viewports**, a blind 350ms, then `AUDIT` read at whatever position the animation had reached |
+| 1795 | a second animated scroll back, a blind 200ms, then axe |
+
+Line 1790 is the one that mattered. That reading is the scrolled half of this gate's headline
+target count **and the only reading in which the back-to-top control exists at all**.
+
+All three are now the polled helpers. The file gains `scroll_to` and `assert_scrolled`, matching
+`scripts/wave413-motion.py`; `to_top` delegates to `scroll_to` and keeps its behaviour exactly.
+The three-viewport target is computed and **clamped in Python rather than in the browser**,
+because a page shorter than three viewports rests at its own maximum and a poll for the
+unclamped figure would never agree. The return before axe now **fails** rather than hopes.
+
+**The gate was re-run whole, rc 0, and two numbers moved.**
+
+| reading | 415 head | 415b head | |
+|---|---|---|---|
+| interactive targets at the top | 2,839 | 2,839 | unchanged |
+| **interactive targets scrolled** | 2,894 | **2,904** | **+10** |
+| **targets in all** | 5,733 | **5,743** | **+10** |
+| **fixed layers tested pairwise** | 55 | **65** | **+10** |
+| type nodes | 5,270 | 5,270 | unchanged |
+| headings | 660 | 660 | unchanged |
+
+**Both movements are the same defect.** 65 is 13 chromed routes at 5 profiles, which is **every
+chromed shot**; the gate had been reaching the back-to-top control on 55 of them and
+photographing the other 10 before it existed. **Ten interactive targets and ten fixed layers
+were going unmeasured, in the reading that exists precisely to measure them.** Still 0 under
+44x44, 0 closer than 8px, 0 overlapping, 0 serious or critical axe violations, 0 shots overflow.
+
+**Not a regression, recorded anyway.** The first run of this gate in 415b came back **rc 1 with
+30 failures**, all five profiles of the 404 route, reporting no header, no footer, no brand
+lockup and a 1.2 line box. The cause was mine and not the site's: I had run the build without
+then running `node scripts/pages-postbuild.mjs dist/client`, which is what writes
+`dist/client/404.html`, so the gate's server fell through to Python's own
+`SimpleHTTPRequestHandler` error page and correctly reported that it was not the site's 404.
+Postbuild run, gate re-run, rc 0. **The gate was right and the operator was wrong**, which is
+the outcome a gate exists for.
+
+## 11.4 MINOR 9: the ink test asserted less than it claimed, and is tighter now rather than merely documented
+
+`first_ink_row` in `scripts/wave412-screenshots.py` and `has_ink` in `scripts/wave413-motion.py`
+asked whether **any** channel of any sampled pixel was under 246. The site's cream is
+`(247, 241, 230)`, whose green and blue already are, so on any page whose top rows are cream
+rather than white both returned row 0 and passed **with no bar on screen**. The comment said
+they asserted the bar was there; they asserted that something non-white was there.
+
+`INK_MAX = 200` in both files now, requiring **every** channel under 200. That is below the
+darkest channel of either ground this site has (230, the cream's blue) and far above the bar's
+navy logo ink `(0, 17, 43)`. Measured over all 28 shots of the 412 gate:
+
+| | deepest first ink | the pixel it finds |
+|---|---|---|
+| old, any channel under 246 | 10 CSS px | `(255, 235, 227)`, a near-white orange fringe |
+| **new, every channel under 200** | **14 CSS px** | `(197, 128, 107)` the mark's arc, `(182, 185, 198)` the nav's navy |
+
+Still far under `HEADER_INK_MAX = 90`. All four wave 413 clips still have ink. **The remaining
+limit is stated in both docstrings rather than claimed away**: it is a test for INK, and it
+cannot tell the bar from anything else dark in the top rows. That is the limit of reading a
+picture, and it belongs beside the number.
+
+## 11.5 MINOR 6: the encoder setting that was measured could not have failed
+
+Section 5 claimed `exact=False` was byte-identical. Pillow's `WebPImagePlugin._save` reads
+`exact = 1 if im.encoderinfo.get("exact") else 0`, and `scripts/wave414-responsive-images.py`
+passes no `exact` on either branch, **so the default already is `False` and the measurement
+compared a setting with itself.** Claim withdrawn, the count corrected from four usable settings
+to three, and the setting that **can** differ measured instead. Pillow 12.3.0, the script's own
+resize and both its branches:
+
+| variant | lossy q82 m6 | lossless m6 | lossless `exact=True` | penalty for `exact` |
+|---|---|---|---|---|
+| `zoopla-ink-400` | **22,012** | 29,016 | 29,170 | +154 |
+| `logo-lockup-400` | **30,488** | 55,706 | 56,328 | +622 |
+| `logo-lockup-640` | **58,392** | 114,042 | 114,488 | +446 |
+| `logo-lockup-reverse-400` | **26,022** | 40,980 | 41,350 | +370 |
+| `logo-lockup-reverse-640` | **49,964** | 91,344 | 91,804 | +460 |
+
+**Larger on all five**, and all five are far larger than the lossy branch already on disk. The
+null result stands, now for a measured reason rather than a vacuous one. The lossy column
+reproduces section 5's figures exactly, which is an independent confirmation of that table.
+
+## 11.6 The other five MINORs
+
+| # | file | what was wrong | what is true |
+|---|---|---|---|
+| 3 | `src/styles.css`, this report | the dead-CSS list named only `.image-fill-line`, justified by a sentence saying the 21 "disclosure" hits were all prose and `disclosure-content` | **false.** `.disclosure-marker` and its four `[data-mark]` rules were dead too, 33 lines, and only the deleted `ui/disclosure.tsx` ever emitted them. **Deleted**, not left as a proposal. `.disclosure-content` stays; `ui/accordion.tsx` uses it |
+| 4 | `src/components/ui/accordion.tsx` | the comment named `Disclosure` as "the component the site's own pages use" | wave 415 deleted it. Rewritten to say what is true now |
+| 5 | this report, section 4 | "which wave 414 also edited" | **neither 414 nor 414b touched `register.$role.tsx`**; 412 and 412b did. So the clean merge was the expected outcome, not a notable one, and the brief's "expect a conflict there" worked from the same wrong premise this report repeated |
+| 7 | this report, section 7 | "header 0.814, footer 0.673, floor 0.80" | there is no single floor. The header's is `LOGO_LUMINANCE_FLOOR = 0.80`; the footer's is its own ground minus 0.30. Compressed into one number the footer read as 0.127 under a floor it is not measured against. Separated |
+| 8 | this report, section 7 | "948 added lines" | matched nothing in the diff. **1,299** is the figure, once `bun.lock` (54) and the QR SVG (1) come out of 1,354 insertions. 0 and 0 unchanged, and independently confirmed by the re-checker over the same 1,299 |
+| 10 | this report, proposal 4 | recommended changing the QR `alt` from "Impact Investment Group" to "Impact Investment Platform" | **it would have introduced the error.** `src/components/logo.tsx` gives the lockup the accessible name "Impact Investment Group, home", `src/content/legal.ts` records "Impact Investment Group UK Limited", and the enquiries address is `enquires@impactig.co.uk`. Group is the organisation, Platform is the product. The `alt` is already right, and the edit would have made the QR disagree with the logo three inches above it and **silently broken `scripts/wave411-screenshots.py`**, whose selector is that exact string. **Withdrawn** |
+
+## 11.7 The gate at the 415b head
+
+Every one run in the foreground, whole, at ``5afc176``, the last commit on this branch carrying
+a source file; the head adds only this section and the shots these runs took.
+
+| check | command | rc | numbers |
+|---|---|---|---|
+| Typecheck | `bunx tsc --noEmit` | **0** | **0 errors** |
+| Lint, changed files | `bunx eslint <each>` on the LF-normalised copy | **0** | **0 errors** on all six surviving changed `.ts`/`.tsx` files |
+| Lint, whole tree, head | `bunx eslint .` on an LF-normalised copy | 1 | **387 errors / 15 warnings** |
+| Lint, whole tree, base | the same, on `2f46e2e` | 1 | **387 errors / 15 warnings. DELTA ZERO** |
+| Build | `STATIC_BUILD=true bun run build` | **0** | **36 pages prerendered** |
+| Postbuild | `node scripts/pages-postbuild.mjs dist/client` | **0** | patched 0, trimmed 1 (the `/contact` duplicate tail this script exists to trim on a fresh build) |
+| Wave 412's gate | `python scripts/wave412-screenshots.py` | **0** | **28 shots, every assertion passed. 275 incomplete axe nodes, 275 measured off the pixels, 0 unmeasured.** Darkest raw: home @ 1280 **23.56%** under its ratchet of 23.70%. **Darkest GROUND of the whole run: home @ 1280 at 9.02%, against the flat 15%, clearing it by 5.98 points.** 0 serious or critical axe violations on any shot. Body and header luminance **1.000** everywhere. At most **1 island** anywhere |
+| Wave 413's gate | `python scripts/wave413-motion.py` | **0** | 13 routes at 1280 and 390 plus every standalone probe, green. 0 reduced-motion animations running, 0 faded, header 72/72/72 and 56/56/56 on every route. **4 screenshots, each asserted.** The Zoopla mark is no longer in the wash list, because it is at opacity 1 |
+| Responsive images | `python scripts/wave414-responsive-images.py --check` | **0** | 71 referenced images, every one has the variants it should have, **24 transparent sources and every variant of them still transparent** |
+| Wave 414's gate | `python scripts/wave414-mobile.py` | **0** | **70 shots.** 2,839 targets at the top and **2,904 scrolled, 5,743 in all, 0 under 44x44, 0 closer than 8px.** 5,270 type nodes, **0 under their size floor, 0 under a 1.6 line box, 0 under 30 characters at 360.** 660 headings, **0 breaking a word. 65 fixed layers tested pairwise, 0 overlapping. 0 serious or critical axe violations. 0 shots overflow.** Picker, keyboard, drawer, bar-over-field and success probes all green. Darkest lockup: header **0.814** against its floor of 0.80, footer **0.673** against its own floor of ground minus 0.30 |
+| Wave 411's gate | `python scripts/wave411-screenshots.py` | **0** | **2 shots**, both re-taken. All four assertions green at both widths, card on screen, resting scrollY 0.0 at both |
+| Dashes on added lines | over **268 added lines** in the 415b diff, text files only | | **U+2014: 0. U+2013: 0** |
+
+### Lighthouse mobile at the 415b head
+
+`bunx lighthouse` 13.5.0, **default mobile preset with simulated throttling**, against a
+**gzipping** server (a 31-line Node server written for the run and deleted after it, because
+Python's `SimpleHTTPRequestHandler` does not gzip and GitHub Pages does).
+
+⚠ **THE LOAD CAVEAT OF SECTION 7 STILL STANDS AND THESE NUMBERS SHOULD STILL BE READ AS A
+RANGE.** They are, however, taken on a markedly quieter machine than section 7's were: nothing
+else was building, and the gates had all finished. That is the most likely reason performance
+reads higher here than in any of section 7's three passes, and it is **evidence for section 7's
+caveat rather than evidence of a change this wave made**. This wave removed no bytes from the
+critical path, so nothing here should be attributed to it.
+
+| route | performance | accessibility | best practices | SEO | CLS | TBT | LCP | bytes |
+|---|---|---|---|---|---|---|---|---|
+| `/` | 67 | **100** | **100** | 100 | **0** | 147ms | 6,182ms | 955 KiB |
+| `/the-problem` | **85** | **100** | **100** | 92 | **0** | 5ms | 3,613ms | 420 KiB |
+| `/register/investor` | 81 | **100** | **100** | 92 | **0** | 12ms | 3,978ms | 437 KiB |
+| `/partner-with-investor` | 78 | **100** | **100** | 92 | **0** | 12ms | 4,660ms | 740 KiB |
+
+**Accessibility 100 and best practices 100 hold on all four routes.** That is the part the gate
+binds and it is met. **CLS is 0 on all four.**
+
+**The performance floor of 85 is met on one route and stays a stated shortfall, not a chased
+one**, exactly as the brief instructs. It needs a decision about what the home page may stop
+doing, which is Callum's, and proposal 7 still stands.
+
+## 11.8 What 415b did not do, and why
+
+1. **The eight proposals of section 8 are still proposals**, minus the two withdrawn here.
+   Proposals 1, 2, 3, 6, 7 and 8 are unchanged and still Callum's to decide. Nothing in the
+   re-check asked for them to be taken and taking any of them would have been new work inside a
+   fix pass.
+2. **`src/content/platform.ts`, `solutions/role-utils.ts`, `solutions/section-rail.tsx` and the
+   `.image-fill-line` rule are still alive**, as proposal 3 says. `.disclosure-marker` was
+   deleted here rather than left with them because it is not a judgement call: it is CSS with no
+   possible emitter, which the report had wrongly certified as not existing.
+3. **No Lighthouse comparison with 414b.** The instrument is still the variable: section 7 says
+   so and 415b changes nothing about it. This wave removed no bytes from the critical path.
+4. **`scripts/wave295-*`, `scripts/wave298-*` and `scripts/wave358-registration.test.ts`** remain
+   outside this brief's gates, as in wave 415.
