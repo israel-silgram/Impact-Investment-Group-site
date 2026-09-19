@@ -513,12 +513,22 @@ an `href` starting `https://chat.whatsapp.com/`, and a form on the page.
 and `register-390.png` were **new files in this branch's diff**, carried in unchanged by the
 merge of `bc3eb4c`, which was built at `9adb0bb` from **before wave 412 turned the ground
 white**. The tree was shipping two committed images of a navy card the site no longer has.
-Measured over `register-390.png` whole:
+Measured over `register-390.png` whole. **415c, rel415b MINOR 2:** the "dark share" figure below
+had no stated method, and no definition reproduces the old row's **46.10%** or the re-shot row's
+**5.95%**; the re-checker tried eight definitions on the re-shot image and landed between 4.28%
+and 8.48%. The old shot was overwritten by the re-shoot, so its own figure cannot be re-derived
+under any definition now. The claim that survives, and the one that actually matters, is the
+commonest and second-commonest colours, exact by pixel count and reproducible from the committed
+file:
 
-| | size | dark share | second commonest colour |
+| | size | dark share, as reported (method not stated, old shot no longer exists to re-check) | second commonest colour |
 |---|---|---|---|
-| as committed, shot at `9adb0bb` | 390 x 4151 | **46.10%** | navy-800 `(4, 28, 61)` |
-| re-shot at the 415b head | 390 x 4613 | **5.95%** | white `(255, 255, 255)` |
+| as committed, shot at `9adb0bb` | 390 x 4151 | 46.10% | navy-800 `(4, 28, 61)` |
+| re-shot at the 415b head | 390 x 4613 | 5.95% | **white `(255, 255, 255)`, 33.56%, behind cream `(247, 241, 230)` at 44.39% first** |
+
+The reproducible reading is the one that carries the argument: the re-shot image's two commonest
+colours are cream and white, not navy, so the navy ground is gone and the light ground is what
+the page now is.
 
 Deleting the pair was the alternative and was not taken: the script works, so the right answer
 is a true picture rather than no picture.
