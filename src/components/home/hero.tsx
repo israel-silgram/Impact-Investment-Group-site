@@ -315,13 +315,21 @@ export function HomeHero() {
          * with the wait-list button directly above. At the foot it closes
          * the section, sits on the fold, and competes with nothing.
          *
-         * WAVE 412: THE NAVY MARK, NOT THE WHITE ONE. Zoopla's own file is
-         * white-on-purple and the site carried their reversed, white-on-
-         * transparent mark, which on a white page is an empty rectangle. The
-         * navy file is the same alpha mask filled with the ink token instead
-         * of white, made by scripts/wave412-zoopla-ink.py and committed. It
-         * is a derived one-colour rendering of a one-colour mark; Zoopla's
-         * own dark colourway should replace it when Callum can ask for it.
+         * WAVE 415: ZOOPLA'S OWN PURPLE, NOT THE SITE'S NAVY. Zoopla's file
+         * is white-on-purple and the site carried their reversed, white-on-
+         * transparent mark, which on a white page is an empty rectangle.
+         * Wave 412 filled that alpha mask with the site's ink token as an
+         * honest stand-in; wave 415 fills it with Zoopla's own published
+         * brand purple, #8046F2, sampled off the "Powered by Zoopla" ribbon
+         * on the platform's listing card and asked for by Callum on 19 Sep
+         * 2026. Made by scripts/wave415-zoopla-purple.py and committed; the
+         * hex lives in that generator and in no component and no token,
+         * because it is a third party's brand colour baked into a third
+         * party's artwork rather than a colour of this palette. It measures
+         * 5.15:1 on the white page ground and 4.58:1 on the cream, both
+         * clear of the 3:1 a graphic needs. It is still a DERIVED one-colour
+         * rendering of a one-colour mark; Zoopla's own positive colourway
+         * should replace it when Callum can ask for the real file.
          *
          * THE AGREEMENT THAT BACKS THIS CLAIM sits with the backend team â€”
          * it is a Zoopla data agreement for the platform, and the line was
