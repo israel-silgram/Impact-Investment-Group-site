@@ -722,6 +722,95 @@ def drawer_probe(browser, base: str, failures: list[str]) -> None:
         "() => getComputedStyle(document.body).overflow === 'hidden'"
     )
 
+    # ⚠ WAVE 413b: AND NOTHING IN THE BAR IS REACHABLE BEHIND AN OPEN DRAWER.
+    #
+    # The backdrop shipped at z-40 under a z-50 header, so the top of the
+    # screen stayed undimmed white with a live logo link in it while
+    # everything below was at 40 per cent: the one thing on the page a pointer
+    # could still reach behind an open menu. The geometry assertion below
+    # measures the backdrop's BOX and cannot see a z-order, so this asks the
+    # browser what is actually on top, across the whole width of the bar.
+    #
+    # The panel counts as a pass as well as the backdrop: at 390 the panel
+    # covers the right two thirds of the bar, including its centre point, and
+    # a point under the panel is not a point behind the drawer. What must
+    # never come back is anything inside <header>.
+    reach = page.evaluate(
+        """
+        () => {
+          const header = document.querySelector('header');
+          const logo = header.querySelector('a');
+          const box = header.getBoundingClientRect();
+          const classify = (x, y) => {
+            const el = document.elementFromPoint(x, y);
+            if (!el) return 'nothing';
+            if (el.closest('.drawer-scrim')) return 'backdrop';
+            if (el.closest('.drawer-panel')) return 'panel';
+            if (el.closest('header')) return 'HEADER';
+            return el.tagName.toLowerCase();
+          };
+          const y = box.top + box.height / 2;
+          const across = [];
+          for (let i = 0; i <= 10; i += 1) {
+            const x = box.left + (box.width - 1) * (i / 10);
+            across.push(classify(Math.max(1, Math.min(innerWidth - 1, x)), y));
+          }
+          const mark = logo.getBoundingClientRect();
+          return {
+            across,
+            centre: classify(box.left + box.width / 2, y),
+            logo: classify(mark.left + mark.width / 2, mark.top + mark.height / 2),
+          };
+        }
+        """
+    )
+    print(
+        f"drawer, what is on top of the bar: centre={reach['centre']}, "
+        f"the logo link's own box={reach['logo']}, across the bar={reach['across']}"
+    )
+    if "HEADER" in reach["across"] or reach["logo"] == "HEADER":
+        failures.append(
+            f"{where}: part of the header is still the topmost element with the drawer "
+            f"open ({reach['across']}, the logo's own box resolves to {reach['logo']}). "
+            f"The bar is not dimmed and its logo is a live press target behind a modal "
+            f"menu, which sends a visitor off the page they were reading."
+        )
+    if "backdrop" not in reach["across"]:
+        failures.append(
+            f"{where}: the backdrop is not the topmost element anywhere across the bar "
+            f"({reach['across']}), so nothing here proves it covers the header at all."
+        )
+
+    controls = page.evaluate(
+        """
+        () => {
+          const trigger = document.querySelector('header button[aria-expanded]');
+          const id = trigger ? trigger.getAttribute('aria-controls') : null;
+          return {
+            id,
+            target: id ? !!document.getElementById(id) : false,
+            isPanel: id
+              ? !!(document.getElementById(id) || {}).classList?.contains('drawer-panel')
+              : false,
+            scrimTag: (document.querySelector('.drawer-scrim') || {}).tagName || null,
+          };
+        }
+        """
+    )
+    print(f"drawer trigger: aria-controls={controls}")
+    if not controls["id"] or not controls["target"] or not controls["isPanel"]:
+        failures.append(
+            f"{where}: the drawer trigger's aria-controls is {controls['id']!r} and does "
+            f"not resolve to the drawer panel ({controls})."
+        )
+    if controls["scrimTag"] != "DIV":
+        failures.append(
+            f"{where}: the backdrop is a <{controls['scrimTag']}>. A focusable element "
+            f"inside an aria-hidden subtree is the shape axe returns as incomplete; a "
+            f"div with an onClick says the same thing to a pointer and nothing to the "
+            f"accessibility tree."
+        )
+
     # Focus the last thing in the drawer, then Tab once. In a trap that lands
     # on the first; without one it lands on the browser chrome or on the page
     # behind, and the visitor has left the menu without being told.
@@ -1157,7 +1246,20 @@ def draw_mark_probe(browser, base: str, failures: list[str]) -> None:
 # layout's, and is only correct if `scaleX(n)` really does measure n px
 # against the link the line is under. So it is measured, at both bar heights,
 # because the condense is the one thing that moves the list under it.
+#
+# AND IT HAS TO BE INSIDE THE BAR. It shipped at `bottom: -6px` measured
+# against the full-height <ul>, which put it 5px BELOW the header's bottom
+# rule, painting over page content at z-50. The per-link underline it replaces
+# sat 8px inside the bar, because -6px measured against a min-h-11 LINK box in
+# a 72px bar is 8px up from the bottom. So: 8px above the rule, at 72 and at
+# 56, and never a negative number.
 MAGIC_TOLERANCE_PX = 0.5
+# 9 and not 8: the line sits 8px up from the LIST's bottom edge and the bar
+# carries a 1px bottom rule below that, so measured against the header's own
+# bottom it is 9. The figure is the same at 72px and at 56px, which is the
+# whole point of measuring it against the list rather than against a link.
+MAGIC_ABOVE_RULE_PX = 9
+MAGIC_ABOVE_TOLERANCE_PX = 1.0
 
 
 def magic_line_probe(browser, base: str, failures: list[str]) -> None:
@@ -1213,6 +1315,13 @@ def magic_line_probe(browser, base: str, failures: list[str]) -> None:
             failures.append(
                 f"{where}: the line is {geometry['height']}px tall, not 2px. scaleX "
                 f"must not be touching the height."
+            )
+        if abs(geometry["above"] - MAGIC_ABOVE_RULE_PX) > MAGIC_ABOVE_TOLERANCE_PX:
+            failures.append(
+                f"{where}: the line's bottom edge is {geometry['above']}px above the "
+                f"bar's bottom rule with the bar at {geometry['bar']}px, against "
+                f"{MAGIC_ABOVE_RULE_PX}px. A negative figure means it is hanging out of "
+                f"the header and painting over the page at z-50."
             )
 
 

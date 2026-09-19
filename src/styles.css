@@ -835,9 +835,18 @@
 
    The height is NOT scaled, because scaleX does not touch it: the rule stays
    2px at every width it travels to. */
+/* ⚠ WAVE 413b: IT SITS INSIDE THE BAR.
+
+   `bottom: -6px` was measured against the <ul>, which is the FULL HEIGHT of
+   the header, so the line hung 5px BELOW the bar's bottom rule and painted
+   over the page at z-50. The per-link `::after` it replaces is also at -6px,
+   but measured against the LINK box, which for a min-h-11 link inside a 72px
+   bar put it 8px inside the bar. 8px from the list's own bottom is the same
+   place at 72px and keeps it inside the bar at 56px as well, which is the one
+   thing the per-link version could not do. Measured by the probe at both. */
 .nav-magic__line {
   position: absolute;
-  bottom: -6px;
+  bottom: 8px;
   left: 0;
   width: 1px;
   height: 2px;

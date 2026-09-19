@@ -53,6 +53,8 @@ const loginSearch = { enquiry: "waitlist", type: "waitlist" } as const;
  * underline and its orange active route exactly as before.
  */
 
+/** The drawer's id, so the trigger can name what it controls. */
+const DRAWER_ID = "site-drawer";
 /** Scroll depth, in px, at which the bar condenses. */
 const CONDENSE_AT = 24;
 /** Upward travel, in px, that expands it again. Enough not to flutter. */
@@ -456,11 +458,16 @@ export function SiteHeader() {
             </Link>
           </div>
 
+          {/* WAVE 413b: `aria-controls` as well as `aria-expanded`. The pair
+            is what tells a screen reader that this button owns the thing that
+            just appeared; the drawer's own Partners toggle has carried both
+            since wave 413 and this one had only half. */}
           <button
             ref={triggerRef}
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
+            aria-controls={DRAWER_ID}
             onClick={() => setOpen((v) => !v)}
             className="press inline-grid size-11 cursor-pointer place-items-center rounded-full border border-rule text-ink transition-colors duration-200 hover:bg-page-alt xl:hidden"
           >
@@ -502,23 +509,35 @@ export function SiteHeader() {
           {/* The backdrop is a real press target and NOT an announced control:
             it duplicates the close button beside the logo, and a second
             "Close menu" in the accessibility tree is noise, not help. Escape
-            and that button are the keyboard paths. */}
-          <button
-            type="button"
-            aria-hidden="true"
-            tabIndex={-1}
+            and that button are the keyboard paths.
+
+            ⚠ WAVE 413b: A <div>, NOT AN aria-hidden <button>. `tabIndex={-1}`
+            kept it off the tab order, so it was never an `aria-hidden-focus`
+            violation, but a <button> inside `aria-hidden="true"` is the exact
+            shape axe returns as INCOMPLETE and a human then has to adjudicate.
+            A div with an onClick says the same thing to a pointer and nothing
+            at all to the accessibility tree, which is what was wanted.
+
+            ⚠ AND IT IS ABOVE THE HEADER NOW. It shipped at z-40 under a z-50
+            bar, so the top of the screen stayed undimmed white with a live
+            logo link in it while everything below was at 40%: the one thing
+            on the page a pointer could still reach behind an open menu. The
+            backdrop is z-50 and comes after </header> in source order, so it
+            paints over the bar; the panel is z-[60] and stays over both. */}
+          <div
             onClick={() => {
               setOpen(false);
               triggerRef.current?.focus();
             }}
-            className="drawer-scrim fixed inset-0 z-40 cursor-pointer bg-ink/40 xl:hidden"
+            className="drawer-scrim fixed inset-0 z-50 cursor-pointer bg-ink/40 xl:hidden"
           />
           <div
+            id={DRAWER_ID}
             ref={panelRef}
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"
-            className="drawer-panel fixed inset-y-0 right-0 z-50 flex w-[min(21rem,88vw)] flex-col border-l border-rule bg-page px-5 pb-8 pt-6 shadow-[var(--shadow-card-hover)] xl:hidden"
+            className="drawer-panel fixed inset-y-0 right-0 z-[60] flex w-[min(21rem,88vw)] flex-col border-l border-rule bg-page px-5 pb-8 pt-6 shadow-[var(--shadow-card-hover)] xl:hidden"
           >
             <div className="flex items-center justify-between">
               <Logo variant="on-cream" />
