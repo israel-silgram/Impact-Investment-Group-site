@@ -172,9 +172,11 @@ export function PartnersHub() {
   return (
     <main>
       <section className="section-light relative isolate overflow-hidden">
+        {/* WAVE 413b: eager. The hub's opening band, in the first viewport
+          from lg up, where it is the only image on the screen. */}
         <img
           src="/images/ecosystem-band.jpg"
-          loading="lazy"
+          loading="eager"
           alt=""
           className="absolute inset-y-0 right-0 -z-10 hidden h-full w-[60%] object-cover opacity-70 mix-blend-multiply [mask-image:linear-gradient(to_left,black_35%,transparent_100%)] lg:block"
         />

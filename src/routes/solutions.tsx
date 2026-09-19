@@ -72,9 +72,12 @@ function SolutionsPage() {
         aria-labelledby="solution-heading"
         className="section-light relative isolate overflow-hidden"
       >
+        {/* WAVE 413b: eager. The statement's own ground, in the first
+          viewport, so deferring it until layout puts it behind the words it
+          sits under rather than under them. */}
         <img
           src="/images/solution-street-blueprint.webp"
-          loading="lazy"
+          loading="eager"
           alt=""
           aria-hidden="true"
           width={1600}

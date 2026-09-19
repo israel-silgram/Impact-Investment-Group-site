@@ -153,11 +153,28 @@ so there is no state in which the marker is missing.
 
 **Nineteen images had no loading strategy at all**, which means the browser's default
 (`eager`) for every one: every photograph on a page fetched before the first paint,
-competing with the fonts and the bundle. They are explicit now: `eager` with
-`fetchpriority="high"` for the three hero photographs and the header logo, `eager` with
-`fetchpriority="low"` for the hero's 7% wash (high on all four would have put the wash in
-the same queue as the pictures the hero exists to show), `lazy` for the remaining
-fourteen.
+competing with the fonts and the bundle. They are explicit now.
+
+> **Corrected in 413b.** Wave 413 gave `lazy` to three images that are IN THE FIRST
+> VIEWPORT, which is the documented anti-pattern: the browser defers the fetch until
+> layout, so the ground arrives after the text sitting on it, and on those three routes
+> it is also what made the image fade fire every single time. All three are `eager`
+> again. Lazy is for what is below the fold, and nothing else.
+
+**Every `<img>` on the site, and what it loads with.** Thirty-eight elements, seven
+`eager` and thirty-one `lazy`, none left to the default.
+
+| `loading` | Count | Where, and why |
+|---|---|---|
+| `eager` + `fetchpriority="high"` | **3** | The home hero's three photographs (`hero.tsx`, one element in a map) and the logo lockup and mark (`logo.tsx`). The LCP candidate on every route and the mark in the bar above it. |
+| `eager` + `fetchpriority="low"` | **1** | The home hero's 7% ground wash (`hero.tsx`). In the first viewport, so eager; a wash rather than a picture, so low. High on all four would have put the wash in the same queue as the photographs the hero exists to show. |
+| `eager` | **3** | The three 413b corrections, all in the first viewport and all decorative grounds: the partner page's hero visual (`partner-page.tsx`), the solutions statement's blueprint (`solutions.tsx`) and the partners hub's opening band (`partners-hub.tsx`). No priority hint, because on each of those routes there is nothing above the fold for it to compete with. |
+| `lazy` | **31** | Everything below the fold: the four director portraits, the Zoopla ink mark, the two mission and solution photographs, the five partner-page images below its hero, the AI team and delivery spine bands, the council marquee's logos, the three `/about` images, `/contact`'s trio, the home page's source logos, the seven `/platform` portal and service images, the three `/solutions` illustrations and `/the-problem`'s portrait. |
+
+**And the three above the fold are still the only three that changed.** The 413b probe
+measures the fade on `/`, `/partner-with-investor`, `/platform` and `/partners` and
+reports every image it touched, so a lazy image that quietly moves into the first screen
+shows up as one that fades before the scroll rather than after it.
 
 **And they fade in over 350ms when they decode** (`--duration-reveal`; this said 300
 before 413b and the code never did), from `src/components/image-fade.tsx`.

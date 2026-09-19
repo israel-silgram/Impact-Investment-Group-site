@@ -618,9 +618,13 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
           isInvestor ? "min-h-[540px]" : "min-h-[610px]"
         }`}
       >
+        {/* WAVE 413b: eager. This is the hero band's own visual, in the
+          first viewport on every screen, and `lazy` on an in-viewport image
+          is the documented anti-pattern: the browser defers the fetch until
+          layout, so the ground arrives after the text sitting on it. */}
         <img
           src={visual.image}
-          loading="lazy"
+          loading="eager"
           alt=""
           className="absolute inset-y-0 right-0 -z-10 h-full w-full object-cover object-center opacity-20 [mask-image:linear-gradient(to_left,black_20%,transparent_95%)] sm:w-[68%] sm:opacity-32 lg:w-[58%]"
         />
