@@ -19,8 +19,38 @@ crops) and none of it is touched.
 
 WHAT IS WRITTEN. For each referenced raster wider than the smallest step, a
 WebP at each step below its own width, beside it, named `<stem>-<width>.webp`.
-WebP at quality 82 for photographs, which is the quality the site's existing
-`.webp` set was encoded at, and lossless is never used: these are photographs.
+
+⚠ THE ENCODING IS MEASURED PER VARIANT, NOT DECIDED BY FILENAME. WAVE 415.
+Wave 414b's version said "lossless is never used: these are photographs" and
+saved every variant at `quality=82, method=6`. The rel414b re-check (MINOR 6)
+pointed out that four of the seven transparent sources are brand artwork
+rather than photographs, that a synthetic flat frame encodes 3.9 times
+smaller lossless, and that those bytes sit on the eager critical path of all
+36 pages. So the policy is now: ENCODE BOTH WAYS AND KEEP WHICHEVER IS
+SMALLER, per source, per step, with both byte counts printed.
+
+That is the most direct measured property there is, and it is deliberately
+not a proxy for one. Two proxies were measured across all 71 referenced
+sources first and both were rejected, because neither predicts the outcome:
+unique colours per pixel puts `logo-lockup.webp` at 0.219 (41,080 distinct
+values in 187,704 pixels), higher than most of the photographs, because the
+supplied lockup is an anti-aliased raster render and not line art; and a
+flat-neighbourhood share puts `zoopla-ink.webp` at 0.94, the flattest file on
+the site, which lossless still loses on. A threshold over either would have
+been a filename list with arithmetic in front of it.
+
+THE ANSWER ON THIS TREE, AND IT IS NOT THE ONE MINOR 6 EXPECTED: lossless is
+LARGER on all 101 variants of all 42 eligible sources, by 1.32x on
+`zoopla-ink-400` (22,012 lossy against 29,016 lossless), 1.83x on
+`logo-lockup-400` (30,488 against 55,706), 1.57x on
+`logo-lockup-reverse-400` (26,022 against 40,980) and up to 13.1x on the
+photographs. The re-checker's 3.9x was measured on a synthetic flat frame;
+this site's brand artwork is a soft-edged raster with an anti-aliased alpha
+ramp, which is the case lossless WebP is worst at. So every variant on disk
+stays at `quality=82, method=6`, the file bytes are unchanged, and the rule
+that chose them is now in the script instead of in a sentence. Flat artwork
+added later will take the lossless branch on its own, measured, with no edit
+here.
 
 ⚠ AND THE ORIGINAL IS NEVER TOUCHED. It stays as the `src`, so a browser
 that does not understand `srcset` and a build that has not run this script
@@ -33,6 +63,7 @@ full size.
 """
 
 import argparse
+import io
 import re
 import sys
 from pathlib import Path
@@ -246,7 +277,30 @@ def main() -> None:
                 scaled = image.convert(mode).resize(
                     (step, max(1, round(height * step / width))), Image.LANCZOS
                 )
-                scaled.save(target, "WEBP", quality=QUALITY, method=6)
+                # ⚠ BOTH ENCODINGS, THEN THE SMALLER ONE. WAVE 415, rel414b
+                # MINOR 6. Flat artwork with hard edges and large uniform
+                # areas can encode several times smaller lossless than under
+                # a photograph policy, and the brand lockups are on the eager
+                # critical path of every one of the 36 prerendered pages, so
+                # the question is worth asking of every file rather than
+                # assumed either way. It is asked by ENCODING IT, because no
+                # cheap property of the source predicts the answer: see the
+                # module docstring for the two that were measured and
+                # rejected. Nothing is written until both are in hand, so a
+                # variant on disk is always the smaller of the two.
+                lossy = io.BytesIO()
+                scaled.save(lossy, "WEBP", quality=QUALITY, method=6)
+                lossless = io.BytesIO()
+                scaled.save(lossless, "WEBP", lossless=True, method=6)
+                use_lossless = len(lossless.getvalue()) < len(lossy.getvalue())
+                chosen = lossless if use_lossless else lossy
+                target.write_bytes(chosen.getvalue())
+                print(
+                    f"  encode {target.name}  "
+                    f"lossy {len(lossy.getvalue())} vs lossless "
+                    f"{len(lossless.getvalue())}  -> "
+                    f"{'LOSSLESS' if use_lossless else 'lossy q82'}"
+                )
                 # ⚠ A VARIANT THAT IS NOT SMALLER IS NOT A VARIANT. Several of
                 # the site's sources are already well-encoded WebP, and
                 # re-encoding one of those at a width close to its own comes
