@@ -36,7 +36,9 @@ at 1280 it was 63.95%. The director was describing something real and measurable
    passing text into failing text, so every page is run through axe-core on every build.
 
 After this wave the average page is **7.55% dark**, and the page's own ground, with
-photographs and the map field masked out, is **3.75%**.
+photographs and the map field masked out, is **3.75%**. Re-measured at the 412b head
+those are **7.50%** and **3.71%**; the per-route table in section 3 carries the 412b
+figures in its "after" columns and section 12 explains every one that moved.
 
 ---
 
@@ -108,38 +110,44 @@ footer whose crisis card became a declared island.
 (`scripts/wave412-screenshots.py`, `--baseline` against a build of `origin/main`), because
 a before number measured by different code than the after number is not a comparison.
 
-| Route | Width | dark before | dark after | ground before | ground after | islands | axe before | axe after |
-|---|---|---|---|---|---|---|---|---|
-| `/` | 1280 | 63.55% | **23.55%** | 48.48% | **9.22%** | 1 | 6 | **0** |
-| `/` | 390 | 56.55% | **22.19%** | 37.26% | **7.42%** | 1 | 6 | **0** |
-| `/about` | 1280 | 39.17% | **4.12%** | 50.19% | **2.62%** | 0 | 5 | **0** |
-| `/about` | 390 | 30.80% | **5.72%** | 34.76% | **2.61%** | 0 | 5 | **0** |
-| `/platform` | 1280 | 63.95% | **4.72%** | 68.98% | **3.35%** | 0 | 7 | **0** |
-| `/platform` | 390 | 63.49% | **6.18%** | 62.00% | **3.92%** | 0 | 7 | **0** |
-| `/the-problem` | 1280 | 41.20% | **4.65%** | 40.43% | **2.89%** | 0 | 5 | **0** |
-| `/the-problem` | 390 | 33.84% | **6.30%** | 33.79% | **2.98%** | 0 | 5 | **0** |
-| `/solutions` | 1280 | 39.61% | **5.68%** | 44.98% | **3.27%** | 0 | 10 | **0** |
-| `/solutions` | 390 | 33.18% | **7.12%** | 35.44% | **4.32%** | 0 | 10 | **0** |
-| `/partners` | 1280 | 46.67% | **9.13%** | 47.56% | **4.28%** | 0 | 15 | **0** |
-| `/partners` | 390 | 30.99% | **7.54%** | 30.82% | **5.00%** | 0 | 14 | **0** |
-| `/contact` | 1280 | 31.66% | **6.45%** | 31.66% | **2.70%** | 1 | 7 | **0** |
-| `/contact` | 390 | 56.00% | **10.06%** | 56.14% | **3.62%** | 1 | 7 | **0** |
-| `/register` | 1280 | 58.47% | **3.55%** | 59.32% | **2.32%** | 0 | 5 | **0** |
-| `/register` | 390 | 46.45% | **6.05%** | 46.40% | **2.64%** | 0 | 5 | **0** |
-| `/register/investor` | 1280 | 60.55% | **4.47%** | 61.44% | **3.38%** | 0 | 5 | **0** |
-| `/register/investor` | 390 | 43.14% | **7.05%** | 43.23% | **3.38%** | 0 | 5 | **0** |
-| `/register/resident` | 1280 | 64.31% | **4.18%** | 65.29% | **3.19%** | 0 | 5 | **0** |
-| `/register/resident` | 390 | 46.56% | **6.90%** | 46.65% | **3.52%** | 0 | 5 | **0** |
-| `/partner-with-investor` | 1280 | 57.13% | **12.26%** | 61.97% | **4.72%** | 0 | 5 | **0** |
-| `/partner-with-investor` | 390 | 49.67% | **10.46%** | 51.58% | **5.12%** | 0 | 5 | **0** |
-| `/partner-with-local-authority` | 1280 | 57.77% | **11.53%** | 63.44% | **4.54%** | 0 | 5 | **0** |
-| `/partner-with-local-authority` | 390 | 49.76% | **10.11%** | 52.38% | **5.19%** | 0 | 5 | **0** |
-| `/legal` | 1280 | 5.81% | **2.91%** | 5.11% | **2.11%** | 0 | 5 | **0** |
-| `/legal` | 390 | 6.34% | **5.35%** | 5.96% | **2.96%** | 0 | 5 | **0** |
-| the 404 route | 1280 | 0.25% | **0.63%** | 0.25% | **0.63%** | 0 | 0 | **0** |
-| the 404 route | 390 | 0.80% | **1.95%** | 0.80% | **1.95%** | 0 | 0 | **0** |
+**The "after" columns are the FINAL RUN of the 412b pass**, which is the head this
+branch ends on; where a figure moved from the wave 412 run it moved because 412b changed
+something on that page, and section 12 names each one. The two rightmost columns are new
+in 412b: axe's INCOMPLETE colour-contrast nodes per shot, every one of them measured off
+the shot's own pixels (section 12.4), and how many of those could not be measured.
 
-**Mean across 28 shots: dark 42.06% to 7.53%; page ground 42.37% to 3.71%; axe serious/critical colour-contrast violations 169 to 0.**
+| Route | Width | dark before | dark after | ground before | ground after | islands | axe before | axe after | incomplete | unmeasured |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `/` | 1280 | 63.55% | **23.56%** | 48.48% | **9.22%** | 1 | 6 | **0** | 20 | 0 |
+| `/` | 390 | 56.55% | **22.19%** | 37.26% | **7.42%** | 1 | 6 | **0** | 20 | 0 |
+| `/about` | 1280 | 39.17% | **4.13%** | 50.19% | **2.68%** | 0 | 5 | **0** | 25 | 0 |
+| `/about` | 390 | 30.80% | **5.73%** | 34.76% | **2.65%** | 0 | 5 | **0** | 25 | 0 |
+| `/platform` | 1280 | 63.95% | **4.53%** | 68.98% | **3.10%** | 0 | 7 | **0** | 49 | 0 |
+| `/platform` | 390 | 63.49% | **6.02%** | 62.00% | **3.72%** | 0 | 7 | **0** | 50 | 0 |
+| `/the-problem` | 1280 | 41.20% | **4.67%** | 40.43% | **2.92%** | 0 | 5 | **0** | 0 | 0 |
+| `/the-problem` | 390 | 33.84% | **6.32%** | 33.79% | **3.01%** | 0 | 5 | **0** | 0 | 0 |
+| `/solutions` | 1280 | 39.61% | **5.68%** | 44.98% | **3.27%** | 0 | 10 | **0** | 20 | 0 |
+| `/solutions` | 390 | 33.18% | **7.13%** | 35.44% | **4.32%** | 0 | 10 | **0** | 20 | 0 |
+| `/partners` | 1280 | 46.67% | **9.14%** | 47.56% | **4.29%** | 0 | 15 | **0** | 0 | 0 |
+| `/partners` | 390 | 30.99% | **7.59%** | 30.82% | **5.04%** | 0 | 14 | **0** | 0 | 0 |
+| `/contact` | 1280 | 31.66% | **6.45%** | 31.66% | **2.70%** | 1 | 7 | **0** | 0 | 0 |
+| `/contact` | 390 | 56.00% | **10.06%** | 56.14% | **3.62%** | 1 | 7 | **0** | 0 | 0 |
+| `/register` | 1280 | 58.47% | **3.55%** | 59.32% | **2.31%** | 0 | 5 | **0** | 2 | 0 |
+| `/register` | 390 | 46.45% | **6.07%** | 46.40% | **2.66%** | 0 | 5 | **0** | 2 | 0 |
+| `/register/investor` | 1280 | 60.55% | **4.46%** | 61.44% | **3.38%** | 0 | 5 | **0** | 0 | 0 |
+| `/register/investor` | 390 | 43.14% | **7.04%** | 43.23% | **3.37%** | 0 | 5 | **0** | 0 | 0 |
+| `/register/resident` | 1280 | 64.31% | **4.17%** | 65.29% | **3.17%** | 0 | 5 | **0** | 0 | 0 |
+| `/register/resident` | 390 | 46.56% | **6.87%** | 46.65% | **3.49%** | 0 | 5 | **0** | 0 | 0 |
+| `/partner-with-investor` | 1280 | 57.13% | **12.27%** | 61.97% | **4.73%** | 0 | 5 | **0** | 10 | 0 |
+| `/partner-with-investor` | 390 | 49.67% | **10.51%** | 51.58% | **5.16%** | 0 | 5 | **0** | 12 | 0 |
+| `/partner-with-local-authority` | 1280 | 57.77% | **11.55%** | 63.44% | **4.57%** | 0 | 5 | **0** | 10 | 0 |
+| `/partner-with-local-authority` | 390 | 49.76% | **10.16%** | 52.38% | **5.23%** | 0 | 5 | **0** | 13 | 0 |
+| `/legal` | 1280 | 5.81% | **2.94%** | 5.11% | **2.13%** | 0 | 5 | **0** | 0 | 0 |
+| `/legal` | 390 | 6.34% | **5.37%** | 5.96% | **2.98%** | 0 | 5 | **0** | 0 | 0 |
+| the 404 route | 1280 | 0.25% | **0.63%** | 0.25% | **0.63%** | 0 | 0 | **0** | 0 | 0 |
+| the 404 route | 390 | 0.80% | **1.95%** | 0.80% | **1.95%** | 0 | 0 | **0** | 0 | 0 |
+
+**Mean across 28 shots: dark 42.06% to 7.50%; page ground 42.37% to 3.71%; axe serious/critical colour-contrast violations 169 to 0. 278 incomplete nodes, 278 measured off the pixels, 0 unmeasured.**
 
 Two numbers in that table need explaining:
 
@@ -152,7 +160,12 @@ Two numbers in that table need explaining:
   area takes it out of the denominator as well. So the home page is listed in the gate's
   `RAW_CEILING` at the figure measured at this head, and the GROUND assertion still binds
   at 15% there (it measures 9.22%). That is the check being made sharper, not looser: the
-  raw figure is still asserted, against a number it can only go down from.
+  raw figure is still asserted, against a number it can only go down from. **In wave 412
+  that ceiling was 0.240 and 0.230 against measurements of 23.55% and 22.19%, which is
+  0.45 and 0.81 points of headroom in something this paragraph called the measured
+  figure; rel412 MINOR 7 was right about that. It is 0.2357 and 0.2220 now, against
+  23.56% and 22.19% at the 412b head, rounded up to the 0.01 of a point the gate prints
+  and no further.**
 - **`/404` went up, from 0.25% to 0.63%.** It went up because it now has words on it. See
   section 7.
 
@@ -175,7 +188,7 @@ order.
 `disclosure.tsx`, `empty-slot.tsx`, `live-window.tsx`, `logo-marquee.tsx`,
 `process-rail.tsx`, `section-header.tsx`, `source-line.tsx`, `image-fill-headline.tsx`,
 `pre-release-badge.tsx`. `home/site-footer.tsx` was converted too although nothing imports
-it; see the proposals.
+it; **412b deleted it, which is what proposal 3 recommended. See section 12.6.**
 
 **So the remap was deleted.** 502 lines of it, replaced by 219 that a reader can hold in
 their head: the cream band, the two islands, the icon plates. Three things it had been
@@ -259,16 +272,26 @@ when it is about to animate:
 | `data-revealed` | State |
 |---|---|
 | absent | visible. This is what the HTML ships, and what a visitor with no JavaScript keeps for good. |
+| `"static"` | visible, and staying visible, with no animation at all. **Added in 412b.** Anything on screen at mount, and anything under reduced motion. |
 | `"pending"` | hidden, about to rise. Set only from the effect, only for an element below the fold, only with motion allowed. |
-| `"true"` | the animation, then visible. |
+| `"true"` | the animation, then visible. Only ever reached FROM `"pending"`. |
 
-Anything already inside the viewport at mount reveals at once. Anything still pending
+Anything already inside the viewport at mount stays visible. Anything still pending
 **900ms** after mount reveals anyway. The animation is **8px over 350ms**, down from 16px
-over 500ms. The effect runs in a layout phase so the element is never shown and then
-hidden. `useCountUp` got the same backstop, guarded so it cannot snap a running count to
-its end value.
+over 500ms.
+
+⚠ **THE SENTENCE THAT USED TO BE HERE WAS WRONG, AND IT IS MAJOR 1 OF THE rel412
+VERDICT.** It read: "The effect runs in a layout phase so the element is never shown and
+then hidden." The layout phase closes the gap between React's commit and the next paint.
+It cannot close the gap between the SERVER's paint and hydration, which on a static site
+is the whole point of the static site. Wave 412 sent an already-visible element straight
+to `"true"`, `"true"` carries `animation: rise-in ... both`, and the backwards fill of
+that animation paints opacity 0 on its first frame. So a prerendered page painted its
+first block, blinked it away at hydration, and faded it back in. `"static"` is the fix
+and section 12.1 has the measurement.
 
 **The invariant wave 413 must keep: no content is ever invisible without JavaScript.**
+**And the one 412b adds beside it: animate only what this component itself hid.**
 
 ---
 
@@ -306,14 +329,16 @@ from 22 on `origin/main`.
 
 ## 8. The gate, measured in this worktree
 
+Re-run in full at the 412b head. Where a number moved, it moved because 412b moved it.
+
 | Gate | Command | Exit | Numbers |
 |---|---|---|---|
-| Lint, changed files | `bunx eslint` on all 52 lintable changed files | **0** | **0 errors**, 7 warnings (all `react-refresh/only-export-components`, all pre-existing patterns). 53 source files changed in all; `styles.css` is not linted by this config |
+| Lint, changed files | `bunx eslint` on all 51 lintable changed files | **0** | **0 errors**, 7 warnings (all `react-refresh/only-export-components`, all pre-existing patterns). 51 source files changed in all; `styles.css` is not linted by this config. 52 in wave 412, 51 now because 412b deleted `home/site-footer.tsx` |
 | Lint, whole tree | `bunx eslint .` on an LF-normalised copy | 1 | **387 errors / 15 warnings**, against **515 / 15** on the same measurement of `origin/main`. Delta **128 errors better** |
 | Typecheck | `bunx tsc --noEmit` | **0** | **0 errors**, against 22 inherited |
-| Build | `STATIC_BUILD=true bun run build` | **0** | **36 pages prerendered**, 29 HTML files |
-| Prerender postbuild | `node scripts/pages-postbuild.mjs dist/client` | **0** | base `/`, patched 0 files, trimmed 0 duplicated tails on the final build |
-| Screenshots and assertions | `python scripts/wave412-screenshots.py` | **0** | **28 shots, every assertion passed** |
+| Build | `STATIC_BUILD=true bun run build` | **0** | **36 pages prerendered**, 29 HTML files, plus the 404 the postbuild writes: 30 in `dist/client` |
+| Prerender postbuild | `node scripts/pages-postbuild.mjs dist/client` | **0** | base `/`, patched 0 files, **trimmed 1 duplicated tail** (`contact/index.html`, 531 characters). The bug is intermittent and upstream; it did not reproduce on the wave 412 final build and did on this one, which is section 7's point exactly |
+| Screenshots and assertions | `python scripts/wave412-screenshots.py` | **0** | **28 shots, every assertion passed.** 278 axe INCOMPLETE colour-contrast nodes measured off the pixels, 0 unmeasured, none under its floor. The Reveal probe: minimum opacity **1.000** on `/about` and on `/partner-with-investor` |
 
 The whole-tree lint improvement is the project's own `prettier` run over the 53 source
 files this wave touched: the gate requires 0 errors on a changed file, and in a repository with
@@ -321,11 +346,14 @@ pre-existing formatting drift that means formatting it. No content was changed b
 
 **The screenshot gate asserts, per page, per width:** no horizontal overflow; the body and
 header grounds both above 0.8 relative luminance; at most one `.section-dark` inside
-`<main>`; the raw dark-pixel share under 15% (or under the recorded ceiling on `/`); the
-page's own ground under 15% dark; zero serious or critical axe colour-contrast violations;
-and at least 60 characters of rendered text. That last one is trivial and it is what
-caught the blank 404: **a blank page is light, has no dark pixels, no overflow and no
-contrast violations, and passes every other check here perfectly.**
+`<main>`; the raw dark-pixel share under 15% (or under the recorded ceiling on `/`, which
+is the measured figure); the page's own ground under 15% dark; zero serious or critical
+axe colour-contrast violations; **every axe INCOMPLETE colour-contrast node measured off
+the shot's own pixels and at or above its floor (412b, section 12.4)**; and at least 60
+characters of rendered text. That last one is trivial and it is what caught the blank
+404: **a blank page is light, has no dark pixels, no overflow and no contrast violations,
+and passes every other check here perfectly.** **And once per run: the Reveal probe
+(412b, section 12.1).**
 
 ### Every pair this wave introduced or changed
 
@@ -371,9 +399,9 @@ ground is not the same arithmetic as a 12% sRGB blend.
 |---|---|
 | `git diff origin/main...HEAD -- src/content` | **empty.** No user-facing string changed |
 | New visible text | **none, and it was measured rather than read.** Both builds were served and `document.body.innerText` was diffed line by line for all fourteen routes. Across the whole site: **5 lines added, 6 removed.** They are listed below, and none of them is new copy |
-| U+2014 on added lines | **24**, and **0 of them are new prose**. Every one is a pre-existing line re-emitted by `prettier --write`, checked mechanically: each was searched for verbatim in `origin/main` and found |
-| U+2013 on added lines | **0** |
-| Hexes added to a component | **0.** The only hex values this wave wrote are in `src/styles.css` and in the `INK` constant of the Zoopla script |
+| U+2014 on added lines | **23**, and **0 of them are new prose**. Every one is a pre-existing line re-emitted by `prettier --write`, checked mechanically: each was searched for verbatim in `origin/main` and found. **Wave 412 reported 24; the count at the 412b head is 23 and the verdict's count was the right one** |
+| U+2013 on added lines | **1, not 0.** Wave 412 reported 0 and that was wrong. It is in `src/routes/platform.tsx`, an audience note reading "most people reading this are 35-60 and on a laptop" with an en dash between the figures. It is a pre-existing line re-emitted by `prettier --write`, present verbatim as a removed line in the same patch, so the substance of the claim holds: **no new prose on this branch carries a dash.** 412b's own added lines carry **0 U+2014 and 0 U+2013** |
+| Hexes added to a component | **3 added lines under `src/` outside `styles.css` carry a hex, not 0.** Wave 412's claim was wrong and rel412 MINOR 4 is right. Two are this wave's: the `theme-color` meta in `__root.tsx`, which the brief itself ordered and which a meta attribute cannot express as a token, and a comment in `mission-solution.tsx` naming the retired amber `#ff7a29` it removed. The third is a pre-existing line on the terracotta stat tile re-emitted verbatim by `prettier`. **412b removed three colour literals from a component**: the flip tile's `text-[rgba(255,255,255,0.78)]`, `text-[#ffffff]` and `text-[rgba(255,255,255,0.88)]` are `text-page` now, and that was a contrast fix first (section 12.3) |
 
 Every one of the eleven changed lines of rendered text:
 
@@ -399,8 +427,12 @@ Every one of the eleven changed lines of rendered text:
 one content file); `/partner-with-investor` and `/partner-with-local-authority` stand for
 the ten partner pages the same way.
 
-The baseline shots of `origin/main` are not committed; they were taken in a scratch
-directory and their numbers are in the table above. Re-taking them is
+The baseline shots of `origin/main` are **not committed at this head, and were committed
+when wave 412 closed.** rel412 MINOR 2 caught the sentence: `--baseline` had written 28
+PNGs into `docs/screenshots/wave412-baseline/` and they went in with everything else.
+412b deleted them, which is what the verdict recommended, so the sentence is true by
+having been made true rather than by being rewritten around it. Their numbers are in the
+table above and the code that took them is committed. Re-taking them is
 `STATIC_BUILD=true bun run build` in a clean checkout of `main`, then
 `python scripts/wave412-screenshots.py --baseline --build <that dist/client>`.
 
@@ -422,10 +454,9 @@ Nothing below was built. Each has a recommended default.
    token, which is a one-colour rendering of a one-colour mark. *Recommended default: ask
    Zoopla for their dark colourway, and their guidance on minimum size and clear space,
    which the note in `hero.tsx` has wanted since August.*
-3. **`src/components/home/site-footer.tsx` is dead code.** Nothing imports it; the live
-   footer is `src/components/site-footer.tsx`. It was converted with everything else so
-   the audit is clean, but it is a second copy of the footer waiting to be edited by
-   mistake. *Recommended default: delete it in wave 413.*
+3. ~~**`src/components/home/site-footer.tsx` is dead code.**~~ **DONE IN 412b.** It was
+   a second copy of the footer waiting to be edited by mistake, and it still carried a
+   `teal-wash` class after that utility was deleted. Nothing imported it. Section 12.6.
 4. **Four components under `src/components/platform/` and `src/components/solutions/` are
    also unreachable** (`ai-team`, `capability-rail`, `data-layers`, `delivery-spine`,
    `dot-meter`, `hero-window`, `match-panel`, `portal-tabs`, `property-report`,
@@ -448,10 +479,15 @@ Nothing below was built. Each has a recommended default.
 
 ## 11. What waves 413 and 414 should know
 
-**413, the motion wave.** `Reveal` is the foundation and its invariant is the one to keep:
-NO CONTENT IS EVER INVISIBLE WITHOUT JAVASCRIPT. The resting state of `.reveal` is visible,
-the JS adds `data-revealed="pending"` for one frame, and the 900ms failsafe releases
-anything the observer missed. Build on top of that rather than beside it. The motion that
+**413, the motion wave.** `Reveal` is the foundation and it has TWO invariants now. The
+first: NO CONTENT IS EVER INVISIBLE WITHOUT JAVASCRIPT. The resting state of `.reveal` is
+visible, the JS adds `data-revealed="pending"` for one frame, and the 900ms failsafe
+releases anything the observer missed. The second, which 412b had to add: ANIMATE ONLY
+WHAT THE COMPONENT ITSELF HID. An element that was on screen at mount takes
+`data-revealed="static"` and no animation, because `rise-in` is declared with `both` and
+its backwards fill paints opacity 0 on the first frame, which on a prerendered page
+blinks away content the visitor is already reading. `scripts/wave412-screenshots.py`
+probes for exactly that and fails on it. Build on top of that rather than beside it. The motion that
 already exists and is deliberate: the council marquee (with its WCAG 2.2.2 hover and
 focus pause), the demand-map hub pulse, the mission panel's cascade turn, the `cta-pulse`
 ring, and the registration step enter. Every one has a `prefers-reduced-motion` arm, and
@@ -471,3 +507,222 @@ documented in `styles.css` and should be re-derived rather than nudged.
 foreground process, a build and about three minutes. Run it before you commit. If you add
 a colour pair, measure it and put the ratio in your report; if you add a navy island, the
 count assertion will tell you about the second one before Callum does.
+
+---
+
+## 12. Fix pass 412b: what the independent re-checker found, and what it cost
+
+`rel412_verdict.md`, an independent re-checker reading the branch on 19 September 2026.
+**HOLD, 3 MAJOR, 12 MINOR.** It recomputed 22 of the contrast ratios in section 8 and 10
+of the accessibility rows in `CLAUDE.md` and every one matched; it holds because two small
+pairings on the new light grounds measure below AA on this wave's own committed
+screenshots, and because the rewritten `Reveal` re-hides content the prerendered HTML has
+already painted.
+
+Every figure below was measured in this pass. Nothing is carried forward.
+
+### 12.1 MAJOR 1: an element that was never hidden is never animated
+
+`src/components/ui/reveal.tsx` and the `reveal` utility in `src/styles.css`.
+
+An element already inside the viewport at mount took `setState("true")`.
+`data-revealed="true"` applies `animation: rise-in var(--duration-reveal)
+var(--ease-out-soft) both`, and `@keyframes rise-in` begins at `opacity: 0`. With
+`animation-fill-mode: both` the backwards fill applies, so the animation's first rendered
+frame is opacity 0. On a prerendered route the browser paints the server's HTML first,
+with no `data-revealed` attribute and therefore fully visible; the bundle then loads,
+React hydrates, the layout effect runs, and the element restarts from opacity 0 and fades
+up over 350ms plus up to `index * 60ms` held at zero by that same backwards fill.
+
+Visible, blink, fade in. Section 6 of this report claimed the layout phase prevented it.
+The layout phase closes the gap between React's commit and the next paint; it cannot
+close the gap between the server's paint and hydration, which on a static site is the
+whole point of the static site.
+
+**The fix.** A fourth state, `"static"`, which deliberately matches no rule in the
+utility: the same pixels, with nothing added. Anything on screen at mount takes it, and
+so does anything under reduced motion. `"pending"` is now the only state that can become
+`"true"`, so the component animates only what it itself hid. The 900ms backstop and the
+no-JavaScript visibility are unchanged.
+
+**The proof, and it is a Playwright probe in the gate rather than an argument.**
+`reveal_probe()` in `scripts/wave412-screenshots.py` loads `/about` and
+`/partner-with-investor` at 1280 with the network throttled through CDP so the gap
+between the server's paint and hydration is real and wide, installs a sampler as an init
+script BEFORE any of the page's own scripts, waits for hydration to actually land, and
+records the computed opacity of the first `.reveal` inside `<main>` every 16ms. It
+asserts the opacity never falls below 1 once it has been 1.
+
+| Build | `/about` | `/partner-with-investor` |
+|---|---|---|
+| The wave 412 head, rebuilt with the defect put back | **min opacity 0.000**, falling at 5932ms with `data-revealed="true"` | **min opacity 0.000**, falling at 4051ms |
+| This head | **min opacity 1.000**, states `(none)` then `static` | **min opacity 1.000**, same |
+
+The probe also fails if hydration never lands inside its window, because a probe that
+finishes before the bundle runs proves nothing. Its first draft did exactly that and
+passed: throttled to 180 KB/s it was reading a page that had not hydrated yet, and the
+final `data-revealed` was `(none)` on both routes. That is why the wait for hydration and
+the `hydrated=yes` in its printed line are both in there.
+
+### 12.2 MINOR 12, taken now rather than in 413: the markup ships the figure
+
+`useCountUp` initialised `display` to 0, so the prerendered HTML carried `0` where the
+home page's headline figure belongs and kept it for good without JavaScript. On a page
+whose whole argument is figures that is not a missing animation, it is a WRONG FIGURE.
+
+It initialises to `value` now. The server renders 176,130, the client hydrates onto the
+same number, and the count is something the JavaScript ADDS: only for an element BELOW
+THE FOLD, with motion allowed, under exactly the rule from 12.1. Rewinding a figure the
+visitor is already reading back to zero in order to count it up again is the same blink
+wearing a different hat.
+
+No rendered string changes: the shot showed 176,130 before, through the backstop, and
+shows it now because it was never anything else.
+
+### 12.3 MAJOR 2: every small orange word on a light ground
+
+`src/routes/platform.tsx`, the lease-comparison strip under `DifferenceStory`:
+`text-[11px]` with `font-semibold text-orange-500`. orange-500 `#c15f3c` is 4.23:1 on
+white and 3.76:1 on the cream, against the 4.5:1 floor 11px semibold answers to. Its teal
+sibling two lines down was converted correctly in wave 412 and this one was missed.
+
+Measured off the new `docs/screenshots/wave412/platform-1280.png` by the gate's own
+incomplete-node reader: **orange-700 on rgb(255, 255, 255), 6.50:1**, against 6.50:1
+computed. The teal sibling beside it reads 5.25:1.
+
+Then every added line of the whole branch diff was read for `text-orange-500`,
+`text-teal-400` and `text-teal-500` on a light ground. **No `text-teal-400` or
+`text-teal-500` survives anywhere under `src/`.** Of the orange-500 uses, all but two are
+correct and stay:
+
+| Where | Why it stays |
+|---|---|
+| `hero.tsx` headline | never under 40px; 4.23:1 against a 3:1 large-text floor |
+| `mission-solution.tsx` bullet glyph, `partner-page.tsx` Info glyph, `ai-team.tsx` flow arrow | graphics, 3:1 floor |
+| six headline accents in `partner-page.tsx`, `partners-hub.tsx`, `solutions.tsx`, `platform.tsx`, `about.tsx`, `mission-solution.tsx` | clamp minimums of 26px and above |
+| the 96px lease numeral in `platform.tsx` | large text |
+| `contact.tsx`, two uses inside the crisis island | orange-500 on navy-950 is 4.67:1 |
+
+The two that were not:
+
+- `src/routes/platform.tsx`, `Rich`, the `tone="teal"` accent branch. Not reached on the
+  page today, but `Summary` sets `Rich` at 19px semibold, which axe scores as body rather
+  than large text. Stepped to orange-700 so it cannot fail on the day the branch is used.
+- `src/components/platform/ai-team.tsx`, the flow chip's label at 14px semibold. Not this
+  wave's line, but this wave moved the ground under it from navy (4.67:1, a pass) to white
+  (4.23:1, a fail). The label is orange-700 now; the 1px border stays orange-500, which is
+  a graphic. The component is unreachable today (proposal 4), so nothing served changes.
+
+### 12.4 MINOR 1: the gate reads what axe could not
+
+This is the check being made sharper, and it is why 12.3 and 12.5 both got through.
+
+The axe pass counted `results.violations` and dropped `results.incomplete`. axe returns
+`incomplete` rather than a violation precisely when it cannot resolve what is behind the
+text: a background image, a translucent ancestor, an absolutely positioned overlay. Those
+are exactly the places an inverted palette goes wrong, and a gate that counts only the
+first list reports those pages clean.
+
+The screenshot answers instead. For every incomplete node the gate now records the
+element's text, its computed colour, its size and weight and its box, measures the pair
+off the shot's own pixels, and asserts it at or above its floor: 4.5:1, or 3:1 for text at
+24px, or at 18.66px and bold. The per-page counts are printed beside the violation count
+and are in section 3's table. **278 incomplete nodes across the 28 shots at this head; 278
+measured; 0 unmeasured; none under its floor.**
+
+How the ground is read took three attempts, and each one was wrong in a way worth
+recording:
+
+1. **The modal pixel of the whole box.** Correct for a line of 11px text, where the ground
+   is most of the box, and exactly wrong for a 144px numeral, where the glyph is. It
+   reported `/solutions`' headline and `/platform`'s "25" as 1.00:1 against themselves.
+2. **The modal pixel of a ring OUTSIDE the box.** Correct for an inline span, and wrong
+   for an element that paints its own background: it read the page rather than the button
+   and reported the partner pages' primary action as white on cream at 1.14:1.
+3. **The modal pixel INSIDE the box that is not a glyph**, where "not a glyph" means not
+   within tolerance of any text colour whose own box OVERLAPS this one, with the ring as
+   the fallback for a box the glyphs have filled. The overlap test matters as much as the
+   list: without it a white label elsewhere in the same parent disqualifies a white
+   GROUND and there is nothing left to measure against.
+
+A colour is read twice in the page, over white and over black, so its alpha comes back
+with it and it can be composited onto the ground it actually sits on rather than parsed in
+Python. A node whose own colour is painted nowhere in its box is reported UNMEASURED and
+counted, never quietly passed.
+
+### 12.5 MAJOR 3: the sourced-figure ledger, and the four the sharper gate found
+
+**MAJOR 3.** `src/routes/about.tsx`. The verdict's measurement is exact and was
+reproduced off the committed wave 412 shot: the ground behind the ledger's source links
+reads **rgb(225, 221, 212), luminance 0.7247**, not the flat cream's 0.884, because
+`Band` lays the section's photograph behind it at 10% and the mist gradient over it is
+`via-transparent` through the middle. teal-600 on that is **3.87:1** at 11px. This report
+and `CLAUDE.md` both quoted 4.67:1, which is teal-600 on a cream the band does not have.
+
+The surface moves. The ledger is a white plate now. Measured off the new
+`about-1280.png`: **teal-600 on rgb(255, 255, 255), 5.25:1**, and its SOURCED FIGURE
+eyebrows came with it at 6.50:1 and 5.25:1.
+
+**The other translucent and photograph-backed surfaces the verdict asked about**, all
+measured off the pixels of the new shots by the same reader:
+
+| Where | Rendered ground | Pair | Now |
+|---|---|---|---|
+| `/platform` `DifferenceStory` card, `bg-page/55` under a gradient and a blurred radial tint | rgb(255, 255, 255) | orange-700 11px, teal-600 11px | 6.50:1, 5.25:1 |
+| the same card's principles list | rgb(255, 255, 255) and rgb(253, 250, 249) | ink 13px, ink-muted 11.5px | 18.83:1, 6.71:1 |
+| `/about` `Band` photograph at 10%, the rest of the band | rgb(255, 255, 255) on the plate | ink, orange-700, teal-600 | 18.83:1, 6.50:1, 5.25:1 |
+| `/` hero `.hero-ground` at 7% | rgb(251 to 253, same) | ink 15px, ink-muted 13px, ink-soft 10px | 18.20:1, 6.79:1, 4.79:1 |
+| `/platform` portal labels, `bg-page/90` over a photograph | rgb(254, 254, 254) | ink 10px | 18.67:1 |
+
+**And four pairings the sharper gate found that the verdict did not have a browser to
+see. Every one is wave 412's own.**
+
+| Where | What wave 412 did | Measured | Fixed to |
+|---|---|---|---|
+| `/platform` mission-control hub | stepped the labels from `text-white` and `text-mist` to `text-ink` and `text-ink-muted` and left the radial gradient ending in navy-800 | **1.00:1** and **3.29:1** | the disc is the teal tint fading into the page, both tokens: **16.92:1** and **6.20:1** |
+| `/` flip tile | white at 78%, 100% and 88% over an orange-600 to orange-500 gradient, as two rgba literals and a hex | **3.79:1** and **4.36:1** at 1280, **3.60:1** and **4.11:1** at 390, on rgb(177, 81, 50) and rgb(182, 85, 53) | solid `text-page` on all three lines: **5.13:1** and **5.20:1** |
+| `/register/resident` crisis card | teal-600 numbers at 15px on the 12% teal tint (4.46:1 over white, 4.00:1 over the cream) over the page's bloom | **3.58:1** | a white plate with the teal-600 border: **5.25:1** |
+| both register routes' ground | a 14% teal-500 bloom over the cream, taking luminance 0.884 down to 0.768 | the pre-release badge at **4.09:1** | the bloom is gone. teal-600 on the flat cream is **4.67:1** |
+
+The bloom is the one of those four that is a design decision rather than a slip, so the
+arithmetic for it: teal-600 has luminance 0.1500, so its ground has to reach 0.85 for a
+4.5:1 pass, and the cream is 0.884. A bloom this ground can afford is about 4%, and the
+note in `styles.css` already said 9% was invisible on a light ground. The register routes
+are the cream ground rule 10 of the brief asked for. The resident halo is untouched: it is
+a glow on a tile, not a tint under text.
+
+### 12.6 The rest of the MINORs
+
+| # | What it said | What was done |
+|---|---|---|
+| 2 | the baseline shots ARE committed, 28 PNGs | deleted, which was the verdict's recommended default; section 9 rewritten |
+| 3 | U+2013 on added lines is 1, not 0 | stated, with the line and why it is a `prettier` re-emit; section 8 |
+| 4 | hexes added outside `styles.css` are 2 (3 lines with the re-emit) | stated; and 412b removed three colour literals from a component; section 8 |
+| 5 | `CLAUDE.md` section 2's three dark-pixel figures disagree with the report | both now carry the FINAL RUN of this pass, copied from its output rather than typed |
+| 6 | `CLAUDE.md` section 8 does not mention `RAW_CEILING` | it does now, in one sentence |
+| 7 | the ratchet carries 0.45 and 0.81 points of slack | `RAW_CEILING` is 0.2357 and 0.2220 against 23.56% and 22.19% measured here |
+| 8 | `home/site-footer.tsx` is dead code and still carries `teal-wash` | deleted. `rg` for `home/site-footer` over the tree returns nothing, and `teal-wash` now appears nowhere under `src/` |
+| 9 | two comments understate their own measurements | `styles.css` says 8.20:1 on navy-950 for the teal-400 ring, `contact.tsx` says 4.67:1 on navy-950 for the orange word. 7.82 and 4.46 are the navy-900 figures, and navy-900 is the ink, not an island's ground |
+| 10 | `trimTail` cuts at the first `</html>` with no guard | it cuts only when what follows looks like a partial tail: shorter than what precedes it, no second doctype, no second `<html>`. Anything else is left alone and named, and every cut names its file and its size. Proved on fixtures both ways |
+| 11 | the 404 builder ships an unstyled page if the stylesheet scrape fails | it exits 1 with the path and writes nothing. Proved on a fixture |
+| 12 | `useCountUp` ships 0 in the markup | done, section 12.2 |
+
+The three "smaller things I noted and am not counting" are left as they are: the 404
+page's `<title>`, the `MASKS` rectangles read at scroll 0, and the stray punctuation at
+`CLAUDE.md` line 40, which section 12.7 tidied along with the figures.
+
+### 12.7 The gate at the 412b head
+
+Every command run in the foreground, in this worktree, at the head this branch ends on.
+
+| Gate | Result |
+|---|---|
+| `bunx eslint` on all 51 lintable changed files, LF-normalised | **0 errors**, 7 warnings |
+| `bunx eslint .` whole tree, LF-normalised | **387 errors / 15 warnings**, against **515 / 15** for `origin/main` measured the same way. Delta **128 better** |
+| `bunx tsc --noEmit` | **0** |
+| `STATIC_BUILD=true bun run build` | rc **0**, **36 pages prerendered**, 29 HTML files |
+| `node scripts/pages-postbuild.mjs dist/client` | rc **0**, patched 0, trimmed 1 duplicated tail (`contact/index.html`, 531 characters) |
+| `python scripts/wave412-screenshots.py` | rc **0**, 28 shots, **every assertion passed**, 278 incomplete nodes measured and 0 unmeasured, Reveal probe minimum opacity 1.000 on both routes |
+| U+2014 and U+2013 on 412b's own added lines | **0 and 0** |
+| U+2014 and U+2013 on the whole branch's added lines | **23 and 1**, every one a `prettier` re-emit of a line present verbatim in `origin/main` |
+| Tests or checks weakened | **none.** The gate gained an assertion per incomplete node and a probe, and the home page's ratchet was tightened by 0.44 and 0.80 points |

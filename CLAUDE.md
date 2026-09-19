@@ -30,23 +30,30 @@ Do not confuse the two.
 Derived by sampling pixels from two approved mock-ups. These values are final unless
 Callum says otherwise. Nothing in the codebase should use a hard-coded colour.
 
-> **THE SITE IS LIGHT. Updated 19 September 2026, wave 412.**
+> **THE SITE IS LIGHT. Updated 19 September 2026, wave 412, revised by the
+> 412b fix pass the same day.**
 >
 > Callum, relaying his director: *"the site is much too dark (the navy everywhere
 > makes it too dark throughout) and needs to instead be much lighter, and brighter
 > ... and more friendly/user friendly throughout."*
 >
 > So the ground moved. **White is the page, cream is the alternating band, and navy
-> is INK and STRUCTURE**: headings, body text, rules, the logo's neutral parts :
+> is INK and STRUCTURE**: headings, body text, rules, the logo's neutral parts,
 > rather than the surface everything sits on. Everything below this line in section
 > 2 is written for that site. The fonts, the icon system, the logo rules, the
 > imagery rules and the data table are unchanged and still hold.
 >
 > Measured before and after by `scripts/wave412-screenshots.py`, which photographs
 > every route at 1280 and 390 and asserts what it finds. The share of dark pixels
-> on the home page went from **63.55% to 23.43%** at 1280, and the share of the
+> on the home page went from **63.55% to 23.56%** at 1280, and the share of the
 > page's own ground, with photographs and the map field masked out, from
-> **48.48% to 8.77%**. `/register/investor` went from 60.55% to 4.44%.
+> **48.48% to 9.22%**. `/register/investor` went from 60.55% to 4.46%.
+>
+> Those three are copied from the FINAL RUN of the 412b pass, which is the gate
+> table in section 3 of `docs/WAVE412_REPORT.md`. They are not typed by hand and
+> they are not to be. Wave 412 shipped 23.43%, 8.77% and 4.44% here against
+> 23.55%, 9.22% and 4.47% in its own report, which is how the rel412 re-checker
+> knew this file had been written against an earlier build.
 
 ### Colour tokens
 
@@ -189,9 +196,23 @@ Re-measured in wave 412 against the grounds the site actually has.
 island. WCAG 2.2 wants 3:1 of a focus indicator (SC 1.4.11 and 2.4.11); teal-400 is
 2.41:1 on white, so it cannot be the site ring any more.
 
+⚠ **THE TABLE ABOVE IS THE FLAT CREAM AND THE FLAT WHITE, AND SOME BANDS ARE NEITHER.**
+Wave 412b found two failures that every row above would have called a pass, because the
+ground under the text was not the ground the class named: `/about`'s sourced-figure
+ledger sat on a band carrying a photograph at 10%, where the cream renders
+rgb(225, 221, 212) and teal-600 is **3.87:1**, not 4.67:1; and the register routes
+carried a 14% teal bloom over the cream, where the pre-release badge read **4.09:1**.
+If text sits on a photograph, a tint, a gradient or anything translucent, the pair is
+**measured off the rendered pixels**, and the surface moves until it passes. The gate
+does this now for every node axe returns as INCOMPLETE.
+
 **Every page is run through axe-core on every build**, at 1280 and 390, and the gate
-fails on a single serious or critical colour-contrast violation. `origin/main` carried
-between 5 and 15 per page; this branch carries none.
+fails on a single serious or critical colour-contrast violation. **It also measures every
+node axe returns as INCOMPLETE off the screenshot's own pixels and fails on any one of
+them under its floor**, which is the check wave 412b added and the reason the two
+failures above were found. `origin/main` carried between 5 and 15 violations per page;
+this branch carries none, and 278 incomplete nodes across the 28 shots, all measured and
+all above their floors.
 
 ### Section rhythm
 
@@ -470,8 +491,15 @@ so it is obvious it is pending. **Never invent a number on this project.**
 - **Every colour pair is measured, not assumed**, and the ratio goes in the wave report.
   `scripts/wave412-screenshots.py` is the gate: it shoots every route at 1280 and 390 and
   asserts no horizontal overflow, a light body and header, at most one island, a dark
-  pixel share under 15%, no serious axe colour-contrast violation, and that the page has
-  words on it.
+  pixel share under 15%, no serious axe colour-contrast violation, that every node axe
+  returns as INCOMPLETE measures at or above its floor off the screenshot's own pixels,
+  that no above-the-fold `Reveal` is painted and then un-painted at hydration, and that
+  the page has words on it.
+- **The 15% is a flat ceiling everywhere except the home page**, whose three approved
+  hero photographs and brand orange fills cannot reach it, and which is therefore listed
+  in the gate's `RAW_CEILING` at the figure last measured on it (23.56% at 1280, 22.19%
+  at 390): a RATCHET a later wave may lower and may not raise without saying why in the
+  script, while its page-ground figure still answers to the flat 15%.
 - **No hex in a component.** Every colour comes from `src/styles.css` by name. If a
   pairing fails, the SURFACE moves, never the orange.
 - **No class that lies.** A component that says `bg-navy-800` renders navy. The light
@@ -480,6 +508,11 @@ so it is obvious it is pending. **Never invent a number on this project.**
 - **No content is ever invisible without JavaScript.** The `Reveal` utility's resting
   state is visible and the JS adds the hidden-then-rise state for one frame; anything
   still pending 900ms after mount reveals anyway.
+- **And nothing the server already painted is animated.** An element on screen at mount
+  takes `data-revealed="static"` and no animation at all, because `rise-in` is declared
+  with `both` and its backwards fill starts at opacity 0: putting it on prerendered
+  content blinks away what the visitor is already reading. Only `"pending"` may become
+  `"true"`. The gate probes for this on `/about` and `/partner-with-investor`.
 - No emoji anywhere in the product.
 - No fabricated data, statistics or citations.
 - When a section is finished, state which of the owner's notes it satisfies and which
