@@ -322,7 +322,7 @@ It does now, and **it found a real defect on its first run**.
 
 ## 7. The gate at the final head
 
-Every one run in the foreground, whole, at `a4d453b`, and read here.
+Every one run in the foreground, whole, at `a4d453b`, and read here. `a4d453b` is the last commit on this branch carrying a source file; the head, `a613f3a`, adds only this report and the shots these runs took.
 
 | check | command | rc | numbers |
 |---|---|---|---|
