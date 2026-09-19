@@ -37,7 +37,7 @@ at 1280 it was 63.95%. The director was describing something real and measurable
 
 After this wave the average page is **7.55% dark**, and the page's own ground, with
 photographs and the map field masked out, is **3.75%**. Re-measured at the 412b head
-those are **7.50%** and **3.71%**; the per-route table in section 3 carries the 412b
+those are **7.52%** and **3.70%**; the per-route table in section 3 carries the 412b
 figures in its "after" columns and section 12 explains every one that moved.
 
 ---
@@ -118,7 +118,7 @@ the shot's own pixels (section 12.4), and how many of those could not be measure
 
 | Route | Width | dark before | dark after | ground before | ground after | islands | axe before | axe after | incomplete | unmeasured |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `/` | 1280 | 63.55% | **23.56%** | 48.48% | **9.22%** | 1 | 6 | **0** | 20 | 0 |
+| `/` | 1280 | 63.55% | **23.46%** | 48.48% | **9.07%** | 1 | 6 | **0** | 20 | 0 |
 | `/` | 390 | 56.55% | **22.19%** | 37.26% | **7.42%** | 1 | 6 | **0** | 20 | 0 |
 | `/about` | 1280 | 39.17% | **4.13%** | 50.19% | **2.68%** | 0 | 5 | **0** | 25 | 0 |
 | `/about` | 390 | 30.80% | **5.73%** | 34.76% | **2.65%** | 0 | 5 | **0** | 25 | 0 |
@@ -147,7 +147,7 @@ the shot's own pixels (section 12.4), and how many of those could not be measure
 | the 404 route | 1280 | 0.25% | **0.63%** | 0.25% | **0.63%** | 0 | 0 | **0** | 0 | 0 |
 | the 404 route | 390 | 0.80% | **1.95%** | 0.80% | **1.95%** | 0 | 0 | **0** | 0 | 0 |
 
-**Mean across 28 shots: dark 42.06% to 7.50%; page ground 42.37% to 3.71%; axe serious/critical colour-contrast violations 169 to 0. 278 incomplete nodes, 278 measured off the pixels, 0 unmeasured.**
+**Mean across 28 shots: dark 42.06% to 7.52%; page ground 42.37% to 3.70%; axe serious/critical colour-contrast violations 169 to 0. 278 incomplete nodes, 278 measured off the pixels, 0 unmeasured.**
 
 Two numbers in that table need explaining:
 
@@ -159,13 +159,18 @@ Two numbers in that table need explaining:
   Deleting the demand map island outright still leaves the page near 17%, because removing
   area takes it out of the denominator as well. So the home page is listed in the gate's
   `RAW_CEILING` at the figure measured at this head, and the GROUND assertion still binds
-  at 15% there (it measures 9.22%). That is the check being made sharper, not looser: the
+  at 15% there (it measures 9.07%). That is the check being made sharper, not looser: the
   raw figure is still asserted, against a number it can only go down from. **In wave 412
   that ceiling was 0.240 and 0.230 against measurements of 23.55% and 22.19%, which is
   0.45 and 0.81 points of headroom in something this paragraph called the measured
-  figure; rel412 MINOR 7 was right about that. It is 0.2357 and 0.2220 now, against
-  23.56% and 22.19% at the 412b head, rounded up to the 0.01 of a point the gate prints
-  and no further.**
+  figure; rel412 MINOR 7 was right about that. It is 0.2357 and 0.2220 now. The home
+  page's raw figure is the one measurement in this report that is not the same number
+  twice: three runs of the same build at the 412b head read 23.56%, 23.56% and 23.46% at
+  1280, and 22.19% every time at 390, because the page carries running animations and
+  `settle()` cannot land them on the same frame twice. The ceiling is the HIGHEST of
+  those readings, rounded up to the 0.01 of a point the gate prints, and the script says
+  so where it is set. That is 0.01 of a point of slack against the worst reading, not
+  0.45.**
 - **`/404` went up, from 0.25% to 0.63%.** It went up because it now has words on it. See
   section 7.
 
@@ -700,7 +705,7 @@ a glow on a tile, not a tint under text.
 | 4 | hexes added outside `styles.css` are 2 (3 lines with the re-emit) | stated; and 412b removed three colour literals from a component; section 8 |
 | 5 | `CLAUDE.md` section 2's three dark-pixel figures disagree with the report | both now carry the FINAL RUN of this pass, copied from its output rather than typed |
 | 6 | `CLAUDE.md` section 8 does not mention `RAW_CEILING` | it does now, in one sentence |
-| 7 | the ratchet carries 0.45 and 0.81 points of slack | `RAW_CEILING` is 0.2357 and 0.2220 against 23.56% and 22.19% measured here |
+| 7 | the ratchet carries 0.45 and 0.81 points of slack | `RAW_CEILING` is 0.2357 and 0.2220 against the highest of three readings here, 23.56% and 22.19%. The home page's raw figure moves about a tenth of a point between runs because the page animates; that is disclosed where the ceiling is set and in section 3, and the slack against the worst reading is 0.01 of a point |
 | 8 | `home/site-footer.tsx` is dead code and still carries `teal-wash` | deleted. `rg` for `home/site-footer` over the tree returns nothing, and `teal-wash` now appears nowhere under `src/` |
 | 9 | two comments understate their own measurements | `styles.css` says 8.20:1 on navy-950 for the teal-400 ring, `contact.tsx` says 4.67:1 on navy-950 for the orange word. 7.82 and 4.46 are the navy-900 figures, and navy-900 is the ink, not an island's ground |
 | 10 | `trimTail` cuts at the first `</html>` with no guard | it cuts only when what follows looks like a partial tail: shorter than what precedes it, no second doctype, no second `<html>`. Anything else is left alone and named, and every cut names its file and its size. Proved on fixtures both ways |

@@ -133,7 +133,17 @@ SAMPLE_EVERY = 4
 # carried 0.45 and 0.81 points of headroom against measurements of 23.55% and
 # 22.19% while the docstring and the report both called them the measured
 # figure; rel412 MINOR 7 was right that a ratchet with slack in it is not the
-# thing it says it is. Measured at the wave 412b head: 23.56% and 22.19%.
+# thing it says it is.
+#
+# ⚠ THE HOME PAGE'S RAW FIGURE IS NOT THE SAME NUMBER TWICE, and this is the
+# one place where saying "the measured figure" needs a sentence. Three runs of
+# the same build at this head read 23.56%, 23.56% and 23.46% at 1280, and
+# 22.19% every time at 390: the page carries running animations (the council
+# marquee, the map's hub pulse, the CTA ring) and `settle()` cannot land them
+# on the same frame twice. The ceiling is the HIGHEST of the readings, rounded
+# up to the printed digit, because a ratchet that fails on a coin toss is
+# worse than no ratchet. Lower it when the page gets lighter, not when a run
+# happens to come in low.
 RAW_CEILING = {
     ("home", 1280): 0.2357,
     ("home", 390): 0.2220,

@@ -45,15 +45,18 @@ Callum says otherwise. Nothing in the codebase should use a hard-coded colour.
 >
 > Measured before and after by `scripts/wave412-screenshots.py`, which photographs
 > every route at 1280 and 390 and asserts what it finds. The share of dark pixels
-> on the home page went from **63.55% to 23.56%** at 1280, and the share of the
+> on the home page went from **63.55% to 23.46%** at 1280, and the share of the
 > page's own ground, with photographs and the map field masked out, from
-> **48.48% to 9.22%**. `/register/investor` went from 60.55% to 4.46%.
+> **48.48% to 9.07%**. `/register/investor` went from 60.55% to 4.46%.
 >
 > Those three are copied from the FINAL RUN of the 412b pass, which is the gate
 > table in section 3 of `docs/WAVE412_REPORT.md`. They are not typed by hand and
 > they are not to be. Wave 412 shipped 23.43%, 8.77% and 4.44% here against
 > 23.55%, 9.22% and 4.47% in its own report, which is how the rel412 re-checker
-> knew this file had been written against an earlier build.
+> knew this file had been written against an earlier build. The home page's two
+> figures move by about a tenth of a point between runs of the same build,
+> because the page has running animations in it; the gate's ceiling for it is
+> set at the highest reading and the script says so.
 
 ### Colour tokens
 
@@ -497,9 +500,10 @@ so it is obvious it is pending. **Never invent a number on this project.**
   the page has words on it.
 - **The 15% is a flat ceiling everywhere except the home page**, whose three approved
   hero photographs and brand orange fills cannot reach it, and which is therefore listed
-  in the gate's `RAW_CEILING` at the figure last measured on it (23.56% at 1280, 22.19%
-  at 390): a RATCHET a later wave may lower and may not raise without saying why in the
-  script, while its page-ground figure still answers to the flat 15%.
+  in the gate's `RAW_CEILING` at the highest figure measured on it (23.56% at 1280,
+  22.19% at 390, and it varies by about a tenth of a point between runs because the page
+  animates): a RATCHET a later wave may lower and may not raise without saying why in
+  the script, while its page-ground figure still answers to the flat 15%.
 - **No hex in a component.** Every colour comes from `src/styles.css` by name. If a
   pairing fails, the SURFACE moves, never the orange.
 - **No class that lies.** A component that says `bg-navy-800` renders navy. The light
