@@ -113,18 +113,26 @@ def write_manifest(sources, check: bool) -> bool:
         # is the other half of rule 6 and it is what a layout shift is.
         with Image.open(source) as image:
             rows.append((url, steps, image.size[0], image.size[1]))
+    # ⚠ ONE ENTRY PER FOUR LINES, NEVER ONE PER LINE, AND THAT IS ABOUT
+    # PRETTIER RATHER THAN ABOUT TASTE. This file is generated AND it is
+    # linted, so `--check` only means something if the two agree. Prettier
+    # collapses a short object onto one line, but it PRESERVES one that
+    # already has a line break between `{` and its first key, so an expanded
+    # entry is a fixed point and a one-line entry is not: the first draft of
+    # this wrote one line per image, prettier rewrapped the long ones, and
+    # `--check` then failed on every run for a difference nobody made.
     lines = [
         MANIFEST_HEADER,
-        "export const IMAGE_VARIANTS: Record<",
-        "  string,",
-        "  { steps: number[]; width: number; height: number }",
-        "> = {",
+        "export const IMAGE_VARIANTS: Record<string, "
+        "{ steps: number[]; width: number; height: number }> = {",
     ]
     for url, steps, width, height in sorted(rows):
         joined = ", ".join(str(step) for step in steps)
-        lines.append(
-            f'  "{url}": {{ steps: [{joined}], width: {width}, height: {height} }},'
-        )
+        lines.append(f'  "{url}": {{')
+        lines.append(f"    steps: [{joined}],")
+        lines.append(f"    width: {width},")
+        lines.append(f"    height: {height},")
+        lines.append("  },")
     lines.append("};")
     lines.append("")
     text = chr(10).join(lines)
