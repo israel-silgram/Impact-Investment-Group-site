@@ -584,7 +584,14 @@
  * only when it is about to animate. See src/components/ui/reveal.tsx.
  *
  * Anyone extending this (wave 413, the motion wave, is next) keeps that
- * invariant: NOTHING IS HIDDEN BY A CLASS THAT THE MARKUP CAN SHIP. */
+ * invariant: NOTHING IS HIDDEN BY A CLASS THAT THE MARKUP CAN SHIP.
+ *
+ * ⚠ AND THE SECOND INVARIANT, ADDED IN WAVE 412b: ONLY `pending` MAY BECOME
+ * `true`. `rise-in` is declared with `both`, so its backwards fill paints
+ * opacity 0 on the first frame; putting it on an element the server has
+ * already painted blinks content the visitor is reading. An element that was
+ * on screen at mount takes `data-revealed="static"`, which deliberately
+ * matches NO rule here: same pixels, nothing added. */
 @utility reveal {
   &[data-revealed="pending"] {
     opacity: 0;

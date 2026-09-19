@@ -60,6 +60,17 @@ it. Per page, per width:
      dark pixels, no overflow and no contrast violations, and passes every
      other check here perfectly.
 
+And once for the run, after the pages:
+
+  7. ABOVE-THE-FOLD CONTENT IS NEVER UN-PAINTED. See reveal_probe(). Wave 412
+     shipped a `Reveal` whose already-visible branch still carried the rise-in
+     animation, and rise-in begins at opacity 0 with a backwards fill, so a
+     prerendered page painted its first block, then blinked it away at
+     hydration and faded it back in. The probe throttles the network so the
+     gap between the server's paint and hydration is wide and real, samples
+     the computed opacity of the first `Reveal` inside <main> every 16ms for
+     1200ms, and fails if it ever falls back below 1 after reaching it.
+
 `--baseline` re-runs 2, 3 and 4 as MEASUREMENTS ONLY, with nothing asserted and
 no images kept, so the same code can read a build of `origin/main` and produce
 the before numbers in docs/WAVE412_REPORT.md. A before number measured by
@@ -251,6 +262,170 @@ MASKS = """
 }
 """
 
+# ---------------------------------------------------------------------------
+# 7. THE REVEAL PROBE
+#
+# Installed BEFORE any of the page's own scripts, so it is already sampling
+# while the browser is still painting the server's HTML. It walks to the first
+# `.reveal` inside <main> and records the computed opacity every 16ms.
+#
+# The interesting window is between the server's paint and HYDRATION, and on a
+# fast local server that window is a few milliseconds wide. The caller widens
+# it with real network throttling, and then waits for hydration to actually
+# land before it stops sampling: a probe that finishes before the bundle runs
+# proves nothing at all, which is what the first draft of this one did.
+REVEAL_SAMPLER = """
+(() => {
+  const START = performance.now();
+  const MIN_MS = 1200;
+  const samples = [];
+  window.__revealSamples = samples;
+  window.__revealProbeStop = false;
+  const tick = () => {
+    const el = document.querySelector('main .reveal');
+    if (el) {
+      samples.push([
+        Math.round(performance.now() - START),
+        getComputedStyle(el).opacity,
+        el.getAttribute('data-revealed') || '',
+      ]);
+    }
+    if (performance.now() - START < MIN_MS || !window.__revealProbeStop) {
+      setTimeout(tick, 16);
+    }
+  };
+  setTimeout(tick, 0);
+})();
+"""
+
+FIRST_REVEAL = (
+    "() => { const el = document.querySelector('main .reveal'); return el ? {"
+    "  top: Math.round(el.getBoundingClientRect().top + scrollY),"
+    "  attr: el.getAttribute('data-revealed') || '(none)',"
+    "} : null; }"
+)
+
+# Routes where the first `Reveal` inside <main> is in the first viewport, so
+# its opacity has no legitimate reason to move at all. /about wraps its whole
+# opening block in one; the partner pages wrap their opening statement.
+REVEAL_PROBE_PAGES = ["/about", "/partner-with-investor"]
+REVEAL_PROBE_WIDTH = 1280
+REVEAL_PROBE_MIN_MS = 1200
+REVEAL_SETTLE_MS = 600
+REVEAL_HYDRATE_TIMEOUT_MS = 20000
+
+
+def reveal_probe(browser, base: str, failures: list[str]) -> None:
+    """Assert that no above-the-fold Reveal is painted, un-painted and re-faded.
+
+    The assertion is one-directional on purpose: opacity may RISE (an element
+    the component itself hid, arriving) and may never FALL once it has been 1
+    (content the server already painted, being taken away).
+
+    Wave 412 failed this. `Reveal` sent an element that was already on screen
+    at mount straight to `data-revealed="true"`, and that state carries
+    `animation: rise-in ... both`, whose backwards fill paints opacity 0 on
+    the first frame. The prerendered page painted, the bundle landed, and the
+    first block of /about blinked out and faded back in.
+    """
+    for path in REVEAL_PROBE_PAGES:
+        page = browser.new_page(viewport={"width": REVEAL_PROBE_WIDTH, "height": 900})
+        page.add_init_script(REVEAL_SAMPLER)
+        # Real throttling, so the gap between the server's paint and hydration
+        # is wide enough to sample rather than a race this would usually win.
+        cdp = page.context.new_cdp_session(page)
+        cdp.send(
+            "Network.emulateNetworkConditions",
+            {
+                "offline": False,
+                "latency": 60,
+                "downloadThroughput": 400 * 1024,
+                "uploadThroughput": 400 * 1024,
+            },
+        )
+        page.goto(f"{base}{path}", wait_until="commit")
+
+        # Hydration is the event this probe is about. `data-revealed` is set
+        # from the component's layout effect and can only appear once the
+        # bundle has run, so it is the marker, and waiting for it is what
+        # keeps the sampling window honest.
+        hydrated = True
+        try:
+            page.wait_for_selector(
+                "main .reveal[data-revealed]", timeout=REVEAL_HYDRATE_TIMEOUT_MS
+            )
+        except Exception:
+            hydrated = False
+
+        # Long enough after hydration for a 350ms rise-in plus its delay to
+        # have played out, and never shorter than the 1200ms window.
+        page.wait_for_timeout(REVEAL_SETTLE_MS)
+        elapsed = page.evaluate("() => { const s = window.__revealSamples; "
+                                "return s && s.length ? s[s.length - 1][0] : 0; }")
+        if elapsed < REVEAL_PROBE_MIN_MS:
+            page.wait_for_timeout(REVEAL_PROBE_MIN_MS - elapsed + 50)
+        page.evaluate("() => { window.__revealProbeStop = true; }")
+
+        samples = page.evaluate("() => window.__revealSamples || []")
+        first = page.evaluate(FIRST_REVEAL)
+        page.close()
+
+        where = f"reveal probe {path} @ {REVEAL_PROBE_WIDTH}"
+        if first is None:
+            failures.append(f"{where}: no `.reveal` inside <main> to probe.")
+            continue
+        if not samples:
+            failures.append(f"{where}: no samples taken. The probe did not run.")
+            continue
+
+        opacities = [float(sample[1]) for sample in samples]
+        window_ms = samples[-1][0]
+        states = sorted({sample[2] or "(none)" for sample in samples})
+        seen_full = False
+        dropped = None
+        for moment, opacity, attr in samples:
+            value = float(opacity)
+            if value >= 0.999:
+                seen_full = True
+            elif seen_full and dropped is None:
+                dropped = (moment, value, attr)
+
+        print(
+            f"reveal {path:<26} {len(samples):>3} samples over {window_ms}ms  "
+            f"min_opacity={min(opacities):.3f}  first_reveal_top={first['top']}px  "
+            f"hydrated={'yes' if hydrated else 'NO'}  "
+            f"states={'/'.join(states)}  final={first['attr']}"
+        )
+
+        if not hydrated:
+            failures.append(
+                f"{where}: no `.reveal` carried data-revealed within "
+                f"{REVEAL_HYDRATE_TIMEOUT_MS}ms, so the bundle never hydrated and "
+                f"this probe proved nothing. Loosen the throttle or fix the build."
+            )
+            continue
+        if first["top"] >= 900:
+            failures.append(
+                f"{where}: the first Reveal is at y={first['top']}, below the "
+                f"{REVEAL_PROBE_WIDTH}x900 fold. This probe only proves something "
+                f"about above-the-fold content; point it at a route whose first "
+                f"Reveal is in the first viewport."
+            )
+            continue
+        if not seen_full:
+            failures.append(
+                f"{where}: the first Reveal never reached opacity 1 in "
+                f"{window_ms}ms (lowest {min(opacities):.3f})."
+            )
+            continue
+        if dropped is not None:
+            failures.append(
+                f"{where}: opacity fell to {dropped[1]:.3f} at {dropped[0]}ms after "
+                f"having been 1 (data-revealed={dropped[2]!r}). Content the server "
+                f"painted was taken away and faded back in."
+            )
+
+
 AXE_RUN = """
 async () => {
   const results = await axe.run(document, {
@@ -391,6 +566,9 @@ def main() -> None:
                         )
 
                 page.close()
+
+        if not args.baseline:
+            reveal_probe(browser, base, failures)
         browser.close()
 
     worst_raw = max(rows, key=lambda r: r[2])
