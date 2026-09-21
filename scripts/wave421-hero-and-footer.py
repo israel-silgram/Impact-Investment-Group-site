@@ -14,9 +14,19 @@ hero is not a flat ground any more, and that is the whole of wave 421.
      414 gave it `sizes="320px"` to save bytes, which was right while it was
      painted at seven per cent and invisible; at the opacity Callum asked for
      on 19 September it is a 400px file stretched across 1905, and the
-     stretching is visible. This loads `/` at every width in WIDTHS and reads
-     `currentSrc`, failing if a viewport wider than VARIANT_MIN_VIEWPORT
-     resolves to the 400px step.
+     stretching is visible. This loads `/` at every (width, density) pair in
+     VARIANT_PROFILES and reads `currentSrc`, failing on either end of the
+     range: a viewport wider than VARIANT_MIN_VIEWPORT that resolves to the
+     400px step, and ANY profile that resolves to the 1672px ORIGINAL.
+
+     ⚠ THE DENSITIES ARE THE POINT AND THEY WERE MISSING. `sizes` is in CSS
+     pixels and the browser multiplies by the screen's density before
+     choosing, so a check that opens every context at `device_scale_factor=1`
+     is blind to three quarters of the expression it is checking. That blind
+     spot hid the 2x case, which this wave's own review sub-agent found by
+     arithmetic, and then hid the 1x-to-1.5x band, which the rel421 verdict
+     found the same way. Both are now read off a real browser at a real
+     density instead.
 
      AND IT CHECKS EVERY OTHER IMAGE ON EVERY PAGE for the same fault, rather
      than only the one Callum happened to see: any `<img>` whose chosen source
@@ -81,7 +91,37 @@ _spec = importlib.util.spec_from_file_location(
 w412 = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(w412)
 
-WIDTHS = [1905, 1280, 768, 390]
+# (width, density, label). The 1x rows are the four this started with; the
+# rest are the machines the two blind spots were hiding.
+#
+#   1.25  Windows display scaling at 125 per cent, the out-of-the-box default
+#         on a great many laptops, and what Chrome and Firefox report for an
+#         ordinary 1x desktop zoomed to 125 per cent.
+#   1.1, 1.33  the same reader at 110 and 133 per cent zoom.
+#   1.5, 2.0   the retina desktop bands.
+#   1.75  what Lighthouse mobile emulates at 412 CSS pixels, which is the
+#         profile section 7 of the report quotes its byte figures from.
+VARIANT_PROFILES = [
+    (1905, 1.0, "desktop"),
+    (1280, 1.0, "laptop"),
+    (768, 1.0, "tablet"),
+    (390, 1.0, "phone"),
+    (1905, 1.25, "125% scaling"),
+    (1536, 1.25, "125% scaling"),
+    (1440, 1.1, "110% zoom"),
+    (1920, 1.33, "133% zoom"),
+    (1600, 1.5, "1.5x"),
+    (1905, 2.0, "retina"),
+    (412, 1.75, "Lighthouse mobile"),
+    (390, 3.0, "3x phone"),
+]
+
+# The original, at the end of every srcset this image has. Nothing may resolve
+# to it: there is no 1440 step (the encoder refused one at 225KB against a
+# 199KB source), so a request over 960 device pixels jumps straight to 1672 by
+# 941, which is the decode `scripts/wave413-motion.py` failed its long-task
+# probe on one run in two.
+VARIANT_ORIGINAL = "hero-ground-street.webp"
 
 # Wider than this and a 400px source is being stretched past any honest use.
 # 640 is the next step up, so a 640 viewport asking for the 400 is the last
@@ -555,16 +595,17 @@ def main() -> None:
     missing: list[tuple] = []
     upscaled: list[tuple] = []
     variant_rows: list[tuple] = []
+    variant_sizes = ""
     contrast_rows: list[dict] = []
     divider_rows: list[dict] = []
 
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
 
-        # A. the hero wash's chosen variant, at every width.
-        for width in WIDTHS:
+        # A. the hero wash's chosen variant, at every width AND every density.
+        for width, density, label in VARIANT_PROFILES:
             context = browser.new_context(
-                viewport={"width": width, "height": 900}, device_scale_factor=1
+                viewport={"width": width, "height": 900}, device_scale_factor=density
             )
             page = context.new_page()
             page.goto(f"{base}/", wait_until="networkidle")
@@ -575,20 +616,43 @@ def main() -> None:
                 "document.querySelector('img[class*=\"object-cover\"][alt=\"\"]'); "
                 "return i ? { currentSrc: i.currentSrc, sizes: i.getAttribute('sizes'), "
                 "box: Math.round(i.getBoundingClientRect().width), "
+                "dpr: devicePixelRatio, "
                 "opacity: getComputedStyle(i).opacity } : null; }"
             )
+            where = f"/ at {width} x {density}"
             if chosen is None:
-                failures.append(f"/ at {width}: the hero wash image was not found at all")
+                failures.append(f"{where}: the hero wash image was not found at all")
             else:
                 name = chosen["currentSrc"].rsplit("/", 1)[-1]
+                variant_sizes = chosen["sizes"] or ""
                 variant_rows.append(
-                    (width, name, chosen["sizes"], chosen["box"], chosen["opacity"])
+                    (
+                        width,
+                        density,
+                        label,
+                        name,
+                        chosen["box"],
+                        round(chosen["box"] * density),
+                        chosen["opacity"],
+                    )
                 )
                 if width > VARIANT_MIN_VIEWPORT and name.endswith("-400.webp"):
                     failures.append(
-                        f"/ at {width}: the hero wash resolved to {name}, a 400px "
+                        f"{where}: the hero wash resolved to {name}, a 400px "
                         f"source stretched across a {chosen['box']}px box. Widen its "
                         f"`sizes`."
+                    )
+                # ⚠ THE OTHER END OF THE RANGE, and the check the rel421
+                # verdict held the push for. A profile that resolves to the
+                # original is a profile whose `sizes` branch is not divided by
+                # its own density.
+                if name == VARIANT_ORIGINAL:
+                    failures.append(
+                        f"{where} ({label}): the hero wash resolved to {name}, the "
+                        f"1672px ORIGINAL. Every density must ask for at most 960 "
+                        f"device pixels; this one asked for more, so its band in "
+                        f"SIZES_HERO_GROUND is missing or is not divided by its "
+                        f"density."
                     )
             context.close()
 
@@ -649,10 +713,17 @@ def main() -> None:
 
         browser.close()
 
-    print("\n── A. THE HERO WASH'S CHOSEN VARIANT ──")
-    print(f"{'viewport':>9}  {'chosen source':<34}{'sizes':<22}{'box':>6}  opacity")
-    for width, name, sizes, box, opacity in variant_rows:
-        print(f"{width:>9}  {name:<34}{(sizes or '(none)'):<22}{box:>6}  {opacity}")
+    print("\n── A. THE HERO WASH'S CHOSEN VARIANT, BY WIDTH AND DENSITY ──")
+    print(f"`sizes` is {variant_sizes or '(none)'}")
+    print(
+        f"{'viewport':>9}{'dpr':>6}  {'profile':<20}{'chosen source':<34}"
+        f"{'box css':>8}{'box dev':>9}  opacity"
+    )
+    for width, density, label, name, box, device_box, opacity in variant_rows:
+        print(
+            f"{width:>9}{density:>6}  {label:<20}{name:<34}"
+            f"{box:>8}{device_box:>9}  {opacity}"
+        )
 
     print(f"\n── A2. IMAGES SERVED UNDER {UPSCALE_TOLERANCE:.0%} OF THEIR BOX ──")
     if not upscaled:

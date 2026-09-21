@@ -111,21 +111,47 @@ export const SIZES_CARD_ILLUSTRATION = "(min-width: 768px) 50vw, 70vw";
  *
  * ⚠ `sizes` IS IN CSS PIXELS AND THE BROWSER MULTIPLIES BY THE SCREEN'S
  * DENSITY BEFORE CHOOSING. That is the trap wave 414's note here recorded and
- * then walked into, and this wave walked into it a second time: a single
+ * then walked into, and this wave walked into it TWICE. First: a single
  * `(min-resolution: 1.5x) 50vw` branch reads 50vw of 1905 on a 2x desktop,
  * asks for 1905 device pixels and takes the original, on exactly the machines
- * most likely to be running this site. So there is a branch per density and
- * each one names HALF THE VIEWPORT CAPPED AT 960 DIVIDED BY THAT DENSITY:
+ * most likely to be running this site. Second, and this is the one the rel421
+ * verdict held the push for: naming 3x, 2x and 1.5x and then FALLING THROUGH
+ * leaves the band BETWEEN 1x and 1.5x on the one branch that is not divided
+ * by its density, and 960 CSS pixels at 1.25 is 1200 device pixels, which
+ * takes the 1672px original. See the band below for who that is.
  *
- *   3x   min(50vw, 320px)  ->  at most 960 device px
- *   2x   min(50vw, 480px)  ->  at most 960
- *   1.5x min(50vw, 640px)  ->  at most 960
- *   1x   min(100vw, 960px) ->  at most 960
+ * So there is a branch per density band and each one names A VIEWPORT SHARE
+ * CAPPED AT 960 DIVIDED BY THE WORST DENSITY IN ITS OWN BAND:
+ *
+ *   3x and up      min(50vw, 320px)  ->  at most 960 device px
+ *   2x to 3x       min(50vw, 480px)  ->  at most 1440 at 2.99x, 960 at 2x
+ *   1.5x to 2x     min(50vw, 640px)  ->  at most 1274 at 1.99x, 960 at 1.5x
+ *   just over 1x   min(50vw, 640px)  ->  954 at 1.49x, 800 at 1.25x
+ *   exactly 1x     min(100vw, 960px) ->  960
+ *
+ * ⚠ THE BAND BETWEEN 1x AND 1.5x IS NOT AN EDGE CASE AND IT IS NOT SHRINKING.
+ * Windows display scaling at 125 per cent reports `devicePixelRatio` 1.25 and
+ * is the out-of-the-box default on a great many laptops. Page zoom multiplies
+ * the ratio in Chrome and in Firefox, so an ordinary 1x reader who zooms to
+ * 110, 125 or 133 per cent to read the page more easily is moved into this
+ * band BY THE ACT OF ZOOMING, which makes it an accessibility cohort as well
+ * as a large one. Before this branch existed those machines took the 199KB
+ * original where the live site had been giving them the 27KB 400px step:
+ * a 172KB regression on the home page's critical path, and the same decode
+ * the long-task evidence above is about.
+ *
+ * 100dpi rather than 97: `min-resolution` in `dpi` is compared against the
+ * device's own reported resolution and 1x is exactly 96dpi, so 100 is the
+ * first round number that excludes 1x and includes everything above it. The
+ * next branch up takes over at 144dpi, so this one only ever serves the band
+ * it is written for.
  *
  * The 1x branch asks for the full viewport rather than half, because there
  * the stretch IS visible; above 1x it asks for half, because this ground is
  * a photograph painted at a FIFTH of its own strength under a warm haze and
- * there is no second device pixel of detail in it to find.
+ * there is no second device pixel of detail in it to find. A 1.25x desktop
+ * therefore asks for 800 device pixels across a 2381 device-pixel box, which
+ * is MORE generous than the 960 across 3810 the 2x branch already accepts.
  *
  * ⚠ dpi RATHER THAN x, AND THE REASON IS SAFARI. `min-resolution` in `dpi`
  * has been understood since Chrome 29 and in Firefox since before this site
@@ -148,6 +174,10 @@ export const SIZES_HERO_GROUND = [
   "(min-resolution: 288dpi) min(50vw, 320px)",
   "(min-resolution: 192dpi) min(50vw, 480px)",
   "(min-resolution: 144dpi) min(50vw, 640px)",
+  // Everything above 1x that the three branches above do not name: 1.01x to
+  // 1.49x. Without this line they fall through to the one branch that is not
+  // divided by its density and take the 1672px original. 421b, rel421 MAJOR 1.
+  "(min-resolution: 100dpi) min(50vw, 640px)",
   "min(100vw, 960px)",
 ].join(", ");
 
