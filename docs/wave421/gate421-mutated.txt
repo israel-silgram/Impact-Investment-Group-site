@@ -1,15 +1,15 @@
 
 ── A. THE HERO WASH'S CHOSEN VARIANT, BY WIDTH AND DENSITY ──
-`sizes` is (min-resolution: 288dpi) min(50vw, 320px), (min-resolution: 192dpi) min(50vw, 480px), (min-resolution: 144dpi) min(50vw, 640px), (min-resolution: 100dpi) min(50vw, 640px), min(100vw, 960px)
+`sizes` is (min-resolution: 288dpi) min(50vw, 320px), (min-resolution: 192dpi) min(50vw, 480px), (min-resolution: 144dpi) min(50vw, 640px), min(100vw, 960px)
  viewport   dpr  profile             chosen source                      box css  box dev  opacity
      1905   1.0  desktop             hero-ground-street-960.webp           1905     1905  0.2
      1280   1.0  laptop              hero-ground-street-960.webp           1280     1280  0.2
       768   1.0  tablet              hero-ground-street-960.webp            768      768  0.2
       390   1.0  phone               hero-ground-street-400.webp            390      390  0.2
-     1905  1.25  125% scaling        hero-ground-street-960.webp           1905     2381  0.2
-     1536  1.25  125% scaling        hero-ground-street-960.webp           1536     1920  0.2
-     1440   1.1  110% zoom           hero-ground-street-960.webp           1440     1584  0.2
-     1920  1.33  133% zoom           hero-ground-street-960.webp           1920     2554  0.2
+     1905  1.25  125% scaling        hero-ground-street.webp               1905     2381  0.2
+     1536  1.25  125% scaling        hero-ground-street.webp               1536     1920  0.2
+     1440   1.1  110% zoom           hero-ground-street.webp               1440     1584  0.2
+     1920  1.33  133% zoom           hero-ground-street.webp               1920     2554  0.2
      1600   1.5  1.5x                hero-ground-street-960.webp           1600     2400  0.2
      1905   2.0  retina              hero-ground-street-960.webp           1905     3810  0.2
       412  1.75  Lighthouse mobile   hero-ground-street-400.webp            412      721  0.2
@@ -433,23 +433,6 @@ where             pair                                        size/wt           
 /legal at 390     the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
 /legal at 390     a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
 
--- C0. THE ELEMENT `#main > :last-child` NAMES, AND ITS OWN PADDING --
-route                           element                     pb/py utility    computed pb  background
-/                               section section-light border-t border-rulenone                  57.6px  rgb(247, 241, 230)
-/about                          main                        none                  57.6px  rgba(0, 0, 0, 0)
-/platform                       main                        none                  57.6px  rgba(0, 0, 0, 0)
-/the-problem                    main                        none                  57.6px  rgba(0, 0, 0, 0)
-/solutions                      main                        none                  57.6px  rgba(0, 0, 0, 0)
-/partners                       main                        none                  57.6px  rgba(0, 0, 0, 0)
-/contact                        main                        none                  57.6px  rgba(0, 0, 0, 0)
-/register                       div registration-picker     none                  57.6px  rgb(247, 241, 230)
-/register/investor              div registration-page       none                  57.6px  rgb(247, 241, 230)
-/register/resident              div registration-page       none                  57.6px  rgb(247, 241, 230)
-/partner-with-investor          main                        none                  57.6px  rgba(0, 0, 0, 0)
-/partner-with-local-authority   main                        none                  57.6px  rgba(0, 0, 0, 0)
-/legal                          section section-light       none                  57.6px  rgb(247, 241, 230)
-/this-route-does-not-exist      (no #main)                                                
-
 ── C. EVERY CURVED DIVIDER ON THE SITE ──
 where                             host                 above        background             shape             below  verdict
 / at 1280                         footer     (247, 241, 230)   (247, 241, 230)   (255, 255, 255)   (255, 255, 255)  correct
@@ -483,4 +466,9 @@ where                             host                 above        background  
 None. Every pair in the table resolved on every shot.
 
 12 variant readings · 13 under-served images · 402 pairs measured · 26 dividers read
-All assertions passed.
+
+FAILED (4):
+  - / at 1905 x 1.25 (125% scaling): the hero wash resolved to hero-ground-street.webp, the 1672px ORIGINAL. Every density must ask for at most 960 device pixels; this one asked for more, so its band in SIZES_HERO_GROUND is missing or is not divided by its density.
+  - / at 1536 x 1.25 (125% scaling): the hero wash resolved to hero-ground-street.webp, the 1672px ORIGINAL. Every density must ask for at most 960 device pixels; this one asked for more, so its band in SIZES_HERO_GROUND is missing or is not divided by its density.
+  - / at 1440 x 1.1 (110% zoom): the hero wash resolved to hero-ground-street.webp, the 1672px ORIGINAL. Every density must ask for at most 960 device pixels; this one asked for more, so its band in SIZES_HERO_GROUND is missing or is not divided by its density.
+  - / at 1920 x 1.33 (133% zoom): the hero wash resolved to hero-ground-street.webp, the 1672px ORIGINAL. Every density must ask for at most 960 device pixels; this one asked for more, so its band in SIZES_HERO_GROUND is missing or is not divided by its density.

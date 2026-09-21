@@ -156,10 +156,10 @@ bar/field account field                      focused='input#confirmPassword' box
 bar/field survey option 12 of 12             focused='input[Anywhere in England,]' box=(190..284) bar=(318..395, h=77, sticky)  scroll-margin-bottom=80px  vh=420  clear=yes
 success   /register/investor @ 390x844  scrollY=0  header_bottom=56  vh=844  heading=373..413 "You're registered"  message=429..559  action=591..643 'Explore the platform'
 
-timing    /                          LCP= 9496ms  CLS=0.0002  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
-timing    /the-problem               LCP= 3844ms  CLS=0.0000  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
-timing    /register/investor         LCP= 4192ms  CLS=0.0000  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
-timing    /partner-with-investor     LCP= 6524ms  CLS=0.0000  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
+timing    /                          LCP= 9668ms  CLS=0.0002  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
+timing    /the-problem               LCP= 3956ms  CLS=0.0000  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
+timing    /register/investor         LCP= 4076ms  CLS=0.0000  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
+timing    /partner-with-investor     LCP= 6392ms  CLS=0.0000  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
 
 70 shots in docs\screenshots\wave414. 2839 interactive targets measured at the top of the page and 2904 scrolled, 5743 in all, 0 under 44x44 and 0 closer than 8px.
 5270 type nodes measured, 0 under their size floor, 0 under a line box of 1.6 and 0 under 30 characters to the line at 360, where that floor binds. Narrowest column of the run: 10.3ch, about @ 667x375: the annual NHS cost of people waiting in hospital .

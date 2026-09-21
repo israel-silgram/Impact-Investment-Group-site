@@ -36,72 +36,72 @@ drawer trigger: aria-controls={'id': 'site-drawer', 'target': True, 'isPanel': T
 drawer: opened=True body_locked=True tab_wraps_to_first=True scrollY 0->0 closed_on_escape=True scroll_released=True panel={'w': 336, 'h': 844} scrim={'w': 390, 'h': 844} viewport={'w': 390, 'h': 844}
 draw-in: lucide-shield-check path length 58.75 against a dash of 58.76
 draw-in: lucide-shield-check path length 8.49 against a dash of 8.49
-step forward: transition 382ms (budget 450ms), press to settled 404ms, finished=True, transition observed=True, previous question still in the tree=False, "Which regions would you like to in" -> "Which parts of the UK interest you"
+step forward: transition 400ms (budget 450ms), press to settled 418ms, finished=True, transition observed=True, previous question still in the tree=False, "Which regions would you like to in" -> "Which parts of the UK interest you"
 long tasks during a full scroll of /: 0 over 50ms. Budget 0. Frame budget 16.7ms at 60fps.
 image fade /: 22 image request(s) held until ImageFade had run
 image fade /: 50 image(s) touched, 24 faded, 26 never requested (lazy, out of view)
-    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 719ms over 207 samples
-    hero-ground-street.webp            resting 0.200 max 0.200 final 0.200 faded at 736ms over 207 samples
-    hero-homes.webp                    resting 1.000 max 1.000 final 1.000 faded at 719ms over 207 samples
-    hero-support.webp                  resting 1.000 max 1.000 final 1.000 faded at 719ms over 207 samples
-    hero-lives.webp                    resting 1.000 max 1.000 final 1.000 faded at 719ms over 207 samples
-    zoopla-ink.webp                    resting 1.000 max 1.000 final 1.000 faded at 736ms over 207 samples
-    why-estate-aerial.webp             resting 1.000 max 1.000 final 1.000 faded at 736ms over 207 samples
-    trio-wave.webp                     resting 1.000 max 1.000 final 1.000 faded at 752ms over 207 samples
-    north-east-lincolnshire.webp       resting 1.000 max 1.000 final 1.000 faded at 752ms over 207 samples
-    newcastle.webp                     resting 1.000 max 1.000 final 1.000 faded at 752ms over 207 samples
-    sunderland.webp                    resting 1.000 max 1.000 final 1.000 faded at 752ms over 207 samples
-    hartlepool.webp                    resting 1.000 max 1.000 final 1.000 faded at 752ms over 207 samples
-    middlesbrough.webp                 resting 1.000 max 1.000 final 1.000 faded at 767ms over 207 samples
-    stockton-on-tees.webp              resting 1.000 max 1.000 final 1.000 faded at 767ms over 207 samples
-    county-durham.webp                 resting 1.000 max 1.000 final 1.000 faded at 767ms over 207 samples
-    manchester.webp                    resting 1.000 max 1.000 final 1.000 faded at 767ms over 207 samples
-    salford.webp                       resting 1.000 max 1.000 final 1.000 faded at 767ms over 207 samples
-    liverpool.webp                     resting 1.000 max 1.000 final 1.000 faded at 2111ms over 207 samples
-    hm-land-registry.svg               resting 1.000 max 1.000 final 1.000 faded at 791ms over 207 samples
-    ons.svg                            resting 1.000 max 1.000 final 1.000 faded at 791ms over 207 samples
-    postcodes-io.svg                   resting 1.000 max 1.000 final 1.000 faded at 791ms over 207 samples
-    openstreetmap.svg                  resting 1.000 max 1.000 final 1.000 faded at 791ms over 207 samples
-    epc-register.svg                   resting 1.000 max 1.000 final 1.000 faded at 791ms over 207 samples
-    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 719ms over 207 samples
+    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 733ms over 206 samples
+    hero-ground-street.webp            resting 0.200 max 0.200 final 0.200 faded at 749ms over 206 samples
+    hero-homes.webp                    resting 1.000 max 1.000 final 1.000 faded at 733ms over 206 samples
+    hero-support.webp                  resting 1.000 max 1.000 final 1.000 faded at 749ms over 206 samples
+    hero-lives.webp                    resting 1.000 max 1.000 final 1.000 faded at 749ms over 206 samples
+    zoopla-ink.webp                    resting 1.000 max 1.000 final 1.000 faded at 749ms over 206 samples
+    why-estate-aerial.webp             resting 1.000 max 1.000 final 1.000 faded at 764ms over 206 samples
+    trio-wave.webp                     resting 1.000 max 1.000 final 1.000 faded at 764ms over 206 samples
+    north-east-lincolnshire.webp       resting 1.000 max 1.000 final 1.000 faded at 764ms over 206 samples
+    newcastle.webp                     resting 1.000 max 1.000 final 1.000 faded at 780ms over 206 samples
+    sunderland.webp                    resting 1.000 max 1.000 final 1.000 faded at 780ms over 206 samples
+    hartlepool.webp                    resting 1.000 max 1.000 final 1.000 faded at 796ms over 206 samples
+    middlesbrough.webp                 resting 1.000 max 1.000 final 1.000 faded at 796ms over 206 samples
+    stockton-on-tees.webp              resting 1.000 max 1.000 final 1.000 faded at 796ms over 206 samples
+    county-durham.webp                 resting 1.000 max 1.000 final 1.000 faded at 796ms over 206 samples
+    manchester.webp                    resting 1.000 max 1.000 final 1.000 faded at 815ms over 206 samples
+    salford.webp                       resting 1.000 max 1.000 final 1.000 faded at 815ms over 206 samples
+    liverpool.webp                     resting 1.000 max 1.000 final 1.000 faded at 2108ms over 206 samples
+    hm-land-registry.svg               resting 1.000 max 1.000 final 1.000 faded at 815ms over 206 samples
+    ons.svg                            resting 1.000 max 1.000 final 1.000 faded at 827ms over 206 samples
+    postcodes-io.svg                   resting 1.000 max 1.000 final 1.000 faded at 827ms over 206 samples
+    openstreetmap.svg                  resting 1.000 max 1.000 final 1.000 faded at 827ms over 206 samples
+    epc-register.svg                   resting 1.000 max 1.000 final 1.000 faded at 844ms over 206 samples
+    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 733ms over 206 samples
 image fade /partner-with-investor: 7 image request(s) held until ImageFade had run
 image fade /partner-with-investor: 12 image(s) touched, 12 faded, 0 never requested (lazy, out of view)
-    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 256ms over 138 samples
-    solution-street-blueprint.webp     resting 0.320 max 0.320 final 0.320 faded at 256ms over 138 samples
-    solution-street-blueprint.webp     resting 1.000 max 1.000 final 1.000 faded at 271ms over 138 samples
-    petra.webp                         resting 1.000 max 1.000 final 1.000 faded at 271ms over 138 samples
-    peter.webp                         resting 1.000 max 1.000 final 1.000 faded at 271ms over 138 samples
-    pippa.webp                         resting 1.000 max 1.000 final 1.000 faded at 271ms over 138 samples
-    pippa.webp                         resting 1.000 max 1.000 final 1.000 faded at 271ms over 138 samples
-    petra.webp                         resting 1.000 max 1.000 final 1.000 faded at 271ms over 138 samples
-    peter.webp                         resting 1.000 max 1.000 final 1.000 faded at 271ms over 138 samples
-    pippa.webp                         resting 1.000 max 1.000 final 1.000 faded at 271ms over 138 samples
-    connected-network-investor.png     resting 1.000 max 1.000 final 1.000 faded at 271ms over 138 samples
-    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 256ms over 138 samples
+    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 306ms over 137 samples
+    solution-street-blueprint.webp     resting 0.320 max 0.320 final 0.320 faded at 306ms over 137 samples
+    solution-street-blueprint.webp     resting 1.000 max 1.000 final 1.000 faded at 306ms over 137 samples
+    petra.webp                         resting 1.000 max 1.000 final 1.000 faded at 320ms over 137 samples
+    peter.webp                         resting 1.000 max 1.000 final 1.000 faded at 320ms over 137 samples
+    pippa.webp                         resting 1.000 max 1.000 final 1.000 faded at 336ms over 137 samples
+    pippa.webp                         resting 1.000 max 1.000 final 1.000 faded at 336ms over 137 samples
+    petra.webp                         resting 1.000 max 1.000 final 1.000 faded at 320ms over 137 samples
+    peter.webp                         resting 1.000 max 1.000 final 1.000 faded at 320ms over 137 samples
+    pippa.webp                         resting 1.000 max 1.000 final 1.000 faded at 336ms over 137 samples
+    connected-network-investor.png     resting 1.000 max 1.000 final 1.000 faded at 336ms over 137 samples
+    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 306ms over 137 samples
 image fade /platform: 9 image request(s) held until ImageFade had run
 image fade /platform: 17 image(s) touched, 17 faded, 0 never requested (lazy, out of view)
-    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 288ms over 155 samples
-    platform-finder.webp               resting 1.000 max 1.000 final 1.000 faded at 288ms over 155 samples
-    search.webp                        resting 1.000 max 1.000 final 1.000 faded at 288ms over 155 samples
-    assess.webp                        resting 1.000 max 1.000 final 1.000 faded at 288ms over 155 samples
-    reserve.webp                       resting 1.000 max 1.000 final 1.000 faded at 288ms over 155 samples
-    managed.webp                       resting 1.000 max 1.000 final 1.000 faded at 304ms over 155 samples
-    petra-point.webp                   resting 1.000 max 1.000 final 1.000 faded at 304ms over 155 samples
-    peter-present.webp                 resting 1.000 max 1.000 final 1.000 faded at 304ms over 155 samples
-    pippa-present.webp                 resting 1.000 max 1.000 final 1.000 faded at 304ms over 155 samples
-    petra-point.webp                   resting 1.000 max 1.000 final 1.000 faded at 304ms over 155 samples
-    peter-present.webp                 resting 1.000 max 1.000 final 1.000 faded at 304ms over 155 samples
-    pippa-present.webp                 resting 1.000 max 1.000 final 1.000 faded at 304ms over 155 samples
-    petra-point.webp                   resting 0.250 max 0.250 final 0.250 faded at 304ms over 155 samples
-    petra-point.webp                   resting 1.000 max 1.000 final 1.000 faded at 304ms over 155 samples
-    peter-present.webp                 resting 1.000 max 1.000 final 1.000 faded at 304ms over 155 samples
-    pippa-present.webp                 resting 1.000 max 1.000 final 1.000 faded at 304ms over 155 samples
-    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 288ms over 155 samples
+    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 367ms over 154 samples
+    platform-finder.webp               resting 1.000 max 1.000 final 1.000 faded at 367ms over 154 samples
+    search.webp                        resting 1.000 max 1.000 final 1.000 faded at 383ms over 154 samples
+    assess.webp                        resting 1.000 max 1.000 final 1.000 faded at 383ms over 154 samples
+    reserve.webp                       resting 1.000 max 1.000 final 1.000 faded at 398ms over 154 samples
+    managed.webp                       resting 1.000 max 1.000 final 1.000 faded at 398ms over 154 samples
+    petra-point.webp                   resting 1.000 max 1.000 final 1.000 faded at 398ms over 154 samples
+    peter-present.webp                 resting 1.000 max 1.000 final 1.000 faded at 398ms over 154 samples
+    pippa-present.webp                 resting 1.000 max 1.000 final 1.000 faded at 575ms over 154 samples
+    petra-point.webp                   resting 1.000 max 1.000 final 1.000 faded at 398ms over 154 samples
+    peter-present.webp                 resting 1.000 max 1.000 final 1.000 faded at 398ms over 154 samples
+    pippa-present.webp                 resting 1.000 max 1.000 final 1.000 faded at 575ms over 154 samples
+    petra-point.webp                   resting 0.250 max 0.250 final 0.250 faded at 398ms over 154 samples
+    petra-point.webp                   resting 1.000 max 1.000 final 1.000 faded at 398ms over 154 samples
+    peter-present.webp                 resting 1.000 max 1.000 final 1.000 faded at 398ms over 154 samples
+    pippa-present.webp                 resting 1.000 max 1.000 final 1.000 faded at 575ms over 154 samples
+    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 367ms over 154 samples
 image fade /partners: 2 image request(s) held until ImageFade had run
 image fade /partners: 3 image(s) touched, 3 faded, 0 never requested (lazy, out of view)
-    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 289ms over 122 samples
-    ecosystem-band.jpg                 resting 0.700 max 0.700 final 0.700 faded at 289ms over 122 samples
-    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 289ms over 122 samples
+    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 320ms over 121 samples
+    ecosystem-band.jpg                 resting 0.700 max 0.700 final 0.700 faded at 320ms over 121 samples
+    logo-lockup.webp                   resting 1.000 max 1.000 final 1.000 faded at 320ms over 121 samples
 lucide-shield-check: 2 path(s), longest 58.75, all [58.75, 8.49], fallback dash 64
 lucide-hand-heart: 4 path(s), longest 32.16, all [20.64, 32.16, 8.49, 23.5], fallback dash 64
 magic line (at the top): bar 72px, line 66.28px against a link of 66.28px, 2px tall, 9px above the bar's bottom rule

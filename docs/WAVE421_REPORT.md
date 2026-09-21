@@ -2,7 +2,7 @@
 
 **Branch** `feat/wave421-the-warm-hero-ground-and-the-footer-curve`
 **Base** `e07b7f4`, wave 415c's head, which is also `origin/main` at the time of writing
-**Head** `7f2d687` for the code and the gates; this report is the commit after it
+**Head** see section 12; the 421b fix pass sits on top of wave 421's own head `3be1544`
 **Owner** Claude Code, Opus 5, MEDIUM effort
 **Call** Callum, 19 Sep 2026 about 14:00 UK, looking at the live site
 
@@ -34,6 +34,11 @@ on the diff.
 
 **R421-1 is recorded in `Closed-Rulings.md`.** The Landing-Queue row is registered as `ready`.
 
+⚠ **THIS REPORT HAS BEEN CORRECTED IN PLACE BY THE 421b FIX PASS.** The rel421 re-check
+returned HOLD with 1 MAJOR and 5 MINOR; all six are closed and listed in **section 12**, and
+sections 2.1, 2.5, 3, 4.4, 6 and 7 carry the corrections rather than a note pointing at them.
+The ledger above is wave 421's; section 12 carries 421b's own numbers.
+
 ---
 
 ## 2. The hero ground
@@ -56,19 +61,90 @@ Measured at the base by `scripts/wave421-hero-and-footer.py` before anything was
 | 768 | `320px` | `hero-ground-street-400.webp` | 768 |
 | 390 | `320px` | `hero-ground-street-400.webp` | 390 |
 
-**The assertion.** Section A of the new gate loads `/` at 1905, 1280, 768 and 390, reads
-`document.querySelector('img[data-hero-wash]').currentSrc`, and fails if a viewport wider than
-640 resolves to a name ending `-400.webp`. It failed three times at the base, which is the
-diagnosis proved in this repo rather than taken on trust.
+**The assertion, and 421b widened it.** Section A of the gate loads `/` at every
+`(width, density)` pair in `VARIANT_PROFILES`, reads
+`document.querySelector('img[data-hero-wash]').currentSrc`, and fails at **both ends of the
+range**: a viewport wider than 640 that resolves to the 400px step, and **any profile that
+resolves to the 1672px original**. It failed three times at the base, which is the diagnosis
+proved in this repo rather than taken on trust.
 
-At the head:
+⚠ **THE DENSITIES WERE MISSING AND THAT IS WHAT LET MAJOR 1 SHIP.** `sizes` is in CSS pixels and
+the browser multiplies by the screen's density before choosing, so a check that opens every
+context at `device_scale_factor=1` is blind to three quarters of the expression it is checking.
+That blind spot hid the 2x case, which this wave's own review sub-agent found by arithmetic
+(section 8, finding 1), and then hid the band between 1x and 1.5x, which the rel421 verdict found
+the same way. Both are now read off a real browser at a real density.
 
-| viewport | chosen source | box | ratio |
-|---|---|---|---|
-| 1905 | `hero-ground-street-960.webp` | 1905 | 0.50 |
-| 1280 | `hero-ground-street-960.webp` | 1280 | 0.75 |
-| 768 | `hero-ground-street-960.webp` | 768 | 1.25 |
-| 390 | `hero-ground-street-400.webp` | 390 | 1.03 |
+**Twelve profiles at the 421b head, every one asserted:**
+
+| viewport | dpr | profile | chosen source | box, css | box, device |
+|---|---|---|---|---|---|
+| 1905 | 1.0 | desktop | `hero-ground-street-960.webp` | 1905 | 1905 |
+| 1280 | 1.0 | laptop | `hero-ground-street-960.webp` | 1280 | 1280 |
+| 768 | 1.0 | tablet | `hero-ground-street-960.webp` | 768 | 768 |
+| 390 | 1.0 | phone | `hero-ground-street-400.webp` | 390 | 390 |
+| **1905** | **1.25** | **125% scaling** | `hero-ground-street-960.webp` | 1905 | 2381 |
+| **1536** | **1.25** | **125% scaling** | `hero-ground-street-960.webp` | 1536 | 1920 |
+| **1440** | **1.1** | **110% zoom** | `hero-ground-street-960.webp` | 1440 | 1584 |
+| **1920** | **1.33** | **133% zoom** | `hero-ground-street-960.webp` | 1920 | 2554 |
+| 1600 | 1.5 | 1.5x | `hero-ground-street-960.webp` | 1600 | 2400 |
+| 1905 | 2.0 | retina | `hero-ground-street-960.webp` | 1905 | 3810 |
+| 412 | 1.75 | Lighthouse mobile | `hero-ground-street-400.webp` | 412 | 721 |
+| 390 | 3.0 | 3x phone | `hero-ground-street-640.webp` | 390 | 1170 |
+
+**The four bold rows are MAJOR 1**, and before 421b every one of them took
+`hero-ground-street.webp`, the 1672px original.
+
+### 2.1b MAJOR 1: the band between 1x and 1.5x, and the proof that the check bites
+
+**What shipped in wave 421 and what was wrong with it.** The `sizes` named 288dpi, 192dpi and
+144dpi and then fell through to `min(100vw, 960px)`. 1x is exactly 96dpi, so those three branches
+cover 1.5x, 2x and 3x and **nothing covered the open band above 1x**. Everything in it fell
+through to the one branch that is **not divided by its density**, and 960 CSS pixels at 1.25 is
+1200 device pixels, which takes the original. The comment above the line was headed "EVERY BRANCH
+ASKS FOR THE SAME THING: AT MOST 960 DEVICE PIXELS" and section 2.1 of this report repeated it.
+**Both were false for that band.**
+
+**Who that band is, and why it is not an edge case.** Windows display scaling at 125 per cent
+reports `devicePixelRatio` 1.25 and is the out-of-the-box default on a great many laptops. Page
+zoom multiplies the ratio in Chrome and in Firefox, so **an ordinary 1x reader who zooms to 110,
+125 or 133 per cent to read the page more easily is moved into that band by the act of zooming**,
+which makes it an accessibility cohort as well as a large one. Against the live site those
+machines had been taking the 27KB 400px step, so wave 421 as reviewed was a **172KB regression on
+the home page's critical path** for them, plus the exact decode this wave's own long-task evidence
+says is harmful.
+
+**The fix is one line**, immediately before the fallback, capped for the worst density in its own
+band:
+
+```
+"(min-resolution: 100dpi) min(50vw, 640px)",
+min(100vw, 960px)
+```
+
+At 1.25x that asks for 800 device pixels and at 1.49x for 954, both inside the 960 cap, and it is
+more generous than the 960 across a 3810 device-pixel box the 2x branch already accepts. 100dpi
+rather than 97: 1x is exactly 96dpi, so 100 is the first round number that excludes 1x and
+includes everything above it, and the 144dpi branch takes over before this one could over-serve.
+
+**Proved by mutation, because a check that has never gone red is not a check.** With the new
+branch removed and the gate re-run against a rebuilt site, **exactly the four rows the verdict
+predicted go red and no others**:
+
+```
+- / at 1905 x 1.25 (125% scaling): the hero wash resolved to hero-ground-street.webp, the 1672px ORIGINAL.
+- / at 1536 x 1.25 (125% scaling): the hero wash resolved to hero-ground-street.webp, the 1672px ORIGINAL.
+- / at 1440 x 1.1 (110% zoom):     the hero wash resolved to hero-ground-street.webp, the 1672px ORIGINAL.
+- / at 1920 x 1.33 (133% zoom):    the hero wash resolved to hero-ground-street.webp, the 1672px ORIGINAL.
+```
+
+With the branch restored, all twelve profiles take the 960 step or smaller and the run is green.
+The full mutated output is kept at `docs/wave421/gate421-mutated.txt`.
+
+**Lighthouse is unaffected and the claim in section 7 is unchanged**, because 412 CSS pixels at
+1.75 resolves `min(50vw, 640px)` to 206 either way: it matched the 144dpi branch before and
+matches it still. The wave 413 long-task probe after the fix: **0 tasks over 50ms, all assertions
+passed.**
 
 **Why 960 and not the 1672px original, which is what "the widest sensible variant" would mean.**
 The candidates are 400, 640, 960 and the source; `scripts/wave414-responsive-images.py` encoded a
@@ -80,13 +156,14 @@ tasks of 67ms and 185ms during a full scroll of the home page, against a base th
 runs out of five. `sizes` now asks every density for at most 960 device pixels:
 
 ```
-(min-resolution: 288dpi) min(50vw, 320px),   /* 3x   -> at most 960 device px */
-(min-resolution: 192dpi) min(50vw, 480px),   /* 2x   -> at most 960 */
-(min-resolution: 144dpi) min(50vw, 640px),   /* 1.5x -> at most 960 */
-min(100vw, 960px)                            /* 1x   -> at most 960 */
+(min-resolution: 288dpi) min(50vw, 320px),   /* 3x and up    -> at most 960 device px */
+(min-resolution: 192dpi) min(50vw, 480px),   /* 2x to 3x     -> 960 at 2x */
+(min-resolution: 144dpi) min(50vw, 640px),   /* 1.5x to 2x   -> 960 at 1.5x */
+(min-resolution: 100dpi) min(50vw, 640px),   /* just over 1x -> 954 at 1.49x, 800 at 1.25x */
+min(100vw, 960px)                            /* exactly 1x   -> 960 */
 ```
 
-Three drafts of this line were wrong and each one was caught by measurement rather than by
+**Four drafts of this line were wrong** and each one was caught by measurement rather than by
 reading:
 
 1. `320px`, the base. A 400px file across 1905.
@@ -98,6 +175,10 @@ reading:
    pixels, needs 1905, and takes the 1672px original: the exact decode the 960 cap exists to
    prevent, handed to the machines most likely to be running the site. The gate could not see it,
    because every context it opens is `device_scale_factor=1`.
+4. The three-branch version that shipped for review. It fixed 1.5x, 2x and 3x and left the band
+   between 1x and 1.5x on the undivided fallback, so the **same** original went to every desktop
+   at 125 per cent scaling or 110 to 133 per cent zoom. The rel421 verdict found it, by the same
+   arithmetic, through the same blind spot in the same instrument. See section 2.1b.
 
 **`dpi` rather than `x`, and the residual.** `min-resolution` in `dpi` has been understood since
 Chrome 29 and in Firefox since long before this site; the `x` unit did not reach Firefox until
@@ -195,27 +276,51 @@ its own box**, read from a full-page screenshot, which is how `scripts/wave412-s
 measures an axe INCOMPLETE node. Not one figure here is taken from the table in `CLAUDE.md`:
 nothing in the hero sits on flat white any more, so no row of that table describes it.
 
-**The hero, at 1280.** The ground column is the pixel the glyphs actually sit on.
+**The hero, at 1280.** The ground column is the pixel the glyphs actually sit on. The last two
+columns are the ones the gate has always computed and this report used to withhold (421b, rel421
+MINOR 3): the DARKEST non-glyph pixel inside the same box, and what the ink reads on it.
 
-| pair | px / weight | ground before | before | ground after | after | floor |
-|---|---|---|---|---|---|---|
-| the navy headlines | 46 / 800 | (253,253,253) | 18.51 | (246,240,238) | **16.70** | 3.0 |
-| the orange headline "Delivering Support." | 46 / 800 | (251,251,251) | 4.08 | (237,232,230) | **3.48** | 3.0 |
-| the wait-list sub-line | 15 / 400 | (251,251,251) | 18.20 | (236,231,229) | **15.36** | 4.5 |
-| a role tile name | 14 / 600 | (255,255,255) | 18.83 | (255,255,255) | **18.83** | 4.5 |
-| a role tile purpose line | 13 / 400 | (252,252,251) | 6.79 | (245,240,237) | **6.17** | 4.5 |
-| the "Powered by" credit | 10 / 700 | (253,253,253) | 4.79 | (247,243,241) | **6.32** | 4.5 |
+| pair | px / weight | ground before | before | ground after | after | worst ground | on worst | floor |
+|---|---|---|---|---|---|---|---|---|
+| the navy headlines | 46 / 800 | (253,253,253) | 18.51 | (246,240,238) | **16.70** | (13,28,52) | 1.11 | 3.0 |
+| the orange headline "Delivering Support." | 46 / 800 | (251,251,251) | 4.08 | (237,232,230) | **3.48** | (196,105,73) | 1.10 | 3.0 |
+| the wait-list sub-line | 15 / 400 | (251,251,251) | 18.20 | (236,231,229) | **15.36** | (13,29,52) | 1.11 | 4.5 |
+| a role tile name | 14 / 600 | (255,255,255) | 18.83 | (255,255,255) | **18.83** | (16,31,56) | 1.14 | 4.5 |
+| a role tile purpose line | 13 / 400 | (252,252,251) | 6.79 | (245,240,237) | **6.17** | (91,101,119) | 1.19 | 4.5 |
+| the "Powered by" credit | 10 / 700 | (253,253,253) | 4.79 | (247,243,241) | **6.32** | (91,101,119) | 1.19 | 4.5 |
 
 **The hero, at 390.**
 
-| pair | px / weight | before | after | floor |
-|---|---|---|---|---|
-| the navy headlines | 37 / 800 | 18.39 | **15.96** | 3.0 |
-| the orange headline "Delivering Support." | 37 / 800 | 4.13 | **3.57** | 3.0 |
-| the wait-list sub-line | 15 / 400 | 18.20 | **15.52** | 4.5 |
-| a role tile name | 14 / 600 | 18.83 | **18.83** | 4.5 |
-| a role tile purpose line | 13 / 400 | 6.62 | **5.97** | 4.5 |
-| the "Powered by" credit | 12 / 700 | 4.83 | **6.38** | 4.5 |
+| pair | px / weight | before | after | worst ground | on worst | floor |
+|---|---|---|---|---|---|---|
+| the navy headlines | 37 / 800 | 18.39 | **15.96** | (13,28,52) | 1.11 | 3.0 |
+| the orange headline "Delivering Support." | 37 / 800 | 4.13 | **3.57** | (199,111,80) | 1.17 | 3.0 |
+| the wait-list sub-line | 15 / 400 | 18.20 | **15.52** | (13,28,52) | 1.11 | 4.5 |
+| a role tile name | 14 / 600 | 18.83 | **18.83** | (14,30,54) | 1.13 | 4.5 |
+| a role tile purpose line | 13 / 400 | 6.62 | **5.97** | (91,101,119) | 1.19 | 4.5 |
+| the "Powered by" credit | 12 / 700 | 4.83 | **6.38** | (91,101,119) | 1.19 | 4.5 |
+
+⚠ **READ THE WORST-GROUND COLUMN FOR WHAT IT IS, AND THIS IS WHY IT IS NOT ASSERTED.** It is the
+darkest pixel in the box that is not within tolerance of any ink in the neighbourhood, and on a box
+drawn tightly round a line of type the darkest such pixel is **the element's own anti-aliased glyph
+edge**, not the photograph. The role tile name proves it: its modal ground is flat white 18.83:1
+and its "worst ground" is (16,31,56), which is the navy of its own letterforms part-way through
+their anti-aliasing. Every row in these two columns reads near 1.1 for the same reason, and
+**none of them is a contrast reading of ink against ground**. Asserting this column would fail
+every legible page on the site.
+
+**The number that does bound the orange headline is the LAYER STACK, and it is 3.33:1.** The
+rel421 verdict derived it and this wave recomputed it from the sRGB coefficients rather than
+taking it on trust. The darkest ground the hero can produce at any pixel is a **black** photograph
+pixel at `opacity: 0.2` over the white page, giving (204,204,204); under the white scrim at its
+**thinnest** point, 62 per cent, giving (235.6,235.6,235.6); under the orange wash at its
+**strongest**, 50 per cent of `--color-tint-orange`, which is orange-500 at 12 per cent and so an
+effective alpha of 0.06, giving **rgb(233, 227, 225)**. Orange-500 `#c15f3c` has a relative
+luminance of 0.19846 and that ground 0.77700, so the pair is `(0.77700 + 0.05) / (0.19846 + 0.05)`
+= **3.328:1**. So the pair cannot fall under 3:1 **at any pixel, at any width, whatever the
+photograph does**, and the unasserted column is not hiding a sub-floor reading. The measured
+modal readings of 3.48 and 3.57 sit where they should, between that bound and the 4.23:1 the
+orange makes on flat white.
 
 **Every pair passes.** The worst is the orange headline at **3.48:1 against its 3:1 floor** at
 1280, which it answers to at 46px and weight 800; it was 4.08:1 over the old near-white ground.
@@ -264,7 +369,7 @@ the base's two readings straddle it.
 |---|---|---|---|---|---|
 | raw, 1280 | 23.53%, 23.57% | 23.67% | 23.53% | 0.2370 ratchet | holds |
 | raw, 390 | 16.58% | 16.57% | 16.57% | 0.1670 ratchet | holds |
-| **page ground, 1280** | 8.99%, 9.04% | **9.20%** | 8.98% | **flat 15%** | holds by 5.80 points |
+| **page ground, 1280** | 8.99%, 9.04% | **9.20%** (worst of these seven) | 8.98% | **flat 15%** | holds by 5.80 points |
 | **page ground, 390** | 7.26% | **7.25%** | 7.25% | **flat 15%** | holds by 7.75 points |
 
 **The 23.67% is an outlier and it is left in**, because a distribution with its worst reading
@@ -277,6 +382,14 @@ and the file's own note already measures that at a tenth of a point. This page h
 **Neither figure is lowered either.** The existing note records a spread of up to 0.17 of a point
 across eight readings of one build; 0.15 of headroom at 1280 is already less than that spread, and
 a ratchet that fails on a phase of the marquee is worse than no ratchet.
+
+⚠ **TWO SAMPLES OF THE GROUND SHARE ARE QUOTED IN THIS WAVE AND THEY ARE NOW LABELLED** (421b,
+rel421 MINOR 2). **9.20% is the worst of the SEVEN readings in this section**, taken for the
+ratchet. **9.02% is the worst of the THREE readings quoted in `src/styles.css`**, taken beside the
+raw figures that block quotes. Both clear the flat 15% by more than five points, both are readings
+of the same head, and the wider sample is the one to quote when a single "worst" is wanted. The
+four places the verdict found disagreeing, `scripts/wave412-screenshots.py` at its two lines,
+`src/styles.css`, this table and the closing, each now name the sample the figure came from.
 
 **Why it costs nothing: every pixel the new ground adds is a LIGHT pixel.** A photograph at 0.2
 under a white scrim at 62 per cent cannot cross the 0.2 relative luminance the gate counts as
@@ -351,6 +464,24 @@ nothing can declare it wrongly.
 hit**, in `src/components/site-footer.tsx`. There is one curved divider on this site and it is
 drawn on every route by the shared footer. The gate finds them by shape rather than by that
 knowledge, asserts the count, and reads the colours off the shot at 1280 and 390.
+
+**The brief's second sweep, `rg -n 'mist-bg' src/`, which this report skipped** (421b, rel421
+MINOR 5). It is the sweep that would name any OTHER place the cream is assumed, and it returns
+**14 hits in 7 files. None is a divider and none is a band's ground.**
+
+| where | hits | what the cream is doing | verdict |
+|---|---|---|---|
+| `src/styles.css` | 4 | the token declaration `--color-mist-bg: #f7f1e6`, the note that `--color-page-alt` is the same value, and two comments | the definition |
+| `src/components/site-footer.tsx` | 4 | `text-[var(--color-mist-bg)]` inside the crisis card | **INK on the navy island**, not a ground. Untouched by this wave and correct: cream type on navy-950 |
+| `src/components/partners/partner-page.tsx` | 3 | `bg-mist-bg` on two bordered cards, and one horizontal gradient behind a band | cards and a fade on `/partner-with-*`, nowhere near the footer |
+| `src/components/partners/partners-hub.tsx` | 2 | `bg-mist-bg` on the hub's tiles | tiles |
+| `src/routes/about.tsx` | 1 | a `from-`/`to-` marquee fade | a fade over a band, not the band |
+| `src/routes/solutions.tsx` | 1 | a vertical `-z-10` gradient | the same |
+
+**Nothing in that list assumes the cream is the colour of a section ABOVE or BELOW anything**, so
+nothing else on the site carries the fault this wave fixed. The four in the footer are the case
+worth naming twice: they are cream INK inside the navy crisis card, so making the footer's ground
+white changed nothing about them, which is why the crisis card needed no re-measurement.
 
 | route | section above | background | shape | section below | before | after |
 |---|---|---|---|---|---|---|
@@ -440,13 +571,22 @@ every gate run. All runs in the foreground.
 | Wave 413 | `python scripts/wave413-motion.py` | **0** | **13 routes**, 0 long tasks, `REQUIRED_WASH["/"]` at 0.2 |
 | Wave 414 images | `python scripts/wave414-responsive-images.py --check` | **0** | 71 images, every variant present, **24 alpha sources and every variant keeps its alpha** |
 | Wave 414 mobile | `python scripts/wave414-mobile.py` | **0** | **70 shots**, 660 headings, 0 overflow, 0 axe violations |
-| Wave 421 | `python scripts/wave421-hero-and-footer.py` | **0** | 4 variant readings, **402 pairs measured with none missing**, **26 dividers, all correct** |
-| Dash count | added lines, U+2014 and U+2013 | - | **0 and 0** |
+| Wave 421 | `python scripts/wave421-hero-and-footer.py` | **0** | **12 variant profiles across four densities**, **402 pairs measured with none missing**, **26 dividers, all correct**, **13 last-child paddings, none a utility** |
+| Dash count | added lines, U+2014 and U+2013 | - | **0 and 0** over everything hand-written: 2,354 added lines across `src/`, `scripts/`, this report and `docs/wave421/tune.py`. See the note under this table |
 | Content | `git diff e07b7f4...HEAD -- src/content` | - | **empty** |
 | Lighthouse | `bunx lighthouse` 13.5.0, mobile preset, gzipping server | - | section 7 |
 
 **Nothing in the brief's gate list was skipped.** `scripts/wave295-*`, `scripts/wave298-*` and
 `scripts/wave358-registration.test.ts` are outside this brief's list, as in waves 415 and 414.
+
+⚠ **WHAT THE DASH COUNT EXCLUDES AND WHY.** It is 0 and 0 over every line this wave wrote. Six
+files under `docs/wave421/` DO carry dashes on added lines and every one of them is a verbatim
+capture of another program's stdout, kept as evidence rather than written:
+`gate412-before.txt`, `gate412-after-run1.txt`, `gate412-r1.txt`, `gate412-r2.txt`,
+`gate412-r3.txt` (15, 15, 14, 14 and 14 hits, which are the site's own existing copy echoed back
+by the axe pass) and `lint-head.txt` (20, which are eslint's own arrows and rules). The
+`lh-*.json` Lighthouse dumps are excluded for the same reason. Rewriting a program's output to
+satisfy a prose rule would make it stop being evidence.
 
 **Two flakes were seen at this head and both are named rather than hidden.**
 
@@ -480,10 +620,17 @@ server: a 42-line Node server written for the run and deleted after it, because 
 
 **Accessibility 100 and best practices 100 hold on all four. CLS is 0 on all four.**
 
-**The home page is 35 KiB LIGHTER than the base, and that is the point of the `sizes` work.** At
-Lighthouse's 412 CSS pixels and density 1.75 the base's `"320px"` asked for 560 device pixels and
-took the 640px step at 61 KiB; the head asks for 361 and takes the 400px step at 27 KiB. The
-variant did not need to be smaller, because on a phone it got smaller.
+**The home page is 35 KiB LIGHTER than the base at this density, and that is the point of the
+`sizes` work.** At Lighthouse's 412 CSS pixels and density 1.75 the base's `"320px"` asked for 560
+device pixels and took the 640px step at 61 KiB; the head asks for 361 and takes the 400px step at
+27 KiB. The variant did not need to be smaller, because on a phone it got smaller.
+
+⚠ **THE 35 KiB IS DENSITY-SPECIFIC AND THE WHOLE RANGE IS IN SECTION 2.1.** The figure above is a
+reading of ONE profile, 412 CSS pixels at 1.75, which is the only profile this instrument
+measures. Wave 421 as reviewed was 172 KB HEAVIER than the base at 1.25 and 1.33, which no
+Lighthouse run on this list would have shown, and which is why 421b's fix is proved by a browser
+at twelve densities rather than by this table. At the 421b head **no profile takes the original**
+and every one of the twelve is at or below the 960px step.
 
 **The one point on `/` is inside this instrument's noise and it is not claimed as a win or a
 loss.** The caveat waves 414 and 415 both recorded still stands: this machine runs several Claude
@@ -608,3 +755,93 @@ in the gate needs them, and a static server that only exists to gzip is not a pa
 the before and after gate output, the Lighthouse JSON for both passes, and the crops in this
 report. `docs/screenshots/wave421/`
 keeps the 28 shots the new gate takes.
+
+---
+
+## 12. 421b, the fix pass on the rel421 verdict
+
+The independent re-check returned **HOLD with 1 MAJOR and 5 MINOR** and recorded that the contrast
+arithmetic, the ratchet, the divider fix and the wave 413 law all held under recomputation. All six
+are closed below, each in its own commit.
+
+| # | severity | what the verdict found | what 421b did | evidence |
+|---|---|---|---|---|
+| 1 | **MAJOR** | `SIZES_HERO_GROUND` named 288, 192 and 144dpi and fell through to `min(100vw, 960px)`, the one branch not divided by its density, so **every desktop between 1x and 1.5x took the 1672px original**: Windows at 125 per cent scaling, or any reader zoomed to 110 to 140 per cent. A 172KB regression against the live site for that cohort, and the decode the wave 413 probe fails on | Added `(min-resolution: 100dpi) min(50vw, 640px)` before the fallback, so 1.25x asks 800 device pixels and 1.49x asks 954, both inside the cap. Corrected the comment and section 2.1 so "every density at most 960 device pixels" is **true**. Gave section A of the gate **twelve (width, density) profiles** and a failure on any profile resolving to the original | section 2.1b, and `docs/wave421/gate421-mutated.txt` |
+| 2 | MINOR | `hero.tsx` quoted "ink-muted reads 6.44:1 here", a figure no run produced | Quotes **6.32:1 at 1280 and 6.38:1 at 390** with their widths and says they are the gate's | section 2.5 |
+| 3 | MINOR | The worst page-ground share read 9.20% in one place and 9.02% in three others, each called "the worst" | Every one of the four now **names its sample**: 9.20% is the worst of the seven readings taken for the ratchet, 9.02% the worst of the three quoted in `src/styles.css` | section 3 |
+| 4 | MINOR | `measure_pairs` computes `worstGround` and `worstRatio` and the report printed neither, for the one pair with under half a point of headroom | **Both columns are in the two hero tables**, with a plain statement of what the column actually is (the element's own anti-aliased glyph edge, which is why it is not asserted) and the **layer-stack bound of 3.33:1**, recomputed here from the sRGB coefficients and agreeing with the verdict's derivation exactly | section 2.5 |
+| 5 | MINOR | `check_arch_is_clear` is blind under the dome and counts any dark pixel as type; and the padding rule's "no route's last child carries a `pb-` utility" was asserted, not measured | Docstring **narrowed to what it holds**, with both limits named. Added `report_last_child_padding`, a new **section C0** that reads the element `#main > :last-child` names on every route, prints its class list, computed padding and background, and **fails the run** on any `pb-*` or `py-*` | the table below |
+| 6 | MINOR | The brief asked for `rg -n 'mist-bg' src/` and the report substituted a different sweep | Run and reported: **14 hits in 7 files, none a divider and none a band's ground** | section 4.4 |
+
+### 12.1 Section C0, the measurement behind the padding rule
+
+Printed by the gate on every run, at 1280, and asserted:
+
+| route | `#main > :last-child` | `pb-`/`py-` utility | computed padding-bottom | background |
+|---|---|---|---|---|
+| `/` | `section.section-light` | **none** | 57.6px | cream |
+| `/about` | `main` | **none** | 57.6px | transparent |
+| `/platform` | `main` | **none** | 57.6px | transparent |
+| `/the-problem` | `main` | **none** | 57.6px | transparent |
+| `/solutions` | `main` | **none** | 57.6px | transparent |
+| `/partners` | `main` | **none** | 57.6px | transparent |
+| `/contact` | `main` | **none** | 57.6px | transparent |
+| `/register` | `div.registration-picker` | **none** | 57.6px | cream |
+| `/register/investor` | `div.registration-page` | **none** | 57.6px | cream |
+| `/register/resident` | `div.registration-page` | **none** | 57.6px | cream |
+| `/partner-with-investor` | `main` | **none** | 57.6px | transparent |
+| `/partner-with-local-authority` | `main` | **none** | 57.6px | transparent |
+| `/legal` | `section.section-light` | **none** | 57.6px | cream |
+| `/this-route-does-not-exist` | no `#main` | n/a | n/a | n/a |
+
+57.6px is `clamp(36px, 4.5vw, 80px)` at 1280 and nothing else, so the rule is adding the arch's
+height and replacing nothing on any route. **The seven `main` rows are the limit section 4.3 names
+in its own comment**: there the padding lands on a transparent wrapper rather than the coloured
+band, and the corners show the page. All seven of those routes end white on a white page, so the
+two agree, and the gate measures them agreeing at both widths rather than taking it on trust.
+
+### 12.2 The gate at the 421b head
+
+Every script re-run in the foreground after the fixes, on a rebuilt tree.
+
+| check | rc | result |
+|---|---|---|
+| `bunx tsc --noEmit` | **0** | 0 errors |
+| `bunx eslint` on the changed files | **0** | 0 errors, 0 warnings |
+| `bunx eslint .`, LF-normalised tree | 1 | **387 errors / 15 warnings, delta zero against the base** |
+| `STATIC_BUILD=true bun run build` | **0** | **36 pages** |
+| `node scripts/pages-postbuild.mjs dist/client` | **0** | trimmed a duplicated tail from `/contact` on this build, see below |
+| `python scripts/wave412-screenshots.py` x3 | **0** | 28 shots; raw 23.54, 23.52, 23.51 at 1280 and 16.58 at 390; ground 9.02, 8.98, 8.97; 275 incomplete nodes, 275 measured, 0 unmeasured |
+| `python scripts/wave413-motion.py` | **0** | **0 long tasks over 50ms** |
+| `python scripts/wave414-responsive-images.py --check` | **0** | 71 images, every variant present, alpha intact |
+| `python scripts/wave414-mobile.py` | **0** | 70 shots, 660 headings, 0 overflow, 0 axe violations |
+| `python scripts/wave421-hero-and-footer.py` | **0** | **12 variant profiles**, 402 pairs, 26 dividers, 13 last-child paddings |
+| Dash count | - | **0 and 0** over 2,354 hand-written added lines |
+| `git diff e07b7f4 -- src/content` | - | **empty** |
+
+⚠ **THE PRERENDER DEFECT OF SECTION 10.5 FIRED AGAIN ON THIS PASS, AND BIGGER.** The build that
+the 421b gates ran against dropped **2,238 characters** of router payload after `</html>` on
+`/contact`, where wave 421's own occurrence was 565. `scripts/pages-postbuild.mjs` trimmed it and
+the gates were clean afterwards. It is still one build in roughly three, still on the live site's
+own head, still not caused or fixed by this wave, and the varying size is one more reason
+proposal 4 should be taken.
+
+### 12.3 Lighthouse at the 421b head
+
+Same instrument and the same gzipping server. **The `sizes` branch added by MAJOR 1 does not
+change what this profile takes**, because 412 CSS pixels at 1.75 resolves `min(50vw, 640px)` to
+206 under both the old and the new expression, so these figures are a re-measurement rather than a
+new result.
+
+| route | base | wave 421 | **421b** | bytes, base | bytes, **421b** |
+|---|---|---|---|---|---|
+| `/` | 67 | 66 | **65, 66, 67** over three runs | 957 KiB | **922 KiB** |
+| `/the-problem` | 85 | 85 | **86** | 421 KiB | **421 KiB** |
+| `/register/investor` | 81 | 81 | **82** | 438 KiB | **439 KiB** |
+| `/partner-with-investor` | 78 | 78 | **79** | 741 KiB | **742 KiB** |
+
+Accessibility **100** and best practices **100** on all four, CLS **0** on all four. The home
+page's three readings straddle the base's single one, with total blocking time 200 to 220ms, and
+the byte figure is unchanged from wave 421 and **35 KiB under the base at this density**. The
+density-specific caveat in section 7 is the one that matters: the bytes this table cannot see are
+the ones MAJOR 1 was about.
