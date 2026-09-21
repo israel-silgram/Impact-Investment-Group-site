@@ -34,10 +34,11 @@ on the diff.
 
 **R421-1 is recorded in `Closed-Rulings.md`.** The Landing-Queue row is registered as `ready`.
 
-⚠ **THIS REPORT HAS BEEN CORRECTED IN PLACE BY THE 421b FIX PASS.** The rel421 re-check
-returned HOLD with 1 MAJOR and 5 MINOR; all six are closed and listed in **section 12**, and
-sections 2.1, 2.5, 3, 4.4, 6 and 7 carry the corrections rather than a note pointing at them.
-The ledger above is wave 421's; section 12 carries 421b's own numbers.
+⚠ **THIS REPORT HAS BEEN CORRECTED IN PLACE BY TWO FIX PASSES.** The rel421 re-check returned
+HOLD with 1 MAJOR and 5 MINOR, closed in **section 12**; the rel421b re-check returned HOLD with 1
+MAJOR and 2 MINOR, closed in **section 13**. Sections 2.1, 2.1b, 2.5, 3, 4.4, 6 and 7 carry the
+corrections rather than notes pointing at them. The ledger above is wave 421's; sections 12 and 13
+carry each pass's own numbers.
 
 ---
 
@@ -75,7 +76,9 @@ That blind spot hid the 2x case, which this wave's own review sub-agent found by
 (section 8, finding 1), and then hid the band between 1x and 1.5x, which the rel421 verdict found
 the same way. Both are now read off a real browser at a real density.
 
-**Twelve profiles at the 421b head, every one asserted:**
+**Sixteen profiles at the 421c head, every one asserted.** Twelve were added by 421b and the last
+four by 421c, which chose them **by rule**: every band in `SIZES_HERO_GROUND` contributes a profile
+at the **worst density it can serve**, at a viewport wide enough for its cap to bind.
 
 | viewport | dpr | profile | chosen source | box, css | box, device |
 |---|---|---|---|---|---|
@@ -87,13 +90,19 @@ the same way. Both are now read off a real browser at a real density.
 | **1536** | **1.25** | **125% scaling** | `hero-ground-street-960.webp` | 1536 | 1920 |
 | **1440** | **1.1** | **110% zoom** | `hero-ground-street-960.webp` | 1440 | 1584 |
 | **1920** | **1.33** | **133% zoom** | `hero-ground-street-960.webp` | 1920 | 2554 |
-| 1600 | 1.5 | 1.5x | `hero-ground-street-960.webp` | 1600 | 2400 |
-| 1905 | 2.0 | retina | `hero-ground-street-960.webp` | 1905 | 3810 |
+| 1600 | 1.5 | 1.5x edge | `hero-ground-street-960.webp` | 1600 | 2400 |
+| 1905 | 2.0 | 2x edge | `hero-ground-street-960.webp` | 1905 | 3810 |
 | 412 | 1.75 | Lighthouse mobile | `hero-ground-street-400.webp` | 412 | 721 |
 | 390 | 3.0 | 3x phone | `hero-ground-street-640.webp` | 390 | 1170 |
+| **1905** | **1.75** | **1.75x band, worst** | `hero-ground-street-960.webp` | 1905 | 3334 |
+| **1905** | **1.99** | **1.75x to 2x band, worst** | `hero-ground-street-960.webp` | 1905 | 3791 |
+| **1210** | **2.5** | **2x to 2.5x band, worst** | `hero-ground-street-960.webp` | 1210 | 3025 |
+| **1008** | **2.99** | **2.5x to 3x band, worst** | `hero-ground-street-960.webp` | 1008 | 3014 |
 
-**The four bold rows are MAJOR 1**, and before 421b every one of them took
-`hero-ground-street.webp`, the 1672px original.
+**The four bold rows in the middle are rel421 MAJOR 1** and took the 1672px original before 421b.
+**The four bold rows at the foot are rel421b MAJOR 1** and took it before 421c. **The srcset for
+this one image no longer contains the original at all**, so no row can take it again; see section
+2.1c.
 
 ### 2.1b MAJOR 1: the band between 1x and 1.5x, and the proof that the check bites
 
@@ -142,9 +151,83 @@ With the branch restored, all twelve profiles take the 960 step or smaller and t
 The full mutated output is kept at `docs/wave421/gate421-mutated.txt`.
 
 **Lighthouse is unaffected and the claim in section 7 is unchanged**, because 412 CSS pixels at
-1.75 resolves `min(50vw, 640px)` to 206 either way: it matched the 144dpi branch before and
-matches it still. The wave 413 long-task probe after the fix: **0 tasks over 50ms, all assertions
-passed.**
+1.75 resolves to 206 either way. (At the 421c head it matches the 168dpi branch and resolves
+`min(50vw, 480px)` to the same 206, so it still takes the 400px step; see section 2.1c.) The wave
+413 long-task probe after the 421b fix: **0 tasks over 50ms, all assertions passed.**
+
+### 2.1c rel421b MAJOR 1: the class, not the instance, and why it took three passes
+
+**The same mechanism, one band up.** 421b's branches WERE divided by a density. They were divided
+by the **best** density in their band rather than the worst:
+
+| branch after 421b | band it served | cap | worst density in it | asked |
+|---|---|---|---|---|
+| `(min-resolution: 144dpi) min(50vw, 640px)` | 1.5x to 2x | 640 = 960 / 1.5 | 1.99x | **1274** |
+| `(min-resolution: 192dpi) min(50vw, 480px)` | 2x to 3x | 480 = 960 / 2 | 2.99x | **1434** |
+
+Both are over 960, there is no candidate between 960 and the 1672px source, so **both readings are
+the source**. The file's own comment printed 1274 and 1440 directly under a heading that said "at
+most 960"; it presented them as ceilings that had been accepted, and they were the fault written
+down. Whom that reached, measured by the same model this report's tables use:
+
+| machine | viewport, density | device px asked | 421b served | base `"320px"` served | delta |
+|---|---|---|---|---|---|
+| Windows 175 per cent scaling, 4K laptop | 2194 at 1.75 | 1120 | **1672 (199 KB)** | 640 (61 KB) | **+138 KB** |
+| 1.99x desktop | 1905 at 1.99 | 1274 | **1672** | 640 | +138 KB |
+| Retina Mac at 110 per cent zoom | 1375 at 2.2 | 1056 | **1672** | 960 (124 KB) | **+75 KB** |
+| Retina Mac at 125 per cent zoom | 1210 at 2.5 | 1200 | **1672** | 960 | +75 KB |
+| 2.99x over 768 CSS px | 1008 at 2.99 | 1435 | **1672** | 960 | +75 KB |
+
+**Three passes each fixed the band the last reviewer named**: the 2x case by this wave's own review
+sub-agent, 1x to 1.5x by rel421, and these two by rel421b. That pattern is the finding. 421c
+therefore does **both** of the things the verdict offered rather than choosing the cheaper one.
+
+**(a) The guard: the original leaves this image's candidate list.** `variantSrcSet` takes
+`withOriginal: false` and the hero's ground is the one image on the site that uses it, so its
+`srcset` is **400, 640 and 960 and nothing else**. Read off the prerendered HTML at the 421c head:
+
+```
+srcset="/images/hero-ground-street-400.webp 400w,
+        /images/hero-ground-street-640.webp 640w,
+        /images/hero-ground-street-960.webp 960w"
+src="/images/hero-ground-street.webp"
+```
+
+**No arithmetic error in `sizes` can select a file that is not a candidate.** The worst a future
+mistake can now do to this image is serve the 960px step to a screen that could have used more,
+which is a soft picture rather than a 199KB decode on the home page's critical path. The original
+stays on `src`, so a browser with no `srcset` support is unaffected, and photographs a reader is
+meant to look at keep theirs: the rule and its limit are both written at the function.
+
+**(b) The optimisation: each band capped by its own upper bound.** Seven branches, each cap 960
+divided by the worst density that branch can serve, with the bands split wherever that would
+otherwise exceed 960. Every band edge checked: **1.5x asks 816, 1.75x asks 840, 2x asks 768, 2.5x
+asks 800, 2.99x asks 957, 3x asks 960**, and every one of them still resolves to the 960px step, so
+the split makes **no machine's picture softer** than the four-branch version it replaces. Two edges
+it cannot cover are named in the source rather than hidden: 100dpi is 1.0417x, so a custom Windows
+scaling of 102 per cent still falls through to the 1x branch, and the 3x branch is unbounded above.
+Neither can select the original any more, which is the point of doing both halves.
+
+**(c) The instrument, by rule rather than by machine.** `VARIANT_PROFILES` was twelve rows drawn
+from the rel421 verdict's own table, so it sampled that verdict's band and the **safe edges** of the
+two bands above it, and the gate was green on a site its own assertion would have failed if it had
+looked one density further in. The rule is now written at the list: **every band in
+`SIZES_HERO_GROUND` contributes a profile at the worst density it can serve, at a viewport wide
+enough for its cap to bind.** That adds 1905 at 1.75, 1905 at 1.99, 1210 at 2.5 and 1008 at 2.99,
+making sixteen. The width matters as much as the density: under about 768 CSS pixels at 2.5x and
+about 1100 at 1.75x the `50vw` half of `min()` binds instead of the cap, which is why the phone
+profiles at 1.75x and 3x were green throughout and proved nothing about those bands.
+
+**Proved by two mutations, because the two halves have to be shown to be independent.**
+
+| mutation | what was reverted | result |
+|---|---|---|
+| **A** | the original put back into the `srcset`, the seven branches kept | **all sixteen green.** The branches alone are sufficient |
+| **B** | the original put back **and** 421b's four-branch `sizes` restored | **exactly the four new profiles red**, with the gate's own message, and no others |
+
+Mutation B reproduces the rel421b verdict's arithmetic on a real browser, row for row. Outputs at
+`docs/wave421/gate421-mutation-a.txt` and `gate421-mutation-b.txt`. With both halves restored the
+run is green and the wave 413 long-task probe reads **0 tasks over 50ms**.
 
 **Why 960 and not the 1672px original, which is what "the widest sensible variant" would mean.**
 The candidates are 400, 640, 960 and the source; `scripts/wave414-responsive-images.py` encoded a
@@ -153,17 +236,30 @@ device pixels jumps straight to 1672 by 941, which is seventeen times the pixels
 step. That decode is main-thread work and it is measurable: with `100vw` in place,
 `scripts/wave413-motion.py` failed its zero-budget long-task probe on **one run in two**, with
 tasks of 67ms and 185ms during a full scroll of the home page, against a base that is clean five
-runs out of five. `sizes` now asks every density for at most 960 device pixels:
+runs out of five.
+
+⚠ **THE SENTENCE THAT USED TO STAND HERE WAS "`sizes` now asks every density for at most 960 device
+pixels", AND IT WAS FALSE WHEN IT WAS WRITTEN, TWICE.** After wave 421 it was false for every
+density between 1x and 1.5x, and after 421b it was still false for every density strictly inside
+1.5x to 2x and 2x to 3x, where the branches were capped for the best density in their band rather
+than the worst. It is **true of the seven branches that ship at the 421c head**, and each one's
+cap is 960 divided by the worst density it can serve:
 
 ```
-(min-resolution: 288dpi) min(50vw, 320px),   /* 3x and up    -> at most 960 device px */
-(min-resolution: 192dpi) min(50vw, 480px),   /* 2x to 3x     -> 960 at 2x */
-(min-resolution: 144dpi) min(50vw, 640px),   /* 1.5x to 2x   -> 960 at 1.5x */
-(min-resolution: 100dpi) min(50vw, 640px),   /* just over 1x -> 954 at 1.49x, 800 at 1.25x */
-min(100vw, 960px)                            /* exactly 1x   -> 960 */
+(min-resolution: 288dpi) min(50vw, 320px),   /* 3x and up:     960 at 3x        */
+(min-resolution: 240dpi) min(50vw, 320px),   /* 2.5x to 3x:    957 at 2.99x     */
+(min-resolution: 192dpi) min(50vw, 384px),   /* 2x to 2.5x:    956 at 2.49x     */
+(min-resolution: 168dpi) min(50vw, 480px),   /* 1.75x to 2x:   955 at 1.99x     */
+(min-resolution: 144dpi) min(50vw, 544px),   /* 1.5x to 1.75x: 947 at 1.74x     */
+(min-resolution: 100dpi) min(50vw, 640px),   /* just over 1x:  954 at 1.49x     */
+min(100vw, 960px)                            /* exactly 1x:    960              */
 ```
 
-**Four drafts of this line were wrong** and each one was caught by measurement rather than by
+**Every figure in that block is under 960, and so is every band edge**: 1.5x asks 816, 1.75x asks
+840, 2x asks 768, 2.5x asks 800, 2.99x asks 957 and 3x asks 960. All of them still resolve to the
+960px step, so **the split makes no machine's picture softer** than the version it replaces.
+
+**Five drafts of this line were wrong** and each one was caught by measurement rather than by
 reading:
 
 1. `320px`, the base. A 400px file across 1905.
@@ -179,6 +275,12 @@ reading:
    between 1x and 1.5x on the undivided fallback, so the **same** original went to every desktop
    at 125 per cent scaling or 110 to 133 per cent zoom. The rel421 verdict found it, by the same
    arithmetic, through the same blind spot in the same instrument. See section 2.1b.
+5. The four-branch version 421b shipped. It fixed the band it was asked about and left the two
+   above it capped for the **best** density in their band: 640 is 960 divided by 1.5 and 480 is
+   960 divided by 2, so 1.99x asked 1274 device pixels and 2.99x asked 1434, and both took the
+   original. The comment **printed 1274 and 1440** under a heading that said "at most 960". The
+   rel421b verdict found it, and observed that three passes had each now fixed the band the last
+   reviewer happened to name. See section 2.1c.
 
 **`dpi` rather than `x`, and the residual.** `min-resolution` in `dpi` has been understood since
 Chrome 29 and in Firefox since long before this site; the `x` unit did not reach Firefox until
@@ -467,7 +569,9 @@ knowledge, asserts the count, and reads the colours off the shot at 1280 and 390
 
 **The brief's second sweep, `rg -n 'mist-bg' src/`, which this report skipped** (421b, rel421
 MINOR 5). It is the sweep that would name any OTHER place the cream is assumed, and it returns
-**14 hits in 7 files. None is a divider and none is a band's ground.**
+**15 hits in 6 files. None is a divider and none is a band's ground.** (421c, rel421b MINOR 1:
+this prose said "14 hits in 7 files" over a table of 15 in 6. The sweep was re-run and this is what
+it prints; the table below was right and the sentence over it was a transcription slip.)
 
 | where | hits | what the cream is doing | verdict |
 |---|---|---|---|
@@ -588,7 +692,9 @@ by the axe pass) and `lint-head.txt` (20, which are eslint's own arrows and rule
 `lh-*.json` Lighthouse dumps are excluded for the same reason. Rewriting a program's output to
 satisfy a prose rule would make it stop being evidence.
 
-**Two flakes were seen at this head and both are named rather than hidden.**
+**Three flakes were seen at this head and all three are named rather than hidden.** (421c,
+rel421b MINOR 1: this sentence said "two" over a numbered list of three, in wave 421's report and
+again after 421b.)
 
 1. **The wave 413 long-task probe, once in fourteen runs, a single 60ms task.** Before the 960 cap
    and the compositor promotion it was **two in four, at 67ms, 172ms and 185ms**; the base is
@@ -766,12 +872,12 @@ are closed below, each in its own commit.
 
 | # | severity | what the verdict found | what 421b did | evidence |
 |---|---|---|---|---|
-| 1 | **MAJOR** | `SIZES_HERO_GROUND` named 288, 192 and 144dpi and fell through to `min(100vw, 960px)`, the one branch not divided by its density, so **every desktop between 1x and 1.5x took the 1672px original**: Windows at 125 per cent scaling, or any reader zoomed to 110 to 140 per cent. A 172KB regression against the live site for that cohort, and the decode the wave 413 probe fails on | Added `(min-resolution: 100dpi) min(50vw, 640px)` before the fallback, so 1.25x asks 800 device pixels and 1.49x asks 954, both inside the cap. Corrected the comment and section 2.1 so "every density at most 960 device pixels" is **true**. Gave section A of the gate **twelve (width, density) profiles** and a failure on any profile resolving to the original | section 2.1b, and `docs/wave421/gate421-mutated.txt` |
+| 1 | **MAJOR** | `SIZES_HERO_GROUND` named 288, 192 and 144dpi and fell through to `min(100vw, 960px)`, the one branch not divided by its density, so **every desktop between 1x and 1.5x took the 1672px original**: Windows at 125 per cent scaling, or any reader zoomed to 110 to 140 per cent. A 172KB regression against the live site for that cohort, and the decode the wave 413 probe fails on | Added `(min-resolution: 100dpi) min(50vw, 640px)` before the fallback, so 1.25x asks 800 device pixels and 1.49x asks 954, both inside the cap. Corrected the comment and section 2.1, and **claimed** that "every density at most 960 device pixels" was thereby true. ⚠ **IT WAS NOT**: 421b fixed the band it was asked about and left the two above it capped for the best density in their band, which rel421b found. The claim is true of the code that ships at the 421c head, not of 421b's. Gave section A of the gate twelve (width, density) profiles, drawn from the verdict's rows rather than from the rule, which is why they did not sample either broken band | section 2.1b and 2.1c, `docs/wave421/gate421-mutated.txt` |
 | 2 | MINOR | `hero.tsx` quoted "ink-muted reads 6.44:1 here", a figure no run produced | Quotes **6.32:1 at 1280 and 6.38:1 at 390** with their widths and says they are the gate's | section 2.5 |
 | 3 | MINOR | The worst page-ground share read 9.20% in one place and 9.02% in three others, each called "the worst" | Every one of the four now **names its sample**: 9.20% is the worst of the seven readings taken for the ratchet, 9.02% the worst of the three quoted in `src/styles.css` | section 3 |
 | 4 | MINOR | `measure_pairs` computes `worstGround` and `worstRatio` and the report printed neither, for the one pair with under half a point of headroom | **Both columns are in the two hero tables**, with a plain statement of what the column actually is (the element's own anti-aliased glyph edge, which is why it is not asserted) and the **layer-stack bound of 3.33:1**, recomputed here from the sRGB coefficients and agreeing with the verdict's derivation exactly | section 2.5 |
 | 5 | MINOR | `check_arch_is_clear` is blind under the dome and counts any dark pixel as type; and the padding rule's "no route's last child carries a `pb-` utility" was asserted, not measured | Docstring **narrowed to what it holds**, with both limits named. Added `report_last_child_padding`, a new **section C0** that reads the element `#main > :last-child` names on every route, prints its class list, computed padding and background, and **fails the run** on any `pb-*` or `py-*` | the table below |
-| 6 | MINOR | The brief asked for `rg -n 'mist-bg' src/` and the report substituted a different sweep | Run and reported: **14 hits in 7 files, none a divider and none a band's ground** | section 4.4 |
+| 6 | MINOR | The brief asked for `rg -n 'mist-bg' src/` and the report substituted a different sweep | Run and reported: **15 hits in 6 files, none a divider and none a band's ground** (the totals were mis-transcribed as 14 in 7 and corrected in 421c) | section 4.4 |
 
 ### 12.1 Section C0, the measurement behind the padding rule
 
@@ -845,3 +951,73 @@ page's three readings straddle the base's single one, with total blocking time 2
 the byte figure is unchanged from wave 421 and **35 KiB under the base at this density**. The
 density-specific caveat in section 7 is the one that matters: the bytes this table cannot see are
 the ones MAJOR 1 was about.
+
+---
+
+## 13. 421c, the fix pass on the rel421b verdict
+
+The re-check of 421b returned **HOLD with 1 MAJOR and 2 MINOR**, and verified all six rel421
+findings closed. All three are closed below, each in its own commit.
+
+| # | severity | what the verdict found | what 421c did | evidence |
+|---|---|---|---|---|
+| 1 | **MAJOR** | MAJOR 1 was fixed as an instance, not a class. The 1.5x-to-2x and 2x-to-3x branches are capped for the **best** density in their band (640 = 960/1.5, 480 = 960/2), so 1.99x asks 1274 and 2.99x asks 1434 and both take the 1672px original. The comment printed 1274 and 1440 under a heading saying "at most 960". The twelve gate profiles sampled neither band's interior | **Both halves.** (a) The original is out of this image's `srcset`: candidates are 400, 640 and 960, so no `sizes` error can select it. (b) Seven branches, each capped by its band's **upper** bound, every edge checked and stated. (c) `VARIANT_PROFILES` chosen **by rule**, the worst density of every band, sixteen in all. Section 2.1's false sentence and section 12's claim that it was true are both corrected in place | section 2.1c, `gate421-mutation-a.txt`, `gate421-mutation-b.txt` |
+| 2 | MINOR | The `mist-bg` sweep's prose said "14 hits in 7 files" over a table of 15 in 6; and "Two flakes were seen at this head" headed a list of three | Sweep **re-run**: it prints **15 hits in 6 files**, which is the table. Both totals corrected, and the flake count corrected to three, with the slip named in place rather than quietly fixed | section 4.4, section 6 |
+| 3 | MINOR | `PADDING_UTILITY` matched `pb-` and `py-` but not `p-`, which sets `padding-bottom` just as they do and is outranked by the same unlayered rule, so section C0 would have printed `none` for an all-sides `p-10` and passed | Widened to `(?:pb\|py\|p)-`. The required hyphen keeps `px-`, `pt-`, `pl-`, `pr-`, `ps-`, `pe-` and `pointer-events-none` out, each checked against the compiled pattern | section 13.1 |
+
+### 13.1 Section C0 with the widened pattern
+
+Re-run at the 421c head. All thirteen routes still read **none** and a computed **57.6px**, which
+is `clamp(36px, 4.5vw, 80px)` at 1280 and nothing else, so the padding rule is still adding the
+arch's height and replacing nothing. The pattern was checked term by term before the run:
+
+| class | matches | correct? |
+|---|---|---|
+| `pb-10`, `py-10`, `p-10`, `p-[2px]`, `lg:p-8`, `max-lg:py-2` | **yes** | yes, all set `padding-bottom` |
+| `px-5`, `pt-4`, `pl-2`, `pointer-events-none`, `panel` | **no** | yes, none sets `padding-bottom` |
+
+### 13.2 The gate at the 421c head
+
+Every script re-run in the foreground after the fixes, on a rebuilt tree.
+
+| check | rc | result |
+|---|---|---|
+| `bunx tsc --noEmit` | **0** | 0 errors |
+| `bunx eslint` on the changed files | **0** | 0 errors, 0 warnings |
+| `bunx eslint .`, LF-normalised tree | 1 | **387 errors / 15 warnings, delta zero against the base** |
+| `STATIC_BUILD=true bun run build` | **0** | **36 pages** |
+| `node scripts/pages-postbuild.mjs dist/client` | **0** | clean on this build |
+| `python scripts/wave412-screenshots.py` | **0** | 28 shots, 275 incomplete nodes all measured, 0 unmeasured, 0 axe violations |
+| `python scripts/wave413-motion.py` | **0** | **0 long tasks over 50ms** |
+| `python scripts/wave414-responsive-images.py --check` | **0** | 71 images, every variant present, alpha intact |
+| `python scripts/wave414-mobile.py` | **0** | 70 shots, 660 headings, 0 overflow, 0 axe violations |
+| `python scripts/wave421-hero-and-footer.py` | **0** | **16 variant profiles**, 402 pairs, 26 dividers, 13 last-child paddings |
+| Dash count | - | **0 and 0** over the hand-written added lines, same exclusions as section 6 |
+| `git diff e07b7f4 -- src/content` | - | **empty** |
+
+### 13.3 Lighthouse at the 421c head
+
+The `srcset` and `sizes` changes do not alter what Lighthouse's profile takes: 412 CSS pixels at
+1.75 resolves `min(50vw, 480px)` to 206 and takes the **400px step**, as it did at every head of
+this wave. These figures are therefore a re-measurement rather than a new result.
+
+⚠ **THIS PASS WAS MEASURED ON A LOADED MACHINE AND THE SCORES ARE NOT USABLE AS A COMPARISON.**
+Two runs of all four routes, minutes apart, with the site unchanged between them:
+
+| route | base | 421b | 421c pass 1 | 421c pass 2 | TBT, pass 1 then 2 | bytes, 421b and 421c |
+|---|---|---|---|---|---|---|
+| `/` | 67 | 65, 66, 67 | 60 | 58 | 340ms, 510ms | **922 KiB** both |
+| `/the-problem` | 85 | 86 | 85 | 84 | 10ms, 110ms | **421 KiB** both |
+| `/register/investor` | 81 | 82 | 77 | **93** | 50ms, 0ms | **439 KiB** both |
+| `/partner-with-investor` | 78 | 79 | 75 | 64 | 90ms, 480ms | **742 KiB** both |
+
+`/register/investor` moving 77 to 93 and `/partner-with-investor` 75 to 64 between two runs of the
+same bytes is the instrument, not the site: four other Claude Code sessions were building on this
+machine. **Accessibility 100, best practices 100 and CLS 0 on all four routes in both passes**, and
+**every byte figure is identical to the 421b head**, which is the deterministic part and the part
+that matters here: this pass changed which FILE some densities ask for, and Lighthouse's density is
+not one of them.
+
+The caveat in section 7 stands and is the important one: **the bytes this instrument cannot see are
+the ones the three MAJOR 1 findings were about.** Section 2.1's sixteen-profile table is where they
+are measured, and it is measured on a real browser at a real density rather than by a score.
