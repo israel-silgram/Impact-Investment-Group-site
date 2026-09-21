@@ -1,0 +1,460 @@
+
+── A. THE HERO WASH'S CHOSEN VARIANT ──
+ viewport  chosen source                     sizes                    box  opacity
+     1905  hero-ground-street-960.webp       (min-resolution: 288dpi) min(50vw, 320px), (min-resolution: 192dpi) min(50vw, 480px), (min-resolution: 144dpi) min(50vw, 640px), min(100vw, 960px)  1905  0.2
+     1280  hero-ground-street-960.webp       (min-resolution: 288dpi) min(50vw, 320px), (min-resolution: 192dpi) min(50vw, 480px), (min-resolution: 144dpi) min(50vw, 640px), min(100vw, 960px)  1280  0.2
+      768  hero-ground-street-960.webp       (min-resolution: 288dpi) min(50vw, 320px), (min-resolution: 192dpi) min(50vw, 480px), (min-resolution: 144dpi) min(50vw, 640px), min(100vw, 960px)   768  0.2
+      390  hero-ground-street-400.webp       (min-resolution: 288dpi) min(50vw, 320px), (min-resolution: 192dpi) min(50vw, 480px), (min-resolution: 144dpi) min(50vw, 640px), min(100vw, 960px)   390  0.2
+
+── A2. IMAGES SERVED UNDER 75% OF THEIR BOX ──
+src                                             sizes                      box  served   ratio  opacity  first seen
+/images/why-estate-aerial.webp                  (min-width: 768px) 50vw, 100vw  1280     640   0.500      0.1  /about at 1280
+/images/platform-finder.webp                    (min-width: 768px) 50vw, 100vw  1134     640   0.564        1  /platform at 1280
+/images/ai-team/petra-point.webp                (none)                     798     338   0.424        1  /platform at 1280
+/images/ai-team/peter-present.webp              (none)                     399     281   0.704        1  /platform at 390
+/images/ai-team/pippa-present.webp              (none)                     399     271   0.679        1  /platform at 390
+/images/partners/connected-network-investor.png (min-width: 768px) 50vw, 100vw  1134     640   0.564        1  /partner-with-investor at 1280
+/images/ai-team/petra.webp                      (min-width: 1024px) 200px, 30vw   197     117   0.594        1  /partner-with-investor at 390
+/images/ai-team/peter.webp                      (min-width: 1024px) 200px, 30vw   197     117   0.594        1  /partner-with-investor at 390
+/images/ai-team/pippa.webp                      (min-width: 1024px) 200px, 30vw   197     117   0.594        1  /partner-with-investor at 390
+/images/partners/connected-network-local-authority.png(min-width: 768px) 50vw, 100vw  1134     640   0.564        1  /partner-with-local-authority at 1280
+
+── B. INK MEASURED OFF THE RENDERED PIXELS ──
+where             pair                                        size/wt            ground   ratio             worst   worst  floor
+/ at 1280         the orange headline "Delivering Support"  46/800     (237, 232, 230)    3.48    (196, 105, 73)    1.10    3.0
+/ at 390          the orange headline "Delivering Support"  37/800     (240, 235, 232)    3.57    (199, 111, 80)    1.17    3.0
+/ at 1280         a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/ at 390          a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/about at 1280    a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/about at 390     a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/platform at 1280 a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/platform at 390  a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/the-problem at 1280a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/the-problem at 390a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/solutions at 1280a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/solutions at 390 a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/partners at 1280 a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/partners at 390  a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/contact at 1280  a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/contact at 390   a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/register at 1280 a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/register at 390  a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/register/investor at 1280a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/register/investor at 390a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/register/resident at 1280a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/register/resident at 390a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/partner-with-investor at 1280a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/partner-with-investor at 390a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/partner-with-local-authority at 1280a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/partner-with-local-authority at 390a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/legal at 1280    a registration card detail                11/400     (255, 255, 255)    4.87    (105, 90, 114)    1.30    4.5
+/legal at 390     a registration card detail                15/400     (255, 255, 255)    4.87     (78, 90, 123)    1.40    4.5
+/ at 1280         the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/ at 1280         a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/ at 1280         the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/ at 1280         a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/ at 390          the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/ at 390          a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/ at 390          the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/ at 390          a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/about at 1280    the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/about at 1280    a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/about at 1280    the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/about at 1280    a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/about at 390     the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/about at 390     a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/about at 390     the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/about at 390     a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/platform at 1280 the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/platform at 1280 a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/platform at 1280 the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/platform at 1280 a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/platform at 390  the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/platform at 390  a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/platform at 390  the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/platform at 390  a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/the-problem at 1280the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/the-problem at 1280a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/the-problem at 1280the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/the-problem at 1280a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/the-problem at 390the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/the-problem at 390a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/the-problem at 390the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/the-problem at 390a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/solutions at 1280the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/solutions at 1280a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/solutions at 1280the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/solutions at 1280a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/solutions at 390 the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/solutions at 390 a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/solutions at 390 the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/solutions at 390 a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partners at 1280 the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partners at 1280 a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/partners at 1280 the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partners at 1280 a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/partners at 390  the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partners at 390  a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partners at 390  the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partners at 390  a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/contact at 1280  the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/contact at 1280  a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/contact at 1280  the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/contact at 1280  a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/contact at 390   the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/contact at 390   a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/contact at 390   the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/contact at 390   a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register at 1280 the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register at 1280 a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/register at 1280 the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register at 1280 a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/register at 390  the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register at 390  a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register at 390  the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register at 390  a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register/investor at 1280the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register/investor at 1280a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/register/investor at 1280the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register/investor at 1280a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/register/investor at 390the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register/investor at 390a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register/investor at 390the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register/investor at 390a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register/resident at 1280the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register/resident at 1280a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/register/resident at 1280the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register/resident at 1280a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/register/resident at 390the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register/resident at 390a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register/resident at 390the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/register/resident at 390a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partner-with-investor at 1280the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partner-with-investor at 1280a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/partner-with-investor at 1280the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partner-with-investor at 1280a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/partner-with-investor at 390the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partner-with-investor at 390a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partner-with-investor at 390the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partner-with-investor at 390a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partner-with-local-authority at 1280the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partner-with-local-authority at 1280a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/partner-with-local-authority at 1280the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partner-with-local-authority at 1280a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/partner-with-local-authority at 390the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partner-with-local-authority at 390a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partner-with-local-authority at 390the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/partner-with-local-authority at 390a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/legal at 1280    the pre-release badge                     11/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/legal at 1280    a column heading                          12/700     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/legal at 1280    the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/legal at 1280    a registration verify link                11/600     (255, 255, 255)    5.25    (23, 121, 124)    1.02    4.5
+/legal at 390     the pre-release badge                     12/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/legal at 390     a column heading                          12/700     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/legal at 390     the "Become a Partner" link               13/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/legal at 390     a registration verify link                15/600     (255, 255, 255)    5.25    (37, 121, 111)    1.01    4.5
+/ at 390          a role tile purpose line                  13/400     (243, 236, 233)    5.97    (91, 101, 119)    1.19    4.5
+/ at 1280         a role tile purpose line                  13/400     (245, 240, 237)    6.17    (91, 101, 119)    1.19    4.5
+/ at 1280         the "Powered by" credit                   10/700     (247, 243, 241)    6.32    (91, 101, 119)    1.19    4.5
+/ at 390          the "Powered by" credit                   12/700     (248, 244, 242)    6.38    (91, 101, 119)    1.19    4.5
+/ at 1280         the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/ at 1280         the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/ at 390          the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/ at 390          the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/about at 1280    the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/about at 1280    the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/about at 390     the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/about at 390     the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/platform at 1280 the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/platform at 1280 the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/platform at 390  the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/platform at 390  the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/the-problem at 1280the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/the-problem at 1280the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/the-problem at 390the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/the-problem at 390the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/solutions at 1280the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/solutions at 1280the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/solutions at 390 the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/solutions at 390 the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/partners at 1280 the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/partners at 1280 the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/partners at 390  the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/partners at 390  the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/contact at 1280  the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/contact at 1280  the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/contact at 390   the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/contact at 390   the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/register at 1280 the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/register at 1280 the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/register at 390  the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/register at 390  the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/register/investor at 1280the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/register/investor at 1280the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/register/investor at 390the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/register/investor at 390the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/register/resident at 1280the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/register/resident at 1280the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/register/resident at 390the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/register/resident at 390the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/partner-with-investor at 1280the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/partner-with-investor at 1280the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/partner-with-investor at 390the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/partner-with-investor at 390the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/partner-with-local-authority at 1280the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/partner-with-local-authority at 1280the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/partner-with-local-authority at 390the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/partner-with-local-authority at 390the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/legal at 1280    the funnel headline, orange beat          30/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/legal at 1280    the 30+ years line                        14/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/legal at 390     the funnel headline, orange beat          20/800     (255, 255, 255)    6.50     (154, 68, 54)    1.01    3.0
+/legal at 390     the 30+ years line                        15/700     (255, 255, 255)    6.50     (154, 68, 54)    1.01    4.5
+/ at 1280         the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/ at 1280         a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/ at 1280         a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/ at 1280         the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/ at 1280         a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/ at 1280         the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/ at 390          the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/ at 390          a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/ at 390          a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/ at 390          the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/ at 390          a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/ at 390          the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/about at 1280    the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/about at 1280    a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/about at 1280    a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/about at 1280    the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/about at 1280    a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/about at 1280    the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/about at 390     the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/about at 390     a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/about at 390     a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/about at 390     the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/about at 390     a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/about at 390     the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/platform at 1280 the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/platform at 1280 a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/platform at 1280 a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/platform at 1280 the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/platform at 1280 a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/platform at 1280 the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/platform at 390  the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/platform at 390  a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/platform at 390  a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/platform at 390  the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/platform at 390  a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/platform at 390  the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/the-problem at 1280the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/the-problem at 1280a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/the-problem at 1280a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/the-problem at 1280the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/the-problem at 1280a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/the-problem at 1280the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/the-problem at 390the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/the-problem at 390a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/the-problem at 390a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/the-problem at 390the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/the-problem at 390a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/the-problem at 390the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/solutions at 1280the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/solutions at 1280a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/solutions at 1280a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/solutions at 1280the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/solutions at 1280a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/solutions at 1280the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/solutions at 390 the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/solutions at 390 a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/solutions at 390 a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/solutions at 390 the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/solutions at 390 a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/solutions at 390 the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partners at 1280 the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/partners at 1280 a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/partners at 1280 a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/partners at 1280 the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partners at 1280 a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/partners at 1280 the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partners at 390  the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partners at 390  a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/partners at 390  a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/partners at 390  the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partners at 390  a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partners at 390  the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/contact at 1280  the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/contact at 1280  a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/contact at 1280  a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/contact at 1280  the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/contact at 1280  a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/contact at 1280  the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/contact at 390   the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/contact at 390   a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/contact at 390   a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/contact at 390   the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/contact at 390   a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/contact at 390   the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register at 1280 the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/register at 1280 a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/register at 1280 a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/register at 1280 the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register at 1280 a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/register at 1280 the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register at 390  the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register at 390  a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/register at 390  a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/register at 390  the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register at 390  a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register at 390  the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register/investor at 1280the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/register/investor at 1280a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/register/investor at 1280a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/register/investor at 1280the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register/investor at 1280a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/register/investor at 1280the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register/investor at 390the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register/investor at 390a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/register/investor at 390a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/register/investor at 390the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register/investor at 390a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register/investor at 390the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register/resident at 1280the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/register/resident at 1280a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/register/resident at 1280a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/register/resident at 1280the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register/resident at 1280a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/register/resident at 1280the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register/resident at 390the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register/resident at 390a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/register/resident at 390a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/register/resident at 390the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register/resident at 390a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/register/resident at 390the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partner-with-investor at 1280the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/partner-with-investor at 1280a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/partner-with-investor at 1280a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/partner-with-investor at 1280the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partner-with-investor at 1280a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/partner-with-investor at 1280the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partner-with-investor at 390the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partner-with-investor at 390a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/partner-with-investor at 390a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/partner-with-investor at 390the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partner-with-investor at 390a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partner-with-investor at 390the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partner-with-local-authority at 1280the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/partner-with-local-authority at 1280a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/partner-with-local-authority at 1280a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/partner-with-local-authority at 1280the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partner-with-local-authority at 1280a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/partner-with-local-authority at 1280the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partner-with-local-authority at 390the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partner-with-local-authority at 390a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/partner-with-local-authority at 390a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/partner-with-local-authority at 390the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partner-with-local-authority at 390a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/partner-with-local-authority at 390the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/legal at 1280    the company description                   12/400     (255, 255, 255)    6.97     (83, 90, 128)    1.04    4.5
+/legal at 1280    a site link                               13/400     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/legal at 1280    a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/legal at 1280    the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/legal at 1280    a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 128)    1.03    4.5
+/legal at 1280    the legal notice                          11/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/legal at 390     the company description                   15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/legal at 390     a site link                               13/400     (255, 255, 255)    6.97     (94, 90, 110)    1.05    4.5
+/legal at 390     a contact line                            13/400     (255, 255, 255)    6.97     (78, 90, 132)    1.04    4.5
+/legal at 390     the opening hours                         13/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/legal at 390     a legal link                              13/500     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/legal at 390     the legal notice                          15/400     (255, 255, 255)    6.97     (78, 90, 123)    1.02    4.5
+/ at 1280         the wait-list sub-line                    15/400     (236, 231, 229)   15.36      (13, 29, 52)    1.11    4.5
+/ at 390          the wait-list sub-line                    15/400     (238, 232, 229)   15.52      (13, 28, 52)    1.11    4.5
+/ at 390          the navy headlines                        37/800     (241, 235, 233)   15.96      (13, 28, 52)    1.11    3.0
+/ at 1280         the navy headlines                        46/800     (246, 240, 238)   16.70      (13, 28, 52)    1.11    3.0
+/ at 1280         a role tile name                          14/600     (255, 255, 255)   18.83      (16, 31, 56)    1.14    4.5
+/ at 1280         the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/ at 1280         a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/ at 390          a role tile name                          14/600     (255, 255, 255)   18.83      (14, 30, 54)    1.13    4.5
+/ at 390          the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/ at 390          a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/about at 1280    the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/about at 1280    a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/about at 390     the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/about at 390     a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/platform at 1280 the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/platform at 1280 a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/platform at 390  the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/platform at 390  a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/the-problem at 1280the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/the-problem at 1280a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/the-problem at 390the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/the-problem at 390a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/solutions at 1280the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/solutions at 1280a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/solutions at 390 the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/solutions at 390 a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/partners at 1280 the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/partners at 1280 a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/partners at 390  the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/partners at 390  a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/contact at 1280  the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/contact at 1280  a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/contact at 390   the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/contact at 390   a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/register at 1280 the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/register at 1280 a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/register at 390  the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/register at 390  a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/register/investor at 1280the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/register/investor at 1280a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/register/investor at 390the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/register/investor at 390a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/register/resident at 1280the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/register/resident at 1280a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/register/resident at 390the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/register/resident at 390a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/partner-with-investor at 1280the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/partner-with-investor at 1280a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/partner-with-investor at 390the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/partner-with-investor at 390a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/partner-with-local-authority at 1280the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/partner-with-local-authority at 1280a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/partner-with-local-authority at 390the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/partner-with-local-authority at 390a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/legal at 1280    the funnel headline, navy beats           30/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/legal at 1280    a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+/legal at 390     the funnel headline, navy beats           20/800     (255, 255, 255)   18.83      (15, 17, 43)    1.02    3.0
+/legal at 390     a registration card label                 13/600     (255, 255, 255)   18.83      (15, 17, 43)    1.02    4.5
+
+── C. EVERY CURVED DIVIDER ON THE SITE ──
+where                             host                 above        background             shape             below  verdict
+/ at 1280                         footer     (247, 241, 230)   (247, 241, 230)   (255, 255, 255)   (255, 255, 255)  correct
+/ at 390                          footer     (247, 241, 230)   (247, 241, 230)   (255, 255, 255)   (255, 255, 255)  correct
+/about at 1280                    footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/about at 390                     footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/platform at 1280                 footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/platform at 390                  footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/the-problem at 1280              footer     (254, 254, 254)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/the-problem at 390               footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/solutions at 1280                footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/solutions at 390                 footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/partners at 1280                 footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/partners at 390                  footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/contact at 1280                  footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/contact at 390                   footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/register at 1280                 footer     (247, 241, 230)   (247, 241, 230)   (255, 255, 255)   (255, 255, 255)  correct
+/register at 390                  footer     (247, 241, 230)   (247, 241, 230)   (255, 255, 255)   (255, 255, 255)  correct
+/register/investor at 1280        footer     (247, 241, 230)   (247, 241, 230)   (255, 255, 255)   (255, 255, 255)  correct
+/register/investor at 390         footer     (247, 241, 230)   (247, 241, 230)   (255, 255, 255)   (255, 255, 255)  correct
+/register/resident at 1280        footer     (247, 241, 230)   (247, 241, 230)   (255, 255, 255)   (255, 255, 255)  correct
+/register/resident at 390         footer     (247, 241, 230)   (247, 241, 230)   (255, 255, 255)   (255, 255, 255)  correct
+/partner-with-investor at 1280    footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/partner-with-investor at 390     footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/partner-with-local-authority at 1280footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/partner-with-local-authority at 390footer     (255, 255, 255)   (255, 255, 255)   (255, 255, 255)   (255, 255, 255)  correct
+/legal at 1280                    footer     (247, 241, 230)   (247, 241, 230)   (255, 255, 255)   (255, 255, 255)  correct
+/legal at 390                     footer     (247, 241, 230)   (247, 241, 230)   (255, 255, 255)   (255, 255, 255)  correct
+
+-- B2. PAIRS WHOSE SELECTOR NAMED NOTHING ON A SHOT --
+None. Every pair in the table resolved on every shot.
+
+4 variant readings · 13 under-served images · 402 pairs measured · 26 dividers read
+All assertions passed.
