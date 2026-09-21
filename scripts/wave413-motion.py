@@ -1155,13 +1155,22 @@ IMAGE_OVERSHOOT = 0.01
 # ONE IS ON. Named by opacity rather than by filename because three of the
 # four share a file with a full-strength copy of themselves elsewhere on the
 # same page, and because the number is the thing being asserted: an assertion
-# that the home hero's ground rests at 0.07 IS the assertion about the defect.
+# that the home hero's ground rests at 0.2 IS the assertion about the defect.
 # If any one of these is not observed fading, the probe failed to measure the
 # thing it exists for and says so rather than passing.
+#
+# ⚠ WAVE 421 MOVED THE FIRST OF THESE FROM 0.07 TO 0.2, and it is the
+# photograph that moved rather than this check. Callum asked on 19 September
+# for the hero's street ground to be visible; `.hero-ground-photo` in
+# src/styles.css carries the number and the measurements that chose it. THIS
+# LINE IS NOT A TOLERANCE AND MUST NOT BECOME ONE: it is the exact resting
+# opacity, and the probe's whole value is that raising the wash and forgetting
+# to say so here fails the build rather than passing it. If the ground is
+# retuned again, re-read `.hero-ground-photo` and put the new number here.
 IMAGE_GLOB = "**/*.{png,jpg,jpeg,webp,svg,gif,avif}"
 
 REQUIRED_WASH = {
-    "/": ("the home hero's ground", 0.07),
+    "/": ("the home hero's ground", 0.2),
     "/partner-with-investor": ("the partner page's hero visual", 0.32),
     "/platform": ("the platform portal art", 0.25),
     "/partners": ("the partners hub band", 0.70),

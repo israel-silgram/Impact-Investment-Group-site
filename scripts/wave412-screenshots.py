@@ -272,6 +272,50 @@ SAMPLE_EVERY = 4
 # across four. Wave 414 moved the `lenis` wheel-momentum library behind a
 # dynamic import and removed a 596KB icon chunk, so there is markedly less
 # script racing the shutter.
+# ── WAVE 421 RAISED THE HERO'S GROUND AND NEITHER FIGURE MOVED ────────────
+#
+# Callum asked on 19 September 2026 for the hero's street photograph to be
+# visible and warmed through the brand orange. It went from 7 per cent under a
+# white scrim to 20 per cent under a warm one; see `.hero-ground` and
+# `.hero-ground-photo` in src/styles.css. THE BRIEF FOR THAT WAVE EXPECTED
+# THIS RATCHET TO RISE AND INSTRUCTED THAT IT BE RE-BASELINED. IT DID NOT
+# RISE, SO IT IS NOT RE-BASELINED, and this note is here instead of a new
+# number because a ratchet moved without a measurement behind it is the thing
+# the rel412 verdict objected to.
+#
+# SEVEN readings at wave 421's head, 1280, in the order they were taken:
+#
+#   23.56%  23.53%  23.67%  23.52%  23.53%  23.52%  23.52%
+#
+# and at 390, 16.57% on every one of them. Against the base `e07b7f4`, read by
+# this same script on the same machine: 23.53% and 23.57% at 1280, 16.58% at
+# 390. The head's median is 23.53% and the base's readings straddle it.
+#
+# ⚠ THE 23.67% IS AN OUTLIER AND IT IS LEFT IN, because a distribution with
+# its worst reading deleted is not a distribution. It is 0.03 under the
+# ceiling. The same run read the GROUND figure at 9.20% against a median of
+# 8.98%, so the whole page was darker on that shutter rather than the hero:
+# the council marquee's plates are outside the ground masks, the crests on
+# them are dark, and the note above already measures that at a tenth of a
+# point. This page has read 23.64% and 23.65% on heads BEFORE this wave (see
+# the wave 414b readings above), so 23.67% is not out of family for it.
+#
+# THE CEILING IS THEREFORE NOT MOVED, up or down. Raising it on one outlier
+# while the median sits where the base's did would be exactly the unexplained
+# ratchet move the rel412 verdict objected to, and lowering it to the median
+# would make the gate fail on a phase of the marquee. The next wave to touch
+# this has the seven readings above rather than a number somebody chose.
+#
+# It costs nothing because EVERY PIXEL THE NEW GROUND ADDS IS A LIGHT PIXEL. A
+# photograph at 0.2 under a white scrim at 62 to 88 per cent cannot reach the
+# 0.2 relative luminance this script counts as dark, so a page that is
+# visibly warmer is not measurably darker. The GROUND figure says the same:
+# 9.02% at its worst here against 8.99% and 9.04% at the base, and its flat
+# 15% ceiling is untouched and unrelaxed.
+#
+# Neither figure is LOWERED either. The note above records a spread of up to
+# 0.17 of a point across eight readings of the same build, because the page
+# animates; 0.15 of headroom at 1280 is less than that spread already.
 RAW_CEILING = {
     ("home", 1280): 0.2370,
     ("home", 390): 0.1670,
