@@ -1948,9 +1948,16 @@ canvas[data-map="in"] {
  *
  * SECOND, THIS REPLACES A `padding-bottom` RATHER THAN ADDING TO ONE, and it
  * is unlayered, so it outranks a Tailwind `pb-*` utility on the same element.
- * No route's last child carries one today. If one ever does, its padding
- * disappears and the arch eats the space it was holding, which the same gate
- * catches as ink under the strip rather than as a colour.
+ * NO ROUTE'S LAST CHILD CARRIES ONE, AND THAT IS MEASURED RATHER THAN
+ * ASSERTED (421b, rel421 MINOR 4): `report_last_child_padding` in
+ * scripts/wave421-hero-and-footer.py reads the element this selector names on
+ * every route, prints it in section C0 with its own computed padding, and
+ * FAILS THE RUN on any `pb-*` or `py-*` it finds. At this head all thirteen
+ * read "none" and a computed 57.6px, which is this clamp at 1280 and nothing
+ * else. The assertion is worth its own line because the failure it guards is
+ * silent: a replaced `pb-24` would shrink real trailing space to nothing
+ * without putting a single dark pixel inside the strip, so the arch's own
+ * ink check is no backstop for it.
  *
  * ⚠ THE TWO clamp() EXPRESSIONS MUST STAY IDENTICAL. They are the same
  * number twice: the padding added and the margin taken back. If one moves and

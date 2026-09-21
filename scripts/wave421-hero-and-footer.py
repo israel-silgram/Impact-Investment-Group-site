@@ -440,7 +440,7 @@ ARCH_INK_TOLERANCE = 24
 
 
 def check_arch_is_clear(shot: Path, dividers, failures, where):
-    """Fail if the arch's strip has type under it.
+    """Fail if ink pokes out from under the arch's strip. A backstop, not a proof.
 
     THE COLOUR RULE ABOVE CANNOT SEE THIS, because a covered line is covered
     by exactly the right colour. The arch overlaps the page's last band by its
@@ -450,13 +450,29 @@ def check_arch_is_clear(shot: Path, dividers, failures, where):
     carrying the band's content: the rule that adds it names
     `#main > :last-child`, and on the routes that render a `<main>` of their
     own that is a transparent wrapper rather than the coloured band inside it.
-    It also replaces a `padding-bottom` utility rather than adding to it.
 
-    So this asserts the OUTCOME rather than the mechanism. Whatever the
-    padding landed on, no pixel inside the strip may be dark enough to be
-    type. That is the failure a reader would see, and it is the failure the
-    first attempt at this wave shipped into a screenshot: the home page's
-    "Public data used under licence" credit under the dome.
+    ⚠ TWO LIMITS, AND THE DOCSTRING USED TO STATE THIS MORE BROADLY THAN IT
+    HOLDS (421b, rel421 MINOR 4). It said "whatever the padding landed on, no
+    pixel inside the strip may be dark enough to be type", which is not what
+    it can see.
+
+    1. IT ONLY SEES WHAT THE DOME DOES NOT COVER. The dome is filled
+       `var(--color-page)` and is painted OVER the last band, so a line of
+       type that falls entirely under the fill is hidden by white pixels and
+       raises no dark pixel at all. What this catches is the two transparent
+       corners and the glyph tops that poke through the curve near the edges,
+       which is exactly what caught the home page's "Public data used under
+       licence" credit, and the middle of the strip is where a centred
+       trailing line would sit. THE MEASUREMENT THAT COVERS THE MIDDLE IS
+       `report_last_child_padding` BELOW, which reads the element the padding
+       rule names on every route and proves the premise rather than assuming
+       it.
+    2. IT COUNTS ANY DARK PIXEL AS TYPE. `ARCH_INK_LUMINANCE` with a
+       tolerance of a few dozen pixels cannot tell a glyph from a plate, so a
+       route that ever ends on one of wave 412's two declared navy islands
+       would fail this with a message about covered content while the corners
+       were in fact showing that band's own correct colour. No route does
+       today; if one ever does, read the shot before believing the message.
     """
     with Image.open(shot) as image:
         rgb = image.convert("RGB")
@@ -481,6 +497,68 @@ def check_arch_is_clear(shot: Path, dividers, failures, where):
                     f"arch is pulled up over the page's last band and has covered "
                     f"something that is not that band's trailing space."
                 )
+
+
+# The utilities that would be REPLACED rather than added to by
+# `#main > :last-child { padding-bottom: clamp(36px,4.5vw,80px) }`. Tailwind
+# emits its utilities inside `@layer utilities` and that rule is unlayered, so
+# it outranks every one of these on the same element.
+PADDING_UTILITY = r"(^|\s)(?:[a-z-]+:)?(?:pb|py)-[^\s]+"
+
+LAST_CHILD_READ = """
+(pattern) => {
+  const main = document.querySelector('#main');
+  if (!main) return null;
+  const last = main.lastElementChild;
+  if (!last) return null;
+  const cls = last.getAttribute('class') || '';
+  const style = getComputedStyle(last);
+  return {
+    tag: last.tagName.toLowerCase(),
+    cls: cls.slice(0, 40),
+    utilities: (cls.match(new RegExp(pattern, 'g')) || []).map((m) => m.trim()),
+    paddingBottom: style.paddingBottom,
+    background: style.backgroundColor,
+  };
+}
+"""
+
+
+def report_last_child_padding(page, path, rows, failures):
+    """Read the element `#main > :last-child` names, and what padding it had.
+
+    THE PREMISE THIS PROVES. `src/styles.css` says the padding rule "REPLACES
+    a `padding-bottom` RATHER THAN ADDING TO ONE" and that "no route's last
+    child carries one today". That was asserted and not measured, and a
+    replaced `pb-24` would shrink real trailing space to nothing WITHOUT
+    producing a single dark pixel inside the strip, so `check_arch_is_clear`
+    is no backstop for it (421b, rel421 MINOR 4).
+
+    This reads the element on every route and fails if one of them carries a
+    `pb-*` or `py-*` utility, because that is the day the premise stops being
+    true and the day somebody has to decide what the padding should be.
+    """
+    read = page.evaluate(LAST_CHILD_READ, PADDING_UTILITY)
+    if read is None:
+        rows.append((path, "(no #main)", "", "", ""))
+        return
+    rows.append(
+        (
+            path,
+            f"{read['tag']} {read['cls']}".strip(),
+            " ".join(read["utilities"]) or "none",
+            read["paddingBottom"],
+            read["background"],
+        )
+    )
+    if read["utilities"]:
+        failures.append(
+            f"{path}: `#main > :last-child` carries {read['utilities']}, which the "
+            f"unlayered `#main > :last-child {{ padding-bottom }}` rule in "
+            f"src/styles.css REPLACES rather than adds to. That band's trailing "
+            f"space is now exactly the arch's height and the arch covers all of it. "
+            f"Decide what the padding should be rather than letting the rule win."
+        )
 
 
 def same(a, b, tolerance=4):
@@ -598,6 +676,7 @@ def main() -> None:
     variant_sizes = ""
     contrast_rows: list[dict] = []
     divider_rows: list[dict] = []
+    last_child_rows: list[tuple] = []
 
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -673,6 +752,8 @@ def main() -> None:
                     continue
 
                 audit_images(page, where, upscaled, failures)
+                if width == 1280:
+                    report_last_child_padding(page, path, last_child_rows, failures)
                 dividers = page.evaluate(DIVIDER_READ)
 
                 pairs = list(HERO_PAIRS) if path == "/" else []
@@ -752,6 +833,13 @@ def main() -> None:
             f"{row['floor']:>7.1f}"
         )
 
+    print("\n-- C0. THE ELEMENT `#main > :last-child` NAMES, AND ITS OWN PADDING --")
+    print(
+        f"{'route':<32}{'element':<28}{'pb/py utility':<16}{'computed pb':>12}  background"
+    )
+    for path, element, utilities, padding, background in last_child_rows:
+        print(f"{path:<32}{element:<28}{utilities:<16}{padding:>12}  {background}")
+
     print("\n── C. EVERY CURVED DIVIDER ON THE SITE ──")
     print(f"{'where':<34}{'host':<8}{'above':>18}{'background':>18}{'shape':>18}{'below':>18}  verdict")
     for row in divider_rows:
@@ -789,6 +877,7 @@ def main() -> None:
                 "upscaled": upscaled,
                 "contrast": contrast_rows,
                 "missing": missing,
+                "lastChildren": last_child_rows,
                 "dividers": divider_rows,
             },
             indent=2,
