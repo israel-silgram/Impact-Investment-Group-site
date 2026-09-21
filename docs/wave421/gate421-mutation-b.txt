@@ -1,6 +1,6 @@
 
 ── A. THE HERO WASH'S CHOSEN VARIANT, BY WIDTH AND DENSITY ──
-`sizes` is (min-resolution: 288dpi) min(50vw, 320px), (min-resolution: 240dpi) min(50vw, 320px), (min-resolution: 192dpi) min(50vw, 384px), (min-resolution: 168dpi) min(50vw, 480px), (min-resolution: 144dpi) min(50vw, 544px), (min-resolution: 100dpi) min(50vw, 640px), min(100vw, 960px)
+`sizes` is (min-resolution: 288dpi) min(50vw, 320px), (min-resolution: 192dpi) min(50vw, 480px), (min-resolution: 144dpi) min(50vw, 640px), (min-resolution: 100dpi) min(50vw, 640px), min(100vw, 960px)
  viewport   dpr  profile             chosen source                      box css  box dev  opacity
      1905   1.0  desktop             hero-ground-street-960.webp           1905     1905  0.2
      1280   1.0  laptop              hero-ground-street-960.webp           1280     1280  0.2
@@ -14,10 +14,10 @@
      1905   2.0  2x edge             hero-ground-street-960.webp           1905     3810  0.2
       412  1.75  Lighthouse mobile   hero-ground-street-400.webp            412      721  0.2
       390   3.0  3x phone            hero-ground-street-640.webp            390     1170  0.2
-     1905  1.75  1.75x band, worst   hero-ground-street-960.webp           1905     3334  0.2
-     1905  1.99  1.75x to 2x band, worsthero-ground-street-960.webp           1905     3791  0.2
-     1210   2.5  2x to 2.5x band, worsthero-ground-street-960.webp           1210     3025  0.2
-     1008  2.99  2.5x to 3x band, worsthero-ground-street-960.webp           1008     3014  0.2
+     1905  1.75  1.75x band, worst   hero-ground-street.webp               1905     3334  0.2
+     1905  1.99  1.75x to 2x band, worsthero-ground-street.webp               1905     3791  0.2
+     1210   2.5  2x to 2.5x band, worsthero-ground-street.webp               1210     3025  0.2
+     1008  2.99  2.5x to 3x band, worsthero-ground-street.webp               1008     3014  0.2
 
 ── A2. IMAGES SERVED UNDER 75% OF THEIR BOX ──
 src                                             sizes                      box  served   ratio  opacity  first seen
@@ -487,4 +487,9 @@ where                             host                 above        background  
 None. Every pair in the table resolved on every shot.
 
 16 variant readings · 13 under-served images · 402 pairs measured · 26 dividers read
-All assertions passed.
+
+FAILED (4):
+  - / at 1905 x 1.75 (1.75x band, worst): the hero wash resolved to hero-ground-street.webp, the 1672px ORIGINAL. Every density must ask for at most 960 device pixels; this one asked for more, so its band in SIZES_HERO_GROUND is missing or is not divided by its density.
+  - / at 1905 x 1.99 (1.75x to 2x band, worst): the hero wash resolved to hero-ground-street.webp, the 1672px ORIGINAL. Every density must ask for at most 960 device pixels; this one asked for more, so its band in SIZES_HERO_GROUND is missing or is not divided by its density.
+  - / at 1210 x 2.5 (2x to 2.5x band, worst): the hero wash resolved to hero-ground-street.webp, the 1672px ORIGINAL. Every density must ask for at most 960 device pixels; this one asked for more, so its band in SIZES_HERO_GROUND is missing or is not divided by its density.
+  - / at 1008 x 2.99 (2.5x to 3x band, worst): the hero wash resolved to hero-ground-street.webp, the 1672px ORIGINAL. Every density must ask for at most 960 device pixels; this one asked for more, so its band in SIZES_HERO_GROUND is missing or is not divided by its density.

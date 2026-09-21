@@ -75,7 +75,7 @@
     [
       1600,
       1.5,
-      "1.5x",
+      "1.5x edge",
       "hero-ground-street-960.webp",
       1600,
       2400,
@@ -84,7 +84,7 @@
     [
       1905,
       2.0,
-      "retina",
+      "2x edge",
       "hero-ground-street-960.webp",
       1905,
       3810,
@@ -106,6 +106,42 @@
       "hero-ground-street-640.webp",
       390,
       1170,
+      "0.2"
+    ],
+    [
+      1905,
+      1.75,
+      "1.75x band, worst",
+      "hero-ground-street-960.webp",
+      1905,
+      3334,
+      "0.2"
+    ],
+    [
+      1905,
+      1.99,
+      "1.75x to 2x band, worst",
+      "hero-ground-street-960.webp",
+      1905,
+      3791,
+      "0.2"
+    ],
+    [
+      1210,
+      2.5,
+      "2x to 2.5x band, worst",
+      "hero-ground-street-960.webp",
+      1210,
+      3025,
+      "0.2"
+    ],
+    [
+      1008,
+      2.99,
+      "2.5x to 3x band, worst",
+      "hero-ground-street-960.webp",
+      1008,
+      3014,
       "0.2"
     ]
   ],

@@ -152,14 +152,14 @@ legal                           667x375  scrollWidth=667/667 ok  targets=43+44 s
 keyboard  /register/investor @ 390x420  bar_bottom=56  focused=<input name='email'> top=218 font=16px  go='Create account & continue' top=356 pos=static  in_view=yes  after_one_scroll=yes
 drawer    backdrop press @ 390  scrim=<DIV aria-hidden=true> [390, 844]  panel=[336, 844]  topmost_at(12,400)='drawer-scrim fixed inset-0 z-50 cursor-pointer bg-ink/40 xl:hidden'  -> panel_gone=yes  scrim_gone=yes  focus_returned_to='site-drawer'  aria-expanded=false  body_overflow='visible'
 picker    / @ 390  before=('Manchester', focus='select[data-authority-picker]')  ArrowDown  ->  after=('Salford', focus='select[data-authority-picker]')  value_moved=yes  figures_moved=yes
-bar/field account field                      focused='input#confirmPassword' box=(212..268) bar=(343..420, h=77, sticky)  scroll-margin-bottom=80px  vh=420  clear=yes
-bar/field survey option 12 of 12             focused='input[Anywhere in England,]' box=(190..284) bar=(318..395, h=77, sticky)  scroll-margin-bottom=80px  vh=420  clear=yes
+bar/field account field                      focused='input#confirmPassword' box=(210..266) bar=(343..420, h=77, sticky)  scroll-margin-bottom=80px  vh=420  clear=yes
+bar/field survey option 12 of 12             focused='input[Anywhere in England,]' box=(181..275) bar=(309..386, h=77, sticky)  scroll-margin-bottom=80px  vh=420  clear=yes
 success   /register/investor @ 390x844  scrollY=0  header_bottom=56  vh=844  heading=373..413 "You're registered"  message=429..559  action=591..643 'Explore the platform'
 
-timing    /                          LCP= 9668ms  CLS=0.0002  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
-timing    /the-problem               LCP= 3956ms  CLS=0.0000  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
-timing    /register/investor         LCP= 4076ms  CLS=0.0000  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
-timing    /partner-with-investor     LCP= 6392ms  CLS=0.0000  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
+timing    /                          LCP= 9620ms  CLS=0.0002  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
+timing    /the-problem               LCP= 3964ms  CLS=0.0000  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
+timing    /register/investor         LCP= 4376ms  CLS=0.0000  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
+timing    /partner-with-investor     LCP= 5580ms  CLS=0.0000  INP=   0ms   (4x CPU, slow 4G, 390x844, swept to 2400 of 2400)
 
 70 shots in docs\screenshots\wave414. 2839 interactive targets measured at the top of the page and 2904 scrolled, 5743 in all, 0 under 44x44 and 0 closer than 8px.
 5270 type nodes measured, 0 under their size floor, 0 under a line box of 1.6 and 0 under 30 characters to the line at 360, where that floor binds. Narrowest column of the run: 10.3ch, about @ 667x375: the annual NHS cost of people waiting in hospital .
