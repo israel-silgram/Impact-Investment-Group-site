@@ -403,7 +403,11 @@ export function HomeHero() {
               white cards and FAILS as body copy on the cream, and the ground
               under this line is now nearer the cream than the white. Wave 412
               made exactly this move in the footer for exactly this reason.
-              ink-muted reads 6.44:1 here. */}
+              ink-muted reads 6.32:1 at 1280 and 6.38:1 at 390, both
+              measured off the rendered pixels by that gate. (421b,
+              rel421 MINOR 1: this line used to say 6.44:1, which is a
+              figure no run produced and no ground in this hero yields
+              with this ink. Quote the gate or quote nothing.) */}
           <span className="font-heading text-[10px] max-lg:text-[12px] font-bold uppercase tracking-[0.16em] text-ink-muted">
             Powered by
           </span>
