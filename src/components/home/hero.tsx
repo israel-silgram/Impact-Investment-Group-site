@@ -5,7 +5,7 @@ import { RoleIcon } from "@/components/register/role-icon";
 import { registerRoles } from "@/content/audiences";
 import { registerAsDivider } from "@/content/register";
 import { cn } from "@/lib/utils";
-import { SIZES_HERO_WASH, variantSrcSet } from "@/lib/responsive-image";
+import { SIZES_HERO_GROUND, variantSrcSet } from "@/lib/responsive-image";
 
 /**
  * HomeHero — the approved Mock-up 1 composition: three photographs captioned
@@ -136,20 +136,38 @@ export function HomeHero() {
       {/* The street, ghosted. Decorative only: it carries no information the
           copy does not, so it is empty-alt and hidden from the tree.
 
-          WAVE 412: the veil over it is white now, not navy. The photograph
-          and its opacity are unchanged; see .hero-ground in styles.css for
-          the wash and for what it costs the orange headline set over it.
+          WAVE 412: the veil over it is white now, not navy.
+
+          WAVE 421: AND IT IS VISIBLE. Callum, 19 September, looking at the
+          live site: "Can you add the faded hero image to the background of
+          the hero section ... and instead of making it navy faded maybe make
+          it faded through orange a little, but still keep the background
+          itself white." It was already there at seven per cent under a white
+          scrim at 72 to 86, which is a blank. The photograph's own opacity
+          and the two layers that warm it both live in .hero-ground and
+          .hero-ground-photo in styles.css, together with the measurements
+          that chose them.
 
           z-0 rather than -z-10: a negative index would put it behind the
-          section's own navy background and it would never be seen. The content
+          section's own background and it would never be seen. The content
           wrappers below therefore have to be positioned to paint over it. */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+      <div
+        aria-hidden="true"
+        className="hero-ground-layer pointer-events-none absolute inset-0 z-0"
+      >
         {/* WAVE 413: eager, because it is in the first viewport on every
-            screen, and LOW priority, because it is a 7% wash behind the
+            screen, and LOW priority, because it is a ground behind the
             headline rather than one of the three photographs. High priority on
-            all four would have put the wash in the same queue as the pictures
-            the hero actually exists to show. */}
+            all four would have put the ground in the same queue as the
+            pictures the hero actually exists to show. Still true at wave
+            421's opacity: raising a decorative layer's strength does not
+            promote it past the content it sits behind. */}
         <img
+          /* Named for the gate. `scripts/wave421-hero-and-footer.py` has to
+             find this one image on a page full of images, and it used to be
+             identified by its opacity class, which is the one thing about it
+             wave 421 changes. A data attribute is stable across a retune. */
+          data-hero-wash=""
           src="/images/hero-ground-street.webp"
           loading="eager"
           fetchPriority="low"
@@ -157,9 +175,9 @@ export function HomeHero() {
           height={941}
           alt=""
           decoding="async"
-          className="size-full object-cover object-[60%_45%] opacity-[0.07]"
+          className="hero-ground-photo size-full object-cover object-[60%_45%]"
           srcSet={variantSrcSet("/images/hero-ground-street.webp")}
-          sizes={SIZES_HERO_WASH}
+          sizes={SIZES_HERO_GROUND}
         />
         <div className="hero-ground absolute inset-0" />
       </div>
@@ -231,7 +249,16 @@ export function HomeHero() {
                      the nav label did, because this is the largest text on the
                      site (11.85cqw, never under 40px on a desktop viewport)
                      and large text answers to 3:1. 500 on white is 4.23:1.
-                     The other two lines are navy ink at 18.83:1. */
+                     The other two lines are navy ink at 18.83:1.
+
+                     ⚠ WAVE 421 MOVED THE GROUND UNDER THIS WORD and those
+                     two figures are no longer the ones that bind. The ground
+                     is a warm haze now, not flat white, so it is measured off
+                     the rendered pixels by scripts/wave421-hero-and-footer.py
+                     rather than quoted from the table: 3.48:1 at 1280 and
+                     3.57:1 at 390, against the 3:1 floor a 46px headline
+                     answers to. Re-measure rather than assume if the opacity
+                     or the tint moves again. */
                   panel.headline.orange ? "text-orange-500" : "text-ink",
                 )}
               >
@@ -333,10 +360,18 @@ export function HomeHero() {
          * where the file carries (128, 70, 242). Callum asked for the same
          * colour as the ribbon on the platform's match card, and a tint is
          * not the same colour, so the opacity is gone. The mark now renders
-         * its own pixels, modal and darkest alike, and measures 5.15:1 flat
-         * on this white ground against the 3:1 SC 1.4.11 asks of a graphic.
-         * Every ratio quoted for this mark names WHICH READING it is, since
-         * the modal pixel and the darkest pixel of a tinted mark differ.
+         * its own pixels, modal and darkest alike. Every ratio quoted for
+         * this mark names WHICH READING it is, since the modal pixel and the
+         * darkest pixel of a tinted mark differ.
+         *
+         * ⚠ WAVE 421 MOVED THE GROUND UNDER IT and the 5.15:1 that used to
+         * be quoted here was a reading against flat white. The hero's ground
+         * is a warm haze now: the ring around this mark reads
+         * rgb(249, 244, 242) and Zoopla's purple on it is 4.65:1 modal,
+         * 4.72:1 darkest, against the 3:1 SC 1.4.11 asks of a graphic.
+         * Measured off the rendered pixels at 390, where the mark's own box
+         * has ground in it to read; at 1280 the mark fills its box and the
+         * ground has to be taken from the ring, which is the same haze.
          *
          * It is still a DERIVED one-colour rendering of a one-colour mark;
          * Zoopla's own positive colourway should replace it when Callum can
@@ -354,7 +389,22 @@ export function HomeHero() {
          * is the whole of the rollback.
          */}
         <p className="mt-6 flex items-center justify-center gap-2.5">
-          <span className="font-heading text-[10px] max-lg:text-[12px] font-bold uppercase tracking-[0.16em] text-ink-soft">
+          {/* ⚠ WAVE 421: ink-muted, NOT ink-soft, AND THE GROUND IS WHY.
+              ink-soft is 4.87:1 on flat white, which is what this line used
+              to sit on and it passed with 0.37 to spare. The warm hero ground
+              of this wave costs it 0.45, and the gate measured it at 4.42:1
+              at 1280 and 4.46:1 at 390: a fail on both, off the rendered
+              pixels rather than off any table.
+
+              THE INK MOVED AND NOT THE GROUND, and that is not a breach of
+              wave 295's ruling: that ruling protects the ORANGE, whose one
+              shade may not be lightened to pass. This is the site's own
+              neutral scale, where CLAUDE.md already says ink-soft is for
+              white cards and FAILS as body copy on the cream, and the ground
+              under this line is now nearer the cream than the white. Wave 412
+              made exactly this move in the footer for exactly this reason.
+              ink-muted reads 6.44:1 here. */}
+          <span className="font-heading text-[10px] max-lg:text-[12px] font-bold uppercase tracking-[0.16em] text-ink-muted">
             Powered by
           </span>
           {/* WAVE 414 (rel413b MIN-5): eager, like the other three

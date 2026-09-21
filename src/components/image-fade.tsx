@@ -16,13 +16,19 @@ import * as React from "react";
  * ── WHY IT FADES TO THE IMAGE'S OWN OPACITY AND NOT TO 1 ──────────────────
  *
  * Four images on this site are decorative washes: the home hero's ground at
- * 7%, the partner page's hero visual at 20 and 32%, the platform portal art
- * at 25%, the partners hub band at 70%. Wave 413 shipped this as a keyframe
+ * 20% since wave 421 and 7% before it, the partner page's hero visual at 20
+ * and 32%, the platform portal art at 25%, the partners hub band at 70%. Wave 413 shipped this as a keyframe
  * animation from opacity 0 to opacity 1, and a running animation outranks the
  * element's own opacity utility, so each of those ramped to FULL STRENGTH for
  * 350ms and then snapped back down. The rule in styles.css is a TRANSITION
- * now, whose target is whatever the element's own opacity already is, so a 7%
- * wash fades to 7% and stops. Nothing here darkens a page.
+ * now, whose target is whatever the element's own opacity already is, so a 20%
+ * wash fades to 20% and stops. Nothing here darkens a page.
+ *
+ * ⚠ THE HERO'S GROUND CARRIES ITS OPACITY IN `.hero-ground-photo` RATHER THAN
+ * in a Tailwind utility since wave 421, and that is still an opacity this
+ * transition can read: both rules are unlayered and `img[data-img="pending"]`
+ * is the more specific of the two, so the pending state still wins while it
+ * is set and the transition still lands on the class's own value.
  *
  * ── WHY IT IS ONE COMPONENT AND NOT A PROP ON FIFTY IMAGES ────────────────
  *

@@ -1771,30 +1771,201 @@ canvas[data-map="in"] {
    and rule 5 of wave 412 is that a photograph on a light ground carries no
    scrim at all. Removed rather than inverted. */
 
-/* The street ghosted behind the hero, now a WHITE veil rather than a navy one.
+/* ---------------------------------------------------------------------------
+ * THE HERO'S WARM GROUND
+ *
+ * The street behind the hero, at the strength Callum asked for on 19 Sep 2026
+ * and warmed through the brand orange rather than left neutral:
+ *
+ *   "Can you add the faded hero image to the background of the hero section
+ *    on the site, and instead of making it navy faded maybe make it faded
+ *    through orange a little, but still keep the background itself white."
+ *
+ * Three layers, bottom to top: the photograph at .hero-ground-photo's
+ * opacity, a WHITE scrim that keeps it off the type, and a low-alpha ORANGE
+ * wash that warms what is left. The page under all three is still
+ * `bg-page`, so the ground is white where nothing else reaches it.
+ *
+ * ── WHY THE WASH AND NOT A FILTER ────────────────────────────────────────
+ *
+ * The brief allowed either, and asked for the warmer ground at the lower
+ * dark-pixel cost. Both were measured on the built page at 1280, 768 and 390
+ * by docs/wave421/tune.py, which reads the mean of the hero's OWN ground
+ * pixels off a screenshot with the three photographs and every glyph
+ * excluded, and reports how much redder than bluer that mean is. Flat white
+ * is 0. The site's cream is +17.
+ *
+ *   photograph at 0.18, sepia(0.72) hue-rotate(-12deg) saturate(1.35)
+ *     mean (249.5, 248.7, 247.8)   warmth +1.7   raw 23.64%   ground 9.16%
+ *   photograph at 0.18, orange wash over a lighter white scrim
+ *     mean (247.4, 244.0, 242.3)   warmth +5.1   raw 23.64%   ground 9.16%
+ *
+ * THE WASH IS THREE TIMES THE WARMTH AT THE SAME DARK COST, to the hundredth
+ * of a point at every width, and the reason is that a filter can only warm
+ * the pixels the photograph actually paints. At a fifth of its own strength
+ * the photograph paints almost nothing, so sepia had almost nothing to act
+ * on; the wash warms the whole plane. The filter is not here.
+ *
+ * ── WHY 0.20 AND NOT 0.14 OR 0.24 ────────────────────────────────────────
+ *
+ * Chosen by looking at the rendered shot at 1280, 768 and 390, which is the
+ * only way this number can be chosen: the warmth figures above move by four
+ * tenths of a unit across the whole 0.14 to 0.24 range, because the wash
+ * dominates the mean, so the mean cannot decide it. The shots can.
+ *
+ *   0.14  the ground is warm and the street is not in it. This is the fault
+ *         Callum reported, in a warmer colour.
+ *   0.16  the street is findable at 390 and not at 1280.
+ *   0.20  the brick courses and window heads read as texture at 390, where
+ *         the ground is most exposed, and as a haze at 1280, where the three
+ *         photographs cover the middle of it. CHOSEN.
+ *   0.24  it starts to read as a photograph behind the role tiles and
+ *         competes with the three the hero exists to show.
+ *
+ * ── WHAT IT COSTS, MEASURED ──────────────────────────────────────────────
+ *
+ * Nothing that the instrument can separate from its own noise, and these are
+ * the SHIPPED build's figures rather than the tuning harness's. Three runs of
+ * `scripts/wave412-screenshots.py` at this head read a raw dark-pixel share of
+ * 23.55%, 23.52% and 23.52% at 1280 and 16.57%, 16.58%, 16.57% at 390; the
+ * base `e07b7f4`, read by the same script, gives 23.53% and 23.57% at 1280 and
+ * 16.58% at 390. The page-ground share is 9.02% at its worst here against
+ * 8.99% and 9.04% at the base, and it answers to a flat 15% with no ratchet.
+ *
+ * It costs nothing because EVERY PIXEL THIS ADDS IS A LIGHT PIXEL: a 20%
+ * photograph under a 62% white scrim cannot cross the 0.2 relative luminance
+ * the wave 412 gate counts as dark. See section 3 of docs/WAVE421_REPORT.md.
+ *
+ * ⚠ THE TWO TABLES IN THE COMMENT ABOVE ARE THE TUNING HARNESS'S, taken with
+ * `docs/wave421/tune.py` at a photograph opacity of 0.18 and `sizes="100vw"`.
+ * They are kept because they are the comparison that CHOSE the wash over the
+ * filter, and both candidates were measured the same way on the same build.
+ * They are not readings of what shipped; the paragraph above is.
+ *
+ * ⚠ THE TYPE OVER THIS IS MEASURED OFF THE PIXELS, NOT OFF THE TABLE IN
+ * CLAUDE.md. Nothing here sits on flat white any more, so no row of that
+ * table describes it. `scripts/wave421-hero-and-footer.py` composites each
+ * glyph's own colour onto the modal ground inside its own box and asserts the
+ * floor its size and weight answer to, and it reads the WORST ground pixel in
+ * the box as well as the modal one. Re-run it rather than reasoning about it
+ * if any number in this block moves.
+ * ------------------------------------------------------------------------- */
+.hero-ground-photo {
+  opacity: 0.2;
+}
 
-   The photograph is the same file and sits at the same low opacity; what
-   changed in wave 412 is what is laid over it. A navy wash on a white page
-   leaves a dark rectangle where the hero is, which is precisely the
-   "too dark throughout" the director read. The veil is now white, heaviest at
-   the top and bottom edges where the band has to meet the page cleanly, and
-   lightest across the middle where the photograph is allowed to show.
+/* ⚠ THE GROUND GETS ITS OWN COMPOSITOR LAYER, AND THE LONG-TASK PROBE IS WHY.
+ *
+ * `scripts/wave413-motion.py` budgets ZERO tasks over 50ms during a full
+ * scroll of the home page. At the base that probe is clean five runs out of
+ * five; with this wave's ground in place and no promotion it failed one run
+ * in five, with tasks of 67ms, 172ms and 185ms. The work is this layer: a
+ * full-viewport photograph at a fifth strength under two translucent
+ * gradients, which the main thread was re-rasterising as the page moved.
+ *
+ * `translateZ(0)` hands it to the compositor once. It is the standard tool
+ * and it is the right one HERE rather than everywhere: this is one layer, it
+ * is the size of the hero and no larger, it never changes after first paint,
+ * and the alternative is main-thread raster on the page's own scroll.
+ *
+ * ⚠ IT GOES ON THE WRAPPER, NOT ON THE TWO CHILDREN. Promoting both the
+ * photograph and the gradient separately makes two layers to composite
+ * instead of one, and they always move together.
+ *
+ * It creates a stacking context. That is already true of this element, which
+ * carries `z-0` so it paints behind the hero's own `z-10` content; nothing
+ * below it depends on escaping it. */
+.hero-ground-layer {
+  transform: translateZ(0);
+}
 
-   THE HEADLINE THAT SITS OVER THIS is "Delivering Support" in the site's one
-   orange, `#c15f3c`. Its ceiling here is the orange on flat white, 4.23:1,
-   because the veil is white and the section behind it is white: at 100% the
-   ground would BE white. It is large text (11.85cqw, never under 40px on a
-   desktop viewport) and answers to the 3:1 floor, so 4.23:1 is ample and the
-   veil's job is only to keep the photograph from eating into it. Measured
-   against the pixels the glyphs cover by scripts/wave412-screenshots.py's
-   axe pass; re-measure rather than assume if the opacity moves. */
 .hero-ground {
-  background-image: linear-gradient(
-    to bottom,
-    color-mix(in oklab, var(--color-page) 86%, transparent) 0%,
-    color-mix(in oklab, var(--color-page) 72%, transparent) 38%,
-    color-mix(in oklab, var(--color-page) 90%, transparent) 100%
-  );
+  background-image:
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-tint-orange) 23%, transparent) 0%,
+      color-mix(in oklab, var(--color-tint-orange) 50%, transparent) 38%,
+      color-mix(in oklab, var(--color-tint-orange) 30%, transparent) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-page) 82%, transparent) 0%,
+      color-mix(in oklab, var(--color-page) 62%, transparent) 38%,
+      color-mix(in oklab, var(--color-page) 88%, transparent) 100%
+    );
+}
+
+/* ---------------------------------------------------------------------------
+ * THE FOOTER'S ARCH
+ *
+ * ⚠ A CURVED DIVIDER HAS TWO COLOURS AND THEY ARE NOT FREE: ITS BACKGROUND
+ * MUST BE THE COLOUR OF THE SECTION ABOVE IT AND ITS SHAPE MUST BE THE COLOUR
+ * OF THE SECTION BELOW IT. Break either and the page paints a strip of a
+ * third colour between two bands.
+ *
+ * That is what Callum photographed on 19 September and called the footer's
+ * "broken white part". The arch named a cream shape on a transparent strip,
+ * which was right while the page's last section was white; wave 412 made five
+ * routes end on the cream band instead, and on those the strip's two top
+ * corners showed the white page between two cream bands.
+ *
+ * THE FIX IS STRUCTURAL RATHER THAN A COLOUR. The strip is pulled up over the
+ * page's last band by exactly its own height, so its transparent corners show
+ * that band's OWN ground, whatever colour it is, on every route and on every
+ * route added later. Nothing declares the colour above, so nothing can
+ * declare it wrongly, and no list of which routes end cream has to be kept in
+ * step. That list would have been wrong on the day it was written: five of
+ * the thirteen routes end on the cream band and eight end white, and the
+ * brief for this wave assumed all of them ended cream.
+ *
+ * ⚠ AND THE BAND IS GIVEN THE SPACE FIRST, which is the half that is easy to
+ * miss. A bare negative margin pulls the arch over whatever happens to be in
+ * the last band's final 80px, and on the home page that is not padding: its
+ * closing band ends `py-10`, 40px, and the first attempt at this buried the
+ * "Public data used under licence" credit under the dome. So the last band
+ * gets exactly the arch's own height of extra padding and the arch takes
+ * exactly that height back. The page is the same height it was, the spacing
+ * between the last line of the page and the footer is unchanged, and the
+ * dome rises through space that exists for it.
+ *
+ * ⚠ AND HERE IS WHAT THIS RULE DOES NOT DO, because the sentence above is
+ * about the MECHANISM and the mechanism has two limits worth writing down.
+ *
+ * FIRST, `#main > :last-child` IS NOT ALWAYS THE COLOURED BAND. Fifteen of
+ * this site's routes render a `<main>` of their own inside the shell's, so
+ * the element this padding lands on is a transparent wrapper and the arch's
+ * corners then show the PAGE behind it rather than the band's own ground.
+ * Today every one of those routes ends on a white band and the page is white,
+ * so the two agree and the gate measures them agreeing; make the last band of
+ * one of them cream and they will not, and the strip will be the broken white
+ * part again. It will not ship: `scripts/wave421-hero-and-footer.py` reads
+ * the corner pixel and the pixel above it in the same column on every route
+ * at both widths and fails on the difference.
+ *
+ * SECOND, THIS REPLACES A `padding-bottom` RATHER THAN ADDING TO ONE, and it
+ * is unlayered, so it outranks a Tailwind `pb-*` utility on the same element.
+ * No route's last child carries one today. If one ever does, its padding
+ * disappears and the arch eats the space it was holding, which the same gate
+ * catches as ink under the strip rather than as a colour.
+ *
+ * ⚠ THE TWO clamp() EXPRESSIONS MUST STAY IDENTICAL. They are the same
+ * number twice: the padding added and the margin taken back. If one moves and
+ * the other does not, the page either grows a gap or eats a line.
+ *
+ * `scripts/wave421-hero-and-footer.py` asserts both halves of the colour rule
+ * off the screenshot's own pixels, at 1280 and 390, on every route in that
+ * script's page list: the thirteen pages plus the 404, which is one of every
+ * distinct page COMPONENT rather than one of every URL. The ten partner pages
+ * are one component and two of them are walked; the ten register roles are
+ * one component and two of them are walked.
+ * ------------------------------------------------------------------------- */
+#main > :last-child {
+  padding-bottom: clamp(36px, 4.5vw, 80px);
+}
+
+.footer-arch {
+  height: clamp(36px, 4.5vw, 80px);
+  margin-top: calc(clamp(36px, 4.5vw, 80px) * -1);
 }
 
 /* The heavy black rules that box the mission panel.

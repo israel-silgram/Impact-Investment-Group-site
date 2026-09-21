@@ -50,31 +50,99 @@ export function SiteFooter() {
        * and the footer read as one block rising out of the page rather than as
        * two more stacked bands.
        *
-       * Transparent strip, cream path. The control points sit at y=-47, which
-       * puts the apex exactly on the top edge — that is what stops it reading
-       * as a wave. preserveAspectRatio="none" stretches one path to any width.
+       * ⚠ A CURVED DIVIDER HAS TWO COLOURS AND THEY ARE NOT FREE: ITS
+       * BACKGROUND MUST BE THE COLOUR OF THE SECTION ABOVE IT AND ITS SHAPE
+       * MUST BE THE COLOUR OF THE SECTION BELOW IT. Anything else paints a
+       * strip of a third colour across the page. Written here because the
+       * next person to change a band's colour will otherwise break this
+       * again, which is exactly how it broke the first time.
        *
-       * ⚠️ ON A PAGE WHOSE LAST SECTION IS CREAM the two top corners used to
-       * show the page ground through them, which read as a navy strip. WAVE
-       * 412 ENDED THAT by making the page white: the corners now show white
-       * beside cream, which is the site's own band rhythm rather than a
-       * defect. The divider is still transparent and still stretches one
-       * path to any width; nothing about it changed but what is behind it.
+       * WHAT BROKE. This strip was transparent with a CREAM dome in it, which
+       * was correct while every route ended on a white section: white showed
+       * in the two top corners, cream in the middle, cream below. Wave 412
+       * made five routes end on the cream band instead, and on those the
+       * corners showed the WHITE PAGE between two cream bands. That is the
+       * "broken white part" in Callum's screenshot of 19 September.
+       *
+       * HOW IT IS FIXED, and it is fixed structurally rather than by naming a
+       * second colour: `.footer-arch` pulls the strip up over the section
+       * above it by exactly its own height, so the transparent corners show
+       * that section's own ground on every route, whatever it is, with
+       * nothing to keep in step. The dome is the FOOTER'S ground, and the
+       * footer is white (R421-1).
+       *
+       * THE HAIRLINE IS NOT DECORATION. Eight of the thirteen routes end on a
+       * white section, and there a white dome on a white ground is a curve
+       * nobody can see. The 1px `border-rule` stroke is the same hairline the
+       * site rules every other section boundary with, so the footer still
+       * reads as its own section on every route; on the five cream-ending
+       * ones the colour sweep carries it as well. `non-scaling-stroke`
+       * because `preserveAspectRatio="none"` stretches this path to any width
+       * and would otherwise stretch its stroke with it.
+       *
+       * ⚠ THE CONTROL POINTS ARE y=-44 AND THEY USED TO BE y=-47. For a cubic
+       * from (0,140) to (1440,140) the apex is at (140 + 3a + 3a + 140) / 8,
+       * so -47 puts it at y=-0.25: a QUARTER OF A UNIT ABOVE the top of the
+       * viewBox. With the fill alone that was invisible, since there was
+       * nothing above the edge to lose. With a 1px `non-scaling-stroke`
+       * centred on the path it is not: the stroke's upper half was clipped by
+       * the strip's `overflow-hidden` across the middle of the arc, and on
+       * the eight routes that end white this hairline is the whole boundary,
+       * so the thinnest part of it was the middle. -44 puts the apex at y=+2,
+       * about one device pixel below the edge at every width this strip
+       * takes, which is inside the clip and still reads as an apex on the
+       * edge rather than as a wave. BOTH PATHS CARRY THE SAME NUMBER so the
+       * stroke stays on the fill's own edge.
+       *
+       * The second path is the same curve without the closing `Z`, so the
+       * stroke draws the arc alone and not the straight bottom edge a closed
+       * path would add.
+       *
+       * -mb-px hides the hairline seam between the strip and the footer body.
        */}
-      <div
-        aria-hidden="true"
-        className="relative -mb-px h-[clamp(36px,4.5vw,80px)] w-full overflow-hidden"
-      >
+      <div aria-hidden="true" className="footer-arch relative -mb-px w-full overflow-hidden">
         <svg
           viewBox="0 0 1440 140"
           preserveAspectRatio="none"
           className="absolute inset-0 size-full"
         >
-          <path d="M0 140 C 380 -47 1060 -47 1440 140 Z" fill="var(--color-mist-bg)" />
+          <path d="M0 140 C 380 -44 1060 -44 1440 140 Z" fill="var(--color-page)" />
+          <path
+            d="M0 140 C 380 -44 1060 -44 1440 140"
+            fill="none"
+            stroke="var(--color-rule)"
+            strokeWidth={1}
+            vectorEffect="non-scaling-stroke"
+          />
         </svg>
       </div>
 
-      <div className="section-light">
+      {/*
+       * ⚠ THE FOOTER IS WHITE, NOT CREAM. R421-1, Callum 19 Sep 2026: "switch
+       * it to white so it's still curved and stands out as a section, but
+       * doesn't have that broken white part." He offered navy as the other
+       * way out and the operator chose white, because wave 412 declared
+       * exactly TWO navy islands on this site and a navy footer would be a
+       * third and the largest block on the page, undoing on the last screen
+       * the thing that whole wave was about. The crisis card below stays navy
+       * and separates MORE from white than it did from the cream.
+       *
+       * `bg-page text-ink-muted` rather than `.section-light`, which is the
+       * cream band's class and is still the cream band's class everywhere
+       * else on the site.
+       *
+       * THE INK IN HERE WAS RE-MEASURED ON THE NEW WHITE GROUND OFF THE
+       * RENDERED PIXELS, in two passes that cover different things and only
+       * together cover the footer. `scripts/wave421-hero-and-footer.py` names
+       * fifteen pairs by hand, ONE ELEMENT EACH, and asserts them on every
+       * page in its list at 1280 and 390: they are the fifteen this wave
+       * changed the ground under, not an inventory. `scripts/wave412-
+       * screenshots.py` is the inventory: it runs axe over every node of
+       * every page and measures every node axe cannot resolve off the shot,
+       * which is 275 nodes across 28 shots at this head with none unmeasured.
+       * See section 5 of docs/WAVE421_REPORT.md.
+       */}
+      <div className="bg-page text-ink-muted">
         {/*
          * THE FUNNEL. One copy, at the top of the footer, on every page.
          *
