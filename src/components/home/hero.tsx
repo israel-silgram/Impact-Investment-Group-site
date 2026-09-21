@@ -176,7 +176,17 @@ export function HomeHero() {
           alt=""
           decoding="async"
           className="hero-ground-photo size-full object-cover object-[60%_45%]"
-          srcSet={variantSrcSet("/images/hero-ground-street.webp")}
+          /* ⚠ WITHOUT THE 1672px ORIGINAL, AND THAT IS A CORRECTNESS
+             GUARD RATHER THAN A SAVING. This ground never needs its full
+             width at any density, and with the source out of the candidate
+             list no arithmetic error in `sizes` can select it: the worst a
+             future mistake can do here is serve the 960px step to a screen
+             that could have used more. Three passes of this wave each fixed
+             one density band and each time the wrong file was the same file.
+             See SIZES_HERO_GROUND in src/lib/responsive-image.ts. 421c. */
+          srcSet={variantSrcSet("/images/hero-ground-street.webp", {
+            withOriginal: false,
+          })}
           sizes={SIZES_HERO_GROUND}
         />
         <div className="hero-ground absolute inset-0" />

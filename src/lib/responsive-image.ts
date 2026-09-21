@@ -15,20 +15,49 @@ import { IMAGE_VARIANTS } from "@/lib/image-variants";
  * 404s: the script refuses any step that does not come out smaller than its
  * own source, so the steps that exist are not the steps anybody would guess.
  *
- * THE ORIGINAL IS ALWAYS THE LAST CANDIDATE, at its own width, so a wide
- * screen still gets the full picture and a browser with no `srcset` support
- * still gets one from `src`. Nothing here can make an image not load.
+ * THE ORIGINAL IS THE LAST CANDIDATE BY DEFAULT, at its own width, so a wide
+ * screen still gets the full picture. A browser with no `srcset` support gets
+ * one from `src` whatever this returns; nothing here can make an image not
+ * load, and that stays true with `withOriginal: false` below.
+ *
+ * ── WAVE 421c: WHY ONE IMAGE OPTS OUT OF ITS OWN ORIGINAL ─────────────────
+ *
+ * `withOriginal: false` drops the source from the candidate list and leaves
+ * the generated steps. It exists for a picture that NEVER needs its full
+ * width at any density, and there is exactly one: the hero's street ground,
+ * painted at a fifth of its own strength under a warm haze.
+ *
+ * It is a CORRECTNESS guard and not an optimisation, which is why it is here
+ * rather than expressed as one more careful line of `sizes`. Three passes of
+ * this wave each fixed the density band the last reviewer happened to name,
+ * and each time the mechanism was the same: `sizes` is in CSS pixels, the
+ * browser multiplies by the density, and one band's arithmetic came out over
+ * 960. The candidates for that image are 400, 640 and 960 with nothing
+ * between 960 and the 1672px source, so every such error selected the source.
+ *
+ * TAKE THE SOURCE OUT OF THE LIST AND NO ARITHMETIC ERROR IN `sizes` CAN
+ * SELECT IT, because it is not a candidate. The worst a future mistake can
+ * now do to this image is serve the 960px step to a screen that could have
+ * used more, which is a soft picture rather than a 199KB decode on the home
+ * page's critical path. The density branches in SIZES_HERO_GROUND stay, and
+ * they are the belt: they keep the file the browser picks correct, and this
+ * keeps it from ever being the wrong file.
+ *
+ * ⚠ DO NOT SPREAD THIS TO PHOTOGRAPHS A READER LOOKS AT. The three hero
+ * pictures, the partner illustrations and the portraits all keep their
+ * originals: a wide screen should have them, and none of them is a wash.
  */
-export function variantSrcSet(src: string | undefined): string | undefined {
+export function variantSrcSet(
+  src: string | undefined,
+  { withOriginal = true }: { withOriginal?: boolean } = {},
+): string | undefined {
   if (!src) return undefined;
   const entry = IMAGE_VARIANTS[src];
   if (!entry) return undefined;
   const dot = src.lastIndexOf(".");
   const stem = dot === -1 ? src : src.slice(0, dot);
-  return [
-    ...entry.steps.map((step) => `${stem}-${step}.webp ${step}w`),
-    `${src} ${entry.width}w`,
-  ].join(", ");
+  const steps = entry.steps.map((step) => `${stem}-${step}.webp ${step}w`);
+  return (withOriginal ? [...steps, `${src} ${entry.width}w`] : steps).join(", ");
 }
 
 /**
@@ -111,40 +140,52 @@ export const SIZES_CARD_ILLUSTRATION = "(min-width: 768px) 50vw, 70vw";
  *
  * ⚠ `sizes` IS IN CSS PIXELS AND THE BROWSER MULTIPLIES BY THE SCREEN'S
  * DENSITY BEFORE CHOOSING. That is the trap wave 414's note here recorded and
- * then walked into, and this wave walked into it TWICE. First: a single
- * `(min-resolution: 1.5x) 50vw` branch reads 50vw of 1905 on a 2x desktop,
- * asks for 1905 device pixels and takes the original, on exactly the machines
- * most likely to be running this site. Second, and this is the one the rel421
- * verdict held the push for: naming 3x, 2x and 1.5x and then FALLING THROUGH
- * leaves the band BETWEEN 1x and 1.5x on the one branch that is not divided
- * by its density, and 960 CSS pixels at 1.25 is 1200 device pixels, which
- * takes the 1672px original. See the band below for who that is.
+ * then walked into, and this wave walked into it THREE times, each time in a
+ * different density band, each time found by the next reviewer:
  *
- * So there is a branch per density band and each one names A VIEWPORT SHARE
- * CAPPED AT 960 DIVIDED BY THE WORST DENSITY IN ITS OWN BAND:
+ *   the 2x band      a single `(min-resolution: 1.5x) 50vw` branch read 50vw
+ *                    of 1905 on a 2x desktop and asked for 1905 device
+ *                    pixels. Found by this wave's own review sub-agent.
+ *   1x to 1.5x       three branches named 1.5x, 2x and 3x and everything
+ *                    below 1.5x fell through to the one branch that is not
+ *                    divided by its density: 960 CSS pixels at 1.25 is 1200.
+ *                    Found by the rel421 verdict.
+ *   1.5x to 2x and   the branches WERE divided by a density, but by the BEST
+ *   2x to 3x         one in their band rather than the worst: 640 is 960/1.5
+ *                    and 480 is 960/2, so 1.99x asked 1274 and 2.99x asked
+ *                    1434. Found by the rel421b verdict, which also pointed
+ *                    out that the comment here PRINTED 1274 and 1440 under a
+ *                    heading that said "at most 960".
  *
- *   3x and up      min(50vw, 320px)  ->  at most 960 device px
- *   2x to 3x       min(50vw, 480px)  ->  at most 1440 at 2.99x, 960 at 2x
- *   1.5x to 2x     min(50vw, 640px)  ->  at most 1274 at 1.99x, 960 at 1.5x
- *   just over 1x   min(50vw, 640px)  ->  954 at 1.49x, 800 at 1.25x
- *   exactly 1x     min(100vw, 960px) ->  960
+ * ⚠ SO THE RULE IS NOW CAP EACH BAND BY ITS OWN UPPER BOUND, and the bands
+ * are split wherever that cap would otherwise have to exceed 960. Every
+ * figure below is 960 divided by the WORST density the branch can serve,
+ * rounded down, and every figure below is under 960:
  *
- * ⚠ THE BAND BETWEEN 1x AND 1.5x IS NOT AN EDGE CASE AND IT IS NOT SHRINKING.
- * Windows display scaling at 125 per cent reports `devicePixelRatio` 1.25 and
- * is the out-of-the-box default on a great many laptops. Page zoom multiplies
- * the ratio in Chrome and in Firefox, so an ordinary 1x reader who zooms to
- * 110, 125 or 133 per cent to read the page more easily is moved into this
- * band BY THE ACT OF ZOOMING, which makes it an accessibility cohort as well
- * as a large one. Before this branch existed those machines took the 199KB
- * original where the live site had been giving them the 27KB 400px step:
- * a 172KB regression on the home page's critical path, and the same decode
- * the long-task evidence above is about.
+ *   branch                          band          worst in band   asks
+ *   (min-resolution: 288dpi) 320px  3x and up     3x              960
+ *   (min-resolution: 240dpi) 320px  2.5x to 3x    2.99x           957
+ *   (min-resolution: 192dpi) 384px  2x to 2.5x    2.49x           956
+ *   (min-resolution: 168dpi) 480px  1.75x to 2x   1.99x           955
+ *   (min-resolution: 144dpi) 544px  1.5x to 1.75x 1.74x           947
+ *   (min-resolution: 100dpi) 640px  1.04x to 1.5x 1.49x           954
+ *   min(100vw, 960px)               exactly 1x    1x              960
  *
- * 100dpi rather than 97: `min-resolution` in `dpi` is compared against the
- * device's own reported resolution and 1x is exactly 96dpi, so 100 is the
- * first round number that excludes 1x and includes everything above it. The
- * next branch up takes over at 144dpi, so this one only ever serves the band
- * it is written for.
+ * AND AT EVERY BAND EDGE, which is where a branch hands over and where an
+ * off-by-one would show: 1.5x asks 816, 1.75x asks 840, 2x asks 768, 2.5x
+ * asks 800, 2.99x asks 957, 3x asks 960. Every one of them still resolves to
+ * the 960px step, so THIS SPLIT MAKES NO MACHINE'S PICTURE SOFTER than the
+ * three-branch version it replaces; it only stops four bands asking for a
+ * file that no longer exists as a candidate.
+ *
+ * ⚠ TWO EDGES THIS DOES NOT COVER, NAMED RATHER THAN HIDDEN. 100dpi is
+ * 1.0417x, so a custom Windows scaling of 102 or 104 per cent still falls
+ * through to the 1x branch and asks 960 times its own ratio; and the 3x
+ * branch is unbounded above, so a 4x screen wider than 640 CSS pixels would
+ * ask 1280. Neither can select the original on this image any more, because
+ * `variantSrcSet(..., { withOriginal: false })` has taken it out of the
+ * candidate list, and that is the whole point of doing both halves: the
+ * branches are the optimisation and the shorter srcset is the guard.
  *
  * The 1x branch asks for the full viewport rather than half, because there
  * the stretch IS visible; above 1x it asks for half, because this ground is
@@ -171,14 +212,16 @@ export const SIZES_CARD_ILLUSTRATION = "(min-width: 768px) 50vw, 70vw";
  * smaller than its source, prefer it to raising a cap.
  */
 export const SIZES_HERO_GROUND = [
-  "(min-resolution: 288dpi) min(50vw, 320px)",
-  "(min-resolution: 192dpi) min(50vw, 480px)",
-  "(min-resolution: 144dpi) min(50vw, 640px)",
-  // Everything above 1x that the three branches above do not name: 1.01x to
-  // 1.49x. Without this line they fall through to the one branch that is not
-  // divided by its density and take the 1672px original. 421b, rel421 MAJOR 1.
-  "(min-resolution: 100dpi) min(50vw, 640px)",
-  "min(100vw, 960px)",
+  // Every cap is 960 divided by the WORST density its band can serve, so no
+  // branch asks for more than 960 device pixels anywhere inside its own band.
+  // 421c, rel421b MAJOR 1. The band edges are in the comment above.
+  "(min-resolution: 288dpi) min(50vw, 320px)", // 3x and up
+  "(min-resolution: 240dpi) min(50vw, 320px)", // 2.5x to 3x
+  "(min-resolution: 192dpi) min(50vw, 384px)", // 2x to 2.5x
+  "(min-resolution: 168dpi) min(50vw, 480px)", // 1.75x to 2x
+  "(min-resolution: 144dpi) min(50vw, 544px)", // 1.5x to 1.75x
+  "(min-resolution: 100dpi) min(50vw, 640px)", // just over 1x to 1.5x
+  "min(100vw, 960px)", // exactly 1x
 ].join(", ");
 
 /** A portrait or a small square: never more than a quarter of a phone. */

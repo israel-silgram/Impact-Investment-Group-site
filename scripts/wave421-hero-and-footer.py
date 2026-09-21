@@ -91,36 +91,57 @@ _spec = importlib.util.spec_from_file_location(
 w412 = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(w412)
 
-# (width, density, label). The 1x rows are the four this started with; the
-# rest are the machines the two blind spots were hiding.
+# (width, density, label), and 421c CHOSE THEM BY RULE RATHER THAN BY MACHINE.
 #
-#   1.25  Windows display scaling at 125 per cent, the out-of-the-box default
-#         on a great many laptops, and what Chrome and Firefox report for an
-#         ordinary 1x desktop zoomed to 125 per cent.
-#   1.1, 1.33  the same reader at 110 and 133 per cent zoom.
-#   1.5, 2.0   the retina desktop bands.
-#   1.75  what Lighthouse mobile emulates at 412 CSS pixels, which is the
-#         profile section 7 of the report quotes its byte figures from.
+# ⚠ THE FIRST TWELVE WERE A LIST OF MACHINES AND THAT IS WHY THEY MISSED. They
+# were drawn from the rows in the rel421 verdict, so they sampled the band that
+# verdict named and the two safe edges of the bands above it, and the gate was
+# green on a site its own assertion would have failed if it had looked one
+# density further in. `SIZES_HERO_GROUND` is a set of density BANDS and each
+# band's worst case is at its top edge, so the rule is:
+#
+#   EVERY BAND IN `SIZES_HERO_GROUND` CONTRIBUTES A PROFILE AT THE WORST
+#   DENSITY IT CAN SERVE, AT A VIEWPORT WIDE ENOUGH FOR ITS CAP TO BIND.
+#
+# The last four rows are that rule applied to the four bands 421b left capped
+# for their BEST density. Add a band to `SIZES_HERO_GROUND` and add its top
+# edge here, or the next reviewer finds it instead of this script.
+#
+# The width matters as much as the density: below about 768 CSS pixels at 2.5x
+# and about 1100 at 1.75x the `50vw` half of `min()` binds instead of the cap,
+# so a phone profile proves nothing about a band. That is why 412 at 1.75 and
+# 390 at 3x are green and prove nothing about the 1.75x and 3x bands.
 VARIANT_PROFILES = [
+    # 1x, the four this started with.
     (1905, 1.0, "desktop"),
     (1280, 1.0, "laptop"),
     (768, 1.0, "tablet"),
     (390, 1.0, "phone"),
+    # The 1x-to-1.5x band, from the rel421 verdict: real machines in it.
     (1905, 1.25, "125% scaling"),
     (1536, 1.25, "125% scaling"),
     (1440, 1.1, "110% zoom"),
     (1920, 1.33, "133% zoom"),
-    (1600, 1.5, "1.5x"),
-    (1905, 2.0, "retina"),
+    # Band edges that were already sampled, at their SAFE end.
+    (1600, 1.5, "1.5x edge"),
+    (1905, 2.0, "2x edge"),
+    # The two profiles the byte figures in the report are read from.
     (412, 1.75, "Lighthouse mobile"),
     (390, 3.0, "3x phone"),
+    # ⚠ 421c: THE WORST DENSITY IN EVERY BAND. These four are rel421b MAJOR 1,
+    # and at the 421b head every one of them took the 1672px original.
+    (1905, 1.75, "1.75x band, worst"),
+    (1905, 1.99, "1.75x to 2x band, worst"),
+    (1210, 2.5, "2x to 2.5x band, worst"),
+    (1008, 2.99, "2.5x to 3x band, worst"),
 ]
 
-# The original, at the end of every srcset this image has. Nothing may resolve
-# to it: there is no 1440 step (the encoder refused one at 225KB against a
-# 199KB source), so a request over 960 device pixels jumps straight to 1672 by
-# 941, which is the decode `scripts/wave413-motion.py` failed its long-task
-# probe on one run in two.
+# The original. NOTHING MAY RESOLVE TO IT, and since 421c nothing CAN: the
+# hero's ground is the one image on this site whose `srcset` is built with
+# `withOriginal: false`, so 400, 640 and 960 are the only candidates it has.
+# This assertion stays anyway, because it is the check that would catch the
+# candidate list being widened again, and because a check that has gone red
+# three times in one wave is not one to delete the moment it goes quiet.
 VARIANT_ORIGINAL = "hero-ground-street.webp"
 
 # Wider than this and a 400px source is being stretched past any honest use.
@@ -503,7 +524,16 @@ def check_arch_is_clear(shot: Path, dividers, failures, where):
 # `#main > :last-child { padding-bottom: clamp(36px,4.5vw,80px) }`. Tailwind
 # emits its utilities inside `@layer utilities` and that rule is unlayered, so
 # it outranks every one of these on the same element.
-PADDING_UTILITY = r"(^|\s)(?:[a-z-]+:)?(?:pb|py)-[^\s]+"
+#
+# ⚠ `p-` IS IN THE LIST AND IT WAS MISSING (421c, rel421b MINOR 2). An
+# all-sides `p-10` sets `padding-bottom` exactly as `pb-10` does, is outranked
+# by the same unlayered rule for the same reason, and produces the same
+# failure: the band's trailing space becomes exactly the arch's height and the
+# arch covers all of it. The old pattern would have printed "none" for it and
+# passed. THE HYPHEN IMMEDIATELY AFTER IS WHAT KEEPS THE LIST HONEST: `px-`,
+# `pt-`, `pl-`, `pr-`, `ps-`, `pe-` and `pointer-events-none` all fail to
+# match, and none of them sets padding-bottom.
+PADDING_UTILITY = r"(^|\s)(?:[a-z-]+:)?(?:pb|py|p)-[^\s]+"
 
 LAST_CHILD_READ = """
 (pattern) => {
