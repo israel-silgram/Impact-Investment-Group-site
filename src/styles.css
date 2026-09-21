@@ -1829,8 +1829,12 @@ canvas[data-map="in"] {
  * `scripts/wave412-screenshots.py` at this head read a raw dark-pixel share of
  * 23.55%, 23.52% and 23.52% at 1280 and 16.57%, 16.58%, 16.57% at 390; the
  * base `e07b7f4`, read by the same script, gives 23.53% and 23.57% at 1280 and
- * 16.58% at 390. The page-ground share is 9.02% at its worst here against
- * 8.99% and 9.04% at the base, and it answers to a flat 15% with no ratchet.
+ * 16.58% at 390. The page-ground share is 9.02% at its worst ACROSS THESE
+ * THREE READINGS against 8.99% and 9.04% at the base, and it answers to a
+ * flat 15% with no ratchet. A wider sample of seven readings, taken for the
+ * ratchet and recorded at `RAW_CEILING` in scripts/wave412-screenshots.py,
+ * has a worst of 9.20%; every figure here names the sample it came from
+ * (421b, rel421 MINOR 2).
  *
  * It costs nothing because EVERY PIXEL THIS ADDS IS A LIGHT PIXEL: a 20%
  * photograph under a 62% white scrim cannot cross the 0.2 relative luminance

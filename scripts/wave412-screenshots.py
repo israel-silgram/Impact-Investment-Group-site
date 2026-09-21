@@ -293,8 +293,9 @@ SAMPLE_EVERY = 4
 #
 # ⚠ THE 23.67% IS AN OUTLIER AND IT IS LEFT IN, because a distribution with
 # its worst reading deleted is not a distribution. It is 0.03 under the
-# ceiling. The same run read the GROUND figure at 9.20% against a median of
-# 8.98%, so the whole page was darker on that shutter rather than the hero:
+# ceiling. The same run read the GROUND figure at 9.20%, WHICH IS THE WORST
+# OF THESE SEVEN READINGS, against a median of 8.98%, so the whole page was
+# darker on that shutter rather than the hero:
 # the council marquee's plates are outside the ground masks, the crests on
 # them are dark, and the note above already measures that at a tenth of a
 # point. This page has read 23.64% and 23.65% on heads BEFORE this wave (see
@@ -310,8 +311,12 @@ SAMPLE_EVERY = 4
 # photograph at 0.2 under a white scrim at 62 to 88 per cent cannot reach the
 # 0.2 relative luminance this script counts as dark, so a page that is
 # visibly warmer is not measurably darker. The GROUND figure says the same:
-# 9.02% at its worst here against 8.99% and 9.04% at the base, and its flat
-# 15% ceiling is untouched and unrelaxed.
+# 9.02% AT ITS WORST ACROSS THE THREE READINGS QUOTED IN src/styles.css,
+# and 9.20% at its worst across the seven above, against 8.99% and 9.04% at
+# the base. Two samples, two figures, and they are labelled here because
+# this comment quoted both nine lines apart and called each one "the
+# worst" (421b, rel421 MINOR 2). The flat 15% ceiling is untouched and
+# unrelaxed, and the wider sample clears it by 5.80 points.
 #
 # Neither figure is LOWERED either. The note above records a spread of up to
 # 0.17 of a point across eight readings of the same build, because the page
