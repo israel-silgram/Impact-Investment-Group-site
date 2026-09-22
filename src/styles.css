@@ -239,7 +239,7 @@
  * are in docs/WAVE412_REPORT.md. */
 :root {
   --background: #ffffff;
-  --foreground: var(--brand-ink); /* 18.83:1 */
+  --foreground: var(--brand-ink); /* 13.62:1 on white */
   --card: #ffffff;
   --card-foreground: var(--brand-ink);
   --popover: #ffffff;
@@ -247,18 +247,18 @@
   /* WAVE 412: follows --color-orange-600, not 500. On the dark site the
      primary fill was 500 with NAVY ink on it, because white on 500 is only
      4.23:1. On a white page a 500 fill is also a weak edge against the
-     ground. 600 with white on it is 5.34:1, which is the same pairing the
+     ground. In v4, 600 with white on it is 5.31:1, the same pairing the
      brand `primary` button already used, so the library components and the
      brand button now agree instead of differing by one step. */
   --primary: var(--brand-primary-ink);
-  --primary-foreground: #ffffff; /* 5.34:1 */
+  --primary-foreground: #ffffff; /* 5.31:1 */
   /* The teal tint plate with teal-600 on it. */
   --secondary: color-mix(in oklab, var(--brand-teal-ink) 12%, #ffffff);
   --secondary-foreground: var(--brand-teal-ink);
   --muted: var(--bg-tint); /* the cream */
   --muted-foreground: #4e5a6e; /* 6.20:1 on the cream, 6.97:1 on white */
   --accent: var(--brand-teal-ink);
-  --accent-foreground: #ffffff; /* 5.25:1 */
+  --accent-foreground: #ffffff; /* 5.85:1 */
   /* ERROR AND VALIDATION TEXT. Deliberately not a brand orange, so a failed
      field never reads as the call to action, and picked for the DARK ground
      because that is where the forms live: 4.57:1 on the register form's panel
