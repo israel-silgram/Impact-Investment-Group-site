@@ -141,7 +141,7 @@ function PartnerCard({ profile, outcome = false }: { profile: PartnerProfile; ou
     >
       <span
         className={cn(
-          "grid size-12 place-items-center rounded-full bg-gradient-to-br shadow-[inset_0_2px_2px_rgba(255,255,255,0.65),0_5px_12px_rgba(0,22,51,0.15)] transition-transform duration-300 group-hover:scale-110",
+          "grid size-12 place-items-center rounded-full bg-gradient-to-br shadow-[inset_0_2px_2px_rgba(255,255,255,0.65),0_5px_12px_color-mix(in_srgb,var(--brand-ink)_15%,transparent)] transition-transform duration-300 group-hover:scale-110",
           detail.icon,
         )}
       >
@@ -165,7 +165,7 @@ function PartnerCard({ profile, outcome = false }: { profile: PartnerProfile; ou
       <span
         className={cn(
           "absolute right-3 top-3 grid size-7 place-items-center rounded-full opacity-0 transition-opacity group-hover:opacity-100",
-          outcome ? "bg-orange-500 text-navy-950" : "bg-white text-navy-900",
+          outcome ? "bg-orange-500 text-white" : "bg-white text-navy-900",
         )}
       >
         <ArrowRight aria-hidden="true" className="size-3.5" />
@@ -228,7 +228,7 @@ export function PartnersHub() {
               className="heading-tight mx-auto mt-3 text-balance text-[clamp(2.2rem,4.6vw,3.8rem)] font-extrabold leading-[0.98] text-ink"
             >
               <span className="block">Ten partners.</span>
-              <span className="block text-orange-500 sm:whitespace-nowrap">
+              <span className="block text-orange-700 sm:whitespace-nowrap">
                 One connected outcome.
               </span>
             </h2>

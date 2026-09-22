@@ -269,7 +269,7 @@ export function HomeHero() {
                      3.57:1 at 390, against the 3:1 floor a 46px headline
                      answers to. Re-measure rather than assume if the opacity
                      or the tint moves again. */
-                  panel.headline.orange ? "text-orange-500" : "text-ink",
+                  panel.headline.orange ? "text-orange-700" : "text-ink",
                 )}
               >
                 {panel.headline.text}

@@ -118,7 +118,7 @@ function SolutionsPage() {
             id="layers-heading"
             className="heading-tight mt-2.5 max-w-[22ch] text-balance text-[clamp(1.625rem,3.8vw,2.75rem)] font-extrabold tracking-[-0.02em] text-ink"
           >
-            A workable deal has <span className="text-orange-500">five layers</span>. We keep them
+            A workable deal has <span className="text-orange-700">five layers</span>. We keep them
             connected.
           </h2>
 
@@ -221,7 +221,7 @@ function SolutionsPage() {
                             {row.people.map((p) => (
                               <span
                                 key={p.role}
-                                className="mb-2 mr-2 inline-flex items-baseline gap-[7px] rounded-full border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)] bg-white px-[15px] py-2 shadow-[0_1px_2px_rgba(0,17,43,0.05)]"
+                                className="mb-2 mr-2 inline-flex items-baseline gap-[7px] rounded-full border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)] bg-white px-[15px] py-2 shadow-[0_1px_2px_color-mix(in_srgb,var(--brand-ink)_5%,transparent)]"
                               >
                                 <b className="font-heading text-[15px] font-extrabold text-navy-900">
                                   {p.role}
@@ -255,7 +255,7 @@ function SolutionsPage() {
               id="product-heading"
               className="heading-tight mt-3 max-w-[20ch] text-balance text-[clamp(1.75rem,4.4vw,3.125rem)] font-extrabold tracking-[-0.02em] text-ink"
             >
-              {productPitch.headA} <span className="text-orange-500">{productPitch.headB}</span>.
+              {productPitch.headA} <span className="text-orange-700">{productPitch.headB}</span>.
             </h2>
             <p className="mt-3.5 text-[17px] leading-relaxed text-ink-muted">{productPitch.lead}</p>
 
@@ -288,7 +288,7 @@ function SolutionsPage() {
             loading="lazy"
             width={829}
             height={620}
-            className="hidden w-full drop-shadow-[0_20px_34px_rgba(0,17,43,0.4)] lg:block"
+            className="hidden w-full drop-shadow-[0_20px_34px_color-mix(in_srgb,var(--brand-ink)_40%,transparent)] lg:block"
             srcSet={variantSrcSet("/images/solution/trio.webp")}
             sizes={SIZES_THIRD_FROM_TABLET}
           />

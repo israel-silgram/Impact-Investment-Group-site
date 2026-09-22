@@ -138,7 +138,7 @@ function Band({
       {grid ? (
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(37,209,194,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(37,209,194,0.08)_1px,transparent_1px)] [background-size:56px_56px]"
+          className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(color-mix(in_srgb,var(--brand-teal-on-ink)_8%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--brand-teal-on-ink)_8%,transparent)_1px,transparent_1px)] [background-size:56px_56px]"
         />
       ) : null}
       <div className="relative mx-auto w-full max-w-[1200px] px-5 py-12 sm:px-8 lg:py-14">
@@ -209,7 +209,7 @@ function Summary({
 }
 
 const DIFFERENCE_VISUAL = {
-  past: { value: "25", unit: "years fixed", tone: "text-orange-500" },
+  past: { value: "25", unit: "years fixed", tone: "text-orange-700" },
   lessons: { value: "REVIEW", unit: "before risk rolls forward", tone: "text-ink" },
   solution: { value: "5", unit: "year review window", tone: "text-teal-600" },
 } as const;
@@ -268,7 +268,7 @@ function DifferenceStory() {
                     className={cn(
                       "group flex min-h-[64px] items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-all duration-300",
                       selected
-                        ? "translate-x-0 border-teal-600/45 bg-page shadow-[0_10px_30px_-18px_rgba(36,210,195,0.7)] lg:translate-x-1"
+                        ? "translate-x-0 border-teal-600/45 bg-page shadow-[0_10px_30px_-18px_color-mix(in_srgb,var(--brand-teal-on-ink)_70%,transparent)] lg:translate-x-1"
                         : "border-transparent bg-transparent hover:border-rule hover:bg-page",
                     )}
                   >
@@ -471,7 +471,7 @@ function CharacterPortals() {
           id="tools-heading"
           className="heading-tight mt-2 max-w-[720px] font-heading text-[clamp(2.25rem,5vw,4.35rem)] font-bold text-ink"
         >
-          Three doors into <span className="text-orange-500">one platform.</span>
+          Three doors into <span className="text-orange-700">one platform.</span>
         </h2>
         <p className="mt-3 text-[15px] text-ink-muted sm:text-[16px]">
           Choose where you want to begin.
@@ -495,12 +495,12 @@ function CharacterPortals() {
                     aria-label={`Meet ${step.claim.split(" ")[0]} — ${PORTAL_LABEL[id]}`}
                     onClick={() => setSelectedId(step.id)}
                     className={cn(
-                      "group relative h-[285px] w-full overflow-hidden rounded-b-[16px] rounded-t-[999px] border-2 border-rule bg-[radial-gradient(circle_at_50%_38%,rgba(37,209,194,0.20),var(--color-navy-800)_66%)] p-0 text-ink",
+                      "group relative h-[285px] w-full overflow-hidden rounded-b-[16px] rounded-t-[999px] border-2 border-rule bg-[radial-gradient(circle_at_50%_38%,color-mix(in_srgb,var(--brand-teal-on-ink)_20%,transparent),var(--color-navy-800)_66%)] p-0 text-ink",
                       "transition-[transform,box-shadow,border-color] duration-500 ease-out motion-reduce:transition-none",
-                      "hover:-translate-y-3 hover:scale-[1.025] hover:border-teal-600 hover:shadow-[0_0_48px_rgba(37,209,194,0.28)]",
+                      "hover:-translate-y-3 hover:scale-[1.025] hover:border-teal-600 hover:shadow-[0_0_48px_color-mix(in_srgb,var(--brand-teal-on-ink)_28%,transparent)]",
                       "focus-visible:-translate-y-3 focus-visible:border-teal-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-4 focus-visible:ring-offset-navy-900",
                       "sm:h-[350px] lg:h-[390px]",
-                      "before:absolute before:inset-[-60%] before:animate-spin before:bg-[conic-gradient(transparent,rgba(37,209,194,0.36),transparent,rgba(255,107,0,0.30),transparent)] before:[animation-duration:7s] before:content-['']",
+                      "before:absolute before:inset-[-60%] before:animate-spin before:bg-[conic-gradient(transparent,color-mix(in_srgb,var(--brand-teal-on-ink)_36%,transparent),transparent,color-mix(in_srgb,var(--brand-primary)_30%,transparent),transparent)] before:[animation-duration:7s] before:content-['']",
                       "after:absolute after:inset-2 after:rounded-[inherit] after:bg-page after:content-['']",
                     )}
                   >
@@ -529,7 +529,7 @@ function CharacterPortals() {
               aria-labelledby="portal-profile-heading"
               className="absolute inset-0 z-10 grid overflow-hidden rounded-[22px] border border-teal-600/50 bg-page/98 shadow-[0_35px_80px_rgba(0,0,0,0.55)] md:grid-cols-[0.8fr_1.2fr]"
             >
-              <div className="relative hidden overflow-hidden bg-[radial-gradient(circle,rgba(37,209,194,0.25),transparent_68%)] md:block">
+              <div className="relative hidden overflow-hidden bg-[radial-gradient(circle,color-mix(in_srgb,var(--brand-teal-on-ink)_25%,transparent),transparent_68%)] md:block">
                 <img
                   src={PORTAL_ART[selected.id as keyof typeof PORTAL_ART]}
                   loading="lazy"
@@ -592,7 +592,7 @@ function MissionControl() {
           id="mission-control-heading"
           className="heading-tight mt-2 max-w-[760px] font-heading text-[clamp(2rem,4.6vw,3.8rem)] font-bold text-ink"
         >
-          Choose a specialist. <span className="text-orange-500">Activate their tool.</span>
+          Choose a specialist. <span className="text-orange-700">Activate their tool.</span>
         </h2>
 
         <div className="mt-8 grid items-center gap-8 lg:grid-cols-[minmax(360px,1.05fr)_minmax(300px,0.95fr)]">
@@ -636,7 +636,7 @@ function MissionControl() {
                     "absolute h-[132px] w-[112px] overflow-hidden rounded-[18px] border bg-page/90 text-ink transition duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 sm:h-[142px] sm:w-[126px]",
                     position,
                     activeId === step.id
-                      ? "border-teal-600 shadow-[0_0_30px_rgba(37,209,194,0.3)]"
+                      ? "border-teal-600 shadow-[0_0_30px_color-mix(in_srgb,var(--brand-teal-on-ink)_30%,transparent)]"
                       : "border-rule",
                   )}
                 >
@@ -657,14 +657,14 @@ function MissionControl() {
 
           <div
             aria-live="polite"
-            className="relative min-h-[340px] overflow-hidden border border-teal-600/35 bg-[repeating-linear-gradient(0deg,rgba(37,209,194,0.035)_0_3px,transparent_3px_7px)] p-7 shadow-[inset_0_0_55px_rgba(37,209,194,0.08)]"
+            className="relative min-h-[340px] overflow-hidden border border-teal-600/35 bg-[repeating-linear-gradient(0deg,color-mix(in_srgb,var(--brand-teal-on-ink)_3.5%,transparent)_0_3px,transparent_3px_7px)] p-7 shadow-[inset_0_0_55px_color-mix(in_srgb,var(--brand-teal-on-ink)_8%,transparent)]"
           >
             <img
               src={PORTAL_ART[activeKey]}
               loading="lazy"
               alt=""
               aria-hidden="true"
-              className="absolute -bottom-5 -right-7 h-[280px] opacity-25 saturate-50 drop-shadow-[0_0_18px_rgba(37,209,194,0.7)]"
+              className="absolute -bottom-5 -right-7 h-[280px] opacity-25 saturate-50 drop-shadow-[0_0_18px_color-mix(in_srgb,var(--brand-teal-on-ink)_70%,transparent)]"
             />
             <p className="relative eyebrow tracking-[0.14em] text-teal-600">{active.chip}</p>
             <h3 className="relative mt-3 max-w-[12ch] font-heading text-[clamp(1.8rem,3.5vw,2.5rem)] font-bold text-ink">
@@ -743,11 +743,11 @@ function LivingComic() {
                 <span
                   aria-hidden="true"
                   className={cn(
-                    "absolute inset-[-30%] animate-spin bg-[repeating-conic-gradient(from_0deg,rgba(255,107,0,0.16)_0deg_7deg,transparent_7deg_14deg)] [animation-duration:34s] motion-reduce:animate-none",
+                    "absolute inset-[-30%] animate-spin bg-[repeating-conic-gradient(from_0deg,color-mix(in_srgb,var(--brand-primary)_16%,transparent)_0deg_7deg,transparent_7deg_14deg)] [animation-duration:34s] motion-reduce:animate-none",
                     index === 1 &&
                       "bg-[repeating-conic-gradient(from_0deg,rgba(255,255,255,0.10)_0deg_7deg,transparent_7deg_14deg)]",
                     index === 2 &&
-                      "bg-[repeating-conic-gradient(from_0deg,rgba(37,209,194,0.18)_0deg_7deg,transparent_7deg_14deg)]",
+                      "bg-[repeating-conic-gradient(from_0deg,color-mix(in_srgb,var(--brand-teal-on-ink)_18%,transparent)_0deg_7deg,transparent_7deg_14deg)]",
                   )}
                 />
                 <span className="absolute left-4 top-4 z-3 -rotate-2 bg-white px-3 py-2 font-sans text-[12px] font-bold text-navy-900 shadow-[6px_6px_0_var(--color-orange-600)] sm:text-[14px]">

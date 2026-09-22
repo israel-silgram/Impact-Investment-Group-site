@@ -28,10 +28,6 @@ import {
  * the filters and both dropdowns behave exactly as they did before.
  */
 
-/** Sampled from the mock-up rather than estimated. */
-const DOT_BASE = [0x00, 0x1d, 0x5b] as const;
-const DOT_HOT = [0xd4, 0xff, 0xff] as const;
-
 interface LadFeature {
   type: "Feature";
   properties: { LAD13CD: string; LAD13NM: string };
@@ -67,9 +63,6 @@ if (UNMATCHED.length > 0) {
   // Never silently dropped: surfaced so the district alias map can be fixed.
   console.warn("[DemandMap] authorities with no matched 2013 districts:", UNMATCHED.join(", "));
 }
-
-const mix = (t: number, channel: 0 | 1 | 2) =>
-  Math.round(DOT_BASE[channel] + (DOT_HOT[channel] - DOT_BASE[channel]) * t);
 
 /** Brightness buckets: a dozen fills rather than seven thousand. */
 const BUCKETS = 12;
@@ -297,6 +290,17 @@ export function DemandMap({
       addDot(dynamic, data[offset]!, data[offset + 1]!, t);
     }
 
+    // Canvas reads the same canonical colours as the SVG and CSS layers.
+    const palette = getComputedStyle(document.documentElement);
+    const channels = (name: string) => {
+      const hex = palette.getPropertyValue(name).trim();
+      return [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16));
+    };
+    const base = channels("--brand-ink");
+    const hot = channels("--brand-teal-on-ink");
+    const mix = (t: number, channel: 0 | 1 | 2) =>
+      Math.round(base[channel]! + (hot[channel]! - base[channel]!) * t);
+
     for (let b = 0; b < BUCKETS; b++) {
       const t = b / (BUCKETS - 1);
       ctx.fillStyle = `rgba(${mix(t, 0)}, ${mix(t, 1)}, ${mix(t, 2)}, ${(0.62 + t * 0.38).toFixed(3)})`;
@@ -399,14 +403,14 @@ export function DemandMap({
         >
           <defs>
             <radialGradient id="hub-halo">
-              <stop offset="0%" stopColor="#F27216" stopOpacity="0.55" />
-              <stop offset="45%" stopColor="#F27216" stopOpacity="0.18" />
-              <stop offset="100%" stopColor="#F27216" stopOpacity="0" />
+              <stop offset="0%" stopColor="var(--brand-primary)" stopOpacity="0.55" />
+              <stop offset="45%" stopColor="var(--brand-primary)" stopOpacity="0.18" />
+              <stop offset="100%" stopColor="var(--brand-primary)" stopOpacity="0" />
             </radialGradient>
             <radialGradient id="hub-inner">
-              <stop offset="0%" stopColor="#FFEFB2" stopOpacity="0.95" />
-              <stop offset="40%" stopColor="#F27216" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#BF4B1B" stopOpacity="0" />
+              <stop offset="0%" stopColor="var(--brand-primary-on-ink)" stopOpacity="0.95" />
+              <stop offset="40%" stopColor="var(--brand-primary)" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="var(--brand-primary-ink)" stopOpacity="0" />
             </radialGradient>
           </defs>
 
@@ -420,7 +424,7 @@ export function DemandMap({
            */}
 
           {/* Sparse mesh between neighbouring hubs. */}
-          <g aria-hidden="true" stroke="#F27216" strokeWidth="0.5" strokeOpacity="0.15">
+          <g aria-hidden="true" stroke="var(--brand-primary)" strokeWidth="0.5" strokeOpacity="0.15">
             {LINKS.map(({ a, b }) => (
               <line key={`${a.id}-${b.id}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} />
             ))}
@@ -442,7 +446,7 @@ export function DemandMap({
                 >
                   <circle r={14 * scale} fill="url(#hub-halo)" />
                   <circle r={5 * scale} fill="url(#hub-inner)" />
-                  <circle r={1.5 * scale} fill="#FFEFB2" />
+                  <circle r={1.5 * scale} fill="var(--brand-primary-on-ink)" />
                 </g>
               );
             })}

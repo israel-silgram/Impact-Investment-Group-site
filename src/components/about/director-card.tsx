@@ -103,9 +103,9 @@ export function DirectorCard({
       <article
         className={cn(
           "group section-light relative flex h-full min-h-[356px] flex-col items-center overflow-hidden rounded-[18px] bg-cream-card px-4 pb-5 pt-5 text-center",
-          "border border-white/70 shadow-[0_18px_42px_rgba(0,7,20,0.2)]",
+          "border border-white/70 shadow-[0_18px_42px_color-mix(in_srgb,var(--brand-ink)_20%,transparent)]",
           "transition-[transform,box-shadow] duration-300 motion-reduce:transition-none",
-          "hover:-translate-y-1.5 hover:shadow-[0_26px_55px_rgba(0,7,20,0.3)]",
+          "hover:-translate-y-1.5 hover:shadow-[0_26px_55px_color-mix(in_srgb,var(--brand-ink)_30%,transparent)]",
           className,
         )}
       >
@@ -120,7 +120,7 @@ export function DirectorCard({
             loading="lazy"
             width={440}
             height={440}
-            className="size-28 shrink-0 rounded-full object-cover ring-4 ring-white shadow-[0_0_0_1px_rgba(7,26,51,0.08)]"
+            className="size-28 shrink-0 rounded-full object-cover ring-4 ring-white shadow-[0_0_0_1px_color-mix(in_srgb,var(--brand-ink)_8%,transparent)]"
             srcSet={variantSrcSet(director.portrait)}
             sizes={SIZES_PORTRAIT}
           />
@@ -161,7 +161,7 @@ export function DirectorCard({
         className={cn(
           "section-light flex h-full flex-col overflow-hidden rounded-2xl bg-cream-card",
           "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
-          "shadow-[0_1px_2px_rgba(0,17,43,0.05),0_10px_30px_-18px_rgba(0,17,43,0.25)]",
+          "shadow-[0_1px_2px_color-mix(in_srgb,var(--brand-ink)_5%,transparent),0_10px_30px_-18px_color-mix(in_srgb,var(--brand-ink)_25%,transparent)]",
           className,
         )}
       >
@@ -226,7 +226,7 @@ export function DirectorCard({
         className={cn(
           "flex items-center gap-3.5 rounded-xl bg-cream-card px-4 py-3.5",
           "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
-          "shadow-[0_1px_2px_rgba(0,17,43,0.04)]",
+          "shadow-[0_1px_2px_color-mix(in_srgb,var(--brand-ink)_4%,transparent)]",
           className,
         )}
       >
@@ -278,7 +278,7 @@ export function DirectorCard({
            the page behind it would have no edge at all. One step darker plus a
            navy hairline is what makes it read as a card. */
         "border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)]",
-        "shadow-[0_1px_2px_rgba(0,17,43,0.05),0_10px_30px_-18px_rgba(0,17,43,0.25)]",
+        "shadow-[0_1px_2px_color-mix(in_srgb,var(--brand-ink)_5%,transparent),0_10px_30px_-18px_color-mix(in_srgb,var(--brand-ink)_25%,transparent)]",
         orange && "border-l-4 border-l-orange-600",
         lead
           ? "gap-5 p-5 sm:flex-row sm:items-start sm:gap-6"

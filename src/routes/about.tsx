@@ -383,7 +383,7 @@ function AboutPage() {
               aria-labelledby="leadership-capability-heading"
               className={cn(
                 "section-light relative min-h-[326px] overflow-hidden rounded-[20px] bg-cream-card",
-                "border border-white/60 shadow-[0_22px_52px_rgba(0,7,20,0.23)]",
+                "border border-white/60 shadow-[0_22px_52px_color-mix(in_srgb,var(--brand-ink)_23%,transparent)]",
               )}
             >
               <span
@@ -396,7 +396,7 @@ function AboutPage() {
                 width={935}
                 height={559}
                 loading="lazy"
-                className="pointer-events-none absolute bottom-[-6px] left-3 w-[min(300px,28%)] select-none object-contain drop-shadow-[0_16px_16px_rgba(7,26,51,0.16)] max-lg:w-[270px] max-lg:max-w-[78%]"
+                className="pointer-events-none absolute bottom-[-6px] left-3 w-[min(300px,28%)] select-none object-contain drop-shadow-[0_16px_16px_color-mix(in_srgb,var(--brand-ink)_16%,transparent)] max-lg:w-[270px] max-lg:max-w-[78%]"
                 srcSet={variantSrcSet("/images/ai-team/collective-capability-team.png")}
                 sizes={SIZES_CARD_ILLUSTRATION}
               />
@@ -559,7 +559,7 @@ function AboutPage() {
       <Band id="what-heading">
         <Head eyebrow={whatWeDo.eyebrow} title={whatWeDo.title} id="what-heading" />
         <p className="mt-4 max-w-[44ch] text-[clamp(1.375rem,2.4vw,1.625rem)] font-semibold leading-[1.32] text-ink">
-          Three companies. <strong className="font-bold text-orange-500">One chain.</strong> No gap
+          Three companies. <strong className="font-bold text-orange-700">One chain.</strong> No gap
           for a person to fall through.
         </p>
 

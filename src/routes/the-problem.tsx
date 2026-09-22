@@ -105,7 +105,7 @@ function TheProblemPage() {
                     width={portrait.w}
                     height={portrait.h}
                     className={cn(
-                      "pointer-events-none absolute bottom-0 hidden h-[302px] w-auto drop-shadow-[0_20px_34px_rgba(0,17,43,0.3)] lg:block",
+                      "pointer-events-none absolute bottom-0 hidden h-[302px] w-auto drop-shadow-[0_20px_34px_color-mix(in_srgb,var(--brand-ink)_30%,transparent)] lg:block",
                       onLeft ? "-left-12" : "-right-12 -scale-x-100",
                     )}
                     srcSet={variantSrcSet(portrait.src)}

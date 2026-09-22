@@ -127,116 +127,63 @@
   line-gap-override: 0%;
 }
 
+:root {
+  /* Brand Kit v4, platform commit 101a18d5. One value per colour role. */
+  --brand-primary: #E15E31;
+  --brand-primary-ink: #BB441B;
+  --brand-primary-soft: #FFF0EB;
+  --brand-primary-light: #F07E56;
+  --brand-primary-on-ink: #FFA181;
+  --brand-teal: #208A87;
+  --brand-teal-ink: #1A706E;
+  --brand-teal-soft: #EBF6F6;
+  --brand-teal-on-ink: #66C4C2;
+  --brand-ink: #0A2C60;
+  --brand-slate: #647289;
+  --bg-canvas: #FDFDFB;
+  --bg-tint: #FBF6F0;
+  --bg-cream: #F5EDE4;
+  --dv-track: #F3EAE0;
+}
+
 @theme {
-  /* Navy — the base. The site is dark by default. */
-  --color-navy-950: #000b1c;
-  --color-navy-900: #00112b;
-  --color-navy-800: #041c3d;
-  --color-navy-700: #0a2a52;
-  --color-navy-600: #143c6b;
+  /* Existing utility names now share the platform's navy identity. */
+  --color-navy-950: var(--brand-ink);
+  --color-navy-900: var(--brand-ink);
+  --color-navy-800: var(--brand-ink);
+  --color-navy-700: var(--brand-ink);
+  --color-navy-600: var(--brand-ink);
 
-  /* Orange, the action colour. THE PLATFORM'S ORANGE (wave 295).
-     The site used to carry the Mock-up 1 amber #ff7a29. It now carries the
-     terracotta the platform ships, so that a visitor who registers here and
-     signs in there sees one brand and not two.
+  /* Bright orange is for graphics. White button labels and orange text use
+     the ink step: 5.31:1 on white, 4.58:1 on the deepest warm paper. */
+  --color-orange-500: var(--brand-primary);
+  --color-orange-600: var(--brand-primary-ink);
+  --color-orange-700: var(--brand-primary-ink);
 
-     500 and 600 are the platform's own tokens, lifted unchanged from the
-     platform repo's docs/BRAND_KIT.md:
-       --color-orange-500 = --brand-primary      fills, graphics, marks
-       --color-orange-600 = --brand-primary-ink  the fill of any text control
-     400 is the platform's light terracotta, which the kit permits on a navy
-     ground only. 700 is derived here, because the platform has no cream as
-     dark as ours and so has no token for body text on it.
+  --color-teal-400: var(--brand-teal-on-ink);
+  --color-teal-500: var(--brand-teal);
+  --color-teal-600: var(--brand-teal-ink);
+  --color-teal-950: var(--brand-ink);
 
-     ⚠ NOT #C6613F. That is the orange the platform RETIRED in wave 34, and
-     the platform's own test suite now fails the build on its reintroduction.
-     Its white ratio is 4.05:1, not the 5.3:1 sometimes quoted for it: 5.34:1
-     belongs to #AE4E30, the ink below. Measured, both of them, in
-     docs/WAVE295_REPORT.md. */
-
-  /* ⚠️ THERE IS ONE ORANGE ON THIS SITE AND IT IS THE ONE BELOW. A lighter
-     step above it existed for a day, to carry small orange text on navy where
-     500 could not reach 4.5:1. Callum, after reading the wave 295 report: one
-     orange, the wait-list button's, for every orange word. Where it did not
-     pass, THE SURFACE MOVED, not the orange, and every such surface is listed
-     in docs/WAVE295_REPORT.md under "One orange". Adding a lighter orange for
-     text puts two oranges back on the page, which is the exact thing that
-     wave existed to end.
-
-     Fills, graphics, icon glyphs and large headline words. 4.01:1 on navy-800
-     clears AA for large text and clears 1.4.11 for non-text marks. It is not a
-     small-text colour on any ground: small orange text needs navy-950 or
-     darker, and on the cream it is 700. */
-  --color-orange-500: #c15f3c;
-  /* The button fill. White on it is 5.34:1, full AA for normal text, where
-     the old amber's #e56600 was 3.4:1 and only ever cleared large text. */
-  --color-orange-600: #ae4e30;
-  /* Orange TEXT on the cream, at body size: 5.78:1 on mist-bg, 5.25:1 on
-     cream-card, 6.50:1 on white. 500 is 3.76:1 there and 600 is 4.75:1. */
-  --color-orange-700: #9a4429;
-
-  /* Teal — second accent. Muted, never neon. */
-  --color-teal-400: #2fbaaa;
-  --color-teal-500: #1e9e8f;
-  --color-teal-600: #17796f;
-  --color-teal-950: #06302e;
-
-  /* Neutrals */
   --color-white: #ffffff;
-  --color-mist: #c6d2e4;
-  --color-slate-muted: #7f91ac;
-
-  /* Light mode — evidence and detail. Alternated with the navy. */
-  --color-mist-bg: #f7f1e6; /* CREAM — light section background */
-  --color-cream-card: #efe6d6; /* cards sitting directly on the cream */
-  --color-surface: #ffffff; /* card and content surfaces, only ever on mist-bg */
-  --color-slate: #647289; /* borders, rules, small caps, body copy on white cards */
-  --color-slate-ink: #4e5a6e; /* body copy directly on the cream — 6.2:1 */
-  /* Error text on a light ground. 5.46:1 on white and 4.85:1 on the cream.
-     `.section-light` swaps --destructive for this; see the note on that
-     token. On /contact the form's own panel is turned white by that block, so
-     this is the value its validation messages actually render in. */
+  --color-mist: var(--color-white);
+  --color-slate-muted: var(--brand-slate);
+  --color-mist-bg: var(--bg-tint);
+  --color-cream-card: var(--bg-cream);
+  --color-surface: var(--color-white);
+  --color-slate: var(--brand-slate);
+  --color-slate-ink: #4e5a6e;
   --color-destructive-on-light: #c92a2a;
 
-  /* ---------------------------------------------------------------------
-     THE LIGHT SITE READS THESE BY NAME (wave 412).
-
-     Everything above is the palette; these are the jobs. A component asks
-     for `bg-page`, `text-ink`, `border-rule`, and it is correct on the
-     light ground without knowing which navy or slate is behind the name.
-     The navy scale above stays exactly as it was, because navy is still
-     the ink and still the two islands. It simply stopped being the ground.
-
-     Measured on #ffffff and on the cream #f7f1e6 (wave 412 report):
-       ink        #00112b  18.83:1 on white, 16.75:1 on cream
-       ink-muted  #4e5a6e   6.97:1 on white,  6.20:1 on cream
-       ink-soft   #647289   4.87:1 on white,  4.33:1 on cream, so it is for
-                            white cards, rules and small caps, never body
-                            copy directly on the cream
-       teal-600   #17796f   5.25:1 on white,  4.67:1 on cream
-       orange-700 #9a4429   6.50:1 on white,  5.78:1 on cream
-     --------------------------------------------------------------------- */
-  --color-page: #ffffff; /* THE PAGE GROUND */
-  /* The sticky header's ground. White at 92%, so the page reads through the
-     blur behind it. It is a TOKEN rather than `bg-page/92` because the meta
-     `theme-color` in __root.tsx has to name the same colour, and because an
-     opacity modifier on a custom property computes to an `oklab()` value that
-     is awkward to read back in a test. */
-  --color-header: rgb(255 255 255 / 0.92);
-  --color-page-alt: #f7f1e6; /* the alternating band, same value as mist-bg */
-  --color-ink: #00112b; /* navy-900 as type, not as ground */
-  --color-ink-muted: #4e5a6e; /* body copy on the cream */
-  --color-ink-soft: #647289; /* small caps, captions, body on white cards */
-  /* One real colour for the hairline that rules the whole light site. The
-     `--slate-20` composite below now points AT this rather than beside it,
-     so `border-rule` and every existing `--slate-20` reference are the same
-     pixel and cannot drift apart. */
-  --color-rule: color-mix(in oklab, #647289 20%, transparent);
-  /* The soft tinted discs behind icon glyphs. 12%, which is the lightest
-     tint that still reads as a plate rather than as a smudge, and light
-     enough that the glyph above it keeps its own ratio against the page. */
-  --color-tint-orange: color-mix(in oklab, #c15f3c 12%, transparent);
-  --color-tint-teal: color-mix(in oklab, #17796f 12%, transparent);
+  --color-page: var(--bg-canvas);
+  --color-header: color-mix(in srgb, var(--color-page) 92%, transparent);
+  --color-page-alt: var(--bg-tint);
+  --color-ink: var(--brand-ink);
+  --color-ink-muted: var(--color-slate-ink);
+  --color-ink-soft: var(--brand-slate);
+  --color-rule: color-mix(in oklab, var(--brand-slate) 20%, transparent);
+  --color-tint-orange: color-mix(in oklab, var(--brand-primary) 12%, transparent);
+  --color-tint-teal: color-mix(in oklab, var(--brand-teal-ink) 12%, transparent);
 
   /* Type */
   /* ⚠ WAVE 414: THE FALLBACK FACES ARE IN THE STACK, AND THAT IS A CLS FIX.
@@ -292,25 +239,25 @@
  * are in docs/WAVE412_REPORT.md. */
 :root {
   --background: #ffffff;
-  --foreground: #00112b; /* 18.83:1 */
+  --foreground: var(--brand-ink); /* 18.83:1 */
   --card: #ffffff;
-  --card-foreground: #00112b;
+  --card-foreground: var(--brand-ink);
   --popover: #ffffff;
-  --popover-foreground: #00112b;
+  --popover-foreground: var(--brand-ink);
   /* WAVE 412: follows --color-orange-600, not 500. On the dark site the
      primary fill was 500 with NAVY ink on it, because white on 500 is only
      4.23:1. On a white page a 500 fill is also a weak edge against the
      ground. 600 with white on it is 5.34:1, which is the same pairing the
      brand `primary` button already used, so the library components and the
      brand button now agree instead of differing by one step. */
-  --primary: #ae4e30;
+  --primary: var(--brand-primary-ink);
   --primary-foreground: #ffffff; /* 5.34:1 */
   /* The teal tint plate with teal-600 on it. */
-  --secondary: color-mix(in oklab, #17796f 12%, #ffffff);
-  --secondary-foreground: #17796f;
-  --muted: #f7f1e6; /* the cream */
+  --secondary: color-mix(in oklab, var(--brand-teal-ink) 12%, #ffffff);
+  --secondary-foreground: var(--brand-teal-ink);
+  --muted: var(--bg-tint); /* the cream */
   --muted-foreground: #4e5a6e; /* 6.20:1 on the cream, 6.97:1 on white */
-  --accent: #17796f;
+  --accent: var(--brand-teal-ink);
   --accent-foreground: #ffffff; /* 5.25:1 */
   /* ERROR AND VALIDATION TEXT. Deliberately not a brand orange, so a failed
      field never reads as the call to action, and picked for the DARK ground
@@ -337,22 +284,22 @@
      this happen per-section is simply the default. */
   --destructive: #c92a2a;
   --destructive-foreground: #ffffff; /* 5.46:1 */
-  --border: color-mix(in oklab, #647289 20%, transparent);
-  --input: color-mix(in oklab, #647289 20%, transparent);
-  --ring: #17796f;
-  --chart-1: #1e9e8f;
-  --chart-2: #2fbaaa;
-  --chart-3: #143c6b;
-  --chart-4: #c15f3c;
-  --chart-5: #7f91ac;
-  --sidebar: #f7f1e6;
-  --sidebar-foreground: #00112b;
-  --sidebar-primary: #ae4e30;
+  --border: color-mix(in oklab, var(--brand-slate) 20%, transparent);
+  --input: color-mix(in oklab, var(--brand-slate) 20%, transparent);
+  --ring: var(--brand-ink);
+  --chart-1: var(--brand-teal);
+  --chart-2: var(--brand-teal-on-ink);
+  --chart-3: var(--brand-ink);
+  --chart-4: var(--brand-primary);
+  --chart-5: var(--brand-slate);
+  --sidebar: var(--bg-tint);
+  --sidebar-foreground: var(--brand-ink);
+  --sidebar-primary: var(--brand-primary-ink);
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: color-mix(in oklab, #17796f 12%, #ffffff);
-  --sidebar-accent-foreground: #17796f;
-  --sidebar-border: color-mix(in oklab, #647289 20%, transparent);
-  --sidebar-ring: #17796f;
+  --sidebar-accent: color-mix(in oklab, var(--brand-teal-ink) 12%, #ffffff);
+  --sidebar-accent-foreground: var(--brand-teal-ink);
+  --sidebar-border: color-mix(in oklab, var(--brand-slate) 20%, transparent);
+  --sidebar-ring: var(--brand-ink);
 
   /* Composite tokens */
   --gradient-action: linear-gradient(100deg, var(--color-orange-500), var(--color-orange-600));
@@ -366,14 +313,15 @@
   /* The only remaining heavy shadow. It belongs to the two NAVY ISLANDS and
      to nothing else; every card on the light site takes --shadow-card. */
   --shadow-panel: 0 24px 60px -28px rgb(0 0 0 / 0.75);
+  --shadow-orange-step: 0 0 26px color-mix(in srgb, var(--brand-primary) 55%, transparent);
   --shadow-action: 0 10px 26px -12px color-mix(in oklab, var(--color-orange-500) 65%, transparent);
 
   /* Light composites */
   /* Kept as a name because half the stylesheet and several components say
      `--slate-20`; it is now one alias of `--color-rule`, not a second value. */
   --slate-20: var(--color-rule);
-  --shadow-card: 0 1px 2px rgb(0 17 43 / 0.04), 0 8px 24px rgb(0 17 43 / 0.06);
-  --shadow-card-hover: 0 2px 4px rgb(0 17 43 / 0.06), 0 16px 40px rgb(0 17 43 / 0.12);
+  --shadow-card: 0 1px 2px color-mix(in srgb, var(--brand-ink) 4%, transparent), 0 8px 24px color-mix(in srgb, var(--brand-ink) 6%, transparent);
+  --shadow-card-hover: 0 2px 4px color-mix(in srgb, var(--brand-ink) 6%, transparent), 0 16px 40px color-mix(in srgb, var(--brand-ink) 12%, transparent);
 
   /* The one teal glow on the site: the MissionControl disc on /platform.
      It used to be written in the component as a raw rgba(37, 209, 194, 0.22),
@@ -1525,7 +1473,7 @@ canvas[data-map="in"] {
     /* Wave 412: a navy hairline, not a white one, and no drop shadow. The
        letterforms are cut out of a photograph on a white page now, so what
        they need is an edge against the page, not a lift off the dark. */
-    -webkit-text-stroke: 1px rgb(0 17 43 / 0.22);
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--brand-ink) 22%, transparent);
   }
 
   .image-fill-line[data-tone="orange"] {

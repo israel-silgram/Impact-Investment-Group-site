@@ -16,13 +16,12 @@ import { cn } from "@/lib/utils";
  * this site's navy, the navy half of it — the house, the lower arc of the ring,
  * "Impact" and "Group" — disappears. So there are two files:
  *
- *   on-navy   logo-lockup-reverse.webp   navy ink lifted to white, orange kept
- *   on-cream  logo-lockup.webp           the artwork exactly as supplied
+ *   on-navy   logo-lockup-reverse.webp   white words and v4 orange graphics
+ *   on-cream  logo-lockup.webp           v4 orange ink words and graphics
  *
- * The orange is never substituted, tinted or lifted in either — it is the one
- * part of the mark that holds its contrast on both grounds (7.2:1 on the navy,
- * and it is artwork rather than text on the cream, so the text rule does not
- * bind). Only the navy moves, and only because on navy it is invisible.
+ * Wave 443 recolours existing orange pixels with explicit user approval.
+ * The artwork, dimensions, alpha and every non-orange pixel are preserved.
+ * Word pixels use the v4 text roles; the mark uses the primary graphic hue.
  *
  * ⚠️ A LIGHT SECTION MUST PASS variant="on-cream". The default is the reverse
  * file, which is white artwork — invisible on cream. There is no way to detect

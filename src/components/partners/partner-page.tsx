@@ -414,7 +414,7 @@ function PartnerRoleLedger({ profile }: { profile: PartnerProfile }) {
             id="role-heading"
             className="heading-tight mt-3 text-[clamp(2.2rem,5vw,4rem)] font-extrabold leading-none text-ink"
           >
-            {presentation.lead} <span className="text-orange-500">{presentation.accent}</span>
+            {presentation.lead} <span className="text-orange-700">{presentation.accent}</span>
           </h2>
           <p className="mx-auto mt-5 max-w-[72ch] text-[16px] leading-relaxed text-ink-muted sm:text-[18px]">
             {profile.whoTheyAre}
@@ -514,7 +514,7 @@ function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
             id="platform-heading"
             className="heading-tight mx-auto mt-4 max-w-[17ch] text-[clamp(2.7rem,5.6vw,5rem)] font-extrabold leading-[0.94] tracking-[-0.04em] text-ink"
           >
-            {presentation.lead} <span className="text-orange-500">{presentation.accent}</span>
+            {presentation.lead} <span className="text-orange-700">{presentation.accent}</span>
           </h2>
           <p className="mx-auto mt-5 max-w-[62ch] text-[16px] font-semibold leading-relaxed text-ink-muted sm:text-[18px]">
             {profile.platformIntro}
@@ -531,7 +531,7 @@ function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
             className="absolute left-7 top-7 h-[calc(100%-3.5rem)] w-1 bg-white/15 sm:hidden"
           >
             <div
-              className="w-full bg-[linear-gradient(180deg,#25d1c2,#ff6b00)] shadow-[0_0_20px_rgba(255,107,0,0.55)] transition-[height] duration-500"
+              className="w-full bg-[linear-gradient(180deg,var(--brand-teal-on-ink),var(--brand-primary))] shadow-[0_0_20px_color-mix(in_srgb,var(--brand-primary)_55%,transparent)] transition-[height] duration-500"
               style={{ height: `${activeStep * 50}%` }}
             />
           </div>
@@ -540,7 +540,7 @@ function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
             className="absolute left-[16.666%] right-[16.666%] top-7 hidden h-1 bg-white/15 sm:block"
           >
             <div
-              className="h-full bg-[linear-gradient(90deg,#25d1c2,#ff6b00)] shadow-[0_0_20px_rgba(255,107,0,0.55)] transition-[width] duration-500"
+              className="h-full bg-[linear-gradient(90deg,var(--brand-teal-on-ink),var(--brand-primary))] shadow-[0_0_20px_color-mix(in_srgb,var(--brand-primary)_55%,transparent)] transition-[width] duration-500"
               style={{ width: `${activeStep * 50}%` }}
             />
           </div>
@@ -561,7 +561,7 @@ function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
                   <span
                     className={`relative z-10 grid size-14 place-items-center rounded-full border-[3px] font-mono text-[12px] font-bold transition-all duration-300 sm:mx-auto sm:mb-5 ${
                       selected
-                        ? "scale-110 border-orange-500 bg-orange-500 text-navy-950 shadow-[0_0_26px_rgba(255,107,0,0.55)]"
+                        ? "scale-110 border-orange-600 bg-orange-600 text-white shadow-[var(--shadow-orange-step)]"
                         : "border-mist bg-page text-ink group-hover:border-teal-600"
                     }`}
                   >
@@ -675,7 +675,7 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,var(--color-mist-bg)_0%,var(--color-mist-bg)_40%,rgba(245,239,228,0.68)_72%,rgba(245,239,228,0.26)_100%)]"
+          className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,var(--color-mist-bg)_0%,var(--color-mist-bg)_40%,color-mix(in_srgb,var(--bg-tint)_68%,transparent)_72%,color-mix(in_srgb,var(--bg-tint)_26%,transparent)_100%)]"
         />
 
         <div
@@ -793,7 +793,7 @@ export function PartnerPage({ profile }: { profile: PartnerProfile }) {
               className="heading-tight mt-3 text-[clamp(2.2rem,5vw,4rem)] font-extrabold leading-none text-ink"
             >
               {networkPresentation.lead}{" "}
-              <span className="text-orange-500">{networkPresentation.accent}</span>
+              <span className="text-orange-700">{networkPresentation.accent}</span>
             </h2>
             <p className="mx-auto mt-5 max-w-[68ch] text-[16px] leading-relaxed text-ink-muted">
               {profile.impactIntro}

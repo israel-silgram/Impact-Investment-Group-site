@@ -125,8 +125,8 @@ function StatTile({ stat, filled }: { stat: (typeof purposeStats)[number]; fille
         "group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-panel)] p-5 transition-all duration-300",
         "hover:-translate-y-1",
         filled
-          ? "bg-teal-600 hover:shadow-[0_18px_34px_-18px_rgba(15,143,132,0.8)]"
-          : "panel hover:shadow-[0_18px_34px_-20px_rgba(0,17,43,0.5)]",
+          ? "bg-teal-600 hover:shadow-[0_18px_34px_-18px_color-mix(in_srgb,var(--brand-teal-ink)_80%,transparent)]"
+          : "panel hover:shadow-[0_18px_34px_-20px_color-mix(in_srgb,var(--brand-ink)_50%,transparent)]",
       )}
     >
       <Glyph
@@ -340,10 +340,10 @@ export function MissionSolution() {
                   />
                   <div
                     aria-hidden="true"
-                    className="absolute inset-0 bg-linear-to-t from-[rgba(0,17,43,0.92)] via-[rgba(0,17,43,0.45)] to-transparent"
+                    className="absolute inset-0 bg-linear-to-t from-[color-mix(in_srgb,var(--brand-ink)_92%,transparent)] via-[color-mix(in_srgb,var(--brand-ink)_45%,transparent)] to-transparent"
                   />
                   <div className="absolute inset-x-0 bottom-0 p-5">
-                    <p className="eyebrow tracking-[0.14em] text-[#2fbaaa]">Where this happens</p>
+                    <p className="eyebrow tracking-[0.14em] text-white">Where this happens</p>
                     <p className="heading-tight mt-0.5 font-heading text-[17px] font-extrabold text-[#ffffff]">
                       Every local authority in the UK
                     </p>
@@ -449,7 +449,7 @@ export function MissionSolution() {
               {/* The last of the three carries the accent — the same rhythm the
                   closing strapline uses everywhere else on the site. */}
               {solutionCopy.title.split(". ").map((part, i, all) => (
-                <span key={part} className={i === all.length - 1 ? "text-orange-500" : undefined}>
+                <span key={part} className={i === all.length - 1 ? "text-orange-700" : undefined}>
                   {part}
                   {i < all.length - 1 ? ". " : ""}
                 </span>
