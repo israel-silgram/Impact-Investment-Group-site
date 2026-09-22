@@ -1,0 +1,1872 @@
+[
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 56,
+    "source": "*   orange-700   5.78:1 \u2713 at any size since wave 295 (was 4.1:1)"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 57,
+    "source": "*   orange-600   4.75:1 \u2713 (was 3.0:1)"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 58,
+    "source": "*   orange-500   3.76:1 \u2717 icon glyphs and fills only (was 2.3:1)"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 60,
+    "source": "* \u26a0 WAVE 295 MOVED THREE OF THOSE. The orange became the platform's"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 61,
+    "source": "* terracotta and the ramp was re-derived against this cream, so orange is no"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 65,
+    "source": "* So no role is set in orange, including Israel's. His seniority is carried by"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 67,
+    "source": "* full width, it takes a 4px orange left rule, and his portrait ring, icon and"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 68,
+    "source": "* credential markers are orange. Everyone else's are teal. That keeps the"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 98,
+    "source": "const orange = director.accent === \"orange\";"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 114,
+    "source": "className=\"absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-teal-400 to-orange-600 transition-transform duration-300 group-hover:scale-x-100 motion-reduce:transition-none\""
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 141,
+    "source": "<span aria-hidden=\"true\" className=\"my-3.5 h-[3px] w-9 rounded-full bg-orange-600\" />"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 156,
+    "source": "the accent instead \u2014 an orange top rule for the director, teal for"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 188,
+    "source": "orange ? \"bg-orange-600\" : \"bg-teal-600\","
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 206,
+    "source": "orange ? \"bg-orange-600\" : \"bg-teal-600\","
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 267,
+    "source": "/* Graphics, not text \u2014 orange is permitted on cream as a fill or a glyph. */"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 268,
+    "source": "const ring = orange ? \"ring-orange-600\" : \"ring-teal-600\";"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 269,
+    "source": "const glyph = orange ? \"text-orange-600\" : \"text-teal-600\";"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 270,
+    "source": "const marker = orange ? \"bg-orange-600\" : \"bg-teal-600\";"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 282,
+    "source": "orange && \"border-l-4 border-l-orange-600\","
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 338,
+    "source": "{/* teal-600 at 4.67:1. Israel's is teal too. Orange would now pass"
+  },
+  {
+    "file": "src/components/about/director-card.tsx",
+    "line": 339,
+    "source": "here (orange-700 is 5.78:1 since wave 295, where it was 4.1:1 and"
+  },
+  {
+    "file": "src/components/contact/enquiry-form.tsx",
+    "line": 108,
+    "source": "* \u26a0\ufe0f `text-destructive`, NEVER an orange, and this form is why the rule is"
+  },
+  {
+    "file": "src/components/contact/enquiry-form.tsx",
+    "line": 111,
+    "source": "* brand orange is 4.23:1 at 13px against a 4.5:1 floor. It also reads as the"
+  },
+  {
+    "file": "src/components/contact/enquiry-form.tsx",
+    "line": 494,
+    "source": "{/* text-destructive, not orange (wave 295): on /contact the"
+  },
+  {
+    "file": "src/components/contact/enquiry-form.tsx",
+    "line": 496,
+    "source": "the brand orange fails contrast there. The general address,"
+  },
+  {
+    "file": "src/components/home/demand-map.tsx",
+    "line": 344,
+    "source": "* canvas as thousands of luminous dots, with orange hubs whose halos are"
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 24,
+    "source": "{ id: \"homes\", text: \"Providing Homes\", orange: false },"
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 25,
+    "source": "{ id: \"support\", text: \"Delivering Support\", orange: true },"
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 26,
+    "source": "{ id: \"lives\", text: \"Transforming Lives\", orange: false },"
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 144,
+    "source": "it faded through orange a little, but still keep the background"
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 252,
+    "source": "/* The site's one orange, the same one that fills the"
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 254,
+    "source": "the street gave way rather than the orange: see"
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 258,
+    "source": "It stays orange-500 and does not step down to 700 the way"
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 272,
+    "source": "panel.headline.orange ? \"text-orange-500\" : \"text-ink\","
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 284,
+    "source": "keep orange-500 at 4.01:1 on the navy. */}"
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 286,
+    "source": "<span aria-hidden=\"true\" className=\"h-0.5 w-8 shrink-0 bg-orange-500 sm:w-[90px]\" />"
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 290,
+    "source": "<span aria-hidden=\"true\" className=\"h-0.5 w-8 shrink-0 bg-orange-500 sm:w-[90px]\" />"
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 309,
+    "source": "\"flex w-full min-h-11 flex-col items-center gap-2.5 rounded-xl border border-rule bg-page px-2.5 py-3 text-center shadow-[var(--shadow-card)] transition-all duration-200 hover:-translate-y-0.5 hover:border-orange-500/70 hover:shadow-[var(--shadow-card-hover)] focus-visible:-translate-y-0.5 focus-visible:shadow-[var(--shadow-card-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600\";"
+  },
+  {
+    "file": "src/components/home/hero.tsx",
+    "line": 410,
+    "source": "wave 295's ruling: that ruling protects the ORANGE, whose one"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 38,
+    "source": "*     sixth slot, and that tall right column stretched the orange hero into a"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 47,
+    "source": "*     in a very large block was one orange rectangle. On cream the brand's"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 51,
+    "source": "*     is an orange gradient. Four grounds in one grid instead of one."
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 143,
+    "source": "filled ? \"text-[#ffffff]\" : \"text-orange-700\","
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 162,
+    "source": "/* SOLID white, not 85%. 85% white on the orange-600 fill is 4.32:1"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 164,
+    "source": "floor; `text-page` is #ffffff and 5.34:1 on orange-600, 5.25:1 on"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 183,
+    "source": "* orange gradient and is unmistakably the thing to press."
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 200,
+    "source": "className=\"group flex w-full cursor-pointer items-center justify-between gap-4 rounded-[var(--radius-panel)] bg-linear-to-r from-orange-600 to-orange-500 px-6 py-4 text-left transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600\""
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 203,
+    "source": "They used to be white at 78%, 100% and 88% over an orange-600 to"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 204,
+    "source": "orange-500 gradient, written as two rgba() literals and a hex in a"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 234,
+    "source": "silently promote a different statistic into the big orange tile. */"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 273,
+    "source": "<p className=\"eyebrow tracking-[0.14em] text-orange-700\">{purposeCopy.eyebrow}</p>"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 285,
+    "source": "<span className=\"text-orange-700\">{purposeCopy.emphasis}</span>"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 296,
+    "source": "in an orange field with dead space above and below; against"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 301,
+    "source": "<div className=\"relative flex w-full flex-col justify-end overflow-hidden rounded-[var(--radius-panel)] bg-orange-600 p-6 lg:min-h-[270px]\">"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 308,
+    "source": "arithmetic 88% white over orange-600 is 4.496:1, axe"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 362,
+    "source": "white card with a 4px orange rule across the top. It is still"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 368,
+    "source": "<div className=\"rounded-[var(--radius-panel)] border border-rule border-t-4 border-t-orange-500 bg-page p-6 shadow-[var(--shadow-card)]\">"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 387,
+    "source": "floor of SC 1.4.11: orange-500 is 4.23:1 and"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 390,
+    "source": "point.tone === \"orange\" ? \"text-orange-500\" : \"text-teal-600\","
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 402,
+    "source": "className=\"mt-4 inline-flex min-h-11 items-center gap-1.5 font-heading text-[13px] font-bold text-teal-600 lg:min-h-0 transition-colors duration-200 hover:text-orange-700\""
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 452,
+    "source": "<span key={part} className={i === all.length - 1 ? \"text-orange-500\" : undefined}>"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 462,
+    "source": "{/* Mirrors the orange tile exactly \u2014 same position, same"
+  },
+  {
+    "file": "src/components/home/mission-solution.tsx",
+    "line": 618,
+    "source": "<Link to=\"/solutions\" className=\"font-semibold text-teal-600 hover:text-orange-700\">"
+  },
+  {
+    "file": "src/components/logo.tsx",
+    "line": 15,
+    "source": "* The supplied logo is drawn in navy and orange for a WHITE ground. Placed on"
+  },
+  {
+    "file": "src/components/logo.tsx",
+    "line": 19,
+    "source": "*   on-navy   logo-lockup-reverse.webp   navy ink lifted to white, orange kept"
+  },
+  {
+    "file": "src/components/logo.tsx",
+    "line": 22,
+    "source": "* The orange is never substituted, tinted or lifted in either \u2014 it is the one"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 42,
+    "source": "* No animation, no orange, no call to action. Orange is the action colour and"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 417,
+    "source": "{presentation.lead} <span className=\"text-orange-500\">{presentation.accent}</span>"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 430,
+    "source": "className=\"group grid min-h-[100px] grid-cols-[58px_1fr_auto] items-center gap-3 rounded-2xl border-2 border-orange-500 bg-mist-bg px-4 py-4 text-navy-900 shadow-[0_14px_34px_rgba(0,0,0,0.18)] transition-all duration-300 hover:translate-x-2 hover:shadow-[0_20px_44px_rgba(0,0,0,0.28)] sm:grid-cols-[72px_1fr_104px] sm:px-5\""
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 432,
+    "source": "<span className=\"font-heading text-[30px] font-extrabold text-orange-700\">"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 442,
+    "source": "<span className=\"grid size-10 shrink-0 place-items-end overflow-hidden rounded-full border-2 border-orange-500 bg-page\">"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 459,
+    "source": "alt=\"Orange property guide\""
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 517,
+    "source": "{presentation.lead} <span className=\"text-orange-500\">{presentation.accent}</span>"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 534,
+    "source": "className=\"w-full bg-[linear-gradient(180deg,#25d1c2,#ff6b00)] shadow-[0_0_20px_rgba(255,107,0,0.55)] transition-[height] duration-500\""
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 543,
+    "source": "className=\"h-full bg-[linear-gradient(90deg,#25d1c2,#ff6b00)] shadow-[0_0_20px_rgba(255,107,0,0.55)] transition-[width] duration-500\""
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 564,
+    "source": "? \"scale-110 border-orange-500 bg-orange-500 text-navy-950 shadow-[0_0_26px_rgba(255,107,0,0.55)]\""
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 587,
+    "source": "className=\"border-l-4 border-orange-500 bg-page/86 px-6 py-5 shadow-[0_20px_55px_rgba(0,0,0,0.28)] backdrop-blur-sm sm:px-8 sm:py-6\""
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 594,
+    "source": "{/* text-ink-muted, not text-orange-500. Wave 295's retint took"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 595,
+    "source": "orange-500 to #c15f3c, which measures 4.01:1 on navy-800"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 600,
+    "source": "clear. Orange stays reserved for what still passes: fills,"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 602,
+    "source": "orange tint is approved for small text on navy, this is the"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 689,
+    "source": "className=\"eyebrow inline-flex min-h-11 items-center gap-2 tracking-[0.15em] text-teal-700 transition-colors hover:text-orange-700 lg:min-h-0\""
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 695,
+    "source": "<span aria-hidden=\"true\" className=\"h-0.5 w-9 bg-orange-700\" />"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 703,
+    "source": "<p className=\"font-mono text-[10px] max-lg:text-[12px] font-semibold uppercase tracking-[0.13em] text-orange-700\">"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 718,
+    "source": "The person at the <span className=\"text-orange-700\">centre.</span>"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 722,
+    "source": "Partner with <span className=\"text-orange-700\">{profile.pluralLabel}.</span>"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 765,
+    "source": "? \"border-l-4 border-orange-700 pl-4 font-semibold text-navy-800\""
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 796,
+    "source": "<span className=\"text-orange-500\">{networkPresentation.accent}</span>"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 810,
+    "source": "className=\"flex gap-3 rounded-2xl border-2 border-orange-500 bg-mist-bg p-5 text-navy-900 transition-transform duration-300 hover:-translate-y-1\""
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 821,
+    "source": "<Reveal className=\"mt-8 flex gap-4 rounded-2xl border border-orange-500/30 bg-orange-500/7 p-4\">"
+  },
+  {
+    "file": "src/components/partners/partner-page.tsx",
+    "line": 822,
+    "source": "<Info aria-hidden=\"true\" className=\"mt-0.5 size-5 shrink-0 text-orange-500\" />"
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 45,
+    "source": "icon: \"from-orange-300 to-orange-600 text-navy-950\","
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 53,
+    "source": "icon: \"from-amber-300 to-orange-600 text-navy-950\","
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 69,
+    "source": "icon: \"from-rose-300 to-orange-500 text-navy-950\","
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 77,
+    "source": "icon: \"from-orange-300 to-orange-600 text-navy-950\","
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 94,
+    "source": "node: \"bg-orange-600\","
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 108,
+    "source": "node: \"bg-orange-600\","
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 136,
+    "source": "\"group relative flex min-h-[145px] flex-col items-center justify-center rounded-2xl border-2 border-orange-500 p-4 text-center transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-600\","
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 168,
+    "source": "outcome ? \"bg-orange-500 text-navy-950\" : \"bg-white text-navy-900\","
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 196,
+    "source": "<span aria-hidden=\"true\" className=\"h-0.5 w-9 bg-orange-700\" />"
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 202,
+    "source": "Ten roles. <span className=\"text-orange-700\">One connected journey.</span>"
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 204,
+    "source": "<p className=\"mt-6 max-w-[48ch] border-l-4 border-orange-700 pl-4 text-[17px] font-semibold leading-relaxed text-navy-800 sm:text-[19px]\">"
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 231,
+    "source": "<span className=\"block text-orange-500 sm:whitespace-nowrap\">"
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 252,
+    "source": "or orange-500 fill: navy on teal-600 is 3.75:1"
+  },
+  {
+    "file": "src/components/partners/partners-hub.tsx",
+    "line": 292,
+    "source": "<i className=\"size-2 rounded-full bg-orange-500\" /> Property and capital"
+  },
+  {
+    "file": "src/components/register/role-icon.tsx",
+    "line": 17,
+    "source": "* element; `baseOrange` is for the roles whose whole glyph is the accent (the"
+  },
+  {
+    "file": "src/components/register/role-icon.tsx",
+    "line": 23,
+    "source": "* is now a soft 12% orange disc, the same plate the human icons take"
+  },
+  {
+    "file": "src/components/register/role-icon.tsx",
+    "line": 25,
+    "source": "* ground: navy ink rather than white, with the one accent still orange."
+  },
+  {
+    "file": "src/components/register/role-icon.tsx",
+    "line": 27,
+    "source": "* The accents are orange because every one of them is a person, a heart or a"
+  },
+  {
+    "file": "src/components/register/role-icon.tsx",
+    "line": 32,
+    "source": "{ base: RegisteredIconName; accent?: RegisteredIconName; baseOrange?: boolean }"
+  },
+  {
+    "file": "src/components/register/role-icon.tsx",
+    "line": 42,
+    "source": "broker: { base: \"Handshake\", baseOrange: true },"
+  },
+  {
+    "file": "src/components/register/role-icon.tsx",
+    "line": 66,
+    "source": "18% of the same orange when the tile around it is hovered or"
+  },
+  {
+    "file": "src/components/register/role-icon.tsx",
+    "line": 69,
+    "source": "\"role-plate relative grid shrink-0 place-items-center rounded-full bg-tint-orange\","
+  },
+  {
+    "file": "src/components/register/role-icon.tsx",
+    "line": 76,
+    "source": "/* orange-600 rather than 500 where the whole glyph is the"
+  },
+  {
+    "file": "src/components/register/role-icon.tsx",
+    "line": 77,
+    "source": "accent: on the orange tint, 600 is 4.60:1 against white and 4.11:1"
+  },
+  {
+    "file": "src/components/register/role-icon.tsx",
+    "line": 81,
+    "source": "className={spec.baseOrange ? \"text-orange-600\" : \"text-ink\"}"
+  },
+  {
+    "file": "src/components/register/role-icon.tsx",
+    "line": 88,
+    "source": "\"absolute text-orange-600\","
+  },
+  {
+    "file": "src/components/register/role-picker.tsx",
+    "line": 52,
+    "source": ": \"border-rule hover:border-orange-500/70\","
+  },
+  {
+    "file": "src/components/register/success-state.tsx",
+    "line": 14,
+    "source": "* read what is being built. It is a secondary action, not a second orange one:"
+  },
+  {
+    "file": "src/components/register/success-state.tsx",
+    "line": 15,
+    "source": "* the page's orange action has already been taken."
+  },
+  {
+    "file": "src/components/register/waitlist-form.tsx",
+    "line": 264,
+    "source": "* \u26a0\ufe0f `text-destructive`, NEVER an orange. Two reasons and both matter."
+  },
+  {
+    "file": "src/components/register/waitlist-form.tsx",
+    "line": 266,
+    "source": "* The brand orange is the one action a page exists to get, so setting a"
+  },
+  {
+    "file": "src/components/register/waitlist-form.tsx",
+    "line": 268,
+    "source": "* they are meant to press. And it does not pass: `#c15f3c` is 4.23:1 on this"
+  },
+  {
+    "file": "src/components/register/waitlist-form.tsx",
+    "line": 271,
+    "source": "* same way that block already re-points orange, teal and white."
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 170,
+    "source": "(i === 1 ? \"text-orange-700\" : \"text-ink\") +"
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 179,
+    "source": "{/* orange-700 is the one orange that carries text on the cream."
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 183,
+    "source": "<strong className=\"font-bold text-orange-700\">30+ years</strong> across property,"
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 289,
+    "source": "className=\"inline-flex min-h-11 items-center transition-colors duration-200 hover:text-orange-700 lg:min-h-0\""
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 298,
+    "source": "className=\"inline-flex min-h-11 items-center transition-colors duration-200 hover:text-orange-700 lg:min-h-0\""
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 319,
+    "source": "className=\"inline-flex min-h-11 min-w-11 items-center justify-center px-2 text-ink-muted transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:min-w-0 lg:px-0 lg:py-px\""
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 337,
+    "source": "className=\"inline-flex min-h-11 min-w-11 items-center justify-center px-2 text-ink-muted transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:min-w-0 lg:px-0 lg:py-px\""
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 355,
+    "source": "className=\"inline-flex min-h-11 min-w-11 items-center justify-center px-2 text-ink-muted transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:min-w-0 lg:px-0 lg:py-px\""
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 365,
+    "source": "className=\"inline-flex min-h-11 items-center gap-1 font-heading text-[13px] font-semibold text-teal-600 transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:py-px\""
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 397,
+    "source": "className=\"inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orange-700\""
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 432,
+    "source": "* `hover:text-orange-700` (5.78:1), so the hover state is a state"
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 458,
+    "source": "className=\"inline-flex min-h-11 min-w-11 items-center justify-center gap-1 px-2 font-medium text-ink-muted underline underline-offset-4 transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:min-w-0 lg:px-0 lg:py-1.5\""
+  },
+  {
+    "file": "src/components/site-footer.tsx",
+    "line": 469,
+    "source": "className=\"inline-flex min-h-11 min-w-11 items-center justify-center px-2 font-medium text-ink-muted underline underline-offset-4 transition-colors duration-200 hover:text-orange-700 lg:min-h-0 lg:min-w-0 lg:px-0 lg:py-1.5\""
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 54,
+    "source": "* underline and its orange active route exactly as before."
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 312,
+    "source": "/* orange-700, not 500: this is 15px TEXT on a"
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 317,
+    "source": "partnersActive && \"text-orange-700\","
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 335,
+    "source": "className=\"partners-menu w-[660px] rounded-none border-x border-b border-t-2 border-x-rule border-b-rule border-t-orange-500 bg-page p-0 text-ink shadow-[var(--shadow-card-hover)]\""
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 347,
+    "source": "<div className=\"flex min-h-[360px] flex-col bg-orange-600 p-6 text-white\">"
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 363,
+    "source": "deliberate: a navy button inside the orange"
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 366,
+    "source": "from the orange behind it. */}"
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 393,
+    "source": "\"bg-page-alt text-ink before:absolute before:inset-y-2 before:left-0 before:w-0.5 before:bg-orange-500\","
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 396,
+    "source": "<span className=\"w-5 shrink-0 font-mono text-[9px] max-lg:text-[12px] text-orange-700\">"
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 433,
+    "source": "link's own orange does not already say. */}"
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 456,
+    "source": "className=\"nav-underline inline-flex min-h-11 items-center whitespace-nowrap text-[15px] font-normal text-ink transition-colors duration-200 hover:text-orange-700\""
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 584,
+    "source": "partnersActive && \"text-orange-700\","
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 596,
+    "source": "{/* The same orange rule the desktop bar uses for the"
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 601,
+    "source": "className=\"mt-2 block h-0.5 w-10 bg-orange-500\""
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 624,
+    "source": "<span className=\"font-mono text-[10px] max-lg:text-[12px] text-orange-700\">"
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 640,
+    "source": "className=\"font-heading text-[26px] font-semibold text-ink data-[status=active]:text-orange-700\""
+  },
+  {
+    "file": "src/components/site-header.tsx",
+    "line": 647,
+    "source": "className=\"mt-2 block h-0.5 w-10 bg-orange-500\""
+  },
+  {
+    "file": "src/components/ui/button.tsx",
+    "line": 11,
+    "source": "* primary   the ONE orange action a page exists to get. Never two different"
+  },
+  {
+    "file": "src/components/ui/button.tsx",
+    "line": 31,
+    "source": "/* Flat orange-600 fill, never orange-500: white on 500 is 4.23:1 and"
+  },
+  {
+    "file": "src/components/ui/button.tsx",
+    "line": 33,
+    "source": "any size (wave 295, the platform's orange; it was 2.6 and 3.4)."
+  },
+  {
+    "file": "src/components/ui/button.tsx",
+    "line": 40,
+    "source": "\"rounded-full bg-orange-600 px-6 text-white shadow-[var(--shadow-action)] hover:-translate-y-px hover:shadow-[0_16px_34px_-12px_var(--color-orange-500)] focus-visible:-translate-y-px focus-visible:shadow-[0_16px_34px_-12px_var(--color-orange-500)]\","
+  },
+  {
+    "file": "src/components/ui/button.tsx",
+    "line": 60,
+    "source": "orange-600 is 5.34:1 since wave 295 and no longer depends on the"
+  },
+  {
+    "file": "src/components/ui/icon-circle.tsx",
+    "line": 20,
+    "source": "/** Orange only when this circle marks the active or primary item. */"
+  },
+  {
+    "file": "src/components/ui/icon-circle.tsx",
+    "line": 21,
+    "source": "orange: \"icon-tone-orange\","
+  },
+  {
+    "file": "src/components/ui/icon-circle.tsx",
+    "line": 28,
+    "source": "* life in it. Exactly one item per grid gets orange \u2014 the accent stays scarce."
+  },
+  {
+    "file": "src/components/ui/icon-circle.tsx",
+    "line": 32,
+    "source": "export function cycleTone(index: number, orangeIndex = 1): keyof typeof tones {"
+  },
+  {
+    "file": "src/components/ui/icon-circle.tsx",
+    "line": 33,
+    "source": "if (index === orangeIndex) return \"orange\";"
+  },
+  {
+    "file": "src/components/ui/icon-circle.tsx",
+    "line": 34,
+    "source": "const offset = index > orangeIndex ? index - 1 : index;"
+  },
+  {
+    "file": "src/components/ui/stat-block.tsx",
+    "line": 10,
+    "source": "/** Teal is the default: figures are data. Orange stays scarce. */"
+  },
+  {
+    "file": "src/components/ui/stat-block.tsx",
+    "line": 11,
+    "source": "tone?: \"teal\" | \"orange\";"
+  },
+  {
+    "file": "src/content/about.ts",
+    "line": 88,
+    "source": "rule: \"orange\" as const,"
+  },
+  {
+    "file": "src/content/about.ts",
+    "line": 134,
+    "source": "/** Orange marks the lead only \u2014 the accent has to stay scarce. */"
+  },
+  {
+    "file": "src/content/about.ts",
+    "line": 135,
+    "source": "accent?: \"teal\" | \"orange\";"
+  },
+  {
+    "file": "src/content/about.ts",
+    "line": 161,
+    "source": "* with the only orange accent on the page. That is the \"big dog\" treatment,"
+  },
+  {
+    "file": "src/content/about.ts",
+    "line": 171,
+    "source": "accent: \"orange\","
+  },
+  {
+    "file": "src/content/about.ts",
+    "line": 499,
+    "source": "* These two lines used to run in small grey type directly under the orange"
+  },
+  {
+    "file": "src/content/about.ts",
+    "line": 566,
+    "source": "* section's strongest text colour, `{ t, em: \"accent\" }` is bold orange."
+  },
+  {
+    "file": "src/content/about.ts",
+    "line": 591,
+    "source": "* \u26a0\ufe0f THE ORANGE HAS TO LIVE ON THE FIRST LINE."
+  },
+  {
+    "file": "src/content/about.ts",
+    "line": 598,
+    "source": "* It began as a contrast rule: orange-700 was 4.1:1 on the cream and only"
+  },
+  {
+    "file": "src/content/about.ts",
+    "line": 660,
+    "source": "export const figureAccents = [\"orange\", \"teal\", \"white\", \"teal\"] as const;"
+  },
+  {
+    "file": "src/content/about.ts",
+    "line": 663,
+    "source": "export const chainAccents = [\"teal\", \"orange\", \"teal\"] as const;"
+  },
+  {
+    "file": "src/content/audiences.ts",
+    "line": 62,
+    "source": "tone: \"neutral\" | \"orange\";"
+  },
+  {
+    "file": "src/content/audiences.ts",
+    "line": 77,
+    "source": "tone: \"orange\","
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 35,
+    "source": "tone?: \"teal\" | \"orange\";"
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 56,
+    "source": "tone: \"orange\","
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 78,
+    "source": "tone: \"orange\","
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 139,
+    "source": "alt: \"A woman resting her chin on her hand, looking up in thought, a thought bubble above her holding a single orange question mark\","
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 190,
+    "source": "/** The one phrase carried in orange. Must appear verbatim inside `title`. */"
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 224,
+    "source": "/** Orange for the human consequence, teal for the data or systems failure. */"
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 225,
+    "source": "tone: \"orange\" | \"teal\";"
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 258,
+    "source": "tone: \"orange\","
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 273,
+    "source": "tone: \"orange\","
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 278,
+    "source": "tone: \"orange\","
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 286,
+    "source": "* measurement and verification; orange marks people, homes, care and action,"
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 293,
+    "source": "tone: \"teal\" | \"orange\";"
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 357,
+    "source": "tone: \"orange\","
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 374,
+    "source": "{ text: \"Demonstrate social impact\", icon: \"Heart\", tone: \"orange\" },"
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 486,
+    "source": "tone: \"orange\","
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 496,
+    "source": "] satisfies { icon: string; tone: \"teal\" | \"orange\"; heading: string; body: string }[],"
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 576,
+    "source": "{ text: \"Build more homes\", icon: \"HardHat\", tone: \"orange\" },"
+  },
+  {
+    "file": "src/content/home.ts",
+    "line": 577,
+    "source": "{ text: \"Deliver better support\", icon: \"HandHeart\", tone: \"orange\" },"
+  },
+  {
+    "file": "src/content/platform.ts",
+    "line": 54,
+    "source": "tone: \"teal\" | \"orange\";"
+  },
+  {
+    "file": "src/content/platform.ts",
+    "line": 96,
+    "source": "tone: \"orange\","
+  },
+  {
+    "file": "src/content/platform.ts",
+    "line": 141,
+    "source": "{ id: \"proves\", label: \"Pippa proves it\", tone: \"orange\" as const },"
+  },
+  {
+    "file": "src/content/services.ts",
+    "line": 10,
+    "source": "* section's strongest text colour, `accent` is bold orange."
+  },
+  {
+    "file": "src/content/services.ts",
+    "line": 48,
+    "source": "accent: \"orange\" as const,"
+  },
+  {
+    "file": "src/content/services.ts",
+    "line": 97,
+    "source": "accent: \"teal\" | \"orange\";"
+  },
+  {
+    "file": "src/content/services.ts",
+    "line": 116,
+    "source": "accent: \"orange\","
+  },
+  {
+    "file": "src/content/services.ts",
+    "line": 163,
+    "source": "tone: \"orange\" as const,"
+  },
+  {
+    "file": "src/content/services.ts",
+    "line": 201,
+    "source": "tone: \"orange\" as const,"
+  },
+  {
+    "file": "src/content/services.ts",
+    "line": 239,
+    "source": "accent: \"orange\" as const,"
+  },
+  {
+    "file": "src/content/solutions.ts",
+    "line": 84,
+    "source": "* measurement and verification; orange for people, homes and care, and never"
+  },
+  {
+    "file": "src/content/solutions.ts",
+    "line": 85,
+    "source": "* more than one orange in a card."
+  },
+  {
+    "file": "src/content/solutions.ts",
+    "line": 91,
+    "source": "tone: \"teal\" | \"orange\";"
+  },
+  {
+    "file": "src/content/solutions.ts",
+    "line": 137,
+    "source": "{ text: \"Support provider named against every home.\", icon: \"HandHeart\", tone: \"orange\" },"
+  },
+  {
+    "file": "src/content/solutions.ts",
+    "line": 167,
+    "source": "tone: \"orange\","
+  },
+  {
+    "file": "src/content/solutions.ts",
+    "line": 238,
+    "source": "tone: \"orange\","
+  },
+  {
+    "file": "src/content/solutions.ts",
+    "line": 263,
+    "source": "{ text: \"Briefs drawn from published commissioning demand.\", icon: \"MapPin\", tone: \"orange\" },"
+  },
+  {
+    "file": "src/content/solutions.ts",
+    "line": 297,
+    "source": "tone: \"orange\","
+  },
+  {
+    "file": "src/content/trust.ts",
+    "line": 204,
+    "source": "/** The middle card is filled \u2014 teal, never orange. Orange is for actions. */"
+  },
+  {
+    "file": "src/content/types.ts",
+    "line": 48,
+    "source": "/** One orange action per page, reused verbatim in hero and closing band. */"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 97,
+    "source": "* \"accent\" is orange, and on a light ground every orange WORD is orange-700"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 103,
+    "source": "* \u26a0 THAT 20px FLOOR WAS A CONTRAST FLOOR AND NO LONGER IS. orange-700 was"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 108,
+    "source": "* orange-500 is 4.01:1 on navy-800, not the 7.2:1 of the old amber, so it is"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 114,
+    "source": "* as a contrast rule: orange-700 was 4.1:1 there and passed only as large"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 119,
+    "source": "/* Wave 412: the teal branch took orange-500, which is 3.75:1 on the cream"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 120,
+    "source": "* and failed at eyebrow size once the light remap was gone. Every orange"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 121,
+    "source": "* WORD on a light ground is orange-700 now; 500 survives as a rule, a chip"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 123,
+    "source": "const accent = tone === \"teal\" ? \"text-orange-700\" : small ? \"text-ink\" : \"text-orange-700\";"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 183,
+    "source": "orange: { text: \"text-orange-700\", bar: \"bg-orange-600\", disc: \"bg-orange-600 text-page\" },"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 277,
+    "source": "tone === \"rust\" ? \"text-orange-700\" : \"text-teal-600\","
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 335,
+    "source": "floor was where orange-700 on the cream stopped counting as"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 391,
+    "source": "className=\"absolute inset-x-0 top-0 h-[5px] bg-[linear-gradient(90deg,var(--color-orange-600)_0_18%,var(--color-teal-400)_18%_100%)]\""
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 562,
+    "source": "Three companies. <strong className=\"font-bold text-orange-500\">One chain.</strong> No gap"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 570,
+    "source": "orange-700 (5.78:1 on the cream). The chip BORDER beside it"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 571,
+    "source": "stays orange-500 at 45%: a rule is a graphic and answers to"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 573,
+    "source": "const line = accent === \"orange\" ? \"text-orange-700\" : \"text-teal-600\";"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 577,
+    "source": "accent === \"orange\""
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 578,
+    "source": "? \"border border-orange-500/45 text-orange-700\""
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 587,
+    "source": "accent === \"orange\" ? \"border-orange-500/40\" : \"border-teal-600/40\","
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 644,
+    "source": "* Middle beat in orange, outer two in white. One accent in a stack of"
+  },
+  {
+    "file": "src/routes/about.tsx",
+    "line": 645,
+    "source": "* three is a rhythm; three would just be an orange block."
+  },
+  {
+    "file": "src/routes/contact.tsx",
+    "line": 107,
+    "source": "<p className=\"eyebrow tracking-[0.14em] text-orange-700\">{contactHero.eyebrow}</p>"
+  },
+  {
+    "file": "src/routes/contact.tsx",
+    "line": 193,
+    "source": "<LifeBuoy aria-hidden=\"true\" className=\"size-4 shrink-0 text-orange-500\" />"
+  },
+  {
+    "file": "src/routes/contact.tsx",
+    "line": 194,
+    "source": "{/* Orange TEXT on an island is orange-500, not the"
+  },
+  {
+    "file": "src/routes/contact.tsx",
+    "line": 195,
+    "source": "orange-700 the light grounds take. This island's ground"
+  },
+  {
+    "file": "src/routes/contact.tsx",
+    "line": 196,
+    "source": "is navy-950, where orange-500 is 4.67:1 and orange-700"
+  },
+  {
+    "file": "src/routes/contact.tsx",
+    "line": 197,
+    "source": "is 3.04:1. (4.46:1 is orange-500 on navy-900, which is"
+  },
+  {
+    "file": "src/routes/contact.tsx",
+    "line": 201,
+    "source": "<span id=\"crisis-heading\" className=\"eyebrow tracking-[0.14em] text-orange-500\">"
+  },
+  {
+    "file": "src/routes/contact.tsx",
+    "line": 233,
+    "source": "<p className=\"eyebrow tracking-[0.14em] text-orange-700\">What do you need?</p>"
+  },
+  {
+    "file": "src/routes/index.tsx",
+    "line": 26,
+    "source": "/** The single orange action this page exists to get. Hero + closing band only. */"
+  },
+  {
+    "file": "src/routes/index.tsx",
+    "line": 284,
+    "source": "className=\"font-semibold text-teal-600 transition-colors duration-200 hover:text-orange-700\""
+  },
+  {
+    "file": "src/routes/index.tsx",
+    "line": 295,
+    "source": "cream close, navy footer. The orange button is a fill, not text, so it"
+  },
+  {
+    "file": "src/routes/legal.tsx",
+    "line": 125,
+    "source": "{/* teal-600 (4.7:1 on the cream), NOT the orange-700 the other cream"
+  },
+  {
+    "file": "src/routes/legal.tsx",
+    "line": 127,
+    "source": "text, so it needs 4.5:1 and orange-700 gives 4.1:1. The brand"
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 33,
+    "source": "* words worth seeing carried in bold ink or bold orange."
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 44,
+    "source": "* it is on. The only conditional is the accent orange \u2014 `.section-light`"
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 45,
+    "source": "* rewrites orange-500 to navy ink, and orange-700 is the one it lets through."
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 46,
+    "source": "* The 19px semibold on emphasised lines was the size orange-700 needed to"
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 78,
+    "source": "orange-600 (white on it is 5.34:1) rather than orange-500 (4.23:1, which"
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 82,
+    "source": "orange: { text: \"text-orange-700\", bar: \"bg-orange-500\", disc: \"bg-orange-600 text-page\" },"
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 99,
+    "source": "/* Both accents are orange-700. `Summary` sets Rich at 19px"
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 101,
+    "source": "and orange-500 is 4.23:1 on white and 3.76:1 on the cream."
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 106,
+    "source": "? \"text-orange-700\""
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 107,
+    "source": ": \"text-orange-700\""
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 172,
+    "source": "tone === \"rust\" ? \"text-orange-700\" : \"text-teal-600\","
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 212,
+    "source": "past: { value: \"25\", unit: \"years fixed\", tone: \"text-orange-500\" },"
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 239,
+    "source": "activeChapter.tone === \"orange\""
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 240,
+    "source": "? \"bg-orange-500/15\""
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 288,
+    "source": "/* 10px bold: text, so the orange is 700 (6.50:1 on"
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 375,
+    "source": "{/* 11px semibold, so orange-700 and not orange-500: 500 is"
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 382,
+    "source": "<span className=\"font-semibold text-orange-700\">"
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 474,
+    "source": "Three doors into <span className=\"text-orange-500\">one platform.</span>"
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 503,
+    "source": "\"before:absolute before:inset-[-60%] before:animate-spin before:bg-[conic-gradient(transparent,rgba(37,209,194,0.36),transparent,rgba(255,107,0,0.30),transparent)] before:[animation-duration:7s] before:content-['']\","
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 595,
+    "source": "Choose a specialist. <span className=\"text-orange-500\">Activate their tool.</span>"
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 746,
+    "source": "\"absolute inset-[-30%] animate-spin bg-[repeating-conic-gradient(from_0deg,rgba(255,107,0,0.16)_0deg_7deg,transparent_7deg_14deg)] [animation-duration:34s] motion-reduce:animate-none\","
+  },
+  {
+    "file": "src/routes/platform.tsx",
+    "line": 753,
+    "source": "<span className=\"absolute left-4 top-4 z-3 -rotate-2 bg-white px-3 py-2 font-sans text-[12px] font-bold text-navy-900 shadow-[6px_6px_0_var(--color-orange-600)] sm:text-[14px]\">"
+  },
+  {
+    "file": "src/routes/register.$role.tsx",
+    "line": 118,
+    "source": "* secondary, never the orange."
+  },
+  {
+    "file": "src/routes/register.index.tsx",
+    "line": 16,
+    "source": "* There is no orange action here on purpose. The ten tiles ARE the action, and"
+  },
+  {
+    "file": "src/routes/register.index.tsx",
+    "line": 18,
+    "source": "* ten. The site's one-orange-action rule is satisfied by the header button,"
+  },
+  {
+    "file": "src/routes/solutions.tsx",
+    "line": 96,
+    "source": "<p className=\"eyebrow tracking-[0.14em] text-orange-700\">{solutionHero.eyebrow}</p>"
+  },
+  {
+    "file": "src/routes/solutions.tsx",
+    "line": 102,
+    "source": "{/* orange-700, not orange-500: on the cream the brighter orange is"
+  },
+  {
+    "file": "src/routes/solutions.tsx",
+    "line": 104,
+    "source": "<span className=\"text-orange-700\">{solutionHero.headB}</span>"
+  },
+  {
+    "file": "src/routes/solutions.tsx",
+    "line": 121,
+    "source": "A workable deal has <span className=\"text-orange-500\">five layers</span>. We keep them"
+  },
+  {
+    "file": "src/routes/solutions.tsx",
+    "line": 175,
+    "source": "<p className=\"eyebrow tracking-[0.14em] text-orange-700\">Who touches which layer</p>"
+  },
+  {
+    "file": "src/routes/solutions.tsx",
+    "line": 180,
+    "source": "Eight partners. <span className=\"text-orange-700\">Clear responsibilities.</span>"
+  },
+  {
+    "file": "src/routes/solutions.tsx",
+    "line": 219,
+    "source": "<p className=\"eyebrow tracking-[0.14em] text-orange-700\">{row.layer}</p>"
+  },
+  {
+    "file": "src/routes/solutions.tsx",
+    "line": 229,
+    "source": "<span className=\"text-[14px] font-semibold text-orange-700\">"
+  },
+  {
+    "file": "src/routes/solutions.tsx",
+    "line": 258,
+    "source": "{productPitch.headA} <span className=\"text-orange-500\">{productPitch.headB}</span>."
+  },
+  {
+    "file": "src/routes/the-problem.tsx",
+    "line": 121,
+    "source": "light ? \"text-orange-700\" : \"text-teal-600\","
+  },
+  {
+    "file": "src/routes/the-problem.tsx",
+    "line": 136,
+    "source": "light ? \"text-orange-700\" : \"text-teal-600\","
+  },
+  {
+    "file": "src/styles.css",
+    "line": 27,
+    "source": "*   teal 5% \u00b7 orange 3%"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 28,
+    "source": "* Orange marks the one action a page exists to get. Teal marks"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 138,
+    "source": "/* Orange, the action colour. THE PLATFORM'S ORANGE (wave 295)."
+  },
+  {
+    "file": "src/styles.css",
+    "line": 145,
+    "source": "--color-orange-500 = --brand-primary      fills, graphics, marks"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 146,
+    "source": "--color-orange-600 = --brand-primary-ink  the fill of any text control"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 151,
+    "source": "\u26a0 NOT #C6613F. That is the orange the platform RETIRED in wave 34, and"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 154,
+    "source": "belongs to #AE4E30, the ink below. Measured, both of them, in"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 157,
+    "source": "/* \u26a0\ufe0f THERE IS ONE ORANGE ON THIS SITE AND IT IS THE ONE BELOW. A lighter"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 158,
+    "source": "step above it existed for a day, to carry small orange text on navy where"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 160,
+    "source": "orange, the wait-list button's, for every orange word. Where it did not"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 161,
+    "source": "pass, THE SURFACE MOVED, not the orange, and every such surface is listed"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 162,
+    "source": "in docs/WAVE295_REPORT.md under \"One orange\". Adding a lighter orange for"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 163,
+    "source": "text puts two oranges back on the page, which is the exact thing that"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 168,
+    "source": "small-text colour on any ground: small orange text needs navy-950 or"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 170,
+    "source": "--color-orange-500: #c15f3c;"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 173,
+    "source": "--color-orange-600: #ae4e30;"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 174,
+    "source": "/* Orange TEXT on the cream, at body size: 5.78:1 on mist-bg, 5.25:1 on"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 176,
+    "source": "--color-orange-700: #9a4429;"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 217,
+    "source": "orange-700 #9a4429   6.50:1 on white,  5.78:1 on cream"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 238,
+    "source": "--color-tint-orange: color-mix(in oklab, #c15f3c 12%, transparent);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 300,
+    "source": "/* WAVE 412: follows --color-orange-600, not 500. On the dark site the"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 306,
+    "source": "--primary: #ae4e30;"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 315,
+    "source": "/* ERROR AND VALIDATION TEXT. Deliberately not a brand orange, so a failed"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 326,
+    "source": "that block already re-points orange, teal and white."
+  },
+  {
+    "file": "src/styles.css",
+    "line": 346,
+    "source": "--chart-4: #c15f3c;"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 350,
+    "source": "--sidebar-primary: #ae4e30;"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 358,
+    "source": "--gradient-action: linear-gradient(100deg, var(--color-orange-500), var(--color-orange-600));"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 369,
+    "source": "--shadow-action: 0 10px 26px -12px color-mix(in oklab, var(--color-orange-500) 65%, transparent);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 584,
+    "source": "* small and orange. That reason survives the inversion intact and only"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 585,
+    "source": "* changes direction: the one orange, `#c15f3c`, reaches the 4.5:1 body floor"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 586,
+    "source": "* on no light ground at all, so small orange text is `--color-orange-700`"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 589,
+    "source": "* never the orange."
+  },
+  {
+    "file": "src/styles.css",
+    "line": 769,
+    "source": "/* Primary site navigation: navy ink on the white bar, an orange underline on"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 770,
+    "source": "hover, and orange text plus underline on the active route. Distinct from"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 784,
+    "source": "background-color: var(--color-orange-500);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 791,
+    "source": "/* One orange, two steps of it, and the split is the text rule rather than a"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 792,
+    "source": "second colour: the 2px UNDERLINE is orange-500, which is a graphic and"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 794,
+    "source": "orange-700, because it is text and answers to 4.5:1 (500 would be"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 800,
+    "source": "than the orange still holds, and here the surface has nowhere left to go,"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 801,
+    "source": "so the label takes the darker step of the one orange. */"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 803,
+    "source": "color: var(--color-orange-700);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 832,
+    "source": "background-color: var(--color-orange-500);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1018,
+    "source": "/* orange-500: a 2px rule is a GRAPHIC and answers to 3:1, not 4.5:1, and it"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1019,
+    "source": "is 4.23:1 on the white bar. The label above it is orange-700 for the same"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1021,
+    "source": "background-color: var(--color-orange-500);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1033,
+    "source": "active link's orange-700 label, which is not motion at all, so nothing is"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1445,
+    "source": "orange-600 glyph  4.26:1 on white   3.85:1 on the cream"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1456,
+    "source": ".group:hover .icon-tone-orange,"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1457,
+    "source": ".group:focus-visible .icon-tone-orange,"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1458,
+    "source": ".group:focus-within .icon-tone-orange {"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1459,
+    "source": "background-color: color-mix(in oklab, var(--color-orange-500) 18%, transparent);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1465,
+    "source": "background-color: color-mix(in oklab, var(--color-orange-500) 18%, transparent);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1479,
+    "source": ".section-dark .group:hover .icon-tone-orange,"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1480,
+    "source": ".section-dark .group:focus-within .icon-tone-orange {"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1481,
+    "source": "background-color: color-mix(in oklab, var(--color-orange-500) 18%, transparent);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1531,
+    "source": ".image-fill-line[data-tone=\"orange\"] {"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1535,
+    "source": "color-mix(in oklab, var(--color-orange-500) 82%, transparent),"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1536,
+    "source": "color-mix(in oklab, var(--color-orange-500) 88%, transparent)"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1540,
+    "source": "-webkit-text-stroke: 1px color-mix(in oklab, var(--color-orange-500) 55%, transparent);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1569,
+    "source": "* `border-rule`, `bg-tint-orange`, `bg-tint-teal`."
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1580,
+    "source": "*   orange-500 and orange-600 are 3.76:1 and 4.75:1 and are NEVER text on"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1581,
+    "source": "*     the cream. orange-700 is 5.78:1 and is the one that may be."
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1598,
+    "source": "* plate, whose luminous dot field and orange halos are light ADDED to darkness"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1608,
+    "source": "* `text-orange-500`, `outline-teal-400`. The rules below restate the palette"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1694,
+    "source": "*   orange-600 #ae4e30 on the orange 12%   4.60:1       4.11:1"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1703,
+    "source": "* Tones are cycled across a grid so the tiles have life in them. Orange stays"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1716,
+    "source": ".icon-tone-orange {"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1717,
+    "source": "background-color: var(--color-tint-orange);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1718,
+    "source": "color: var(--color-orange-600);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1743,
+    "source": ".section-dark .icon-tone-orange {"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1744,
+    "source": "border-color: color-mix(in oklab, var(--color-orange-500) 70%, transparent);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1745,
+    "source": "background-color: color-mix(in oklab, var(--color-orange-500) 12%, transparent);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1746,
+    "source": "color: var(--color-orange-500);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1778,
+    "source": "* and warmed through the brand orange rather than left neutral:"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1782,
+    "source": "*    through orange a little, but still keep the background itself white.\""
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1785,
+    "source": "* opacity, a WHITE scrim that keeps it off the type, and a low-alpha ORANGE"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1800,
+    "source": "*   photograph at 0.18, orange wash over a lighter white scrim"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1890,
+    "source": "color-mix(in oklab, var(--color-tint-orange) 23%, transparent) 0%,"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1891,
+    "source": "color-mix(in oklab, var(--color-tint-orange) 50%, transparent) 38%,"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 1892,
+    "source": "color-mix(in oklab, var(--color-tint-orange) 30%, transparent) 100%"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 2048,
+    "source": "nobody could tell the panel turned \u2014 so it is now an orange pill with a ring"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 2052,
+    "source": "White on orange-600 is 5.34:1 since wave 295 moved it to the platform's"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 2053,
+    "source": "#ae4e30, so the label now clears AA at any size. It stays locked at 16px"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 2062,
+    "source": "box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-orange-500) 60%, transparent);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 2065,
+    "source": "box-shadow: 0 0 0 14px color-mix(in oklab, var(--color-orange-500) 0%, transparent);"
+  },
+  {
+    "file": "src/styles.css",
+    "line": 2081,
+    "source": "box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-orange-500) 30%, transparent);"
+  }
+]

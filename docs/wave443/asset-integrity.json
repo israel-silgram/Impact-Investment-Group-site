@@ -1,0 +1,207 @@
+{
+  "baseline": "bb39b3ed0eab0f9942882a0c63c45c79e8c49bf9",
+  "assets": 10,
+  "rows": [
+    {
+      "path": "public/images/brand/logo-lockup.webp",
+      "dimensions": [
+        711,
+        264
+      ],
+      "selected_pixels": 13375,
+      "target_pixels": {
+        "primary": 5781,
+        "ink": 7594,
+        "white": 0
+      },
+      "outside_selection_changes": 0,
+      "alpha_changes": 0,
+      "target_mismatches": 0,
+      "before_bytes": 80988,
+      "after_bytes": 146636,
+      "before_sha256": "888dae7e06df948c6578c6a06911d0a013b4876b923724a3ac6678bdd4b2fd21",
+      "after_sha256": "939dc62f5664bc61e7728b485f73390934750bf0e27424f56e60d330fb6be47a"
+    },
+    {
+      "path": "public/images/brand/logo-lockup-reverse.webp",
+      "dimensions": [
+        711,
+        264
+      ],
+      "selected_pixels": 13324,
+      "target_pixels": {
+        "primary": 5763,
+        "ink": 0,
+        "white": 7561
+      },
+      "outside_selection_changes": 0,
+      "alpha_changes": 0,
+      "target_mismatches": 0,
+      "before_bytes": 69930,
+      "after_bytes": 112798,
+      "before_sha256": "6df7303e8fdda0d12117295e000119fcf5a50c17aed39804d394f48aaf106db6",
+      "after_sha256": "5d616bd1729423bea03c63c97a77a3719dffd939d181b09151a64ad0b202d79f"
+    },
+    {
+      "path": "public/images/brand/logo-lockup-400.webp",
+      "dimensions": [
+        400,
+        149
+      ],
+      "selected_pixels": 5157,
+      "target_pixels": {
+        "primary": 2181,
+        "ink": 2976,
+        "white": 0
+      },
+      "outside_selection_changes": 0,
+      "alpha_changes": 0,
+      "target_mismatches": 0,
+      "before_bytes": 30488,
+      "after_bytes": 71612,
+      "before_sha256": "19a8da9bce13749f6cc171e860f3de08ce9b3855a3d926a015da7a8249598705",
+      "after_sha256": "4f5c5a8dbf088521d29bb3325aeba0cc6eae790f894b046ba4dffbef0d95f479"
+    },
+    {
+      "path": "public/images/brand/logo-lockup-640.webp",
+      "dimensions": [
+        640,
+        238
+      ],
+      "selected_pixels": 11427,
+      "target_pixels": {
+        "primary": 4966,
+        "ink": 6461,
+        "white": 0
+      },
+      "outside_selection_changes": 0,
+      "alpha_changes": 0,
+      "target_mismatches": 0,
+      "before_bytes": 58392,
+      "after_bytes": 137596,
+      "before_sha256": "900e7aa7974be3f7dd1dd243559b300d4c5b54bba0e929ca346d8759eb0fa0e0",
+      "after_sha256": "be426f15bfcd73bfd7e2070541cccefe7f9adfb47e761032fe4849ee150eebb5"
+    },
+    {
+      "path": "public/images/brand/logo-lockup-reverse-400.webp",
+      "dimensions": [
+        400,
+        149
+      ],
+      "selected_pixels": 5094,
+      "target_pixels": {
+        "primary": 2152,
+        "ink": 0,
+        "white": 2942
+      },
+      "outside_selection_changes": 0,
+      "alpha_changes": 0,
+      "target_mismatches": 0,
+      "before_bytes": 26022,
+      "after_bytes": 53868,
+      "before_sha256": "1009dfe02f7b25fca6ff3961dc91309e1118e8592c4f500f737c1bb5d839eb70",
+      "after_sha256": "87cfda99a01181cd9541c42851d4c447617896bbac15bbece767a3755cb82b43"
+    },
+    {
+      "path": "public/images/brand/logo-lockup-reverse-640.webp",
+      "dimensions": [
+        640,
+        238
+      ],
+      "selected_pixels": 11315,
+      "target_pixels": {
+        "primary": 4914,
+        "ink": 0,
+        "white": 6401
+      },
+      "outside_selection_changes": 0,
+      "alpha_changes": 0,
+      "target_mismatches": 0,
+      "before_bytes": 49964,
+      "after_bytes": 101398,
+      "before_sha256": "90083e12e95f24c1efbf53fa48e0cf2444099510a13cb650c19845f9816dac08",
+      "after_sha256": "999be8f4b21329bbae1318498e42cd5383255342efe15ea942891b8b8cc2949b"
+    },
+    {
+      "path": "public/images/brand/logo-mark.webp",
+      "dimensions": [
+        254,
+        264
+      ],
+      "selected_pixels": 5779,
+      "target_pixels": {
+        "primary": 5779,
+        "ink": 0,
+        "white": 0
+      },
+      "outside_selection_changes": 0,
+      "alpha_changes": 0,
+      "target_mismatches": 0,
+      "before_bytes": 33278,
+      "after_bytes": 62368,
+      "before_sha256": "da3bfdca6483e69cb030374837b5daf52bcefc0eca8a4b6cb3a6b575ccfa3d91",
+      "after_sha256": "e44ffba91193e5378c6124a2f77f7d88e888dd09690431bca275c4a265c0c32a"
+    },
+    {
+      "path": "public/images/brand/logo-mark-reverse.webp",
+      "dimensions": [
+        254,
+        264
+      ],
+      "selected_pixels": 5787,
+      "target_pixels": {
+        "primary": 5787,
+        "ink": 0,
+        "white": 0
+      },
+      "outside_selection_changes": 0,
+      "alpha_changes": 0,
+      "target_mismatches": 0,
+      "before_bytes": 28430,
+      "after_bytes": 46494,
+      "before_sha256": "80d850615b2683298e52a857d5a352dfffc5e52647dbb2e98e66ce2be0bcd813",
+      "after_sha256": "170b193fd81a85f28ad4b60c516a0bccec32eaec2910bd037bb827fbe6408dbb"
+    },
+    {
+      "path": "public/images/brand/og-default.png",
+      "dimensions": [
+        1200,
+        630
+      ],
+      "selected_pixels": 18642,
+      "target_pixels": {
+        "primary": 18642,
+        "ink": 0,
+        "white": 0
+      },
+      "outside_selection_changes": 0,
+      "alpha_changes": 0,
+      "target_mismatches": 0,
+      "before_bytes": 136263,
+      "after_bytes": 107980,
+      "before_sha256": "99dc4b19b83dfa946bf746ced34a6c1f7c21a514407dbefc57bc5b7ce27a24b4",
+      "after_sha256": "9713ccb9816889b0ea47f15bb66b520e5c9d00a326776692a52877439c818da4"
+    },
+    {
+      "path": "public/favicon.png",
+      "dimensions": [
+        128,
+        128
+      ],
+      "selected_pixels": 1256,
+      "target_pixels": {
+        "primary": 1256,
+        "ink": 0,
+        "white": 0
+      },
+      "outside_selection_changes": 0,
+      "alpha_changes": 0,
+      "target_mismatches": 0,
+      "before_bytes": 2487,
+      "after_bytes": 3142,
+      "before_sha256": "0097a225fb2c97909f4c56c5927271eebf1556c7f289a6cb1d5d23293b526586",
+      "after_sha256": "71058b16628673e33bd3d1640d4ea5fffbab2c30cba78b7f2949aa436ef6f207"
+    }
+  ],
+  "pass": true
+}

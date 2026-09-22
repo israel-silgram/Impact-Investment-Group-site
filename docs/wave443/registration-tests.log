@@ -1,0 +1,17 @@
+bun test v1.4.0 (34cbb9a40)
+
+scripts\wave358-registration.test.ts:
+(pass) registration transport > normalises supported UK formats and rejects incomplete or Unicode numbers [4.03ms]
+(pass) registration transport > account success requires a real pending response and a capability [19.40ms]
+(pass) registration transport > survey saves only scoped answers, clears blank profile values and never sends credentials [1.82ms]
+(pass) registration transport > classifies HTTP %s without exposing backend data [1.00ms]
+(pass) registration transport > classifies HTTP %s without exposing backend data [0.11ms]
+(pass) registration transport > classifies HTTP %s without exposing backend data [0.40ms]
+(pass) registration transport > classifies HTTP %s without exposing backend data [0.15ms]
+(pass) registration transport > classifies HTTP %s without exposing backend data [0.06ms]
+(pass) registration transport > does not claim a save when an HTML fallback or unexpected JSON arrives [1.03ms]
+
+ 9 pass
+ 0 fail
+ 25 expect() calls
+Ran 9 tests across 1 file. [161.00ms]

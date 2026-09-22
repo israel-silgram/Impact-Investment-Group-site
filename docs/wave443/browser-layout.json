@@ -1,0 +1,30 @@
+{
+  "mobile": {
+    "brand": "#e15e31",
+    "css": [
+      "http://127.0.0.1:8443/assets/styles-BrR68dcl.css"
+    ],
+    "documentWidth": 390,
+    "resident": {
+      "background": "linear-gradient(115deg, rgb(253, 253, 251), oklab(0.935069 -0.0130578 -0.000466287))",
+      "centre": 195,
+      "left": 20,
+      "shadow": "color(srgb 0.101961 0.439216 0.431373 / 0.45) 0px 0px 0px 1px, color(srgb 0.12549 0.541176 0.529412 / 0.22) 0px 0px 45px 0px",
+      "width": 350
+    },
+    "viewport": 390
+  },
+  "desktop": {
+    "brand": "#e15e31",
+    "css": [
+      "http://127.0.0.1:8443/assets/styles-BrR68dcl.css"
+    ],
+    "documentWidth": 1280,
+    "resident": {
+      "centre": 639.984375,
+      "left": 369.984375,
+      "width": 540
+    },
+    "viewport": 1280
+  }
+}

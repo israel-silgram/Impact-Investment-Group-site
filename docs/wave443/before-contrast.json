@@ -1,0 +1,272 @@
+{
+  "baseline": true,
+  "pairs": 29,
+  "rows": [
+    {
+      "fg": "--color-ink",
+      "bg": "--color-white",
+      "foreground": "#00112B",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 18.833014193790422,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink-muted",
+      "bg": "--color-white",
+      "foreground": "#4E5A6E",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 6.973121392925709,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-700",
+      "bg": "--color-white",
+      "foreground": "#9A4429",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 6.4957703955423485,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-white",
+      "foreground": "#17796F",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 5.248792796184825,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink",
+      "bg": "--color-page",
+      "foreground": "#00112B",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 18.833014193790422,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink-muted",
+      "bg": "--color-page",
+      "foreground": "#4E5A6E",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 6.973121392925709,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-700",
+      "bg": "--color-page",
+      "foreground": "#9A4429",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 6.4957703955423485,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-page",
+      "foreground": "#17796F",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 5.248792796184825,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink",
+      "bg": "--color-page-alt",
+      "foreground": "#00112B",
+      "background": "#F7F1E6",
+      "floor": 4.5,
+      "contrast": 16.752041780945227,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink-muted",
+      "bg": "--color-page-alt",
+      "foreground": "#4E5A6E",
+      "background": "#F7F1E6",
+      "floor": 4.5,
+      "contrast": 6.202619491276659,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-700",
+      "bg": "--color-page-alt",
+      "foreground": "#9A4429",
+      "background": "#F7F1E6",
+      "floor": 4.5,
+      "contrast": 5.778013861500277,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-page-alt",
+      "foreground": "#17796F",
+      "background": "#F7F1E6",
+      "floor": 4.5,
+      "contrast": 4.668822277540889,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink",
+      "bg": "--color-cream-card",
+      "foreground": "#00112B",
+      "background": "#EFE6D6",
+      "floor": 4.5,
+      "contrast": 15.209791691624426,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink-muted",
+      "bg": "--color-cream-card",
+      "foreground": "#4E5A6E",
+      "background": "#EFE6D6",
+      "floor": 4.5,
+      "contrast": 5.631585190530986,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-700",
+      "bg": "--color-cream-card",
+      "foreground": "#9A4429",
+      "background": "#EFE6D6",
+      "floor": 4.5,
+      "contrast": 5.2460702028991095,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-cream-card",
+      "foreground": "#17796F",
+      "background": "#EFE6D6",
+      "floor": 4.5,
+      "contrast": 4.238994578403305,
+      "pass": false
+    },
+    {
+      "fg": "--color-white",
+      "bg": "--color-orange-600",
+      "foreground": "#FFFFFF",
+      "background": "#AE4E30",
+      "floor": 4.5,
+      "contrast": 5.340562728088353,
+      "pass": true
+    },
+    {
+      "fg": "--color-white",
+      "bg": "--primary",
+      "foreground": "#FFFFFF",
+      "background": "#AE4E30",
+      "floor": 4.5,
+      "contrast": 5.340562728088353,
+      "pass": true
+    },
+    {
+      "fg": "--color-white",
+      "bg": "--sidebar-primary",
+      "foreground": "#FFFFFF",
+      "background": "#AE4E30",
+      "floor": 4.5,
+      "contrast": 5.340562728088353,
+      "pass": true
+    },
+    {
+      "fg": "--color-white",
+      "bg": "--color-navy-950",
+      "foreground": "#FFFFFF",
+      "background": "#000B1C",
+      "floor": 4.5,
+      "contrast": 19.72503434364661,
+      "pass": true
+    },
+    {
+      "fg": "--color-white",
+      "bg": "--color-navy-800",
+      "foreground": "#FFFFFF",
+      "background": "#041C3D",
+      "floor": 4.5,
+      "contrast": 16.953964695261863,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-400",
+      "bg": "--color-navy-950",
+      "foreground": "#2FBAAA",
+      "background": "#000B1C",
+      "floor": 4.5,
+      "contrast": 8.195174737644923,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-500",
+      "bg": "--color-page",
+      "foreground": "#C15F3C",
+      "background": "#FFFFFF",
+      "floor": 3,
+      "contrast": 4.2256720256309785,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-500",
+      "bg": "--color-page-alt",
+      "foreground": "#C15F3C",
+      "background": "#F7F1E6",
+      "floor": 3,
+      "contrast": 3.7587522420750825,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-500",
+      "bg": "--color-cream-card",
+      "foreground": "#C15F3C",
+      "background": "#EFE6D6",
+      "floor": 3,
+      "contrast": 3.412708693660057,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-500",
+      "bg": "--color-navy-950",
+      "foreground": "#C15F3C",
+      "background": "#000B1C",
+      "floor": 3,
+      "contrast": 4.667904708175088,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink-soft",
+      "bg": "--color-white",
+      "foreground": "#647289",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 4.872368220863523,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink-soft",
+      "bg": "--color-page",
+      "foreground": "#647289",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 4.872368220863523,
+      "pass": true
+    },
+    {
+      "fg": "--color-destructive-on-light",
+      "bg": "--color-page-alt",
+      "foreground": "#C92A2A",
+      "background": "#F7F1E6",
+      "floor": 4.5,
+      "contrast": 4.854209649728656,
+      "pass": true
+    }
+  ],
+  "sourceHits": [],
+  "buildHits": null,
+  "failures": [
+    "--color-teal-600 on --color-cream-card: 4.239"
+  ]
+}

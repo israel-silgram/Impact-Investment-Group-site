@@ -1,0 +1,2 @@
+pages-postbuild: trimmed 565 characters of duplicated tail from dist\client\contact\index.html
+pages-postbuild: base="/", patched 0 file(s), trimmed a duplicated document tail from 1 file(s)
