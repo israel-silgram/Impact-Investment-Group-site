@@ -115,7 +115,7 @@ Captured through the in-app Browser at 390 x 844 and 1280 x 900. The CSS file wa
 
 - `bun test scripts/wave358-registration.test.ts`: 9 pass, 0 fail, 25 assertions. [Log](wave443/registration-tests.log).
 - `bunx tsc --noEmit`: exit 0. [Log](wave443/typecheck.log), empty on success.
-- `STATIC_BUILD=true bun run build`: exit 0, 36 prerender routes. [Final build](wave443/build.log); [earlier initial build](wave443/build-initial.log) retained. Standard chunk-size and upstream unused-import warnings remain.
+- `STATIC_BUILD=true bun run build`: exit 0, 36 prerender routes. [Final build](wave443/build.log); [earlier initial build](wave443/build-initial.log) retained. Standard chunk-size and upstream unused-import warnings remain. Captured build logs have trailing line whitespace normalised.
 - `node scripts/pages-postbuild.mjs dist/client`: pass. The existing postprocessor trimmed the contact page's duplicate document tail. [Log](wave443/postbuild.log).
 - `node scripts/wave443-contrast.mjs --build dist/client`: all 29 pairs pass, exact 15-token parity, zero retired-hex/RGB matches in source and built text. Historical source comments and intentionally retained before evidence are excluded from that runtime scan.
 - `python scripts/wave414-responsive-images.py --check`: all expected image variants present, 24 alpha-bearing sources retain alpha. [Log](wave443/responsive-images.log).

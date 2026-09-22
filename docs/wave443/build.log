@@ -94,7 +94,7 @@ dist/client/assets/routes-2EgLcPjk.js                                    448.81 
 dist/client/assets/index-DSEj-2vn.js                                     508.06 kB │ gzip: 152.47 kB
 
 ✓ built in 3.04s
-[plugin builtin:vite-reporter] 
+[plugin builtin:vite-reporter]
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
