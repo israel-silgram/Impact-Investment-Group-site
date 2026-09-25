@@ -1,0 +1,979 @@
+# Wave 490 report: the phone defects
+
+**The call**, Callum Saxon, 25 September 2026, about 17:00 UK:
+
+> "review the site as a mobile user throughout every page, and then improve the design as
+> a mobile user specifically for every page, so that on mobile the website loads perfectly
+> and there are no design issues, and it follows all the mobile design rules for websites,
+> so that we can display the same information but ensure it fits perfectly on a mobile
+> device."
+
+Wave 414 did the structural work eight days earlier: no route scrolls sideways, every
+target is 44 by 44, type has a floor, the drawer and the sticky Continue bar work. What it
+did not do was LOOK at the result. This wave is the thirteen things a visitor sees that no
+assertion in 412, 413, 414, 415, 421 or 443 could see, each one measured before, changed,
+and measured again.
+
+**Two of the thirteen turned out not to be defects, and both are reported with the
+measurement that says so rather than "fixed" with a change nobody needed.** One of them is
+an artefact of the instrument the review itself was using.
+
+---
+
+## 1. The ledger
+
+| | |
+|---|---|
+| Repo | `Impact-Investment-Group-site` (the marketing site, GitHub Pages from `main`, Lovable-connected) |
+| Worktree | `C:\Users\Israel\Documents\repos\iigs-uc490` |
+| Branch | `feat/wave490-the-phone-defects` |
+| Base | `origin/main` at `f61b3b8` (wave 443's head, 22 Sep). `origin/main` did not move during the wave, so nothing was merged in |
+| Number claimed | empty commit `0264024`, pushed before the first edit. `git ls-remote --heads origin 'refs/heads/feat/wave49*'` returned **nothing** on the site remote and **`feat/wave49-admin-console`** on the platform remote, which is wave 49 and not 490. No collision |
+| Code head | **`ee833f3`** |
+| Final head | the documentation commit that carries this report |
+
+The repository's own checkout on `main` carries an uncommitted SEO refactor and was not
+touched: every git command in this wave ran from inside the worktree.
+
+**The raw logs of every run quoted below are under `docs/wave490/`**, kept because a
+number in a report that nobody can re-read is a number nobody can check:
+`docs/wave490/before.txt` (every figure in the "before" column), `docs/wave490/gate.txt`
+(every figure in the "after" column), `docs/wave490/base-412.txt` and `base-414.txt`
+(the two pre-existing red gates measured on the base build), and the six `gate-41*` and
+`gate-421`/`gate-443` files for the earlier gates re-run at this head.
+
+---
+
+## 2. The thirteen items
+
+Every "before" figure below was measured by `scripts/wave490-phone.py --mode before`
+against a build of `origin/main` `f61b3b8` kept in the worktree at `before.local/client`,
+on the same instrument, the same profiles and the same day as the "after" figure beside
+it. Nothing here is quoted from the brief without being re-measured.
+
+### Item 1 · The council logo strip showed blank white plates
+
+**Before.** `src/components/ui/logo-marquee.tsx` rendered its 36 tiles
+`loading="lazy"`. Chrome decides lazy loading off an element's LAYOUT position and knows
+nothing about the transform that is moving it, so in a track 3,082px wide inside a 390px
+window, 32 of the 36 tiles are parked outside the viewport for ever and are never
+requested. Measured on the slow 4G profile, 1.5 seconds after the strip's wrapper arrives
+on screen:
+
+| | 390 | 360 | 1280 |
+|---|---|---|---|
+| tiles decoded, whole strip | **4 of 36** | **4 of 36** | **11 of 36** |
+| distinct council images requested | 6 (3 by first paint) | 5 (3) | 13 (9) |
+| worst reading over 13 samples in 3s | 4 on screen, **3 decoded, 1 pending** | 4 on screen, 4 decoded | 9 on screen, **8 decoded, 1 pending** |
+
+The "1 pending" is the defect itself: a plate on the screen with nothing in it, gliding
+past.
+
+**The change.** `src/components/ui/logo-marquee.tsx:64` to `:70`: `loading="eager"` with
+`fetchPriority="low"`. Decoration, but decoration that has to be there, fetched without
+competing with the hero photographs.
+
+**After**, same instrument, same profile:
+
+| | 390 | 360 | 1280 |
+|---|---|---|---|
+| tiles decoded, whole strip | **36 of 36** | **36 of 36** | **36 of 36** |
+| distinct council images requested | **18, all at first paint** | **18** | **18** |
+| worst reading over 13 samples in 3s | 4 on screen, **4 decoded, 0 pending** | 4 / 4 / 0 | 9 / 9 / 0 |
+
+**Eighteen requests and not thirty-six.** The lane renders each crest twice against one
+URL, so the browser makes one request per distinct file. The eighteen weigh **73,714
+bytes, 4,095 on average**.
+
+**The responsive pipeline already considered these and refused.**
+`src/lib/image-variants.ts` records `steps: []` for all eighteen: the sources are 240 by
+104 and the tiles render at 118 by 54 CSS px, which is 236 by 108 device pixels on a 2x
+phone, so the 240px source IS the right variant and every larger step the encoder tried
+came out bigger than its own source. There is nothing smaller to serve.
+
+**The `ImageFade` invariant is honoured, and it was already.** The white plate is the
+`<span>` that wraps each tile (`border border-rule bg-white`), not the image, so a tile
+that has not decoded shows its plate and its hairline with nothing in it and the crest
+fades in on top. Nothing is hidden in the markup, nothing waits at opacity 0 for
+JavaScript, and no border flashes.
+
+**The five data-source logos under "Powered by authoritative UK data" needed no change,
+and that is a measurement.** They are five SVGs of 1.3 to 6.4 KB in a static grid.
+Measured on the same slow 4G profile: **5 of 5 decoded, 0 pending, at 360, 390 and 1280,
+before and after.** The pending opacity never outlives the 1.5s budget because the files
+land in a fraction of it.
+
+### Item 2 · 295px of empty cream under the purpose section
+
+**Before.** `src/components/home/mission-solution.tsx` places both faces of the section in
+ONE grid cell (`col-start-1 row-start-1`) so they can cross-fade, and a grid cell takes
+the height of its tallest occupant. At 1280 and at 768 the two faces are the same height,
+so that costs nothing. At 390 they are not.
+
+| profile | section height | need face | solution face | gap under the visible face's last line |
+|---|---|---|---|---|
+| 360 | 1,597px | 1,597 | 1,597 | **279.0px** |
+| 390 | 1,559px | 1,559 | 1,559 | **297.6px** |
+| 414 | 1,517px | 1,517 | 1,517 | **275.8px** |
+| 667x375 | 1,144px | 1,144 | 1,144 | 98.8px |
+| 768 | 1,122px | 1,122 | 1,122 | 132.3px |
+| 1280 | 812px | 812 | 812 | 121.7px |
+
+The brief's own reading of this at 390 was 294px, taken on the live site on 25
+September; this gate reads 297.6px on a build of the same commit, which is the
+same hole measured with a different ruler.
+
+**The change.** `src/components/home/mission-solution.tsx:269` to `:296` and the two
+face class lists at `:352` and `:471`: below `md` the inactive face leaves the grid
+(`hidden md:block`), so the cell is the height of the face somebody is reading. Above
+`md` nothing changes at all: both faces are in the cell, both are the same height, and
+the cross-fade is the one wave 412 shipped.
+
+**It is a display swap and not an animated height.** Wave 413's law of motion is transform
+and opacity only with ONE named exception, the disclosure's height, and a 300px height
+transition on a section this tall would have been a second one bought for a flourish. An
+element coming out of `display: none` has no before-change style for a transition to start
+from, so the incoming face simply appears.
+
+**After:**
+
+| profile | section, need face showing | swapped | gap, need face | gap, solution face |
+|---|---|---|---|---|
+| 360 | **1,415px** | **1,621px** | **47.4px** | **47.4px** |
+| 390 | **1,355px** | **1,566px** | **47.4px** | **47.4px** |
+| 414 | **1,355px** | **1,524px** | **47.4px** | **47.4px** |
+| 667x375 | **1,114px** | **1,150px** | **47.4px** | **47.4px** |
+| 768 | 1,128 / 1,128 | 1,128 | 76.0px | 47.4px |
+| 1280 | 812 / 812 | 812 | 121.7px | 50.9px |
+
+Every phone profile, on both faces, at or under the 48px ceiling. The 768 and 1280 rows
+still carry BOTH faces at the same height, which is what "above `md` nothing changes"
+means, and the 1280 pairing reads zero moved pixels on `/`.
+
+**And one byte saving comes with it.** The solution face's illustration,
+`trio-wave.webp`, is `loading="lazy"` inside a subtree that is now `display: none` below
+`md`, so a phone does not request it at all until the reader asks for the solution face.
+That is 144 KB a phone no longer downloads to look at the need face, and it is why the
+home page comes out LIGHTER after this wave than before it despite eighteen eager
+crests: section 6.
+
+**Under reduced motion the swap is instant**, measured rather than asserted: the section
+reads 1,559px before the press, 1,559px 50ms after it and 1,559px at 750ms, **still moving
+by 0.00px**.
+
+### Item 3 · The hero strip's clipped headline
+
+**Before.** The snap strip shows 24px of the next photograph past the right edge, which is
+the affordance. What also showed was the next slide's HEADLINE. "Delivering Support" is
+sized to span 95 per cent of its own panel, so it starts 8px inside it and its first
+glyph, an orange D, painted 16px from the right edge of the screen.
+
+Measured off the first viewport's own pixels, taking the ground from the six rows
+immediately below the caption in the same column band, because the hero's ground is not
+flat white and a flat reference would be a number about the wash:
+
+| profile | peeking slide | band | darkest pixel | ground | share of ground |
+|---|---|---|---|---|---|
+| 360 | "Delivering Support" | 24.0px | 0.1478 | 0.8418 | **0.176** |
+| 390 | "Delivering Support" | 24.0px | 0.1478 | 0.8356 | **0.177** |
+| 414 | "Delivering Support" | 24.0px | 0.1478 | 0.8276 | **0.179** |
+| 667x375 | "Transforming Lives" | 12.0px | 0.0271 | 0.8449 | **0.032** |
+
+against a floor of 0.70. A single orange letter at the edge of the screen reads as text
+somebody forgot to fit, not as "there is more".
+
+**The change.** `src/styles.css:2216` to `:2273`, inside the existing
+`@media (max-width: 767px)` block, so the desktop hero is untouched:
+
+- a right-edge mask on `.hero-band`,
+  `linear-gradient(to right, #000 calc(100% - 56px), transparent calc(100% - 6px))`, with
+  the `-webkit-` form beside it;
+- `overflow: clip` with `overflow-clip-margin: 2px` on each slide's `figcaption`, as a
+  guard so a future headline cannot paint outside its own slide at all;
+- `outline-offset: -3px` on the band's focus ring.
+
+**The ramp is arithmetic, not taste.** 56px reaching nothing 6px short of the edge holds
+the glyph at 16px in at 0.20 of its strength, and leaves the photograph's own peek at 24px
+in at 0.36, still visible as a sliver of the next picture. A shorter ramp leaves the glyph
+legible; a longer one takes the peek with it.
+
+**The focus ring had to come inside, and that is the cost of the mask.** `mask-clip` is
+the border box and the band's ring is drawn at `outline-offset: 4px`, outside it: masked,
+the ring would not paint at all. Measured by differencing a blurred shot against a focused
+one, so the reading is what changes on the screen and not what the computed style claims:
+
+| profile | ring pixels painted | rows | columns |
+|---|---|---|---|
+| 360x800 | **1,863** | 89 to 405 | 21 to 330 |
+| 390x844 | **2,041** | 89 to 434 | 21 to 360 |
+| 414x896 | **2,183** | 89 to 457 | 21 to 384 |
+| 667x375 | **2,798** | 69 to 284 | 33 to 625 |
+
+The ring is a 2px solid `teal-600` on all four sides of the strip; its right-hand segment
+fades with everything else in the last 56px, and the other three sides and the great
+majority of its length are at full strength.
+
+**After:**
+
+| profile | peeking slide | darkest pixel | ground | share of ground |
+|---|---|---|---|---|
+| 360 | "Delivering Support" | 0.6867 | 0.8395 | **0.818** |
+| 390 | "Delivering Support" | 0.7004 | 0.8413 | **0.833** |
+| 414 | "Delivering Support" | 0.7072 | 0.8338 | **0.848** |
+| 667x375 | "Transforming Lives" | 0.8356 | 0.8872 | **0.942** |
+
+Nothing at or under the 0.70 floor at any of the four.
+
+### Item 4 · The type floor did not reach inside a paragraph
+
+Section 3 is the sweep table. In short: wave 414 sorted every `p` and `li` by LENGTH, 60
+characters or more being body at 15px and anything under it a label at 12. That rule is
+right about the elements it was written for and blind to a run INSIDE one, because a
+`span` carries its own font-size and the gate only ever read the `li`.
+
+### Item 5 · The six statistics ticker on /platform
+
+**Before**, at 360, 390 and 414: **6 items including 3 clones, a track 3,082px wide, 1
+running animation, and 17 of the section's text runs falling outside the viewport**, the
+first of them the figure "1.34m" itself. A 22px figure and its 12px label went through a
+390px window cut mid-word at one edge and running off the other, at walking pace.
+
+**The change.** `src/routes/platform.tsx:405` to `:470` (`DemandTicker`) and
+`src/styles.css:655` to `:697` (`.demand-ticker`). Below `md` the same three items render
+as three rows, figure over label over source. **Not one string changes**; this is the
+reflow the ruling asks for.
+
+**Two mechanisms, and both are deliberate.** The stylesheet stops the lane and stacks it
+with no JavaScript at all, so the prerendered document is right at every width before a
+byte of bundle lands, and the clones are `display: none` rather than merely still. The
+media query in the component then drops the clones from the DOM once the bundle is there,
+so a phone carries three items and not six. It defaults to the LANE, so the prerendered
+markup is exactly the one this page has always shipped and nothing can mismatch at
+hydration.
+
+**After:**
+
+| profile | items | clones | track | running animations | strings outside the viewport |
+|---|---|---|---|---|---|
+| 360 | **3** | **0** | 320px | **0** | **0** |
+| 390 | **3** | **0** | 350px | **0** | **0** |
+| 414 | **3** | **0** | 374px | **0** | **0** |
+| 667x375 | **3** | **0** | 603px | **0** | **0** |
+| 768 | 6 | 3 | 3,546px | 1 | 16 |
+| 1280 | 6 | 3 | 3,036px | 1 | 11 |
+
+The 768 and 1280 rows are the lane, unchanged, which is what the brief asks for. The 768
+track is wider than the base's 3,097px because the label now answers to the 15px floor
+below `lg`; the lane itself is the same lane. **Proposal 4 in section 9 asks whether the
+cut should be `lg` rather than `md`**, because a tablet reads a moving statistic no better
+than a phone does.
+
+The "Updated 2 June 2026" line follows at **13px** below `lg` (`max-lg:text-[13px]`,
+`src/routes/platform.tsx:469`).
+
+### Item 6 · Petra's ghost behind the body text
+
+**Before**, at 390: the card was 340px tall with a `min-height` of 340, the illustration
+**169 by 280** at x=228, clipped by the card at 370 with its pointing arm cut off, at
+**opacity 0.25**, **not inside the card's padding box**, and sitting under **3 runs of
+copy** including "Describe the home you need. Petra searches the whole sourced market for
+the closest fit." At 360 it sat under **5**.
+
+**One card, three characters.** The `src` follows whichever of Petra, Peter and Pippa is
+selected, so this is the whole of the fix for all three.
+
+**The change.** `src/routes/platform.tsx:705` and `:734`. Below `md` the illustration is a
+96px figure, right-aligned above the copy, at full strength and full colour,
+`object-contain` so nothing is cropped, and the card's `min-h` becomes `md:min-h-[340px]`
+because 340px was reserving room for artwork no longer in the text column.
+
+**After:**
+
+| profile | card | min-height | art | opacity | inside the padding box | text clashes |
+|---|---|---|---|---|---|---|
+| 360 | 451px | **auto** | **58 x 96** | **1** | **yes** | **0** |
+| 390 | 421px | **auto** | **58 x 96** | **1** | **yes** | **0** |
+| 414 | 421px | **auto** | **58 x 96** | **1** | **yes** | **0** |
+| 667x375 | 421px | **auto** | **58 x 96** | **1** | **yes** | **0** |
+| 768 | 340px | 340px | 169 x 280 | 0.25 | no | 0 |
+| 1280 | 340px | 340px | 169 x 280 | 0.25 | no | 0 |
+
+The 768 and 1280 rows are byte for byte the base's.
+
+### Item 7 · The product screenshot
+
+**Before.** The Property Finder capture is a **2,241 by 1,207 desktop screenshot** served
+at **348 CSS px** at 390 through `sizes="(min-width: 768px) 50vw, 100vw"`, so every word
+inside it renders under 4px tall, and there was **no control that opened it**.
+
+**The change.** `src/routes/platform.tsx:788` to `:860` (`ProductCapture`). Below `md` the
+figure is a button that opens the capture at its own width in a horizontally scrollable,
+pinch-zoomable box, with a 44px close control, focus trapped by Radix, `Escape` and the
+control both closing it.
+
+**No new string but one.** The trigger takes its accessible name from the capture's
+existing `alt`; the dialog takes its name from the figure's existing caption, which is
+also the sentence a visitor needs while looking at illustrative figures at full size. The
+one string this wave authors is `aria-label="Close"` on the icon-only close control, which
+is the single case the canon allows, and it is listed in section 4.
+
+**The desktop gains no control at all.** The query defaults to false, so the prerendered
+document is the figure this page has always shipped at every width, and a phone with no
+JavaScript gets exactly what it gets today rather than a button that does nothing.
+
+### Item 8 · The back-to-top control over the words
+
+This is the item that changed shape under measurement, and the reasoning is worth having
+in full because it ends in a feature not being offered on a phone.
+
+**Before.** `src/components/ui/back-to-top.tsx:92` declares `fixed bottom-6 right-5`, and a
+rule in `src/styles.css` moved it to `right: auto; left: 1.25rem` below 1024px. Wave 414
+made that move deliberately and wrote down why (section 4 of `docs/WAVE414_REPORT.md`): the
+registration journey's new sticky Continue bar finishes in the bottom right and a 44px
+circle would land on it. The reasoning is sound about the register routes and was applied
+to all twenty-nine.
+
+What it cost everywhere else was never measured, because 414's fixed-layer assertion tests
+the fixed layers against EACH OTHER and never against the words underneath them. The
+computed box at 390 is `left: 20px; right: 326px; bottom: 24px`, 44 by 44 from x=20 to
+x=64, covering the first 44px of whatever line sits at the foot of the viewport.
+
+**Measured at the base, over eleven routes, after two viewports of scroll, counting every
+intersection with a text node's rendered ink or another control's box:**
+
+| profile | intersections |
+|---|---|
+| 360 | **5** |
+| 390 | **10** |
+| 414 | **7** |
+| 768 | 1 |
+| 667x375 | 2 |
+| 1280 | **0** |
+
+**The first change was the brief's: put it back in the right-hand gutter with the safe
+area under it.** `src/styles.css:2606` to `:2636`. It made the arithmetic visible rather
+than fixing it: at 390 the page's gutters are 20px and the content column is the other
+350, so a 44px circle against EITHER gutter covers an eighth of every line it lands on.
+The left gutter puts it on the starts of those lines; the right gutter puts it on their
+ends. Re-measured with the control in the right gutter: **5 intersections at 360, 10 at
+390, 7 at 414, 2 at 667x375, 1 at 768, 0 at 1280.** The same count, different words.
+
+**There is no third position.** A phone has no gutter wide enough to hold a 44px target
+beside a full-width column, and 44px is rule 6's own floor, so the control cannot be made
+smaller either. Rule 3 admits no exception: "they sit in the right-hand gutter or below
+the content's last line".
+
+**So the control is offered from `lg` and not below it.** `src/components/ui/back-to-top.tsx:41`
+to `:88`. `lg` is the width at which the rest of this site switches to its desktop
+composition: the demand map becomes pressable, the solutions rail becomes a side rail, and
+the register journey's sticky bands stop sticking. It is **not rendered** below that
+rather than hidden with CSS, so a phone carries no markup and no tab stop.
+
+**After: 0 intersections at every width on every route**, and on `/register/investor` at
+390 with the bar on screen the control is **absent**, which is item 8's own second
+assertion.
+
+`body:has(.drawer-panel) .back-to-top { display: none }` stays and is live rather than
+decorative: the drawer is reachable up to `xl` and the control is offered from `lg`, so the
+two widths overlap.
+
+### Item 9 · The desktop minimum heights on /about
+
+**Before.** `src/components/about/director-card.tsx:105` put `min-h-[356px]` on every team
+card at every width. 356px is the height of the tallest card in a row of four; below `md`
+there is no row.
+
+| profile | cards | tail under the last content |
+|---|---|---|
+| 360 | 5 at 356px | 34.2, **59.0**, **59.0**, 34.2, **59.0** px |
+| 390 | 5 at 356px | 34.2, **59.0**, **59.0**, 34.2, **59.0** px |
+| 414 | 5 at 356px | 34.2, **59.0**, **59.0**, 34.2, **59.0** px |
+| 667x375 | 5 at 356px | the row is two across here and equalises on purpose |
+
+**Sixteen card readings over the 32px ceiling** across the whole baseline run.
+
+**The change.** `md:min-h-[356px]`. The card's own `pb-5` is the gap now, which is the
+20px the design already gives every other card on this page.
+
+**After**, at 390: five cards at **346, 338, 314, 370 and 314px**, every tail **4.0px**,
+and **0 of 48 card readings over the ceiling** across the run. The cards are not all
+shorter than 356 because item 4 raised their credential lines from 12px to 15px; what has
+gone is the floor that made a 314px card 356px tall and put the difference under the last
+line.
+
+A card that SHARES a row is exempt, because equalisation is exactly what a row is for.
+Below `md` these five are one per line and share nothing, which is why the exemption does
+not reach them.
+
+**At 1280 the row still equalises** and the 1280 pairing reads **0 moved pixels on
+`/about` against 0 pixels of same-build noise**, which is the strictest reading this gate
+can give.
+
+**The three "What we do" cards were measured and NOT changed.** The brief reports 105px
+empty under the company pill. Measured at 390 they are 274, 274 and 294px tall with
+`pb-[104px]`, and the reserve is not empty: it holds the character illustration, whose box
+ends **111px past the card's padding edge**. The tail under the last INK is 11.8px and the
+tail under any content is **-111px**. Rule 2's pixel scan over `/about` returns **0 runs
+over 96px at every width**. It is a filled corner, not a hole, and tightening it on a
+phone is proposal 3 rather than a change made on a reading nobody took.
+
+### Item 10 · The pill that splits its verb
+
+**The brief's diagnosis does not reproduce, and the measurement says what does.** At
+`origin/main` `f61b3b8`, "deliver it" renders in **ONE** client rect at 360, 390 and 414.
+What the pill actually does is the other half of rule 7. It is `inline-flex` with
+`align-items: baseline` and NO wrap, so when "Care & Support Providers" runs out of room it
+wraps INSIDE its own `<b>` and the verb stays on the first baseline beside it:
+
+```
+Care & Support   deliver it
+Providers
+```
+
+68px tall at 360 and 390 against 43 for every other pill on the page, with a
+justified-looking gap between two columns. That is the composition the brief describes and
+the one rule 7 rules out.
+
+**Finding it needed the gate fixed twice.** `getClientRects()` on the role returns ONE
+rect whatever it does, because a flex item is blockified and a block box that wraps over
+two lines is still one rectangle; the role's lines are counted off its own line box now.
+
+**The change.** `src/routes/solutions.tsx:221` to `:249`: `flex-wrap` so the verb drops
+under the role, `whitespace-nowrap` on the verb so it stays together when it lands there,
+and `gap-x-[7px] gap-y-0.5`. **`gap-x-[7px]` and not the brief's `gap-x-2`**, because 7px
+is the horizontal gap the desktop uses and the desktop does not move.
+
+**After:** 9 pills at every width, **0 splitting a verb, 0 with the verb beside a wrapped
+role**. The tallest pill is 68px at 360 and 390 (role on one line, verb under it) and 43px
+at 414, 768, 667x375 and **1280, which is the base's own figure**.
+
+### Item 11 · The empty space inside the account card · NOT A DEFECT
+
+**This one is an artefact of the instrument, and the instrument was a screenshot.**
+
+`.registration-actions` is `position: sticky`. Sticky changes where an element PAINTS and
+not where it sits in the flow, so its rect reports the foot of the viewport while the
+card's layout still has it a thousand pixels further down. Every rect-based reading
+therefore sees the bar near the top of the card and a band of nothing where its flow box
+is, **and that includes a full-page screenshot**, which is what the review was reading.
+
+Read off the layout instead, with the sticky boxes set static for the duration of the
+measurement (which changes no other box on the page, because a sticky box occupies exactly
+the space a static one would):
+
+| route | profile | panel | step | bar | bar's flow position | widest gap in the flow | tail under the last content |
+|---|---|---|---|---|---|---|---|
+| `/register/investor` | 360 | 1,311px | 1,269px | 77px | y=1,153 | **1px** | **1px** |
+| `/register/investor` | 390 | 1,271px | 1,229px | 77px | y=1,113 | **1px** | **1px** |
+| `/register/investor` | 414 | 1,245px | 1,203px | 77px | y=1,087 | **1px** | **1px** |
+
+The form is 999px tall inside a step of 1,229 at 390, which are the brief's own figures and
+are correct. **The reserve is the bar's height once**, its own `mt-4` and the sign-in
+line's `mt-5`, which is 113px of flow between the disclosure and "Already registered? Sign
+in" and is exactly what a sticky bar that occupies its own space costs. There is no second
+reserve and no `min-h` on the account step (`min-height: 0px`, measured).
+
+**And the second reading is what a phone actually shows.** Three REAL viewports per width,
+at scrollY 0, half way and the foot of the page, with rule 2's empty-run scan over the
+card in each one:
+
+| route | 360 | 390 | 414 |
+|---|---|---|---|
+| `/register/investor` | **0px** | **0px** | **0px** |
+| `/register/resident` | **0px** | **0px** | **0px** |
+
+Nothing changed, and nothing should have.
+
+### Item 12 · The footer's three Verify links
+
+**Before.** `src/components/site-footer.tsx:394` renders the three as
+`a.inline-flex.items-baseline.gap-0.5`. On a desktop they are genuinely a link inside a run
+of text, which is the exemption 414's target audit grants. Below `lg` the reference line
+runs at 15px, wraps, and the link ends up ALONE on the last line, where it is a 24px-tall
+target with nothing else on the row to press.
+
+Measured at 390 on every route: **139.4 x 24, 180.7 x 24 and 278.9 x 24**. Across all 14
+routes and all 6 profiles: **252 readings, 143 of them under 44**.
+
+**The change.** `max-lg:min-h-11 max-lg:items-center` on the three. `max-lg:` only, so the
+desktop line is not pushed apart by a 44px inline box it does not need.
+
+**And the exemption rule now reads:** an inline anchor inside a run of text is exempt only
+where it is ACTUALLY in a run of text, which means some of its parent's other ink shares
+its line box. Measured off Ranges over the sibling text nodes rather than off the parent's
+box, because the parent's box is the whole paragraph. 414's rule was the first half of that
+sentence and this is the second.
+
+**After: 252 readings, 0 under 44.**
+
+**One reading is reported and not asserted.** At 1280 the three links ALSO stand on their
+own line inside the footer's three-column grid (208.3 x 15.1 for the FCA one), because the
+cards are narrow there too. Rule 6 is a phone rule and rule 8 says the desktop does not
+move, so the desktop reading is printed by the gate and carried to Callum as proposal 2.
+
+### Item 13 · Landscape and tablet · NOTHING BROKE
+
+Every route re-shot at 667x375 and at 768: **28 shots**, and the assertions of items 1 to
+12 hold at both. The one thing 414 never asked was whether the register journey's first
+field is reachable in landscape with the keyboard up, so the viewport is cut to 300 (a
+landscape phone with a keyboard open) and the field is focused and scrolled to:
+
+| route | field | box | header ends | bar starts | viewport | verdict |
+|---|---|---|---|---|---|---|
+| `/register/investor` | `email` | 150 to 206 | 56 | 223 | 300 | **fully visible** |
+| `/register/resident` | `email` | 150 to 206 | 56 | 223 | 300 | **fully visible** |
+
+---
+
+## 3. The type-floor sweep
+
+Wave 414 gave every `p`, `li`, `input`, `select` and `textarea` on the site a floor, and
+it sorted them by LENGTH: 60 characters or more of rendered text is body at 15px, anything
+under it is a label at 12px, which is the smallest size the brand system declares. That
+rule is defended at length in `docs/WAVE414_REPORT.md` and it is right about the elements
+it was written for.
+
+**It is blind to a run INSIDE one of them.** A `span` carries its own `font-size`, and the
+home page's three problem bullets are 12.5px spans inside 15px list items: every reading
+the old gate took on that list was of the `li`.
+
+### The rule this wave adds, as four shapes rather than a list of selectors
+
+| shape | test | floor |
+|---|---|---|
+| **a control's own name** | the run is the whole of the accessible name of the `a`, `button`, `summary` or `label` it sits in, with any `sr-only` tail taken off first | 12px, and rule 6's 44px target is what actually governs it |
+| **an eyebrow** | `text-transform: uppercase` and letter-spacing at or above 0.1em | 12px, the size `CLAUDE.md` declares |
+| **a caption** | inside a `figcaption`, or carrying `source-line` or `caption` in a class | 13px |
+| **mono** | set in JetBrains Mono: a reference, a badge | 12px |
+| **body** | everything else inside a `p`, `li` or `article` that is a CLAUSE: 20 characters or more with a space in it | **15px** |
+
+Under 20 characters, or with no space, is a figure or a word somebody scans ("111",
+"Media", "Legal") and it answers to the 12px label floor.
+
+**A run that is one of SEVERAL inside a control is copy inside a control, not the
+control's name.** The flip bar's "The same picture, joined up." is a sentence that happens
+to sit on a button, and it gets the body floor; "Our Services" is the whole of a link and
+does not.
+
+### The eleven utilities the sweep moved, plus one outside its range
+
+| file and line | before | after | what it is |
+|---|---|---|---|
+| `src/components/about/director-card.tsx:148` | `text-[12.5px]` | `+ max-lg:text-[15px]` | the role line under a portrait |
+| `src/components/about/director-card.tsx:153` | `text-[12px] leading-[1.4]` | `+ max-lg:text-[15px] max-lg:leading-[1.6]` | the credential list |
+| `src/components/about/director-card.tsx:211` | `text-[12px] leading-[1.45]` | `+ max-lg:text-[15px] max-lg:leading-[1.6]` | a credential line |
+| `src/components/about/director-card.tsx:204` | `text-[13px]` | `+ max-lg:text-[15px]` | the biography |
+| `src/components/about/director-card.tsx:266` | `text-[12px] leading-snug` | `+ max-lg:text-[15px] max-lg:leading-[1.6]` | the row variant's blurb |
+| `src/components/about/director-card.tsx:355` | `text-[13px]` | `+ max-lg:text-[15px]` | the lead variant's biography |
+| `src/components/about/director-card.tsx:366` | `text-[12px] leading-[1.45]` | `+ max-lg:text-[15px] max-lg:leading-[1.6]` | the lead variant's credentials |
+| `src/components/home/hero.tsx:338` | `text-[13px] leading-[1.4]` | `+ max-lg:text-[15px] max-lg:leading-[1.6]` | the ten role tiles' descriptors |
+| `src/components/register/role-picker.tsx:60` | `text-[14px]` | `+ max-lg:text-[15px]` | the same ten on `/register` |
+| `src/routes/solutions.tsx:143` | `text-[13px]` | `+ max-lg:text-[15px]` | the rail's detail line |
+| `src/routes/index.tsx:173` | `text-[12px] leading-snug` | `+ max-lg:text-[15px] max-lg:leading-[1.6]` | the three stat labels |
+| `src/routes/platform.tsx:752` | `text-[13px]` | `+ max-lg:text-[15px]` | the character card's status chip |
+
+and three more that are captions rather than body and take 13 rather than 15:
+
+| file and line | before | after |
+|---|---|---|
+| `src/components/home/mission-solution.tsx:516` | `text-[11.5px] max-lg:text-[12px]` | `max-lg:text-[13px]` |
+| `src/routes/platform.tsx:469` | `text-[10px] max-lg:text-[12px]` | `max-lg:text-[13px]` |
+| `src/routes/platform.tsx:855` | `text-[12px]` | `+ max-lg:text-[13px]` |
+
+plus the two runs the brief names by hand, `src/components/home/mission-solution.tsx:220`
+and `:419`, both `text-[12.5px]` to `+ max-lg:text-[15px]`.
+
+### The rest of the sweep, and why each is left
+
+`docs/wave490/typesweep.txt` is the machine-readable list, regenerated at this head. The
+tree carries **174** `text-[10px]` to `text-[13.5px]` utilities; **133** now carry a
+`max-*` floor beside them against 120 at the base, and **41** do not. Every one of the 41
+is one of the shapes above:
+
+| what | count | examples |
+|---|---|---|
+| a heading or a card title set in Barlow at 600 or above | 11 | `platform.tsx:408` the principle titles, `site-footer.tsx:380` the badge labels |
+| a control's own name inside a navigation list | 13 | the footer's six link lists, `site-header.tsx:391` the drawer's role rows |
+| a validation alert with `role="alert"` | 3 | `enquiry-form.tsx:124` and `:493`, `waitlist-form.tsx:276` |
+| a field's help line, already at 13px | 3 | `waitlist-form.tsx:552`, `:569`, `:587` |
+| a mono reference or a tabular figure | 2 | `legal.tsx:222`, `section-rail.tsx:36` |
+| a short label, a chip or a numeral under 20 characters | 14 | `mission-solution.tsx:347` the hero tile's basis, `platform.tsx:704` the portal captions |
+
+**One asymmetry is left standing and it is named rather than hidden.** This wave's rule
+reaches runs INSIDE a paragraph; the paragraph ITSELF is still judged by wave 414's length
+rule, so a 45-character `<p>` at 13px passes where a 24-character `<span>` inside one now
+does not. That is the scope the brief set for item 4 and it is not an accident. Section 9,
+proposal 5, carries the number and the recommendation.
+
+
+---
+
+## 4. The gate, at the code head, on a frozen tree
+
+**Code head `ee833f3`.** `git status --porcelain` carried nothing but
+`src/routeTree.gen.ts`, which is a generated file whose CONTENT diff is the empty blob
+(`git diff -- src/routeTree.gen.ts | git hash-object --stdin` is
+`e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`): the build rewrites it with LF while the
+worktree is checked out with `core.autocrlf=true`, so git reports a modification that has
+no bytes in it. The same hash was taken **before and after** the gate run and is
+identical, so nothing under `src` or `scripts` moved while it ran.
+
+| Gate | Command | Exit | Numbers |
+|---|---|---|---|
+| Lint, changed files | `bunx eslint` on the changed lintable files, LF-normalised | **0** | **0 errors.** `src/styles.css` is reported "ignored, no matching configuration", which is true of every CSS file in this repo |
+| Lint, whole tree, this head | `bunx eslint .` on an LF-normalised `git archive` of `ee833f3` | **0** | **432 errors / 15 warnings** |
+| Lint, whole tree, the base | the same, on `origin/main` `f61b3b8` | **0** | **432 errors / 15 warnings. DELTA ZERO** |
+| Typecheck | `bunx tsc --noEmit` | **0** | **0 errors** |
+| Build | `STATIC_BUILD=true bun run build` | **0** | **36 pages prerendered** |
+| Postbuild | `node scripts/pages-postbuild.mjs dist/client` | **0** | see below |
+| **Wave 490's gate** | `python scripts/wave490-phone.py` | **0** | **84 shots. 0 empty runs over 96px. 9,261 span type nodes, 0 under floor. 252 Verify readings, 0 under 44. 48 cards, 0 with a tail over 32px. 54 pills, 0 splitting a verb and 0 with the verb beside a wrapped role. 4 peek readings, 0 under the ink floor. 0 fixed-layer clashes. 14 routes paired at 1280, 0 moved pixels beyond the noise on every one.** PASSED |
+| `git diff origin/main...HEAD -- src/content` | | | **EMPTY** |
+| U+2014 on added lines | | | **0** |
+| U+2013 on added lines | | | **0** |
+| Hex on added lines under `src` | | | **2, both `#000`**, and both are the alpha channel of the hero strip's mask gradient in `src/styles.css`, which is the same literal `.logo-marquee`'s own mask has used since wave 412. A mask is not a colour anybody sees |
+| New user-facing strings | | | **one: `aria-label="Close"`** on the capture dialog's icon-only close control (`src/routes/platform.tsx:872`), which is the single case the canon allows. The word already ships in `src/components/ui/dialog.tsx:49` |
+
+### 4.1 The postbuild step, and the run that found it was missing
+
+`node scripts/pages-postbuild.mjs dist/client` trims a duplicated document tail from
+`/contact`. It is **not deterministic**: across the eight builds this wave made, it
+trimmed 1,677, 2,242, 230 and 0 characters on different runs of the same source.
+
+Two of this wave's runs skipped it, and the 1280 pairing is what found out: `/contact`
+came out **53 CSS pixels taller** than the base, the top 2,873 rows were pixel-identical,
+and the extra 53 rows at the foot were raw script text rendering as page content
+(`...lastMatchId:"contactcontact"})($R["tsr"]);$_TSR.e()...`). It is a build artefact
+rather than a change, the postbuild exists for it, and **every figure quoted in this
+report comes from a build that had the postbuild run on it.**
+
+### 4.2 Two readings that this wave chose and should be read as choices
+
+**The shots are taken at one device pixel per CSS pixel.** Every measurement in this
+gate is in CSS pixels, so a 2x capture answers them by doubling and halving; what it also
+does is write a 40MB PNG per route, and eighty-four of those read straight back is the
+single largest cost in the run. On a machine with a gigabyte of RAM free that cost turned
+a four-second shot into a two-minute one: the run took **3.5 hours at 2x and 6 minutes at
+1x**, for identical readings. The site is still EMULATED as a touch device, which is what
+puts the `hover: none` and `pointer: coarse` arms under test; this is the shutter's
+resolution and nothing else.
+
+**And the browser is relaunched per route.** Eighty-four contexts through one Chromium
+leaves it holding every page it has rendered, and the readings drift with it.
+
+## 5. The six earlier gates, re-run whole at this head
+
+| Gate | Exit | Numbers |
+|---|---|---|
+| `python scripts/wave412-screenshots.py` | **0** | **28 shots, every assertion passed.** 274 axe INCOMPLETE colour-contrast nodes, **274 measured off the pixels, 0 unmeasured**. Darkest raw: home @ 1280 **23.09%** (ratchet 23.70%). Darkest ground: home @ 1280 **8.20%** (flat ceiling 15%) |
+| `python scripts/wave413-motion.py` | **0** | 13 routes at 1280 and 390 plus all seven standalone probes, green. Reduced motion: transition 0s, animation 0s, worst 0ms on every arm |
+| `python scripts/wave414-mobile.py` | **1** | **70 shots.** 5,686 targets measured at the top and scrolled, **0 under 44x44, 0 closer than 8px**. 5,270 type nodes, **0 under their floor, 0 under a 1.6 line box, 0 under 30 characters to the line at 360**. 655 headings, 0 breaking a word. 0 overlapping fixed layers. 0 serious or critical axe violations. 0 shots overflow. **13 FAILURES, every one the header lockup at 768, and every one identical on the base build.** Section 5.1 |
+| `python scripts/wave421-hero-and-footer.py` | **0** | **401 pairs measured**, every pair resolved on every shot, 16 variant readings, 13 under-served images, 26 dividers read. All assertions passed |
+| `python scripts/wave415-zoopla-purple.py` | **0** | the Zoopla ink mark regenerated **31,516 bytes from 31,516**, `git status public/` clean: byte-identical |
+| `node scripts/wave443-contrast.mjs --build dist/client` | **0** | **29 pairs, 0 failures, 0 retired-hex hits in source, 0 in the build** |
+| `python scripts/wave414-responsive-images.py --check` | **0** | every referenced image has the variants it should have; **24 alpha-bearing sources, every variant of them still carries alpha** |
+
+### 5.1 The one red gate, and it is not this wave's
+
+`scripts/wave414-mobile.py` returns 13 failures. All thirteen are the same sentence on
+thirteen routes:
+
+> the `<header>` lockup's box reads **0.794** of relative luminance on a white ground
+> (0.972), under the **0.80** floor.
+
+**It happens at 768 and at no other profile.** At 360, 390, 414 and 667x375 the same
+file, `logo-lockup-400.webp`, reads **0.803** in a 118 by 44 box; at 768 the header takes
+its `sm` height and the mark renders in a 140 by 52 box, where resampling the same 400px
+source lands the mean six thousandths lower.
+
+**The same gate, run against a build of `origin/main` `f61b3b8`, returns the identical 13
+failures.** Nothing in this branch touches the header, the lockup or the responsive
+pipeline, and the check at 360 returns 0 failures on both builds.
+
+It is a wave 443 regression: the Brand Kit v4 recolour moved the artwork's own luminance
+and wave 443 did not re-run this gate. The floor was calibrated in wave 414b against the
+v3 palette, where the mark read 0.822, with the defect it exists to catch reading 0.19.
+**The second form of the same rule passes comfortably**: the mark is 0.972 - 0.794 =
+**0.178 darker than its ground**, against a ceiling of 0.30, and a flattened plate is
+0.65 darker.
+
+**This wave did not touch it, and says so rather than moving the floor.** Lowering a
+floor to make a red gate green is the move this repo's canon exists to prevent. It is
+proposal 10, with the two honest fixes: lighten the artwork, or recalibrate the floor to
+the v4 palette with the arithmetic written down.
+
+**So the gate is NOT GREEN, and this is the sentence that says so.** Thirteen failures,
+all pre-existing, all proved pre-existing by running the same instrument against the base
+build, and none of them in a surface this wave touched.
+
+## 6. Lighthouse mobile, before and after
+
+Lighthouse 13.5.0, the same instrument wave 414 used, against the gzipping server at
+`C:\Users\Israel\AppData\Local\Temp\gzserve.py`, because a number taken without
+compression is a fact about the server and not about the site. Reports in `docs/wave490/`.
+
+| Route | | Perf | A11y | Best practices | SEO | FCP | LCP | TBT | CLS | Transferred |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `/` | before | 67 | **100** | **100** | 100 | 3.7s | 6.4s | 150ms | **0** | **962 KiB** |
+| `/` | after | 65 | **100** | **100** | 100 | 3.6s | 6.4s | 140ms | **0** | **955 KiB** |
+| `/platform` | before | 78 | **100** | 96 | 92 | 2.9s | 4.6s | 0ms | **0** | 717 KiB |
+| `/platform` | after | 73 | **100** | 96 | 92 | 3.3s | 5.4s | 0ms | **0** | 779 KiB |
+| `/register/investor` | before | 84 | **100** | 96 | 92 | 3.1s | 3.6s | 0ms | **0** | 402 KiB |
+| `/register/investor` | after | 80 | **100** | **100** | 92 | 3.1s | 4.2s | 0ms | **0** | 480 KiB |
+| `/about` | before | 79 | 98 | **100** | 92 | 2.8s | 4.6s | 0ms | **0** | 693 KiB |
+| `/about` | after | 79 | 98 | 96 | 92 | 2.9s | 4.5s | 0ms | **0** | 642 KiB |
+
+**THE TWO WEIGHTS THE BRIEF ASKS FOR: the home page is 962 KiB before and 955 KiB
+after.** It got LIGHTER, by 7 KiB, and it did so while gaining eighteen eagerly-fetched
+council crests weighing **73,714 bytes**. The reason is item 2: the solution face's
+`trio-wave.webp` is a 144 KB lazy image inside a subtree that is now `display: none`
+below `md`, so a phone does not fetch it to look at the need face. The wave paid 74 KB
+for crests a visitor can see and saved 144 KB on an illustration they had not asked for.
+
+**The deterministic figure, which is the one to trust:** the whole built asset directory
+is **2,210.6 KiB before and 2,221.9 KiB after, +11.3 KiB**, and that is the Radix dialog
+item 7 pulls in. Lighthouse's transferred weight varies with what a run happens to scroll
+into view, which is why `/register/investor` reads +78 KiB for a route whose only change
+is one `max-lg:` class on a password hint.
+
+**Accessibility and best practices did not move**: 100/100/100/98 on accessibility both
+ways, best practices 96 to 100 both ways with one route up and one down. **CLS is 0 on
+all four, before and after.** The performance score falls 2 to 5 points on three routes
+and holds on the fourth; the home page was 67 and is 65, against wave 414's own 66.
+
+## 7. The mutation checks
+
+**The strongest one was run first and covers ten assertions at once.** The baseline run
+(`python scripts/wave490-phone.py --build before.local/client --mode before`) is every
+fix in this wave reverted simultaneously, against the same instrument on the same day,
+and it reads:
+
+| assertion | base | head |
+|---|---|---|
+| item 1, whole strip decoded at 390 on slow 4G | **4 of 36** | **36 of 36** |
+| item 2, the tail under the visible face at 390 | **297.6px** | **47.4px** |
+| item 3, the peeking headline's share of its ground at 390 | **0.177** | **0.833** |
+| item 4, span type nodes under floor | **350 of 9,297** | **0 of 9,261** |
+| item 5, the ticker at 390 | 6 items, 3 clones, 1 animation, **17 runs outside the viewport** | 3 items, 0 clones, 0 animations, **0 outside** |
+| item 6, the character over the copy at 390 | **3 text clashes**, outside the padding box | **0 clashes**, inside it |
+| item 7, a control that opens the capture | **none** | 348 x 187.4, dialog named, axe 0 |
+| item 8, fixed-layer clashes over the run | **85** | **0** |
+| item 9, card tails over 32px | **16 of 48** | **0 of 48** |
+| item 10, pills with the verb beside a wrapped role | **2** | **0** |
+| item 12, Verify readings under 44 | **143 of 252** | **0 of 252** |
+
+**And two single-fix mutations, to show the method rather than the aggregate.** Each
+reverted one change, rebuilt, ran the gate on one route, and was restored:
+
+| mutation | result |
+|---|---|
+| the `.hero-band` mask deleted from `src/styles.css`, rebuilt | `item3 home @ 390 strip mask=none ... share=0.176`, **FAILED: 1** |
+| `md:min-h-[356px]` put back to `min-h-[356px]`, rebuilt | `worst tail under any content=46px`, **FAILED: 2** (two director cards) |
+
+Both restored; `git diff -- src` was empty afterwards and the tree hash before and after
+the final gate is the same empty blob.
+
+### 7.1 Two assertions that do NOT bind, named rather than counted
+
+A read-only review of the diff found both, and they are reported here rather than
+quietly left in the count.
+
+**Item 10's first half is vacuous, and the script says so where it is written.** The
+assertion `verb.getClientRects().length === 1` reads 0 failures on the BASE build at
+every width: the verb never split. `whitespace-nowrap` on the verb is therefore asserted
+by nothing. It is kept because it is the guard rule 7 asks for against a longer verb, and
+the half that binds is the one beside it, which reads 2 on the base and 0 here.
+
+**Item 8's register-route sub-assertion is a tautology in both directions.** It fails
+only when the sticky bar is on screen AND the control is present. On the base the bar is
+not on screen at the scroll position tested; at this head the control is not rendered
+below `lg` at all. It can never fire. The load-bearing assertion for item 8 is the
+clash count, which is 85 on the base and 0 here.
+
+## 8. The read-only review, and what it changed
+
+One review agent read `git diff origin/main...HEAD` before the gate and was asked three
+questions. It returned findings on all three and **four of them changed the branch.**
+
+**1. Did any string change?** It confirmed `src/content` is untouched and that
+`aria-label="Close"` is the only authored literal, noting that the word already ships in
+`src/components/ui/dialog.tsx:49`. It also noted that the capture's caption is now
+rendered a SECOND time as the dialog's `sr-only` title. That is a reuse rather than a new
+string, and the second rendering is not heard twice: Radix marks the rest of the document
+`aria-hidden` while a modal dialog is open, so the visible `figcaption` is out of the
+tree at the moment the title is in it.
+
+**2. Could any touched surface move at 1280?** It cleared every `max-lg:`, `max-md:` and
+`@media (max-width: 767px)` change by scope, and named four things that are unscoped:
+
+- the pill's `flex-wrap`, `gap-y-0.5` and `whitespace-nowrap` apply at every width, and
+  the claim that the desktop does not move rests on no pill wrapping at 1280. **True, and
+  it is a content-dependent argument rather than a scoping one.** It is measured both
+  ways: the 1280 pill reads 43px tall on the base and 43px here, and `/solutions` pairs at
+  **0 moved pixels against 0 pixels of noise.**
+- the character illustration's `block`, `w-auto` and `object-contain` have no `md:`
+  counterpart. They are no-ops at 1280 (an absolutely positioned image is blockified,
+  `width: auto` is the default, and `object-fit` does nothing when the box already
+  matches the ratio), and the 1280 reading is `art=169x280 at (1066,2952) opacity=0.25`
+  on both builds.
+- `body:has(.drawer-panel) .back-to-top { display: none }` is unscoped, and `:has()`
+  matches on presence rather than on visibility. The drawer is `xl:hidden`, so it cannot
+  be OPENED at 1280, but a visitor who opens it at 1279 and resizes to 1280 leaves the
+  panel mounted and the control hidden until they close it or navigate. **Narrow, real,
+  and stated.**
+- `loading="eager"` on the crests applies at 1280 too, and the pairing cannot see it
+  because `.logo-marquee` is both touched and animated. **True.** The desktop reading is
+  in section 2 item 1: 11 of 36 decoded before, 36 of 36 after, 18 requests either way.
+
+It also observed that `TOUCHED` used the bare selectors `figure` and `article`, which
+exempt by breadth rather than by measurement. `figure` on `/platform` was **narrowed to
+`figure.panel`**, which is the one figure this wave touches. `article` on `/about` is
+kept: every `article` on that route IS a director card and every director card is
+touched.
+
+**3. Would any new assertion pass with its fix reverted?** It found the two vacuous
+assertions in section 7.1, and **one real coverage hole that changed the code**: the span
+scan walked only inside `p`, `li` and `article`, and two of the runs the brief names by
+hand have no such ancestor, so their fixes were unasserted. The scan now walks every
+element that renders text of its own, which brought every card title and source credit
+into it, which in turn needed the heading and source-line shapes. **Thirteen more runs
+got a floor as a result** and the node count went from 1,519 to 9,261.
+
+It also warned that rule 2's `start > 0` guard means a run reaching a section's last row
+is never reported, so the scan no longer sees item 2's hole. **That is correct and it is
+the design**: a run at a section's edge is its padding, and the tail is measured by item
+2's own 48px check and item 9's 32px check, which are the tighter rules. Section 2 no
+longer claims otherwise.
+
+
+---
+
+## 9. Proposals for Callum, each with a recommended default
+
+Nothing in this section was touched.
+
+**1. The two "OPTION" eyebrows on `/platform` are internal design labels on a public
+page.** `src/content/platform.ts` carries them verbatim:
+
+```
+eyebrow: "OPTION 4 · CHARACTER PORTALS",
+eyebrow: "OPTION 2 · PLATFORM MISSION CONTROL",
+```
+
+A visitor reading "OPTION 4" above a section is being shown the inside of a design review.
+*Recommended default: delete both eyebrows.* It is a removal and adds no words, so it
+needs no copy from anybody. Callum's ruling of 25 September was that they stay this wave
+and go in the report as a proposal, and this is that.
+
+**2. The three Verify links are under 44px on the desktop too.** Item 12 raises them below
+`lg`, where the reference line wraps and the link stands alone. At 1280 the footer's
+registration badges are a three-column grid and the same thing happens inside each card:
+measured, "Verify the broker on the FCA register" is **208.3 by 15.1** at 1280 on every
+route. Rule 6 is a phone rule and rule 8 says the desktop does not move, so this wave
+measured it and stopped. *Recommended default: raise them at every width in a wave that
+owns the desktop footer*, which is one class and a re-shoot of fourteen desktop pages.
+
+**3. The "What we do" cards' corner reserve on a phone.** Item 9 measured them and changed
+nothing: `pb-[104px]` is not empty, it holds the character illustration, which ends 111px
+past the card's padding edge, and rule 2's pixel scan returns 0 runs over 96px on `/about`
+at every width. What is true is that the character is 68px wide on a 350px card, so the
+reserve is filled on the right and open on the left. *Recommended default: keep.* If it
+should be tighter on a phone, the change is `max-md:pb-[76px]` beside a `max-md:h-[104px]`
+on the artwork, and it needs the pill re-measured against the art at 360 because they
+would then be competing for the same 26px.
+
+**4. The sourced-figure ticker stops at `md`; a tablet is still a reader.** Item 5 stacks
+the three figures below 768 because that is what the brief asks for. At 768 the lane is
+back: measured, **6 items on a 3,546px track with 1 running animation and 16 text runs
+outside the viewport**. Rule 4 says a reader must not chase a sourced statistic, and a
+tablet reader is a reader. *Recommended default: move the cut from `md` to `lg`.* It is
+one media query and one number in `platform.tsx`.
+
+**5. The type floor stops at the edge of a paragraph.** This wave's rule reaches a `span`
+inside a `p`, `li` or `article` and gives it 15px below `lg` when it is a clause; the
+paragraph itself is still on wave 414's length rule, where 60 characters is the line
+between body and label. The asymmetry is visible: `src/routes/solutions.tsx:285` is a
+`<p>` of body copy at 13px that passes, beside a 24-character `<span>` that now does not.
+*Recommended default: take the clause rule to `p` and `li` themselves in a type wave, with
+the count measured first.* Section 4 carries the count of `p` and `li` elements that would
+move.
+
+**6. The back-to-top control has no phone form.** Item 8 is the arithmetic: a 44px target
+cannot stand beside a full-width column in a 20px gutter, so the control is offered from
+`lg`. *Recommended default: leave it off a phone.* If Callum wants one, the honest shapes
+are a lane reserved for it (`<main>` gets a right padding below `lg` and the column
+narrows by 56px, which costs every line on every route) or an inline control at the foot
+of each long route, which costs nothing and is reachable only where somebody has already
+finished reading. The second is the one to build.
+
+**7. The home hero carries no sentence saying what the company does above the fold on a
+phone.** The `h1` is visually hidden and the visible words are the three headlines and
+"Register to join the waitlist as". *Recommended default: none this wave.* A one-line
+strapline is a new string and that is Callum's to write.
+
+**8. The home stat cards step in from 350 to 309px wide at 390.** Measured and unchanged.
+It reads as intended at 390 and tight at 360. *Recommended default: keep.*
+
+**9. The flip bar's DESKTOP gradient is still a text-bearing control filled partly with
+orange-500.** Item 8 of section 5 has the measurement: at 390 all three of its lines read
+**4.27:1 against a 4.5:1 floor** on a build of `origin/main`, which this wave fixed below
+`lg` by ending the gradient at orange-600. At 1280 the same bar passes the gate, because
+the lines sit on a darker part of the gradient there, but it is the same composition and
+`CLAUDE.md` says the fill of any text-bearing control is orange-600. *Recommended
+default: end the gradient at orange-600 at every width in a wave that owns the desktop
+home page.* One class, and a re-shoot of one desktop route.
+
+**10. The header lockup reads 0.794 against a 0.80 floor at 768, on `origin/main` and
+here alike.** Section 5.1 has the evidence: thirteen identical failures on both builds,
+0.803 at every other profile, and the relative form of the same rule passing at 0.178
+against a 0.30 ceiling. It is wave 443's recolour meeting a floor calibrated against wave
+414's palette. *Recommended default: recalibrate the floor to the v4 palette, with the
+arithmetic written into `scripts/wave414-mobile.py` beside it, rather than lighten the
+artwork.* The artwork is the approved mark; the floor is a number this repo chose, and it
+was chosen when the mark was a different colour. Either way it is a decision this wave
+had no mandate to take on its own.
+
+
+---
+
+## 10. What Cowork should show Callum first
+
+Three routes, three widths, the pairs that carry the wave.
+
+| # | show | at | what he will see |
+|---|---|---|---|
+| 1 | `docs/screenshots/wave490/before/home-390.png` beside `docs/screenshots/wave490/home-390.png` | **390** | the council crests are crests instead of blank plates, the orange D has gone from the right edge of the hero, and the purpose section ends 47px under its last line instead of 298 |
+| 2 | `before/platform-390.png` beside `platform-390.png` | **390** | three sourced statistics standing still in three rows instead of one sliding past cut in half, Petra above the copy at full strength instead of a smudge behind it, and a product capture that opens when you tap it |
+| 3 | `before/about-360.png` beside `about-360.png` | **360** | five team cards the height of what is in them, and credential lines at 15px instead of 12 |
+
+And one sentence he should hear with them: **the back-to-top button is gone from phones**,
+because at 390 there is no place to put a 44px circle that is not on top of a line of text,
+and section 9 proposal 6 is what it would take to give a phone one back.
+
+## 11. The file list
+
+Source:
+
+- `src/components/about/director-card.tsx`
+- `src/components/home/hero.tsx`
+- `src/components/home/mission-solution.tsx`
+- `src/components/register/role-picker.tsx`
+- `src/components/site-footer.tsx`
+- `src/components/ui/back-to-top.tsx`
+- `src/components/ui/logo-marquee.tsx`
+- `src/routes/index.tsx`
+- `src/routes/platform.tsx`
+- `src/routes/solutions.tsx`
+- `src/styles.css`
+
+Scripts and documentation:
+
+- `scripts/wave490-phone.py` (new)
+- `scripts/wave490-perf.py` (new)
+- `scripts/wave412-screenshots.py` (an off-screen bucket for a node past the edge of its own scroll container)
+- `scripts/wave421-hero-and-footer.py` (the orange headline's selector corrected, the same bucket carried through)
+- `docs/WAVE490_REPORT.md` (this file)
+- `docs/wave490/**`: `before.txt`, `gate.txt`, `base-412.txt`, `base-414.txt`, `gate-412.txt`, `gate-413.txt`, `gate-414.txt`, `gate-415.txt`, `gate-421.txt`, `gate-443.json`, `typesweep.txt` and the eight Lighthouse reports
+- `docs/screenshots/wave490/**` and `docs/screenshots/wave490/before/**`
+
+**No `src/content` file. No `src/routeTree.gen.ts`. No platform file. No new colour and no
+hex in a component.**
