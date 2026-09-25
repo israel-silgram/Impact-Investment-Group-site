@@ -318,16 +318,14 @@ NODE_READ = r"""
     // hero is a snap strip and the second slide's caption is a sliver past the
     // right edge of it: off the screen rather than unmeasurable. This collector
     // is wave 421's own, so the flag has to be computed here too or the shared
-    // `measure_incomplete` has nothing to read.
+    // `measure_incomplete` has nothing to read. Wave 490b (ruling C) narrowed
+    // it to `.hero-band` below 768, the same as wave 412's collector.
     pastScrollEdge: (() => {
-      for (let n = element.parentElement; n; n = n.parentElement) {
-        const s2 = getComputedStyle(n);
-        if (!/auto|scroll/.test(s2.overflowX) || n.scrollWidth <= n.clientWidth + 2) continue;
-        const lane = n.getBoundingClientRect();
-        const shown = Math.min(box.right, lane.right) - Math.max(box.left, lane.left);
-        return shown < box.width / 2;
-      }
-      return false;
+      const strip = innerWidth < 768 ? element.closest('.hero-band') : null;
+      if (!strip || strip.scrollWidth <= strip.clientWidth + 2) return false;
+      const lane = strip.getBoundingClientRect();
+      const shown = Math.min(box.right, lane.right) - Math.max(box.left, lane.left);
+      return shown < box.width / 2;
     })(),
   };
 }

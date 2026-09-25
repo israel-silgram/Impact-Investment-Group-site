@@ -824,24 +824,31 @@ async () => {
         // screen, which is the thing wave 490 item 3 removed.
         //
         // A gate must not need a defect in order to take a reading. So a node
-        // whose box is more than half outside its own scroll container's
-        // visible band is reported as off screen, with its own reason, and
-        // the same node is measured at every width where the container does
-        // not scroll: at 1280 this hero is a three-column grid and all three
-        // captions are measured there. `scripts/wave490-phone.py` measures
-        // the faded band itself, in pixels, against its own ground, at 360,
-        // 390, 414 and 667x375, which is a stricter statement about exactly
-        // these pixels than a contrast pair would be.
+        // whose box is more than half outside the hero strip's visible band
+        // is reported as off screen, with its own reason, and the same node
+        // is measured at every width where the strip does not scroll: at 1280
+        // this hero is a three-column grid and all three captions are
+        // measured there. `scripts/wave490-phone.py` measures the faded band
+        // itself, in pixels, against its own ground, at 360, 390, 414 and
+        // 667x375, which is a stricter statement about exactly these pixels
+        // than a contrast pair would be.
+        //
+        // ⚠ WAVE 490b, RULING C: THE BUCKET IS THE HERO STRIP BELOW 768 AND
+        // NOTHING ELSE. The first cut took ANY horizontal scroll container on
+        // ANY route at ANY width, which is a site-wide way for a node to go
+        // unmeasured and unfailed, and the independent re-check of wave 490
+        // called it a weakened check. It is narrowed to the one container the
+        // reasoning above is about: `.hero-band`, at the widths where it is a
+        // snap strip (`@media (max-width: 767px)` in `src/styles.css`). Every
+        // other INCOMPLETE node, inside a scroll container or not, is measured
+        // or failed exactly as wave 412b wrote it. Assumed 25 Sep 2026 on the
+        // operator's ruling, pending Callum's word.
         entry.pastScrollEdge = false;
-        for (let n = element.parentElement; n; n = n.parentElement) {
-          const s2 = getComputedStyle(n);
-          const scrolls = /auto|scroll/.test(s2.overflowX) &&
-            n.scrollWidth > n.clientWidth + 2;
-          if (!scrolls) continue;
-          const lane = n.getBoundingClientRect();
+        const strip = innerWidth < 768 ? element.closest('.hero-band') : null;
+        if (strip && strip.scrollWidth > strip.clientWidth + 2) {
+          const lane = strip.getBoundingClientRect();
           const shown = Math.min(box.right, lane.right) - Math.max(box.left, lane.left);
           if (shown < box.width / 2) entry.pastScrollEdge = true;
-          break;
         }
       }
       incomplete.push(entry);
@@ -945,10 +952,10 @@ def measure_incomplete(path: Path, nodes):
                 unmeasured.append((*label, "no area inside the shot"))
                 continue
             # The same rule, one box in: a node past the edge of its own
-            # horizontal scroll container is not on the screen either. See the
+            # snap strip (the hero, below 768 only) is not on the screen either. See the
             # note beside `pastScrollEdge` in the collector above.
             if node.get("pastScrollEdge"):
-                off_screen.append((*label, "past the edge of its own scroll container"))
+                off_screen.append((*label, "past the edge of the hero strip below 768"))
                 continue
 
             # THE GROUND IS THE MODAL PIXEL INSIDE THE BOX THAT IS NOT A
@@ -1068,7 +1075,7 @@ def main() -> None:
 
     failures: list[str] = []
     rows: list[tuple[str, int, float, float, float, int, int, bool]] = []
-    incomplete_tally: list[tuple[str, int, int, int, int]] = []
+    incomplete_tally: list[tuple[str, int, int, int, int, int]] = []
 
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -1160,7 +1167,7 @@ def main() -> None:
                     print(f"    --  off screen: {why}  {node}  \"{words}\" {colour}")
                 incomplete_tally.append(
                     (slug, width, len(axe_result["incomplete"]) - len(off_screen),
-                     len(measured), len(unmeasured))
+                     len(measured), len(unmeasured), len(off_screen))
                 )
                 rows.append(
                     (
@@ -1252,10 +1259,15 @@ def main() -> None:
     total_incomplete = sum(entry[2] for entry in incomplete_tally)
     total_measured = sum(entry[3] for entry in incomplete_tally)
     total_unmeasured = sum(entry[4] for entry in incomplete_tally)
+    # Wave 490b: the off-screen bucket is counted where it is used, so a
+    # reader of the log can see how many nodes it took and on which shots.
+    total_off_screen = sum(entry[5] for entry in incomplete_tally)
+    off_screen_shots = [f"{e[0]} @ {e[1]}" for e in incomplete_tally if e[5]]
     print(
         f"\naxe colour-contrast INCOMPLETE nodes: {total_incomplete} across "
         f"{len(incomplete_tally)} shots, {total_measured} measured off the pixels, "
-        f"{total_unmeasured} unmeasured."
+        f"{total_unmeasured} unmeasured; {total_off_screen} off screen past the "
+        f"hero strip's edge below 768, on {', '.join(off_screen_shots) or 'no shot'}."
     )
 
     worst_raw = max(rows, key=lambda r: r[2])
