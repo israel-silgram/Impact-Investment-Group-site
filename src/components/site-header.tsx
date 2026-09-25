@@ -352,7 +352,7 @@ export function SiteHeader() {
                                 <p className="font-heading text-[34px] font-extrabold leading-none">
                                   Find where you fit.
                                 </p>
-                                <p className="mt-3 max-w-[25ch] text-[12px] font-medium leading-relaxed">
+                                <p className="mt-3 max-w-[25ch] text-[12px] max-lg:text-[15px] font-medium leading-relaxed">
                                   Explore each partner pathway or start with the full ecosystem.
                                 </p>
                                 <DropdownMenuItem

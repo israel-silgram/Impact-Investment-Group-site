@@ -34,7 +34,7 @@ export function EmptySlot({
       <p className="font-heading text-sm font-semibold uppercase tracking-[0.14em] text-ink-muted">
         {label}
       </p>
-      {detail ? <p className="max-w-[36ch] text-[12px] text-ink-muted">{detail}</p> : null}
+      {detail ? <p className="max-w-[36ch] text-[12px] max-lg:text-[15px] text-ink-muted">{detail}</p> : null}
     </div>
   );
 }

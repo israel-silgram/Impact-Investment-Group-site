@@ -436,6 +436,55 @@ SPANS = js(r"""
 """)
 
 
+# ── ITEM 4 in the drawer (wave 490b) ─────────────────────────────────────────
+#
+# The same scan, rooted at the open drawer. The drawer only exists once the
+# menu button is pressed, so a gate that never presses it has never read a
+# word in it, and the independent re-check of wave 490 found that this one
+# never had. It is opened on the home route at every width below `xl`, where
+# the drawer is the navigation, with the Partners list expanded so its ten
+# rows are read too.
+DRAWER_SPANS = SPANS.replace("() => {", "(root) => {", 1).replace(
+    "document.querySelectorAll('body *')",
+    "(document.querySelector(root) || document.body).querySelectorAll('*')",
+    1,
+)
+assert DRAWER_SPANS != SPANS and "(root) => {" in DRAWER_SPANS
+
+
+def read_drawer(page, where, width, sink, tally):
+    """Open the drawer, expand Partners, and put every run in it on the floors."""
+    to_top(page)
+    trigger = page.locator('button[aria-controls="site-drawer"]')
+    if trigger.count() == 0 or not trigger.first.is_visible():
+        sink.append(f"{where}: no drawer trigger on screen, so the drawer was not read")
+        return
+    trigger.first.click()
+    try:
+        page.wait_for_selector(".drawer-panel", timeout=4000)
+    except Exception:
+        sink.append(f"{where}: pressing the menu button opened no drawer")
+        return
+    toggle = page.locator('.drawer-panel button[aria-controls="mobile-partner-links"]')
+    if toggle.count():
+        toggle.first.click()
+    # The items arrive on a 30ms stagger; this is past the last of them.
+    page.wait_for_timeout(900)
+    entries = page.evaluate(DRAWER_SPANS, ".drawer-panel")
+    bad, kinds = check_spans(entries, sink, f"{where} drawer", width)
+    tally["drawer"] += len(entries)
+    tally["drawerbad"] += bad
+    smallest = min((e["size"] for e in entries), default=None)
+    print(
+        f"drawer    {where:<22} open, Partners expanded: {len(entries)} runs read, "
+        f"{bad} under their floor, smallest {smallest}px, kinds={kinds}"
+    )
+    if not entries:
+        sink.append(f"{where}: the open drawer returned no runs of text to measure")
+    page.keyboard.press("Escape")
+    page.wait_for_timeout(300)
+
+
 # ── ITEM 5. The statistics ticker on /platform ───────────────────────────────
 TICKER = js("""
   const lanes = [...document.querySelectorAll('[data-ticker="demand-figures"], .logo-marquee')];
@@ -1644,7 +1693,14 @@ def main() -> None:
     parser.add_argument("--profiles", default="")
     parser.add_argument("--pages", default="")
     parser.add_argument("--no-probes", action="store_true")
+    # Wave 490b: one probe at a time, for a proof or a mutation run, and
+    # `--pages none` to skip the route sweep while doing it. The full gate is
+    # still the run with neither flag.
+    parser.add_argument("--probes", default="",
+                        help="comma-separated: logo,dialog,reduced,landscape,register,snap")
     args = parser.parse_args()
+    probes = {p.strip() for p in args.probes.split(",") if p.strip()}
+    run_probe = lambda name: not args.no_probes and (not probes or name in probes)
 
     build = Path(args.build)
     if not (build / "index.html").exists():
@@ -1657,7 +1713,9 @@ def main() -> None:
         wanted = {p.strip() for p in args.profiles.split(",")}
         profiles = [p for p in PROFILES if p[0] in wanted]
     pages = PAGES
-    if args.pages:
+    if args.pages == "none":
+        pages = []
+    elif args.pages:
         wanted = {p.strip() for p in args.pages.split(",")}
         pages = [p for p in PAGES if p[1] in wanted]
 
@@ -1672,7 +1730,8 @@ def main() -> None:
     fail = soft.append if args.mode == "before" else failures.append
     tally = {"shots": 0, "runs": 0, "spans": 0, "spanbad": 0, "clashes": 0,
              "pills": 0, "pillbad": 0, "verify": 0, "verifybad": 0,
-             "cards": 0, "cardbad": 0, "peek": 0, "peekbad": 0}
+             "cards": 0, "cardbad": 0, "peek": 0, "peekbad": 0,
+             "drawer": 0, "drawerbad": 0}
 
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -2007,27 +2066,34 @@ def main() -> None:
                             f"{where}: the back-to-top control is on screen while the "
                             f"registration journey's own sticky bar is"
                         )
+
+                # ── ITEM 4 in the open drawer, below `xl` ─────────────────
+                if slug == "home" and width < 1280:
+                    read_drawer(page, where, width,
+                                failures if args.mode == "after" else soft, tally)
                 ctx.close()
 
-        if not args.no_probes:
+        sink = failures if args.mode == "after" else soft
+        if run_probe("logo"):
             print()
-            logo_probe(browser, base, 390, 844, failures if args.mode == "after" else soft, args.mode)
-            logo_probe(browser, base, 360, 800, failures if args.mode == "after" else soft, args.mode)
-            logo_probe(browser, base, 1280, 900, failures if args.mode == "after" else soft, args.mode)
+            logo_probe(browser, base, 390, 844, sink, args.mode)
+            logo_probe(browser, base, 360, 800, sink, args.mode)
+            logo_probe(browser, base, 1280, 900, sink, args.mode)
+        if run_probe("dialog"):
             print()
-            dialog_probe(browser, base, axe_source,
-                         failures if args.mode == "after" else soft, args.mode)
+            dialog_probe(browser, base, axe_source, sink, args.mode)
+        if run_probe("reduced"):
             print()
             try:
-                reduced_motion_probe(browser, base, failures if args.mode == "after" else soft)
+                reduced_motion_probe(browser, base, sink)
             except Exception as error:
                 fail(f"item2: the reduced-motion swap probe could not run ({error})")
+        if run_probe("landscape"):
             print()
-            landscape_probe(browser, base, failures if args.mode == "after" else soft)
+            landscape_probe(browser, base, sink)
+        if run_probe("register"):
             print()
-            register_viewport_probe(
-                browser, base, out, failures if args.mode == "after" else soft, args.mode
-            )
+            register_viewport_probe(browser, base, out, sink, args.mode)
 
         # ── RULE 8, the pairing ───────────────────────────────────────────
         if args.mode == "after" and any(p[0] == "1280" for p in profiles):
@@ -2066,7 +2132,8 @@ def main() -> None:
         f"{tally['cards']} cards, {tally['cardbad']} with a tail over {CARD_TAIL_MAX}px · "
         f"{tally['pills']} pills, {tally['pillbad']} splitting a verb · "
         f"{tally['peek']} peek readings, {tally['peekbad']} under the ink floor · "
-        f"{tally['clashes']} fixed-layer clashes"
+        f"{tally['clashes']} fixed-layer clashes · "
+        f"{tally['drawer']} runs in the open drawer, {tally['drawerbad']} under floor"
     )
     if soft:
         print()
