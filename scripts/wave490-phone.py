@@ -1438,6 +1438,20 @@ def reduced_motion_probe(browser, base, failures):
             f"item2: under reduced motion the swap was still {moved:.2f}px from its "
             f"resting height 50ms after the press. It has to be instant."
         )
+    # ⚠ WAVE 490b: AND THE SWAP HAS TO CHANGE SOMETHING FOR "INSTANT" TO MEAN
+    # ANYTHING. On the base build both faces share one grid cell and the
+    # section reads 1,559px before the press, at 50ms and at 750ms, so "still
+    # moving by 0.00px" was true there too and this probe passed on the very
+    # build whose defect item 2 is. At 390 the need face and the solution face
+    # are different heights once the inactive one leaves the flow, so the
+    # section must read differently before and after the press.
+    swing = abs(settled["sectionHeight"] - before["sectionHeight"])
+    print(f"item2     reduced   the section's height changed by {swing:.0f}px across the swap")
+    if swing <= 1.0:
+        failures.append(
+            f"item2: at 390 the section reads {before['sectionHeight']:.0f}px on both faces, "
+            f"so both faces still share one cell and the swap cannot be seen to be instant"
+        )
     ctx.close()
 
 
