@@ -1678,6 +1678,46 @@ def register_viewport_probe(browser, base, out, failures, mode):
 # asked is whether the FIELD is reachable there, so the viewport is cut to 300
 # (roughly a landscape phone with a keyboard open) and the first field of each
 # step has to be wholly on screen after one scroll.
+def stub_registration(page) -> None:
+    """The two endpoints the journey posts to, answered locally.
+
+    The same stub `scripts/wave414-mobile.py` uses, so step 1 can be completed
+    and step 2 reached without anything leaving this machine.
+    """
+    page.route(
+        "**/public/registration",
+        lambda route: route.fulfill(
+            status=200,
+            content_type="application/json",
+            body='{"status": "pending_activation", "registration_token": "wave490b"}',
+        ),
+    )
+    page.route(
+        "**/public/registration/preferences",
+        lambda route: route.fulfill(
+            status=200, content_type="application/json", body='{"status": "saved"}'
+        ),
+    )
+
+
+FIELD_READ = """
+() => {
+  const el = document.activeElement;
+  // A tick box or a radio is often drawn by its label with the input itself
+  // visually hidden, so the thing that has to be visible is the label.
+  const label = el && el.closest ? el.closest('label') : null;
+  const r = (label || el).getBoundingClientRect();
+  const header = document.querySelector('header');
+  const hb = header ? header.getBoundingClientRect().bottom : 0;
+  const bar = document.querySelector('.registration-actions');
+  const bt = bar ? bar.getBoundingClientRect().top : innerHeight;
+  return { top: Math.round(r.top), bottom: Math.round(r.bottom),
+           header: Math.round(hb), bar: Math.round(bt), vh: innerHeight,
+           name: el.getAttribute('name') || el.id || el.tagName };
+}
+"""
+
+
 def landscape_probe(browser, base, failures):
     for route in ("/register/investor", "/register/resident"):
         ctx = browser.new_context(
@@ -1685,40 +1725,60 @@ def landscape_probe(browser, base, failures):
             is_mobile=True, has_touch=True, device_scale_factor=2,
         )
         page = ctx.new_page()
+        stub_registration(page)
         page.goto(f"{base}{route}", wait_until="networkidle")
         settle(page)
         to_top(page)
-        field = page.query_selector(".registration-panel input:not([type=hidden])")
-        if field is None:
-            failures.append(f"item13: {route} at 667x300 has no first field")
-            ctx.close()
-            continue
-        field.focus()
-        field.scroll_into_view_if_needed()
-        page.wait_for_timeout(300)
-        read = page.evaluate(
-            "() => { const el = document.activeElement; const r = el.getBoundingClientRect(); "
-            "const header = document.querySelector('header'); "
-            "const hb = header ? header.getBoundingClientRect().bottom : 0; "
-            "const bar = document.querySelector('.registration-actions'); "
-            "const bt = bar ? bar.getBoundingClientRect().top : innerHeight; "
-            "return { top: Math.round(r.top), bottom: Math.round(r.bottom), "
-            "header: Math.round(hb), bar: Math.round(bt), vh: innerHeight, "
-            "name: el.getAttribute('name') || el.id || el.tagName }; }"
-        )
-        clear = read["top"] >= read["header"] - 0.5 and read["bottom"] <= read["vh"] + 0.5
-        print(
-            f"item13    {route:<20} 667x300 field \"{read['name']}\" "
-            f"{read['top']} to {read['bottom']}, header ends {read['header']}, "
-            f"bar starts {read['bar']}, viewport {read['vh']}: "
-            f"{'fully visible' if clear else 'NOT fully visible'}"
-        )
-        if not clear:
-            failures.append(
-                f"item13: {route} at 667x300, the first field sits "
-                f"{read['top']} to {read['bottom']} against a header ending at "
-                f"{read['header']} and a viewport of {read['vh']}"
+        for step in ("step 1", "step 2"):
+            if step == "step 2":
+                # Through the account step on its own controls, as wave 414's
+                # bar probe does.
+                try:
+                    page.fill("#email", "wave490b@example.com")
+                    page.fill("#phone", "07700900123")
+                    page.fill("#password", "GateProbe2026")
+                    page.fill("#confirmPassword", "GateProbe2026")
+                    page.locator("form button[type=submit]").first.click()
+                    page.wait_for_selector(".registration-survey form fieldset", timeout=8000)
+                except Exception as error:
+                    failures.append(f"item13: {route} at 667x300 did not reach step 2 ({error})")
+                    break
+                page.wait_for_timeout(600)
+                to_top(page)
+            field = page.query_selector(
+                ".registration-panel input:not([type=hidden]), "
+                ".registration-panel select, .registration-panel textarea"
             )
+            if field is None:
+                failures.append(f"item13: {route} at 667x300 has no first field on {step}")
+                break
+            field.focus()
+            field.scroll_into_view_if_needed()
+            page.wait_for_timeout(300)
+            read = page.evaluate(FIELD_READ)
+            clear = read["top"] >= read["header"] - 0.5 and read["bottom"] <= read["vh"] + 0.5
+            # ⚠ WAVE 490b: AND THE STICKY BAR IS BELOW IT. The first cut of this
+            # probe printed where the bar started and asserted nothing about
+            # it, so a field sitting under the bar was "fully visible".
+            under = read["bar"] >= read["bottom"] - 0.5
+            print(
+                f"item13    {route:<20} 667x300 {step} field \"{read['name']}\" "
+                f"{read['top']} to {read['bottom']}, header ends {read['header']}, "
+                f"bar starts {read['bar']}, viewport {read['vh']}: "
+                f"{'fully visible' if clear else 'NOT fully visible'}, "
+                f"{'clear of the bar' if under else 'UNDER THE BAR'}"
+            )
+            if not clear:
+                failures.append(
+                    f"item13: {route} at 667x300, {step}, the first field sits "
+                    f"{read['top']} to {read['bottom']} against a header ending at "
+                    f"{read['header']} and a viewport of {read['vh']}"
+                )
+            if not under:
+                failures.append(
+                    f"item13: {route} at 667x300, {step}, the first field ends at "
+                    f"{read['bottom']} and the sticky bar starts at {read['bar']}, over it"
+                )
         ctx.close()
 
 
