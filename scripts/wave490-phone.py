@@ -1783,6 +1783,250 @@ def landscape_probe(browser, base, failures):
 
 
 # ---------------------------------------------------------------------------
+# ITEM 3, THE REST OF IT (wave 490b): the snap still lands, the mask costs no
+# frame, and the caption's clip cuts no glyph.
+#
+# The independent re-check of wave 490 found three things item 3 asserted in
+# words and never measured: that each slide still comes to rest at `start`,
+# that the soft edge is affordable on the 4x CPU profile, and that
+# `overflow: clip` with a 2px margin on the caption leaves every descender
+# alone. Each is measured here.
+SNAP_READ = """
+() => {
+  const band = document.querySelector('.hero-band');
+  if (!band) return null;
+  const br = band.getBoundingClientRect();
+  const panels = [...band.querySelectorAll('.hero-panel')];
+  const offsets = panels.map((p) => Math.round((p.getBoundingClientRect().left - br.left) * 100) / 100);
+  let landed = 0;
+  offsets.forEach((o, i) => { if (Math.abs(o) < Math.abs(offsets[landed])) landed = i; });
+  return { scrollLeft: Math.round(band.scrollLeft * 100) / 100,
+           max: band.scrollWidth - band.clientWidth,
+           offsets: offsets, landed: landed, miss: Math.abs(offsets[landed]),
+           x: br.left + br.width / 2, y: br.top + br.height / 2,
+           top: br.top, bottom: br.bottom };
+}
+"""
+
+FRAMES_START = """
+() => {
+  window.__frames = [];
+  let last = performance.now();
+  window.__framing = true;
+  const tick = (t) => {
+    window.__frames.push(t - last);
+    last = t;
+    if (window.__framing) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+"""
+
+FRAMES_STOP = """
+() => { window.__framing = false; return window.__frames.slice(1); }
+"""
+
+NO_MASK = (".hero-band { -webkit-mask-image: none !important; "
+           "mask-image: none !important; }")
+NO_CLIP = ".hero-panel figcaption { overflow: visible !important; }"
+SNAP_MISS_MAX = 1.0
+LONG_FRAME_MS = 25.0
+
+
+def _gesture(cdp, x, y, dx, dy, speed):
+    # The wheel-type source, because it is the one that scrolls in headless
+    # Chromium; see `_drag` for the touch one that does not.
+    cdp.send("Input.synthesizeScrollGesture", {
+        "x": x, "y": y, "xDistance": dx, "yDistance": dy,
+        "gestureSourceType": "mouse", "speed": speed,
+    })
+
+
+def _drag(cdp, page, x, y, dx):
+    """A finger on the strip: down, twenty moves over 320ms, a pause, up.
+
+    `Input.synthesizeScrollGesture` with a touch source does not move this
+    strip in headless Chromium at all, so the landing is driven by raw touch
+    events, which do. The 100ms pause before the finger lifts is a real
+    finger's: without it the lift arrives in the same instant as the last move
+    and the browser never ends the gesture, so nothing snaps on EITHER build,
+    which is a fact about the synthetic input rather than about the strip.
+    """
+    cdp.send("Input.dispatchTouchEvent", {"type": "touchStart", "touchPoints": [{"x": x, "y": y}]})
+    for step in range(1, 21):
+        cdp.send("Input.dispatchTouchEvent", {
+            "type": "touchMove", "touchPoints": [{"x": x + dx * step / 20, "y": y}]})
+        page.wait_for_timeout(16)
+    page.wait_for_timeout(100)
+    cdp.send("Input.dispatchTouchEvent", {"type": "touchEnd", "touchPoints": []})
+
+
+def _frame_stats(frames):
+    if not frames:
+        return {"n": 0, "mean": 0.0, "p95": 0.0, "long": 0}
+    ordered = sorted(frames)
+    return {
+        "n": len(frames),
+        "mean": sum(frames) / len(frames),
+        "p95": ordered[min(len(ordered) - 1, int(round(0.95 * (len(ordered) - 1))))],
+        "long": sum(1 for f in frames if f > LONG_FRAME_MS),
+    }
+
+
+def snap_probe(browser, base, out, failures):
+    # ── (a) THE LANDINGS, by a real touch gesture and by a programmatic scroll
+    for width, height in ((360, 800), (390, 844), (414, 896), (667, 375)):
+        ctx = browser.new_context(viewport={"width": width, "height": height},
+                                  is_mobile=True, has_touch=True, device_scale_factor=1)
+        page = ctx.new_page()
+        cdp = ctx.new_cdp_session(page)
+        page.goto(f"{base}/", wait_until="networkidle")
+        settle(page)
+        to_top(page)
+        start = page.evaluate(SNAP_READ)
+        if not start:
+            failures.append(f"item3 @ {width}: no hero strip")
+            ctx.close()
+            continue
+        readings = []
+        # 250px: past half a slide, so the swipe is a request for the next
+        # one. A shorter drag snaps back to where it started, which is
+        # correct and tests nothing (the first run of this probe did that).
+        for label, dx in (("swipe left", -250), ("swipe left", -250), ("swipe right", 250)):
+            _drag(cdp, page, start["x"] - dx * 0.4, start["y"], dx)
+            page.wait_for_timeout(1000)
+            read = page.evaluate(SNAP_READ)
+            readings.append((label, read))
+        # And a programmatic scroll left 37px short of the second slide.
+        page.evaluate(
+            "() => { const b = document.querySelector('.hero-band'); "
+            "const p = b.querySelectorAll('.hero-panel')[1]; "
+            "b.scrollTo({ left: p.offsetLeft - b.offsetLeft - 37, behavior: 'instant' }); }"
+        )
+        page.wait_for_timeout(900)
+        readings.append(("scrollTo 37px short of slide 1", page.evaluate(SNAP_READ)))
+        for label, read in readings:
+            print(
+                f"item3     snap      @ {width:<4} {label:<30} rests on slide {read['landed']} "
+                f"at {read['miss']:.2f}px from start (scrollLeft {read['scrollLeft']} of "
+                f"{read['max']})"
+            )
+            if read["miss"] > SNAP_MISS_MAX:
+                failures.append(
+                    f"item3 @ {width}: after a {label} the strip rests {read['miss']:.2f}px "
+                    f"off slide {read['landed']}'s start"
+                )
+        moved = {read["landed"] for _, read in readings[:2]}
+        if moved == {0}:
+            failures.append(f"item3 @ {width}: two swipes left never moved the strip off slide 0")
+        ctx.close()
+
+    # ── (b) THE MASK ON THE 4x CPU PROFILE, mask on against mask off
+    print()
+    at_390 = {}
+    moved_by = {}
+    for mask in ("on", "off", "on", "off", "on", "off"):
+        ctx = browser.new_context(viewport={"width": 390, "height": 844},
+                                  is_mobile=True, has_touch=True, device_scale_factor=2)
+        page = ctx.new_page()
+        cdp = ctx.new_cdp_session(page)
+        page.goto(f"{base}/", wait_until="networkidle")
+        settle(page)
+        to_top(page)
+        if mask == "off":
+            page.add_style_tag(content=NO_MASK)
+        page.wait_for_timeout(300)
+        cdp.send("Emulation.setCPUThrottlingRate", {"rate": 4})
+        box = page.evaluate(SNAP_READ)
+        page.evaluate(
+            "() => { window.__travel = 0; const b = document.querySelector('.hero-band'); "
+            "b.addEventListener('scroll', () => { window.__travel = Math.max(window.__travel, "
+            "b.scrollLeft); }); }"
+        )
+        page.evaluate(FRAMES_START)
+        for dx in (-250, -250, 250, 250):
+            _drag(cdp, page, box["x"] - dx * 0.4, box["y"], dx)
+            page.wait_for_timeout(500)
+        _gesture(cdp, box["x"], box["y"], 0, -900, 900)
+        frames = page.evaluate(FRAMES_STOP)
+        travel = page.evaluate("() => [Math.round(window.__travel), Math.round(scrollY)]")
+        cdp.send("Emulation.setCPUThrottlingRate", {"rate": 1})
+        at_390.setdefault(mask, []).extend(frames)
+        moved_by.setdefault(mask, []).append(travel)
+        ctx.close()
+    stats = {mask: _frame_stats(frames) for mask, frames in at_390.items()}
+    for mask in ("on", "off"):
+        st = stats[mask]
+        print(
+            f"item3     mask {mask:<3}  @ 390 4x CPU, three runs of four touch swipes across "
+            f"the strip and a page scroll: {st['n']} frames, mean {st['mean']:.2f}ms, p95 "
+            f"{st['p95']:.2f}ms, {st['long']} over {LONG_FRAME_MS:g}ms; the strip reached "
+            f"scrollLeft {[t[0] for t in moved_by[mask]]} and the page scrollY "
+            f"{[t[1] for t in moved_by[mask]]}"
+        )
+        if any(t[0] < 100 for t in moved_by[mask]):
+            failures.append(f"item3: the mask {mask} frame run never moved the strip, so it "
+                            f"timed nothing")
+    # Reported rather than asserted: the brief's rule is "if the mask costs a
+    # frame, do the clip only and say so", which is a decision taken on this
+    # number, and the report takes it.
+
+    # ── (c) THE CLIP, off the pixels: clip on against clip off, each slide
+    print()
+    for width, height in ((360, 800), (390, 844), (414, 896), (667, 375)):
+        ctx = browser.new_context(viewport={"width": width, "height": height},
+                                  is_mobile=True, has_touch=True, device_scale_factor=2)
+        page = ctx.new_page()
+        page.goto(f"{base}/", wait_until="networkidle")
+        settle(page)
+        to_top(page)
+        count = page.evaluate("() => document.querySelectorAll('.hero-band .hero-panel').length")
+        for index in range(count):
+            page.evaluate(
+                "(i) => { const b = document.querySelector('.hero-band'); "
+                "const p = b.querySelectorAll('.hero-panel')[i]; "
+                "b.scrollTo({ left: p.offsetLeft - b.offsetLeft, behavior: 'instant' }); }",
+                index,
+            )
+            page.wait_for_timeout(500)
+            rect = page.evaluate(
+                "(i) => { const p = document.querySelectorAll('.hero-band .hero-panel')[i]; "
+                "const r = p.getBoundingClientRect(); "
+                "return { x: Math.max(0, r.left), y: Math.max(0, r.top), "
+                "w: Math.min(r.right, innerWidth) - Math.max(0, r.left), "
+                "h: Math.min(r.bottom, innerHeight) - Math.max(0, r.top) }; }",
+                index,
+            )
+            if rect["w"] < 2 or rect["h"] < 2:
+                continue
+            clip = {"x": rect["x"], "y": rect["y"], "width": rect["w"], "height": rect["h"]}
+            shots = []
+            for name in ("clip", "control", "noclip"):
+                if name == "noclip":
+                    handle = page.add_style_tag(content=NO_CLIP)
+                    page.wait_for_timeout(150)
+                path = out / f"home-{width}-slide{index}-{name}.png"
+                page.screenshot(path=str(path), clip=clip)
+                shots.append(as_pixels(path).astype(np.int16))
+                path.unlink()
+                if name == "noclip":
+                    handle.evaluate("(el) => el.remove()")
+            noise = int((np.abs(shots[0] - shots[1]).max(axis=2) > 2).sum())
+            cut = int((np.abs(shots[0] - shots[2]).max(axis=2) > 2).sum())
+            print(
+                f"item3     clip      @ {width:<4} slide {index} snapped: {cut} device px "
+                f"differ with the caption's clip lifted, against {noise} between two shots "
+                f"of the same state"
+            )
+            if cut > noise:
+                failures.append(
+                    f"item3 @ {width}: slide {index}'s caption loses {cut - noise} device px "
+                    f"of glyph to its own overflow clip"
+                )
+        ctx.close()
+
+
+# ---------------------------------------------------------------------------
 # RULE 8. THE DESKTOP DOES NOT MOVE.
 #
 # Every touched surface is shot at 1280 before the first code commit and again
@@ -2472,6 +2716,9 @@ def main() -> None:
         if run_probe("register"):
             print()
             register_viewport_probe(browser, base, out, sink, args.mode)
+        if run_probe("snap"):
+            print()
+            snap_probe(browser, base, out, sink)
 
         # ── RULE 8, the pairing ───────────────────────────────────────────
         if args.mode == "after" and any(p[0] == "1280" for p in profiles):
