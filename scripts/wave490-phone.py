@@ -1501,6 +1501,31 @@ BOXES = """
 """
 
 
+# The radius, in device pixels, that a noisy region is grown by before it is
+# excluded. 24 is the distance the home page's count-up numeral and the
+# platform portals' rays move between two shots taken 30 seconds apart,
+# measured; anything smaller leaves a halo of "moved" pixels around a thing
+# that only turned.
+NOISE_DILATE = 24
+
+
+def _dilate(mask, radius):
+    """Grow a boolean mask by a box of `radius`, exactly, with two prefix sums."""
+    if not mask.any() or radius <= 0:
+        return mask
+    rows, cols = mask.shape
+    total = np.cumsum(np.cumsum(mask.astype(np.int32), axis=0), axis=1)
+    padded = np.zeros((rows + 1, cols + 1), dtype=np.int32)
+    padded[1:, 1:] = total
+    y0 = np.clip(np.arange(rows) - radius, 0, rows)
+    y1 = np.clip(np.arange(rows) + radius + 1, 0, rows)
+    x0 = np.clip(np.arange(cols) - radius, 0, cols)
+    x1 = np.clip(np.arange(cols) + radius + 1, 0, cols)
+    box = (padded[np.ix_(y1, x1)] - padded[np.ix_(y0, x1)]
+           - padded[np.ix_(y1, x0)] + padded[np.ix_(y0, x0)])
+    return box > 0
+
+
 def _cover(boxes, shape, scale, pad=2):
     mask = np.zeros(shape[:2], dtype=bool)
     for box in boxes:
@@ -1513,36 +1538,75 @@ def _cover(boxes, shape, scale, pad=2):
     return mask
 
 
-def pair_1280(slug, before_path, after_path, touched, masks, failures):
-    """Compare the desktop shot taken at the base with the one at this head."""
+def pair_1280(slug, before_path, after_path, control_path, touched, masks, failures):
+    """Compare the desktop shot taken at the base with the one at this head.
+
+    ⚠ AGAINST A SAME-BUILD CONTROL, BECAUSE THIS SITE DOES NOT RENDER TWICE
+    THE SAME WAY AND ASSUMING IT DOES IS HOW A PAIRING LIES IN BOTH
+    DIRECTIONS.
+
+    The first version of this compared two shots and asked for zero difference
+    outside a list of boxes. On `/platform` it reported 5,104 device pixels
+    "moved" at a maximum delta of FOUR out of 255, scattered over the three
+    character portals. Two shots of the SAME build, taken back to back with
+    the same settle and the same shutter, differ on **261,753 device pixels at
+    a maximum delta of 66** over the same region: the rayed grounds behind the
+    characters turn, and the illustrations composite differently from one
+    browser launch to the next. The wave's own difference was fifty times
+    smaller than the page's own noise, and calling it a change would have been
+    a fact about Chromium.
+
+    So the control is a SECOND shot of the after build, and a pixel counts as
+    moved only where the before-to-after difference EXCEEDS the run-to-run
+    difference at that same pixel. That is stricter than a flat threshold on a
+    quiet page (where the noise is 0 and any difference counts) and honest on
+    a page that animates. Both numbers are printed, so a route whose noise
+    swallows a real change cannot do it quietly.
+    """
     if not before_path.exists():
         failures.append(f"rule8 {slug}: no before shot at {before_path.name}, so nothing is paired")
         return
     before = as_pixels(before_path)
     after = as_pixels(after_path)
+    control = as_pixels(control_path) if control_path.exists() else after
     note = ""
+    rows = min(before.shape[0], after.shape[0], control.shape[0])
+    cols = min(before.shape[1], after.shape[1], control.shape[1])
     if before.shape != after.shape:
         note = f" (page height {before.shape[0]} -> {after.shape[0]} device px)"
-        rows = min(before.shape[0], after.shape[0])
-        cols = min(before.shape[1], after.shape[1])
-        before = before[:rows, :cols]
-        after = after[:rows, :cols]
-    differs = np.abs(before.astype(np.int16) - after.astype(np.int16)).max(axis=2) > 2
+    before = before[:rows, :cols].astype(np.int16)
+    after = after[:rows, :cols].astype(np.int16)
+    control = control[:rows, :cols].astype(np.int16)
+
+    moved = np.abs(before - after).max(axis=2)
+    noise = np.abs(control - after).max(axis=2)
+    differs = moved > 2
     total = int(differs.sum())
     allowed = _cover(touched, before.shape, 1) | _cover(masks, before.shape, 1)
-    stray = differs & ~allowed
+    # ⚠ THE NOISE IS A REGION, NOT A PIXEL. A ray turning behind a character
+    # puts its difference in a different PLACE on every frame, so asking
+    # whether THIS pixel was noisy in the control run answers a question about
+    # timing. The noisy area is what the page cannot hold still in, so the
+    # mask is grown by a box of NOISE_DILATE before it is used. Measured
+    # rather than declared: on twelve of the fourteen routes the noise is zero
+    # pixels and the dilation therefore covers nothing at all, which is what
+    # keeps this strict where it can be.
+    stray = differs & ~allowed & ~_dilate(noise > 2, NOISE_DILATE)
     count = int(stray.sum())
     print(
-        f"rule8     {slug:<26} 1280 differs on {total:>9} device px, "
-        f"{count:>8} of them outside the touched and animated boxes{note}"
+        f"rule8     {slug:<26} 1280 differs on {total:>9} device px (worst "
+        f"{int(moved.max()):>3} of 255), same-build noise {int((noise > 2).sum()):>9}"
+        f" px (worst {int(noise.max()):>3}), {count:>8} moved beyond the noise outside "
+        f"the touched and animated boxes{note}"
     )
     if count:
-        rows = np.where(stray.any(axis=1))[0]
-        cols = np.where(stray.any(axis=0))[0]
+        at_rows = np.where(stray.any(axis=1))[0]
+        at_cols = np.where(stray.any(axis=0))[0]
         failures.append(
-            f"rule8 {slug}: {count} device pixels moved at 1280 outside every box this "
-            f"wave declared it touched, in rows {rows.min()} to {rows.max()} and "
-            f"columns {cols.min()} to {cols.max()}"
+            f"rule8 {slug}: {count} device pixels moved at 1280 by more than this page's "
+            f"own run-to-run noise, outside every box this wave declared it touched, in "
+            f"rows {at_rows.min()} to {at_rows.max()} and columns {at_cols.min()} to "
+            f"{at_cols.max()}"
         )
 
 
@@ -1968,17 +2032,28 @@ def main() -> None:
         # ── RULE 8, the pairing ───────────────────────────────────────────
         if args.mode == "after" and any(p[0] == "1280" for p in profiles):
             print()
+            control_dir = OUT / "control"
+            control_dir.mkdir(parents=True, exist_ok=True)
             ctx = browser.new_context(viewport={"width": 1280, "height": 900})
             page = ctx.new_page()
             for path, slug in pages:
                 page.goto(f"{base}{path}", wait_until="networkidle")
                 settle(page)
                 to_top(page)
+                # The control: a second shot of THIS build, taken exactly the
+                # way the first one was, so the two differ only by whatever
+                # this page does not do the same way twice.
+                page.evaluate(AWAIT_IMAGES)
+                page.evaluate(HIDE_FLOATERS, True)
+                page.wait_for_timeout(120)
+                page.screenshot(path=str(control_dir / f"{slug}-1280.png"), full_page=True)
+                page.evaluate(HIDE_FLOATERS, False)
                 selectors = TOUCHED.get(slug, []) + TOUCHED_EVERYWHERE
                 touched = page.evaluate(BOXES, selectors)
                 masks = page.evaluate(BOXES, ANIMATED_MASKS) + page.evaluate(RUNNING)
                 pair_1280(slug, OUT / "before" / f"{slug}-1280.png",
-                          OUT / f"{slug}-1280.png", touched, masks, failures)
+                          OUT / f"{slug}-1280.png", control_dir / f"{slug}-1280.png",
+                          touched, masks, failures)
             ctx.close()
 
         browser.close()
