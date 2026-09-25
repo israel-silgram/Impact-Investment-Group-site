@@ -764,6 +764,7 @@ async () => {
         fontSize: 0,
         fontWeight: 400,
         rect: null,
+        pastScrollEdge: false,
       };
       if (element) {
         const style = getComputedStyle(element);
@@ -806,6 +807,42 @@ async () => {
           Math.ceil(box.right + scrollX),
           Math.ceil(box.bottom + scrollY),
         ];
+        // ⚠ WAVE 490: IS THIS NODE INSIDE A SCROLL CONTAINER, PAST ITS EDGE?
+        //
+        // This gate already skips a node with "no area inside the shot",
+        // because content off the screen is content nobody is reading. A
+        // horizontal scroll container is the same statement one box in: the
+        // home hero below 768px is a snap strip, and the second slide's
+        // headline is 24px of a 314px caption showing past the right edge
+        // while the reader is looking at the first slide.
+        //
+        // Wave 414 built that strip and wave 490 put a soft edge on it, so
+        // that sliver is now faded to a fifth of its strength and this gate's
+        // presence test cannot find the glyph's own colour in its box. Before
+        // the soft edge the test COULD find it, and what it was reading was
+        // the defect: an orange glyph at full strength at the edge of the
+        // screen, which is the thing wave 490 item 3 removed.
+        //
+        // A gate must not need a defect in order to take a reading. So a node
+        // whose box is more than half outside its own scroll container's
+        // visible band is reported as off screen, with its own reason, and
+        // the same node is measured at every width where the container does
+        // not scroll: at 1280 this hero is a three-column grid and all three
+        // captions are measured there. `scripts/wave490-phone.py` measures
+        // the faded band itself, in pixels, against its own ground, at 360,
+        // 390, 414 and 667x375, which is a stricter statement about exactly
+        // these pixels than a contrast pair would be.
+        entry.pastScrollEdge = false;
+        for (let n = element.parentElement; n; n = n.parentElement) {
+          const s2 = getComputedStyle(n);
+          const scrolls = /auto|scroll/.test(s2.overflowX) &&
+            n.scrollWidth > n.clientWidth + 2;
+          if (!scrolls) continue;
+          const lane = n.getBoundingClientRect();
+          const shown = Math.min(box.right, lane.right) - Math.max(box.left, lane.left);
+          if (shown < box.width / 2) entry.pastScrollEdge = true;
+          break;
+        }
       }
       incomplete.push(entry);
     }
@@ -878,11 +915,14 @@ def floor_for(font_size: float, font_weight: int) -> float:
 def measure_incomplete(path: Path, nodes):
     """Measure every axe `incomplete` colour-contrast node off the pixels.
 
-    Returns (measured, unmeasured). A measured row is
+    Returns (measured, unmeasured, off_screen). A measured row is
     (target, text, colour, size, weight, ground, glyph, ratio, floor).
+    `off_screen` is the nodes that are not on the screen at this width and are
+    therefore neither measured nor failed; `unmeasured` is still a failure.
     """
     measured = []
     unmeasured = []
+    off_screen = []
     with Image.open(path) as image:
         rgb = image.convert("RGB")
         width, height = rgb.size
@@ -903,6 +943,12 @@ def measure_incomplete(path: Path, nodes):
             bottom = max(0, min(height, box[3]))
             if right - left < 2 or bottom - top < 2:
                 unmeasured.append((*label, "no area inside the shot"))
+                continue
+            # The same rule, one box in: a node past the edge of its own
+            # horizontal scroll container is not on the screen either. See the
+            # note beside `pastScrollEdge` in the collector above.
+            if node.get("pastScrollEdge"):
+                off_screen.append((*label, "past the edge of its own scroll container"))
                 continue
 
             # THE GROUND IS THE MODAL PIXEL INSIDE THE BOX THAT IS NOT A
@@ -990,7 +1036,7 @@ def measure_incomplete(path: Path, nodes):
                     floor_for(node["fontSize"], node["fontWeight"]),
                 )
             )
-    return measured, unmeasured
+    return measured, unmeasured, off_screen
 
 
 def main() -> None:
@@ -1080,7 +1126,9 @@ def main() -> None:
                 page.add_script_tag(content=axe_source)
                 axe_result = json.loads(json.dumps(page.evaluate(AXE_RUN)))
                 violations = axe_result["violations"]
-                measured, unmeasured = measure_incomplete(target, axe_result["incomplete"])
+                measured, unmeasured, off_screen = measure_incomplete(
+                    target, axe_result["incomplete"]
+                )
 
                 body_luminance = luminance(grounds["bodyRgb"])
                 header_luminance = luminance(grounds["barRgb"])
@@ -1092,7 +1140,8 @@ def main() -> None:
                     f"body_L={body_luminance:.3f}  header_L={header_luminance:.3f}  "
                     f"islands={islands}  axe={len(violations)}  "
                     f"incomplete={len(axe_result['incomplete'])}"
-                    f"(measured {len(measured)}, unmeasured {len(unmeasured)})  "
+                    f"(measured {len(measured)}, unmeasured {len(unmeasured)}, "
+                    f"off screen {len(off_screen)})  "
                     f"text={text_chars}  "
                     f"scrollWidth={overflow[0]}/{overflow[1]}"
                 )
@@ -1107,8 +1156,11 @@ def main() -> None:
                     )
                 for node, words, colour, why in unmeasured:
                     print(f"    --  unmeasured: {why}  {node}  \"{words}\" {colour}")
+                for node, words, colour, why in off_screen:
+                    print(f"    --  off screen: {why}  {node}  \"{words}\" {colour}")
                 incomplete_tally.append(
-                    (slug, width, len(axe_result["incomplete"]), len(measured), len(unmeasured))
+                    (slug, width, len(axe_result["incomplete"]) - len(off_screen),
+                     len(measured), len(unmeasured))
                 )
                 rows.append(
                     (

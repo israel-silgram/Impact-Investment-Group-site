@@ -197,9 +197,30 @@ function FlipBar({
     <button
       type="button"
       onClick={onFlip}
-      className="group flex w-full cursor-pointer items-center justify-between gap-4 rounded-[var(--radius-panel)] bg-linear-to-r from-orange-600 to-orange-500 px-6 py-4 text-left transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+      className="group flex w-full cursor-pointer items-center justify-between gap-4 rounded-[var(--radius-panel)] bg-linear-to-r from-orange-600 to-orange-500 max-lg:to-orange-600 px-6 py-4 text-left transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
     >
-      {/* ⚠ ALL THREE LINES ARE SOLID WHITE, AND THEY HAVE TO BE.
+      {/* ⚠ WAVE 490: BELOW `lg` THE GRADIENT STOPS AT ORANGE-600, AND THAT IS
+          A FAILING PAIR THIS WAVE FOUND RATHER THAN CAUSED.
+
+          `scripts/wave412-screenshots.py` measures every node axe returns as
+          INCOMPLETE off the shot's own pixels. Run against a build of
+          `origin/main` `f61b3b8` it reports all THREE of this bar's lines at
+          390 as **4.27:1 against a 4.5:1 floor**, on a ground of
+          rgb(206, 81, 38). That is wave 443's palette meeting a gradient that
+          runs to orange-500, where white is 3.53:1, and wave 443 did not re-run
+          this gate.
+
+          Wave 295's ruling decides the fix: where a pairing fails, THE SURFACE
+          MOVES, never the orange. So below `lg` the gradient ends at
+          orange-600, which `CLAUDE.md` names as the fill of any text-bearing
+          control and where white is 5.31:1. Above `lg` nothing changes,
+          because rule 8 of this wave is that the desktop does not move and
+          the 1280 reading of this bar passes.
+
+          The desktop gradient is still a text-bearing control filled partly
+          with orange-500. It is proposal 9 in `docs/WAVE490_REPORT.md`.
+
+          ⚠ ALL THREE LINES ARE SOLID WHITE, AND THEY HAVE TO BE.
           They used to be white at 78%, 100% and 88% over an orange-600 to
           orange-500 gradient, written as two rgba() literals and a hex in a
           component. Measured off home-1280.png and home-390.png, the ground
