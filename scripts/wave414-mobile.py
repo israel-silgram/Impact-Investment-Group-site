@@ -236,7 +236,8 @@ DEMAND_SECTION = 'section[aria-labelledby="demand-heading"]'
 DEMAND_MAX_PX = 2600
 
 EXEMPT_REASONS = {
-    "inline-in-text": "a link inside a run of text, which the brief exempts",
+    "inline-in-text": "a link inside a run of text that shares a line with some of that "
+                      "text (the second half since wave 490b), which the brief exempts",
     "no-area": "not rendered at this width",
     "aria-hidden": "inside an aria-hidden subtree, so it is not a target",
     "skip-link": "measured FOCUSED instead, which is the state it has a box in",
@@ -438,8 +439,39 @@ AUDIT = """
     for (let n = el.parentElement; n; n = n.parentElement) {
       if (!TEXTY.has(n.tagName)) break;
       const all = (n.textContent || '').trim().length;
-      // More words around it than in it: a sentence with a link in it.
-      if (all > own + 8) return true;
+      // More words around it than in it: a sentence with a link in it. AND,
+      // since wave 490b, the link has to be ON A LINE with some of them.
+      if (all > own + 8) return sharesALine(el, n);
+    }
+    return false;
+  };
+
+  // ⚠ WAVE 490b (the wave 490 brief's item 12): A LINK IN A SENTENCE IS EXEMPT
+  // ONLY WHERE IT IS ACTUALLY IN THE SENTENCE.
+  //
+  // The rule above was the first half: "an inline anchor whose host holds
+  // more text than the link does". The footer's three Verify links pass it on
+  // every route and fail what it is for: below `lg` the reference line wraps
+  // and the link stands ALONE on the last line, a 24px target with nothing
+  // else on the row to press. So the second half is asked too: does any of
+  // the host's OTHER ink share a line box with the link? Read off Ranges over
+  // the host's other text nodes, because the host's own box is the whole
+  // paragraph and says nothing about lines. A link on a line of its own is a
+  // target and is measured like one.
+  const sharesALine = (el, host) => {
+    const mine = [...el.getClientRects()].filter((r) => r.width >= 1 && r.height >= 1);
+    const walker = document.createTreeWalker(host, NodeFilter.SHOW_TEXT);
+    for (let t = walker.nextNode(); t; t = walker.nextNode()) {
+      if (el.contains(t) || !(t.nodeValue || '').trim()) continue;
+      const range = document.createRange();
+      range.selectNodeContents(t);
+      for (const r of range.getClientRects()) {
+        if (r.width < 1 || r.height < 1) continue;
+        for (const m of mine) {
+          const overlap = Math.min(r.bottom, m.bottom) - Math.max(r.top, m.top);
+          if (overlap > Math.min(r.height, m.height) / 2) return true;
+        }
+      }
     }
     return false;
   };

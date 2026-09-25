@@ -174,7 +174,7 @@ function LegalPage() {
                 href={companyRecord.registerHref}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-baseline gap-1 font-semibold text-teal-600 underline underline-offset-4 transition-colors duration-200 hover:text-ink"
+                className="inline-flex items-baseline gap-1 font-semibold text-teal-600 underline underline-offset-4 transition-colors duration-200 hover:text-ink max-lg:min-h-11 max-lg:items-center"
               >
                 {companyRecord.registerLabel}
                 <ArrowUpRight aria-hidden="true" className="size-3.5 self-center" />

@@ -326,7 +326,7 @@ function SolutionsPage() {
             <Link
               to="/contact"
               search={{ enquiry: lookingForHome.enquiry, type: lookingForHome.enquiry }}
-              className="font-bold text-teal-600 underline-offset-2 hover:underline"
+              className="font-bold text-teal-600 underline-offset-2 hover:underline max-lg:inline-flex max-lg:min-h-11 max-lg:items-center"
             >
               {lookingForHome.action} →
             </Link>
