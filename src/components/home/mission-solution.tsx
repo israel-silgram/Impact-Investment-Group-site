@@ -217,7 +217,7 @@ function FlipBar({
         <span className="heading-tight block font-heading text-[clamp(1.0625rem,1.6vw,1.25rem)] font-extrabold text-page">
           {title}
         </span>
-        <span className="block text-[12.5px] text-page">{hint}</span>
+        <span className="block text-[12.5px] max-lg:text-[15px] text-page">{hint}</span>
       </span>
       <span className="grid size-11 shrink-0 place-items-center rounded-full bg-white/18 transition-transform duration-500 group-hover:rotate-180">
         <RefreshCw aria-hidden="true" className="size-5 text-page" />
@@ -242,6 +242,32 @@ export function MissionSolution() {
 
   const faceBase = "col-start-1 row-start-1 transition-opacity duration-500 ease-out";
 
+  /* ⚠ WAVE 490: BELOW `md` THE INACTIVE FACE LEAVES THE FLOW, AND THE REASON
+     IS 295 PIXELS OF CREAM.
+
+     Both faces are stacked in ONE grid cell so they can cross-fade, and a grid
+     cell takes the height of its tallest occupant. At 1280 and at 768 the two
+     faces are the same height, so that costs nothing and the cross-fade is
+     free. At 390 they are not: the need face runs to 1,265px and the solution
+     face to 1,559px, so whichever one is showing, the reader scrolls up to
+     294px of empty cream before "Working with all local authorities".
+     Measured on the built site at 25 September 2026: paragraph bottom 2,658,
+     section bottom 2,953, next section top 2,953.
+
+     `hidden` below `md` takes the inactive face out of the grid entirely, so
+     the cell is the height of the face somebody is reading. Above `md`
+     nothing changes at all: both faces are in the cell, both are the same
+     height, and the cross-fade is exactly the one wave 412 shipped.
+
+     AND THE SWAP IS A DISPLAY SWAP, NOT AN ANIMATED HEIGHT. Wave 413's law of
+     motion is transform and opacity only with ONE named exception, the
+     disclosure's height, and a 300px height transition on a section this tall
+     would be a second one bought for a flourish. An element coming out of
+     `display: none` has no before-change style for a transition to start
+     from, so the incoming face simply appears: instant at every setting,
+     including reduced motion, which is what the probe asserts. */
+  const offBelowMd = "hidden md:block";
+
   return (
     <section aria-labelledby="mission-heading" className="relative isolate grid">
       {/* ══ FRONT — the need ══════════════════════════════════════════════ */}
@@ -249,7 +275,7 @@ export function MissionSolution() {
         className={cn(
           faceBase,
           "section-light",
-          showSolution ? "pointer-events-none opacity-0" : "opacity-100",
+          showSolution ? cn(offBelowMd, "pointer-events-none opacity-0") : "opacity-100",
         )}
         /* ⚠ WAVE 414: `inert` AS WELL AS `aria-hidden`, AND THE PAIR IS
            THE POINT. The two faces of this section are stacked in one grid
@@ -390,7 +416,7 @@ export function MissionSolution() {
                               point.tone === "orange" ? "text-orange-500" : "text-teal-600",
                             )}
                           />
-                          <span className="text-[12.5px] leading-[1.6] text-ink-muted">
+                          <span className="text-[12.5px] max-lg:text-[15px] leading-[1.6] text-ink-muted">
                             {point.text}
                           </span>
                         </li>
@@ -437,7 +463,7 @@ export function MissionSolution() {
         className={cn(
           faceBase,
           "bg-page",
-          showSolution ? "opacity-100" : "pointer-events-none opacity-0",
+          showSolution ? "opacity-100" : cn(offBelowMd, "pointer-events-none opacity-0"),
         )}
         inert={!showSolution}
         aria-hidden={!showSolution}
@@ -487,7 +513,7 @@ export function MissionSolution() {
                   {/* ⚠️ ILLUSTRATIVE, AND IT SAYS SO. A conversion model, not a
                       delivered result. The disclaimer travels with the figure
                       and is not a caption a later layout pass may trim. */}
-                  <p className="mt-2.5 text-[11.5px] max-lg:text-[12px] leading-snug text-ink/85">
+                  <p className="mt-2.5 text-[11.5px] max-lg:text-[13px] leading-snug text-ink/85">
                     {impactProof.multiplier.disclaimer}
                   </p>
                 </div>
