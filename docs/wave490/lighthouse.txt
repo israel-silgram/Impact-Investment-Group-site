@@ -1,0 +1,54 @@
+# Lighthouse mobile, five runs per route per build, medians. scripts/wave490-perf.py, its own threaded gzip server.
+# before = origin/main f61b3b8, after = the code head. Every run's figures, then the median.
+
+before /                      run 1: perf= 65 bp=100 LCP=  6326ms TBT= 153ms CLS=0.000 FCP= 3726ms 962 KiB bp failing=[]
+before /                      run 2: perf= 66 bp=100 LCP=  6315ms TBT= 147ms CLS=0.000 FCP= 3608ms 962 KiB bp failing=[]
+before /                      run 3: perf= 66 bp=100 LCP=  6322ms TBT= 133ms CLS=0.000 FCP= 3613ms 962 KiB bp failing=[]
+before /                      run 4: perf= 66 bp=100 LCP=  6400ms TBT= 180ms CLS=0.000 FCP= 3624ms 962 KiB bp failing=[]
+before /                      run 5: perf= 65 bp=100 LCP=  6372ms TBT= 157ms CLS=0.000 FCP= 3613ms 962 KiB bp failing=[]
+before /                      MEDIAN of 5: perf=66 a11y=100 bp=100 seo=100 FCP=3613ms LCP=6326ms TBT=153ms CLS=0.000 962 KiB; best-practices audits failing in any run: none
+before /platform              run 1: perf= 76 bp=100 LCP=  4772ms TBT=   0ms CLS=0.000 FCP= 3032ms 763 KiB bp failing=[]
+before /platform              run 2: perf= 77 bp=100 LCP=  4791ms TBT=   0ms CLS=0.000 FCP= 2767ms 763 KiB bp failing=[]
+before /platform              run 3: perf= 77 bp=100 LCP=  5017ms TBT=   2ms CLS=0.000 FCP= 2772ms 763 KiB bp failing=[]
+before /platform              run 4: perf= 77 bp=100 LCP=  5014ms TBT=   8ms CLS=0.000 FCP= 2775ms 763 KiB bp failing=[]
+before /platform              run 5: perf= 77 bp=100 LCP=  5023ms TBT=   4ms CLS=0.000 FCP= 2768ms 763 KiB bp failing=[]
+before /platform              MEDIAN of 5: perf=77 a11y=100 bp=100 seo=92 FCP=2772ms LCP=5014ms TBT=2ms CLS=0.000 763 KiB; best-practices audits failing in any run: none
+before /register/investor     run 1: perf= 80 bp=100 LCP=  4155ms TBT=   0ms CLS=0.000 FCP= 3035ms 479 KiB bp failing=[]
+before /register/investor     run 2: perf= 80 bp=100 LCP=  4174ms TBT=   5ms CLS=0.000 FCP= 3044ms 479 KiB bp failing=[]
+before /register/investor     run 3: perf= 81 bp=100 LCP=  4147ms TBT=   2ms CLS=0.000 FCP= 3024ms 479 KiB bp failing=[]
+before /register/investor     run 4: perf= 81 bp=100 LCP=  4145ms TBT=   8ms CLS=0.000 FCP= 3017ms 479 KiB bp failing=[]
+before /register/investor     run 5: perf= 81 bp=100 LCP=  4142ms TBT=   5ms CLS=0.000 FCP= 3018ms 479 KiB bp failing=[]
+before /register/investor     MEDIAN of 5: perf=81 a11y=100 bp=100 seo=92 FCP=3024ms LCP=4147ms TBT=5ms CLS=0.000 479 KiB; best-practices audits failing in any run: none
+before /about                 run 1: perf= 78 bp=100 LCP=  4615ms TBT=   0ms CLS=0.000 FCP= 3026ms 693 KiB bp failing=[]
+before /about                 run 2: perf= 79 bp=100 LCP=  4627ms TBT=   0ms CLS=0.000 FCP= 2768ms 693 KiB bp failing=[]
+before /about                 run 3: perf= 79 bp=100 LCP=  4627ms TBT=   4ms CLS=0.000 FCP= 2769ms 693 KiB bp failing=[]
+before /about                 run 4: perf= 78 bp=100 LCP=  4689ms TBT=   0ms CLS=0.000 FCP= 3021ms 693 KiB bp failing=[]
+before /about                 run 5: perf= 78 bp=100 LCP=  4613ms TBT=   0ms CLS=0.000 FCP= 3022ms 693 KiB bp failing=[]
+before /about                 MEDIAN of 5: perf=78 a11y=98 bp=100 seo=92 FCP=3021ms LCP=4627ms TBT=0ms CLS=0.000 693 KiB; best-practices audits failing in any run: none
+
+after  /                      run 1: perf= 67 bp=100 LCP=  6349ms TBT= 178ms CLS=0.000 FCP= 3637ms 955 KiB bp failing=[]
+after  /                      run 2: perf= 65 bp=100 LCP=  6378ms TBT= 158ms CLS=0.000 FCP= 3656ms 955 KiB bp failing=[]
+after  /                      run 3: perf= 65 bp=100 LCP=  6361ms TBT= 151ms CLS=0.000 FCP= 3638ms 955 KiB bp failing=[]
+after  /                      run 4: perf= 65 bp=100 LCP=  6358ms TBT= 144ms CLS=0.000 FCP= 3634ms 955 KiB bp failing=[]
+after  /                      run 5: perf= 65 bp=100 LCP=  6385ms TBT= 137ms CLS=0.000 FCP= 3665ms 955 KiB bp failing=[]
+after  /                      MEDIAN of 5: perf=65 a11y=100 bp=100 seo=100 FCP=3638ms LCP=6361ms TBT=151ms CLS=0.000 955 KiB; best-practices audits failing in any run: none
+after  /platform              run 1: perf= 77 bp=100 LCP=  4753ms TBT=   2ms CLS=0.000 FCP= 3011ms 767 KiB bp failing=[]
+after  /platform              run 2: perf= 78 bp=100 LCP=  4784ms TBT=   0ms CLS=0.000 FCP= 2770ms 767 KiB bp failing=[]
+after  /platform              run 3: perf= 78 bp=100 LCP=  4768ms TBT=   0ms CLS=0.000 FCP= 2766ms 767 KiB bp failing=[]
+after  /platform              run 4: perf= 78 bp=100 LCP=  4796ms TBT=   7ms CLS=0.000 FCP= 2773ms 767 KiB bp failing=[]
+after  /platform              run 5: perf= 77 bp=100 LCP=  4763ms TBT=   1ms CLS=0.000 FCP= 3022ms 767 KiB bp failing=[]
+after  /platform              MEDIAN of 5: perf=78 a11y=100 bp=100 seo=92 FCP=2773ms LCP=4768ms TBT=1ms CLS=0.000 767 KiB; best-practices audits failing in any run: none
+after  /register/investor     run 1: perf= 80 bp=100 LCP=  4200ms TBT=   0ms CLS=0.000 FCP= 3124ms 480 KiB bp failing=[]
+after  /register/investor     run 2: perf= 80 bp=100 LCP=  4227ms TBT=  14ms CLS=0.000 FCP= 3142ms 480 KiB bp failing=[]
+after  /register/investor     run 3: perf= 76 bp=100 LCP=  4781ms TBT=   0ms CLS=0.000 FCP= 3358ms 480 KiB bp failing=[]
+after  /register/investor     run 4: perf= 80 bp=100 LCP=  4239ms TBT=   5ms CLS=0.000 FCP= 3033ms 480 KiB bp failing=[]
+after  /register/investor     run 5: perf= 80 bp=100 LCP=  4240ms TBT=  10ms CLS=0.000 FCP= 3032ms 480 KiB bp failing=[]
+after  /register/investor     MEDIAN of 5: perf=80 a11y=100 bp=100 seo=92 FCP=3124ms LCP=4239ms TBT=5ms CLS=0.000 480 KiB; best-practices audits failing in any run: none
+after  /about                 run 1: perf= 78 bp=100 LCP=  4557ms TBT=   0ms CLS=0.000 FCP= 3031ms 694 KiB bp failing=[]
+after  /about                 run 2: perf= 78 bp=100 LCP=  4542ms TBT=   2ms CLS=0.000 FCP= 3026ms 694 KiB bp failing=[]
+after  /about                 run 3: perf= 77 bp=100 LCP=  4775ms TBT=   4ms CLS=0.000 FCP= 2927ms 694 KiB bp failing=[]
+after  /about                 run 4: perf= 78 bp=100 LCP=  4569ms TBT=   0ms CLS=0.000 FCP= 2925ms 694 KiB bp failing=[]
+after  /about                 run 5: perf= 77 bp=100 LCP=  4784ms TBT=   6ms CLS=0.000 FCP= 2926ms 694 KiB bp failing=[]
+after  /about                 MEDIAN of 5: perf=78 a11y=98 bp=100 seo=92 FCP=2927ms LCP=4569ms TBT=2ms CLS=0.000 694 KiB; best-practices audits failing in any run: none
+
+# The first five-run batch, on the single-threaded server borrowed from wave 414, failed best practices on errors-in-console in 13 of 40 runs, every one net::ERR_CONNECTION_REFUSED on a font or a script chunk. It is superseded by the runs above.
