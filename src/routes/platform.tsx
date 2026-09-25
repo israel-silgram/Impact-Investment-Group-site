@@ -786,7 +786,7 @@ function ProductCapture() {
      for its own `Title`. Overriding that id with a literal broke the wiring
      and axe returned `aria-dialog-name`, serious, on the open state: the
      title was there and nothing pointed at it. `useId` gives one stable id
-     that the content, the title and the scroll region all agree on. */
+     that the content and the title agree on. */
   const titleId = React.useId();
   const [phone, setPhone] = React.useState(false);
   React.useEffect(() => {
@@ -832,12 +832,16 @@ function ProductCapture() {
               <DialogTitle id={titleId} className="sr-only">
                 {servicesHero.image.caption}
               </DialogTitle>
-              {/* ⚠ A SCROLL CONTAINER NEEDS A TAB STOP AND A NAME, which is
-                  what axe returns as `scrollable-region-focusable`, serious,
-                  and what the first cut of this dialog shipped. It is the same
-                  rule the hero's snap strip answers to and the same answer:
-                  `tabIndex` for the stop, and the dialog's own existing title
-                  for the name, so nothing new is written.
+              {/* ⚠ A SCROLL CONTAINER NEEDS A TAB STOP, which is what axe
+                  returns as `scrollable-region-focusable`, serious, and what
+                  the first cut of this dialog shipped. `tabIndex` is the stop.
+
+                  ⚠ AND NO NAME OF ITS OWN (wave 490b). It used to point
+                  `aria-labelledby` at the dialog's title, so a screen reader
+                  entering the dialog heard the caption once as the dialog's
+                  name and again as this group's. The dialog already carries
+                  the name; the group inside it is only the thing that
+                  scrolls.
 
                   `touch-action` names the two gestures the box is for: drag it
                   sideways, or pinch it. Without it a drag inside a fixed layer
@@ -851,7 +855,6 @@ function ProductCapture() {
               <div
                 tabIndex={0}
                 role="group"
-                aria-labelledby={titleId}
                 className="flex-1 overflow-auto [touch-action:pan-x_pan-y_pinch-zoom] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-teal-600"
               >
                 <img

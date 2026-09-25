@@ -1254,6 +1254,33 @@ def dialog_probe(browser, base, axe_source, failures, mode):
     print(f"item7     axe       open state: {len(violations)} serious or critical {violations}")
     if violations:
         failures.append(f"item7: the open dialog carries {violations}")
+    # ⚠ WAVE 490b: THE CAPTION IS THE DIALOG'S NAME AND NOTHING ELSE'S.
+    #
+    # The scroll box inside the dialog used to point `aria-labelledby` at the
+    # dialog's title, so a screen reader entering it heard the caption as the
+    # dialog's name and then again as the group's. Read off the browser's own
+    # accessibility tree rather than off the attributes, because the tree is
+    # what is announced: every node whose computed name is the caption, by role.
+    cdp = ctx.new_cdp_session(page)
+    tree = cdp.send("Accessibility.getFullAXTree")["nodes"]
+    caption = opened["name"]
+    named = {}
+    for node in tree:
+        if node.get("ignored"):
+            continue
+        if ((node.get("name") or {}).get("value") or "").strip() != caption:
+            continue
+        role = (node.get("role") or {}).get("value") or "?"
+        named[role] = named.get(role, 0) + 1
+    print(f"item7     named     nodes whose accessible name is the caption, by role: {named}")
+    if named.get("dialog", 0) != 1:
+        failures.append(f"item7: the caption names {named.get('dialog', 0)} dialogs, not one")
+    for role in ("group", "region", "generic", "img"):
+        if named.get(role):
+            failures.append(
+                f"item7: the caption is also the accessible name of {named[role]} "
+                f"{role} node(s) inside the open dialog, so it is announced twice"
+            )
     page.keyboard.press("Escape")
     page.wait_for_timeout(400)
     if page.evaluate("() => !!document.querySelector('[role=\\\"dialog\\\"]')"):
