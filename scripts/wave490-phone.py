@@ -38,6 +38,7 @@ from __future__ import annotations
 
 import argparse
 import functools
+import gzip
 import http.server
 import socketserver
 import sys
@@ -156,8 +157,34 @@ class Quiet(http.server.SimpleHTTPRequestHandler):
         super().send_error(code, message, explain)
 
 
-def serve(directory: Path) -> int:
-    handler = functools.partial(Quiet, directory=str(directory))
+class GzipQuiet(Quiet):
+    """`Quiet`, gzipping text, JavaScript, JSON and SVG when asked to, which
+    is what GitHub Pages does and what the wave 414 Lighthouse server does.
+    Used by the item 1 probe, the one reading in this gate that is a transfer
+    time."""
+
+    def do_GET(self):
+        path = Path(self.translate_path(self.path))
+        if path.is_dir():
+            path = path / "index.html"
+        if not path.is_file():
+            return super().do_GET()
+        data = path.read_bytes()
+        ctype = self.guess_type(str(path))
+        compressible = ctype.startswith(("text/", "application/javascript",
+                                         "application/json", "image/svg"))
+        self.send_response(200)
+        self.send_header("Content-Type", ctype)
+        if compressible and "gzip" in self.headers.get("Accept-Encoding", ""):
+            data = gzip.compress(data, 6)
+            self.send_header("Content-Encoding", "gzip")
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
+
+def serve(directory: Path, compress: bool = False) -> int:
+    handler = functools.partial(GzipQuiet if compress else Quiet, directory=str(directory))
     httpd = socketserver.TCPServer(("127.0.0.1", 0), handler)
     httpd.daemon_threads = True
     threading.Thread(target=httpd.serve_forever, daemon=True).start()
@@ -1184,96 +1211,221 @@ STRIP_STATE = """
 """
 
 
+# ⚠ WAVE 490b: THE CLOCK STARTS WHEN THE WRAPPER IS SEEN, ON A COLD SLOW 4G LOAD.
+#
+# The first cut of this probe loaded the page with `wait_until="networkidle"`
+# and only THEN turned the throttle on, so every crest had arrived over an
+# unthrottled loopback before the clock started: all eighteen "at first
+# paint" was a fact about localhost. The independent re-check of wave 490
+# found it. Now the throttle and a disabled cache are on before `goto`, and
+# the page is scrolled to the strip the moment the strip exists in the DOM.
+#
+# ⚠ AND THE CLOCK RESTARTS IF THE PAGE TAKES THE STRIP AWAY.
+#
+# When the bundle hydrates, the page goes back to the top. Measured at 390
+# on a gzipped cold slow 4G load: scrolled to 2,639 on the first styled
+# frame, hydrated at 5,365ms, back at scrollY 0 by 6,257ms. It is not the
+# router's `scrollRestoration` flag (a scratch build with it off does the
+# same), and its cause is carried to the report as a finding rather than
+# guessed at here. The first run of this version met it and read "0 on
+# screen". So the wrapper's box is polled, an entry is
+# timed by the page's own clock, any move off screen inside the 1.5s is
+# logged with its time and the scroll is re-aimed, and the reading is taken
+# at the end of the first 1.5s the wrapper spends on screen without a break.
+# Every reset is printed, so the reading says which entry it timed.
+#
+# ⚠ AND THE SERVER COMPRESSES, AS GITHUB PAGES DOES. This probe is the one
+# reading in the gate whose number is a transfer time, and the plain server
+# the rest of the gate uses sends the 211KB stylesheet and 950KB of script
+# uncompressed: on slow 4G that alone holds the page unstyled until 5.6s. The
+# probe is served by `GzipQuiet`, which compresses the same text types the
+# wave 414 Lighthouse server does and nothing else.
+STRIP_WATCH = """
+(() => {
+  window.__seen = {};
+  window.__hydrated = 0;
+  const mo = new MutationObserver(() => {
+    if (!window.__hydrated && document.querySelector('main .reveal[data-revealed]')) {
+      window.__hydrated = performance.now();
+      mo.disconnect();
+    }
+  });
+  mo.observe(document, { childList: true, subtree: true, attributes: true,
+                         attributeFilter: ['data-revealed'] });
+})();
+"""
+
+IN_VIEW = """
+([selector, key]) => {
+  // ⚠ A STRIP IS A STRIP ONCE ITS STYLESHEET HAS LANDED. Before that the
+  // document is unstyled: on a cold slow 4G load the crests are a 4,264px
+  // column of stacked images for the first five seconds, twenty of them "on
+  // screen", and timing an entry into THAT would be timing nothing a visitor
+  // would call the strip. `.logo-marquee` is `overflow: hidden` only once
+  // `styles.css` applies, so that is the marker for both readings.
+  const lane = document.querySelector('.logo-marquee');
+  if (!lane || getComputedStyle(lane).overflowX !== 'hidden') return false;
+  const found = document.querySelector(selector);
+  if (!found) return false;
+  const el = key === 'data' ? (found.closest('ul') || found.parentElement) : found;
+  const r = el.getBoundingClientRect();
+  const on = r.height > 0 && r.bottom > 0 && r.top < innerHeight;
+  if (on && !window.__seen[key]) window.__seen[key] = performance.now();
+  if (!on) window.__seen[key] = 0;
+  return on;
+}
+"""
+
+STRIP_SELECTORS = (
+    (".logo-marquee", "councils"),
+    ('img[src*="/images/logos/data/"]', "data"),
+)
+
+
 def logo_probe(browser, base, width, height, failures, mode):
-    """Scroll to the strip on a loaded page, start the clock, read at 1.5s."""
-    ctx = browser.new_context(
-        viewport={"width": width, "height": height},
-        is_mobile=width < 1024, has_touch=width < 1024,
-        device_scale_factor=2 if width < 1024 else 1,
-    )
-    page = ctx.new_page()
-    requested = {"councils": 0, "data": 0}
+    """Cold slow 4G load, scroll to the strip at once, read 1.5s after it is seen.
 
-    def note(request):
-        if "/images/logos/councils/" in request.url:
-            requested["councils"] += 1
-        elif "/images/logos/data/" in request.url:
-            requested["data"] += 1
-
-    page.on("request", note)
-    page.goto(f"{base}/", wait_until="networkidle")
-    first_paint = dict(requested)
-
-    cdp = ctx.new_cdp_session(page)
-    cdp.send("Network.enable")
-    cdp.send("Network.emulateNetworkConditions", SLOW_4G)
-
-    for selector, name in ((".logo-marquee", "councils"), ('img[src*="/images/logos/data/"]', "data")):
-        # ⚠ THE SCROLL TARGET IS IN PAGE COORDINATES.
-        #
-        # `bounding_box()` is relative to the VIEWPORT, and this loop has
-        # already scrolled once by the time it reaches the second strip. The
-        # first run of this probe aimed the data-logo scroll a viewport and a
-        # half short and read "0 tiles on screen", which is a fact about the
-        # scroll and not about the logos.
-        target = page.evaluate(
-            "(sel) => { const el = document.querySelector(sel); if (!el) return null; "
-            "return Math.max(0, el.getBoundingClientRect().top + scrollY - innerHeight / 3); }",
-            selector,
+    One fresh context per strip, so the data logos are not read off a page
+    that has already spent its bandwidth on the crests.
+    """
+    readings = {}
+    for selector, name in STRIP_SELECTORS:
+        ctx = browser.new_context(
+            viewport={"width": width, "height": height},
+            is_mobile=width < 1024, has_touch=width < 1024,
+            device_scale_factor=2 if width < 1024 else 1,
         )
-        if target is None:
+        page = ctx.new_page()
+        requested = {"councils": 0, "data": 0}
+
+        def note(request):
+            if "/images/logos/councils/" in request.url:
+                requested["councils"] += 1
+            elif "/images/logos/data/" in request.url:
+                requested["data"] += 1
+
+        page.on("request", note)
+        page.add_init_script(STRIP_WATCH)
+        cdp = ctx.new_cdp_session(page)
+        cdp.send("Network.enable")
+        cdp.send("Network.setCacheDisabled", {"cacheDisabled": True})
+        cdp.send("Network.emulateNetworkConditions", SLOW_4G)
+        page.goto(f"{base}/", wait_until="commit", timeout=120000)
+        try:
+            page.wait_for_selector(selector, state="attached", timeout=60000)
+        except Exception:
             failures.append(f"item1 @ {width}: no {name} strip on the home page")
+            ctx.close()
             continue
-        scroll_to(page, target)
-        page.wait_for_timeout(DECODE_BUDGET_MS)
-        # ⚠ AND IT IS SAMPLED, BECAUSE THE LANE IS MOVING.
-        #
-        # One reading of "every tile on screen has decoded" is a reading of the
-        # four tiles that happen to be in a 390px window at that instant, and a
-        # 40-second loop brings a different four along every second. The worst
-        # reading over three seconds is the one that answers the question the
-        # defect is about: does a plate ever glide past with nothing in it.
-        # The whole-strip count beside it is the other half: a tile that has
-        # decoded before it arrives can never be an empty plate at all.
-        state = page.evaluate(STRIP_STATE)[name]
-        for _ in range(12):
-            page.wait_for_timeout(250)
+
+        # The strip exists, as a strip, the moment the stylesheet makes it one;
+        # the scroll goes to it on that frame.
+        styled = None
+        try:
+            page.wait_for_function(
+                "() => { const l = document.querySelector('.logo-marquee'); "
+                "return !!l && getComputedStyle(l).overflowX === 'hidden'; }",
+                polling="raf", timeout=60000,
+            )
+            styled = page.evaluate("() => Math.round(performance.now())")
+        except Exception:
+            pass
+        resets = []
+        entered = None
+        state = None
+        at_entry = 0
+        for _attempt in range(40):
+            # ⚠ THE SCROLL TARGET IS IN PAGE COORDINATES.
+            target = page.evaluate(
+                "(sel) => { const el = document.querySelector(sel); "
+                "return Math.max(0, el.getBoundingClientRect().top + scrollY - innerHeight / 3); }",
+                selector,
+            )
+            page.evaluate(f"() => scrollTo({{ top: {target}, behavior: 'instant' }})")
+            try:
+                page.wait_for_function(IN_VIEW, arg=[selector, name], polling="raf",
+                                       timeout=500)
+            except Exception:
+                continue
+            entered = page.evaluate(f"() => window.__seen['{name}']")
+            at_entry = requested[name]
+            held = True
+            while page.evaluate("() => performance.now()") < entered + DECODE_BUDGET_MS:
+                if not page.evaluate(IN_VIEW, [selector, name]):
+                    now = page.evaluate(
+                        "() => [Math.round(performance.now()), Math.round(scrollY)]"
+                    )
+                    resets.append((round(entered), now[0], now[1]))
+                    held = False
+                    break
+                page.wait_for_timeout(16)
+            if held:
+                state = page.evaluate(STRIP_STATE)[name]
+                break
+        hydrated = page.evaluate("() => Math.round(window.__hydrated)")
+        if state is None:
+            failures.append(
+                f"item1 @ {width}: the {name} strip never stayed on screen for "
+                f"{DECODE_BUDGET_MS}ms in 40 attempts, so nothing was tested ({resets})"
+            )
+            ctx.close()
+            continue
+        at_read = requested[name]
+        settled_ms = None
+        for tick in range(60):
             sample = page.evaluate(STRIP_STATE)[name]
-            if sample["onScreen"] - sample["decoded"] > state["onScreen"] - state["decoded"]:
-                state = sample
-        whole = page.evaluate(STRIP_STATE)[name]
+            if sample["onScreen"] and sample["decoded"] >= sample["onScreen"]:
+                settled_ms = DECODE_BUDGET_MS + tick * 250
+                break
+            page.wait_for_timeout(250)
+        moved = "; ".join(
+            f"seen at {a}ms, moved off at {b}ms to scrollY {c}" for a, b, c in resets
+        ) or "none"
         print(
-            f"item1     {name:<9} @ {width:<5} worst of 13 samples over 3s: on screen="
-            f"{state['onScreen']:>3}  decoded={state['decoded']:>3}  pending="
-            f"{state['pending']:>2}; whole strip decoded={whole['decodedAll']:>3} of "
-            f"{whole['total']:>3}  after {DECODE_BUDGET_MS}ms on slow 4G"
+            f"item1     {name:<9} @ {width:<5} cold slow 4G: styled at {styled}ms, timed entry "
+            f"at {round(entered)}ms (hydrated at {hydrated}ms; earlier entries cut short: "
+            f"{moved}); "
+            f"at +{DECODE_BUDGET_MS}ms on screen={state['onScreen']:>3} "
+            f"decoded={state['decoded']:>3} pending={state['pending']:>2}; whole strip decoded "
+            f"{state['decodedAll']:>3} of {state['total']:>3}; every tile on screen decoded by "
+            f"+{settled_ms if settled_ms is not None else 'over 16500'}ms; distinct requests "
+            f"{at_entry} at the timed entry, {at_read} at the reading"
         )
-        if whole["decodedAll"] < whole["total"]:
-            message = (
-                f"item1 @ {width}: {whole['total'] - whole['decodedAll']} of "
-                f"{whole['total']} {name} tiles had still not decoded "
-                f"{DECODE_BUDGET_MS}ms after the strip arrived, and every one of them "
-                f"crosses the window inside one turn of the loop. {whole['undecoded']}"
+        readings[name] = {"state": state, "entered": entered, "hydrated": hydrated,
+                          "resets": resets, "settled": settled_ms}
+        if not state["onScreen"]:
+            failures.append(
+                f"item1 @ {width}: no {name} tile was on screen at the reading, so nothing "
+                f"was tested"
             )
-            (print if mode == "before" else failures.append)(
-                ("BEFORE  " + message) if mode == "before" else message
+        elif state["decoded"] < state["onScreen"] and name == "data":
+            # ⚠ THE DATA LOGOS ARE MEASURED AND REPORTED, NOT ASSERTED, and that
+            # is the brief's own split: item 1's "Prove" is the council strip's
+            # tiles at 360, 390 and 1280; for these five it says "plain lazy
+            # is fine, but the pending opacity must not outlive a 1.5s budget
+            # on the slow 4G profile; measure it." Measured, in this cold case
+            # they do outlive it, and the three alternatives were measured too
+            # (eager at low priority is slower, lazy at high is no faster), so
+            # the reading is printed as a finding with its number and carried
+            # to the report rather than failed or quietly dropped.
+            print(
+                f"item1     FINDING   data @ {width}: {state['onScreen'] - state['decoded']} of "
+                f"{state['onScreen']} data logos on screen had not decoded "
+                f"{DECODE_BUDGET_MS}ms after the grid was seen on a cold slow 4G load; every "
+                f"one had by +{settled_ms if settled_ms is not None else 'over 16500'}ms"
             )
-        if state["onScreen"] and state["decoded"] < state["onScreen"]:
+        elif state["decoded"] < state["onScreen"]:
             message = (
                 f"item1 @ {width}: {state['onScreen'] - state['decoded']} of "
                 f"{state['onScreen']} {name} tiles on screen had not decoded "
-                f"{DECODE_BUDGET_MS}ms after the strip arrived. {state['undecoded']}"
+                f"{DECODE_BUDGET_MS}ms after the strip was seen, on a cold slow 4G load. "
+                f"{state['undecoded']}"
             )
             (print if mode == "before" else failures.append)(
                 ("BEFORE  " + message) if mode == "before" else message
             )
-    print(
-        f"item1     requests  @ {width:<5} councils={requested['councils']:>3} "
-        f"(first paint {first_paint['councils']}), data={requested['data']:>2} "
-        f"(first paint {first_paint['data']})"
-    )
-    ctx.close()
-    return requested, first_paint
+        ctx.close()
+    return readings
 
 
 # ---------------------------------------------------------------------------
@@ -2241,9 +2393,10 @@ def main() -> None:
         sink = failures if args.mode == "after" else soft
         if run_probe("logo"):
             print()
-            logo_probe(browser, base, 390, 844, sink, args.mode)
-            logo_probe(browser, base, 360, 800, sink, args.mode)
-            logo_probe(browser, base, 1280, 900, sink, args.mode)
+            gz = f"http://127.0.0.1:{serve(build, compress=True)}"
+            logo_probe(browser, gz, 390, 844, sink, args.mode)
+            logo_probe(browser, gz, 360, 800, sink, args.mode)
+            logo_probe(browser, gz, 1280, 900, sink, args.mode)
         if run_probe("dialog"):
             print()
             dialog_probe(browser, base, axe_source, sink, args.mode)

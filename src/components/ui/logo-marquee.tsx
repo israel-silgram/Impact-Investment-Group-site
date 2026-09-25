@@ -2,6 +2,9 @@ import { cn } from "@/lib/utils";
 import type { LogoCredit } from "@/content/trust";
 import { intrinsic } from "@/lib/responsive-image";
 
+/** The tiles on the strip's first screen: nine, the most any width shows. */
+const FIRST_SCREEN = 9;
+
 /**
  * A continuous logo lane, restyled from the production site's
  * `CommissioningStrip`. The scroll behaviour is that component's, not an
@@ -76,6 +79,20 @@ export function LogoMarquee({
                 the lane renders each of them twice against one URL, so the
                 browser makes eighteen requests and not thirty-six.
 
+                ⚠ WAVE 490b: THE FIRST NINE ARE `high`. Measured on a cold
+                slow 4G load, gzipped, scrolled to the strip on the first
+                frame its stylesheet applies (about 1.4s after navigation):
+                at `low`, 0 of the 3 to 9 crests on screen had decoded 1.5s
+                later at 360, 390 and 1280, and they landed at +2.25 to
+                +3.25s. Nine is the most any profile shows at once (1280);
+                the lane moves about 40px a second, so those nine are the
+                first screen of the strip. At `high` all of them decode
+                inside the 1.5s, and the home page's LCP at 390 (the hero
+                photograph, 4x CPU, five runs) read 2,260ms against 2,432ms
+                at `low`, so the first screen pays nothing for it. Leaving
+                the attribute off instead (auto, so Chrome's on-screen boost
+                applies) was measured too and changed nothing: +3.0s.
+
                 AND THE PLATE IS THE SPAN, NOT THE IMAGE, which is what keeps
                 this inside the `ImageFade` invariant. A tile that has not
                 decoded shows the white plate and its hairline with nothing in
@@ -85,7 +102,7 @@ export function LogoMarquee({
               src={item.logo}
               alt=""
               loading="eager"
-              fetchPriority="low"
+              fetchPriority={i < FIRST_SCREEN ? "high" : "low"}
               decoding="async"
               className={cn("object-contain", imgClassName ?? "h-full w-auto max-w-[9rem]")}
               width={intrinsic(item.logo)?.width}
