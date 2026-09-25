@@ -807,11 +807,11 @@ PEEK = js("""
 
 def _ground(block):
     """The modal colour of a block of pixels: the section's own ground."""
-    flat = block.reshape(-1, block.shape[-1])
+    flat = block.reshape(-1, block.shape[-1]).astype(np.int64)
     if flat.shape[0] > 40000:
         flat = flat[:: max(1, flat.shape[0] // 40000)]
     # Pack RGB into one integer so the mode is a single bincount.
-    packed = (flat[:, 0].astype(np.int64) << 16) | (flat[:, 1].astype(np.int64) << 8) | flat[:, 2]
+    packed = (flat[:, 0] << 16) | (flat[:, 1] << 8) | flat[:, 2]
     values, counts = np.unique(packed, return_counts=True)
     top = int(values[int(np.argmax(counts))])
     return np.array([(top >> 16) & 255, (top >> 8) & 255, top & 255], dtype=np.int16)
@@ -845,11 +845,20 @@ def empty_runs(pixels, boxes, scale, page_w):
         x1 = min(width, int(round(min(box["x"] + box["w"], page_w) * scale)))
         if y1 - y0 < EMPTY_RUN_MAX * scale or x1 - x0 < 8:
             continue
-        block = pixels[y0:y1, x0:x1, :3].astype(np.int16)
+        block = pixels[y0:y1, x0:x1, :3]
         ground = _ground(block)
-        # Uniform row: every pixel within GROUND_TOLERANCE of the ground on
-        # every channel. `max` over the row's worst channel deviation.
-        deviation = np.abs(block - ground).max(axis=2).max(axis=1)
+        # ⚠ THE ROW'S EXTREMES, NOT EVERY PIXEL'S DEVIATION.
+        #
+        # "Every pixel within 6 of the ground on every channel" is the same
+        # statement as "the row's brightest channel is no more than 6 above
+        # the ground and its darkest no more than 6 below", and the second
+        # form never materialises an array the size of the crop. The partner
+        # pages run to 24,000 device rows at 667x375; the difference is a
+        # 200MB temporary per section against a 70KB one, and this scan runs
+        # on eighty-four shots.
+        high = block.max(axis=1).astype(np.int16)
+        low = block.min(axis=1).astype(np.int16)
+        deviation = np.maximum(high - ground, ground - low).max(axis=1)
         uniform = deviation <= GROUND_TOLERANCE
         run = 0
         start = 0
@@ -1104,7 +1113,13 @@ def dialog_probe(browser, base, axe_source, failures, mode):
         "if (!d) return null; const c = d.querySelector('button'); "
         "const cr = c ? c.getBoundingClientRect() : null; "
         "const img = d.querySelector('img'); "
-        "return { name: d.getAttribute('aria-label') || '', "
+        # The accessible name of a dialog is `aria-label` OR the text of
+        # whatever `aria-labelledby` points at, and Radix names a dialog
+        # the second way. Reading only the first said "no name" about a
+        # dialog that has one.
+        "const by = d.getAttribute('aria-labelledby'); "
+        "const named = by ? (document.getElementById(by) || {}).textContent : null; "
+        "return { name: (d.getAttribute('aria-label') || named || '').trim(), "
         "closeW: cr ? Math.round(cr.width * 100) / 100 : null, "
         "closeH: cr ? Math.round(cr.height * 100) / 100 : null, "
         "imgW: img ? img.naturalWidth : null, "

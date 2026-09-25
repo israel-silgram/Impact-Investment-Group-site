@@ -32,7 +32,7 @@ import {
   workflowFooter,
   type Seg,
 } from "@/content/services";
-import { SIZES_HALF_FROM_TABLET, variantSrcSet } from "@/lib/responsive-image";
+import { SIZES_HALF_FROM_TABLET, intrinsic, variantSrcSet } from "@/lib/responsive-image";
 
 /**
  * /platform — "Our Services".
@@ -781,6 +781,13 @@ function MissionControl() {
  * wide and legible, and there is nothing for a dialog to do.
  */
 function ProductCapture() {
+  /* ⚠ ONE ID, SET BY HAND, AND BOTH THINGS THAT NEED A NAME POINT AT IT.
+     Radix names a dialog by wiring `aria-labelledby` to the id it generates
+     for its own `Title`. Overriding that id with a literal broke the wiring
+     and axe returned `aria-dialog-name`, serious, on the open state: the
+     title was there and nothing pointed at it. `useId` gives one stable id
+     that the content, the title and the scroll region all agree on. */
+  const titleId = React.useId();
   const [phone, setPhone] = React.useState(false);
   React.useEffect(() => {
     const query = window.matchMedia("(max-width: 767px)");
@@ -817,24 +824,55 @@ function ProductCapture() {
           </DialogTrigger>
           <DialogPortal>
             <DialogOverlay />
-            <DialogPrimitive.Content className="fixed inset-0 z-50 flex flex-col bg-page">
-              <DialogTitle className="sr-only">{servicesHero.image.caption}</DialogTitle>
-              {/* `touch-action` names the two gestures this box is for: drag
-                  it sideways, or pinch it. Without it a drag inside a fixed
-                  layer is ambiguous and the browser picks. */}
-              <div className="flex-1 overflow-auto [touch-action:pan-x_pan-y_pinch-zoom]">
+            <DialogPrimitive.Content
+              aria-labelledby={titleId}
+              aria-describedby={undefined}
+              className="fixed inset-0 z-50 flex flex-col bg-page"
+            >
+              <DialogTitle id={titleId} className="sr-only">
+                {servicesHero.image.caption}
+              </DialogTitle>
+              {/* ⚠ A SCROLL CONTAINER NEEDS A TAB STOP AND A NAME, which is
+                  what axe returns as `scrollable-region-focusable`, serious,
+                  and what the first cut of this dialog shipped. It is the same
+                  rule the hero's snap strip answers to and the same answer:
+                  `tabIndex` for the stop, and the dialog's own existing title
+                  for the name, so nothing new is written.
+
+                  `touch-action` names the two gestures the box is for: drag it
+                  sideways, or pinch it. Without it a drag inside a fixed layer
+                  is ambiguous and the browser picks.
+
+                  The width comes from the variants manifest rather than from
+                  the two numbers on the figure above, which say 2241 by 1207
+                  where the file on disk is 1600 by 862. Opening the capture at
+                  a width it does not have would upscale it, which is the one
+                  thing this dialog exists to avoid. */}
+              <div
+                tabIndex={0}
+                role="group"
+                aria-labelledby={titleId}
+                className="flex-1 overflow-auto [touch-action:pan-x_pan-y_pinch-zoom] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-teal-600"
+              >
                 <img
                   src={servicesHero.image.src}
                   alt=""
                   aria-hidden="true"
-                  width={2241}
-                  height={1207}
+                  width={intrinsic(servicesHero.image.src)?.width}
+                  height={intrinsic(servicesHero.image.src)?.height}
                   className="h-auto max-w-none"
                 />
               </div>
-              <DialogClose className="absolute right-3 top-3 grid size-11 place-items-center rounded-full border border-rule bg-page text-ink shadow-[var(--shadow-card)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600">
+              {/* The one new string this wave authors, and it is the
+                  accessible name of an icon-only control, which is the only
+                  place the canon allows one. `aria-label` rather than an
+                  `sr-only` span so it is an attribute rather than a rendered
+                  run of text. */}
+              <DialogClose
+                aria-label="Close"
+                className="absolute right-3 top-3 grid size-11 place-items-center rounded-full border border-rule bg-page text-ink shadow-[var(--shadow-card)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+              >
                 <X aria-hidden="true" className="size-5" strokeWidth={1.6} />
-                <span className="sr-only">Close</span>
               </DialogClose>
             </DialogPrimitive.Content>
           </DialogPortal>
