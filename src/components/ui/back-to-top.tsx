@@ -38,15 +38,41 @@ const APPEAR_AFTER_VIEWPORTS = 2;
 /** Must match --duration-route in styles.css, which times the exit. */
 const EXIT_MS = 200;
 
+/**
+ * ⚠ WAVE 490: AND IT IS NOT OFFERED WHILE THE REGISTER JOURNEY'S OWN BAR IS.
+ *
+ * The journey's sticky Continue bar is the reachable control on those routes
+ * and it finishes in this corner. Wave 414 answered that by moving this
+ * control to the left gutter on every route at every phone width, where it
+ * covered the first 44px of whatever line was at the foot of the viewport;
+ * the answer here is narrower and is the one the collision actually asks for,
+ * which is not to offer a second control where there is already one.
+ *
+ * MEASURED, not assumed from the route. The bar is `position: sticky` inside
+ * the panel, so it is on screen while the form is and gone once the visitor
+ * has scrolled past it, and reading its box is the difference between "this
+ * is a register page" and "the bar is in the way". Read in the same handler as
+ * the scroll position, which also fires on resize and on the first paint, so
+ * a step change that scrolls is a step change that re-reads.
+ */
+function barOnScreen(): boolean {
+  const bar = document.querySelector(".registration-actions");
+  if (!bar) return false;
+  const box = bar.getBoundingClientRect();
+  return box.bottom > 0 && box.top < window.innerHeight && box.height > 0;
+}
+
 export function BackToTop() {
   const [mounted, setMounted] = React.useState(false);
   const [shown, setShown] = React.useState(false);
+  const [blocked, setBlocked] = React.useState(false);
   const exitTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   React.useEffect(() => {
     const onScroll = () => {
       const past = window.scrollY > APPEAR_AFTER_VIEWPORTS * window.innerHeight;
       setShown(past);
+      setBlocked(barOnScreen());
       if (past) {
         if (exitTimer.current) {
           clearTimeout(exitTimer.current);
@@ -70,7 +96,7 @@ export function BackToTop() {
     };
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted || blocked) return null;
 
   return (
     <button

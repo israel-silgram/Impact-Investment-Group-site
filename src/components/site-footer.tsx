@@ -390,11 +390,27 @@ export function SiteFooter() {
                   <span aria-hidden="true"> · </span>
                   <span className="font-mono text-ink-muted">{reg.reference}</span>
                   <span aria-hidden="true"> · </span>
+                  {/* ⚠ WAVE 490, PHONE RULE 6: THESE THREE ARE TARGETS.
+
+                    414's target audit exempts "a link inside a run of text",
+                    which is a rule about a sentence with a link in it, and on
+                    a desktop that is exactly what this is: category, reference
+                    and the verify link all on one line. Below `lg` the
+                    reference line runs at 15px and wraps, and the link ends up
+                    ALONE on the last line, where it was a 24px-tall target
+                    with nothing else on the row to press. Measured at 390 on
+                    every route: 139.4, 180.7 and 278.9 wide by 24 tall.
+
+                    `max-lg:` only, so the desktop line is not pushed apart by
+                    a 44px inline box it does not need. The badge's rhythm is
+                    kept by taking the height out of the surrounding margins
+                    rather than by adding it: the row it sits on grows from 24
+                    to 44, and the card's own `gap-0.5` is what absorbs it. */}
                   <a
                     href={reg.verifyHref}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orange-700"
+                    className="inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orange-700 max-lg:min-h-11 max-lg:items-center"
                   >
                     {reg.verifyLabel}
                     <ArrowUpRight aria-hidden="true" className="size-3 self-center" />

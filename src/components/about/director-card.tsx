@@ -102,7 +102,17 @@ export function DirectorCard({
     return (
       <article
         className={cn(
-          "group section-light relative flex h-full min-h-[356px] flex-col items-center overflow-hidden rounded-[18px] bg-cream-card px-4 pb-5 pt-5 text-center",
+          /* ⚠ WAVE 490: `md:min-h-[356px]`. THE EQUALISATION IS A DESKTOP ROW'S
+             CONCERN AND IT DOES NOT SURVIVE A SINGLE COLUMN.
+
+             356px is the height of the tallest card in a row of four, so a
+             row of four comes out level. Below `md` there is no row: the
+             cards are one per line, each one 356px tall whatever it holds,
+             with 52 to 77px of empty cream under the last credential line on
+             the shorter ones. A minimum height that equalises nothing is
+             just a hole. The card's own `pb-5` is the gap now, which is the
+             20px the design already gives every other card on this page. */
+          "group section-light relative flex h-full flex-col items-center overflow-hidden rounded-[18px] bg-cream-card px-4 pb-5 pt-5 text-center md:min-h-[356px]",
           "border border-white/70 shadow-[0_18px_42px_color-mix(in_srgb,var(--brand-ink)_20%,transparent)]",
           "transition-[transform,box-shadow] duration-300 motion-reduce:transition-none",
           "hover:-translate-y-1.5 hover:shadow-[0_26px_55px_color-mix(in_srgb,var(--brand-ink)_30%,transparent)]",

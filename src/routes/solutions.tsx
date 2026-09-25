@@ -219,14 +219,33 @@ function SolutionsPage() {
                           <p className="eyebrow tracking-[0.14em] text-orange-700">{row.layer}</p>
                           <div className="mt-2.5 flex flex-wrap">
                             {row.people.map((p) => (
+                              /* ⚠ WAVE 490, PHONE RULE 7: THE PILL WRAPS WHOLE.
+                                 `inline-flex` with `align-items: baseline` and
+                                 no wrap put the role and the verb on one flex
+                                 line for ever, so when "Care & Support
+                                 Providers" ran out of room it wrapped inside
+                                 its own `b` and left the verb sitting on the
+                                 first baseline beside it, in a column of its
+                                 own with a justified-looking gap between:
+                                 68px tall at 360 and 390 against 43 for every
+                                 other pill on the page.
+
+                                 `flex-wrap` lets the verb drop UNDER the role
+                                 instead, and `whitespace-nowrap` keeps
+                                 "deliver it" together when it lands there.
+                                 `gap-x-[7px]` and not `gap-x-2`, because the
+                                 horizontal gap is the one the desktop uses
+                                 and the desktop does not move: at 1280 every
+                                 pill fits on one line, nothing wraps, and the
+                                 rendering is the one wave 443 shipped. */
                               <span
                                 key={p.role}
-                                className="mb-2 mr-2 inline-flex items-baseline gap-[7px] rounded-full border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)] bg-white px-[15px] py-2 shadow-[0_1px_2px_color-mix(in_srgb,var(--brand-ink)_5%,transparent)]"
+                                className="mb-2 mr-2 inline-flex flex-wrap items-baseline gap-x-[7px] gap-y-0.5 rounded-full border border-[color-mix(in_oklab,var(--color-navy-900)_14%,transparent)] bg-white px-[15px] py-2 shadow-[0_1px_2px_color-mix(in_srgb,var(--brand-ink)_5%,transparent)]"
                               >
                                 <b className="font-heading text-[15px] font-extrabold text-navy-900">
                                   {p.role}
                                 </b>
-                                <span className="text-[14px] font-semibold text-orange-700">
+                                <span className="whitespace-nowrap text-[14px] font-semibold text-orange-700">
                                   {p.verb}
                                 </span>
                               </span>
