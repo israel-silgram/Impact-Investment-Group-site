@@ -58,10 +58,34 @@ export function LogoMarquee({
               plateClassName ?? "h-14 px-3 py-3",
             )}
           >
+            {/* ⚠ WAVE 490: `eager`, AND THAT IS NOT AN OPTIMISATION IN
+                REVERSE. Chrome decides `loading="lazy"` off an element's
+                LAYOUT position and knows nothing about the transform that is
+                moving it. This track is 3,082px wide at 390 inside a 390px
+                window, so 32 of its 36 tiles are parked outside the viewport
+                for ever: measured on 25 September 2026, 4 of 36 were ever
+                requested at 390 and 8 of 41 images had decoded after three
+                seconds of standing on the strip. What a phone showed was a
+                row of empty white plates gliding past with a crest popping
+                into one now and then.
+
+                `fetchpriority="low"` is the other half: these are decoration,
+                but decoration that has to be there, so they are fetched
+                without competing with the hero photographs for the first
+                screen. Eighteen distinct crests at 4.1KB each is 74KB, and
+                the lane renders each of them twice against one URL, so the
+                browser makes eighteen requests and not thirty-six.
+
+                AND THE PLATE IS THE SPAN, NOT THE IMAGE, which is what keeps
+                this inside the `ImageFade` invariant. A tile that has not
+                decoded shows the white plate and its hairline with nothing in
+                it; the image fades in on top. Nothing is hidden in the markup
+                and nothing waits at opacity 0 for JavaScript. */}
             <img
               src={item.logo}
               alt=""
-              loading="lazy"
+              loading="eager"
+              fetchPriority="low"
               decoding="async"
               className={cn("object-contain", imgClassName ?? "h-full w-auto max-w-[9rem]")}
               width={intrinsic(item.logo)?.width}
