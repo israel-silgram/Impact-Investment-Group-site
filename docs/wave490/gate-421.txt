@@ -488,3 +488,4 @@ None. Every pair in the table resolved on every shot.
 
 16 variant readings · 13 under-served images · 401 pairs measured · 26 dividers read
 All assertions passed.
+rc=0

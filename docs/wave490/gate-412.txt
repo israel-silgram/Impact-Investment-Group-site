@@ -1,4 +1,4 @@
-home                            1280  raw=23.09%  ground= 8.20%  body_L=0.981  header_L=0.981  islands=1  axe=0  incomplete=20(measured 20, unmeasured 0, off screen 0)  text=6476  scrollWidth=1280/1280
+home                            1280  raw=23.08%  ground= 8.17%  body_L=0.981  header_L=0.981  islands=1  axe=0  incomplete=20(measured 20, unmeasured 0, off screen 0)  text=6476  scrollWidth=1280/1280
     ok  11.99:1 (floor 3.0)  46.452px/800  rgb(10, 44, 96) on rgb(247, 239, 234) -> rgb(10, 44, 96)  figure:nth-child(1) > figcaption  "Providing Homes"
     ok   4.30:1 (floor 3.0)  46.452px/800  rgb(187, 68, 27) on rgb(237, 230, 225) -> rgb(187, 68, 27)  figure:nth-child(2) > figcaption  "Delivering Support"
     ok  11.07:1 (floor 3.0)  46.452px/800  rgb(10, 44, 96) on rgb(239, 230, 224) -> rgb(10, 44, 96)  figure:nth-child(3) > figcaption  "Transforming Lives"
@@ -19,7 +19,7 @@ home                            1280  raw=23.09%  ground= 8.20%  body_L=0.981  h
     ok   4.83:1 (floor 4.5)  10px/800  rgb(253, 253, 251) on rgb(194, 73, 31) -> rgb(253, 253, 251)  .opacity-100 > .py-11.lg\:py-12.max-w-\[1440px\] > .lg\:flex-row.mt-6.gap-3\.5 > .flex-1.gap-3\.5.flex-col > .reveal[data-revealed="true"]:nth-child(3) > .bg-linear-to-r.from-orange-600.to-orange-500 > .min-w-0 > .text-\[10px\].tracking-\[0\.16em\].uppercase  "THE OTHER SIDE"
     ok   4.68:1 (floor 3.0)  20px/800  rgb(253, 253, 251) on rgb(197, 75, 33) -> rgb(253, 253, 251)  .opacity-100 > .py-11.lg\:py-12.max-w-\[1440px\] > .lg\:flex-row.mt-6.gap-3\.5 > .flex-1.gap-3\.5.flex-col > .reveal[data-revealed="true"]:nth-child(3) > .bg-linear-to-r.from-orange-600.to-orange-500 > .min-w-0 > .text-\[clamp\(1\.0625rem\,1\.6vw\,1\.25rem\)\].text-page.block  "See our solution"
     ok   5.05:1 (floor 4.5)  12.5px/400  rgb(253, 253, 251) on rgb(190, 70, 29) -> rgb(253, 253, 251)  .opacity-100 > .py-11.lg\:py-12.max-w-\[1440px\] > .lg\:flex-row.mt-6.gap-3\.5 > .flex-1.gap-3\.5.flex-col > .reveal[data-revealed="true"]:nth-child(3) > .bg-linear-to-r.from-orange-600.to-orange-500 > .min-w-0 > .text-\[12\.5px\].text-page.block  "The same picture, joined up."
-home                             390  raw=16.65%  ground= 7.59%  body_L=0.981  header_L=0.981  islands=1  axe=0  incomplete=19(measured 18, unmeasured 0, off screen 1)  text=5656  scrollWidth=390/390
+home                             390  raw=16.65%  ground= 7.60%  body_L=0.981  header_L=0.981  islands=1  axe=0  incomplete=19(measured 18, unmeasured 0, off screen 1)  text=5656  scrollWidth=390/390
     ok  11.44:1 (floor 3.0)  37.209px/800  rgb(10, 44, 96) on rgb(241, 234, 229) -> rgb(10, 44, 96)  figure:nth-child(1) > figcaption  "Providing Homes"
     ok  11.26:1 (floor 4.5)  15px/400  rgb(10, 44, 96) on rgb(240, 232, 227) -> rgb(10, 44, 96)  #register-as  "Register to join the waitlist as"
     ok   5.56:1 (floor 4.5)  15px/400  rgb(78, 90, 110) on rgb(236, 228, 223) -> rgb(78, 90, 110)  #hero-role-investor-detail  "Fund homes, earn returns"
@@ -193,7 +193,7 @@ platform                         390  raw= 5.90%  ground= 3.83%  body_L=0.981  h
     ok  13.37:1 (floor 4.5)  13px/800  rgb(10, 44, 96) on rgb(253, 253, 251) -> rgb(10, 44, 96)  .sm\:border-l.sm\:border-t-0.py-4:nth-child(3) > .font-extrabold.text-\[13px\].font-heading  "Long-term resilience"
     ok   6.85:1 (floor 4.5)  15px/400  rgb(78, 90, 110) on rgb(253, 253, 251) -> rgb(78, 90, 110)  .sm\:border-l.sm\:border-t-0.py-4:nth-child(3) > .text-\[11\.5px\].mt-1.leading-relaxed  "Each renewal is a fresh, informed decision—not an assumption"
 the-problem                     1280  raw= 4.69%  ground= 2.99%  body_L=0.981  header_L=0.981  islands=0  axe=0  incomplete=0(measured 0, unmeasured 0, off screen 0)  text=3511  scrollWidth=1280/1280
-the-problem                      390  raw= 6.11%  ground= 3.18%  body_L=0.981  header_L=0.981  islands=0  axe=0  incomplete=0(measured 0, unmeasured 0, off screen 0)  text=3407  scrollWidth=390/390
+the-problem                      390  raw= 6.10%  ground= 3.18%  body_L=0.981  header_L=0.981  islands=0  axe=0  incomplete=0(measured 0, unmeasured 0, off screen 0)  text=3407  scrollWidth=390/390
 solutions                       1280  raw= 5.71%  ground= 3.37%  body_L=0.981  header_L=0.981  islands=0  axe=0  incomplete=20(measured 20, unmeasured 0, off screen 0)  text=3798  scrollWidth=1280/1280
     ok   4.89:1 (floor 4.5)  12px/700  rgb(187, 68, 27) on rgb(250, 245, 238) -> rgb(187, 68, 27)  .reveal[data-revealed="static"] > .tracking-\[0\.14em\].eyebrow.text-orange-700  "THE SOLUTION"
     ok  12.47:1 (floor 3.0)  96px/800  rgb(10, 44, 96) on rgb(250, 244, 237) -> rgb(10, 44, 96)  #solution-heading  "The parts already exist. Nobody joined them."
@@ -215,7 +215,7 @@ solutions                       1280  raw= 5.71%  ground= 3.37%  body_L=0.981  h
     ok  10.18:1 (floor 4.5)  18px/800  rgb(10, 44, 96) on rgb(210, 226, 224) -> rgb(10, 44, 96)  .reveal[data-revealed="true"]:nth-child(5) > .mt-\[7px\].gap-\[18px\].rounded-r-xl > span:nth-child(2) > .text-\[18px\].block.text-ink  "The report"
     ok   5.21:1 (floor 4.5)  13px/400  rgb(78, 90, 110) on rgb(210, 226, 224) -> rgb(78, 90, 110)  .reveal[data-revealed="true"]:nth-child(5) > .mt-\[7px\].gap-\[18px\].rounded-r-xl > span:nth-child(2) > .mt-0\.5.block.max-lg\:text-\[15px\]  "Income and impact, evidenced"
     ok   5.75:1 (floor 4.5)  15px/700  rgb(253, 253, 251) on rgb(26, 112, 110) -> rgb(253, 253, 251)  .py-3 > span[aria-hidden="true"]  "→"
-solutions                        390  raw= 6.98%  ground= 4.49%  body_L=0.981  header_L=0.981  islands=0  axe=0  incomplete=20(measured 20, unmeasured 0, off screen 0)  text=3694  scrollWidth=390/390
+solutions                        390  raw= 6.98%  ground= 4.50%  body_L=0.981  header_L=0.981  islands=0  axe=0  incomplete=20(measured 20, unmeasured 0, off screen 0)  text=3694  scrollWidth=390/390
     ok   4.56:1 (floor 4.5)  12px/700  rgb(187, 68, 27) on rgb(242, 237, 230) -> rgb(187, 68, 27)  .reveal[data-revealed="static"] > .tracking-\[0\.14em\].eyebrow.text-orange-700  "THE SOLUTION"
     ok  12.02:1 (floor 3.0)  40px/800  rgb(10, 44, 96) on rgb(245, 240, 234) -> rgb(10, 44, 96)  #solution-heading  "The parts already exist. Nobody joined them."
     ok   4.25:1 (floor 3.0)  40px/800  rgb(187, 68, 27) on rgb(235, 229, 222) -> rgb(187, 68, 27)  #solution-heading > .text-orange-700  "Nobody joined them."
@@ -239,7 +239,7 @@ solutions                        390  raw= 6.98%  ground= 4.49%  body_L=0.981  h
 partners                        1280  raw= 8.51%  ground= 3.76%  body_L=0.981  header_L=0.981  islands=0  axe=0  incomplete=0(measured 0, unmeasured 0, off screen 0)  text=3593  scrollWidth=1280/1280
 partners                         390  raw= 6.58%  ground= 4.27%  body_L=0.981  header_L=0.981  islands=0  axe=0  incomplete=0(measured 0, unmeasured 0, off screen 0)  text=3489  scrollWidth=390/390
 contact                         1280  raw= 6.22%  ground= 2.60%  body_L=0.981  header_L=0.981  islands=1  axe=0  incomplete=0(measured 0, unmeasured 0, off screen 0)  text=3537  scrollWidth=1280/1280
-contact                          390  raw= 9.46%  ground= 3.74%  body_L=0.981  header_L=0.981  islands=1  axe=0  incomplete=0(measured 0, unmeasured 0, off screen 0)  text=3433  scrollWidth=390/390
+contact                          390  raw= 9.43%  ground= 3.72%  body_L=0.981  header_L=0.981  islands=1  axe=0  incomplete=0(measured 0, unmeasured 0, off screen 0)  text=3433  scrollWidth=390/390
 register                        1280  raw= 3.51%  ground= 2.25%  body_L=0.981  header_L=0.981  islands=0  axe=0  incomplete=2(measured 2, unmeasured 0, off screen 0)  text=3007  scrollWidth=1280/1280
     ok  12.01:1 (floor 4.5)  19px/600  rgb(10, 44, 96) on rgb(232, 243, 241) -> rgb(10, 44, 96)  .registration-resident > .min-w-0.gap-1.flex-col > .text-\[19px\].leading-snug.font-heading  "Resident"
     ok   6.15:1 (floor 4.5)  14px/400  rgb(78, 90, 110) on rgb(232, 243, 241) -> rgb(78, 90, 110)  .registration-resident > .min-w-0.gap-1.flex-col > .leading-\[1\.6\].text-\[14px\].max-lg\:text-\[15px\]  "Find suitable homes"
@@ -301,10 +301,11 @@ legal                           1280  raw= 2.85%  ground= 2.02%  body_L=0.981  h
 legal                            390  raw= 5.28%  ground= 3.16%  body_L=0.981  header_L=0.981  islands=0  axe=0  incomplete=0(measured 0, unmeasured 0, off screen 0)  text=4428  scrollWidth=390/390
 404                             1280  raw= 0.69%  ground= 0.69%  body_L=0.981  header_L=1.000  islands=0  axe=0  incomplete=0(measured 0, unmeasured 0, off screen 0)  text=89  scrollWidth=1280/1280
 404                              390  raw= 2.06%  ground= 2.06%  body_L=0.981  header_L=1.000  islands=0  axe=0  incomplete=0(measured 0, unmeasured 0, off screen 0)  text=89  scrollWidth=390/390
-reveal /about                     263 samples over 4532ms  min_opacity=1.000  first_reveal_top=129px  hydrated=yes  states=(none)/static  final=static
-reveal /partner-with-investor     290 samples over 5017ms  min_opacity=1.000  first_reveal_top=174px  hydrated=yes  states=(none)/static  final=static
+reveal /about                     241 samples over 4527ms  min_opacity=1.000  first_reveal_top=129px  hydrated=yes  states=(none)/static  final=static
+reveal /partner-with-investor     266 samples over 5016ms  min_opacity=1.000  first_reveal_top=174px  hydrated=yes  states=(none)/static  final=static
 
 axe colour-contrast INCOMPLETE nodes: 274 across 28 shots, 274 measured off the pixels, 0 unmeasured; 1 off screen past the hero strip's edge below 768, on home @ 390.
 
-28 shots in docs\screenshots\wave412. Darkest raw: home @ 1280, 23.09%. Darkest ground: home @ 1280, 8.20%.
+28 shots in docs\screenshots\wave412. Darkest raw: home @ 1280, 23.08%. Darkest ground: home @ 1280, 8.17%.
 All assertions passed.
+rc=0

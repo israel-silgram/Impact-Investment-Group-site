@@ -1,0 +1,124 @@
+home                                360  scrollWidth=360/360 ok  targets=52+53 scrolled(under44 6, tight 0)  type=101(under floor 0, leading 0, measure 0)  headings=12(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 1, 'no-area': 8, 'aria-hidden': 2, 'skip-link': 1, 'label-is-the-target': 0}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.741  narrowest_column=36.1ch  demand_section=2469px (3.09vh)
+    first screen (800px): photos=['hero-homes.webp', 'hero-support.webp'] headlines=['Providing Homes', 'Delivering Support'] actions=4 divider=1
+about                               360  scrollWidth=360/360 ok  targets=41+42 scrolled(under44 6, tight 0)  type=120(under floor 0, leading 0, measure 0)  headings=21(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 0, 'no-area': 8, 'aria-hidden': 0, 'skip-link': 1, 'label-is-the-target': 0}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.741  narrowest_column=30.9ch
+platform                            360  scrollWidth=360/360 ok  targets=51+52 scrolled(under44 6, tight 0)  type=94(under floor 0, leading 0, measure 0)  headings=16(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 0, 'no-area': 8, 'aria-hidden': 0, 'skip-link': 1, 'label-is-the-target': 0}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.740  narrowest_column=35.9ch
+the-problem                         360  scrollWidth=360/360 ok  targets=37+38 scrolled(under44 6, tight 0)  type=90(under floor 0, leading 0, measure 0)  headings=4(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 0, 'no-area': 8, 'aria-hidden': 0, 'skip-link': 1, 'label-is-the-target': 0}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.738  narrowest_column=31.8ch
+solutions                           360  scrollWidth=360/360 ok  targets=38+39 scrolled(under44 6, tight 0)  type=82(under floor 0, leading 0, measure 0)  headings=8(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 1, 'no-area': 8, 'aria-hidden': 0, 'skip-link': 1, 'label-is-the-target': 0}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.741  narrowest_column=39.8ch
+partners                            360  scrollWidth=360/360 ok  targets=50+51 scrolled(under44 6, tight 0)  type=64(under floor 0, leading 0, measure 0)  headings=20(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 0, 'no-area': 8, 'aria-hidden': 0, 'skip-link': 1, 'label-is-the-target': 0}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.741  narrowest_column=39.8ch
+contact                             360  scrollWidth=360/360 ok  targets=61+62 scrolled(under44 6, tight 0)  type=90(under floor 0, leading 0, measure 0)  headings=6(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 2, 'no-area': 8, 'aria-hidden': 0, 'skip-link': 1, 'label-is-the-target': 0}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.741  narrowest_column=37.5ch
+register                            360  scrollWidth=360/360 ok  targets=47+48 scrolled(under44 6, tight 0)  type=63(under floor 0, leading 0, measure 0)  headings=6(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 0, 'no-area': 8, 'aria-hidden': 0, 'skip-link': 1, 'label-is-the-target': 0}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.741  narrowest_column=39.8ch
+register-investor                   360  scrollWidth=360/360 ok  targets=49+50 scrolled(under44 6, tight 0)  type=63(under floor 0, leading 0, measure 0)  headings=6(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 0, 'no-area': 8, 'aria-hidden': 1, 'skip-link': 1, 'label-is-the-target': 2}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.740  narrowest_column=37.1ch
+register-resident                   360  scrollWidth=360/360 ok  targets=48+49 scrolled(under44 6, tight 0)  type=67(under floor 0, leading 0, measure 0)  headings=6(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 0, 'no-area': 8, 'aria-hidden': 1, 'skip-link': 1, 'label-is-the-target': 2}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.740  narrowest_column=35.7ch
+partner-with-investor               360  scrollWidth=360/360 ok  targets=43+44 scrolled(under44 6, tight 0)  type=69(under floor 0, leading 0, measure 0)  headings=8(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 0, 'no-area': 8, 'aria-hidden': 0, 'skip-link': 1, 'label-is-the-target': 0}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.740  narrowest_column=34.6ch
+partner-with-local-authority        360  scrollWidth=360/360 ok  targets=43+44 scrolled(under44 6, tight 0)  type=69(under floor 0, leading 0, measure 0)  headings=8(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 0, 'no-area': 8, 'aria-hidden': 0, 'skip-link': 1, 'label-is-the-target': 0}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.740  narrowest_column=34.7ch
+legal                               360  scrollWidth=360/360 ok  targets=47+48 scrolled(under44 6, tight 0)  type=81(under floor 0, leading 0, measure 0)  headings=9(breaking 0)  fixed=0+1 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 1, 'no-area': 8, 'aria-hidden': 0, 'skip-link': 1, 'label-is-the-target': 0}
+    header h=56 top=0 sticky mark=[20, 6, 118, 44] src='logo-lockup-400.webp'  first_ink=y6.0  logo_L=header 0.803, footer 0.741  narrowest_column=36.1ch
+    404 @ 360: the standalone 404, no chrome by design, chrome checks skipped
+404                                 360  scrollWidth=360/360 ok  targets=1+1 scrolled(under44 0, tight 0)  type=1(under floor 0, leading 0, measure 0)  headings=2(breaking 0)  fixed=0+0 scrolled(overlapping 0)  axe=0  exempt={'inline-in-text': 0, 'no-area': 0, 'aria-hidden': 0, 'skip-link': 0, 'label-is-the-target': 0}
+    header h=None top=None None mark=None src=None  first_ink=yNone  logo_L=none  narrowest_column=45.3ch
+
+keyboard  /register/investor @ 390x420  bar_bottom=56  focused=<input name='email'> top=223 font=16px  go='Create account & continue' top=356 pos=static  in_view=yes  after_one_scroll=yes
+drawer    backdrop press @ 390  scrim=<DIV aria-hidden=true> [390, 844]  panel=[336, 844]  topmost_at(12,400)='drawer-scrim fixed inset-0 z-50 cursor-pointer bg-ink/40 xl:hidden'  -> panel_gone=yes  scrim_gone=yes  focus_returned_to='site-drawer'  aria-expanded=false  body_overflow='visible'
+picker    / @ 390  before=('Manchester', focus='select[data-authority-picker]')  ArrowDown  ->  after=('Salford', focus='select[data-authority-picker]')  value_moved=yes  figures_moved=yes
+bar/field account field                      focused='input#confirmPassword' box=(212..268) bar=(343..420, h=77, sticky)  scroll-margin-bottom=80px  vh=420  clear=yes
+bar/field survey option 12 of 12             focused='input[Anywhere in England,]' box=(190..284) bar=(318..395, h=77, sticky)  scroll-margin-bottom=80px  vh=420  clear=yes
+success   /register/investor @ 390x844  scrollY=0  header_bottom=56  vh=844  heading=373..413 "You're registered"  message=429..559  action=591..643 'Explore the platform'
+
+14 shots in docs\screenshots\wave414. 608 interactive targets measured at the top of the page and 621 scrolled, 1229 in all, 78 under 44x44 and 0 closer than 8px.
+1054 type nodes measured, 0 under their size floor, 0 under a line box of 1.6 and 0 under 30 characters to the line at 360, where that floor binds. Narrowest column of the run: 30.9ch, about @ 360: Supported housing, asset management and children's.
+    narrowest column @      360: 30.9 characters  (about @ 360: Supported housing, asset management and children's)  <- the floor binds here
+132 headings measured, 0 breaking a word. 0 fixed layers at the top of the page and 13 scrolled, 13 tested pairwise, 0 overlapping. 0 serious or critical axe violations. 0 shots overflow.
+brand lockup, darkest box of the run: header 0.803 (home @ 360), footer 0.738 (the-problem @ 360), floor 0.80.
+
+78 FAILURE(S):
+  - home @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - home @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - home @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - home @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - home @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - home @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - about @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - about @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - about @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - about @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - about @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - about @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - platform @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - platform @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - platform @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - platform @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - platform @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - platform @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - the-problem @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - the-problem @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - the-problem @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - the-problem @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - the-problem @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - the-problem @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - solutions @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - solutions @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - solutions @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - solutions @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - solutions @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - solutions @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - partners @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - partners @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - partners @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - partners @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - partners @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - partners @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - contact @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - contact @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - contact @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - contact @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - contact @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - contact @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - register @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - register @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - register @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - register @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - register @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - register @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - register-investor @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - register-investor @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - register-investor @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - register-investor @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - register-investor @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - register-investor @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - register-resident @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - register-resident @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - register-resident @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - register-resident @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - register-resident @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - register-resident @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - partner-with-investor @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - partner-with-investor @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - partner-with-investor @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - partner-with-investor @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - partner-with-investor @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - partner-with-investor @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - partner-with-local-authority @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - partner-with-local-authority @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - partner-with-local-authority @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - partner-with-local-authority @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - partner-with-local-authority @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - partner-with-local-authority @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - legal @ 360: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - legal @ 360: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - legal @ 360: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+  - legal @ 360, scrolled: target 139.44x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify on register"
+  - legal @ 360, scrolled: target 180.7x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify with the scheme"
+  - legal @ 360, scrolled: target 278.88x24, under 44x44. a [inline-flex items-baseline gap-0.5 font-semibold text-teal-600 transition-colors duration-200 hover:text-orang] "Verify the broker on the FCA register"
+rc=1

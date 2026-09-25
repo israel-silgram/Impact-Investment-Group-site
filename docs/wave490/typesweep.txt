@@ -1,6 +1,6 @@
-TOTAL 174 small type utilities in src
-WITH A FLOOR 133
-WITHOUT 41
+TOTAL 137 small type utilities in src
+WITH A FLOOR 98
+WITHOUT 39
 
 src/components/about/director-card.tsx:202	text-[12.5px]	<p className="mt-0.5 text-[12.5px] font-semibold text-teal-600">{director.role}</p>
 src/components/about/director-card.tsx:267	text-[12.5px]	<p className="mt-0.5 text-[12.5px] font-semibold text-teal-600">{director.role}</p>
@@ -8,10 +8,10 @@ src/components/about/director-card.tsx:355	text-[12.5px]	<p className="mt-0.5 te
 src/components/contact/enquiry-form.tsx:124	text-[13px]	<p id={id} role="alert" className="error-in text-[13px] font-medium text-destructive">
 src/components/contact/enquiry-form.tsx:493	text-[13px]	<p role="alert" className="error-in text-[13px] font-medium text-destructive">
 src/components/home/mission-solution.tsx:150	text-[13px]	"mt-2 text-[13px] font-bold leading-snug",
-src/components/home/mission-solution.tsx:449	text-[13px]	className="mt-4 inline-flex min-h-11 items-center gap-1.5 font-heading text-[13px] font-bold text-teal-600 lg:min-h-0 transition-c
+src/components/home/mission-solution.tsx:449	text-[13px]	className="mt-4 inline-flex min-h-11 items-center gap-1.5 font-heading text-[13px] font-bold text-teal-600 lg:min-h-0 transition-colors duration-200 hover:text-
 src/components/home/mission-solution.tsx:523	text-[13px]	<span className="text-[13px] font-semibold">
 src/components/home/mission-solution.tsx:530	text-[13px]	<span className="text-[13px] font-semibold">
-src/components/partners/partner-page.tsx:562	text-[12px]	className={`relative z-10 grid size-14 place-items-center rounded-full border-[3px] font-mono text-[12px] font-bold transition-all
+src/components/partners/partner-page.tsx:562	text-[12px]	className={`relative z-10 grid size-14 place-items-center rounded-full border-[3px] font-mono text-[12px] font-bold transition-all duration-300 sm:mx-auto sm:mb
 src/components/register/waitlist-form.tsx:276	text-[13px]	<p id={id} role="alert" className="text-[13px] font-medium text-destructive">
 src/components/register/waitlist-form.tsx:552	text-[13px]	<p id="email-help" className="text-[13px] leading-snug text-ink-muted">
 src/components/register/waitlist-form.tsx:569	text-[13px]	<p id="organisation-help" className="text-[13px] leading-snug text-ink-muted">
@@ -22,24 +22,22 @@ src/components/site-footer.tsx:285	text-[13px]	<ul className="flex flex-col gap-
 src/components/site-footer.tsx:314	text-[13px]	<ul className="flex flex-col gap-1 text-[13px]">
 src/components/site-footer.tsx:331	text-[13px]	<ul className="flex flex-col gap-1 text-[13px]">
 src/components/site-footer.tsx:350	text-[13px]	<ul className="grid grid-flow-col grid-cols-2 grid-rows-5 gap-x-5 gap-y-1 text-[13px]">
-src/components/site-footer.tsx:365	text-[13px]	className="inline-flex min-h-11 items-center gap-1 font-heading text-[13px] font-semibold text-teal-600 transition-colors duration
+src/components/site-footer.tsx:365	text-[13px]	className="inline-flex min-h-11 items-center gap-1 font-heading text-[13px] font-semibold text-teal-600 transition-colors duration-200 hover:text-orange-700 lg:
 src/components/site-footer.tsx:380	text-[13px]	<p className="font-heading text-[13px] font-semibold leading-tight text-ink">
 src/components/site-footer.tsx:466	text-[13px]	<ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-0.5 text-[13px]">
-src/components/site-header.tsx:355	text-[12px]	<p className="mt-3 max-w-[25ch] text-[12px] font-medium leading-relaxed">
 src/components/site-header.tsx:372	text-[13px]	<span className="text-[13px] font-semibold">
-src/components/site-header.tsx:391	text-[12px]	"group relative flex min-h-14 w-full items-center gap-2.5 px-3 py-2 text-[12px] font-semibold leading-tight text-ink-muted transit
+src/components/site-header.tsx:391	text-[12px]	"group relative flex min-h-14 w-full items-center gap-2.5 px-3 py-2 text-[12px] font-semibold leading-tight text-ink-muted transition-colors hover:bg-page-alt h
 src/components/site-header.tsx:686	text-[13px]	<span aria-hidden="true" className="ml-auto text-[13px] text-teal-600">
 src/components/solutions/section-rail.tsx:36	text-[12px]	<span className="text-[12px] tabular-nums text-ink-muted">{section.number}</span>
-src/components/ui/empty-slot.tsx:37	text-[12px]	{detail ? <p className="max-w-[36ch] text-[12px] text-ink-muted">{detail}</p> : null}
 src/routes/about.tsx:429	text-[13px]	<p className="mt-2 text-[13px] font-semibold leading-snug text-navy-900">
-src/routes/contact.tsx:210	text-[13px]	className="flex min-h-11 items-center justify-between gap-3 border-b border-navy-700 text-[13px] text-mist last:border-b-0 focus-v
+src/routes/contact.tsx:210	text-[13px]	className="flex min-h-11 items-center justify-between gap-3 border-b border-navy-700 text-[13px] text-mist last:border-b-0 focus-visible:outline-2 focus-visible
 src/routes/contact.tsx:220	text-[12.5px]	<p className="mt-2 font-heading text-[12.5px] font-bold text-white">{crisisNote}</p>
-src/routes/contact.tsx:238	text-[13.5px]	"min-h-11 cursor-pointer rounded-full border px-4 font-heading text-[13.5px] font-bold transition-colors duration-200 focus-visibl
+src/routes/contact.tsx:238	text-[13.5px]	"min-h-11 cursor-pointer rounded-full border px-4 font-heading text-[13.5px] font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outl
 src/routes/legal.tsx:222	text-[13px]	<p className="font-mono text-[13px] text-ink-muted">{reg.reference}</p>
-src/routes/legal.tsx:235	text-[13px]	className="mt-auto inline-flex min-h-11 items-center gap-1 pt-2 text-[13px] font-semibold text-teal-600 underline underline-offset
-src/routes/legal.tsx:280	text-[13px]	className="mt-auto inline-flex min-h-11 items-center gap-1 pt-2 text-[13px] font-semibold text-teal-600 underline underline-offset
+src/routes/legal.tsx:235	text-[13px]	className="mt-auto inline-flex min-h-11 items-center gap-1 pt-2 text-[13px] font-semibold text-teal-600 underline underline-offset-4 transition-colors duration-
+src/routes/legal.tsx:280	text-[13px]	className="mt-auto inline-flex min-h-11 items-center gap-1 pt-2 text-[13px] font-semibold text-teal-600 underline underline-offset-4 transition-colors duration-
 src/routes/platform.tsx:376	text-[13px]	<p className="mt-5 font-heading text-[13px] font-bold uppercase tracking-[0.14em] text-ink">
 src/routes/platform.tsx:408	text-[13px]	<p className="font-heading text-[13px] font-extrabold text-ink">{principle.title}</p>
-src/routes/platform.tsx:613	text-[13px]	className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-teal-600 px-4 py-2.5 font-heading text-[13px] font-bold text-
+src/routes/platform.tsx:613	text-[13px]	className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-teal-600 px-4 py-2.5 font-heading text-[13px] font-bold text-page transition-transform hove
 src/routes/platform.tsx:704	text-[12px]	<span className="font-heading text-[12px] font-bold">
-src/routes/platform.tsx:957	text-[12px]	<span className="absolute left-4 top-4 z-3 -rotate-2 bg-white px-3 py-2 font-sans text-[12px] font-bold text-navy-900 shadow-[6px_
+src/routes/platform.tsx:960	text-[12px]	<span className="absolute left-4 top-4 z-3 -rotate-2 bg-white px-3 py-2 font-sans text-[12px] font-bold text-navy-900 shadow-[6px_6px_0_var(--color-orange-600)]

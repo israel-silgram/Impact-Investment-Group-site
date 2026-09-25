@@ -1,0 +1,44 @@
+# The fix pass 490b's final gate: freeze, lint, typecheck, build, at the code head.
+head 9752c60
+status before:
+ M src/routeTree.gen.ts
+warning: in the working copy of 'src/routeTree.gen.ts', LF will be replaced by CRLF the next time Git touches it
+hash before e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 (src and scripts)
+warning: in the working copy of 'src/routeTree.gen.ts', LF will be replaced by CRLF the next time Git touches it
+hash before, whole tree e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+
+## /contact variant per build
+build 1: /contact prerendered as the Investor enquiry variant
+build 2: /contact prerendered as the Media variant
+build 3: /contact prerendered as the Investor enquiry variant
+build 4: /contact prerendered as the Media variant
+build 5: /contact prerendered as the Support variant
+
+## lint, whole tree, LF-normalised git archive
+head 9752c60: ✖ 447 problems (432 errors, 15 warnings)
+base f61b3b8: ✖ 447 problems (432 errors, 15 warnings)
+changed files: rc=0 
+
+## tsc
+rc=0
+
+## build
+pages prerendered: 36
+rc=0
+
+## postbuild
+pages-postbuild: trimmed 565 characters of duplicated tail from dist\client\contact\index.html
+pages-postbuild: base="/", patched 0 file(s), trimmed a duplicated document tail from 1 file(s)
+rc=0
+
+## wave414-responsive-images --check
+24 referenced sources carry an alpha channel and every variant of them still does.
+Every referenced image has the variants it should have.
+rc=0
+
+status after:
+ M src/routeTree.gen.ts
+warning: in the working copy of 'src/routeTree.gen.ts', LF will be replaced by CRLF the next time Git touches it
+hash after e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 (src and scripts)
+warning: in the working copy of 'src/routeTree.gen.ts', LF will be replaced by CRLF the next time Git touches it
+hash after, whole tree 16b94a2358ec85a15162a0cc22fa99338b67ad87
