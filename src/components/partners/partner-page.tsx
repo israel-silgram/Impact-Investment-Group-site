@@ -571,7 +571,7 @@ function PartnerPlatformStack({ profile }: { profile: PartnerProfile }) {
                     <span className="block font-heading text-[20px] font-extrabold text-ink">
                       {presentation.labels[index]}
                     </span>
-                    <span className="mt-1 block text-[13px] font-medium text-ink-muted">
+                    <span className="mt-1 block text-[13px] max-lg:text-[15px] font-medium text-ink-muted">
                       {presentation.readoutTitles[index]}
                     </span>
                   </span>

@@ -282,7 +282,9 @@ function SolutionsPage() {
               {productPitch.items.map((item) => (
                 <li key={item.title} className="flex-1 border-t-2 border-teal-600 pt-3">
                   <p className="font-heading text-[16.5px] font-extrabold text-ink">{item.title}</p>
-                  <p className="mt-1.5 text-[13px] leading-snug text-ink-muted">{item.detail}</p>
+                  <p className="mt-1.5 text-[13px] max-lg:text-[15px] leading-snug text-ink-muted">
+                    {item.detail}
+                  </p>
                 </li>
               ))}
             </ul>

@@ -56,6 +56,23 @@ AXE = ROOT / "node_modules" / "axe-core" / "axe.min.js"
 # (label, width, height, is_phone). 1280 is the desktop control and is NOT
 # emulated as a touch device, because the thing being held still there is the
 # desktop composition and the desktop composition is the hover one.
+#
+# ⚠ AND THE SHOTS ARE TAKEN AT ONE DEVICE PIXEL PER CSS PIXEL.
+#
+# Every measurement in this file is in CSS pixels: rule 2's 96px run, item 3's
+# 24px peek band, item 9's 32px tail. A 2x capture answers all of them by
+# doubling every figure and then halving it again, and it writes a 40MB PNG
+# per route to do it: the home page at 390 is 780 by 16,400 device pixels.
+# Eighty-four of those, written and read straight back, is the single largest
+# cost in this gate and on a machine under memory pressure it is the only one
+# that matters. At 1x the same shots are a quarter of the bytes and every
+# assertion reads the same number, because the grid the numbers are in is the
+# CSS grid either way.
+#
+# The site is still EMULATED as a 2x touch device where that changes
+# behaviour: `is_mobile` and `has_touch` are what put the `hover: none` and
+# `pointer: coarse` arms under test, and they are untouched. This is the
+# shutter's resolution and nothing else.
 PROFILES = [
     ("360", 360, 800, True),
     ("390", 390, 844, True),
@@ -331,10 +348,24 @@ SPAN_CLAUSE_CHARS = 20
 
 SPANS = js(r"""
   const out = [];
-  const HOSTS = 'p, li, article, figcaption, dd, blockquote';
+  // ⚠ EVERY INLINE RUN ON THE PAGE, NOT ONLY THE ONES INSIDE A PARAGRAPH.
+  //
+  // The first cut of this scan walked `span, b, strong, ...` inside
+  // `p, li, article, figcaption, dd, blockquote`, which is the shape the wave
+  // 490 brief describes. A read-only review of the diff found the hole: two of
+  // the runs the brief itself names by hand have no such ancestor. The flip
+  // bar's "The same picture, joined up." sits in a `button` inside a `div`,
+  // and the sourced ticker's label and source are siblings under
+  // `.logo-marquee__track`. Both were classified, both would have failed the
+  // 15px floor at the base, and NEITHER appeared in a single run of this gate:
+  // the fixes for them were unasserted.
+  //
+  // So the host restriction is gone. Any element that renders text of its own
+  // is measured, which is a superset of what wave 414 reads (`p`, `li` and the
+  // controls) and of what this scan read before.
   const CONTROLS = 'a[href], button, summary, label, [role="button"]';
-  document.querySelectorAll(HOSTS).forEach((host) => {
-    host.querySelectorAll('span, b, strong, em, i, small, a, code, li').forEach((el) => {
+  {
+    document.querySelectorAll('body *').forEach((el) => {
       if (!seen(el) || hidden(el)) return;
       const box = el.getBoundingClientRect();
       if (box.width < 2 || box.height < 2) return;
@@ -359,16 +390,38 @@ SPANS = js(r"""
       const isName = !!control && whole === own;
       const s = getComputedStyle(el);
       const size = parseFloat(s.fontSize);
+      const weight = parseInt(s.fontWeight, 10) || 400;
       const tracking = s.letterSpacing === 'normal' ? 0 : parseFloat(s.letterSpacing) / size;
       const cls = el.getAttribute('class') || '';
       const eyebrow = s.textTransform === 'uppercase' && tracking >= 0.1;
-      const caption = !!el.closest('figcaption') || /source-line|caption/.test(cls);
+      // ⚠ A DISPLAY LINE IS NOT BODY, AND THE TEST IS WAVE 414's OWN.
+      //
+      // `PROSE_MAX_WEIGHT = 599` and "not Barlow or Anton" is how
+      // `scripts/wave414-mobile.py` separates a headline from prose, and the
+      // reason is the same here: a card's title is often written as a `<p>`,
+      // it is set in the heading face or at 600 and above, and its size is a
+      // brand decision rather than reading comfort. Widening this scan to the
+      // whole tree brought every such title into it, so the same rule comes
+      // with it. One site, one definition of a headline.
+      const heading = /^h[1-6]$/.test(el.tagName.toLowerCase()) ||
+        weight >= 600 || /Barlow|Anton/i.test(s.fontFamily) || size > 17.5;
+      // A CAPTION, in the four shapes this site actually writes one in: a
+      // `figcaption`, a class that says so, a `<small>` (which is what the
+      // element means), and a SOURCE CREDIT, which on this site is always a
+      // middot-separated run carrying the year the figure is from
+      // ("gov.uk · at 31 March 2025", "National Housing Federation · Apr
+      // 2024"). The brief's own rule 5 puts captions and source lines at 13.
+      const caption = !!el.closest('figcaption') ||
+        /source-line|caption/.test(cls) ||
+        el.tagName.toLowerCase() === 'small' ||
+        (own.indexOf('\u00b7') !== -1 && /\b(19|20)\d\d\b/.test(own));
       const mono = /mono/i.test(s.fontFamily);
       const clause = own.length >= """ + str(SPAN_CLAUSE_CHARS) + r""" && own.indexOf(' ') !== -1;
       const kind = isName ? 'name'
         : eyebrow ? 'eyebrow'
         : caption ? 'caption'
         : mono ? 'mono'
+        : heading ? 'heading'
         : clause ? 'body' : 'label';
       out.push({
         tag: el.tagName.toLowerCase(),
@@ -378,7 +431,7 @@ SPANS = js(r"""
         text: own.slice(0, 46),
       });
     });
-  });
+  }
   return out;
 """)
 
@@ -1225,7 +1278,7 @@ def register_viewport_probe(browser, base, out, failures, mode):
                             ("/register/resident", "register-resident")):
             ctx = browser.new_context(
                 viewport={"width": width, "height": height},
-                is_mobile=True, has_touch=True, device_scale_factor=2,
+                is_mobile=True, has_touch=True, device_scale_factor=1,
             )
             page = ctx.new_page()
             page.goto(f"{base}{route}", wait_until="networkidle")
@@ -1249,7 +1302,7 @@ def register_viewport_probe(browser, base, out, failures, mode):
                     "y: Math.max(0, r.top), w: Math.min(r.width, innerWidth), "
                     "h: Math.min(r.bottom, innerHeight) - Math.max(0, r.top) }]; }"
                 )
-                for _, at, run in empty_runs(pixels, boxes, 2, width):
+                for _, at, run in empty_runs(pixels, boxes, 1, width):
                     if run > worst:
                         worst = run
                         worst_at = round(y + at)
@@ -1342,7 +1395,11 @@ TOUCHED = {
         ".hero-band",
         ".logo-marquee",
     ],
-    "platform": ['[aria-live="polite"]', "figure", ".logo-marquee"],
+    # ⚠ NARROW SELECTORS. A bare `figure` here would exempt every figure on
+    # the route from the 1280 pairing by breadth rather than by measurement,
+    # and only one of them is touched: the product capture, which is the page's
+    # single `figure.panel`.
+    "platform": ['[aria-live="polite"]', "figure.panel", ".logo-marquee"],
     "about": ["article", "ol > li > div"],
     "solutions": ["span.rounded-full"],
 }
@@ -1496,7 +1553,8 @@ def check_spans(entries, failures, where, width):
         return 0, {}
     floors = {"body": SPAN_BODY_MIN_PX, "caption": SPAN_CAPTION_MIN_PX,
               "eyebrow": SPAN_LABEL_MIN_PX, "mono": SPAN_LABEL_MIN_PX,
-              "label": SPAN_LABEL_MIN_PX, "name": SPAN_LABEL_MIN_PX}
+              "label": SPAN_LABEL_MIN_PX, "name": SPAN_LABEL_MIN_PX,
+              "heading": SPAN_LABEL_MIN_PX}
     bad = 0
     seen = {}
     for entry in entries:
@@ -1556,13 +1614,21 @@ def main() -> None:
         browser = playwright.chromium.launch()
 
         for path, slug in pages:
+            # ⚠ A FRESH BROWSER PER ROUTE. Eighty-four contexts through one
+            # Chromium leaves it holding every page it has ever rendered, and
+            # on a machine with a gigabyte free that turns a four-second shot
+            # into a two-minute one. Closing it between routes costs about a
+            # second each and keeps the readings comparable from the first
+            # route to the last, which is the part that matters.
+            browser.close()
+            browser = playwright.chromium.launch()
             for label, width, height, phone in profiles:
                 ctx = browser.new_context(
                     viewport={"width": width, "height": height},
                     is_mobile=phone, has_touch=phone,
-                    device_scale_factor=2 if phone else 1,
+                    device_scale_factor=1,
                 )
-                scale = 2 if phone else 1
+                scale = 1
                 page = ctx.new_page()
                 page.goto(f"{base}{path}", wait_until="networkidle")
                 settle(page)

@@ -344,7 +344,7 @@ export function MissionSolution() {
                   <p className="mt-1.5 font-heading text-[clamp(3rem,6.6vw,4.75rem)] font-extrabold leading-none tracking-[-0.04em] text-[#ffffff]">
                     <CountUpFigure value={hero.value} />
                   </p>
-                  <p className="mt-2.5 text-[12px] text-page">{hero.basis}</p>
+                  <p className="mt-2.5 text-[12px] max-lg:text-[13px] text-page">{hero.basis}</p>
                 </div>
               </Reveal>
 

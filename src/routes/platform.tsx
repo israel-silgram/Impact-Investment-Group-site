@@ -669,7 +669,7 @@ function MissionControl() {
             <div className="absolute inset-[34%] grid place-items-center rounded-full border border-teal-600/50 bg-[radial-gradient(circle,var(--color-tint-teal),var(--color-page)_68%)] text-center shadow-[var(--shadow-glow-teal)]">
               <span>
                 <strong className="block font-heading text-ink">One workflow</strong>
-                <small className="text-ink-muted">Find · Price · Prove</small>
+                <small className="max-lg:text-[13px] text-ink-muted">Find · Price · Prove</small>
               </span>
             </div>
             {workflow.map((step, index) => {
@@ -969,7 +969,7 @@ function LivingComic() {
                 />
                 <span
                   className={cn(
-                    "absolute inset-x-4 bottom-4 z-3 rounded-[20px] border-[3px] border-rule bg-white p-4 text-center text-[13px] leading-relaxed text-navy-900 transition-[opacity,transform] duration-500 sm:p-5 sm:text-[14px]",
+                    "absolute inset-x-4 bottom-4 z-3 rounded-[20px] border-[3px] border-rule bg-white p-4 text-center max-lg:text-[15px] lg:text-[14px] leading-relaxed text-navy-900 transition-[opacity,transform] duration-500 sm:p-5",
                     active
                       ? "translate-y-0 opacity-100"
                       : "pointer-events-none translate-y-7 opacity-0",
@@ -1018,7 +1018,9 @@ function ServicesPage() {
               <Link to="/contact">Contact Us</Link>
             </Button>
           </div>
-          <p className="mt-3 text-[12.5px] text-ink-muted">{servicesClose.ctaNote}</p>
+          <p className="mt-3 text-[12.5px] max-lg:text-[15px] text-ink-muted">
+            {servicesClose.ctaNote}
+          </p>
         </div>
 
         {/* The product itself, captioned. The caption is the honest bit: this

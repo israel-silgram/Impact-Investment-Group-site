@@ -585,7 +585,10 @@ export function RegistrationFlow({ role }: { role: RegisterRoleContent }) {
                       )}
                     </div>
                     {field === "password" && (
-                      <p id="password-help" className="mt-2 text-sm leading-relaxed text-ink-muted">
+                      <p
+                        id="password-help"
+                        className="mt-2 text-sm max-lg:text-[15px] leading-relaxed text-ink-muted"
+                      >
                         {copy.passwordHelp}
                       </p>
                     )}
