@@ -1390,7 +1390,17 @@ RUNNING = """
 # has every image decoded is past this line at once.
 AWAIT_IMAGES = """
 async () => {
-  const pending = [...document.images].filter((i) => !i.complete);
+  // ⚠ AND ONLY THE PICTURES THAT ARE ON THE PAGE.
+  //
+  // A `loading="lazy"` image inside a `display: none` subtree is never
+  // REQUESTED, so its `complete` is false for ever and waiting on it costs
+  // the whole ceiling on every shot. Below `md` the home page has exactly one
+  // of those and it is this wave's own doing: item 2 takes the inactive face
+  // of the purpose section out of the flow, so a phone does not fetch
+  // `trio-wave.webp` until the reader asks for the solution face. An image
+  // with no box is not a picture anybody is waiting for.
+  const pending = [...document.images]
+    .filter((i) => !i.complete && i.offsetParent !== null && i.clientWidth > 0);
   await Promise.all(pending.map((i) => new Promise((done) => {
     i.addEventListener('load', done, { once: true });
     i.addEventListener('error', done, { once: true });
