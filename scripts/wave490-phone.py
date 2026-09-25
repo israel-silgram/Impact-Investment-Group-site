@@ -253,6 +253,39 @@ def js(body: str) -> str:
 SECTIONS = js("""
   const boxes = [];
   const main = document.querySelector('main') || document.body;
+  // ⚠ WAVE 490b: A SECTION'S PADDING IS OFTEN ON ITS WRAPPER. This site
+  // writes a band as <section> > <div className="... py-12 ..."> as often as
+  // it puts the padding on the section itself, so the padding at an edge is
+  // summed down the chain of in-flow children that sit on that edge.
+  const inFlow = (k) => {
+    const ks = getComputedStyle(k);
+    return ks.display !== 'none' && ks.position !== 'absolute' && ks.position !== 'fixed';
+  };
+  const edgePad = (el, side) => {
+    let total = 0;
+    for (let n = el, depth = 0; n && depth < 6; depth += 1) {
+      const cs = getComputedStyle(n);
+      total += parseFloat(side === 'top' ? cs.paddingTop : cs.paddingBottom) || 0;
+      const kids = [...n.children].filter(inFlow);
+      n = side === 'top' ? kids[0] : kids[kids.length - 1];
+    }
+    return total;
+  };
+  // A box at least as tall as the screen that centres what is in it is a
+  // ONE-SCREEN COMPOSITION: the space above and below the content is the
+  // centring, not a band between two pieces of content. The 404 page is the
+  // one this site has (`flex min-h-screen items-center`). Its runs are
+  // printed with their numbers and not failed; the report carries them.
+  const oneScreen = (el) => {
+    const cs = getComputedStyle(el);
+    if ((parseFloat(cs.minHeight) || 0) < innerHeight - 1) return false;
+    const flex = cs.display.indexOf('flex') !== -1;
+    const grid = cs.display.indexOf('grid') !== -1;
+    const column = cs.flexDirection.indexOf('column') === 0;
+    if (flex) return column ? cs.justifyContent === 'center' : cs.alignItems === 'center';
+    if (grid) return cs.alignContent === 'center' || cs.alignItems === 'center';
+    return false;
+  };
   const nodes = new Set([...main.querySelectorAll('section'), ...main.children]);
   for (const el of nodes) {
     if (!seen(el)) continue;
@@ -276,6 +309,9 @@ SECTIONS = js("""
       y: r.top + scrollY,
       w: Math.min(r.width, document.documentElement.clientWidth),
       h: r.height,
+      padTop: edgePad(el, 'top'),
+      padBottom: edgePad(el, 'bottom'),
+      oneScreen: oneScreen(el),
     });
   }
   return boxes;
@@ -972,20 +1008,31 @@ def empty_runs(pixels, boxes, scale, page_w):
     """Rule 2. Every run of rows inside a section whose every pixel is the
     section's own ground, longer than EMPTY_RUN_MAX CSS pixels.
 
-    ⚠ BETWEEN TWO PIECES OF CONTENT, WHICH MEANS INTERIOR RUNS ONLY.
+    Returns (section id, document y, run length, where, allowance) tuples,
+    `where` being "interior", "top edge" or "last row".
 
-    A run that touches a section's own top or bottom edge is that section's
-    PADDING, and `CLAUDE.md` sets that padding at 96px on a desktop and 56 on
-    a phone: counting it would fail the brand system for following itself. The
-    first run of this scan did count them and returned 100px at the top of the
-    partners hero at 667x375 and 135px under the last band of a partner page,
-    both of which are the space the design asks for.
+    ⚠ WAVE 490b: EDGE RUNS AND TRAILING RUNS ARE COUNTED.
 
-    The hole this wave is actually about is a trailing one, and it is NOT left
-    unmeasured by that: item 2 measures the gap between the visible face's last
-    line and the foot of its section against a 48px ceiling, and item 9 does
-    the same for a card against 32px. Those are the tighter rules and they are
-    the right ones for a tail; this is the rule for a hole in the middle.
+    The first cut reported interior runs only: a run starting on a section's
+    first row was taken for its top padding, and the loop only ever closed a
+    run on a row of content, so a run reaching the section's last row was
+    never reported at all. The wave 490 brief's own defect, 295px of cream
+    under the purpose section's last line, is exactly such a run, and the
+    independent re-check of wave 490 found that this scan read 0 on the base
+    build, where that hole is. A rule that cannot see the defect it was
+    written for is not a rule.
+
+    So every run is a candidate, wherever it sits. What a run touching an
+    edge is ALLOWED is the section's own padding on that side, summed down
+    the wrappers that sit on that edge (see `edgePad` in SECTIONS): that is
+    the space `CLAUDE.md` asks for and the only part of an edge run the
+    design can claim. Whatever is left over is held to the same 96px as an
+    interior run.
+
+    The one shape that is read and not held to it is a box at least a screen
+    tall that centres its content (`oneScreen` in SECTIONS), because its edge
+    runs are the centring. Those come back with `where` ending "(one-screen,
+    centred)" and the caller prints them rather than failing them.
     """
     found = []
     height, width = pixels.shape[0], pixels.shape[1]
@@ -1011,6 +1058,7 @@ def empty_runs(pixels, boxes, scale, page_w):
         low = block.min(axis=1).astype(np.int16)
         deviation = np.maximum(high - ground, ground - low).max(axis=1)
         uniform = deviation <= GROUND_TOLERANCE
+        runs = []
         run = 0
         start = 0
         for index, flag in enumerate(uniform):
@@ -1019,14 +1067,23 @@ def empty_runs(pixels, boxes, scale, page_w):
                     start = index
                 run += 1
             elif run:
-                # `start > 0` is what makes this interior: a run beginning on
-                # the section's first row is its top padding, and the `elif`
-                # itself is what ends the scan on content, so a run that
-                # reaches the last row is never reported at all.
-                if run > EMPTY_RUN_MAX * scale and start > 0:
-                    found.append((box["id"], round(box["y"] + start / scale),
-                                  round(run / scale)))
+                runs.append((start, run))
                 run = 0
+        if run:
+            # The run that reaches the section's last row, which the first cut
+            # of this loop dropped on the floor.
+            runs.append((start, run))
+        rows = len(uniform)
+        for start, length in runs:
+            top = start == 0
+            bottom = start + length >= rows
+            allowance = (box.get("padTop", 0) if top else 0) +                 (box.get("padBottom", 0) if bottom else 0)
+            if length / scale - allowance > EMPTY_RUN_MAX:
+                where = "top edge" if top else ("last row" if bottom else "interior")
+                if (top or bottom) and box.get("oneScreen"):
+                    where += " (one-screen, centred)"
+                found.append((box["id"], round(box["y"] + start / scale),
+                              round(length / scale), where, round(allowance)))
     return found
 
 
@@ -1427,7 +1484,7 @@ def register_viewport_probe(browser, base, out, failures, mode):
                     "y: Math.max(0, r.top), w: Math.min(r.width, innerWidth), "
                     "h: Math.min(r.bottom, innerHeight) - Math.max(0, r.top) }]; }"
                 )
-                for _, at, run in empty_runs(pixels, boxes, 1, width):
+                for _, at, run, _edge, _allow in empty_runs(pixels, boxes, 1, width):
                     if run > worst:
                         worst = run
                         worst_at = round(y + at)
@@ -1807,7 +1864,7 @@ def main() -> None:
     tally = {"shots": 0, "runs": 0, "spans": 0, "spanbad": 0, "clashes": 0,
              "pills": 0, "pillbad": 0, "verify": 0, "verifybad": 0,
              "cards": 0, "cardbad": 0, "peek": 0, "peekbad": 0,
-             "drawer": 0, "drawerbad": 0}
+             "drawer": 0, "drawerbad": 0, "centred": 0}
 
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -1856,12 +1913,21 @@ def main() -> None:
                 # ── RULE 2, off the shot's own pixels ─────────────────────
                 sections = page.evaluate(SECTIONS)
                 runs = empty_runs(pixels, sections, scale, width)
-                tally["runs"] += len(runs)
-                for section_id, y, run in runs:
+                for section_id, y, run, edge, allowance in runs:
+                    if edge.endswith("(one-screen, centred)"):
+                        tally["centred"] += 1
+                        print(
+                            f"rule2     {where:<22} {run}px of ground at the {edge} of "
+                            f"{section_id}, from y={y}: the centring of a box a screen tall, "
+                            f"read and not failed"
+                        )
+                        continue
+                    tally["runs"] += 1
                     fail(
                         f"{where}: {run}px of nothing but the section's own ground inside "
-                        f"{section_id}, from y={y}. Over the {EMPTY_RUN_MAX}px a band may "
-                        f"carry between two pieces of content."
+                        f"{section_id}, from y={y} ({edge}; the section's own padding "
+                        f"there allows {allowance}px). Over the {EMPTY_RUN_MAX}px a band "
+                        f"may carry."
                     )
 
                 # ── ITEM 4 and rule 5 ─────────────────────────────────────
@@ -2212,7 +2278,8 @@ def main() -> None:
     print()
     print(
         f"wave490   {tally['shots']} shots · {tally['runs']} empty runs over "
-        f"{EMPTY_RUN_MAX}px · {tally['spans']} span type nodes, {tally['spanbad']} under "
+        f"{EMPTY_RUN_MAX}px (edges and last rows counted; {tally['centred']} one-screen "
+        f"centring runs read, not failed) · {tally['spans']} span type nodes, {tally['spanbad']} under "
         f"floor · {tally['verify']} Verify readings, {tally['verifybad']} under 44 · "
         f"{tally['cards']} cards, {tally['cardbad']} with a tail over {CARD_TAIL_MAX}px · "
         f"{tally['pills']} pills, {tally['pillbad']} splitting a verb · "
