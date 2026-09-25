@@ -2664,14 +2664,15 @@ canvas[data-map="in"] {
 
 /* AND IT IS NOT OFFERED WHERE SOMETHING ELSE OWNS THE CORNER.
 
-   The drawer: wave 413's rule is that nothing floats over an open drawer, and
-   `:has()` states it where the control is rather than in a second piece of
-   React state that can fall out of step with the panel's own.
+   Wave 413's rule is that nothing floats over an open drawer. `:has()` states
+   it where the control is rather than in a second piece of React state that
+   can fall out of step with the panel's own, and the drawer is reachable up to
+   `xl` while the control is offered from `lg`, so the two do overlap and this
+   rule is live rather than decorative.
 
-   The register journey: `registration-flow.tsx` measures whether its own
-   sticky bar is on screen and does not render the control while it is. The
-   bar IS the reachable control there, and it is the one the route exists to
-   have pressed. */
+   The register journey's own sticky Continue bar needs no rule here: it is
+   sticky below 1024px and the control is not offered below 1024px at all. See
+   `back-to-top.tsx` for the arithmetic that settled the breakpoint. */
 body:has(.drawer-panel) .back-to-top {
   display: none;
 }

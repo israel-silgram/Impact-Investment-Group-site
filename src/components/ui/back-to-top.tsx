@@ -39,40 +39,58 @@ const APPEAR_AFTER_VIEWPORTS = 2;
 const EXIT_MS = 200;
 
 /**
- * ⚠ WAVE 490: AND IT IS NOT OFFERED WHILE THE REGISTER JOURNEY'S OWN BAR IS.
+ * ⚠ WAVE 490, PHONE RULE 3: THE CONTROL IS OFFERED FROM `lg` AND NOT BELOW IT,
+ * AND THAT IS A MEASUREMENT RATHER THAN A PREFERENCE.
  *
- * The journey's sticky Continue bar is the reachable control on those routes
- * and it finishes in this corner. Wave 414 answered that by moving this
- * control to the left gutter on every route at every phone width, where it
- * covered the first 44px of whatever line was at the foot of the viewport;
- * the answer here is narrower and is the one the collision actually asks for,
- * which is not to offer a second control where there is already one.
+ * Rule 3 says nothing floats over words: a fixed control's box may meet no
+ * text node's box and no other control's box. On this site that is a statement
+ * about ARITHMETIC, not about which corner the control is put in.
  *
- * MEASURED, not assumed from the route. The bar is `position: sticky` inside
- * the panel, so it is on screen while the form is and gone once the visitor
- * has scrolled past it, and reading its box is the difference between "this
- * is a register page" and "the bar is in the way". Read in the same handler as
- * the scroll position, which also fires on resize and on the first paint, so
- * a step change that scrolls is a step change that re-reads.
+ * At 390 the page's gutters are 20px and the content column is the other
+ * 350px. A 44px circle placed against either gutter therefore covers 44 of
+ * those 350px, which is an eighth of every line it lands on. Wave 414 put it
+ * against the LEFT gutter, where it covered the first 44px of whatever line
+ * was at the foot of the viewport, which is what the wave 490 brief measured
+ * and what item 8 was raised about. Putting it back against the RIGHT gutter,
+ * which this wave did first, moves it on to the ENDS of those lines instead:
+ * measured over eleven routes after two viewports of scroll, 5 intersections
+ * at 360, 10 at 390, 7 at 414, 2 at 667x375 and 1 at 768.
+ *
+ * There is no third position. A phone has no gutter wide enough to hold a
+ * 44px target beside a full-width column, and 44px is rule 6's floor, so the
+ * control cannot be made smaller either.
+ *
+ * At 1280 there is room and the same reading is **0 intersections on all ten
+ * chromed routes**, which is why the control keeps the desktop unchanged. The
+ * breakpoint is `lg`, the width at which the rest of this site switches to its
+ * desktop composition: the demand map becomes pressable, the solutions rail
+ * becomes a side rail, and the register journey's sticky bands stop sticking.
+ *
+ * NOT RENDERED rather than hidden with CSS, so there is no tab stop and no
+ * markup for a phone to carry. A phone still has the browser's own way back to
+ * the top; what it no longer has is a button sitting on the last line it was
+ * reading. Section 9 of the report proposes what a phone control would need.
  */
-function barOnScreen(): boolean {
-  const bar = document.querySelector(".registration-actions");
-  if (!bar) return false;
-  const box = bar.getBoundingClientRect();
-  return box.bottom > 0 && box.top < window.innerHeight && box.height > 0;
-}
+const OFFERED_FROM = "(min-width: 1024px)";
 
 export function BackToTop() {
   const [mounted, setMounted] = React.useState(false);
   const [shown, setShown] = React.useState(false);
-  const [blocked, setBlocked] = React.useState(false);
+  const [offered, setOffered] = React.useState(false);
   const exitTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  React.useEffect(() => {
+    const query = window.matchMedia(OFFERED_FROM);
+    const read = () => setOffered(query.matches);
+    read();
+    query.addEventListener("change", read);
+    return () => query.removeEventListener("change", read);
+  }, []);
 
   React.useEffect(() => {
     const onScroll = () => {
       const past = window.scrollY > APPEAR_AFTER_VIEWPORTS * window.innerHeight;
       setShown(past);
-      setBlocked(barOnScreen());
       if (past) {
         if (exitTimer.current) {
           clearTimeout(exitTimer.current);
@@ -96,7 +114,7 @@ export function BackToTop() {
     };
   }, []);
 
-  if (!mounted || blocked) return null;
+  if (!mounted || !offered) return null;
 
   return (
     <button
