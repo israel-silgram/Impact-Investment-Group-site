@@ -771,18 +771,53 @@ REGISTER = js("""
   const barHeight = bar ? Math.round(bar.getBoundingClientRect().height) : null;
   const barFlowTop = bar ? Math.round(bar.getBoundingClientRect().top - pr.top) : null;
 
-  // Every box with ink or a border in it, in the panel's own coordinates.
+  // ⚠ WAVE 490b: LEAF BOXES WITH INK, NOT EVERY DESCENDANT.
+  //
+  // The first cut put EVERY descendant into the rows, `div.registration-step`
+  // and the `form` included. A wrapper spans every gap inside it, so the
+  // widest gap this could ever find was the one before the first wrapper,
+  // and every reading printed "1px at y=24 before div.registration-step"
+  // whatever the step held: an assertion that could not fail. It also let a
+  // wrapper that runs past the panel's padding set the reach, which is why
+  // the tail read minus 74 at 390 and minus 98 at 360.
+  //
+  // So the rows are the things a visitor can SEE: every run of text, taken
+  // off a Range so it is the glyphs' own rectangle, and every control, image
+  // and icon. Nothing that merely contains them. And the body of a closed
+  // `<details>` is not on the screen, so it is not a row; its `<summary>` is.
+  const closedBody = (el) => {
+    for (let d = el.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) {
+      if (d.open) continue;
+      const summary = d.querySelector(':scope > summary');
+      if (!summary || !summary.contains(el)) return true;
+    }
+    return false;
+  };
   const rows = [];
-  panel.querySelectorAll('*').forEach((el) => {
-    const s = getComputedStyle(el);
-    if (s.display === 'none' || s.visibility === 'hidden') return;
-    if (s.position === 'absolute' || s.position === 'fixed') return;
-    const r = el.getBoundingClientRect();
-    if (r.height < 1 || r.width < 1) return;
-    rows.push({ top: r.top - pr.top, bottom: r.bottom - pr.top,
-                tag: el.tagName.toLowerCase(),
-                cls: (el.getAttribute('class') || '').slice(0, 40) });
-  });
+  const push = (r, what) => {
+    if (r.height < 2 || r.width < 2) return;
+    rows.push({ top: r.top - pr.top, bottom: r.bottom - pr.top, what: what });
+  };
+  const walker = document.createTreeWalker(panel, NodeFilter.SHOW_TEXT);
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+    const words = (n.nodeValue || '').trim();
+    if (!words) continue;
+    const host = n.parentElement;
+    if (!host || closedBody(host)) continue;
+    const hs = getComputedStyle(host);
+    if (hs.visibility === 'hidden') continue;
+    const range = document.createRange();
+    range.selectNodeContents(n);
+    for (const r of range.getClientRects()) push(r, '"' + words.slice(0, 30) + '"');
+  }
+  panel.querySelectorAll('input:not([type=hidden]), select, textarea, button, img, svg')
+    .forEach((el) => {
+      if (closedBody(el)) return;
+      const es = getComputedStyle(el);
+      if (es.display === 'none' || es.visibility === 'hidden') return;
+      push(el.getBoundingClientRect(), el.tagName.toLowerCase() +
+        (el.getAttribute('name') ? '[' + el.getAttribute('name') + ']' : ''));
+    });
   rows.sort((a, b) => a.top - b.top);
 
   let reach = padTop;
@@ -793,9 +828,21 @@ REGISTER = js("""
     if (row.top - reach > worst) {
       worst = row.top - reach;
       worstAt = reach;
-      worstWhat = row.tag + '.' + row.cls;
+      worstWhat = row.what;
     }
     reach = Math.max(reach, row.bottom);
+  }
+  // The bar's own ink, as well as its box, so a reader can see how much of
+  // the box is the controls and how much is the bar's padding.
+  let barInk = null;
+  if (bar) {
+    let top = Infinity, bottom = -Infinity;
+    bar.querySelectorAll('button, a[href], input, select').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.height < 2) return;
+      top = Math.min(top, r.top); bottom = Math.max(bottom, r.bottom);
+    });
+    if (bottom > top) barInk = Math.round(bottom - top);
   }
   const contentBottom = pr.height - padBottom;
   const stepHeight = Math.round(step.getBoundingClientRect().height);
@@ -815,6 +862,8 @@ REGISTER = js("""
     worstGap: Math.round(worst * 100) / 100,
     worstAt: Math.round(worstAt),
     worstWhat: worstWhat,
+    rows: rows.length,
+    barInk: barInk,
   };
 """)
 
@@ -2033,24 +2082,33 @@ def main() -> None:
                         print(
                             f"item11    {where:<22} panel={reg['panelHeight']}px "
                             f"step={reg['stepHeight']}px (min {reg['stepMinHeight']}) "
-                            f"bar={reg['barHeight']}px {reg['barPosition']} at flow y="
-                            f"{reg['barFlowTop']}  tail under the last content="
-                            f"{reg['gap']:.0f}px  widest gap in the flow="
-                            f"{reg['worstGap']:.0f}px at y={reg['worstAt']} before {reg['worstWhat'][:40]}"
+                            f"bar={reg['barHeight']}px (controls {reg['barInk']}px) "
+                            f"{reg['barPosition']} at flow y={reg['barFlowTop']}  "
+                            f"{reg['rows']} leaf ink boxes  tail under the last ink="
+                            f"{reg['gap']:.1f}px  widest gap between two inks="
+                            f"{reg['worstGap']:.1f}px at y={reg['worstAt']} before {reg['worstWhat'][:40]}"
                         )
-                        ceiling = (reg["barHeight"] or 0) + 16
+                        # ⚠ THE BAR'S HEIGHT PLUS 16, AS THE BRIEF SETS IT, AND
+                        # NEVER MORE THAN RULE 2's 96. The bar's height is read
+                        # off the bar, so a reserve added to the bar's own
+                        # padding would raise its own ceiling and pass: 200px
+                        # of padding makes a 277px bar and a 293px ceiling. A
+                        # gap inside the step is a band inside a section, and
+                        # rule 2 already caps those at 96, so that is the cap.
+                        ceiling = min((reg["barHeight"] or 0) + 16, EMPTY_RUN_MAX)
                         if width < 768 and reg["gap"] > ceiling:
                             fail(
-                                f"{where}: {reg['gap']:.0f}px between the last content of the "
-                                f"step and the foot of the card, over the bar's "
-                                f"{reg['barHeight']}px plus 16"
+                                f"{where}: {reg['gap']:.0f}px between the last ink of the "
+                                f"step and the foot of the card, over the ceiling of "
+                                f"{ceiling}px (the bar's {reg['barHeight']}px plus 16, at most "
+                                f"{EMPTY_RUN_MAX})"
                             )
                         if width < 768 and reg["worstGap"] > ceiling:
                             fail(
                                 f"{where}: {reg['worstGap']:.0f}px of the step's flow at "
-                                f"y={reg['worstAt']}, before {reg['worstWhat'][:40]}, has nothing laid "
-                                f"out in it, over the "
-                                f"bar's {reg['barHeight']}px plus 16"
+                                f"y={reg['worstAt']}, before {reg['worstWhat'][:40]}, carries no "
+                                f"ink, over the ceiling of {ceiling}px (the bar's "
+                                f"{reg['barHeight']}px plus 16, at most {EMPTY_RUN_MAX})"
                             )
 
                 # ── ITEM 8, after two viewports of scroll ─────────────────
