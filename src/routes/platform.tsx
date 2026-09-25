@@ -1,8 +1,17 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { ArrowLeft, ArrowRight, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 import { registerRoute } from "@/content/site";
@@ -405,16 +414,61 @@ function DifferenceStory() {
         </ul>
       </div>
 
+      <DemandTicker />
+    </>
+  );
+}
+
+/**
+ * The six sourced statistics, as a lane above `md` and as a list below it.
+ *
+ * ⚠ WAVE 490, PHONE RULE 4: A PHONE READS, IT DOES NOT CHASE.
+ *
+ * These are three published figures with their publisher and their date on
+ * them, and they were riding a 40-second transform loop 3,082px wide inside a
+ * 390px window. What a visitor saw at 390 was a 22px figure with its label cut
+ * mid-word at the left edge ("ouseholds on local-authority") and its source
+ * running off the right, moving the whole time. The council lane on the home
+ * page is decoration and may move; a sourced statistic is information and may
+ * not, and that is the line rule 4 draws.
+ *
+ * REFLOW, NEVER REWORD. Not one of these strings changes. Below `md` the same
+ * three items stack, one row each, figure over label over source, and the
+ * three clones the loop needs are not rendered at all.
+ *
+ * TWO MECHANISMS, AND BOTH ARE DELIBERATE. `.demand-ticker` in styles.css
+ * stops the lane and stacks it with no JavaScript whatsoever, so the
+ * prerendered document is right at every width before a byte of bundle lands
+ * and the clones are `display: none` rather than merely still. The query below
+ * then drops the clones from the DOM once the bundle is there, so a phone
+ * carries three items and not six. It defaults to the LANE, so the prerendered
+ * markup is exactly the one this page has always shipped and nothing can
+ * mismatch at hydration.
+ */
+function DemandTicker() {
+  const [lane, setLane] = React.useState(true);
+  React.useEffect(() => {
+    const query = window.matchMedia("(min-width: 768px)");
+    const read = () => setLane(query.matches);
+    read();
+    query.addEventListener("change", read);
+    return () => query.removeEventListener("change", read);
+  }, []);
+
+  const items = lane ? [...demandFigures, ...demandFigures] : demandFigures;
+
+  return (
+    <>
       <div
-        className="logo-marquee mt-7 border-y border-rule py-1"
+        className="logo-marquee demand-ticker mt-7 border-y border-rule py-1"
         aria-label="Sourced housing demand figures"
       >
         <div className="logo-marquee__track">
-          {[...demandFigures, ...demandFigures].map((figure, i) => (
+          {items.map((figure, i) => (
             <span
               key={`${figure.id}-${i}`}
               data-clone={i >= demandFigures.length ? "true" : undefined}
-              className="inline-flex items-baseline gap-2 px-3"
+              className="inline-flex items-baseline gap-2 px-3 max-md:flex-col max-md:items-start max-md:gap-0.5 max-md:px-0 max-md:py-1.5"
             >
               <strong
                 className={cn(
@@ -424,13 +478,13 @@ function DifferenceStory() {
               >
                 {figure.value}
               </strong>
-              <span className="text-[12px] text-ink-muted">{figure.label}</span>
-              <span className="text-[10px] max-lg:text-[12px] text-ink-muted">{figure.source}</span>
+              <span className="text-[12px] max-lg:text-[15px] text-ink-muted">{figure.label}</span>
+              <span className="text-[10px] max-lg:text-[13px] text-ink-muted">{figure.source}</span>
             </span>
           ))}
         </div>
       </div>
-      <p className="mt-2 text-[10px] max-lg:text-[12px] text-ink-muted">{compareUpdated}</p>
+      <p className="mt-2 text-[10px] max-lg:text-[13px] text-ink-muted">{compareUpdated}</p>
     </>
   );
 }
@@ -657,14 +711,36 @@ function MissionControl() {
 
           <div
             aria-live="polite"
-            className="relative min-h-[340px] overflow-hidden border border-teal-600/35 bg-[repeating-linear-gradient(0deg,color-mix(in_srgb,var(--brand-teal-on-ink)_3.5%,transparent)_0_3px,transparent_3px_7px)] p-7 shadow-[inset_0_0_55px_color-mix(in_srgb,var(--brand-teal-on-ink)_8%,transparent)]"
+            className="relative overflow-hidden border border-teal-600/35 bg-[repeating-linear-gradient(0deg,color-mix(in_srgb,var(--brand-teal-on-ink)_3.5%,transparent)_0_3px,transparent_3px_7px)] p-7 shadow-[inset_0_0_55px_color-mix(in_srgb,var(--brand-teal-on-ink)_8%,transparent)] md:min-h-[340px]"
           >
+            {/* ⚠ WAVE 490: BELOW `md` THE CHARACTER LEAVES THE TEXT COLUMN.
+
+                One card, three characters: the `src` follows whichever of
+                Petra, Peter and Pippa is selected, so this is the whole of the
+                fix for all three. Above `md` it is the composition wave 443
+                shipped and nothing here touches it.
+
+                What it was at 390: the card is 350px wide, the illustration
+                169px of it, running from x=228 to a right edge that clips it
+                at 370, with its top 79px inside the card. Petra sat UNDER
+                "Describe the home you need. Petra searches the whole sourced
+                market for the closest fit." and under the "Tool online" box,
+                at a quarter strength, with her pointing arm cut off by the
+                card's edge. A ghost behind the words is a decoration on a
+                desktop and a smudge on a phone.
+
+                So on a phone she is a figure rather than a wash: 96px tall,
+                right-aligned above the copy, at full strength and full colour,
+                `object-contain` so nothing is cropped, and the copy runs the
+                card's whole width underneath her. The `min-h` goes with her,
+                because 340px was reserving room for artwork that is no longer
+                in the text column. */}
             <img
               src={PORTAL_ART[activeKey]}
               loading="lazy"
               alt=""
               aria-hidden="true"
-              className="absolute -bottom-5 -right-7 h-[280px] opacity-25 saturate-50 drop-shadow-[0_0_18px_color-mix(in_srgb,var(--brand-teal-on-ink)_70%,transparent)]"
+              className="relative mb-4 ml-auto block h-24 w-auto object-contain md:absolute md:-bottom-5 md:-right-7 md:mb-0 md:ml-0 md:h-[280px] md:opacity-25 md:saturate-50 md:drop-shadow-[0_0_18px_color-mix(in_srgb,var(--brand-teal-on-ink)_70%,transparent)]"
             />
             <p className="relative eyebrow tracking-[0.14em] text-teal-600">{active.chip}</p>
             <h3 className="relative mt-3 max-w-[12ch] font-heading text-[clamp(1.8rem,3.5vw,2.5rem)] font-bold text-ink">
@@ -680,6 +756,96 @@ function MissionControl() {
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * The product capture, and the tap that opens it on a phone.
+ *
+ * ⚠ WAVE 490. This is a 2,241px DESKTOP screenshot of the Property Finder,
+ * served at 348 CSS px on a 390px screen: every word inside it renders under
+ * 4px tall. The words are the product. The caption is right and the picture
+ * was unreadable, so below `md` the figure opens at the capture's own width in
+ * a horizontally scrollable, pinch-zoomable box.
+ *
+ * NO NEW STRING. The trigger takes its accessible name from the capture's
+ * existing `alt`; the dialog takes its name from the figure's existing
+ * caption, which is also the sentence a visitor needs at the moment they are
+ * looking at illustrative figures at full size. The close control reuses the
+ * word `dialog.tsx` already ships.
+ *
+ * AND THE DESKTOP DOES NOT GAIN A CONTROL. The query defaults to false, so the
+ * prerendered document is the figure this page has always shipped, at every
+ * width, and a phone with no JavaScript gets exactly what it gets today rather
+ * than a button that does nothing. Above `md` the capture is half the page
+ * wide and legible, and there is nothing for a dialog to do.
+ */
+function ProductCapture() {
+  const [phone, setPhone] = React.useState(false);
+  React.useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const read = () => setPhone(query.matches);
+    read();
+    query.addEventListener("change", read);
+    return () => query.removeEventListener("change", read);
+  }, []);
+
+  const capture = (
+    <img
+      src={servicesHero.image.src}
+      loading="lazy"
+      alt={servicesHero.image.alt}
+      width={2241}
+      height={1207}
+      className="w-full"
+      srcSet={variantSrcSet(servicesHero.image.src)}
+      sizes={SIZES_HALF_FROM_TABLET}
+    />
+  );
+
+  return (
+    <figure className="panel overflow-hidden">
+      {phone ? (
+        <Dialog>
+          <DialogTrigger asChild>
+            <button
+              type="button"
+              className="block w-full cursor-zoom-in focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-teal-600"
+            >
+              {capture}
+            </button>
+          </DialogTrigger>
+          <DialogPortal>
+            <DialogOverlay />
+            <DialogPrimitive.Content className="fixed inset-0 z-50 flex flex-col bg-page">
+              <DialogTitle className="sr-only">{servicesHero.image.caption}</DialogTitle>
+              {/* `touch-action` names the two gestures this box is for: drag
+                  it sideways, or pinch it. Without it a drag inside a fixed
+                  layer is ambiguous and the browser picks. */}
+              <div className="flex-1 overflow-auto [touch-action:pan-x_pan-y_pinch-zoom]">
+                <img
+                  src={servicesHero.image.src}
+                  alt=""
+                  aria-hidden="true"
+                  width={2241}
+                  height={1207}
+                  className="h-auto max-w-none"
+                />
+              </div>
+              <DialogClose className="absolute right-3 top-3 grid size-11 place-items-center rounded-full border border-rule bg-page text-ink shadow-[var(--shadow-card)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600">
+                <X aria-hidden="true" className="size-5" strokeWidth={1.6} />
+                <span className="sr-only">Close</span>
+              </DialogClose>
+            </DialogPrimitive.Content>
+          </DialogPortal>
+        </Dialog>
+      ) : (
+        capture
+      )}
+      <figcaption className="px-4 py-2.5 text-center text-[12px] max-lg:text-[13px] text-ink-muted">
+        {servicesHero.image.caption}
+      </figcaption>
+    </figure>
   );
 }
 
@@ -821,21 +987,7 @@ function ServicesPage() {
             is real UI running on illustrative review data, and saying so is
             what stops a reader taking the figures as live listings. */}
         <Reveal className="mt-10">
-          <figure className="panel overflow-hidden">
-            <img
-              src={servicesHero.image.src}
-              loading="lazy"
-              alt={servicesHero.image.alt}
-              width={2241}
-              height={1207}
-              className="w-full"
-              srcSet={variantSrcSet(servicesHero.image.src)}
-              sizes={SIZES_HALF_FROM_TABLET}
-            />
-            <figcaption className="px-4 py-2.5 text-center text-[12px] text-ink-muted">
-              {servicesHero.image.caption}
-            </figcaption>
-          </figure>
+          <ProductCapture />
         </Reveal>
       </Band>
 
