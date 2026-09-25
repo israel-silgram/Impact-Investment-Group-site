@@ -145,12 +145,12 @@ export function DirectorCard({
         <h3 className="mt-4 font-heading text-[17px] font-bold leading-tight text-navy-900">
           {director.name}
         </h3>
-        <p className="mt-1 min-h-8 text-[12.5px] font-semibold leading-tight text-teal-600">
+        <p className="mt-1 min-h-8 text-[12.5px] max-lg:text-[15px] font-semibold leading-tight text-teal-600">
           {director.role}
         </p>
         <span aria-hidden="true" className="my-3.5 h-[3px] w-9 rounded-full bg-orange-600" />
         {director.credentials?.length ? (
-          <ul className="flex flex-col gap-2 text-[12px] leading-[1.4] text-slate-ink">
+          <ul className="flex flex-col gap-2 text-[12px] max-lg:text-[15px] leading-[1.4] max-lg:leading-[1.6] text-slate-ink">
             {director.credentials.map((line) => (
               <li key={line}>{line}</li>
             ))}
@@ -201,14 +201,17 @@ export function DirectorCard({
           <h3 className="mt-3 font-heading text-[19px] font-bold text-navy-900">{director.name}</h3>
           <p className="mt-0.5 text-[12.5px] font-semibold text-teal-600">{director.role}</p>
           {director.bio ? (
-            <p className="mb-auto mt-3 text-[13px] leading-relaxed text-slate-ink">
+            <p className="mb-auto mt-3 text-[13px] max-lg:text-[15px] leading-relaxed text-slate-ink">
               {director.bio}
             </p>
           ) : null}
           {director.credentials?.length ? (
             <ul className="mt-3.5 flex flex-col gap-1.5 border-t border-[color-mix(in_oklab,var(--color-navy-900)_12%,transparent)] pt-3.5 text-left">
               {director.credentials.map((line) => (
-                <li key={line} className="flex gap-2 text-[12px] leading-[1.45] text-slate-ink">
+                <li
+                  key={line}
+                  className="flex gap-2 text-[12px] max-lg:text-[15px] leading-[1.45] max-lg:leading-[1.6] text-slate-ink"
+                >
                   <span
                     aria-hidden="true"
                     className={cn(
@@ -263,7 +266,7 @@ export function DirectorCard({
           <h3 className="font-heading text-[15px] font-bold text-navy-900">{director.name}</h3>
           <p className="mt-0.5 text-[12.5px] font-semibold text-teal-600">{director.role}</p>
           {director.credentials?.length ? (
-            <p className="mt-1 text-[12px] leading-snug text-slate-ink">
+            <p className="mt-1 text-[12px] max-lg:text-[15px] leading-snug max-lg:leading-[1.6] text-slate-ink">
               {director.credentials.join(" · ")}
             </p>
           ) : null}
@@ -352,7 +355,7 @@ export function DirectorCard({
         <p className="mt-0.5 text-[12.5px] font-semibold text-teal-600">{director.role}</p>
 
         {lead && director.bio ? (
-          <p className="mt-3 max-w-[70ch] text-[13px] leading-relaxed text-slate-ink">
+          <p className="mt-3 max-w-[70ch] text-[13px] max-lg:text-[15px] leading-relaxed text-slate-ink">
             {director.bio}
           </p>
         ) : null}
@@ -363,7 +366,7 @@ export function DirectorCard({
               <li
                 key={line}
                 className={cn(
-                  "flex gap-2 text-[12px] leading-[1.45] text-slate-ink",
+                  "flex gap-2 text-[12px] max-lg:text-[15px] leading-[1.45] max-lg:leading-[1.6] text-slate-ink",
                   !lead && "justify-center text-center",
                 )}
               >

@@ -335,7 +335,7 @@ export function HomeHero() {
                 </Link>
                 <span
                   id={detailId}
-                  className="mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-ink-muted"
+                  className="mt-2 px-1 text-center text-[13px] max-lg:text-[15px] font-normal leading-[1.4] max-lg:leading-[1.6] text-ink-muted"
                 >
                   {role.detail}
                 </span>

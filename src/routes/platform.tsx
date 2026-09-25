@@ -749,7 +749,7 @@ function MissionControl() {
             <p className="relative mt-4 max-w-[31ch] text-[15px] leading-relaxed text-ink-muted">
               {active.body}
             </p>
-            <p className="relative mt-5 inline-flex border border-teal-600/40 px-3 py-2 text-[13px] text-teal-600">
+            <p className="relative mt-5 inline-flex border border-teal-600/40 px-3 py-2 text-[13px] max-lg:text-[15px] text-teal-600">
               Tool online · <strong className="ml-1">{PORTAL_ACTION[activeKey]}</strong>
             </p>
           </div>

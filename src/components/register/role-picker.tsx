@@ -57,7 +57,9 @@ export function RolePicker({ labelledBy }: { labelledBy: string }) {
               <span className="font-heading text-[19px] font-semibold leading-snug text-ink">
                 {role.label}
               </span>
-              <span className="text-[14px] leading-[1.6] text-ink-muted">{role.detail}</span>
+              <span className="text-[14px] max-lg:text-[15px] leading-[1.6] text-ink-muted">
+                {role.detail}
+              </span>
             </span>
             {role.id === "resident" && (
               <ArrowUpRight

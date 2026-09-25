@@ -170,7 +170,7 @@ function HomePage() {
                     </span>
                     <span
                       className={cn(
-                        "mt-1.5 block text-[12px] font-semibold leading-snug",
+                        "mt-1.5 block text-[12px] max-lg:text-[15px] font-semibold leading-snug max-lg:leading-[1.6]",
                         stat.emphasis ? "text-page" : "text-ink",
                       )}
                     >

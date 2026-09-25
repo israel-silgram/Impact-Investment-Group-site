@@ -140,7 +140,7 @@ function SolutionsPage() {
                         <span className="block font-heading text-[18px] font-extrabold text-ink">
                           {layer.title}
                         </span>
-                        <span className="mt-0.5 block text-[13px] text-ink-muted">
+                        <span className="mt-0.5 block text-[13px] max-lg:text-[15px] text-ink-muted">
                           {layer.detail}
                         </span>
                       </span>
