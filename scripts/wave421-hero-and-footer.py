@@ -161,7 +161,14 @@ PAGES = w412.PAGES
 # the warmed ground. `label` is what the report's table calls the row.
 HERO_PAIRS = [
     ("the navy headlines", 'figcaption.text-ink'),
-    ('the orange headline "Delivering Support"', "figcaption.text-orange-500"),
+    # ⚠ WAVE 490: `text-orange-700`, NOT `-500`. Wave 443 moved this caption
+    # from orange-500 to orange-700 when it took the Brand Kit v4 palette, and
+    # did not re-run this gate, so this row has named nothing on the site since
+    # 22 September and has been asserting nothing. The selector is corrected
+    # rather than the row deleted: `origin/main` `f61b3b8` renders
+    # `figcaption ... text-orange-700` at `src/components/home/hero.tsx:272`
+    # and that is the glyph this pair is about.
+    ('the orange headline "Delivering Support"', "figcaption.text-orange-700"),
     ("the wait-list sub-line", "#register-as"),
     ("a role tile name", ".hero-role-grid a span.text-ink"),
     ("a role tile purpose line", ".hero-role-grid li > span[id^='hero-role-']"),
@@ -306,6 +313,22 @@ NODE_READ = r"""
       Math.ceil(box.right + scrollX),
       Math.ceil(box.bottom + scrollY),
     ],
+    // ⚠ WAVE 490: the same reading `scripts/wave412-screenshots.py` takes, for
+    // the same reason and with the same words beside it there. Below 768px the
+    // hero is a snap strip and the second slide's caption is a sliver past the
+    // right edge of it: off the screen rather than unmeasurable. This collector
+    // is wave 421's own, so the flag has to be computed here too or the shared
+    // `measure_incomplete` has nothing to read.
+    pastScrollEdge: (() => {
+      for (let n = element.parentElement; n; n = n.parentElement) {
+        const s2 = getComputedStyle(n);
+        if (!/auto|scroll/.test(s2.overflowX) || n.scrollWidth <= n.clientWidth + 2) continue;
+        const lane = n.getBoundingClientRect();
+        const shown = Math.min(box.right, lane.right) - Math.max(box.left, lane.left);
+        return shown < box.width / 2;
+      }
+      return false;
+    })(),
   };
 }
 """
@@ -322,8 +345,13 @@ def measure_pairs(shot: Path, nodes, rows, failures, where):
     asserts; the worst is printed beside it so a pair that only just passes on
     average cannot pass silently.
     """
-    measured, unmeasured = w412.measure_incomplete(shot, nodes)
+    # ⚠ WAVE 490 added a third bucket to `measure_incomplete`: a node past
+    # the edge of its own horizontal scroll container, which is off the
+    # screen rather than unmeasurable. It is carried here so a node in that
+    # bucket is reported with its own reason instead of "not measured".
+    measured, unmeasured, off_screen = w412.measure_incomplete(shot, nodes)
     by_target = {row[0]: row for row in measured}
+    skipped = {row[0] for row in off_screen}
 
     with Image.open(shot) as image:
         pixels = image.convert("RGB").load()
@@ -332,6 +360,9 @@ def measure_pairs(shot: Path, nodes, rows, failures, where):
     for node in nodes:
         row = by_target.get(node["target"])
         if row is None:
+            if node["target"] in skipped:
+                print(f"    --  off screen: {node['target']}")
+                continue
             reason = next(
                 (u[-1] for u in unmeasured if u[0] == node["target"]), "not measured"
             )
