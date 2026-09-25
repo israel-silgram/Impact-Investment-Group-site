@@ -239,6 +239,16 @@ SECTIONS = js("""
   const nodes = new Set([...main.querySelectorAll('section'), ...main.children]);
   for (const el of nodes) {
     if (!seen(el)) continue;
+    // ⚠ A BOX THAT CONTAINS SECTIONS IS NOT A SECTION, IT IS THE PAGE.
+    //
+    // Several routes wrap every band in one <div> under <main>, and taking
+    // that wrapper as a section makes the space BETWEEN two bands an
+    // "interior" run: the first version of this scan reported 135px inside
+    // `main` on the partner pages, cropped and looked at, and it is the foot
+    // of one band's padding meeting the head of the next one's, which is the
+    // rhythm `CLAUDE.md` asks for. A band that holds a section is skipped and
+    // the sections inside it are measured on their own.
+    if (el.querySelector('section')) continue;
     const r = el.getBoundingClientRect();
     if (r.height < 120) continue;
     boxes.push({
@@ -335,8 +345,18 @@ SPANS = js(r"""
       own = own.trim().replace(/\s+/g, ' ');
       if (!own) return;
       const control = el.closest(CONTROLS);
-      const isName = !!control &&
-        (control.textContent || '').trim().replace(/\s+/g, ' ') === own;
+      // ⚠ AND A CONTROL'S NAME MAY CARRY AN `sr-only` TAIL. Three links on
+      // /legal read "Verify on the ICO register" with "(opens in a new tab)"
+      // clipped beside them, so a plain equality test said the visible run was
+      // not the whole name and gave a 13px link label a 15px body floor. The
+      // screen-reader tail is taken off before the comparison.
+      let whole = '';
+      if (control) {
+        const clone = control.cloneNode(true);
+        clone.querySelectorAll('.sr-only').forEach((n) => n.remove());
+        whole = (clone.textContent || '').trim().replace(/\s+/g, ' ');
+      }
+      const isName = !!control && whole === own;
       const s = getComputedStyle(el);
       const size = parseFloat(s.fontSize);
       const tracking = s.letterSpacing === 'normal' ? 0 : parseFloat(s.letterSpacing) / size;
@@ -536,6 +556,7 @@ CARDS = js("""
     const pad = parseFloat(s.paddingBottom) || 0;
     out.push({
       what: what,
+      top: Math.round(r.top + scrollY),
       height: Math.round(r.height),
       minHeight: s.minHeight,
       padBottom: Math.round(pad),
@@ -800,12 +821,20 @@ def empty_runs(pixels, boxes, scale, page_w):
     """Rule 2. Every run of rows inside a section whose every pixel is the
     section's own ground, longer than EMPTY_RUN_MAX CSS pixels.
 
-    A run that touches the section's own top or bottom edge is STILL COUNTED.
-    That is the whole point: the 295px hole under the home page's purpose
-    section is a trailing run, and a scan that forgave trailing runs as
-    "padding" would forgive the defect this wave exists to close. Section
-    padding on this site is 96px on a desktop and 56px on a phone, both of
-    which clear the ceiling with room, so nothing honest is caught by it.
+    ⚠ BETWEEN TWO PIECES OF CONTENT, WHICH MEANS INTERIOR RUNS ONLY.
+
+    A run that touches a section's own top or bottom edge is that section's
+    PADDING, and `CLAUDE.md` sets that padding at 96px on a desktop and 56 on
+    a phone: counting it would fail the brand system for following itself. The
+    first run of this scan did count them and returned 100px at the top of the
+    partners hero at 667x375 and 135px under the last band of a partner page,
+    both of which are the space the design asks for.
+
+    The hole this wave is actually about is a trailing one, and it is NOT left
+    unmeasured by that: item 2 measures the gap between the visible face's last
+    line and the foot of its section against a 48px ceiling, and item 9 does
+    the same for a card against 32px. Those are the tighter rules and they are
+    the right ones for a tail; this is the rule for a hole in the middle.
     """
     found = []
     height, width = pixels.shape[0], pixels.shape[1]
@@ -830,12 +859,14 @@ def empty_runs(pixels, boxes, scale, page_w):
                     start = index
                 run += 1
             elif run:
-                if run > EMPTY_RUN_MAX * scale:
+                # `start > 0` is what makes this interior: a run beginning on
+                # the section's first row is its top padding, and the `elif`
+                # itself is what ends the scan on content, so a run that
+                # reaches the last row is never reported at all.
+                if run > EMPTY_RUN_MAX * scale and start > 0:
                     found.append((box["id"], round(box["y"] + start / scale),
                                   round(run / scale)))
                 run = 0
-        if run > EMPTY_RUN_MAX * scale:
-            found.append((box["id"], round(box["y"] + start / scale), round(run / scale)))
     return found
 
 
@@ -1304,6 +1335,72 @@ TOUCHED = {
 TOUCHED_EVERYWHERE = ["footer"]
 ANIMATED_MASKS = ["canvas", ".logo-marquee", ".tabular-nums"]
 
+# ⚠ AND THE REST OF THE ANIMATED BOXES ARE FOUND, NOT LISTED.
+#
+# A list of selectors is a list of the things somebody happened to think of.
+# The first run of this pairing reported 19,448 device pixels "moved" on
+# /platform at 1280 across three bands; cropped and looked at, both shots show
+# the same three characters in the same places, and what differs is the rayed
+# sunburst turning behind Petra. A region that cannot hold still between two
+# shots of the SAME build is not evidence about a change, so the boxes are
+# collected off `getComputedStyle` at capture time and excluded with the three
+# named above.
+RUNNING = """
+() => {
+  const out = [];
+  document.querySelectorAll('body *').forEach((el) => {
+    const s = getComputedStyle(el);
+    if (!s.animationName || s.animationName === 'none') return;
+    if (s.animationPlayState === 'paused') return;
+    if (!(parseFloat(s.animationDuration) > 0)) return;
+    if (s.animationIterationCount === '1' && s.animationFillMode === 'both') return;
+    const r = el.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2) return;
+    out.push({ x: r.left + scrollX, y: r.top + scrollY,
+               r: r.right + scrollX, b: r.bottom + scrollY,
+               sel: 'running:' + s.animationName });
+  });
+  return out;
+}
+"""
+
+# ⚠ AND THE SHUTTER WAITS FOR THE PICTURES.
+#
+# `ImageFade` hides an image that has not decoded and fades it in, so whether
+# the header's brand lockup is in a shot depends on whether its bytes had
+# landed when the shutter opened. Two runs disagreeing about that is what put
+# 1,974 "moved" pixels in the header's logo box on /about, /register and
+# /partner-with-local-authority, in rows 10 to 61 and columns 32 to 171, which
+# is the lockup exactly. Five seconds is a ceiling, not a wait: a build that
+# has every image decoded is past this line at once.
+AWAIT_IMAGES = """
+async () => {
+  const pending = [...document.images].filter((i) => !i.complete);
+  await Promise.all(pending.map((i) => new Promise((done) => {
+    i.addEventListener('load', done, { once: true });
+    i.addEventListener('error', done, { once: true });
+    setTimeout(done, 5000);
+  })));
+  return pending.length;
+}
+"""
+
+# ⚠ AND THE FLOATING CONTROL IS NOT IN THE PICTURE.
+#
+# `.back-to-top` is `position: fixed`, so a full-page capture paints it
+# wherever the capture engine's viewport happened to be and leaves it there in
+# the stitched image: 203 "moved" pixels on /legal at 1280, a 44 by 44 square
+# in the bottom right, which is the control and not the page. It is measured by
+# item 8 off its own box at a confirmed scroll position, which is the reading
+# that can actually fail. Hidden for the shutter and put straight back.
+HIDE_FLOATERS = """
+(hide) => {
+  document.querySelectorAll('.back-to-top').forEach((el) => {
+    el.style.visibility = hide ? 'hidden' : '';
+  });
+}
+"""
+
 BOXES = """
 (selectors) => {
   const out = [];
@@ -1452,8 +1549,14 @@ def main() -> None:
                         f"(scrollY={resting:.0f})"
                     )
 
+                waited = page.evaluate(AWAIT_IMAGES)
+                page.evaluate(HIDE_FLOATERS, True)
+                page.wait_for_timeout(120)
                 shot = out / f"{slug}-{label}.png"
                 page.screenshot(path=str(shot), full_page=True)
+                page.evaluate(HIDE_FLOATERS, False)
+                if waited:
+                    print(f"shutter   {where:<22} waited for {waited} images to decode")
                 tally["shots"] += 1
                 to_top(page)
                 page.wait_for_timeout(200)
@@ -1619,8 +1722,19 @@ def main() -> None:
                                 )
 
                 if slug == "about":
-                    for card in page.evaluate(CARDS):
+                    read = page.evaluate(CARDS)
+                    # ⚠ A CARD THAT SHARES A ROW IS EQUALISED ON PURPOSE, and
+                    # that is the whole of what `min-h` and `h-full` are for.
+                    # The defect is a minimum height surviving into a SINGLE
+                    # COLUMN, where it equalises nothing. Cards that start at
+                    # the same y are a row; a card alone on its line is not.
+                    rows = {}
+                    for card in read:
+                        rows[card["top"]] = rows.get(card["top"], 0) + 1
+                    for card in read:
                         tally["cards"] += 1
+                        if rows[card["top"]] > 1:
+                            continue
                         if width < 768 and card["tailAny"] > CARD_TAIL_MAX:
                             tally["cardbad"] += 1
                             fail(
@@ -1629,7 +1743,6 @@ def main() -> None:
                                 f"content, over {CARD_TAIL_MAX}px "
                                 f"(min-height {card['minHeight']}, \"{card['label']}\")"
                             )
-                    read = page.evaluate(CARDS)
                     if read:
                         print(
                             f"item9     {where:<22} {len(read)} cards, worst tail under any "
@@ -1772,7 +1885,7 @@ def main() -> None:
                 to_top(page)
                 selectors = TOUCHED.get(slug, []) + TOUCHED_EVERYWHERE
                 touched = page.evaluate(BOXES, selectors)
-                masks = page.evaluate(BOXES, ANIMATED_MASKS)
+                masks = page.evaluate(BOXES, ANIMATED_MASKS) + page.evaluate(RUNNING)
                 pair_1280(slug, OUT / "before" / f"{slug}-1280.png",
                           OUT / f"{slug}-1280.png", touched, masks, failures)
             ctx.close()
