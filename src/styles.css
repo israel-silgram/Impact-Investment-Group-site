@@ -652,6 +652,49 @@
   }
 }
 
+/* ⚠ WAVE 490: THE SOURCED-FIGURE LANE STOPS AND STACKS BELOW `md`.
+
+   Phone rule 4: a phone reads, it does not chase. The council lane on the home
+   page is decoration and may move. This lane carries three published figures
+   with their publisher and their date on them, and at 390 the 3,082px track
+   put a 22px figure and a 12px label through a 390px window, cut mid-word at
+   one edge and running off the other, at walking pace. A reader cannot read a
+   sourced statistic that moves.
+
+   The declarations are the reduced-motion arm's, for the same reason and with
+   the same result: the animation is REMOVED rather than flattened, because the
+   global reduced-motion backstop takes `animation-duration` to nearly zero,
+   which would snap the loop to its end state and hide the first lane. The
+   clones go with it, because a clone exists only to make a loop seamless and
+   there is no loop. The edge mask goes too: it is there to fade a lane into
+   its own ends, and a stacked list has no ends to fade.
+
+   `platform.tsx` also drops the clones from the DOM once the bundle has
+   landed. This rule is what makes the prerendered document right before it
+   does, which is the wave 412 invariant: nothing depends on JavaScript to be
+   readable. */
+@media (max-width: 767px) {
+  .demand-ticker {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .demand-ticker .logo-marquee__track {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    white-space: normal;
+    animation: none;
+    transform: none;
+    padding: 0.5rem 0;
+  }
+
+  .demand-ticker .logo-marquee__track [data-clone="true"] {
+    display: none;
+  }
+}
+
 /* Hub pulse on the UK demand map: a narrow opacity swing only — the mock-up
    breathes, it does not throb. Staggered per hub in the component, and stilled
    entirely by the reduced-motion block below. */
@@ -2213,6 +2256,63 @@ canvas[data-map="in"] {
     display: none;
   }
 
+  /* ⚠ WAVE 490: A SOFT RIGHT EDGE, BECAUSE THE PEEK WAS READING AS CUT-OFF
+     TEXT RATHER THAN AS A SCROLL HINT.
+
+     The panel is `100% - 2.25rem` and the gap is 0.75rem, so 24px of the next
+     photograph shows past the right edge, which is the affordance. What also
+     showed was the next slide's HEADLINE: "Delivering Support" is set to span
+     95 per cent of its own panel, so it starts 8px inside it and its first
+     glyph, an orange D, painted 16px from the right edge of the screen.
+     Measured on the built site at 390 on 25 September 2026: the darkest pixel
+     in that band read 0.148 of relative luminance against a ground of 0.838,
+     which is 0.176 of its ground. A single orange letter at the edge of the
+     screen reads as text somebody forgot to fit, not as "there is more".
+
+     The ramp is 56px and reaches nothing 6px short of the edge, which is
+     arithmetic and not taste: at 16px in, where the glyph starts, the mask
+     holds it at 0.20 of its strength, and the photograph's own peek at 24px
+     is still at 0.36 and still visible as a sliver of the next picture. A
+     shorter ramp leaves the glyph legible; a longer one takes the peek with
+     it. The same geometry holds at 360, 414 and at 667 by 375, where the
+     panels are half-width and the THIRD slide is the one that peeks.
+
+     ⚠ AND THE FOCUS RING COMES INSIDE, BECAUSE A MASK CLIPS AN OUTLINE.
+     `mask-clip` is the border box, and this band's ring is drawn at
+     `outline-offset: 4px`, which is outside it: masked, the ring would not
+     paint at all. An inset ring is inside the painted area. Its right-hand
+     segment fades with everything else in the last 56px; the other three
+     sides and the great majority of its length are at full strength, which
+     clears SC 1.4.11's 3:1 on the indicator. Below 768px only: at 768 and
+     above the band is a three-column grid with nothing to scroll, no mask and
+     the ring exactly where wave 414 put it. */
+  .hero-band {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      #000 calc(100% - 56px),
+      transparent calc(100% - 6px)
+    );
+    mask-image: linear-gradient(
+      to right,
+      #000 calc(100% - 56px),
+      transparent calc(100% - 6px)
+    );
+  }
+
+  .hero-band:focus-visible {
+    outline-offset: -3px;
+  }
+
+  /* A slide's headline is clipped to its own slide. The mask above is what
+     fades the neighbour; this is what stops a future headline, or a longer
+     string in the same three, from painting over the slide beside it at all.
+     `overflow-clip-margin` leaves the 2px of slack the widest of the three
+     lines was sized with, so nothing currently on the page is touched. */
+  .hero-panel figcaption {
+    overflow: clip;
+    overflow-clip-margin: 2px;
+  }
+
   /* 100% less the 24px peek and the 12px gap. */
   .hero-panel {
     flex: 0 0 calc(100% - 2.25rem);
@@ -2531,27 +2631,49 @@ canvas[data-map="in"] {
   }
 }
 
-/* ⚠ WAVE 414: THE BACK-TO-TOP CONTROL MOVES LEFT ON A PHONE.
+/* ⚠ WAVE 490: THE BACK-TO-TOP CONTROL IS BACK IN THE RIGHT-HAND GUTTER AT
+   EVERY WIDTH, AND THE REASON IS THE MEASUREMENT WAVE 414 DID NOT TAKE.
 
-   It is `fixed bottom-6 right-5` and 44px across, and the registration
-   journey's Continue button now finishes in that exact corner: at 390 the
-   panel runs almost the full width, so a floating circle at the right gutter
-   lands ON the one control the page exists to have pressed. The gate's
-   fixed-layer assertion is what found it.
+   THE DECISION THIS OVERRIDES, AND WHERE IT WAS MADE. Wave 414 moved the
+   control to the left gutter below 1024px (section 4 of
+   `docs/WAVE414_REPORT.md`, and the rule that used to sit here) because the
+   registration journey's new sticky Continue bar finishes in the bottom right
+   and a 44px circle would land on it. That reasoning is sound about the
+   register routes and was applied to all twenty-nine.
 
-   Left rather than lifted, because lifting it would leave a hole above the
-   bottom edge on the twelve routes that have no bar, and because the right
-   thumb zone on a phone is where this site's primary actions already are:
-   the menu button at the top right, the Continue button at the bottom right.
-   A secondary "take me back up" affordance does not belong in that path. It
-   keeps the right-hand corner from 1024px, where it has never collided with
-   anything. */
-@media (max-width: 1023px) {
-  .back-to-top {
-    right: auto;
-    left: 1.25rem;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
-  }
+   WHAT IT COST EVERYWHERE ELSE. 414's fixed-layer assertion tested the fixed
+   layers against EACH OTHER and never against the words underneath them, so
+   nothing measured what the control had been moved ON TO. Measured at 390 on
+   25 September 2026 the computed box was `left: 20px; right: 326px; bottom:
+   24px`, a 44 by 44 circle from x=20 to x=64 covering the first 44px of
+   whatever line sat at the foot of the viewport: the "THE PLATFORM STORY"
+   eyebrow on `/platform`, and the left end of the call-to-action row on every
+   route it scrolled past. A control that covers the text is worse than a
+   control beside a button, and the bar's corner is answered below by not
+   offering the control there at all.
+
+   `max()` rather than a flat figure because on a phone with a home indicator
+   or a notch in landscape the system owns the bottom 34px and the side inset,
+   and a control placed in it is a control the operating system takes the
+   press for. On a screen with no insets both resolve to the wave 413
+   figures, so nothing moves at 1280. */
+.back-to-top {
+  right: max(1.25rem, env(safe-area-inset-right));
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
+/* AND IT IS NOT OFFERED WHERE SOMETHING ELSE OWNS THE CORNER.
+
+   The drawer: wave 413's rule is that nothing floats over an open drawer, and
+   `:has()` states it where the control is rather than in a second piece of
+   React state that can fall out of step with the panel's own.
+
+   The register journey: `registration-flow.tsx` measures whether its own
+   sticky bar is on screen and does not render the control while it is. The
+   bar IS the reachable control there, and it is the one the route exists to
+   have pressed. */
+body:has(.drawer-panel) .back-to-top {
+  display: none;
 }
 
 /* ⚠ `.registration-step` USED TO CARRY A BLANKET `registration-enter ... both`
