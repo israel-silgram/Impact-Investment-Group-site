@@ -1,0 +1,98 @@
+# Fix pass 490c, FIX A (rel490b MAJOR 1): the raw mutation runs for 3a, 3b and 3c, each FAILED with the mutation and PASSED without it.
+# Gate: scripts/wave490-phone.py at the code head (identical to 9752c60's; the fix pass 490c changed no script). 26 Sep 2026.
+# Each source mutation was made in this worktree at c9d9303, built with STATIC_BUILD=true bun run build and node scripts/pages-postbuild.mjs dist/client,
+# run, then restored with git checkout and rebuilt. After the last restore git diff HEAD -- src was empty, and the rebuilt dist/client/assets hashed
+# the same, file for file, as a build of 9752c60's source.
+
+================================================================================
+3a. Item 11 from leaf inks. Mutation: pb-[200px]! on .registration-actions (the account step's bar)
+================================================================================
+$ git diff -- src/components/register/registration-flow.tsx
+-              <div className="registration-actions mt-4">
++              <div className="registration-actions mt-4 pb-[200px]!">
+$ python scripts/wave490-phone.py --pages register-investor --profiles 360,390,414 --no-probes
+item11    register-investor @ 360 panel=1502px step=1460px (min 0px) bar=265px (controls 52px) sticky-or-static, read static at flow y=1156  41 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=233.0px at y=1221 before "Already registered? Sign in"
+item8     register-investor @ 360 scrolled to 1640: none; 6 text runs and 6 controls on screen; 0 clashes
+item11    register-investor @ 390 panel=1462px step=1420px (min 0px) bar=265px (controls 52px) sticky-or-static, read static at flow y=1116  39 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=233.0px at y=1181 before "Already registered? Sign in"
+item8     register-investor @ 390 scrolled to 1728: none; 5 text runs and 5 controls on screen; 0 clashes
+item8     register-investor @ 390 register bar on screen=False, back-to-top present=False
+item11    register-investor @ 414 panel=1436px step=1394px (min 0px) bar=265px (controls 52px) sticky-or-static, read static at flow y=1090  38 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=233.0px at y=1155 before "Already registered? Sign in"
+item8     register-investor @ 414 scrolled to 1832: none; 1 text runs and 5 controls on screen; 0 clashes
+
+wave490   3 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 261 span type nodes, 0 under floor · 9 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+
+FAILED: 3
+  · register-investor @ 360: 233px of the step's flow at y=1221, before "Already registered? Sign in", carries no ink, over the ceiling of 96px (the bar's 265px plus 16, at most 96)
+  · register-investor @ 390: 233px of the step's flow at y=1181, before "Already registered? Sign in", carries no ink, over the ceiling of 96px (the bar's 265px plus 16, at most 96)
+  · register-investor @ 414: 233px of the step's flow at y=1155, before "Already registered? Sign in", carries no ink, over the ceiling of 96px (the bar's 265px plus 16, at most 96)
+exit: rc=1
+
+================================================================================
+3b. Rule 2 with edge and last-row runs. Mutation: a 200px aria-hidden spacer between each /the-problem section's figure and its lead line
+================================================================================
+$ git diff -- src/routes/the-problem.tsx
++                    <div aria-hidden="true" className="h-[200px]" />
+$ python scripts/wave490-phone.py --pages the-problem --profiles 360,390,414 --no-probes
+item8     the-problem @ 360      scrolled to 1640: none; 19 text runs and 2 controls on screen; 0 clashes
+item8     the-problem @ 390      scrolled to 1728: none; 16 text runs and 2 controls on screen; 0 clashes
+item8     the-problem @ 414      scrolled to 1832: none; 15 text runs and 2 controls on screen; 0 clashes
+
+wave490   3 shots · 9 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 279 span type nodes, 0 under floor · 9 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+
+FAILED: 9
+  · the-problem @ 360: 223px of nothing but the section's own ground inside section@scale-heading, from y=177 (interior; the section's own padding there allows 0px). Over the 96px a band may carry.
+  · the-problem @ 360: 223px of nothing but the section's own ground inside section@cost-heading, from y=1079 (interior; the section's own padding there allows 0px). Over the 96px a band may carry.
+  · the-problem @ 360: 222px of nothing but the section's own ground inside section@opportunity-heading, from y=1990 (interior; the section's own padding there allows 0px). Over the 96px a band may carry.
+  · the-problem @ 390: 223px of nothing but the section's own ground inside section@scale-heading, from y=177 (interior; the section's own padding there allows 0px). Over the 96px a band may carry.
+  · the-problem @ 390: 222px of nothing but the section's own ground inside section@cost-heading, from y=1057 (interior; the section's own padding there allows 0px). Over the 96px a band may carry.
+  · the-problem @ 390: 223px of nothing but the section's own ground inside section@opportunity-heading, from y=1919 (interior; the section's own padding there allows 0px). Over the 96px a band may carry.
+  · the-problem @ 414: 223px of nothing but the section's own ground inside section@scale-heading, from y=177 (interior; the section's own padding there allows 0px). Over the 96px a band may carry.
+  · the-problem @ 414: 222px of nothing but the section's own ground inside section@cost-heading, from y=1057 (interior; the section's own padding there allows 0px). Over the 96px a band may carry.
+  · the-problem @ 414: 223px of nothing but the section's own ground inside section@opportunity-heading, from y=1871 (interior; the section's own padding there allows 0px). Over the 96px a band may carry.
+exit: rc=1
+
+================================================================================
+3a and 3b restored: both files checked out, rebuilt, the same two routes at the same three widths
+================================================================================
+$ python scripts/wave490-phone.py --pages register-investor,the-problem --profiles 360,390,414 --no-probes
+item8     the-problem @ 360      scrolled to 1640: none; 11 text runs and 4 controls on screen; 0 clashes
+item8     the-problem @ 390      scrolled to 1728: none; 6 text runs and 4 controls on screen; 0 clashes
+item8     the-problem @ 414      scrolled to 1832: none; 2 text runs and 5 controls on screen; 0 clashes
+item11    register-investor @ 360 panel=1314px step=1272px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1156  41 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1123 before button
+item8     register-investor @ 360 scrolled to 1640: none; 4 text runs and 5 controls on screen; 0 clashes
+item11    register-investor @ 390 panel=1274px step=1232px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1116  39 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1083 before button
+item8     register-investor @ 390 scrolled to 1728: none; 1 text runs and 5 controls on screen; 0 clashes
+item8     register-investor @ 390 register bar on screen=False, back-to-top present=False
+item11    register-investor @ 414 panel=1248px step=1206px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1090  38 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1057 before button
+item8     register-investor @ 414 scrolled to 1832: none; 0 text runs and 6 controls on screen; 0 clashes
+
+wave490   6 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 540 span type nodes, 0 under floor · 18 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+PASSED
+exit: rc=0
+
+================================================================================
+3c. The reduced-motion swap changes height. Mutation: the base build of origin/main f61b3b8, where both faces share one grid cell
+    (the same mutation the fix pass 490b used for FIX 4)
+================================================================================
+$ python scripts/wave490-phone.py --build ../iigs-uc490-base/dist/client --pages none --probes reduced
+
+item2     reduced   before=1559px  at 50ms=1559px  at 750ms=1559px  still moving by 0.00px
+item2     reduced   the section's height changed by 0px across the swap
+
+
+wave490   0 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 0 span type nodes, 0 under floor · 0 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+
+FAILED: 1
+  · item2: at 390 the section reads 1559px on both faces, so both faces still share one cell and the swap cannot be seen to be instant
+exit: rc=1
+
+3c restored: the head build
+$ python scripts/wave490-phone.py --pages none --probes reduced
+
+item2     reduced   before=1355px  at 50ms=1566px  at 750ms=1566px  still moving by 0.00px
+item2     reduced   the section's height changed by 211px across the swap
+
+
+wave490   0 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 0 span type nodes, 0 under floor · 0 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+PASSED
+exit: rc=0

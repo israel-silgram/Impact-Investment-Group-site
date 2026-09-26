@@ -4,38 +4,33 @@ item2     home @ 360             swapped: section=1597px  tail=47.38px
 item3     home @ 360             strip mask=none
 item3     home @ 360             slide 1 "Delivering Support" peeks 24.0px: darkest=0.1478 ground=0.8418 share=0.176
 item8     home @ 360             scrolled to 1640: button.back-to-top(44x44 at right=296 bottom=23); 17 text runs and 3 controls on screen; 2 clashes
-drawer    home @ 360             open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
 shutter   home @ 390             waited for 32 images to decode
 item2     home @ 390             section=1559px faces=1559 / 1559  tail under the visible face=297.61px
 item2     home @ 390             swapped: section=1559px  tail=47.37px
 item3     home @ 390             strip mask=none
 item3     home @ 390             slide 1 "Delivering Support" peeks 24.0px: darkest=0.1478 ground=0.8356 share=0.177
-item8     home @ 390             scrolled to 1728: button.back-to-top(44x44 at right=326 bottom=23); 18 text runs and 4 controls on screen; 2 clashes
-drawer    home @ 390             open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
+item8     home @ 390             scrolled to 1728: button.back-to-top(44x44 at right=326 bottom=22); 18 text runs and 4 controls on screen; 2 clashes
 shutter   home @ 414             waited for 32 images to decode
 item2     home @ 414             section=1517px faces=1517 / 1517  tail under the visible face=275.82px
 item2     home @ 414             swapped: section=1517px  tail=47.38px
 item3     home @ 414             strip mask=none
 item3     home @ 414             slide 1 "Delivering Support" peeks 24.0px: darkest=0.1478 ground=0.8276 share=0.179
 item8     home @ 414             scrolled to 1832: button.back-to-top(44x44 at right=350 bottom=23); 19 text runs and 4 controls on screen; 0 clashes
-drawer    home @ 414             open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
 shutter   home @ 768             waited for 30 images to decode
 item2     home @ 768             section=1122px faces=1122 / 1122  tail under the visible face=132.3px
 item2     home @ 768             swapped: section=1122px  tail=47.37px
 item8     home @ 768             scrolled to 2088: button.back-to-top(44x44 at right=704 bottom=23); 46 text runs and 3 controls on screen; 2 clashes
-drawer    home @ 768             open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
 shutter   home @ 667x375         waited for 30 images to decode
 item2     home @ 667x375         section=1144px faces=1144 / 1144  tail under the visible face=98.8px
 item2     home @ 667x375         swapped: section=1144px  tail=47.38px
 item3     home @ 667x375         strip mask=none
 item3     home @ 667x375         slide 2 "Transforming Lives" peeks 12.0px: darkest=0.0271 ground=0.8449 share=0.032
-item8     home @ 667x375         scrolled to 790: button.back-to-top(44x44 at right=603 bottom=23); 12 text runs and 3 controls on screen; 2 clashes
-drawer    home @ 667x375         open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
+item8     home @ 667x375         scrolled to 790: button.back-to-top(44x44 at right=603 bottom=22); 12 text runs and 3 controls on screen; 2 clashes
 shutter   home @ 1280            waited for 27 images to decode
 item12    home @ 1280            "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
 item2     home @ 1280            section=812px faces=812 / 812  tail under the visible face=121.67px
 item2     home @ 1280            swapped: section=812px  tail=50.87px
-item8     home @ 1280            scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 47 text runs and 10 controls on screen; 0 clashes
+item8     home @ 1280            scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=22); 47 text runs and 10 controls on screen; 0 clashes
 item9     about @ 360            8 cards, worst tail under any content=59px, worst tail under the last INK=59px, tallest 356px
 item9     about @ 360              director   356px min-height=356px    pad-bottom= 20 ink tail=  34.2 any tail=  34.2 "Israel Silgram"
 item9     about @ 360              director   356px min-height=356px    pad-bottom= 20 ink tail=  59.0 any tail=  59.0 "Maria Avallone"
@@ -126,7 +121,7 @@ item8     the-problem @ 1280     scrolled to 1270: none; 0 text runs and 43 cont
 item10    solutions @ 360        9 pills, 0 with a split verb, 1 with the verb beside a wrapped role, tallest 68px
 item8     solutions @ 360        scrolled to 1640: button.back-to-top(44x44 at right=296 bottom=23); 29 text runs and 2 controls on screen; 2 clashes
 item10    solutions @ 390        9 pills, 0 with a split verb, 1 with the verb beside a wrapped role, tallest 68px
-item8     solutions @ 390        scrolled to 1728: button.back-to-top(44x44 at right=326 bottom=23); 30 text runs and 2 controls on screen; 1 clashes
+item8     solutions @ 390        scrolled to 1728: button.back-to-top(44x44 at right=326 bottom=23); 30 text runs and 2 controls on screen; 0 clashes
 item10    solutions @ 414        9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 43px
 item8     solutions @ 414        scrolled to 1832: button.back-to-top(44x44 at right=350 bottom=23); 26 text runs and 3 controls on screen; 2 clashes
 item10    solutions @ 768        9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 43px
@@ -157,36 +152,36 @@ item8     register @ 768         scrolled to 2088: button.back-to-top(44x44 at r
 item8     register @ 667x375     scrolled to 790: button.back-to-top(44x44 at right=603 bottom=23); 8 text runs and 6 controls on screen; 1 clashes
 item12    register @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
 item8     register @ 1280        scrolled to 1159: none; 0 text runs and 43 controls on screen; 0 clashes
-item11    register-investor @ 360 panel=1311px step=1269px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1153  41 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1120 before button
+item11    register-investor @ 360 panel=1311px step=1269px (min 0px) bar=77px sticky-or-static, read static at flow y=1153  tail under the last content=-98px  widest gap in the flow=1px at y=24 before div.registration-step
 item8     register-investor @ 360 scrolled to 1640: button.back-to-top(44x44 at right=296 bottom=23); 4 text runs and 5 controls on screen; 0 clashes
-item11    register-investor @ 390 panel=1271px step=1229px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1113  39 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1080 before button
+item11    register-investor @ 390 panel=1271px step=1229px (min 0px) bar=77px sticky-or-static, read static at flow y=1113  tail under the last content=-74px  widest gap in the flow=1px at y=24 before div.registration-step
 item8     register-investor @ 390 scrolled to 1728: button.back-to-top(44x44 at right=326 bottom=23); 0 text runs and 5 controls on screen; 0 clashes
 item8     register-investor @ 390 register bar on screen=False, back-to-top present=True
-item11    register-investor @ 414 panel=1245px step=1203px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1087  38 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1054 before button
+item11    register-investor @ 414 panel=1245px step=1203px (min 0px) bar=77px sticky-or-static, read static at flow y=1087  tail under the last content=-74px  widest gap in the flow=1px at y=24 before div.registration-step
 item8     register-investor @ 414 scrolled to 1832: button.back-to-top(44x44 at right=350 bottom=23); 0 text runs and 7 controls on screen; 0 clashes
-item11    register-investor @ 768 panel=986px step=928px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=828  35 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.6px at y=678 before "Read the Privacy Policy"
+item11    register-investor @ 768 panel=986px step=928px (min 0px) bar=77px sticky-or-static, read static at flow y=828  tail under the last content=1px  widest gap in the flow=1px at y=40 before div.registration-step
 item8     register-investor @ 768 scrolled to 2088: button.back-to-top(44x44 at right=704 bottom=23); 0 text runs and 22 controls on screen; 2 clashes
-item11    register-investor @ 667x375 panel=986px step=928px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=828  35 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.6px at y=678 before "Read the Privacy Policy"
+item11    register-investor @ 667x375 panel=986px step=928px (min 0px) bar=77px sticky-or-static, read static at flow y=828  tail under the last content=1px  widest gap in the flow=1px at y=40 before div.registration-step
 item8     register-investor @ 667x375 scrolled to 790: button.back-to-top(44x44 at right=603 bottom=23); 13 text runs and 8 controls on screen; 0 clashes
 item12    register-investor @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
-item11    register-investor @ 1280 panel=933px step=851px (min 0px) bar=52px (controls 52px) sticky-or-static, read static at flow y=776  33 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=36.0px at y=230 before "Email address"
+item11    register-investor @ 1280 panel=933px step=851px (min 0px) bar=52px sticky-or-static, read static at flow y=776  tail under the last content=1px  widest gap in the flow=1px at y=40 before div.registration-step
 item8     register-investor @ 1280 scrolled to 1526: none; 0 text runs and 43 controls on screen; 0 clashes
-item11    register-resident @ 360 panel=1311px step=1269px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1153  41 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1120 before button
+item11    register-resident @ 360 panel=1311px step=1269px (min 0px) bar=77px sticky-or-static, read static at flow y=1153  tail under the last content=-98px  widest gap in the flow=1px at y=24 before div.registration-step
 item8     register-resident @ 360 scrolled to 1640: button.back-to-top(44x44 at right=296 bottom=23); 15 text runs and 8 controls on screen; 0 clashes
-item11    register-resident @ 390 panel=1271px step=1229px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1113  39 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1080 before button
+item11    register-resident @ 390 panel=1271px step=1229px (min 0px) bar=77px sticky-or-static, read static at flow y=1113  tail under the last content=-74px  widest gap in the flow=1px at y=24 before div.registration-step
 item8     register-resident @ 390 scrolled to 1728: button.back-to-top(44x44 at right=326 bottom=23); 7 text runs and 6 controls on screen; 0 clashes
-item11    register-resident @ 414 panel=1245px step=1203px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1087  38 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1054 before button
+item11    register-resident @ 414 panel=1245px step=1203px (min 0px) bar=77px sticky-or-static, read static at flow y=1087  tail under the last content=-74px  widest gap in the flow=1px at y=24 before div.registration-step
 item8     register-resident @ 414 scrolled to 1832: button.back-to-top(44x44 at right=350 bottom=23); 1 text runs and 6 controls on screen; 2 clashes
-item11    register-resident @ 768 panel=986px step=928px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=828  35 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.6px at y=678 before "Read the Privacy Policy"
+item11    register-resident @ 768 panel=986px step=928px (min 0px) bar=77px sticky-or-static, read static at flow y=828  tail under the last content=1px  widest gap in the flow=1px at y=40 before div.registration-step
 item8     register-resident @ 768 scrolled to 2088: button.back-to-top(44x44 at right=704 bottom=23); 0 text runs and 24 controls on screen; 2 clashes
-item11    register-resident @ 667x375 panel=986px step=928px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=828  35 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.6px at y=678 before "Read the Privacy Policy"
+item11    register-resident @ 667x375 panel=986px step=928px (min 0px) bar=77px sticky-or-static, read static at flow y=828  tail under the last content=1px  widest gap in the flow=1px at y=40 before div.registration-step
 item8     register-resident @ 667x375 scrolled to 790: button.back-to-top(44x44 at right=603 bottom=23); 10 text runs and 11 controls on screen; 0 clashes
 item12    register-resident @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
-item11    register-resident @ 1280 panel=933px step=851px (min 0px) bar=52px (controls 52px) sticky-or-static, read static at flow y=776  33 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=36.0px at y=230 before "Email address"
+item11    register-resident @ 1280 panel=933px step=851px (min 0px) bar=52px sticky-or-static, read static at flow y=776  tail under the last content=1px  widest gap in the flow=1px at y=40 before div.registration-step
 item8     register-resident @ 1280 scrolled to 1506: none; 0 text runs and 43 controls on screen; 0 clashes
 item8     partner-with-investor @ 360 scrolled to 1640: button.back-to-top(44x44 at right=296 bottom=23); 11 text runs and 2 controls on screen; 2 clashes
 item8     partner-with-investor @ 390 scrolled to 1728: button.back-to-top(44x44 at right=326 bottom=23); 12 text runs and 3 controls on screen; 1 clashes
-item8     partner-with-investor @ 414 scrolled to 1832: button.back-to-top(44x44 at right=350 bottom=23); 21 text runs and 5 controls on screen; 3 clashes
+item8     partner-with-investor @ 414 scrolled to 1832: button.back-to-top(44x44 at right=350 bottom=24); 21 text runs and 5 controls on screen; 3 clashes
 item8     partner-with-investor @ 768 scrolled to 2088: button.back-to-top(44x44 at right=704 bottom=23); 25 text runs and 5 controls on screen; 0 clashes
 item8     partner-with-investor @ 667x375 scrolled to 790: button.back-to-top(44x44 at right=603 bottom=23); 16 text runs and 2 controls on screen; 0 clashes
 item12    partner-with-investor @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
@@ -205,55 +200,34 @@ item8     legal @ 768            scrolled to 2088: button.back-to-top(44x44 at r
 item8     legal @ 667x375        scrolled to 790: button.back-to-top(44x44 at right=603 bottom=23); 7 text runs and 3 controls on screen; 2 clashes
 item12    legal @ 1280           "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
 item8     legal @ 1280           scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 11 text runs and 40 controls on screen; 0 clashes
-rule2     404 @ 360              293px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
-rule2     404 @ 360              280px of ground at the last row (one-screen, centred) of div, from y=520: the centring of a box a screen tall, read and not failed
 item8     404 @ 360              scrolled to 0: none; 5 text runs and 1 controls on screen; 0 clashes
-rule2     404 @ 390              315px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
-rule2     404 @ 390              302px of ground at the last row (one-screen, centred) of div, from y=542: the centring of a box a screen tall, read and not failed
 item8     404 @ 390              scrolled to 0: none; 5 text runs and 1 controls on screen; 0 clashes
-rule2     404 @ 414              341px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
-rule2     404 @ 414              328px of ground at the last row (one-screen, centred) of div, from y=568: the centring of a box a screen tall, read and not failed
 item8     404 @ 414              scrolled to 0: none; 5 text runs and 1 controls on screen; 0 clashes
-rule2     404 @ 768              417px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
-rule2     404 @ 768              404px of ground at the last row (one-screen, centred) of div, from y=620: the centring of a box a screen tall, read and not failed
 item8     404 @ 768              scrolled to 0: none; 4 text runs and 1 controls on screen; 0 clashes
 item8     404 @ 667x375          scrolled to 0: none; 4 text runs and 1 controls on screen; 0 clashes
-rule2     404 @ 1280             357px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
-rule2     404 @ 1280             344px of ground at the last row (one-screen, centred) of div, from y=556: the centring of a box a screen tall, read and not failed
 item8     404 @ 1280             scrolled to 0: none; 4 text runs and 1 controls on screen; 0 clashes
 
-item1     councils  @ 390   cold   slow 4G: styled at 1452ms, timed entry at 1468ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  4 decoded=  0 pending= 0; whole strip decoded   0 of  36; every tile on screen decoded by +3500ms; distinct requests 3 at the timed entry, 4 at the reading
-item1     FINDING   councils cold @ 390: 4 of 4 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +3500ms
-item1     data      @ 390   cold   slow 4G: styled at 1416ms, timed entry at 1427ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  0 pending= 0; whole strip decoded   0 of   5; every tile on screen decoded by +2750ms; distinct requests 0 at the timed entry, 5 at the reading
-item1     FINDING   data cold @ 390: 5 of 5 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +2750ms
-item1     councils  @ 390   loaded slow 4G: styled at 5517ms, timed entry at 5528ms (hydrated at 5392ms; earlier entries cut short: none); at +1500ms on screen=  4 decoded=  4 pending= 0; whole strip decoded   4 of  36; every tile on screen decoded by +1500ms; distinct requests 0 at the timed entry, 4 at the reading
-BEFORE  item1 @ 390: 32 of 36 council tiles had not decoded 1500ms after the strip was seen on a loaded page, and each will cross the window within one turn of the loop as an empty plate. ['north-east-lincolnshire.webp', 'stockton-on-tees.webp', 'county-durham.webp', 'manchester.webp', 'salford.webp', 'liverpool.webp']
-item1     data      @ 390   loaded slow 4G: styled at 5523ms, timed entry at 5533ms (hydrated at 5403ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  5 pending= 0; whole strip decoded   5 of   5; every tile on screen decoded by +1500ms; distinct requests 0 at the timed entry, 5 at the reading
-item1     councils  @ 360   cold   slow 4G: styled at 1398ms, timed entry at 1408ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  3 decoded=  0 pending= 0; whole strip decoded   0 of  36; every tile on screen decoded by +3250ms; distinct requests 3 at the timed entry, 3 at the reading
-item1     FINDING   councils cold @ 360: 3 of 3 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +3250ms
-item1     data      @ 360   cold   slow 4G: styled at 1424ms, timed entry at 1437ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  1 pending= 0; whole strip decoded   1 of   5; every tile on screen decoded by +2250ms; distinct requests 5 at the timed entry, 5 at the reading
-item1     FINDING   data cold @ 360: 4 of 5 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +2250ms
-item1     councils  @ 360   loaded slow 4G: styled at 4940ms, timed entry at 4954ms (hydrated at 4828ms; earlier entries cut short: none); at +1500ms on screen=  3 decoded=  3 pending= 0; whole strip decoded   4 of  36; every tile on screen decoded by +1500ms; distinct requests 4 at the timed entry, 4 at the reading
-BEFORE  item1 @ 360: 32 of 36 council tiles had not decoded 1500ms after the strip was seen on a loaded page, and each will cross the window within one turn of the loop as an empty plate. ['middlesbrough.webp', 'stockton-on-tees.webp', 'county-durham.webp', 'manchester.webp', 'salford.webp', 'liverpool.webp']
-item1     data      @ 360   loaded slow 4G: styled at 4918ms, timed entry at 4927ms (hydrated at 4776ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  5 pending= 0; whole strip decoded   5 of   5; every tile on screen decoded by +1500ms; distinct requests 0 at the timed entry, 5 at the reading
-item1     councils  @ 1280  cold   slow 4G: styled at 1363ms, timed entry at 1390ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  9 decoded=  1 pending= 0; whole strip decoded   1 of  36; every tile on screen decoded by +over 16500ms; distinct requests 9 at the timed entry, 9 at the reading
-item1     FINDING   councils cold @ 1280: 8 of 9 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +over 16500ms
-item1     data      @ 1280  cold   slow 4G: styled at 1344ms, timed entry at 1368ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  2 pending= 0; whole strip decoded   2 of   5; every tile on screen decoded by +1750ms; distinct requests 5 at the timed entry, 5 at the reading
-item1     FINDING   data cold @ 1280: 3 of 5 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +1750ms
-item1     councils  @ 1280  loaded slow 4G: styled at 5153ms, timed entry at 5160ms (hydrated at 4746ms; earlier entries cut short: none); at +1500ms on screen=  9 decoded=  9 pending= 0; whole strip decoded  11 of  36; every tile on screen decoded by +1500ms; distinct requests 10 at the timed entry, 11 at the reading
-BEFORE  item1 @ 1280: 25 of 36 council tiles had not decoded 1500ms after the strip was seen on a loaded page, and each will cross the window within one turn of the loop as an empty plate. ['lancashire.webp', 'cumberland.webp', 'westmorland-and-furness.webp', 'nottingham.webp', 'derby.webp', 'lincolnshire.webp']
-item1     data      @ 1280  loaded slow 4G: styled at 5161ms, timed entry at 5170ms (hydrated at 4759ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  5 pending= 0; whole strip decoded   5 of   5; every tile on screen decoded by +1500ms; distinct requests 0 at the timed entry, 5 at the reading
+item1     councils  @ 390   worst of 13 samples over 3s: on screen=  4  decoded=  3  pending= 1; whole strip decoded=  4 of  36  after 1500ms on slow 4G
+BEFORE  item1 @ 390: 32 of 36 councils tiles had still not decoded 1500ms after the strip arrived, and every one of them crosses the window inside one turn of the loop. ['middlesbrough.webp', 'stockton-on-tees.webp', 'county-durham.webp', 'manchester.webp', 'salford.webp', 'liverpool.webp']
+BEFORE  item1 @ 390: 1 of 4 councils tiles on screen had not decoded 1500ms after the strip arrived. ['middlesbrough.webp', 'stockton-on-tees.webp', 'county-durham.webp', 'manchester.webp', 'salford.webp', 'liverpool.webp']
+item1     data      @ 390   worst of 13 samples over 3s: on screen=  5  decoded=  5  pending= 0; whole strip decoded=  5 of   5  after 1500ms on slow 4G
+item1     requests  @ 390   councils=  6 (first paint 3), data= 5 (first paint 0)
+item1     councils  @ 360   worst of 13 samples over 3s: on screen=  4  decoded=  4  pending= 0; whole strip decoded=  4 of  36  after 1500ms on slow 4G
+BEFORE  item1 @ 360: 32 of 36 councils tiles had still not decoded 1500ms after the strip arrived, and every one of them crosses the window inside one turn of the loop. ['middlesbrough.webp', 'stockton-on-tees.webp', 'county-durham.webp', 'manchester.webp', 'salford.webp', 'liverpool.webp']
+item1     data      @ 360   worst of 13 samples over 3s: on screen=  5  decoded=  5  pending= 0; whole strip decoded=  5 of   5  after 1500ms on slow 4G
+item1     requests  @ 360   councils=  5 (first paint 3), data= 5 (first paint 0)
+item1     councils  @ 1280  worst of 13 samples over 3s: on screen=  9  decoded=  9  pending= 0; whole strip decoded= 11 of  36  after 1500ms on slow 4G
+BEFORE  item1 @ 1280: 25 of 36 councils tiles had still not decoded 1500ms after the strip arrived, and every one of them crosses the window inside one turn of the loop. ['lancashire.webp', 'cumberland.webp', 'westmorland-and-furness.webp', 'nottingham.webp', 'derby.webp', 'lincolnshire.webp']
+item1     data      @ 1280  worst of 13 samples over 3s: on screen=  5  decoded=  5  pending= 0; whole strip decoded=  5 of   5  after 1500ms on slow 4G
+item1     requests  @ 1280  councils= 13 (first paint 9), data= 5 (first paint 5)
 
 item7     capture   rendered=348px natural=389px src=platform-finder-960.webp trigger=False NonexNone
 BEFORE  item7: the product capture has no control that opens it at 390
 
 item2     reduced   before=1559px  at 50ms=1559px  at 750ms=1559px  still moving by 0.00px
-item2     reduced   the section's height changed by 0px across the swap
 
-item13    /register/investor   667x300 step 1 field "email" 150 to 206, header ends 56, bar starts 223, viewport 300: fully visible, clear of the bar
-item13    /register/investor   667x300 step 2 field "preferred_regions" 96 to 176, header ends 56, bar starts 223, viewport 300: fully visible, clear of the bar
-item13    /register/resident   667x300 step 1 field "email" 150 to 206, header ends 56, bar starts 223, viewport 300: fully visible, clear of the bar
-item13    /register/resident   667x300 step 2 field "who_for" 96 to 176, header ends 56, bar starts 223, viewport 300: fully visible, clear of the bar
+item13    /register/investor   667x300 field "email" 150 to 206, header ends 56, bar starts 223, viewport 300: fully visible
+item13    /register/resident   667x300 field "email" 150 to 206, header ends 56, bar starts 223, viewport 300: fully visible
 
 item11    register-investor    @ 360   three real viewports at scrollY 0, 1976 and 3953: worst run of nothing inside the card = 0px
 item11    register-resident    @ 360   three real viewports at scrollY 0, 2036 and 4071: worst run of nothing inside the card = 0px
@@ -262,43 +236,9 @@ item11    register-resident    @ 390   three real viewports at scrollY 0, 1915 a
 item11    register-investor    @ 414   three real viewports at scrollY 0, 1809 and 3618: worst run of nothing inside the card = 0px
 item11    register-resident    @ 414   three real viewports at scrollY 0, 1852 and 3704: worst run of nothing inside the card = 0px
 
-item3     snap      @ 360  swipe left                     rests on slide 1 at 0.00px from start (scrollLeft 296 of 592)
-item3     snap      @ 360  swipe left                     rests on slide 2 at 0.00px from start (scrollLeft 592 of 592)
-item3     snap      @ 360  swipe right                    rests on slide 1 at 0.00px from start (scrollLeft 296 of 592)
-item3     snap      @ 360  scrollTo 37px short of slide 1 rests on slide 1 at 0.00px from start (scrollLeft 296 of 592)
-item3     snap      @ 390  swipe left                     rests on slide 1 at 0.00px from start (scrollLeft 326 of 652)
-item3     snap      @ 390  swipe left                     rests on slide 2 at 0.00px from start (scrollLeft 652 of 652)
-item3     snap      @ 390  swipe right                    rests on slide 1 at 0.00px from start (scrollLeft 326 of 652)
-item3     snap      @ 390  scrollTo 37px short of slide 1 rests on slide 1 at 0.00px from start (scrollLeft 326 of 652)
-item3     snap      @ 414  swipe left                     rests on slide 1 at 0.00px from start (scrollLeft 350 of 700)
-item3     snap      @ 414  swipe left                     rests on slide 2 at 0.00px from start (scrollLeft 700 of 700)
-item3     snap      @ 414  swipe right                    rests on slide 1 at 0.00px from start (scrollLeft 350 of 700)
-item3     snap      @ 414  scrollTo 37px short of slide 1 rests on slide 1 at 0.00px from start (scrollLeft 350 of 700)
-item3     snap      @ 667  swipe left                     rests on slide 1 at 0.50px from start (scrollLeft 296 of 591)
-item3     snap      @ 667  swipe left                     rests on slide 2 at 0.00px from start (scrollLeft 591 of 591)
-item3     snap      @ 667  swipe right                    rests on slide 1 at 0.50px from start (scrollLeft 296 of 591)
-item3     snap      @ 667  scrollTo 37px short of slide 1 rests on slide 1 at 0.50px from start (scrollLeft 296 of 591)
+wave490   84 shots · 0 empty runs over 96px · 9297 span type nodes, 350 under floor · 252 Verify readings, 143 under 44 · 48 cards, 16 with a tail over 32px · 54 pills, 2 splitting a verb · 4 peek readings, 4 under the ink floor · 85 fixed-layer clashes
 
-item3     mask on   @ 390 4x CPU, three runs of four touch swipes across the strip and a page scroll: 1264 frames, mean 16.80ms, p95 16.80ms, 10 over 25ms; the strip reached scrollLeft [652, 652, 652] and the page scrollY [900, 900, 900]
-item3     mask off  @ 390 4x CPU, three runs of four touch swipes across the strip and a page scroll: 1287 frames, mean 16.99ms, p95 16.80ms, 25 over 25ms; the strip reached scrollLeft [652, 652, 652] and the page scrollY [900, 900, 900]
-
-item3     clip      @ 360  slide 0 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
-item3     clip      @ 360  slide 1 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
-item3     clip      @ 360  slide 2 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
-item3     clip      @ 390  slide 0 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
-item3     clip      @ 390  slide 1 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
-item3     clip      @ 390  slide 2 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
-item3     clip      @ 414  slide 0 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
-item3     clip      @ 414  slide 1 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
-item3     clip      @ 414  slide 2 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
-item3     clip      @ 667  slide 0 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
-item3     clip      @ 667  slide 1 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
-item3     clip      @ 667  slide 2 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
-
-wave490   84 shots · 3 empty runs over 96px (edges and last rows counted; 10 one-screen centring runs read, not failed) · 9297 span type nodes, 350 under floor · 252 Verify readings, 143 under 44 · 48 cards, 16 with a tail over 32px · 54 pills, 2 splitting a verb · 4 peek readings, 4 under the ink floor · 86 fixed-layer clashes · 145 runs in the open drawer, 0 under floor
-
-BEFORE: 626 readings that the wave 490 brief calls defects
-  · home @ 360: 280px of nothing but the section's own ground inside section@mission-heading, from y=2702 (last row; the section's own padding there allows 44px). Over the 96px a band may carry.
+BEFORE: 621 readings that the wave 490 brief calls defects
   · home @ 360: <span> inside a paragraph computes at 13px against the 15px body floor. [mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-ink-muted] "Fund homes, earn returns"
   · home @ 360: <span> inside a paragraph computes at 13px against the 15px body floor. [mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-ink-muted] "Lease homes securely"
   · home @ 360: <span> inside a paragraph computes at 13px against the 15px body floor. [mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-ink-muted] "Build homes nationally"
@@ -318,7 +258,6 @@ BEFORE: 626 readings that the wave 490 brief calls defects
   · home @ 360: the peeking slide's headline paints a pixel at 0.176 of its ground, under the 0.7 floor. It reads as cut-off text.
   · home @ 360: the fixed button.back-to-top sits over a text, "~150,000"
   · home @ 360: the fixed button.back-to-top sits over a text, "Households in temporary accommodation"
-  · home @ 390: 301px of nothing but the section's own ground inside section@mission-heading, from y=2652 (last row; the section's own padding there allows 44px). Over the 96px a band may carry.
   · home @ 390: <span> inside a paragraph computes at 13px against the 15px body floor. [mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-ink-muted] "Fund homes, earn returns"
   · home @ 390: <span> inside a paragraph computes at 13px against the 15px body floor. [mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-ink-muted] "Lease homes securely"
   · home @ 390: <span> inside a paragraph computes at 13px against the 15px body floor. [mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-ink-muted] "Build homes nationally"
@@ -338,7 +277,6 @@ BEFORE: 626 readings that the wave 490 brief calls defects
   · home @ 390: the peeking slide's headline paints a pixel at 0.177 of its ground, under the 0.7 floor. It reads as cut-off text.
   · home @ 390: the fixed button.back-to-top sits over a text, "The other side"
   · home @ 390: the fixed button.back-to-top sits over a control, "The other sideSee our solutionThe "
-  · home @ 414: 279px of nothing but the section's own ground inside section@mission-heading, from y=2655 (last row; the section's own padding there allows 44px). Over the 96px a band may carry.
   · home @ 414: <span> inside a paragraph computes at 13px against the 15px body floor. [mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-ink-muted] "Fund homes, earn returns"
   · home @ 414: <span> inside a paragraph computes at 13px against the 15px body floor. [mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-ink-muted] "Lease homes securely"
   · home @ 414: <span> inside a paragraph computes at 13px against the 15px body floor. [mt-2 px-1 text-center text-[13px] font-normal leading-[1.4] text-ink-muted] "Build homes nationally"
@@ -622,7 +560,6 @@ BEFORE: 626 readings that the wave 490 brief calls defects
   · solutions @ 390: "Verify with the scheme" stands on its own line and is 180.7x24, under 44x44
   · solutions @ 390: "Verify the broker on the FCA register" stands on its own line and is 278.88x24, under 44x44
   · solutions @ 390: the pill "Care & Support Providers" wraps its role over 2 lines and leaves the verb "deliver it" beside the first of them, in a column of its own. Rule 7 asks for the verb under the role.
-  · solutions @ 390: the fixed button.back-to-top sits over a text, "Property Finder"
   · solutions @ 414: <span> inside a paragraph computes at 13px against the 15px body floor. [mt-0.5 block text-[13px] text-ink-muted] "What the council actually needs"
   · solutions @ 414: <span> inside a paragraph computes at 13px against the 15px body floor. [mt-0.5 block text-[13px] text-ink-muted] "Sourced and checked against it"
   · solutions @ 414: <span> inside a paragraph computes at 13px against the 15px body floor. [mt-0.5 block text-[13px] text-ink-muted] "5 year+, under-leased to a Registered Provider"
@@ -923,6 +860,4 @@ BEFORE: 626 readings that the wave 490 brief calls defects
   · legal @ 667x375: "Verify the broker on the FCA register" stands on its own line and is 278.88x24, under 44x44
   · legal @ 667x375: the fixed button.back-to-top sits over a text, "ICO Registered"
   · legal @ 667x375: the fixed button.back-to-top sits over a text, "ZB957755"
-  · item2: at 390 the section reads 1559px on both faces, so both faces still share one cell and the swap cannot be seen to be instant
 PASSED
-rc=0

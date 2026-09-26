@@ -1,0 +1,42 @@
+# Fix pass 490c, FIX F: which enquiry variant /contact is prerendered as, and the order the prerenderer finished writing it.
+# Two builds made in this pass, STATIC_BUILD=true bun run build then node scripts/pages-postbuild.mjs dist/client, 26 Sep 2026.
+# 'pressed' is the enquiry button carrying aria-pressed="true" in dist/client/contact/index.html.
+
+## base, origin/main f61b3b8 (scratch worktree)
+[prerender] Crawling: /contact
+[prerender] Crawling: /contact?enquiry=waitlist&type=waitlist
+[prerender] Crawling: /contact?enquiry=partner&type=partner
+[prerender] Crawling: /contact?enquiry=demo&type=demo
+[prerender] Crawling: /contact?enquiry=investor&type=investor
+[prerender] Crawling: /contact?enquiry=media&type=media
+[prerender] Crawling: /contact?enquiry=support&type=support
+[prerender] - /contact
+[prerender] - /contact?enquiry=waitlist&type=waitlist
+[prerender] - /contact?enquiry=partner&type=partner
+[prerender] - /contact?enquiry=demo&type=demo
+[prerender] - /contact?enquiry=media&type=media
+[prerender] - /contact?enquiry=investor&type=investor
+[prerender] - /contact?enquiry=support&type=support
+pressed: Support
+pages-postbuild: trimmed 795 characters of duplicated tail from dist\client\contact\index.html
+
+## head, ce157b4 (source identical to the code head 9752c60)
+[prerender] Crawling: /contact
+[prerender] Crawling: /contact?enquiry=waitlist&type=waitlist
+[prerender] Crawling: /contact?enquiry=partner&type=partner
+[prerender] Crawling: /contact?enquiry=demo&type=demo
+[prerender] Crawling: /contact?enquiry=investor&type=investor
+[prerender] Crawling: /contact?enquiry=media&type=media
+[prerender] Crawling: /contact?enquiry=support&type=support
+[prerender] - /contact
+[prerender] - /contact?enquiry=waitlist&type=waitlist
+[prerender] - /contact?enquiry=partner&type=partner
+[prerender] - /contact?enquiry=demo&type=demo
+[prerender] - /contact?enquiry=investor&type=investor
+[prerender] - /contact?enquiry=support&type=support
+[prerender] - /contact?enquiry=media&type=media
+pressed: Media
+pages-postbuild: trimmed a duplicated document tail from 0 file(s)
+
+## live, https://impactinvestmentgroup.co.uk/contact/ fetched 26 Sep 2026 00:29 UTC, HTTP 200, 54,387 bytes
+pressed: Support

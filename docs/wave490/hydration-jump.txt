@@ -1,0 +1,33 @@
+# Fix pass 490c, FIX C (rel490b MINOR 3): does the home page go back to the top when it hydrates, on the BASE as well as the head?
+# python docs/wave490/hydration-probe.py --build <build> --width W --height H --runs 2, 26 Sep 2026, nothing else running on the machine.
+# base = origin/main f61b3b8 built in a scratch worktree; head = the code head c9d9303 (a build byte-identical in its assets to 9752c60's).
+# The instrument is the item 1 probe's: gzipped server, slow 4G and the cache disabled before goto, scroll to the council strip on the first styled frame, then scrollY sampled every 50ms until 4s after hydration.
+
+== BASE f61b3b8 (build ..\iigs-uc490-base\dist\client)
+hydration run 1 @ 390x844: styled at 1382ms, scrolled to the strip target=2702 landed at scrollY=2702; hydrated at 5362ms; scrollY at the end (9398ms) = 0; first at scrollY 0: 6229ms
+  trace of changes: 1395ms y=2702; 5445ms y=2700; 5507ms y=2458; 5566ms y=1820; 5632ms y=1095; 5697ms y=702; 5765ms y=462; 5832ms y=301; 5896ms y=189; 5964ms y=111; 6031ms y=58; 6098ms y=24; 6165ms y=6; 6229ms y=0
+  VERDICT run 1: JUMPED to the top
+hydration run 2 @ 390x844: styled at 1408ms, scrolled to the strip target=2702 landed at scrollY=2702; hydrated at 5347ms; scrollY at the end (9353ms) = 0; first at scrollY 0: 6241ms
+  trace of changes: 1420ms y=2702; 5508ms y=2458; 5575ms y=1820; 5644ms y=1095; 5709ms y=702; 5777ms y=462; 5843ms y=301; 5910ms y=189; 5973ms y=111; 6042ms y=58; 6109ms y=24; 6175ms y=6; 6241ms y=0
+  VERDICT run 2: JUMPED to the top
+== BASE f61b3b8 (build ..\iigs-uc490-base\dist\client)
+hydration run 1 @ 1280x900: styled at 1422ms, scrolled to the strip target=1533 landed at scrollY=1533; hydrated at 5604ms; scrollY at the end (9653ms) = 0; first at scrollY 0: 6270ms
+  trace of changes: 1452ms y=1533; 4690ms y=1532; 5695ms y=1530; 5761ms y=1196; 5827ms y=536; 5892ms y=304; 5953ms y=200; 6016ms y=109; 6077ms y=53; 6143ms y=20; 6208ms y=3; 6270ms y=0
+  VERDICT run 1: JUMPED to the top
+hydration run 2 @ 1280x900: styled at 1427ms, scrolled to the strip target=1533 landed at scrollY=1533; hydrated at 5610ms; scrollY at the end (9673ms) = 0; first at scrollY 0: 6251ms
+  trace of changes: 1456ms y=1533; 4660ms y=1532; 5694ms y=1530; 5753ms y=1196; 5810ms y=736; 5873ms y=402; 5935ms y=230; 5999ms y=128; 6062ms y=64; 6123ms y=34; 6185ms y=10; 6251ms y=0
+  VERDICT run 2: JUMPED to the top
+== HEAD c9d9303 (build dist\client)
+hydration run 1 @ 390x844: styled at 1418ms, scrolled to the strip target=2675 landed at scrollY=2675; hydrated at 5132ms; scrollY at the end (9164ms) = 0; first at scrollY 0: 6044ms
+  trace of changes: 1433ms y=2675; 4023ms y=2654; 4089ms y=2639; 5224ms y=2637; 5289ms y=2288; 5354ms y=1532; 5417ms y=1046; 5480ms y=669; 5543ms y=438; 5605ms y=283; 5667ms y=199; 5730ms y=118; 5793ms y=62; 5856ms y=27; 5921ms y=7; 5982ms y=1; 6044ms y=0
+  VERDICT run 1: JUMPED to the top
+hydration run 2 @ 390x844: styled at 1410ms, scrolled to the strip target=2675 landed at scrollY=2675; hydrated at 5105ms; scrollY at the end (9128ms) = 0; first at scrollY 0: 6016ms
+  trace of changes: 1423ms y=2675; 3948ms y=2654; 4082ms y=2639; 5201ms y=2637; 5261ms y=2393; 5324ms y=1747; 5387ms y=1046; 5451ms y=669; 5515ms y=438; 5575ms y=317; 5638ms y=199; 5699ms y=118; 5765ms y=62; 5826ms y=34; 5889ms y=10; 5952ms y=1; 6016ms y=0
+  VERDICT run 2: JUMPED to the top
+== HEAD c9d9303 (build dist\client)
+hydration run 1 @ 1280x900: styled at 1416ms, scrolled to the strip target=1533 landed at scrollY=1533; hydrated at 5842ms; scrollY at the end (9886ms) = 0; first at scrollY 0: 6503ms
+  trace of changes: 1445ms y=1533; 4680ms y=1532; 5930ms y=1530; 5995ms y=1196; 6055ms y=625; 6119ms y=349; 6186ms y=200; 6248ms y=128; 6310ms y=64; 6375ms y=26; 6439ms y=6; 6503ms y=0
+  VERDICT run 1: JUMPED to the top
+hydration run 2 @ 1280x900: styled at 1408ms, scrolled to the strip target=1533 landed at scrollY=1533; hydrated at 5803ms; scrollY at the end (9864ms) = 0; first at scrollY 0: 6456ms
+  trace of changes: 1424ms y=1533; 4671ms y=1532; 5891ms y=1530; 5947ms y=1196; 6007ms y=625; 6074ms y=349; 6143ms y=200; 6206ms y=109; 6268ms y=64; 6329ms y=26; 6393ms y=6; 6456ms y=0
+  VERDICT run 2: JUMPED to the top
