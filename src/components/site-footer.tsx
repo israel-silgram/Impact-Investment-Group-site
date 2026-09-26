@@ -272,7 +272,7 @@ export function SiteFooter() {
 
             {/* Logo + contact */}
             <div className="flex flex-col gap-3">
-              <Logo variant="on-cream" />
+              <Logo variant="on-cream" size="footer" />
               {/* ink-muted, not ink-soft. This is 12px body copy sitting
                   directly on the cream, where ink-soft is 4.33:1 and fails
                   AA; ink-muted is 6.20:1. Wave 298 recorded this paragraph

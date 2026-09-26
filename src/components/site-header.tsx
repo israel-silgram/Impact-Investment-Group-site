@@ -554,7 +554,7 @@ export function SiteHeader() {
             className="drawer-panel fixed inset-y-0 right-0 z-[60] flex w-[min(21rem,88vw)] flex-col border-l border-rule bg-page px-5 pb-8 pt-6 shadow-[var(--shadow-card-hover)] xl:hidden"
           >
             <div className="flex items-center justify-between">
-              <Logo variant="on-cream" />
+              <Logo variant="on-cream" size="panel" />
               <button
                 type="button"
                 aria-label="Close menu"

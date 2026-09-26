@@ -935,9 +935,18 @@
    targets at the top of the page, where the bar is not condensed; wave 414b
    measures the scrolled reading too and this is the first thing it found.
    4px above and below makes the resting box 52px, and 52 by 0.85 is 44.2, so
-   the target clears the floor in the state it is actually in. */
+   the target clears the floor in the state it is actually in.
+
+   WAVE 493: AND 52px IS NOW A FLOOR RATHER THAN A SUM. The one-line lockup
+   runs 34px tall on a phone and 36 at 1280 (see the sizing note in
+   src/components/logo.tsx), where 4px either side is 42 and 44 and the
+   condensed target would be 35.7 and 37.4. `min-height` holds the box at 52
+   whatever the mark's height, and the flex centring keeps the mark in the
+   middle of it. */
 .site-header__logo {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 3.25rem;
   padding-block: 0.25rem;
   transform-origin: left center;
   transition: transform var(--duration-hover) var(--ease-out-soft);
@@ -2331,8 +2340,8 @@ canvas[data-map="in"] {
    667 by 375 is a phone held sideways, and it is 375px TALL. The bar wants
    56px there rather than 72 whatever the width says, because the constraint
    on a landscape phone is height and 16px is four per cent of everything the
-   visitor can see; the logo comes down to its own 44px phone size with it, so
-   it still clears the bar by 6px either side.
+   visitor can see; the logo comes down to its own 34px phone size with it
+   (wave 493, the one-line lockup), so it clears the bar by 11px either side.
 
    The strip shows two photographs rather than one, because at 667px wide a
    single 5:4 photograph is 480px tall on a 375px screen, and the picture caps
@@ -2348,7 +2357,7 @@ canvas[data-map="in"] {
   }
 
   .site-header__logo img {
-    height: 2.75rem;
+    height: 2.125rem;
   }
 
   .hero-panel {
