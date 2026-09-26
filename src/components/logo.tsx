@@ -25,7 +25,7 @@ import { cn } from "@/lib/utils";
  * platform's own `iig-logo.png` exported to WebP; the reverse is derived from
  * it by `scripts/make_reverse.py` (every navy or neutral pixel lifted to
  * white, every orange pixel and the alpha untouched), never redrawn. Its two
- * oranges are the same two wave 443 put in the stacked files, the primary ink
+ * oranges are the same two wave 443 put in the three-line files, the primary ink
  * in the word and the primary in the mark, so the palette did not move.
  *
  * ⚠️ A LIGHT SECTION MUST PASS variant="on-cream". The default is the reverse

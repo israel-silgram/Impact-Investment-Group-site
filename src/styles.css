@@ -215,9 +215,12 @@
      control's clearance.
 
      56px on a phone and 72px from 640px, because the height is set by the
-     logo inside it: the lockup is `h-11 sm:h-[52px]`, so 44px of artwork on a
-     phone clears a 56px bar with 6px either side and 52px of artwork needs 72.
-     The breakpoint here is the logo's own breakpoint and has to stay that way.
+     logo inside it. Wave 414 sized these for the three-line lockup at 44px
+     and 52px. Wave 493's one-line lockup is 34px under 640 and 44 from 640
+     (36 from 1280 to 1439), inside a logo link held at 52px so the condensed
+     bar keeps a 44px target: 52 in a 56px bar and 52 in a 72px one. The bar
+     heights did not move, so nothing under the bar did either. The breakpoint
+     here is the logo's own breakpoint and has to stay that way.
 
      There was a `--header-height-condensed` beside this and wave 414 retired
      it. See the block above `.site-header` for what replaced it and why. */
