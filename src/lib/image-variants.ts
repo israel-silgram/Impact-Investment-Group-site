@@ -60,14 +60,14 @@ export const IMAGE_VARIANTS: Record<string, { steps: number[]; width: number; he
     height: 558,
   },
   "/images/brand/logo-lockup-reverse.webp": {
-    steps: [400, 640],
-    width: 711,
-    height: 264,
+    steps: [400, 640, 960, 1440],
+    width: 2006,
+    height: 310,
   },
   "/images/brand/logo-lockup.webp": {
-    steps: [400, 640],
-    width: 711,
-    height: 264,
+    steps: [400, 640, 960, 1440],
+    width: 2006,
+    height: 310,
   },
   "/images/brand/logo-mark-reverse.webp": {
     steps: [],

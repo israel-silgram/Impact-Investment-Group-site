@@ -75,8 +75,8 @@ export function Logo({
         fetchPriority="high"
         alt=""
         aria-hidden="true"
-        width={711}
-        height={264}
+        width={2006}
+        height={310}
         className="h-11 w-auto sm:h-[52px]"
       />
       <span className="sr-only">Impact Investment Group — home</span>
