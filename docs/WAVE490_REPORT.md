@@ -20,6 +20,106 @@ an artefact of the instrument the review itself was using.
 
 ---
 
+## 0c. The fix pass 490c, and what the second re-check found
+
+The second independent re-check, rel490b, read this branch at `ce157b4` (code head
+`9752c60`) and returned **HOLD on two MAJORs, one of them documentation, and six MINORs**.
+The fix pass 490c is documentation and evidence, plus one comment. It changes no
+behaviour, adds no string and weakens no test.
+
+| finding | what the fix pass 490c did |
+|---|---|
+| MAJOR 1: `before.txt` was never re-run with the fix pass's instrument, so the base figures lived only in prose | **FIX A.** The base `f61b3b8` was built in a scratch git worktree and measured by the gate script as it stands at the code head, `--mode before`; the output is `docs/wave490/before.txt`, and the old log is kept as `docs/wave490/before-first-pass.txt`. Every rebuilt base figure in sections 2 and 7 is now quoted with its line number. The mutations 3a, 3b and 3c were run again, FAILED and then PASSED, raw, in `docs/wave490/mutations.txt` |
+| MAJOR 2: `/contact` is not deterministic | **FIX F**, documentation only: the next section, headed as a pre-existing build defect, with the evidence, the mechanism and the recommended fix |
+| MINOR 1: the 1280 cold reading, and the rollback's Lighthouse batch | **FIX B.** Item 1 states the 1280 cold landing time as unmeasured; the comment in `src/components/ui/logo-marquee.tsx` is corrected to the two widths that were measured (`c9d9303`, the only source change). The rollback batch was not logged, and section 6 says so |
+| MINOR 2: the data logos' check loosened without a ruling | **FIX E**, proposal 16 |
+| MINOR 3: proposal 13 not checked on the base | **FIX C**, below: **the base jumps too** |
+| MINOR 4: three links outside item 12's list | **FIX E**, proposal 17 |
+| MINOR 5: the capture's scroll box is a focusable group with no name | not in this pass's brief; unchanged, and it is what FIX 13 asked for (axe reads 0) |
+| MINOR 6: four report slips | **FIX D**: the broken bold marker in ruling C, "three more" above six rows (now "six"), the sentence in section 5.1 that did not parse (rewritten as two), and 275 against 274 (section 5 says which is right and why) |
+
+### The hydration scroll to the top, checked on the base
+
+**The base goes back to the top as well. This wave did not introduce it.** Proposal 13 was
+measured on the head only. The fix pass 490c ran one probe on both builds,
+`docs/wave490/hydration-probe.py`, which is the item 1 probe's own instrument (gzipped
+server, slow 4G with the cache disabled before `goto`, a scroll to the council strip on the
+first styled frame) followed by `scrollY` sampled every 50ms until 4s after hydration. Two
+runs per build per width, nothing else running on the machine
+(`docs/wave490/hydration-jump.txt`):
+
+| build | width | scrolled to | hydrated at | at scrollY 0 by | verdict |
+|---|---|---|---|---|---|
+| base `f61b3b8` | 390 | 2,702 | 5,362 and 5,347ms | 6,229 and 6,241ms | **jumped**, both runs |
+| base `f61b3b8` | 1280 | 1,533 | 5,604 and 5,610ms | 6,270 and 6,251ms | **jumped**, both runs |
+| head `c9d9303` | 390 | 2,675 | 5,132 and 5,105ms | 6,044 and 6,016ms | **jumped**, both runs |
+| head `c9d9303` | 1280 | 1,533 | 5,842 and 5,803ms | 6,503 and 6,456ms | **jumped**, both runs |
+
+The shape is the same on both builds: the page holds its position until about 0.1s after
+the hydration mark, then travels to 0 over about 0.7 to 0.9s in an eased curve rather than
+a single step, which is what a `scrollTo` to the top looks like under the site's own
+`html { scroll-behavior: smooth }` (`src/styles.css:382` on the base). Something resets the
+scroll on the first client render, and it did so before this wave. The first suspect is
+unchanged, the router's initial-load scroll handling (`src/router.tsx` sets
+`scrollRestoration: true`), and the one thing already ruled out is unchanged too (a scratch
+build with it `false` does the same). Proposal 13 stands as a pre-existing defect with its
+recommended default, and this jump is also why the 1280 cold landing time in item 1 is
+unmeasured.
+
+---
+
+## A pre-existing build defect this wave did not cause and does not fix: which page `/contact` is
+
+**The page served at `/contact` is whichever enquiry variant the prerenderer wrote last.**
+It was proposal 15; the second independent re-check, rel490b, made it MAJOR 2, and this
+fix pass (490c) gives it this section so that nobody reads it as a wave 490 change. This
+wave did not cause it, and this wave does not fix it.
+
+**The evidence.**
+
+- **Five builds of the code head `9752c60`** prerendered `/contact` as **Investor enquiry,
+  Media, Investor enquiry, Media and Support**, in that order
+  (`docs/wave490/gate-lint.txt:10` to `:15`).
+- **Four builds of the base `f61b3b8`** prerendered it as **Media once and Support three
+  times** (section 9, proposal 15).
+- **The live site serves Support**: `https://impactinvestmentgroup.co.uk/contact/` fetched
+  on 26 September 2026 at 00:29 UTC has the Support button pressed
+  (`docs/wave490/contact-variants.txt`).
+- **The two builds this fix pass made** fit the mechanism below exactly: the base build
+  finished the Support variant last and serves Support, and the head build finished the
+  Media variant last and serves Media (`docs/wave490/contact-variants.txt`, each build's
+  own `[prerender]` lines).
+- **The postbuild trim varies with it**: `scripts/pages-postbuild.mjs` has trimmed 1,677,
+  2,242, 230 and 0 characters of duplicated tail from `contact/index.html` on different
+  builds of the same source (section 4.1), and 795 and 0 on this pass's two.
+
+**The likely mechanism.** `vite.config.ts` prerenders with `crawlLinks: true` and
+`autoSubfolderIndex: true`. The crawl reaches six query variants of the page,
+`/contact?enquiry=waitlist`, `partner`, `demo`, `investor`, `media` and `support`, from the
+site's own links, and prerenders each as well as `/contact`. The query string is not part
+of the output path, so all seven write `contact/index.html`, concurrently, and the one that
+finishes last is the page that ships. A write that overlaps another would also explain the
+duplicated document tail the postbuild step exists to trim.
+
+**What a visitor gets.** Somebody who types the address, or follows any plain link to
+`/contact`, lands on a form with an enquiry type already chosen by the race: Support on the
+live site today, and on the next deploy possibly Media or Investor, with a different
+deadline field and a different reply promise. After hydration the header's "Contact Us"
+can read orange or navy depending on the variant.
+
+**What this wave did about it.** Nothing to the build. Rule 8's 1280 pairing needs the head
+and the base to be the same page, so the wave 490 gate rebuilt until the head's `/contact`
+matched the before set's Support, and records every attempt (section 4.3). That makes
+the `/contact` pairing a comparison on a CHOSEN build, and it is said here as such.
+
+**Recommended: the next site wave**, a short build wave that makes `/contact` one
+deterministic output: stop prerendering the query variants (exclude `/contact?` from the
+crawl and let the client apply the query), or write them somewhere other than
+`contact/index.html`, and then assert in the gate that `contact/index.html` has no enquiry
+type pressed. Until then, every deploy re-rolls which enquiry type `/contact` opens on.
+
+---
+
 ## 0. The fix pass 490b, and what the re-check found
 
 The independent re-check of this branch at `04539cd` (code head `ee833f3`), rel490,
@@ -50,14 +150,16 @@ settles it.
   named to Callum as one: section 9, proposal 11.
 - **RULING C. The wave 412 off-screen bucket is narrowed to the hero strip
   (`.hero-band`) below 768 only.** Every other INCOMPLETE node is measured or failed
-  exactly as wave 412b wrote it. At the code head the bucket holds ****1 node**, the second slide's caption "Delivering Support" on home @ 390, and nothing else on any route or width**.
+  exactly as wave 412b wrote it. At the code head the bucket holds **1 node, the second
+  slide's caption "Delivering Support" on home @ 390, and nothing else on any route or
+  width**.
 
 ### The four MAJORs
 
 | # | finding | closed by | proof |
 |---|---|---|---|
 | 1 | Back-to-top removed below `lg`, unrequested | **Ruling A** (above) | the removal stands as a proposal with its one-commit restore path |
-| 2 | The report said wave 412 passed; the committed log ended 4 FAILURE(S), and the off-screen bucket was site-wide | `28db505` (FIX 1) | wave 412 re-run at the code head: exit 0, 28 shots, 274 INCOMPLETE nodes, **274 measured, 0 unmeasured, 1 off screen**, All assertions passed; bucket narrowed to `.hero-band` below 768; the flip bar at 390 reads **5.21:1** on all three lines |
+| 2 | The report said wave 412 passed; the committed log ended 4 FAILURE(S), and the off-screen bucket was site-wide | `28db505` (FIX 1) | wave 412 re-run at the code head: exit 0, 28 shots, 275 INCOMPLETE nodes, **274 measured, 0 unmeasured, 1 off screen** (section 5 says why the log's summary line reads 274), All assertions passed; bucket narrowed to `.hero-band` below 768; the flip bar at 390 reads **5.21:1** on all three lines |
 | 3a | Item 11's reading put wrappers in its rows, so its widest gap could not fail; the tail read minus 74 and minus 98 while the report said 1px | `d377ffd` (FIX 2) | rows are leaf ink boxes; head reads widest gap **46.0px**, tail **15.0px**; mutation `pb-[200px]!` on the bar: **FAILED**, 233px |
 | 3b | Rule 2 never reported a run at a section's edge or last row, so the brief's own 295px hole was invisible to it | `c990596` (FIX 3) | base build: **301px at 390** (280 at 360, 279 at 414) found; head: **0**; mutation, a 200px interior spacer: **FAILED: 9** |
 | 3c | The reduced-motion probe passed on the base, and the report quoted the base's 1,559px as the head's proof | `539453f` (FIX 4) | head **1,355 then 1,566px**; base **1,559 throughout, FAILED** |
@@ -90,15 +192,23 @@ settles it.
 | Base | `origin/main` at `f61b3b8` (wave 443's head, 22 Sep). `origin/main` did not move during the wave, so nothing was merged in |
 | Number claimed | empty commit `0264024`, pushed before the first edit. `git ls-remote --heads origin 'refs/heads/feat/wave49*'` returned **nothing** on the site remote and **`feat/wave49-admin-console`** on the platform remote, which is wave 49 and not 490. No collision |
 | First code head | `ee833f3` (wave 490), re-checked as rel490: **HOLD, 4 MAJOR, 10 MINOR** |
-| Code head | **9752c60** (the fix pass 490b, section 0) |
-| Final head | the last commit on the branch, a documentation one. **Every commit after the code head changes only `docs/`**: `git diff --name-only 9752c60..HEAD | grep -v '^docs/'` prints nothing. (The one `.gitignore` line wave 490 added, excluding `docs/screenshots/wave490/control/`, is before the code head.) |
+| Code head of the gate | **9752c60** (the fix pass 490b, section 0). Every gate figure in this report was measured on a build of it |
+| Code head | **c9d9303** (the fix pass 490c). It changes ONE JSX comment in `src/components/ui/logo-marquee.tsx` and nothing else (`git diff --stat 9752c60 c9d9303` is that file, 7 insertions and 2 deletions, all inside the comment). A build of it is **byte-identical** to a build of 9752c60's source: the 86 files of `dist/client/assets` hash the same, file for file |
+| Final head | the last commit on the branch, a documentation one. **Every commit after the code head changes only `docs/`**: `git diff --name-only c9d9303..HEAD | grep -v '^docs/'` prints nothing. (The one `.gitignore` line wave 490 added, excluding `docs/screenshots/wave490/control/`, is before the code head.) |
 
 The repository's own checkout on `main` carries an uncommitted SEO refactor and was not
 touched: every git command in this wave ran from inside the worktree.
 
 **The raw logs of every run quoted below are under `docs/wave490/`**, kept because a
 number in a report that nobody can re-read is a number nobody can check:
-`docs/wave490/before.txt` (every figure in the "before" column), `docs/wave490/gate.txt`
+`docs/wave490/before.txt` (the base build `f61b3b8` measured by the gate script as it
+stands at the code head, `python scripts/wave490-phone.py --build <base build> --mode
+before`, re-run in the fix pass 490c: every "before" figure in sections 2 and 7 is quoted
+from it with its line number), `docs/wave490/before-first-pass.txt` (the same base measured
+by the WAVE 490 script at `ee833f3`, kept because it is what the wave 490 text quoted; its
+instrument could not see a trailing run, so its rule 2 line reads "0 empty runs over
+96px" where the rebuilt one reads 3), `docs/wave490/mutations.txt` (the raw FAILED and
+PASSED runs for the fix pass's mutations 3a, 3b and 3c), `docs/wave490/gate.txt`
 (every figure in the "after" column), `docs/wave490/base-412.txt` and `base-414.txt`
 (the two pre-existing red gates measured on the base build), and the six `gate-41*` and
 `gate-421`/`gate-443` files for the earlier gates re-run at this head.
@@ -108,9 +218,19 @@ number in a report that nobody can re-read is a number nobody can check:
 ## 2. The thirteen items
 
 Every "before" figure below was measured by `scripts/wave490-phone.py --mode before`
-against a build of `origin/main` `f61b3b8` kept in the worktree at `before.local/client`,
-on the same instrument, the same profiles and the same day as the "after" figure beside
-it. Nothing here is quoted from the brief without being re-measured.
+against a build of `origin/main` `f61b3b8`, on the same profiles as the "after" figure
+beside it. **Since the fix pass 490c the log behind them is `docs/wave490/before.txt`,
+taken on 26 September 2026 by the script as it stands at the code head (the fix pass 490b
+rebuilt five of its instruments and had not re-run it), against a build of `f61b3b8` in a
+scratch git worktree**, and the figures the fix pass rebuilt are quoted with their line
+numbers. Nothing here is quoted from the brief without being re-measured.
+
+**One caveat on that run, stated rather than hidden.** Its route sweep ran alone, but while
+its item 1 probe was running this pass was building the mutation 3b and restored trees in
+the same machine, so the base's COLD item 1 timings in it were taken with a build
+competing for the CPU. The asserted LOADED figures do not depend on timing (on the base a
+lazy tile off the layout is never requested at all) and they read exactly what the fix pass
+490b reported: 4, 4 and 11 of 36.
 
 ### Item 1 · The council logo strip showed blank white plates
 
@@ -143,17 +263,24 @@ one asserted, on the tiles on screen AND on the whole lane of 36, because the de
 the tiles further along the lane that cross the window later as empty plates. The COLD
 reading is printed as a FINDING, for the reason below.
 
-**Before**, the base build on this instrument:
+**Before**, the base build on this instrument (`docs/wave490/before.txt`, line numbers in
+the last row):
 
 | | 390 | 360 | 1280 |
 |---|---|---|---|
 | LOADED: crests on screen decoded at +1.5s | 4 of 4 | 3 of 3 | 9 of 9 |
 | LOADED: the whole lane decoded at +1.5s | **4 of 36** | **4 of 36** | **11 of 36** |
-| COLD: crests on screen decoded at +1.5s | 0 of 4 | 0 of 3 | 0 of 9 |
-| crests ever requested | 4 | 3 to 4 | 9 to 10 |
+| COLD: crests on screen decoded at +1.5s | 0 of 4 | 0 of 3 | 1 of 9 |
+| crests requested by the reading, cold then loaded | 4, 4 | 3, 4 | 9, 11 |
+| `before.txt` lines, cold and loaded | 225, 229 and 230 | 232, 236 and 237 | 239, 243 and 244 |
 
 The LOADED reading **fails on the base**: "32 of 36 council tiles had not decoded" at 390
-and 360, 25 of 36 at 1280, FAILED: 3. The first few tiles of the lane sit in layout, so
+and 360 (`before.txt:230` and `:237`), 25 of 36 at 1280 (`:244`). The script in before
+mode lists these under BEFORE rather than FAILED; run as a gate against the same build it
+is FAILED: 3, as the fix pass 490b recorded. (The fix pass 490b's own base table read
+0 of 9 COLD at 1280 and "9 to 10" requests; this run reads 1 of 9 and 11, with the CPU
+caveat above. The cold 1280 figure on the base, like the head's, never settles:
+`before.txt:239` reads "+over 16500ms", for the reason given under the head table below.) The first few tiles of the lane sit in layout, so
 even lazy they load; every tile after them is parked outside the layout for ever.
 
 **The change.** Wave 490: `loading="eager"` with `fetchpriority="low"`, so all eighteen
@@ -165,12 +292,34 @@ distinct crests are requested at first paint without competing with the hero.
 |---|---|---|---|
 | LOADED: crests on screen decoded at +1.5s | **4 of 4** | **3 of 3** | **9 of 9** |
 | LOADED: the whole lane decoded at +1.5s | **36 of 36** | **36 of 36** | **36 of 36** |
-| COLD: crests on screen decoded at +1.5s (FINDING) | 0 of 4, all by +3.25s | 0 of 3, all by +2.75s | 0 of 9 |
+| COLD: crests on screen decoded at +1.5s (FINDING) | 0 of 4, all by +3.25s | 0 of 3, all by +2.75s | 0 of 9; **landing time UNMEASURED** |
 | distinct crest requests before the entry | 18 | 18 | 18 |
+
+**The 1280 cold landing time was not measured (fix pass 490c, rel490b MINOR 1).** At 1280
+the cold reading was taken (0 of 9 decoded at +1.5s, `docs/wave490/gate.txt:231`), but the
+probe then waits for every crest on screen to decode, and at 1280 it never saw one:
+`gate.txt:231` and `:232` read "every tile on screen decoded by +over 16500ms". That is not
+a 16.5 second crest. The page hydrated at about 4.5s (the loaded 1280 readings,
+`gate.txt:235` and `:236`, put hydration at 4,493 and 4,503ms), hydration took the page
+back to the top (proposal 13, and section 0c, where the base is shown to do the same), the strip went off screen, and the settle loop, which counts only crests on
+screen, had nothing to wait for until it gave up. So every cold landing time in this
+report is a 360 or 390 figure, and the one at 1280 is **unmeasured**. The comment in
+`src/components/ui/logo-marquee.tsx` said "3 to 9 crests ... land at +2.25 to +3.25s",
+which took in 1280; it is corrected in `c9d9303`, the only source change in the fix pass
+490c, to the two widths that were measured.
+
+**Item 1's 1.5s budget is enforced only by the LOADED reading, and that is narrower than
+it looks.** The LOADED reading waits for `load`, and `load` waits for every eager image, so
+it binds against the tiles being lazy (which is the defect, and it fails on the base) and
+against nothing else. The cold readings are printed, not asserted. What a phone visitor on
+a cold slow 4G load actually sees, from `gate.txt`: the page is unstyled until about
+1.4s; a visitor already on the strip 1.5s later sees 4 white plates at 390 (3 at 360) with
+no crest in them; the crests land by +3.25s at 390 and +2.75s at 360; a visitor who
+arrives after the page has loaded (about 5.1s) sees every crest.
 
 **A FINDING, and a change tried and taken back.** On the COLD reading the crests are
 queued behind the hero photographs, the stylesheet, the fonts and the bundle, and they
-land at +2.5 to +3.25s. Leaving `fetchpriority` off (auto, so Chrome's own boost for
+land at +2.75 to +3.25s at 360 and 390. Leaving `fetchpriority` off (auto, so Chrome's own boost for
 on-screen images applies) changed nothing, +3.0s at 390. Putting the first nine tiles,
 the most any width shows at once, at `high` (commit `62dba1d`) did bring them inside the
 1.5s, and my own real-throttling measurement of the home page's LCP showed no cost (2,432ms
@@ -212,7 +361,10 @@ the strip and **the page goes back to the top when the bundle hydrates**: at 390
 scrolled to y=2,639 at the first styled frame, hydrated at 5,365ms, back at scrollY 0 by
 6,257ms. It is not the router's `scrollRestoration` flag (a scratch build with it set to
 `false` does the same). A visitor on a slow phone who has started reading is taken back
-to the hero. Its cause is not established in this pass and it is proposal 13.
+to the hero. Its cause is not established, and **the base does it too**: the fix pass 490c
+ran the same instrument on `f61b3b8` and the page went back to 0 at 390 and at 1280 in
+every run (section 0c, `docs/wave490/hydration-jump.txt`). It is pre-existing, and it is
+proposal 13.
 
 ### Item 2 · 295px of empty cream under the purpose section
 
@@ -275,13 +427,19 @@ swap. (The wave 490 text quoted 1,559px three times here. Those were the BASE bu
 figures, where both faces share one cell and nothing changes height at all, and the probe
 passed there too. The re-check caught it. The probe now also asserts that the section's
 height changes across the swap at 390, so it cannot pass on the base: run against the base
-build it reads 1,559 throughout and **FAILS**, FIX 4.)
+build it reads 1,559 throughout and **FAILS**, FIX 4: `docs/wave490/before.txt:250` and
+`:251` read "before=1559px at 50ms=1559px at 750ms=1559px" and "changed by 0px across the
+swap", and `:926` is the failure, "at 390 the section reads 1559px on both faces". The run
+as a gate, FAILED: 1, and the head's pass beside it are in `docs/wave490/mutations.txt`,
+3c.)
 
 **Rule 2's scan now sees this hole too.** It used to report only interior runs, so a run
 reaching a section's last row, which is exactly what this hole is, was invisible to it
 (FIX 3). On the base build it now reports **280px at 360, 301px at 390 and 279px at 414**
-inside `section@mission-heading`, "last row", with the face's own 44px padding allowed; at
-the code head, **0**.
+inside `section@mission-heading`, "last row", with the face's own 44px padding allowed
+(`docs/wave490/before.txt:301`, `:321` and `:341`; the summary at `:298` reads "3 empty
+runs over 96px"); at the code head, **0**. The same scan failing a 200px interior spacer,
+and passing once it is taken out, is `docs/wave490/mutations.txt`, 3b.
 
 **Two behaviours of the swap are known and left as they are**, both measured by the
 re-check. Flipping from the solution face (1,566px at 390) back to the need face (1,355px)
@@ -661,7 +819,14 @@ layered Tailwind utility, so the bar stays 77px and the reading is unchanged. Th
 fact about the mutation, not a pass. With `pb-[200px]!` the bar is 265px, the reading is
 "233px of the step's flow ... before "Already registered? Sign in", carries no ink, over
 the ceiling of 96px", **FAILED: 1**; uncapped, the ceiling would have been 281px and it
-would have passed.
+would have passed. Re-run in the fix pass 490c at 360, 390 and 414 with the raw output
+committed (`docs/wave490/mutations.txt`, 3a): **FAILED: 3**, 233px at each width, and
+PASSED with 46.0px and 15.0px once the class was taken out and the tree rebuilt.
+
+**The base reads the same as the head here, which is what "not a defect" means.**
+`docs/wave490/before.txt:160`, `:162` and `:165`: on `f61b3b8` at 360, 390 and 414 the
+widest gap between two inks is **46.0px** and the tail **15.0px**, with the panel 3px
+shorter than the head's (1,271px against 1,274 at 390).
 
 The form is 999px tall inside a step of 1,229 at 390, which are the brief's own figures and
 are correct. **The reserve is the bar's height once**, its own `mt-4` and the sign-in
@@ -811,7 +976,7 @@ list (MINOR 2), and the fix pass floored two more. All of them are here.
 | `src/components/site-header.tsx:355` | `text-[12px]` | `+ max-lg:text-[15px]` | **fix pass (FIX 12).** The note in the desktop Partners dropdown, rendered from `xl` only, so the floor never paints; floored so the sweep carries no unexplained body run |
 | `src/components/ui/empty-slot.tsx:37` | `text-[12px]` | `+ max-lg:text-[15px]` | **fix pass (FIX 12).** `EmptySlot` has no importer in `src`, so no route renders it; floored for the same reason |
 
-and three more that are captions rather than body and take 13 rather than 15:
+and six more that are captions rather than body and take 13 rather than 15:
 
 | file and line | before | after |
 |---|---|---|
@@ -884,7 +1049,7 @@ the same output.
 | **Wave 490's gate** | `python scripts/wave490-phone.py` | **0** | **84 shots. 0 runs over 96px with edge and last-row runs counted** (10 one-screen centring runs on the 404 read and not failed, proposal 14). **9,261 span type nodes, 0 under floor; 145 runs in the open drawer, 0 under floor. 252 Verify readings, 0 under 44. 48 cards, 0 with a tail over 32px. 54 pills, 0 splitting a verb. 4 peek readings, 0 under the ink floor. 0 fixed-layer clashes.** Item 1 LOADED: 4 of 4, 3 of 3, 9 of 9 on screen and 36 of 36 in the lane at 390, 360, 1280 (COLD printed as findings). Item 11: widest gap 46.0px, tail 15.0px. Item 2 under reduced motion: 1,355 then 1,566px. Item 3: 16 landings, worst 0.50px off start; 12 clip readings, 0px cut; mask on 7 long frames of 1,293, off 16 of 1,310. Item 7: the caption names 1 dialog and no group. Item 13: four fields, all clear of the bar. **14 routes paired at 1280: 12 at 0 device px, `/` and `/platform` at 0 beyond their own noise.** PASSED |
 | `git diff origin/main...HEAD -- src/content` | | | **EMPTY** |
 | U+2014 and U+2013 on added lines, `src` and `scripts` | `git diff origin/main...HEAD -- src scripts` | | **0 and 0** |
-| U+2014 and U+2013 on added lines, everywhere | `git diff origin/main...HEAD` | | **30 U+2014 and 18 U+2013**. Every one is on an added line of a log under `docs/wave490/` (`before.txt` 19, `base-412.txt` 14, `gate-412.txt` 14, `gate.txt` 1), and every one is a verbatim quote of text the site already ships, printed by a gate that is reading it: the year ranges in the source credits, the product capture's caption, the three portal buttons' existing `aria-label`s and a handful of sentences of existing copy. None is in `src`, `scripts` or this report. (Wave 490 wrote "0" here without the scope; the re-check counted 30 and 18. MINOR 1) |
+| U+2014 and U+2013 on added lines, everywhere | `git diff origin/main...HEAD` | | **39 U+2014 and 28 U+2013** at the final head (30 and 18 at `ce157b4`; the fix pass 490c added the second copy of the base log, `before-first-pass.txt`, which carries the 19 the old `before.txt` did, and the re-run `before.txt` carries 19 of its own). Every one is on an added line of a log under `docs/wave490/` (`before.txt` 19, `before-first-pass.txt` 19, `base-412.txt` 14, `gate-412.txt` 14, `gate.txt` 1), and every one is a verbatim quote of text the site already ships, printed by a gate that is reading it: the year ranges in the source credits, the product capture's caption, the three portal buttons' existing `aria-label`s and a handful of sentences of existing copy. None is in `src`, `scripts` or this report. (Wave 490 wrote "0" here without the scope; the re-check counted 30 and 18. MINOR 1) |
 | Hex on added lines under `src` | | | **2, both `#000`**, and both are the alpha channel of the hero strip's mask gradient in `src/styles.css`, which is the same literal `.logo-marquee`'s own mask has used since wave 412. A mask is not a colour anybody sees |
 | New user-facing strings | | | **one: `aria-label="Close"`** on the capture dialog's icon-only close control, which is the single case the canon allows. The word already ships in `src/components/ui/dialog.tsx:49`. The fix pass added none |
 
@@ -943,13 +1108,25 @@ head's run.
 
 | Gate | Exit | Numbers |
 |---|---|---|
-| `python scripts/wave412-screenshots.py` | **0** | **28 shots, All assertions passed.** 274 axe INCOMPLETE colour-contrast nodes, **274 measured off the pixels, 0 unmeasured, 1 off screen** (the hero strip's second caption at 390, ruling C). The flip bar at 390: **5.21:1** on all three lines (4.83, 4.68 and 5.05:1 at 1280). Darkest raw: home @ 1280 **23.08%** (ratchet 23.70%). Darkest ground: home @ 1280 **8.17%** (flat ceiling 15%) |
+| `python scripts/wave412-screenshots.py` | **0** | **28 shots, All assertions passed.** 275 axe INCOMPLETE colour-contrast nodes, **274 measured off the pixels, 0 unmeasured, 1 off screen** (the hero strip's second caption at 390, ruling C). The flip bar at 390: **5.21:1** on all three lines (4.83, 4.68 and 5.05:1 at 1280). Darkest raw: home @ 1280 **23.08%** (ratchet 23.70%). Darkest ground: home @ 1280 **8.17%** (flat ceiling 15%) |
 | `python scripts/wave413-motion.py` | **0** | every route at 1280 and 390 plus all seven standalone probes, All assertions passed. The magic line reads 66.28px against a link of 66.28px at the top and scrolled |
 | `python scripts/wave414-mobile.py` | **1** | **70 shots. 6,018 targets** (3,009 at the top and 3,009 scrolled, more than wave 490's 5,686 because links that stand alone are no longer exempt), **0 under 44x44, 0 closer than 8px**. Exempt as inline-in-text: **59** (225 under the old rule). **5,270 type nodes, 0 under their floor**, 0 under a 1.6 line box, 0 under 30 characters to the line at 360. **660 headings, 0 breaking a word. 0 fixed layers** on any profile (ruling A). 0 serious or critical axe violations. 0 shots overflow. **13 FAILURES, every one the header lockup at 768, identical on the base build.** Section 5.1 |
 | `python scripts/wave421-hero-and-footer.py` | **0** | **401 pairs measured**, every pair resolved on every shot, 16 variant readings, 13 under-served images, 26 dividers read; its one off-screen node is the same hero caption at 390 (ruling C). All assertions passed |
 | `python scripts/wave415-zoopla-purple.py` | **0** | the Zoopla ink mark regenerated **31,516 bytes from 31,516**, `git status public/` clean: byte-identical |
 | `node scripts/wave443-contrast.mjs --build dist/client` | **0** | **29 pairs, 0 failures, 0 retired-hex hits in source, 0 in the build** |
 | `python scripts/wave414-responsive-images.py --check` | **0** | every referenced image has the variants it should have; **24 alpha-bearing sources, every variant of them still carries alpha** |
+
+**275, not 274, and the log's own summary line is why the report said 274 (fix pass 490c,
+rel490b MINOR 6).** `docs/wave490/gate-412.txt:307` reads "INCOMPLETE nodes: 274 across 28
+shots, 274 measured off the pixels, 0 unmeasured; 1 off screen". The per-shot counts above
+it sum to **275**, and both are right about different things: `scripts/wave412-screenshots.py`
+stores each shot's tally as the nodes axe returned MINUS the ones in the off-screen bucket
+(`len(axe_result["incomplete"]) - len(off_screen)`, line 1169), and the summary adds up
+that column. So axe returned **275** INCOMPLETE nodes across the 28 shots; **274** of them
+were on screen and every one of those was measured off the pixels; **1** was the hero
+caption off screen at 390. The summary's first figure is the on-screen count under a label
+that reads like the total. The report now says 275, 274 and 1; the log is left as the
+gate printed it.
 
 ### 5.1 The one red gate, and it is not this wave's
 
@@ -966,10 +1143,14 @@ source lands the mean six thousandths lower.
 
 **The same gate, run against a build of `origin/main` `f61b3b8`, returns the identical 13
 failures at 768** (`docs/wave490/base-414.txt`, which is the 768 run and only that).
-Nothing in this branch touches the header, the lockup or the responsive pipeline. **At 360
-the lockup reads 0.803, so 0 lockup failures at 360; that run's 78 failures are the three Verify links on all 13 routes, at the top and scrolled, which is item 12's defect caught by the rule FIX 8 put into wave 414 and which the code head reads 0 of on the base build** (`docs/wave490/base-414-360.txt`, run in
-the fix pass because the wave 490 text claimed a 360 base reading that no log held,
-MINOR 10) and 0.803 at the code head.
+Nothing in this branch touches the header, the lockup or the responsive pipeline.
+
+**At 360 the lockup reads 0.803 on the base build and at the code head alike, so neither
+has a lockup failure at 360.** The base build's 360 run (`docs/wave490/base-414-360.txt`,
+run in the fix pass because the wave 490 text claimed a 360 base reading that no log held,
+MINOR 10) does fail, 78 times, and every one of the 78 is a Verify link: the three Verify
+links on all 13 routes, at the top and scrolled. That is item 12's defect, caught on the
+base by the rule FIX 8 put into wave 414; the code head reads 0 of them.
 
 It is a wave 443 regression: the Brand Kit v4 recolour moved the artwork's own luminance
 and wave 443 did not re-run this gate. The floor was calibrated in wave 414b against the
@@ -1028,6 +1209,15 @@ inside its own run-to-run spread of 6,315 to 6,400ms on the base.
 **6,654ms**, and the same head with every tile at `low` read 6,353ms: that change cost the
 hero photograph 300ms and was taken back in `76eba85` before the after-runs above.
 
+**That batch was not logged (fix pass 490c, rel490b MINOR 1).** The two medians above, and
+the five runs a side behind them, are not in `docs/wave490/lighthouse.txt`, which holds
+only the before and after batches in the table. The fix pass 490c looked for the output in
+the worktree, in its temporary files and in the operator's working notes and did not find
+it. So the rollback in `76eba85` rests on the two figures stated here and in that commit,
+and not on a committed log. The rollback itself costs nothing to trust: the after batch
+above, which is logged, is the state it left, and it reads 6,361ms on the home page
+against 6,326ms on the base.
+
 **THE TWO WEIGHTS THE BRIEF ASKS FOR: the home page is 962 KiB before and 955 KiB after.**
 It got LIGHTER, by 7 KiB, while gaining eighteen eagerly-fetched council crests weighing
 **73,714 bytes**, because item 2 took the solution face's `trio-wave.webp`, a 144 KB lazy
@@ -1038,24 +1228,35 @@ image, into a subtree that is `display: none` below `md`.
 ## 7. The mutation checks
 
 **The strongest one was run first and covers ten assertions at once.** The baseline run
-(`python scripts/wave490-phone.py --build before.local/client --mode before`) is every
-fix in this wave reverted simultaneously, against the same instrument on the same day,
-and it reads:
+(`python scripts/wave490-phone.py --build <a build of f61b3b8> --mode before`) is every
+fix in this wave reverted simultaneously, against the same instrument, and it reads as
+below. The base column is quoted from `docs/wave490/before.txt`, re-run in the fix pass
+490c with the script as it stands at the code head, and the last column is its line:
 
-| assertion | base | head |
-|---|---|---|
-| item 1, the whole lane decoded 1.5s after the strip is seen, 390, slow 4G, LOADED (the fix pass's instrument) | **4 of 36** | **36 of 36** |
-| rule 2, runs over 96px with edges and last rows counted, home at 360/390/414 | **3** (280, 301, 279px) | **0** |
-| item 2, the tail under the visible face at 390 | **297.6px** | **47.4px** |
-| item 3, the peeking headline's share of its ground at 390 | **0.177** | **0.833** |
-| item 4, span type nodes under floor | **350 of 9,297** | **0 of 9,261** |
-| item 5, the ticker at 390 | 6 items, 3 clones, 1 animation, **17 runs outside the viewport** | 3 items, 0 clones, 0 animations, **0 outside** |
-| item 6, the character over the copy at 390 | **3 text clashes**, outside the padding box | **0 clashes**, inside it |
-| item 7, a control that opens the capture | **none** | 348 x 187.4, dialog named, axe 0 |
-| item 8, fixed-layer clashes over the run | **85** | **0** |
-| item 9, card tails over 32px | **16 of 48** | **0 of 48** |
-| item 10, pills with the verb beside a wrapped role | **2** | **0** |
-| item 12, Verify readings under 44 | **143 of 252** | **0 of 252** |
+| assertion | base | head | `before.txt` |
+|---|---|---|---|
+| item 1, the whole lane decoded 1.5s after the strip is seen, 390, slow 4G, LOADED (the fix pass's instrument) | **4 of 36** | **36 of 36** | 229, 230 |
+| rule 2, runs over 96px with edges and last rows counted, home at 360/390/414 | **3** (280, 301, 279px) | **0** | 298, 301, 321, 341 |
+| item 2, the tail under the visible face at 390 | **297.6px** | **47.4px** | 9 |
+| item 2, the swap under reduced motion at 390 | 1,559px throughout, **fails** | 1,355 then 1,566px | 250, 251, 926 |
+| item 3, the peeking headline's share of its ground at 390 | **0.177** | **0.833** | 12 |
+| item 4, span type nodes under floor | **350 of 9,297** | **0 of 9,261** | 298 |
+| item 5, the ticker at 390 | 6 items, 3 clones, 1 animation, **17 runs outside the viewport** | 3 items, 0 clones, 0 animations, **0 outside** | 103 |
+| item 6, the character over the copy at 390 | **3 text clashes**, outside the padding box | **0 clashes**, inside it | 104 |
+| item 7, a control that opens the capture | **none** | 348 x 187.4, dialog named, axe 0 | 247, 248 |
+| item 8, fixed-layer clashes over the run | **86** | **0** | 298 |
+| item 9, card tails over 32px | **16 of 48** | **0 of 48** | 298 |
+| item 10, pills with the verb beside a wrapped role | **2** | **0** | 298 |
+| item 11, widest gap between two inks at 390 (not a defect) | 46.0px | 46.0px | 162 |
+| item 12, Verify readings under 44 | **143 of 252** | **0 of 252** | 298 |
+
+(Item 8 read **85** in the wave 490 text, off `docs/wave490/before-first-pass.txt:239`,
+and reads **86** on the same base now. The item 8 count is the same code in both scripts
+(`git diff ee833f3 9752c60 -- scripts/wave490-phone.py` changes only its summary's
+punctuation), and the one extra is a single reading: on `/solutions` at 390 the left-hand
+control landed on "Property Finder" (`before.txt:129` and `:625`), where the first pass
+read 0 clashes. It is run-to-run variation in where the page sits after two viewports of
+scroll, on the base, and it does not touch the head's 0.)
 
 **And two single-fix mutations, to show the method rather than the aggregate.** Each
 reverted one change, rebuilt, ran the gate on one route, and was restored:
@@ -1072,16 +1273,21 @@ the final gate is the same empty blob.
 
 Each was run in a scratch build of the source with one change made, against the committed
 gate, and the source was restored and rebuilt afterwards (`git diff HEAD -- src` empty each
-time). The commit that carries each assertion quotes its own run.
+time). The commit that carries each assertion quotes its own run. **The three the re-check
+rel490b asked to see raw, 3a (FIX 2), 3b (FIX 3) and 3c (FIX 4), were run again in the fix
+pass 490c, and their full output, FAILED with the mutation and PASSED without it, is
+`docs/wave490/mutations.txt`**: 3a FAILED: 3 (233px at each of 360, 390 and 414, where the
+fix pass 490b recorded FAILED: 1), 3b FAILED: 9 (222 to 223px), 3c FAILED: 1 (1,559px on
+both faces), and PASSED on the restored head each time.
 
 | assertion | mutation | result |
 |---|---|---|
 | FIX 1, wave 412's bucket narrowed | none needed: it is a narrowing | the bucket holds 1 node at the head, on home @ 390 |
 | FIX 2, item 11 from leaf inks | `pb-[200px]` on `.registration-actions` | **does not apply below `lg`** (an unlayered rule sets the bar's padding); unchanged, passes |
-| | `pb-[200px]!` | **FAILED: 1**, 233px before "Already registered? Sign in" |
-| FIX 3, rule 2 with edges | the base build | **3** runs, 280, 301 and 279px, the brief's hole |
-| | a 200px spacer inside each `/the-problem` section | **FAILED: 9**, 222 to 223px, interior |
-| FIX 4, the swap changes height | the base build | **FAILED: 1**, 1,559px on both faces |
+| | `pb-[200px]!` | **FAILED: 1**, 233px before "Already registered? Sign in"; re-run in 490c at three widths, **FAILED: 3** (`mutations.txt`, 3a) |
+| FIX 3, rule 2 with edges | the base build | **3** runs, 280, 301 and 279px, the brief's hole (`before.txt:301`, `:321`, `:341`) |
+| | a 200px spacer inside each `/the-problem` section | **FAILED: 9**, 222 to 223px, interior (`mutations.txt`, 3b) |
+| FIX 4, the swap changes height | the base build | **FAILED: 1**, 1,559px on both faces (`mutations.txt`, 3c; `before.txt:926`) |
 | FIX 5, the LOADED reading | the base build (lazy tiles) | **FAILED: 3**, 32, 32 and 25 of 36 undecoded |
 | FIX 8, wave 414's shares-a-line rule | the rule before the three link fixes | **8** target failures, the three links |
 | FIX 9, snap, clip | `scroll-snap-type: none` and `max-height: 1.5rem` on the caption | **FAILED: 22** |
@@ -1280,9 +1486,11 @@ page, which is a build change for a wave that owns the home page's weight.
 **13. A phone visitor who scrolls before the page hydrates is sent back to the top.**
 Measured on a cold slow 4G load at 390: scrolled to y=2,639, hydrated at 5,365ms, at
 scrollY 0 by 6,257ms. Not the router's `scrollRestoration` flag (a scratch build with it
-off does the same). *Recommended default: a short wave to find the cause* (the router's
-initial-load scroll reset is the first suspect) and keep the reader's position through
-hydration. No string involved.
+off does the same). **It is pre-existing**: the base `f61b3b8` goes back to the top the
+same way, at 390 and at 1280, two runs each (fix pass 490c, section 0c,
+`docs/wave490/hydration-jump.txt`). *Recommended default: a short wave to find the cause*
+(the router's initial-load scroll reset is the first suspect) and keep the reader's
+position through hydration. No string involved.
 
 **14. The 404 page centres its message in a box a screen tall.** Rule 2's rewritten scan
 reads 293 to 341px of ground above and 280 to 328px below the message at 360 to 414, and
@@ -1304,6 +1512,35 @@ depending on which. It is pre-existing, it is the same instability wave 490's se
 met in the postbuild step, and this pass did not touch it. *Recommended default: a short
 build wave that writes the query variants somewhere other than `contact/index.html`, or
 does not prerender them, so `/contact` is one known page.*
+The evidence and the mechanism are set out in the section "A pre-existing build defect this
+wave did not cause and does not fix", near the top of this report (fix pass 490c).
+
+**16. The five data-source logos' decode state is now a FINDING, not a failure (fix pass
+490c, rel490b MINOR 2).** This is a check that was LOOSENED, and it was loosened without a
+ruling. In the wave 490 gate a data logo on screen and not decoded inside 1.5s failed the
+run; since the fix pass it is printed as `item1 FINDING` for every reading, cold and loaded
+alike, and the whole-lane check is asserted on the council crests only
+(`scripts/wave490-phone.py`, the `name == "data" or phase == "cold"` branch of
+`logo_probe`). It was taken under the brief's own wording for these five ("plain lazy is
+fine, but ... measure it"), and item 1 carries the measurement: 0 to 3 of 5 decoded at +1.5s
+on the cold reading, 5 of 5 on the loaded one. The wave 490 script (`ee833f3`) failed a
+data logo on screen and undecoded at +1.5s, and failed the whole data row too; the fix pass
+kept the reading and dropped the failure. *Recommended default: accept the finding,
+and inline the five SVGs (1.3 to 6.4KB each) in a later wave that owns the home page's
+weight*, at which point the reading can be asserted again, since an inlined SVG has nothing
+to decode over the network.
+
+**17. Three links outside item 12's literal list were given 44px line boxes below `lg`
+(fix pass 490c, rel490b MINOR 4).** Item 12 named the footer's three Verify links. FIX 8's
+tighter rule in wave 414 found three more of the same shape and the fix pass raised them
+the same way, `max-lg:min-h-11 max-lg:items-center`, with `max-lg:inline-flex` on the two
+that were plain inline links: `src/components/contact/enquiry-form.tsx:486` ("Read the
+Privacy Policy"), `src/routes/legal.tsx:177` (the Companies House register link, already
+`inline-flex`) and `src/routes/solutions.tsx:329` ("Find a home"). No string changed, the three routes pair at
+**0 device px** at 1280, and on a phone each link now stands in a visible 44px line box
+where it used to be a 19 to 24px one. It is a visible change on three routes that the brief
+did not list. *Recommended default: accept*, because it is item 12's own fix applied to the
+three links item 12's rule, once it was written into wave 414, says are the same defect.
 
 ---
 
@@ -1325,7 +1562,8 @@ orange on a phone**, so its white words pass; that is ruling B (proposal 11).
 
 ## 11. The file list
 
-Source (every file `git diff --name-only origin/main...9752c60 -- src` prints):
+Source (every file `git diff --name-only origin/main...c9d9303 -- src` prints; the fix pass
+490c added no file to the list):
 
 - `src/components/about/director-card.tsx`
 - `src/components/contact/enquiry-form.tsx` (fix pass, FIX 8)
@@ -1339,7 +1577,7 @@ Source (every file `git diff --name-only origin/main...9752c60 -- src` prints):
 - `src/components/site-header.tsx` (fix pass, FIX 12)
 - `src/components/ui/back-to-top.tsx`
 - `src/components/ui/empty-slot.tsx` (fix pass, FIX 12)
-- `src/components/ui/logo-marquee.tsx` (and the fix pass, FIX 5)
+- `src/components/ui/logo-marquee.tsx` (and the fix pass, FIX 5; and one comment in the fix pass 490c, FIX B, `c9d9303`)
 - `src/routes/index.tsx`
 - `src/routes/legal.tsx` (fix pass, FIX 8)
 - `src/routes/platform.tsx` (and the fix pass, FIX 13)
@@ -1354,7 +1592,7 @@ Scripts and documentation:
 - `scripts/wave414-mobile.py` (fix pass, FIX 8: the shares-a-line half of the inline exemption)
 - `scripts/wave421-hero-and-footer.py` (the orange headline's selector corrected, the same bucket carried through and narrowed)
 - `docs/WAVE490_REPORT.md` (this file)
-- `docs/wave490/**`: `before.txt`, `gate.txt`, `base-412.txt`, `base-414.txt`, `base-414-360.txt`, `gate-412.txt`, `gate-413.txt`, `gate-414.txt`, `gate-415.txt`, `gate-421.txt`, `gate-443.json`, `gate-lint.txt`, `lighthouse.txt`, `typesweep.txt` and the eight median Lighthouse reports
+- `docs/wave490/**`: `before.txt` (re-run in the fix pass 490c), `before-first-pass.txt`, `mutations.txt`, `hydration-probe.py` and `hydration-jump.txt`, `contact-variants.txt` (all four new in the fix pass 490c), `gate.txt`, `base-412.txt`, `base-414.txt`, `base-414-360.txt`, `gate-412.txt`, `gate-413.txt`, `gate-414.txt`, `gate-415.txt`, `gate-421.txt`, `gate-443.json`, `gate-lint.txt`, `lighthouse.txt`, `typesweep.txt` and the eight median Lighthouse reports
 - `docs/screenshots/wave490/**` and `docs/screenshots/wave490/before/**`
 - `.gitignore` (one line, `docs/screenshots/wave490/control/`)
 
