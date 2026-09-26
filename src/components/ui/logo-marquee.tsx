@@ -79,8 +79,13 @@ export function LogoMarquee({
                 ⚠ WAVE 490b: AND THEY STAY `low`, WHICH WAS MEASURED BOTH WAYS.
                 On a cold slow 4G load scrolled to the strip on the first frame
                 its stylesheet applies (about 1.4s after navigation), 0 of the
-                3 to 9 crests on screen have decoded 1.5s later, and they land
-                at +2.25 to +3.25s. The first nine at `high` do decode inside
+                4 crests on screen at 390 and 0 of the 3 at 360 have decoded
+                1.5s later, and they land by +3.25s at 390 and +2.75s at 360.
+                That was measured at 360 and 390 only: at 1280 the page went
+                back to the top when it hydrated and took the strip off screen
+                before the crests landed, so the 1280 cold landing time is
+                unmeasured (docs/wave490/gate.txt, the two item1 councils cold
+                @ 1280 lines). The first nine at `high` do decode inside
                 the 1.5s, and Lighthouse mobile, five runs each, then puts the
                 home page's LCP (the hero photograph) at 6,654ms against 6,353
                 at `low`: 300ms of the first screen for everyone, bought for
