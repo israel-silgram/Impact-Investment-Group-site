@@ -1,0 +1,57 @@
+# scripts/wave493-logo.py at code head 27b05b2, 2026-09-26T18:56:29Z
+$ python scripts/wave493-logo.py
+readings written to C:\Users\Israel\Documents\repos\iigs-uc493\docs\wave493\measure-after.json
+  home @ 360: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 56.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 12.4 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  platform @ 360: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 56.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 12.4 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  about @ 360: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 56.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 12.4 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  partners @ 360: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 56.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 12.4 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  register @ 360: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 56.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 12.4 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  home @ 390: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 86.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  platform @ 390: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 86.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  about @ 390: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 86.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  partners @ 390: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 86.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  register @ 390: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 86.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  home @ 414: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 110.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  platform @ 414: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 110.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  about @ 414: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 110.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  partners @ 414: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 110.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  register @ 414: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 110.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  home @ 667x375: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 339.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  platform @ 667x375: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 339.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  about @ 667x375: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 339.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  partners @ 667x375: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 339.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  register @ 667x375: bar 219.3x34.0 (6.45) logo-lockup-400.webp gap 339.7 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  home @ 768: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 376.1 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  platform @ 768: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 376.1 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  about @ 768: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 376.1 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  partners @ 768: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 376.1 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  register @ 768: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 376.1 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  home @ 1024: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 632.1 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 240.3x37.2 (6.45) logo-lockup-400.webp column-bound
+  platform @ 1024: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 632.1 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 240.3x37.2 (6.45) logo-lockup-400.webp column-bound
+  about @ 1024: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 632.1 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 240.3x37.2 (6.45) logo-lockup-400.webp column-bound
+  partners @ 1024: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 632.1 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 240.3x37.2 (6.45) logo-lockup-400.webp column-bound
+  register @ 1024: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 632.1 to 'Open menu'; panel 219.3x34.0 (6.45) logo-lockup-400.webp gap 31.7 to 'Close menu'; footer 240.3x37.2 (6.45) logo-lockup-400.webp column-bound
+  home @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  platform @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  about @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  partners @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  register @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  home @ 1440: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 83.8 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  platform @ 1440: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 83.8 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  about @ 1440: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 83.8 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  partners @ 1440: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 83.8 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  register @ 1440: bar 283.9x44.0 (6.45) logo-lockup-400.webp gap 83.8 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+
+All assertions passed.
+  pairing home @ 1280 header: 0 px differ outside the logo's reach
+  pairing home @ 1280 footer: 0 px differ outside the logo's reach
+  pairing platform @ 1280 header: 0 px differ outside the logo's reach
+  pairing platform @ 1280 footer: 0 px differ outside the logo's reach
+  pairing about @ 1280 header: 0 px differ outside the logo's reach
+  pairing about @ 1280 footer: 0 px differ outside the logo's reach
+  pairing partners @ 1280 header: 0 px differ outside the logo's reach
+  pairing partners @ 1280 footer: 0 px differ outside the logo's reach
+  pairing register @ 1280 header: 0 px differ outside the logo's reach
+  pairing register @ 1280 footer: 0 px differ outside the logo's reach
+Pairing at 1280: nothing differs outside the logo's reach.
+rc=0

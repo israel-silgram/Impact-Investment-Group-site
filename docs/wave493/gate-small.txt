@@ -1,0 +1,29 @@
+# the small gates at code head 27b05b2, 2026-09-26T19:15:56Z
+
+$ python scripts/wave415-zoopla-purple.py
+wrote public\images\brand\zoopla-ink.webp (#8046F2, 31516 bytes from 31516, 548x120)
+rc=0
+$ git status --porcelain public/
+
+$ node scripts/wave443-contrast.mjs --build dist/client
+      "contrast": 5.078428856341654,
+      "pass": true
+    }
+  ],
+  "sourceHits": [],
+  "buildHits": [],
+  "failures": []
+}
+rc=0
+
+$ python scripts/wave414-responsive-images.py --check
+
+71 referenced images, 40 too small or already at the smallest step, 0 variants written, 0 dropped for being no smaller than their source, 0.0MB saved on this run against serving the source at every step.
+24 referenced sources carry an alpha channel and every variant of them still does.
+Every referenced image has the variants it should have.
+rc=0
+
+$ python scripts/wave493-og.py --check
+lockup 960 by 148 at (120, 241) on a 1200 by 630 card
+public\images\brand\og-default.png matches this script's output
+rc=0

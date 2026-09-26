@@ -1,0 +1,411 @@
+# scripts/wave490-perf.py, Lighthouse mobile, five runs per route, the median; head then base, 2026-09-26T19:27:20Z
+$ python scripts/wave490-perf.py head dist/client 8793 5
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 52155)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 50724)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57824)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 61455)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51551)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 53053)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56522)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63010)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 60019)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+head   /                      run 1: perf= 68 bp=100 LCP=  6043ms TBT= 142ms CLS=0.000 FCP= 3623ms 911 KiB bp failing=[]
+head   /                      run 2: perf= 67 bp=100 LCP=  6048ms TBT= 137ms CLS=0.000 FCP= 3621ms 911 KiB bp failing=[]
+head   /                      run 3: perf= 69 bp=100 LCP=  6048ms TBT= 122ms CLS=0.000 FCP= 3622ms 911 KiB bp failing=[]
+head   /                      run 4: perf= 69 bp=100 LCP=  6051ms TBT= 124ms CLS=0.000 FCP= 3627ms 911 KiB bp failing=[]
+head   /                      run 5: perf= 69 bp=100 LCP=  6047ms TBT= 124ms CLS=0.000 FCP= 3623ms 911 KiB bp failing=[]
+head   /                      MEDIAN of 5: perf=69 a11y=100 bp=100 seo=100 FCP=3623ms LCP=6048ms TBT=124ms CLS=0.000 911 KiB; best-practices audits failing in any run: none
+head   /platform              run 1: perf= 78 bp=100 LCP=  4532ms TBT=   4ms CLS=0.000 FCP= 3017ms 723 KiB bp failing=[]
+head   /platform              run 2: perf= 78 bp=100 LCP=  4528ms TBT=   2ms CLS=0.000 FCP= 3014ms 723 KiB bp failing=[]
+head   /platform              run 3: perf= 79 bp=100 LCP=  4511ms TBT=   2ms CLS=0.000 FCP= 3011ms 723 KiB bp failing=[]
+head   /platform              run 4: perf= 78 bp=100 LCP=  4537ms TBT=   2ms CLS=0.000 FCP= 3013ms 723 KiB bp failing=[]
+head   /platform              run 5: perf= 78 bp=100 LCP=  4528ms TBT=   0ms CLS=0.000 FCP= 3017ms 723 KiB bp failing=[]
+head   /platform              MEDIAN of 5: perf=78 a11y=100 bp=100 seo=92 FCP=3014ms LCP=4528ms TBT=2ms CLS=0.000 723 KiB; best-practices audits failing in any run: none
+head   /register/investor     run 1: perf= 81 bp=100 LCP=  3964ms TBT=   0ms CLS=0.000 FCP= 3115ms 436 KiB bp failing=[]
+head   /register/investor     run 2: perf= 81 bp=100 LCP=  3966ms TBT=   0ms CLS=0.000 FCP= 3115ms 436 KiB bp failing=[]
+head   /register/investor     run 3: perf= 81 bp=100 LCP=  3980ms TBT=   7ms CLS=0.000 FCP= 3123ms 436 KiB bp failing=[]
+head   /register/investor     run 4: perf= 81 bp=100 LCP=  3971ms TBT=   1ms CLS=0.000 FCP= 3117ms 436 KiB bp failing=[]
+head   /register/investor     run 5: perf= 81 bp=100 LCP=  3966ms TBT=   0ms CLS=0.000 FCP= 3114ms 436 KiB bp failing=[]
+head   /register/investor     MEDIAN of 5: perf=81 a11y=100 bp=100 seo=92 FCP=3115ms LCP=3966ms TBT=0ms CLS=0.000 436 KiB; best-practices audits failing in any run: none
+head   /about                 run 1: perf= 80 bp=100 LCP=  4304ms TBT=   0ms CLS=0.000 FCP= 3017ms 650 KiB bp failing=[]
+head   /about                 run 2: perf= 80 bp=100 LCP=  4367ms TBT=   0ms CLS=0.000 FCP= 2903ms 650 KiB bp failing=[]
+head   /about                 run 3: perf= 80 bp=100 LCP=  4305ms TBT=   4ms CLS=0.000 FCP= 3015ms 650 KiB bp failing=[]
+head   /about                 run 4: perf= 80 bp=100 LCP=  4303ms TBT=   0ms CLS=0.000 FCP= 3015ms 650 KiB bp failing=[]
+head   /about                 run 5: perf= 80 bp=100 LCP=  4302ms TBT=   0ms CLS=0.000 FCP= 3017ms 650 KiB bp failing=[]
+head   /about                 MEDIAN of 5: perf=80 a11y=98 bp=100 seo=92 FCP=3015ms LCP=4304ms TBT=0ms CLS=0.000 650 KiB; best-practices audits failing in any run: none
+rc=0
+
+$ python scripts/wave490-perf.py base <a94200a build> 8794 5
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57661)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 59729)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62097)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 59749)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57266)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56037)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56837)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51072)
+Traceback (most recent call last):
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Israel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+base   /                      run 1: perf= 68 bp=100 LCP=  6363ms TBT= 112ms CLS=0.000 FCP= 3636ms 955 KiB bp failing=[]
+base   /                      run 2: perf= 69 bp=100 LCP=  6341ms TBT=  98ms CLS=0.000 FCP= 3615ms 955 KiB bp failing=[]
+base   /                      run 3: perf= 68 bp=100 LCP=  6358ms TBT= 108ms CLS=0.000 FCP= 3610ms 955 KiB bp failing=[]
+base   /                      run 4: perf= 68 bp=100 LCP=  6346ms TBT= 112ms CLS=0.000 FCP= 3621ms 955 KiB bp failing=[]
+base   /                      run 5: perf= 68 bp=100 LCP=  6368ms TBT= 124ms CLS=0.000 FCP= 3645ms 955 KiB bp failing=[]
+base   /                      MEDIAN of 5: perf=68 a11y=100 bp=100 seo=100 FCP=3621ms LCP=6358ms TBT=112ms CLS=0.000 955 KiB; best-practices audits failing in any run: none
+base   /platform              run 1: perf= 77 bp=100 LCP=  4755ms TBT=   0ms CLS=0.000 FCP= 3015ms 767 KiB bp failing=[]
+base   /platform              run 2: perf= 77 bp=100 LCP=  4752ms TBT=   0ms CLS=0.000 FCP= 3013ms 767 KiB bp failing=[]
+base   /platform              run 3: perf= 78 bp=100 LCP=  4763ms TBT=   2ms CLS=0.000 FCP= 2760ms 767 KiB bp failing=[]
+base   /platform              run 4: perf= 77 bp=100 LCP=  4739ms TBT=   0ms CLS=0.000 FCP= 3014ms 767 KiB bp failing=[]
+base   /platform              run 5: perf= 77 bp=100 LCP=  4751ms TBT=   4ms CLS=0.000 FCP= 3013ms 767 KiB bp failing=[]
+base   /platform              MEDIAN of 5: perf=77 a11y=100 bp=100 seo=92 FCP=3013ms LCP=4752ms TBT=0ms CLS=0.000 767 KiB; best-practices audits failing in any run: none
+base   /register/investor     run 1: perf= 80 bp=100 LCP=  4188ms TBT=   0ms CLS=0.000 FCP= 3112ms 480 KiB bp failing=[]
+base   /register/investor     run 2: perf= 80 bp=100 LCP=  4198ms TBT=   0ms CLS=0.000 FCP= 3005ms 480 KiB bp failing=[]
+base   /register/investor     run 3: perf= 80 bp=100 LCP=  4201ms TBT=   8ms CLS=0.000 FCP= 3119ms 480 KiB bp failing=[]
+base   /register/investor     run 4: perf= 80 bp=100 LCP=  4188ms TBT=   0ms CLS=0.000 FCP= 3112ms 480 KiB bp failing=[]
+base   /register/investor     run 5: perf= 80 bp=100 LCP=  4195ms TBT=   4ms CLS=0.000 FCP= 3115ms 480 KiB bp failing=[]
+base   /register/investor     MEDIAN of 5: perf=80 a11y=100 bp=100 seo=92 FCP=3112ms LCP=4195ms TBT=0ms CLS=0.000 480 KiB; best-practices audits failing in any run: none
+base   /about                 run 1: perf= 78 bp=100 LCP=  4529ms TBT=   0ms CLS=0.000 FCP= 3014ms 694 KiB bp failing=[]
+base   /about                 run 2: perf= 78 bp=100 LCP=  4608ms TBT=   0ms CLS=0.000 FCP= 3016ms 694 KiB bp failing=[]
+base   /about                 run 3: perf= 78 bp=100 LCP=  4529ms TBT=   0ms CLS=0.000 FCP= 3017ms 694 KiB bp failing=[]
+base   /about                 run 4: perf= 78 bp=100 LCP=  4612ms TBT=   0ms CLS=0.000 FCP= 3022ms 694 KiB bp failing=[]
+base   /about                 run 5: perf= 78 bp=100 LCP=  4528ms TBT=   0ms CLS=0.000 FCP= 3014ms 694 KiB bp failing=[]
+base   /about                 MEDIAN of 5: perf=78 a11y=98 bp=100 seo=92 FCP=3016ms LCP=4529ms TBT=0ms CLS=0.000 694 KiB; best-practices audits failing in any run: none
+rc=0

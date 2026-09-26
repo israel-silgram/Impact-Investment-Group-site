@@ -1,0 +1,3021 @@
+{
+  "mode": "after",
+  "build": "C:\\Users\\Israel\\Documents\\repos\\iigs-uc493\\dist\\client",
+  "readings": {
+    "home @ 360": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 56.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 360,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 12.45,
+        "box": [
+          64.2,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 316.8
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 320,
+        "box": [
+          20,
+          591.03,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          591.03,
+          320,
+          360.06
+        ],
+        "footer_height": 2944.14
+      }
+    },
+    "platform @ 360": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 56.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 360,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 12.45,
+        "box": [
+          64.2,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 316.8
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 320,
+        "box": [
+          20,
+          591.03,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          591.03,
+          320,
+          360.06
+        ],
+        "footer_height": 2944.14
+      }
+    },
+    "about @ 360": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 56.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 360,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 12.45,
+        "box": [
+          64.2,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 316.8
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 320,
+        "box": [
+          20,
+          591.03,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          591.03,
+          320,
+          360.06
+        ],
+        "footer_height": 2944.14
+      }
+    },
+    "partners @ 360": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 56.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 360,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 12.45,
+        "box": [
+          64.2,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 316.8
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 320,
+        "box": [
+          20,
+          591.03,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          591.03,
+          320,
+          360.06
+        ],
+        "footer_height": 2944.14
+      }
+    },
+    "register @ 360": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 56.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 360,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 12.45,
+        "box": [
+          64.2,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 316.8
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 320,
+        "box": [
+          20,
+          591.03,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          591.03,
+          320,
+          360.06
+        ],
+        "footer_height": 2944.14
+      }
+    },
+    "home @ 390": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 86.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 390,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          75,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 350,
+        "box": [
+          20,
+          563.64,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          563.64,
+          350,
+          335.69
+        ],
+        "footer_height": 2844
+      }
+    },
+    "platform @ 390": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 86.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 390,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          75,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 350,
+        "box": [
+          20,
+          563.64,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          563.64,
+          350,
+          335.69
+        ],
+        "footer_height": 2844
+      }
+    },
+    "about @ 390": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 86.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 390,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          75,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 350,
+        "box": [
+          20,
+          563.64,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          563.64,
+          350,
+          335.69
+        ],
+        "footer_height": 2844
+      }
+    },
+    "partners @ 390": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 86.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 390,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          75,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 350,
+        "box": [
+          20,
+          563.64,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          563.64,
+          350,
+          335.69
+        ],
+        "footer_height": 2844
+      }
+    },
+    "register @ 390": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 86.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 390,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          75,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 350,
+        "box": [
+          20,
+          563.64,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          563.64,
+          350,
+          335.69
+        ],
+        "footer_height": 2844
+      }
+    },
+    "home @ 414": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 110.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 414,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          99,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 374,
+        "box": [
+          20,
+          563.64,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          563.64,
+          374,
+          335.69
+        ],
+        "footer_height": 2795.62
+      }
+    },
+    "platform @ 414": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 110.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 414,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          99,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 374,
+        "box": [
+          20,
+          563.64,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          563.64,
+          374,
+          335.69
+        ],
+        "footer_height": 2795.62
+      }
+    },
+    "about @ 414": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 110.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 414,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          99,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 374,
+        "box": [
+          20,
+          563.64,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          563.64,
+          374,
+          335.69
+        ],
+        "footer_height": 2795.62
+      }
+    },
+    "partners @ 414": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 110.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 414,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          99,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 374,
+        "box": [
+          20,
+          563.64,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          563.64,
+          374,
+          335.69
+        ],
+        "footer_height": 2795.62
+      }
+    },
+    "register @ 414": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 110.66,
+        "link_height_top": 52,
+        "box": [
+          20,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 414,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          99,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 374,
+        "box": [
+          20,
+          563.64,
+          283.86,
+          44
+        ],
+        "column_box": [
+          20,
+          563.64,
+          374,
+          335.69
+        ],
+        "footer_height": 2795.62
+      }
+    },
+    "home @ 667x375": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 339.66,
+        "link_height_top": 52,
+        "box": [
+          32,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 667,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          352,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 603,
+        "box": [
+          32,
+          436.08,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          436.08,
+          603,
+          286.94
+        ],
+        "footer_height": 2410.19
+      }
+    },
+    "platform @ 667x375": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 339.66,
+        "link_height_top": 52,
+        "box": [
+          32,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 667,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          352,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 603,
+        "box": [
+          32,
+          436.08,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          436.08,
+          603,
+          286.94
+        ],
+        "footer_height": 2410.19
+      }
+    },
+    "about @ 667x375": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 339.66,
+        "link_height_top": 52,
+        "box": [
+          32,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 667,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          352,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 603,
+        "box": [
+          32,
+          436.08,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          436.08,
+          603,
+          286.94
+        ],
+        "footer_height": 2410.19
+      }
+    },
+    "partners @ 667x375": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 339.66,
+        "link_height_top": 52,
+        "box": [
+          32,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 667,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          352,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 603,
+        "box": [
+          32,
+          436.08,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          436.08,
+          603,
+          286.94
+        ],
+        "footer_height": 2410.19
+      }
+    },
+    "register @ 667x375": {
+      "bar": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 339.66,
+        "link_height_top": 52,
+        "box": [
+          32,
+          10.5,
+          219.34,
+          34
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 667,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          352,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 603,
+        "box": [
+          32,
+          436.08,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          436.08,
+          603,
+          286.94
+        ],
+        "footer_height": 2410.19
+      }
+    },
+    "home @ 768": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 376.14,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 768,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          453,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 704,
+        "box": [
+          32,
+          436.08,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          436.08,
+          704,
+          262.56
+        ],
+        "footer_height": 2294.94
+      }
+    },
+    "platform @ 768": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 376.14,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 768,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          453,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 704,
+        "box": [
+          32,
+          436.08,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          436.08,
+          704,
+          262.56
+        ],
+        "footer_height": 2294.94
+      }
+    },
+    "about @ 768": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 376.14,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 768,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          453,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 704,
+        "box": [
+          32,
+          436.08,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          436.08,
+          704,
+          262.56
+        ],
+        "footer_height": 2294.94
+      }
+    },
+    "partners @ 768": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 376.14,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 768,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          453,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 704,
+        "box": [
+          32,
+          436.08,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          436.08,
+          704,
+          262.56
+        ],
+        "footer_height": 2294.94
+      }
+    },
+    "register @ 768": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 376.14,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 768,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          453,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 704,
+        "box": [
+          32,
+          436.08,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          436.08,
+          704,
+          262.56
+        ],
+        "footer_height": 2294.94
+      }
+    },
+    "home @ 1024": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 632.14,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1024,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          709,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 37.25,
+        "width": 240.31,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 240.42,
+        "column_bound": true,
+        "box": [
+          32,
+          247.41,
+          240.31,
+          37.25
+        ],
+        "column_box": [
+          32,
+          247.41,
+          240.42,
+          405.39
+        ],
+        "footer_height": 973.86
+      }
+    },
+    "platform @ 1024": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 632.14,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1024,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          709,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 37.25,
+        "width": 240.31,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 240.42,
+        "column_bound": true,
+        "box": [
+          32,
+          247.41,
+          240.31,
+          37.25
+        ],
+        "column_box": [
+          32,
+          247.41,
+          240.42,
+          405.39
+        ],
+        "footer_height": 973.86
+      }
+    },
+    "about @ 1024": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 632.14,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1024,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          709,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 37.25,
+        "width": 240.31,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 240.42,
+        "column_bound": true,
+        "box": [
+          32,
+          247.41,
+          240.31,
+          37.25
+        ],
+        "column_box": [
+          32,
+          247.41,
+          240.42,
+          405.39
+        ],
+        "footer_height": 973.86
+      }
+    },
+    "partners @ 1024": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 632.14,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1024,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          709,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 37.25,
+        "width": 240.31,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 240.42,
+        "column_bound": true,
+        "box": [
+          32,
+          247.41,
+          240.31,
+          37.25
+        ],
+        "column_box": [
+          32,
+          247.41,
+          240.42,
+          405.39
+        ],
+        "footer_height": 973.86
+      }
+    },
+    "register @ 1024": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "Open menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 632.14,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1024,
+      "panel": {
+        "height": 34,
+        "width": 219.34,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          220,
+          34
+        ],
+        "first_control": "Close menu",
+        "first_control_box": [
+          44,
+          44
+        ],
+        "gap": 31.66,
+        "box": [
+          709,
+          29,
+          219.34,
+          34
+        ],
+        "panel_width": 336
+      },
+      "footer": {
+        "height": 37.25,
+        "width": 240.31,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 240.42,
+        "column_bound": true,
+        "box": [
+          32,
+          247.41,
+          240.31,
+          37.25
+        ],
+        "column_box": [
+          32,
+          247.41,
+          240.42,
+          405.39
+        ],
+        "footer_height": 973.86
+      }
+    },
+    "home @ 1280": {
+      "bar": {
+        "height": 36,
+        "width": 232.25,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          233,
+          36
+        ],
+        "first_control": "About Us",
+        "first_control_box": [
+          66.28,
+          44
+        ],
+        "gap": 29.66,
+        "link_height_top": 52,
+        "box": [
+          32,
+          17.5,
+          232.25,
+          36
+        ],
+        "nav": [
+          293.91,
+          0,
+          640.95,
+          71
+        ],
+        "nav_spaces": [
+          29.66,
+          29.64
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1280,
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 311.66,
+        "box": [
+          32,
+          253.41,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          253.41,
+          311.66,
+          298.2
+        ],
+        "footer_height": 857.55
+      }
+    },
+    "platform @ 1280": {
+      "bar": {
+        "height": 36,
+        "width": 232.25,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          233,
+          36
+        ],
+        "first_control": "About Us",
+        "first_control_box": [
+          66.28,
+          44
+        ],
+        "gap": 29.66,
+        "link_height_top": 52,
+        "box": [
+          32,
+          17.5,
+          232.25,
+          36
+        ],
+        "nav": [
+          293.91,
+          0,
+          640.95,
+          71
+        ],
+        "nav_spaces": [
+          29.66,
+          29.64
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1280,
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 311.66,
+        "box": [
+          32,
+          253.41,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          253.41,
+          311.66,
+          298.2
+        ],
+        "footer_height": 857.55
+      }
+    },
+    "about @ 1280": {
+      "bar": {
+        "height": 36,
+        "width": 232.25,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          233,
+          36
+        ],
+        "first_control": "About Us",
+        "first_control_box": [
+          66.28,
+          44
+        ],
+        "gap": 29.66,
+        "link_height_top": 52,
+        "box": [
+          32,
+          17.5,
+          232.25,
+          36
+        ],
+        "nav": [
+          293.91,
+          0,
+          640.95,
+          71
+        ],
+        "nav_spaces": [
+          29.66,
+          29.64
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1280,
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 311.66,
+        "box": [
+          32,
+          253.41,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          253.41,
+          311.66,
+          298.2
+        ],
+        "footer_height": 857.55
+      }
+    },
+    "partners @ 1280": {
+      "bar": {
+        "height": 36,
+        "width": 232.25,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          233,
+          36
+        ],
+        "first_control": "About Us",
+        "first_control_box": [
+          66.28,
+          44
+        ],
+        "gap": 29.66,
+        "link_height_top": 52,
+        "box": [
+          32,
+          17.5,
+          232.25,
+          36
+        ],
+        "nav": [
+          293.91,
+          0,
+          640.95,
+          71
+        ],
+        "nav_spaces": [
+          29.66,
+          29.64
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1280,
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 311.66,
+        "box": [
+          32,
+          253.41,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          253.41,
+          311.66,
+          298.2
+        ],
+        "footer_height": 857.55
+      }
+    },
+    "register @ 1280": {
+      "bar": {
+        "height": 36,
+        "width": 232.25,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          233,
+          36
+        ],
+        "first_control": "About Us",
+        "first_control_box": [
+          66.28,
+          44
+        ],
+        "gap": 29.66,
+        "link_height_top": 52,
+        "box": [
+          32,
+          17.5,
+          232.25,
+          36
+        ],
+        "nav": [
+          293.91,
+          0,
+          640.95,
+          71
+        ],
+        "nav_spaces": [
+          29.66,
+          29.64
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1280,
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 311.66,
+        "box": [
+          32,
+          253.41,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          253.41,
+          311.66,
+          298.2
+        ],
+        "footer_height": 857.55
+      }
+    },
+    "home @ 1440": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "About Us",
+        "first_control_box": [
+          66.28,
+          44
+        ],
+        "gap": 83.84,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          399.7,
+          0,
+          640.95,
+          71
+        ],
+        "nav_spaces": [
+          83.84,
+          83.84
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1440,
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 356.19,
+        "box": [
+          32,
+          253.41,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          253.41,
+          356.19,
+          298.2
+        ],
+        "footer_height": 857.55
+      }
+    },
+    "platform @ 1440": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "About Us",
+        "first_control_box": [
+          66.28,
+          44
+        ],
+        "gap": 83.84,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          399.7,
+          0,
+          640.95,
+          71
+        ],
+        "nav_spaces": [
+          83.84,
+          83.84
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1440,
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 356.19,
+        "box": [
+          32,
+          253.41,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          253.41,
+          356.19,
+          298.2
+        ],
+        "footer_height": 857.55
+      }
+    },
+    "about @ 1440": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "About Us",
+        "first_control_box": [
+          66.28,
+          44
+        ],
+        "gap": 83.84,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          399.7,
+          0,
+          640.95,
+          71
+        ],
+        "nav_spaces": [
+          83.84,
+          83.84
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1440,
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 356.19,
+        "box": [
+          32,
+          253.41,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          253.41,
+          356.19,
+          298.2
+        ],
+        "footer_height": 857.55
+      }
+    },
+    "partners @ 1440": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "About Us",
+        "first_control_box": [
+          66.28,
+          44
+        ],
+        "gap": 83.84,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          399.7,
+          0,
+          640.95,
+          71
+        ],
+        "nav_spaces": [
+          83.84,
+          83.84
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1440,
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 356.19,
+        "box": [
+          32,
+          253.41,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          253.41,
+          356.19,
+          298.2
+        ],
+        "footer_height": 857.55
+      }
+    },
+    "register @ 1440": {
+      "bar": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "first_control": "About Us",
+        "first_control_box": [
+          66.28,
+          44
+        ],
+        "gap": 83.84,
+        "link_height_top": 52,
+        "box": [
+          32,
+          13.5,
+          283.86,
+          44
+        ],
+        "nav": [
+          399.7,
+          0,
+          640.95,
+          71
+        ],
+        "nav_spaces": [
+          83.84,
+          83.84
+        ],
+        "link_height_condensed": 44.2
+      },
+      "scroll_width": 1440,
+      "footer": {
+        "height": 44,
+        "width": 283.86,
+        "aspect": 6.451,
+        "file": "logo-lockup-400.webp",
+        "natural": [
+          285,
+          44
+        ],
+        "column": 356.19,
+        "box": [
+          32,
+          253.41,
+          283.86,
+          44
+        ],
+        "column_box": [
+          32,
+          253.41,
+          356.19,
+          298.2
+        ],
+        "footer_height": 857.55
+      }
+    }
+  }
+}

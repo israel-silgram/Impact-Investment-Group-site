@@ -1,0 +1,16 @@
+# Lint and typecheck at code head 27b05b2, 2026-09-26T19:38:38Z
+
+$ bunx eslint <the lintable files this branch changes> (LF on disk)
+  src/components/logo.tsx src/components/site-header.tsx src/components/site-footer.tsx src/lib/image-variants.ts
+rc=0
+
+$ bunx eslint . on an LF-normalised git archive of HEAD (git -c core.autocrlf=false archive)
+✖ 447 problems (432 errors, 15 warnings)
+rc=1
+
+$ bunx eslint . on an LF-normalised git archive of a94200a (git -c core.autocrlf=false archive)
+✖ 447 problems (432 errors, 15 warnings)
+rc=1
+
+$ bunx tsc --noEmit
+rc=0

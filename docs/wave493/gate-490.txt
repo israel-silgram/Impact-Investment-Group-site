@@ -1,0 +1,381 @@
+# scripts/wave490-phone.py at code head 27b05b2, run in four parts so each fits one foreground call: three route sweeps with --no-probes, then --pages none for the probes. Together they are the whole run.
+
+## part 1, 2026-09-26T19:16:10Z
+$ python scripts/wave490-phone.py --no-probes --pages home,about,platform,the-problem,solutions
+item2     home @ 360             section=1415px faces=1415 / 0  tail under the visible face=47.38px
+item2     home @ 360             swapped: section=1621px  tail=47.38px
+item3     home @ 360             strip mask=linear-gradient(90deg, rgb(0, 0, 0) calc(100% - 56px), r
+item3     home @ 360             slide 1 "Delivering Support" peeks 24.0px: darkest=0.6867 ground=0.8395 share=0.818
+item8     home @ 360             scrolled to 1640: none; 18 text runs and 3 controls on screen; 0 clashes
+drawer    home @ 360             open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
+item2     home @ 390             section=1355px faces=1355 / 0  tail under the visible face=47.37px
+item2     home @ 390             swapped: section=1566px  tail=47.38px
+item3     home @ 390             strip mask=linear-gradient(90deg, rgb(0, 0, 0) calc(100% - 56px), r
+item3     home @ 390             slide 1 "Delivering Support" peeks 24.0px: darkest=0.7004 ground=0.8413 share=0.833
+item8     home @ 390             scrolled to 1728: none; 17 text runs and 3 controls on screen; 0 clashes
+drawer    home @ 390             open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
+item2     home @ 414             section=1355px faces=1355 / 0  tail under the visible face=47.37px
+item2     home @ 414             swapped: section=1524px  tail=47.38px
+item3     home @ 414             strip mask=linear-gradient(90deg, rgb(0, 0, 0) calc(100% - 56px), r
+item3     home @ 414             slide 1 "Delivering Support" peeks 24.0px: darkest=0.7072 ground=0.8338 share=0.848
+item8     home @ 414             scrolled to 1832: none; 20 text runs and 4 controls on screen; 0 clashes
+drawer    home @ 414             open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
+item2     home @ 768             section=1128px faces=1128 / 1128  tail under the visible face=76.03px
+item2     home @ 768             swapped: section=1128px  tail=47.37px
+item8     home @ 768             scrolled to 2088: none; 49 text runs and 4 controls on screen; 0 clashes
+drawer    home @ 768             open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
+item2     home @ 667x375         section=1114px faces=1114 / 0  tail under the visible face=47.37px
+item2     home @ 667x375         swapped: section=1150px  tail=47.38px
+item3     home @ 667x375         strip mask=linear-gradient(90deg, rgb(0, 0, 0) calc(100% - 56px), r
+item3     home @ 667x375         slide 2 "Transforming Lives" peeks 12.0px: darkest=0.8356 ground=0.8872 share=0.942
+item8     home @ 667x375         scrolled to 790: none; 11 text runs and 6 controls on screen; 0 clashes
+drawer    home @ 667x375         open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
+item12    home @ 1280            "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item2     home @ 1280            section=812px faces=812 / 812  tail under the visible face=121.67px
+item2     home @ 1280            swapped: section=812px  tail=50.87px
+item8     home @ 1280            scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 47 text runs and 10 controls on screen; 0 clashes
+item9     about @ 360            8 cards, worst tail under any content=4px, worst tail under the last INK=12px, tallest 370px
+item9     about @ 360              director   370px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Israel Silgram"
+item9     about @ 360              director   338px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Maria Avallone"
+item9     about @ 360              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Dr Jonathan Elton"
+item9     about @ 360              director   370px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Callum Saxon"
+item9     about @ 360              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Shahab Jamali"
+item9     about @ 360              chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "01"
+item9     about @ 360              chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "02"
+item9     about @ 360              chain      294px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "03"
+item8     about @ 360            scrolled to 1640: none; 17 text runs and 2 controls on screen; 0 clashes
+item9     about @ 390            8 cards, worst tail under any content=4px, worst tail under the last INK=12px, tallest 370px
+item9     about @ 390              director   346px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Israel Silgram"
+item9     about @ 390              director   338px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Maria Avallone"
+item9     about @ 390              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Dr Jonathan Elton"
+item9     about @ 390              director   370px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Callum Saxon"
+item9     about @ 390              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Shahab Jamali"
+item9     about @ 390              chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "01"
+item9     about @ 390              chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "02"
+item9     about @ 390              chain      294px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "03"
+item8     about @ 390            scrolled to 1728: none; 17 text runs and 2 controls on screen; 0 clashes
+item9     about @ 414            8 cards, worst tail under any content=4px, worst tail under the last INK=12px, tallest 370px
+item9     about @ 414              director   346px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Israel Silgram"
+item9     about @ 414              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Maria Avallone"
+item9     about @ 414              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Dr Jonathan Elton"
+item9     about @ 414              director   370px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Callum Saxon"
+item9     about @ 414              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Shahab Jamali"
+item9     about @ 414              chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "01"
+item9     about @ 414              chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "02"
+item9     about @ 414              chain      294px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "03"
+item8     about @ 414            scrolled to 1832: none; 20 text runs and 2 controls on screen; 0 clashes
+item9     about @ 768            8 cards, worst tail under any content=84px, worst tail under the last INK=84px, tallest 418px
+item9     about @ 768              director   394px min-height=356px    pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Israel Silgram"
+item9     about @ 768              director   394px min-height=356px    pad-bottom= 20 ink tail=  36.0 any tail=  36.0 "Maria Avallone"
+item9     about @ 768              director   394px min-height=356px    pad-bottom= 20 ink tail=  84.0 any tail=  84.0 "Dr Jonathan Elton"
+item9     about @ 768              director   418px min-height=356px    pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Callum Saxon"
+item9     about @ 768              director   418px min-height=356px    pad-bottom= 20 ink tail=  54.5 any tail=  54.5 "Shahab Jamali"
+item9     about @ 768              chain      362px min-height=0px      pad-bottom=104 ink tail=  55.6 any tail=-111.0 "01"
+item9     about @ 768              chain      362px min-height=0px      pad-bottom=104 ink tail=  55.6 any tail=-111.0 "02"
+item9     about @ 768              chain      362px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "03"
+item8     about @ 768            scrolled to 2088: none; 55 text runs and 6 controls on screen; 0 clashes
+item9     about @ 667x375        8 cards, worst tail under any content=60px, worst tail under the last INK=60px, tallest 370px
+item9     about @ 667x375          director   370px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Israel Silgram"
+item9     about @ 667x375          director   370px min-height=0px      pad-bottom= 20 ink tail=  36.0 any tail=  36.0 "Maria Avallone"
+item9     about @ 667x375          director   370px min-height=0px      pad-bottom= 20 ink tail=  60.0 any tail=  60.0 "Dr Jonathan Elton"
+item9     about @ 667x375          director   370px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Callum Saxon"
+item9     about @ 667x375          director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Shahab Jamali"
+item9     about @ 667x375          chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "01"
+item9     about @ 667x375          chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "02"
+item9     about @ 667x375          chain      294px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "03"
+item8     about @ 667x375        scrolled to 790: none; 10 text runs and 2 controls on screen; 0 clashes
+item12    about @ 1280           "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item9     about @ 1280           8 cards, worst tail under any content=61px, worst tail under the last INK=61px, tallest 358px
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  19.6 any tail=  19.6 "Israel Silgram"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  44.4 any tail=  44.4 "Maria Avallone"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  61.2 any tail=  61.2 "Dr Jonathan Elton"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=   2.8 any tail=   2.8 "Callum Saxon"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  44.4 any tail=  44.4 "Shahab Jamali"
+item9     about @ 1280             chain      290px min-height=0px      pad-bottom=104 ink tail=  33.0 any tail=-111.0 "01"
+item9     about @ 1280             chain      290px min-height=0px      pad-bottom=104 ink tail=  33.0 any tail=-111.0 "02"
+item9     about @ 1280             chain      290px min-height=0px      pad-bottom=104 ink tail=  10.3 any tail=-111.0 "03"
+item8     about @ 1280           scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 37 text runs and 10 controls on screen; 0 clashes
+item5     platform @ 360         items=3 clones=0 track=320px animated=0 strings outside the viewport=0
+item6     platform @ 360         card=421px min-height=auto art=58x96 at (253,3712) opacity=1 inside padding=True text clashes=0
+item8     platform @ 360         scrolled to 1640: none; 11 text runs and 2 controls on screen; 0 clashes
+item5     platform @ 390         items=3 clones=0 track=350px animated=0 strings outside the viewport=0
+item6     platform @ 390         card=421px min-height=auto art=58x96 at (283,3683) opacity=1 inside padding=True text clashes=0
+item8     platform @ 390         scrolled to 1728: none; 13 text runs and 5 controls on screen; 0 clashes
+item5     platform @ 414         items=3 clones=0 track=374px animated=0 strings outside the viewport=0
+item6     platform @ 414         card=421px min-height=auto art=58x96 at (307,3695) opacity=1 inside padding=True text clashes=0
+item8     platform @ 414         scrolled to 1832: none; 12 text runs and 5 controls on screen; 0 clashes
+item5     platform @ 768         items=6 clones=3 track=3546px animated=1 strings outside the viewport=15
+item6     platform @ 768         card=340px min-height=340px art=169x280 at (594,3246) opacity=0.25 inside padding=False text clashes=0
+item8     platform @ 768         scrolled to 2088: none; 14 text runs and 8 controls on screen; 0 clashes
+item5     platform @ 667x375     items=3 clones=0 track=603px animated=0 strings outside the viewport=0
+item6     platform @ 667x375     card=396px min-height=auto art=58x96 at (548,3185) opacity=1 inside padding=True text clashes=0
+item8     platform @ 667x375     scrolled to 790: none; 4 text runs and 2 controls on screen; 0 clashes
+item12    platform @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item5     platform @ 1280        items=6 clones=3 track=3036px animated=1 strings outside the viewport=11
+item6     platform @ 1280        card=340px min-height=340px art=169x280 at (1066,2952) opacity=0.25 inside padding=False text clashes=0
+item8     platform @ 1280        scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 14 text runs and 12 controls on screen; 0 clashes
+item8     the-problem @ 360      scrolled to 1640: none; 11 text runs and 4 controls on screen; 0 clashes
+item8     the-problem @ 390      scrolled to 1728: none; 6 text runs and 4 controls on screen; 0 clashes
+item8     the-problem @ 414      scrolled to 1832: none; 2 text runs and 5 controls on screen; 0 clashes
+item8     the-problem @ 768      scrolled to 2088: none; 0 text runs and 16 controls on screen; 0 clashes
+item8     the-problem @ 667x375  scrolled to 790: none; 11 text runs and 2 controls on screen; 0 clashes
+item12    the-problem @ 1280     "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     the-problem @ 1280     scrolled to 1270: none; 0 text runs and 43 controls on screen; 0 clashes
+item10    solutions @ 360        9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 68px
+item8     solutions @ 360        scrolled to 1640: none; 27 text runs and 2 controls on screen; 0 clashes
+item10    solutions @ 390        9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 68px
+item8     solutions @ 390        scrolled to 1728: none; 27 text runs and 2 controls on screen; 0 clashes
+item10    solutions @ 414        9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 43px
+item8     solutions @ 414        scrolled to 1832: none; 27 text runs and 2 controls on screen; 0 clashes
+item10    solutions @ 768        9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 43px
+item8     solutions @ 768        scrolled to 2088: none; 20 text runs and 6 controls on screen; 0 clashes
+item10    solutions @ 667x375    9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 43px
+item8     solutions @ 667x375    scrolled to 790: none; 12 text runs and 2 controls on screen; 0 clashes
+item12    solutions @ 1280       "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item10    solutions @ 1280       9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 43px
+item8     solutions @ 1280       scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 34 text runs and 11 controls on screen; 0 clashes
+
+rule8     home                       1280 differs on     99169 device px (worst 255 of 255), same-build noise      3915 px (worst 228),     8879 moved beyond the noise outside the touched and animated boxes
+rule8     about                      1280 differs on     34601 device px (worst 253 of 255), same-build noise         0 px (worst   0),     9068 moved beyond the noise outside the touched and animated boxes
+rule8     platform                   1280 differs on    104967 device px (worst 253 of 255), same-build noise     28537 px (worst  89),    14682 moved beyond the noise outside the touched and animated boxes
+rule8     the-problem                1280 differs on     34603 device px (worst 253 of 255), same-build noise         0 px (worst   0),     9072 moved beyond the noise outside the touched and animated boxes
+rule8     solutions                  1280 differs on     34604 device px (worst 253 of 255), same-build noise         0 px (worst   0),     9073 moved beyond the noise outside the touched and animated boxes
+
+wave490   30 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 4139 span type nodes, 0 under floor · 90 Verify readings, 0 under 44 · 48 cards, 0 with a tail over 32px · 54 pills, 0 splitting a verb · 4 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 145 runs in the open drawer, 0 under floor
+
+FAILED: 5
+  · rule8 home: 8879 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 61 and columns 32 to 934
+  · rule8 about: 9068 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 62 and columns 32 to 934
+  · rule8 platform: 14682 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 2381 and columns 32 to 1027
+  · rule8 the-problem: 9072 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 62 and columns 32 to 934
+  · rule8 solutions: 9073 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 62 and columns 32 to 934
+rc=1
+
+## part 2, 2026-09-26T19:18:46Z
+$ python scripts/wave490-phone.py --no-probes --pages partners,contact,register,register-investor,register-resident
+item8     partners @ 360         scrolled to 1640: none; 14 text runs and 7 controls on screen; 0 clashes
+item8     partners @ 390         scrolled to 1728: none; 13 text runs and 8 controls on screen; 0 clashes
+item8     partners @ 414         scrolled to 1832: none; 15 text runs and 7 controls on screen; 0 clashes
+item8     partners @ 768         scrolled to 2088: none; 5 text runs and 9 controls on screen; 0 clashes
+item8     partners @ 667x375     scrolled to 790: none; 10 text runs and 6 controls on screen; 0 clashes
+item12    partners @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     partners @ 1280        scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 8 text runs and 38 controls on screen; 0 clashes
+item8     contact @ 360          scrolled to 1640: none; 37 text runs and 9 controls on screen; 0 clashes
+item8     contact @ 390          scrolled to 1728: none; 67 text runs and 10 controls on screen; 0 clashes
+item8     contact @ 414          scrolled to 1832: none; 94 text runs and 10 controls on screen; 0 clashes
+item8     contact @ 768          scrolled to 2088: none; 17 text runs and 10 controls on screen; 0 clashes
+item8     contact @ 667x375      scrolled to 790: none; 4 text runs and 6 controls on screen; 0 clashes
+item12    contact @ 1280         "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     contact @ 1280         scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 11 text runs and 40 controls on screen; 0 clashes
+item8     register @ 360         scrolled to 1640: none; 5 text runs and 5 controls on screen; 0 clashes
+item8     register @ 390         scrolled to 1728: none; 1 text runs and 4 controls on screen; 0 clashes
+item8     register @ 414         scrolled to 1832: none; 0 text runs and 6 controls on screen; 0 clashes
+item8     register @ 768         scrolled to 2088: none; 0 text runs and 25 controls on screen; 0 clashes
+item8     register @ 667x375     scrolled to 790: none; 9 text runs and 6 controls on screen; 0 clashes
+item12    register @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     register @ 1280        scrolled to 1159: none; 0 text runs and 43 controls on screen; 0 clashes
+item11    register-investor @ 360 panel=1314px step=1272px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1156  41 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1123 before button
+item8     register-investor @ 360 scrolled to 1640: none; 4 text runs and 5 controls on screen; 0 clashes
+item11    register-investor @ 390 panel=1274px step=1232px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1116  39 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1083 before button
+item8     register-investor @ 390 scrolled to 1728: none; 1 text runs and 5 controls on screen; 0 clashes
+item8     register-investor @ 390 register bar on screen=False, back-to-top present=False
+item11    register-investor @ 414 panel=1248px step=1206px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1090  38 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1057 before button
+item8     register-investor @ 414 scrolled to 1832: none; 0 text runs and 6 controls on screen; 0 clashes
+item11    register-investor @ 768 panel=989px step=931px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=831  35 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.6px at y=681 before "Read the Privacy Policy"
+item8     register-investor @ 768 scrolled to 2088: none; 0 text runs and 22 controls on screen; 0 clashes
+item11    register-investor @ 667x375 panel=989px step=931px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=831  35 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.6px at y=681 before "Read the Privacy Policy"
+item8     register-investor @ 667x375 scrolled to 790: none; 13 text runs and 8 controls on screen; 0 clashes
+item12    register-investor @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item11    register-investor @ 1280 panel=933px step=851px (min 0px) bar=52px (controls 52px) sticky-or-static, read static at flow y=776  33 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=36.0px at y=230 before "Email address"
+item8     register-investor @ 1280 scrolled to 1526: none; 0 text runs and 43 controls on screen; 0 clashes
+item11    register-resident @ 360 panel=1314px step=1272px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1156  41 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1123 before button
+item8     register-resident @ 360 scrolled to 1640: none; 15 text runs and 8 controls on screen; 0 clashes
+item11    register-resident @ 390 panel=1274px step=1232px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1116  39 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1083 before button
+item8     register-resident @ 390 scrolled to 1728: none; 7 text runs and 6 controls on screen; 0 clashes
+item11    register-resident @ 414 panel=1248px step=1206px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1090  38 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1057 before button
+item8     register-resident @ 414 scrolled to 1832: none; 1 text runs and 6 controls on screen; 0 clashes
+item11    register-resident @ 768 panel=989px step=931px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=831  35 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.6px at y=681 before "Read the Privacy Policy"
+item8     register-resident @ 768 scrolled to 2088: none; 0 text runs and 24 controls on screen; 0 clashes
+item11    register-resident @ 667x375 panel=989px step=931px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=831  35 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.6px at y=681 before "Read the Privacy Policy"
+item8     register-resident @ 667x375 scrolled to 790: none; 10 text runs and 11 controls on screen; 0 clashes
+item12    register-resident @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item11    register-resident @ 1280 panel=933px step=851px (min 0px) bar=52px (controls 52px) sticky-or-static, read static at flow y=776  33 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=36.0px at y=230 before "Email address"
+item8     register-resident @ 1280 scrolled to 1506: none; 0 text runs and 43 controls on screen; 0 clashes
+
+rule8     partners                   1280 differs on     34604 device px (worst 253 of 255), same-build noise         0 px (worst   0),     9071 moved beyond the noise outside the touched and animated boxes
+rule8     contact                    1280 differs on     34598 device px (worst 253 of 255), same-build noise         0 px (worst   0),     9067 moved beyond the noise outside the touched and animated boxes
+rule8     register                   1280 differs on     34410 device px (worst 253 of 255), same-build noise         0 px (worst   2),     8879 moved beyond the noise outside the touched and animated boxes
+rule8     register-investor          1280 differs on     34412 device px (worst 253 of 255), same-build noise         0 px (worst   0),     8879 moved beyond the noise outside the touched and animated boxes
+rule8     register-resident          1280 differs on     34409 device px (worst 253 of 255), same-build noise         0 px (worst   0),     8879 moved beyond the noise outside the touched and animated boxes
+
+wave490   30 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 3010 span type nodes, 0 under floor · 90 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+
+FAILED: 5
+  · rule8 partners: 9071 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 62 and columns 32 to 934
+  · rule8 contact: 9067 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 62 and columns 32 to 934
+  · rule8 register: 8879 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 61 and columns 32 to 934
+  · rule8 register-investor: 8879 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 61 and columns 32 to 934
+  · rule8 register-resident: 8879 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 61 and columns 32 to 934
+rc=1
+
+## part 3, 2026-09-26T19:20:33Z
+$ python scripts/wave490-phone.py --no-probes --pages partner-with-investor,partner-with-local-authority,legal,404
+item8     partner-with-investor @ 360 scrolled to 1640: none; 11 text runs and 2 controls on screen; 0 clashes
+item8     partner-with-investor @ 390 scrolled to 1728: none; 12 text runs and 3 controls on screen; 0 clashes
+item8     partner-with-investor @ 414 scrolled to 1832: none; 21 text runs and 5 controls on screen; 0 clashes
+item8     partner-with-investor @ 768 scrolled to 2088: none; 25 text runs and 5 controls on screen; 0 clashes
+item8     partner-with-investor @ 667x375 scrolled to 790: none; 16 text runs and 2 controls on screen; 0 clashes
+item12    partner-with-investor @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     partner-with-investor @ 1280 scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=22); 25 text runs and 12 controls on screen; 0 clashes
+item8     partner-with-local-authority @ 360 scrolled to 1640: none; 16 text runs and 2 controls on screen; 0 clashes
+item8     partner-with-local-authority @ 390 scrolled to 1728: none; 15 text runs and 2 controls on screen; 0 clashes
+item8     partner-with-local-authority @ 414 scrolled to 1832: none; 16 text runs and 4 controls on screen; 0 clashes
+item8     partner-with-local-authority @ 768 scrolled to 2088: none; 29 text runs and 5 controls on screen; 0 clashes
+item8     partner-with-local-authority @ 667x375 scrolled to 790: none; 13 text runs and 2 controls on screen; 0 clashes
+item12    partner-with-local-authority @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     partner-with-local-authority @ 1280 scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 28 text runs and 12 controls on screen; 0 clashes
+item8     legal @ 360            scrolled to 1640: none; 21 text runs and 4 controls on screen; 0 clashes
+item8     legal @ 390            scrolled to 1728: none; 22 text runs and 4 controls on screen; 0 clashes
+item8     legal @ 414            scrolled to 1832: none; 25 text runs and 5 controls on screen; 0 clashes
+item8     legal @ 768            scrolled to 2088: none; 9 text runs and 11 controls on screen; 0 clashes
+item8     legal @ 667x375        scrolled to 790: none; 8 text runs and 3 controls on screen; 0 clashes
+item12    legal @ 1280           "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     legal @ 1280           scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 11 text runs and 40 controls on screen; 0 clashes
+rule2     404 @ 360              293px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
+rule2     404 @ 360              280px of ground at the last row (one-screen, centred) of div, from y=520: the centring of a box a screen tall, read and not failed
+item8     404 @ 360              scrolled to 0: none; 5 text runs and 1 controls on screen; 0 clashes
+rule2     404 @ 390              315px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
+rule2     404 @ 390              302px of ground at the last row (one-screen, centred) of div, from y=542: the centring of a box a screen tall, read and not failed
+item8     404 @ 390              scrolled to 0: none; 5 text runs and 1 controls on screen; 0 clashes
+rule2     404 @ 414              341px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
+rule2     404 @ 414              328px of ground at the last row (one-screen, centred) of div, from y=568: the centring of a box a screen tall, read and not failed
+item8     404 @ 414              scrolled to 0: none; 5 text runs and 1 controls on screen; 0 clashes
+rule2     404 @ 768              417px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
+rule2     404 @ 768              404px of ground at the last row (one-screen, centred) of div, from y=620: the centring of a box a screen tall, read and not failed
+item8     404 @ 768              scrolled to 0: none; 4 text runs and 1 controls on screen; 0 clashes
+item8     404 @ 667x375          scrolled to 0: none; 4 text runs and 1 controls on screen; 0 clashes
+rule2     404 @ 1280             357px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
+rule2     404 @ 1280             344px of ground at the last row (one-screen, centred) of div, from y=556: the centring of a box a screen tall, read and not failed
+item8     404 @ 1280             scrolled to 0: none; 4 text runs and 1 controls on screen; 0 clashes
+
+rule8     partner-with-investor      1280 differs on     34602 device px (worst 253 of 255), same-build noise         0 px (worst   0),     9071 moved beyond the noise outside the touched and animated boxes
+rule8     partner-with-local-authority 1280 differs on     34604 device px (worst 253 of 255), same-build noise         0 px (worst   0),     9071 moved beyond the noise outside the touched and animated boxes
+rule8     legal                      1280 differs on     34412 device px (worst 253 of 255), same-build noise         0 px (worst   0),     8879 moved beyond the noise outside the touched and animated boxes
+rule8     404                        1280 differs on         0 device px (worst   0 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes
+
+wave490   24 shots · 0 empty runs over 96px (edges and last rows counted; 10 one-screen centring runs read, not failed) · 2112 span type nodes, 0 under floor · 72 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+
+FAILED: 3
+  · rule8 partner-with-investor: 9071 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 62 and columns 32 to 934
+  · rule8 partner-with-local-authority: 9071 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 62 and columns 32 to 934
+  · rule8 legal: 8879 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 61 and columns 32 to 934
+rc=1
+
+## part 4, the probes, 2026-09-26T19:22:01Z
+$ python scripts/wave490-phone.py --pages none
+
+item1     councils  @ 390   cold   slow 4G: styled at 1429ms, timed entry at 1441ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  4 decoded=  0 pending= 0; whole strip decoded   0 of  36; every tile on screen decoded by +3000ms; distinct requests 18 at the timed entry, 18 at the reading
+item1     FINDING   councils cold @ 390: 4 of 4 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +3000ms
+item1     data      @ 390   cold   slow 4G: styled at 1365ms, timed entry at 1377ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  0 pending= 0; whole strip decoded   0 of   5; every tile on screen decoded by +2500ms; distinct requests 0 at the timed entry, 5 at the reading
+item1     FINDING   data cold @ 390: 5 of 5 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +2500ms
+item1     councils  @ 390   loaded slow 4G: styled at 5061ms, timed entry at 5070ms (hydrated at 4826ms; earlier entries cut short: none); at +1500ms on screen=  3 decoded=  3 pending= 0; whole strip decoded  36 of  36; every tile on screen decoded by +1500ms; distinct requests 18 at the timed entry, 18 at the reading
+item1     data      @ 390   loaded slow 4G: styled at 4969ms, timed entry at 4978ms (hydrated at 4836ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  5 pending= 0; whole strip decoded   5 of   5; every tile on screen decoded by +1500ms; distinct requests 0 at the timed entry, 5 at the reading
+item1     councils  @ 360   cold   slow 4G: styled at 1370ms, timed entry at 1381ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  3 decoded=  0 pending= 0; whole strip decoded   0 of  36; every tile on screen decoded by +2500ms; distinct requests 18 at the timed entry, 18 at the reading
+item1     FINDING   councils cold @ 360: 3 of 3 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +2500ms
+item1     data      @ 360   cold   slow 4G: styled at 1356ms, timed entry at 1367ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  2 pending= 0; whole strip decoded   2 of   5; every tile on screen decoded by +2000ms; distinct requests 0 at the timed entry, 5 at the reading
+item1     FINDING   data cold @ 360: 3 of 5 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +2000ms
+item1     councils  @ 360   loaded slow 4G: styled at 4501ms, timed entry at 4512ms (hydrated at 4159ms; earlier entries cut short: none); at +1500ms on screen=  3 decoded=  3 pending= 0; whole strip decoded  36 of  36; every tile on screen decoded by +1500ms; distinct requests 18 at the timed entry, 18 at the reading
+item1     data      @ 360   loaded slow 4G: styled at 4487ms, timed entry at 4496ms (hydrated at 4188ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  5 pending= 0; whole strip decoded   5 of   5; every tile on screen decoded by +1500ms; distinct requests 0 at the timed entry, 5 at the reading
+item1     councils  @ 1280  cold   slow 4G: styled at 1265ms, timed entry at 1288ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  9 decoded=  0 pending= 0; whole strip decoded   0 of  36; every tile on screen decoded by +over 16500ms; distinct requests 18 at the timed entry, 18 at the reading
+item1     FINDING   councils cold @ 1280: 9 of 9 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +over 16500ms
+item1     data      @ 1280  cold   slow 4G: styled at 1270ms, timed entry at 1282ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  5 pending= 0; whole strip decoded   5 of   5; every tile on screen decoded by +1500ms; distinct requests 5 at the timed entry, 5 at the reading
+item1     councils  @ 1280  loaded slow 4G: styled at 4531ms, timed entry at 4540ms (hydrated at 4132ms; earlier entries cut short: none); at +1500ms on screen=  9 decoded=  9 pending= 0; whole strip decoded  36 of  36; every tile on screen decoded by +1500ms; distinct requests 18 at the timed entry, 18 at the reading
+item1     data      @ 1280  loaded slow 4G: styled at 5074ms, timed entry at 5084ms (hydrated at 4126ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  5 pending= 0; whole strip decoded   5 of   5; every tile on screen decoded by +1500ms; distinct requests 0 at the timed entry, 5 at the reading
+
+item7     capture   rendered=348px natural=389px src=platform-finder-960.webp trigger=True 348x187.41
+item7     dialog    name="Real product UI — the Property Finder. F" close=44x44 image=1600px scrollable=1600>390
+item7     axe       open state: 0 serious or critical []
+item7     named     nodes whose accessible name is the caption, by role: {'dialog': 1, 'heading': 1, 'StaticText': 1, 'InlineTextBox': 1}
+item7     escape    closed
+item7     control   closed
+
+item2     reduced   before=1355px  at 50ms=1566px  at 750ms=1566px  still moving by 0.00px
+item2     reduced   the section's height changed by 211px across the swap
+
+item13    /register/investor   667x300 step 1 field "email" 150 to 206, header ends 56, bar starts 223, viewport 300: fully visible, clear of the bar
+item13    /register/investor   667x300 step 2 field "preferred_regions" 96 to 176, header ends 56, bar starts 223, viewport 300: fully visible, clear of the bar
+item13    /register/resident   667x300 step 1 field "email" 150 to 206, header ends 56, bar starts 223, viewport 300: fully visible, clear of the bar
+item13    /register/resident   667x300 step 2 field "who_for" 96 to 176, header ends 56, bar starts 223, viewport 300: fully visible, clear of the bar
+
+item11    register-investor    @ 360   three real viewports at scrollY 0, 2008 and 4016: worst run of nothing inside the card = 0px
+item11    register-resident    @ 360   three real viewports at scrollY 0, 2067 and 4134: worst run of nothing inside the card = 0px
+item11    register-investor    @ 390   three real viewports at scrollY 0, 1916 and 3832: worst run of nothing inside the card = 0px
+item11    register-resident    @ 390   three real viewports at scrollY 0, 1946 and 3893: worst run of nothing inside the card = 0px
+item11    register-investor    @ 414   three real viewports at scrollY 0, 1840 and 3681: worst run of nothing inside the card = 0px
+item11    register-resident    @ 414   three real viewports at scrollY 0, 1884 and 3767: worst run of nothing inside the card = 0px
+
+item3     snap      @ 360  swipe left                     rests on slide 1 at 0.00px from start (scrollLeft 296 of 592)
+item3     snap      @ 360  swipe left                     rests on slide 2 at 0.00px from start (scrollLeft 592 of 592)
+item3     snap      @ 360  swipe right                    rests on slide 1 at 0.00px from start (scrollLeft 296 of 592)
+item3     snap      @ 360  scrollTo 37px short of slide 1 rests on slide 1 at 0.00px from start (scrollLeft 296 of 592)
+item3     snap      @ 390  swipe left                     rests on slide 1 at 0.00px from start (scrollLeft 326 of 652)
+item3     snap      @ 390  swipe left                     rests on slide 2 at 0.00px from start (scrollLeft 652 of 652)
+item3     snap      @ 390  swipe right                    rests on slide 1 at 0.00px from start (scrollLeft 326 of 652)
+item3     snap      @ 390  scrollTo 37px short of slide 1 rests on slide 1 at 0.00px from start (scrollLeft 326 of 652)
+item3     snap      @ 414  swipe left                     rests on slide 1 at 0.00px from start (scrollLeft 350 of 700)
+item3     snap      @ 414  swipe left                     rests on slide 2 at 0.00px from start (scrollLeft 700 of 700)
+item3     snap      @ 414  swipe right                    rests on slide 1 at 0.00px from start (scrollLeft 350 of 700)
+item3     snap      @ 414  scrollTo 37px short of slide 1 rests on slide 1 at 0.00px from start (scrollLeft 350 of 700)
+item3     snap      @ 667  swipe left                     rests on slide 1 at 0.50px from start (scrollLeft 296 of 591)
+item3     snap      @ 667  swipe left                     rests on slide 2 at 0.00px from start (scrollLeft 591 of 591)
+item3     snap      @ 667  swipe right                    rests on slide 1 at 0.50px from start (scrollLeft 296 of 591)
+item3     snap      @ 667  scrollTo 37px short of slide 1 rests on slide 1 at 0.50px from start (scrollLeft 296 of 591)
+
+item3     mask on   @ 390 4x CPU, three runs of four touch swipes across the strip and a page scroll: 1284 frames, mean 16.87ms, p95 16.80ms, 16 over 25ms; the strip reached scrollLeft [652, 652, 652] and the page scrollY [900, 900, 900]
+item3     mask off  @ 390 4x CPU, three runs of four touch swipes across the strip and a page scroll: 1289 frames, mean 16.91ms, p95 16.80ms, 19 over 25ms; the strip reached scrollLeft [652, 652, 652] and the page scrollY [900, 900, 900]
+
+item3     clip      @ 360  slide 0 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 360  slide 1 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 360  slide 2 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 390  slide 0 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 390  slide 1 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 390  slide 2 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 414  slide 0 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 414  slide 1 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 414  slide 2 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 667  slide 0 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 667  slide 1 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 667  slide 2 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+
+
+wave490   0 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 0 span type nodes, 0 under floor · 0 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+PASSED
+rc=0
+
+## control: the same pairing on the BASE build a94200a (platform at 1280 only), 2026-09-26T19:26:17Z
+$ python scripts/wave490-phone.py --no-probes --pages platform --profiles 1280 --build <a94200a build>
+item12    platform @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item5     platform @ 1280        items=6 clones=3 track=3036px animated=1 strings outside the viewport=11
+item6     platform @ 1280        card=340px min-height=340px art=169x280 at (1066,2952) opacity=0.25 inside padding=False text clashes=0
+item8     platform @ 1280        scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 14 text runs and 12 controls on screen; 0 clashes
+
+rule8     platform                   1280 differs on    125522 device px (worst 240 of 255), same-build noise    150026 px (worst  94),        0 moved beyond the noise outside the touched and animated boxes
+
+wave490   1 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 173 span type nodes, 0 under floor · 3 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+PASSED
+rc=0
+
+## /platform at 1280 re-run on the HEAD build, 2026-09-26T19:26:34Z
+$ python scripts/wave490-phone.py --no-probes --pages platform --profiles 1280
+item12    platform @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item5     platform @ 1280        items=6 clones=3 track=3036px animated=1 strings outside the viewport=11
+item6     platform @ 1280        card=340px min-height=340px art=169x280 at (1066,2952) opacity=0.25 inside padding=False text clashes=0
+item8     platform @ 1280        scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 14 text runs and 12 controls on screen; 0 clashes
+
+rule8     platform                   1280 differs on     92617 device px (worst 253 of 255), same-build noise         0 px (worst   0),    14174 moved beyond the noise outside the touched and animated boxes
+
+wave490   1 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 173 span type nodes, 0 under floor · 3 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+
+FAILED: 1
+  · rule8 platform: 14174 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 2381 and columns 32 to 1027
+rc=1
