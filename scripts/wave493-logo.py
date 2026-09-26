@@ -24,7 +24,9 @@ WHAT IT ASSERTS, in `--mode after` (the default):
   2. The file is the lockup and nothing else: `logo-lockup` or its reverse,
      at the original width or one of the steps the responsive script wrote.
   3. The lockup runs at the height R493-3 gives its surface: BAR_PHONE on a
-     bar under 640px wide or under 480px tall, BAR_WIDE from 640px, the
+     bar under 640px wide or under 480px tall, BAR_WIDE from 640px except
+     BAR_NAV from 1280 to 1439, where the nav shares the bar and the spaces
+     either side of it are held to NAV_SPACE_MIN, the
      panel at the bar's phone size everywhere, the footer at FOOTER unless
      its grid column is narrower than that, in which case it fills the column
      at full aspect.
@@ -94,6 +96,13 @@ ASPECT_MAX = 6.6
 # for the arithmetic that chose each one.
 BAR_PHONE = (32.0, 36.0)
 BAR_WIDE = (44.0, 48.0)
+# 1280 to 1439, where the six nav links and the two actions share the bar and
+# 44px does not fit. See the sizing note in src/components/logo.tsx.
+BAR_NAV = (36.0, 36.0)
+# And there the two spaces justify-between leaves either side of the nav are
+# no tighter than the nav's own 28px between links, so logo, nav and actions
+# still read as three groups rather than one run.
+NAV_SPACE_MIN = 28.0
 FOOTER = (40.0, 48.0)
 GAP_MIN = 12.0
 TARGET_MIN = 44.0
@@ -185,7 +194,11 @@ def still(page, selector: str):
 
 
 def band_for_bar(label: str, width: int, height: int) -> tuple[float, float]:
-    return BAR_PHONE if width < 640 or height <= 480 else BAR_WIDE
+    if width < 640 or height <= 480:
+        return BAR_PHONE
+    if 1280 <= width < 1440:
+        return BAR_NAV
+    return BAR_WIDE
 
 
 def check_lockup(r, where, failures, band, gap_needed: bool, fit_column: bool = False):
@@ -316,6 +329,21 @@ def run(build: Path, mode: str, profiles, routes, out_json: Path) -> int:
                 reading["bar"]["box"] = [round(bar["img"][k], 2) for k in ("x", "y", "w", "h")]
                 if bar["nav"]:
                     reading["bar"]["nav"] = [round(bar["nav"][k], 2) for k in ("x", "y", "w", "h")]
+                if bar["nav"] and bar["nav"]["w"] > 0:
+                    nav = bar["nav"]
+                    after_nav = [c for c in bar["controls"] if c["x"] >= nav["right"] - EPSILON]
+                    before_space = nav["x"] - bar["img"]["right"]
+                    after_space = (after_nav[0]["x"] - nav["right"]) if after_nav else None
+                    reading["bar"]["nav_spaces"] = [
+                        round(before_space, 2),
+                        round(after_space, 2) if after_space is not None else None,
+                    ]
+                    for side, space in (("before", before_space), ("after", after_space)):
+                        if space is None or space < NAV_SPACE_MIN - EPSILON:
+                            failures.append(
+                                f"{where} bar: the space {side} the nav is {space}px, under "
+                                f"the nav's own {NAV_SPACE_MIN:.0f}px between links."
+                            )
                 if bar["link"]["h"] < TARGET_MIN - 0.05:
                     failures.append(
                         f"{where} bar: the logo link is {bar['link']['h']:.1f}px tall at the "
@@ -406,7 +434,12 @@ def run(build: Path, mode: str, profiles, routes, out_json: Path) -> int:
                             round(c["h"], 2),
                         ]
                     reading["footer"]["footer_height"] = round(foot["root"]["h"], 2)
+                # The sticky bar overlays the top of the footer when the footer
+                # is scrolled to the top of the screen, so it is hidden for the
+                # shot: this is a picture of the footer, not of the bar over it.
+                page.evaluate("() => { document.querySelector('header').style.visibility = 'hidden'; }")
                 page.locator("footer").screenshot(path=str(shots / f"{name}-{label}-footer.png"))
+                page.evaluate("() => { document.querySelector('header').style.visibility = ''; }")
 
                 record["readings"][where] = reading
                 ctx.close()
@@ -474,7 +507,7 @@ def pair(before_json: Path, after_json: Path, failures: list[str]) -> None:
                 draw.rectangle([x - 2, y - 2, x + w + 2, y + h + 2], fill=0)
             diff = ImageChops.difference(a, b).convert("L").point(lambda v: 255 if v else 0)
             outside = ImageChops.multiply(diff, mask)
-            count = sum(1 for v in outside.getdata() if v)
+            count = outside.histogram()[255]
             print(f"  pairing {where} {surface}: {count} px differ outside the logo's reach")
             if count:
                 failures.append(

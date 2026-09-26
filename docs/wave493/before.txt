@@ -1,0 +1,358 @@
+readings written to docs\wave493\measure-before.json
+  home @ 360: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 157.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 113.7 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  platform @ 360: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 157.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 113.7 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  about @ 360: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 157.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 113.7 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  partners @ 360: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 157.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 113.7 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  register @ 360: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 157.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 113.7 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  home @ 390: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 187.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 132.9 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  platform @ 390: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 187.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 132.9 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  about @ 390: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 187.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 132.9 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  partners @ 390: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 187.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 132.9 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  register @ 390: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 187.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 132.9 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  home @ 414: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 211.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 132.9 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  platform @ 414: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 211.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 132.9 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  about @ 414: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 211.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 132.9 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  partners @ 414: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 211.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 132.9 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  register @ 414: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 211.9 to 'Open menu'; panel 118.1x44.0 (2.68) logo-lockup-400.webp gap 132.9 to 'Close menu'; footer 118.1x44.0 (2.68) logo-lockup-400.webp
+  home @ 667x375: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 440.9 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  platform @ 667x375: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 440.9 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  about @ 667x375: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 440.9 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  partners @ 667x375: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 440.9 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  register @ 667x375: bar 118.1x44.0 (2.68) logo-lockup-400.webp gap 440.9 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  home @ 768: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 520.4 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  platform @ 768: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 520.4 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  about @ 768: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 520.4 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  partners @ 768: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 520.4 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  register @ 768: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 520.4 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  home @ 1024: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 776.4 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  platform @ 1024: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 776.4 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  about @ 1024: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 776.4 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  partners @ 1024: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 776.4 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  register @ 1024: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 776.4 to 'Open menu'; panel 139.6x52.0 (2.68) logo-lockup-400.webp gap 111.4 to 'Close menu'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  home @ 1280: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 76.0 to 'About Us'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  platform @ 1280: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 76.0 to 'About Us'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  about @ 1280: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 76.0 to 'About Us'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  partners @ 1280: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 76.0 to 'About Us'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  register @ 1280: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 76.0 to 'About Us'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  home @ 1440: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 156.0 to 'About Us'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  platform @ 1440: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 156.0 to 'About Us'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  about @ 1440: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 156.0 to 'About Us'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  partners @ 1440: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 156.0 to 'About Us'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+  register @ 1440: bar 139.6x52.0 (2.68) logo-lockup-400.webp gap 156.0 to 'About Us'; footer 139.6x52.0 (2.68) logo-lockup-400.webp
+
+315 FAILURE(S) (recorded, not failed: before mode):
+  - home @ 360 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 360 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - home @ 360 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - home @ 360 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 360 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - home @ 360 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - home @ 360 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 360 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - platform @ 360 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 360 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - platform @ 360 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - platform @ 360 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 360 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - platform @ 360 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - platform @ 360 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 360 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - about @ 360 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 360 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - about @ 360 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - about @ 360 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 360 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - about @ 360 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - about @ 360 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 360 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - partners @ 360 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 360 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - partners @ 360 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - partners @ 360 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 360 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - partners @ 360 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - partners @ 360 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 360 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - register @ 360 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 360 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - register @ 360 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - register @ 360 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 360 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - register @ 360 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - register @ 360 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 360 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - home @ 390 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 390 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - home @ 390 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - home @ 390 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 390 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - home @ 390 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - home @ 390 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 390 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - platform @ 390 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 390 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - platform @ 390 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - platform @ 390 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 390 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - platform @ 390 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - platform @ 390 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 390 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - about @ 390 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 390 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - about @ 390 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - about @ 390 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 390 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - about @ 390 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - about @ 390 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 390 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - partners @ 390 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 390 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - partners @ 390 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - partners @ 390 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 390 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - partners @ 390 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - partners @ 390 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 390 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - register @ 390 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 390 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - register @ 390 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - register @ 390 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 390 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - register @ 390 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - register @ 390 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 390 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - home @ 414 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 414 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - home @ 414 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - home @ 414 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 414 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - home @ 414 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - home @ 414 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 414 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - platform @ 414 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 414 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - platform @ 414 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - platform @ 414 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 414 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - platform @ 414 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - platform @ 414 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 414 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - about @ 414 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 414 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - about @ 414 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - about @ 414 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 414 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - about @ 414 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - about @ 414 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 414 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - partners @ 414 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 414 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - partners @ 414 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - partners @ 414 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 414 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - partners @ 414 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - partners @ 414 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 414 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - register @ 414 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 414 bar: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - register @ 414 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - register @ 414 panel: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 414 panel: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - register @ 414 panel: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - register @ 414 footer: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 414 footer: the decoded file logo-lockup-400.webp is 118 by 44 (2.682), which is not the one-line artwork.
+  - home @ 667x375 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 667x375 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 667x375 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - home @ 667x375 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 667x375 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 667x375 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - home @ 667x375 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 667x375 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 667x375 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - platform @ 667x375 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 667x375 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 667x375 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - platform @ 667x375 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 667x375 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 667x375 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - platform @ 667x375 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 667x375 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 667x375 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - about @ 667x375 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 667x375 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 667x375 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - about @ 667x375 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 667x375 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 667x375 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - about @ 667x375 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 667x375 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 667x375 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - partners @ 667x375 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 667x375 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 667x375 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - partners @ 667x375 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 667x375 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 667x375 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - partners @ 667x375 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 667x375 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 667x375 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - register @ 667x375 bar: the lockup's box is 118.1 by 44.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 667x375 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 667x375 bar: the lockup is 44.0px tall, outside the 32 to 36 this surface runs it at.
+  - register @ 667x375 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 667x375 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 667x375 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - register @ 667x375 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 667x375 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 667x375 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - home @ 768 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 768 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 768 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - home @ 768 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 768 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 768 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - home @ 768 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 768 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 768 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - platform @ 768 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 768 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 768 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - platform @ 768 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 768 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 768 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - platform @ 768 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 768 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 768 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - about @ 768 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 768 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 768 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - about @ 768 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 768 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 768 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - about @ 768 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 768 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 768 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - partners @ 768 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 768 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 768 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - partners @ 768 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 768 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 768 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - partners @ 768 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 768 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 768 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - register @ 768 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 768 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 768 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - register @ 768 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 768 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 768 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - register @ 768 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 768 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 768 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - home @ 1024 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 1024 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 1024 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - home @ 1024 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 1024 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 1024 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - home @ 1024 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 1024 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 1024 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - platform @ 1024 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 1024 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 1024 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - platform @ 1024 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 1024 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 1024 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - platform @ 1024 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 1024 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 1024 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - about @ 1024 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 1024 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 1024 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - about @ 1024 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 1024 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 1024 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - about @ 1024 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 1024 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 1024 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - partners @ 1024 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 1024 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 1024 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - partners @ 1024 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 1024 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 1024 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - partners @ 1024 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 1024 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 1024 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - register @ 1024 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 1024 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 1024 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - register @ 1024 panel: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 1024 panel: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 1024 panel: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - register @ 1024 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 1024 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 1024 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - home @ 1280 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 1280 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 1280 bar: the lockup is 52.0px tall, outside the 36 to 36 this surface runs it at.
+  - home @ 1280 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 1280 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 1280 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - platform @ 1280 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 1280 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 1280 bar: the lockup is 52.0px tall, outside the 36 to 36 this surface runs it at.
+  - platform @ 1280 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 1280 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 1280 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - about @ 1280 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 1280 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 1280 bar: the lockup is 52.0px tall, outside the 36 to 36 this surface runs it at.
+  - about @ 1280 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 1280 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 1280 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - partners @ 1280 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 1280 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 1280 bar: the lockup is 52.0px tall, outside the 36 to 36 this surface runs it at.
+  - partners @ 1280 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 1280 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 1280 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - register @ 1280 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 1280 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 1280 bar: the lockup is 52.0px tall, outside the 36 to 36 this surface runs it at.
+  - register @ 1280 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 1280 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 1280 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - home @ 1440 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 1440 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 1440 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - home @ 1440 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 1440 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - home @ 1440 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - platform @ 1440 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 1440 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 1440 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - platform @ 1440 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 1440 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - platform @ 1440 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - about @ 1440 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 1440 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 1440 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - about @ 1440 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - about @ 1440 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - about @ 1440 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - partners @ 1440 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 1440 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 1440 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - partners @ 1440 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - partners @ 1440 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - partners @ 1440 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
+  - register @ 1440 bar: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 1440 bar: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 1440 bar: the lockup is 52.0px tall, outside the 44 to 48 this surface runs it at.
+  - register @ 1440 footer: the lockup's box is 139.6 by 52.0, an aspect of 2.684, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - register @ 1440 footer: the decoded file logo-lockup-400.webp is 140 by 52 (2.692), which is not the one-line artwork.
+  - register @ 1440 footer: the lockup is 52.0px tall with room in its column; the footer runs it at 40 to 48.
