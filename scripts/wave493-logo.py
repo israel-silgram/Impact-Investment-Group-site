@@ -31,7 +31,9 @@ WHAT IT ASSERTS, in `--mode after` (the default):
      its grid column is narrower than that, in which case it fills the column
      at full aspect.
   4. At least GAP_MIN between the lockup and the first control to its right,
-     in the bar and in the panel, and nothing overlaps the viewport's edge.
+     measured from where that control starts at its full 44px width, in the
+     bar and in the panel; the menu and close buttons keep that width and can
+     be pressed; nothing overlaps the viewport's edge.
   5. The logo link is a 44px target at the top and in the condensed bar.
   6. No route scrolls sideways.
 
@@ -265,7 +267,15 @@ def check_lockup(r, where, failures, band, gap_needed: bool, fit_column: bool = 
             failures.append(f"{where}: no control to the lockup's right to measure a gap to.")
         else:
             first = r["controls"][0]
-            gap = first["x"] - img["right"]
+            # R493-3 is a gap to the control AT ITS FULL WIDTH. A flex row
+            # that runs out of room squeezes the menu button rather than the
+            # lockup, so the button's left edge alone would still read a
+            # healthy 16px of flex gap beside a 22px button; measured from
+            # where a 44px button would start, the same bar reads -6.
+            full = max(first["w"], TARGET_MIN) if first["label"] in (
+                "Open menu", "Close menu"
+            ) else first["w"]
+            gap = first["x"] + first["w"] - full - img["right"]
             summary["first_control"] = first["label"]
             summary["first_control_box"] = [round(first["w"], 2), round(first["h"], 2)]
             summary["gap"] = round(gap, 2)
@@ -290,10 +300,9 @@ def shoot(page, clip, path: Path):
     page.screenshot(path=str(path), clip=clip)
 
 
-def run(build: Path, mode: str, profiles, routes, out_json: Path) -> int:
+def run(build: Path, mode: str, profiles, routes, out_json: Path, shots: Path) -> int:
     port = serve(build)
     base = f"http://127.0.0.1:{port}"
-    shots = SHOTS / mode
     failures: list[str] = []
     record: dict = {"mode": mode, "build": str(build), "readings": {}}
 
@@ -366,8 +375,18 @@ def run(build: Path, mode: str, profiles, routes, out_json: Path) -> int:
 
                 # The panel, where there is one to open.
                 trigger = page.locator('header button[aria-controls="site-drawer"]')
+                pressed = False
                 if trigger.count() and trigger.first.is_visible():
-                    trigger.first.click()
+                    try:
+                        trigger.first.click(timeout=5000)
+                        pressed = True
+                    except Exception as error:  # noqa: BLE001, the reason is the finding
+                        first_line = str(error).splitlines()[0]
+                        failures.append(
+                            f"{where}: the menu button cannot be pressed ({first_line}). "
+                            f"Something in the bar covers it."
+                        )
+                if pressed:
                     page.wait_for_selector("#site-drawer", state="visible")
                     still(page, "#site-drawer")
                     page.wait_for_timeout(150)
@@ -447,7 +466,7 @@ def run(build: Path, mode: str, profiles, routes, out_json: Path) -> int:
 
     out_json.parent.mkdir(parents=True, exist_ok=True)
     out_json.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8", newline="\n")
-    print(f"readings written to {out_json.relative_to(ROOT)}")
+    print(f"readings written to {out_json}")
     for where, reading in record["readings"].items():
         parts = []
         for surface in ("bar", "panel", "footer"):
@@ -556,13 +575,24 @@ def main() -> int:
     parser.add_argument("--profiles", default="", help="comma list of labels")
     parser.add_argument("--routes", default="", help="comma list of names")
     parser.add_argument("--no-pair", action="store_true")
+    parser.add_argument(
+        "--scratch",
+        default="",
+        help="write shots and readings under this directory instead of docs/ "
+        "(the mutation runs, which must not overwrite the evidence)",
+    )
     args = parser.parse_args()
 
     profiles = [p for p in PROFILES if not args.profiles or p[0] in args.profiles.split(",")]
     routes = [r for r in ROUTES if not args.routes or r[1] in args.routes.split(",")]
-    out_json = DATA / f"measure-{args.mode}.json"
-    code = run(Path(args.build), args.mode, profiles, routes, out_json)
-    if args.mode == "after" and not args.no_pair:
+    if args.scratch:
+        out_json = Path(args.scratch) / f"measure-{args.mode}.json"
+        shots = Path(args.scratch) / args.mode
+    else:
+        out_json = DATA / f"measure-{args.mode}.json"
+        shots = SHOTS / args.mode
+    code = run(Path(args.build), args.mode, profiles, routes, out_json, shots)
+    if args.mode == "after" and not args.no_pair and not args.scratch:
         failures: list[str] = []
         before_json = DATA / "measure-before.json"
         if before_json.exists():

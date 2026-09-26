@@ -1,0 +1,63 @@
+# Wave 493 mutation checks, raw. Each mutates a COPY of the built site (dist/client at the code head), never the source, and runs scripts/wave493-logo.py against it with --scratch so the evidence under docs/ is not overwritten.
+
+## M1. The stacked lockup put back: a94200a's logo-lockup.webp (711 by 264) copied over logo-lockup.webp and its 400, 640, 960 and 1440 steps in the build copy.
+$ python scripts/wave493-logo.py --build <copy> --profiles 360,390,1280 --routes home,platform --scratch <temp>
+readings written to C:\Users\Israel\AppData\Local\Temp\w493-scratch1\measure-after.json
+  home @ 360: bar 91.6x34.0 (2.69) logo-lockup-400.webp gap 184.4 to 'Open menu'; panel 91.6x34.0 (2.69) logo-lockup-400.webp gap 140.2 to 'Close menu'; footer 118.5x44.0 (2.69) logo-lockup-400.webp
+  platform @ 360: bar 91.6x34.0 (2.69) logo-lockup-400.webp gap 184.4 to 'Open menu'; panel 91.6x34.0 (2.69) logo-lockup-400.webp gap 140.2 to 'Close menu'; footer 118.5x44.0 (2.69) logo-lockup-400.webp
+  home @ 390: bar 91.6x34.0 (2.69) logo-lockup-400.webp gap 214.4 to 'Open menu'; panel 91.6x34.0 (2.69) logo-lockup-400.webp gap 159.4 to 'Close menu'; footer 118.5x44.0 (2.69) logo-lockup-400.webp
+  platform @ 390: bar 91.6x34.0 (2.69) logo-lockup-400.webp gap 214.4 to 'Open menu'; panel 91.6x34.0 (2.69) logo-lockup-400.webp gap 159.4 to 'Close menu'; footer 118.5x44.0 (2.69) logo-lockup-400.webp
+  home @ 1280: bar 97.0x36.0 (2.69) logo-lockup-400.webp gap 97.3 to 'About Us'; footer 118.5x44.0 (2.69) logo-lockup-400.webp
+  platform @ 1280: bar 97.0x36.0 (2.69) logo-lockup-400.webp gap 97.3 to 'About Us'; footer 118.5x44.0 (2.69) logo-lockup-400.webp
+
+32 FAILURE(S):
+  - home @ 360 bar: the lockup's box is 91.6 by 34.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 360 bar: the decoded file logo-lockup-400.webp is 391 by 145 (2.697), which is not the one-line artwork.
+  - home @ 360 panel: the lockup's box is 91.6 by 34.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 360 panel: the decoded file logo-lockup-400.webp is 391 by 145 (2.697), which is not the one-line artwork.
+  - home @ 360 footer: the lockup's box is 118.5 by 44.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 360 footer: the decoded file logo-lockup-400.webp is 506 by 188 (2.691), which is not the one-line artwork.
+  - platform @ 360 bar: the lockup's box is 91.6 by 34.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 360 bar: the decoded file logo-lockup-400.webp is 391 by 145 (2.697), which is not the one-line artwork.
+  - platform @ 360 panel: the lockup's box is 91.6 by 34.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 360 panel: the decoded file logo-lockup-400.webp is 391 by 145 (2.697), which is not the one-line artwork.
+  - platform @ 360 footer: the lockup's box is 118.5 by 44.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 360 footer: the decoded file logo-lockup-400.webp is 506 by 188 (2.691), which is not the one-line artwork.
+  - home @ 390 bar: the lockup's box is 91.6 by 34.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 390 bar: the decoded file logo-lockup-400.webp is 391 by 145 (2.697), which is not the one-line artwork.
+  - home @ 390 panel: the lockup's box is 91.6 by 34.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 390 panel: the decoded file logo-lockup-400.webp is 391 by 145 (2.697), which is not the one-line artwork.
+  - home @ 390 footer: the lockup's box is 118.5 by 44.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 390 footer: the decoded file logo-lockup-400.webp is 506 by 188 (2.691), which is not the one-line artwork.
+  - platform @ 390 bar: the lockup's box is 91.6 by 34.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 390 bar: the decoded file logo-lockup-400.webp is 391 by 145 (2.697), which is not the one-line artwork.
+  - platform @ 390 panel: the lockup's box is 91.6 by 34.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 390 panel: the decoded file logo-lockup-400.webp is 391 by 145 (2.697), which is not the one-line artwork.
+  - platform @ 390 footer: the lockup's box is 118.5 by 44.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 390 footer: the decoded file logo-lockup-400.webp is 506 by 188 (2.691), which is not the one-line artwork.
+  - home @ 1280 bar: the lockup's box is 97.0 by 36.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 1280 bar: the decoded file logo-lockup-400.webp is 414 by 153 (2.706), which is not the one-line artwork.
+  - home @ 1280 footer: the lockup's box is 118.5 by 44.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - home @ 1280 footer: the decoded file logo-lockup-400.webp is 506 by 188 (2.691), which is not the one-line artwork.
+  - platform @ 1280 bar: the lockup's box is 97.0 by 36.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 1280 bar: the decoded file logo-lockup-400.webp is 414 by 153 (2.706), which is not the one-line artwork.
+  - platform @ 1280 footer: the lockup's box is 118.5 by 44.0, an aspect of 2.693, outside 6.3 to 6.6. The one-line lockup is 6.47 and the stacked one 2.69.
+  - platform @ 1280 footer: the decoded file logo-lockup-400.webp is 506 by 188 (2.691), which is not the one-line artwork.
+rc=1
+
+## M2. The bar lockup at 52px on a phone: the built rule .h-[34px]{height:34px} rewritten to height:52px in the build copy (the bar's and the panel's phone class).
+$ python scripts/wave493-logo.py --build <copy> --profiles 360 --routes home,platform --scratch <temp>
+readings written to C:\Users\Israel\AppData\Local\Temp\w493-scratch2\measure-after.json
+  home @ 360: bar 335.5x52.0 (6.45) logo-lockup-400.webp gap -6.0 to 'Open menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  platform @ 360: bar 335.5x52.0 (6.45) logo-lockup-400.webp gap -6.0 to 'Open menu'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+
+8 FAILURE(S):
+  - home @ 360 bar: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - home @ 360 bar: -6.0px between the lockup and 'Open menu', under the 12px R493-3 asks for.
+  - home @ 360 bar: the 'Open menu' control is 22.0px wide, under its 44px target.
+  - home @ 360: the menu button cannot be pressed (Locator.click: Timeout 5000ms exceeded.). Something in the bar covers it.
+  - platform @ 360 bar: the lockup is 52.0px tall, outside the 32 to 36 this surface runs it at.
+  - platform @ 360 bar: -6.0px between the lockup and 'Open menu', under the 12px R493-3 asks for.
+  - platform @ 360 bar: the 'Open menu' control is 22.0px wide, under its 44px target.
+  - platform @ 360: the menu button cannot be pressed (Locator.click: Timeout 5000ms exceeded.). Something in the bar covers it.
+rc=1
