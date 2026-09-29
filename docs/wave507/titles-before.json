@@ -1,0 +1,1902 @@
+{
+ "mode": "before",
+ "build": "C:\\Users\\Israel\\Documents\\repos\\iigs-uc507\\dist\\client",
+ "markup": {
+  "/404.html": {
+   "title": [
+    "Page not found"
+   ]
+  },
+  "/about/": {
+   "title": [
+    "About Us \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "About Us \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/contact/": {
+   "title": [
+    "Contact \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Contact \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/": {
+   "title": [
+    "The Impact Investment Platform \u2014 Social Impact Property & Supported Housing"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "The Impact Investment Platform \u2014 Social Impact Property & Supported Housing"
+   ]
+  },
+  "/legal/": {
+   "title": [
+    "Legal and company information \u00b7 Impact Investment Group UK Limited"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Legal and company information \u00b7 Impact Investment Group UK Limited"
+   ]
+  },
+  "/partner-with-broker/": {
+   "title": [
+    "Partner with a Broker \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Broker \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-care-provider/": {
+   "title": [
+    "Partner with a Care Provider \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Care Provider \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-developer/": {
+   "title": [
+    "Partner with a Developer \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Developer \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-housing-association/": {
+   "title": [
+    "Partner with a Housing Association \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Housing Association \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-investor/": {
+   "title": [
+    "Partner with Property Investor \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with Property Investor \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-landlord/": {
+   "title": [
+    "Partner with a Landlord \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Landlord \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-local-authority/": {
+   "title": [
+    "Partner with a Local Authority \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Local Authority \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-resident/": {
+   "title": [
+    "Housing for Residents, Individuals & Families \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Housing for Residents, Individuals & Families \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-social-worker/": {
+   "title": [
+    "Partner with a Social Worker \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Social Worker \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-support-provider/": {
+   "title": [
+    "Partner with a Support Provider \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Support Provider \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partners/": {
+   "title": [
+    "Our Partners \u2014 Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ]
+  },
+  "/platform/": {
+   "title": [
+    "Our Services \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Our Services \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/register/broker/": {
+   "title": [
+    "Both sides of your deal, on one platform | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Both sides of your deal, on one platform | The Impact Investment Platform"
+   ]
+  },
+  "/register/care-provider/": {
+   "title": [
+    "Stop losing referrals because the building is not there | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Stop losing referrals because the building is not there | The Impact Investment Platform"
+   ]
+  },
+  "/register/developer/": {
+   "title": [
+    "Know where the demand is before you commit to the site | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Know where the demand is before you commit to the site | The Impact Investment Platform"
+   ]
+  },
+  "/register/housing-association/": {
+   "title": [
+    "Stock, partners and demand, in one view | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Stock, partners and demand, in one view | The Impact Investment Platform"
+   ]
+  },
+  "/register/": {
+   "title": [
+    "Register to join the waitlist | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Register to join the waitlist | The Impact Investment Platform"
+   ]
+  },
+  "/register/investor/": {
+   "title": [
+    "Tell us the deal you want to see, and see it first | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Tell us the deal you want to see, and see it first | The Impact Investment Platform"
+   ]
+  },
+  "/register/landlord/": {
+   "title": [
+    "Tell us what you own, and we will bring the demand to you | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Tell us what you own, and we will bring the demand to you | The Impact Investment Platform"
+   ]
+  },
+  "/register/local-authority/": {
+   "title": [
+    "Tell us where the pressure is, and we will go and find the homes | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Tell us where the pressure is, and we will go and find the homes | The Impact Investment Platform"
+   ]
+  },
+  "/register/resident/": {
+   "title": [
+    "Tell us what you need, and where | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Tell us what you need, and where | The Impact Investment Platform"
+   ]
+  },
+  "/register/social-worker/": {
+   "title": [
+    "One place to look, instead of ringing round | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "One place to look, instead of ringing round | The Impact Investment Platform"
+   ]
+  },
+  "/register/support-provider/": {
+   "title": [
+    "The commission comes first and the building never does | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "The commission comes first and the building never does | The Impact Investment Platform"
+   ]
+  },
+  "/solutions/": {
+   "title": [
+    "The Solution \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "The Solution \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/the-problem/": {
+   "title": [
+    "The Problem \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "The Problem \u2014 The Impact Investment Platform"
+   ]
+  }
+ },
+ "live": {
+  "/404.html @ 1280": {
+   "title": [
+    "Page not found"
+   ]
+  },
+  "/404.html @ 390": {
+   "title": [
+    "Page not found"
+   ]
+  },
+  "/about/ @ 1280": {
+   "title": [
+    "About Us \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "About Us \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/about/ @ 390": {
+   "title": [
+    "About Us \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "About Us \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/contact/ @ 1280": {
+   "title": [
+    "Contact \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Contact \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/contact/ @ 390": {
+   "title": [
+    "Contact \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Contact \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/ @ 1280": {
+   "title": [
+    "The Impact Investment Platform \u2014 Social Impact Property & Supported Housing"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "The Impact Investment Platform \u2014 Social Impact Property & Supported Housing"
+   ]
+  },
+  "/ @ 390": {
+   "title": [
+    "The Impact Investment Platform \u2014 Social Impact Property & Supported Housing"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "The Impact Investment Platform \u2014 Social Impact Property & Supported Housing"
+   ]
+  },
+  "/legal/ @ 1280": {
+   "title": [
+    "Legal and company information \u00b7 Impact Investment Group UK Limited"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Legal and company information \u00b7 Impact Investment Group UK Limited"
+   ]
+  },
+  "/legal/ @ 390": {
+   "title": [
+    "Legal and company information \u00b7 Impact Investment Group UK Limited"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Legal and company information \u00b7 Impact Investment Group UK Limited"
+   ]
+  },
+  "/partner-with-broker/ @ 1280": {
+   "title": [
+    "Partner with a Broker \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Broker \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-broker/ @ 390": {
+   "title": [
+    "Partner with a Broker \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Broker \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-care-provider/ @ 1280": {
+   "title": [
+    "Partner with a Care Provider \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Care Provider \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-care-provider/ @ 390": {
+   "title": [
+    "Partner with a Care Provider \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Care Provider \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-developer/ @ 1280": {
+   "title": [
+    "Partner with a Developer \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Developer \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-developer/ @ 390": {
+   "title": [
+    "Partner with a Developer \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Developer \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-housing-association/ @ 1280": {
+   "title": [
+    "Partner with a Housing Association \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Housing Association \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-housing-association/ @ 390": {
+   "title": [
+    "Partner with a Housing Association \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Housing Association \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-investor/ @ 1280": {
+   "title": [
+    "Partner with Property Investor \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with Property Investor \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-investor/ @ 390": {
+   "title": [
+    "Partner with Property Investor \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with Property Investor \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-landlord/ @ 1280": {
+   "title": [
+    "Partner with a Landlord \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Landlord \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-landlord/ @ 390": {
+   "title": [
+    "Partner with a Landlord \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Landlord \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-local-authority/ @ 1280": {
+   "title": [
+    "Partner with a Local Authority \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Local Authority \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-local-authority/ @ 390": {
+   "title": [
+    "Partner with a Local Authority \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Local Authority \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-resident/ @ 1280": {
+   "title": [
+    "Housing for Residents, Individuals & Families \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Housing for Residents, Individuals & Families \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-resident/ @ 390": {
+   "title": [
+    "Housing for Residents, Individuals & Families \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Housing for Residents, Individuals & Families \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-social-worker/ @ 1280": {
+   "title": [
+    "Partner with a Social Worker \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Social Worker \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-social-worker/ @ 390": {
+   "title": [
+    "Partner with a Social Worker \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Social Worker \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-support-provider/ @ 1280": {
+   "title": [
+    "Partner with a Support Provider \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Support Provider \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partner-with-support-provider/ @ 390": {
+   "title": [
+    "Partner with a Support Provider \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Partner with a Support Provider \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/partners/ @ 1280": {
+   "title": [
+    "Our Partners \u2014 Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ]
+  },
+  "/partners/ @ 390": {
+   "title": [
+    "Our Partners \u2014 Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ]
+  },
+  "/platform/ @ 1280": {
+   "title": [
+    "Our Services \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Our Services \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/platform/ @ 390": {
+   "title": [
+    "Our Services \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Our Services \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/register/broker/ @ 1280": {
+   "title": [
+    "Both sides of your deal, on one platform | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Both sides of your deal, on one platform | The Impact Investment Platform"
+   ]
+  },
+  "/register/broker/ @ 390": {
+   "title": [
+    "Both sides of your deal, on one platform | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Both sides of your deal, on one platform | The Impact Investment Platform"
+   ]
+  },
+  "/register/care-provider/ @ 1280": {
+   "title": [
+    "Stop losing referrals because the building is not there | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Stop losing referrals because the building is not there | The Impact Investment Platform"
+   ]
+  },
+  "/register/care-provider/ @ 390": {
+   "title": [
+    "Stop losing referrals because the building is not there | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Stop losing referrals because the building is not there | The Impact Investment Platform"
+   ]
+  },
+  "/register/developer/ @ 1280": {
+   "title": [
+    "Know where the demand is before you commit to the site | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Know where the demand is before you commit to the site | The Impact Investment Platform"
+   ]
+  },
+  "/register/developer/ @ 390": {
+   "title": [
+    "Know where the demand is before you commit to the site | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Know where the demand is before you commit to the site | The Impact Investment Platform"
+   ]
+  },
+  "/register/housing-association/ @ 1280": {
+   "title": [
+    "Stock, partners and demand, in one view | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Stock, partners and demand, in one view | The Impact Investment Platform"
+   ]
+  },
+  "/register/housing-association/ @ 390": {
+   "title": [
+    "Stock, partners and demand, in one view | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Stock, partners and demand, in one view | The Impact Investment Platform"
+   ]
+  },
+  "/register/ @ 1280": {
+   "title": [
+    "Register to join the waitlist | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Register to join the waitlist | The Impact Investment Platform"
+   ]
+  },
+  "/register/ @ 390": {
+   "title": [
+    "Register to join the waitlist | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Register to join the waitlist | The Impact Investment Platform"
+   ]
+  },
+  "/register/investor/ @ 1280": {
+   "title": [
+    "Tell us the deal you want to see, and see it first | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Tell us the deal you want to see, and see it first | The Impact Investment Platform"
+   ]
+  },
+  "/register/investor/ @ 390": {
+   "title": [
+    "Tell us the deal you want to see, and see it first | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Tell us the deal you want to see, and see it first | The Impact Investment Platform"
+   ]
+  },
+  "/register/landlord/ @ 1280": {
+   "title": [
+    "Tell us what you own, and we will bring the demand to you | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Tell us what you own, and we will bring the demand to you | The Impact Investment Platform"
+   ]
+  },
+  "/register/landlord/ @ 390": {
+   "title": [
+    "Tell us what you own, and we will bring the demand to you | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Tell us what you own, and we will bring the demand to you | The Impact Investment Platform"
+   ]
+  },
+  "/register/local-authority/ @ 1280": {
+   "title": [
+    "Tell us where the pressure is, and we will go and find the homes | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Tell us where the pressure is, and we will go and find the homes | The Impact Investment Platform"
+   ]
+  },
+  "/register/local-authority/ @ 390": {
+   "title": [
+    "Tell us where the pressure is, and we will go and find the homes | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Tell us where the pressure is, and we will go and find the homes | The Impact Investment Platform"
+   ]
+  },
+  "/register/resident/ @ 1280": {
+   "title": [
+    "Tell us what you need, and where | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Tell us what you need, and where | The Impact Investment Platform"
+   ]
+  },
+  "/register/resident/ @ 390": {
+   "title": [
+    "Tell us what you need, and where | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "Tell us what you need, and where | The Impact Investment Platform"
+   ]
+  },
+  "/register/social-worker/ @ 1280": {
+   "title": [
+    "One place to look, instead of ringing round | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "One place to look, instead of ringing round | The Impact Investment Platform"
+   ]
+  },
+  "/register/social-worker/ @ 390": {
+   "title": [
+    "One place to look, instead of ringing round | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "One place to look, instead of ringing round | The Impact Investment Platform"
+   ]
+  },
+  "/register/support-provider/ @ 1280": {
+   "title": [
+    "The commission comes first and the building never does | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "The commission comes first and the building never does | The Impact Investment Platform"
+   ]
+  },
+  "/register/support-provider/ @ 390": {
+   "title": [
+    "The commission comes first and the building never does | The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "The commission comes first and the building never does | The Impact Investment Platform"
+   ]
+  },
+  "/solutions/ @ 1280": {
+   "title": [
+    "The Solution \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "The Solution \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/solutions/ @ 390": {
+   "title": [
+    "The Solution \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "The Solution \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/the-problem/ @ 1280": {
+   "title": [
+    "The Problem \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "The Problem \u2014 The Impact Investment Platform"
+   ]
+  },
+  "/the-problem/ @ 390": {
+   "title": [
+    "The Problem \u2014 The Impact Investment Platform"
+   ],
+   "og:site_name": [
+    "The Impact Investment Platform"
+   ],
+   "og:title": [
+    "The Problem \u2014 The Impact Investment Platform"
+   ]
+  }
+ },
+ "pixels": {},
+ "source": {
+  "new": [
+   "src/routes/index.tsx",
+   "src/routes/legal.tsx"
+  ],
+  "old": [
+   "src/routes/__root.tsx: The Impact Investment Platform",
+   "src/routes/__root.tsx: The Impact Investment Platform",
+   "src/routes/about.tsx: About Us [em dash] The Impact Investment Platform",
+   "src/routes/about.tsx: About Us [em dash] The Impact Investment Platform",
+   "src/routes/contact.tsx: Contact [em dash] The Impact Investment Platform",
+   "src/routes/contact.tsx: Contact [em dash] The Impact Investment Platform",
+   "src/routes/index.tsx: The Impact Investment Platform [em dash] Social Impact Property & Supported Housing",
+   "src/routes/index.tsx: The Impact Investment Platform [em dash] Social Impact Property & Supported Housing",
+   "src/routes/partner-with-broker.tsx: Partner with a Broker [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-broker.tsx: Partner with a Broker [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-care-provider.tsx: Partner with a Care Provider [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-care-provider.tsx: Partner with a Care Provider [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-developer.tsx: Partner with a Developer [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-developer.tsx: Partner with a Developer [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-housing-association.tsx: Partner with a Housing Association [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-housing-association.tsx: Partner with a Housing Association [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-investor.tsx: Partner with ${label} [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-investor.tsx: Partner with ${label} [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-landlord.tsx: Partner with a Landlord [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-landlord.tsx: Partner with a Landlord [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-local-authority.tsx: Partner with a Local Authority [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-local-authority.tsx: Partner with a Local Authority [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-resident.tsx: Housing for Residents, Individuals & Families [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-resident.tsx: Housing for Residents, Individuals & Families [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-social-worker.tsx: Partner with a Social Worker [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-social-worker.tsx: Partner with a Social Worker [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-support-provider.tsx: Partner with a Support Provider [em dash] The Impact Investment Platform",
+   "src/routes/partner-with-support-provider.tsx: Partner with a Support Provider [em dash] The Impact Investment Platform",
+   "src/routes/partners.tsx: Our Partners [em dash] Impact Investment Platform",
+   "src/routes/platform.tsx: Our Services [em dash] The Impact Investment Platform",
+   "src/routes/platform.tsx: Our Services [em dash] The Impact Investment Platform",
+   "src/routes/register.$role.tsx: ${role.h1} | The Impact Investment Platform",
+   "src/routes/register.index.tsx: Register to join the waitlist | The Impact Investment Platform",
+   "src/routes/register.index.tsx: Register to join the waitlist | The Impact Investment Platform",
+   "src/routes/solutions.tsx: The Solution [em dash] The Impact Investment Platform",
+   "src/routes/solutions.tsx: The Solution [em dash] The Impact Investment Platform",
+   "src/routes/the-problem.tsx: The Problem [em dash] The Impact Investment Platform",
+   "src/routes/the-problem.tsx: The Problem [em dash] The Impact Investment Platform"
+  ]
+ },
+ "regions": {
+  "404-1280.png": {
+   "header": null,
+   "main": null,
+   "footer": null,
+   "height": 900
+  },
+  "404-390.png": {
+   "header": null,
+   "main": null,
+   "footer": null,
+   "height": 844
+  },
+  "about-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 2678
+   },
+   "footer": {
+    "y": 2750,
+    "h": 858
+   },
+   "height": 3608
+  },
+  "about-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 5663
+   },
+   "footer": {
+    "y": 5719,
+    "h": 2844
+   },
+   "height": 8563
+  },
+  "contact-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1944
+   },
+   "footer": {
+    "y": 2016,
+    "h": 858
+   },
+   "height": 2873
+  },
+  "contact-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 2704
+   },
+   "footer": {
+    "y": 2760,
+    "h": 2844
+   },
+   "height": 5604
+  },
+  "home-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 3264
+   },
+   "footer": {
+    "y": 3336,
+    "h": 858
+   },
+   "height": 4194
+  },
+  "home-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 5894
+   },
+   "footer": {
+    "y": 5950,
+    "h": 2844
+   },
+   "height": 8794
+  },
+  "legal-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 2070
+   },
+   "footer": {
+    "y": 2142,
+    "h": 858
+   },
+   "height": 3000
+  },
+  "legal-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 3563
+   },
+   "footer": {
+    "y": 3619,
+    "h": 2844
+   },
+   "height": 6463
+  },
+  "partner-with-broker-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 3867
+   },
+   "footer": {
+    "y": 3939,
+    "h": 858
+   },
+   "height": 4796
+  },
+  "partner-with-broker-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 4352
+   },
+   "footer": {
+    "y": 4408,
+    "h": 2844
+   },
+   "height": 7252
+  },
+  "partner-with-care-provider-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 3931
+   },
+   "footer": {
+    "y": 4003,
+    "h": 858
+   },
+   "height": 4861
+  },
+  "partner-with-care-provider-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 4299
+   },
+   "footer": {
+    "y": 4355,
+    "h": 2844
+   },
+   "height": 7199
+  },
+  "partner-with-developer-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 3803
+   },
+   "footer": {
+    "y": 3875,
+    "h": 858
+   },
+   "height": 4732
+  },
+  "partner-with-developer-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 4302
+   },
+   "footer": {
+    "y": 4358,
+    "h": 2844
+   },
+   "height": 7202
+  },
+  "partner-with-housing-association-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 3779
+   },
+   "footer": {
+    "y": 3851,
+    "h": 858
+   },
+   "height": 4708
+  },
+  "partner-with-housing-association-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 4146
+   },
+   "footer": {
+    "y": 4202,
+    "h": 2844
+   },
+   "height": 7046
+  },
+  "partner-with-investor-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 3607
+   },
+   "footer": {
+    "y": 3679,
+    "h": 858
+   },
+   "height": 4537
+  },
+  "partner-with-investor-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 4251
+   },
+   "footer": {
+    "y": 4307,
+    "h": 2844
+   },
+   "height": 7151
+  },
+  "partner-with-landlord-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 3735
+   },
+   "footer": {
+    "y": 3807,
+    "h": 858
+   },
+   "height": 4665
+  },
+  "partner-with-landlord-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 4278
+   },
+   "footer": {
+    "y": 4334,
+    "h": 2844
+   },
+   "height": 7178
+  },
+  "partner-with-local-authority-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 3881
+   },
+   "footer": {
+    "y": 3953,
+    "h": 858
+   },
+   "height": 4810
+  },
+  "partner-with-local-authority-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 4459
+   },
+   "footer": {
+    "y": 4515,
+    "h": 2844
+   },
+   "height": 7359
+  },
+  "partner-with-resident-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 4174
+   },
+   "footer": {
+    "y": 4246,
+    "h": 858
+   },
+   "height": 5104
+  },
+  "partner-with-resident-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 4860
+   },
+   "footer": {
+    "y": 4916,
+    "h": 2844
+   },
+   "height": 7760
+  },
+  "partner-with-social-worker-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 3746
+   },
+   "footer": {
+    "y": 3818,
+    "h": 858
+   },
+   "height": 4676
+  },
+  "partner-with-social-worker-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 4021
+   },
+   "footer": {
+    "y": 4077,
+    "h": 2844
+   },
+   "height": 6921
+  },
+  "partner-with-support-provider-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 3851
+   },
+   "footer": {
+    "y": 3923,
+    "h": 858
+   },
+   "height": 4781
+  },
+  "partner-with-support-provider-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 4248
+   },
+   "footer": {
+    "y": 4304,
+    "h": 2844
+   },
+   "height": 7148
+  },
+  "partners-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 2111
+   },
+   "footer": {
+    "y": 2183,
+    "h": 858
+   },
+   "height": 3041
+  },
+  "partners-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 3221
+   },
+   "footer": {
+    "y": 3277,
+    "h": 2844
+   },
+   "height": 6121
+  },
+  "platform-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 5091
+   },
+   "footer": {
+    "y": 5163,
+    "h": 858
+   },
+   "height": 6021
+  },
+  "platform-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 7646
+   },
+   "footer": {
+    "y": 7702,
+    "h": 2844
+   },
+   "height": 10546
+  },
+  "register-broker-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1230
+   },
+   "footer": {
+    "y": 1302,
+    "h": 858
+   },
+   "height": 2160
+  },
+  "register-broker-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 1518
+   },
+   "footer": {
+    "y": 1574,
+    "h": 2844
+   },
+   "height": 4418
+  },
+  "register-care-provider-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1230
+   },
+   "footer": {
+    "y": 1302,
+    "h": 858
+   },
+   "height": 2160
+  },
+  "register-care-provider-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 1518
+   },
+   "footer": {
+    "y": 1574,
+    "h": 2844
+   },
+   "height": 4418
+  },
+  "register-developer-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1230
+   },
+   "footer": {
+    "y": 1302,
+    "h": 858
+   },
+   "height": 2160
+  },
+  "register-developer-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 1518
+   },
+   "footer": {
+    "y": 1574,
+    "h": 2844
+   },
+   "height": 4418
+  },
+  "register-housing-association-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1230
+   },
+   "footer": {
+    "y": 1302,
+    "h": 858
+   },
+   "height": 2160
+  },
+  "register-housing-association-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 1518
+   },
+   "footer": {
+    "y": 1574,
+    "h": 2844
+   },
+   "height": 4418
+  },
+  "register-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1130
+   },
+   "footer": {
+    "y": 1202,
+    "h": 858
+   },
+   "height": 2059
+  },
+  "register-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 1769
+   },
+   "footer": {
+    "y": 1825,
+    "h": 2844
+   },
+   "height": 4669
+  },
+  "register-investor-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1496
+   },
+   "footer": {
+    "y": 1568,
+    "h": 858
+   },
+   "height": 2426
+  },
+  "register-investor-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 1776
+   },
+   "footer": {
+    "y": 1832,
+    "h": 2844
+   },
+   "height": 4676
+  },
+  "register-landlord-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1230
+   },
+   "footer": {
+    "y": 1302,
+    "h": 858
+   },
+   "height": 2160
+  },
+  "register-landlord-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 1518
+   },
+   "footer": {
+    "y": 1574,
+    "h": 2844
+   },
+   "height": 4418
+  },
+  "register-local-authority-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1230
+   },
+   "footer": {
+    "y": 1302,
+    "h": 858
+   },
+   "height": 2160
+  },
+  "register-local-authority-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 1518
+   },
+   "footer": {
+    "y": 1574,
+    "h": 2844
+   },
+   "height": 4418
+  },
+  "register-resident-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1476
+   },
+   "footer": {
+    "y": 1548,
+    "h": 858
+   },
+   "height": 2406
+  },
+  "register-resident-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 1837
+   },
+   "footer": {
+    "y": 1893,
+    "h": 2844
+   },
+   "height": 4737
+  },
+  "register-social-worker-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1230
+   },
+   "footer": {
+    "y": 1302,
+    "h": 858
+   },
+   "height": 2160
+  },
+  "register-social-worker-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 1518
+   },
+   "footer": {
+    "y": 1574,
+    "h": 2844
+   },
+   "height": 4418
+  },
+  "register-support-provider-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1230
+   },
+   "footer": {
+    "y": 1302,
+    "h": 858
+   },
+   "height": 2160
+  },
+  "register-support-provider-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 1518
+   },
+   "footer": {
+    "y": 1574,
+    "h": 2844
+   },
+   "height": 4418
+  },
+  "solutions-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 2720
+   },
+   "footer": {
+    "y": 2792,
+    "h": 858
+   },
+   "height": 3649
+  },
+  "solutions-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 3067
+   },
+   "footer": {
+    "y": 3123,
+    "h": 2844
+   },
+   "height": 5967
+  },
+  "the-problem-1280.png": {
+   "header": {
+    "y": 0,
+    "h": 72
+   },
+   "main": {
+    "y": 72,
+    "h": 1241
+   },
+   "footer": {
+    "y": 1313,
+    "h": 858
+   },
+   "height": 2170
+  },
+  "the-problem-390.png": {
+   "header": {
+    "y": 0,
+    "h": 56
+   },
+   "main": {
+    "y": 56,
+    "h": 1933
+   },
+   "footer": {
+    "y": 1989,
+    "h": 2844
+   },
+   "height": 4833
+  }
+ }
+}
