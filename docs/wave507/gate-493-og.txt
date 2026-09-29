@@ -1,0 +1,3 @@
+lockup 960 by 148 at (120, 241) on a 1200 by 630 card
+public\images\brand\og-default.png matches this script's output
+rc=0

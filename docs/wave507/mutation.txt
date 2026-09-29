@@ -1,0 +1,241 @@
+wave507   mode=after  build=C:\Users\Israel\Documents\repos\iigs-uc507\dist\client
+  /404.html                          title ["Page not found"]
+  /about/                            title ["About Us [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["About Us [em dash] Impact Investment Group"]
+  /contact/                          title ["Contact [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Contact [em dash] Impact Investment Group"]
+  /                                  title ["Impact Investment Group [em dash] Social Impact Property & Supported Housing"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Impact Investment Group [em dash] Social Impact Property & Supported Housing"]
+  /legal/                            title ["Legal and company information · Impact Investment Group UK Limited"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Legal and company information · Impact Investment Group UK Limited"]
+  /partner-with-broker/              title ["Partner with a Broker [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Partner with a Broker [em dash] Impact Investment Group"]
+  /partner-with-care-provider/       title ["Partner with a Care Provider [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Partner with a Care Provider [em dash] Impact Investment Group"]
+  /partner-with-developer/           title ["Partner with a Developer [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Partner with a Developer [em dash] Impact Investment Group"]
+  /partner-with-housing-association/ title ["Partner with a Housing Association [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Partner with a Housing Association [em dash] Impact Investment Group"]
+  /partner-with-investor/            title ["Partner with Property Investor [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Partner with Property Investor [em dash] Impact Investment Group"]
+  /partner-with-landlord/            title ["Partner with a Landlord [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Partner with a Landlord [em dash] Impact Investment Group"]
+  /partner-with-local-authority/     title ["Partner with a Local Authority [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Partner with a Local Authority [em dash] Impact Investment Group"]
+  /partner-with-resident/            title ["Housing for Residents, Individuals & Families [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Housing for Residents, Individuals & Families [em dash] Impact Investment Group"]
+  /partner-with-social-worker/       title ["Partner with a Social Worker [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Partner with a Social Worker [em dash] Impact Investment Group"]
+  /partner-with-support-provider/    title ["Partner with a Support Provider [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Partner with a Support Provider [em dash] Impact Investment Group"]
+  /partners/                         title ["Partners [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+  /platform/                         title ["Our Services [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Our Services [em dash] Impact Investment Group"]
+  /register/broker/                  title ["Both sides of your deal, on one platform | Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Both sides of your deal, on one platform | Impact Investment Group"]
+  /register/care-provider/           title ["Stop losing referrals because the building is not there | Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Stop losing referrals because the building is not there | Impact Investment Group"]
+  /register/developer/               title ["Know where the demand is before you commit to the site | Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Know where the demand is before you commit to the site | Impact Investment Group"]
+  /register/housing-association/     title ["Stock, partners and demand, in one view | Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Stock, partners and demand, in one view | Impact Investment Group"]
+  /register/                         title ["Register to join the waitlist | Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Register to join the waitlist | Impact Investment Group"]
+  /register/investor/                title ["Tell us the deal you want to see, and see it first | Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Tell us the deal you want to see, and see it first | Impact Investment Group"]
+  /register/landlord/                title ["Tell us what you own, and we will bring the demand to you | Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Tell us what you own, and we will bring the demand to you | Impact Investment Group"]
+  /register/local-authority/         title ["Tell us where the pressure is, and we will go and find the homes | Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Tell us where the pressure is, and we will go and find the homes | Impact Investment Group"]
+  /register/resident/                title ["Tell us what you need, and where | Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["Tell us what you need, and where | Impact Investment Group"]
+  /register/social-worker/           title ["One place to look, instead of ringing round | Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["One place to look, instead of ringing round | Impact Investment Group"]
+  /register/support-provider/        title ["The commission comes first and the building never does | Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["The commission comes first and the building never does | Impact Investment Group"]
+  /solutions/                        title ["The Solution [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["The Solution [em dash] Impact Investment Group"]
+  /the-problem/                      title ["The Problem [em dash] Impact Investment Group"]
+                                     og:site_name ["The Impact Investment Platform"]
+                                     og:title ["The Problem [em dash] Impact Investment Group"]
+src: NEW in 21 route files; old name in 1 metadata strings
+pixels: 60 full-page shots paired with before (header, main, footer each read), 0 differ
+wave507   30 pages, 174 live readings, 60 shots
+
+147 FAILURE(S):
+  - markup /about/ og:site_name: The Impact Investment Platform
+  - markup /about/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /contact/ og:site_name: The Impact Investment Platform
+  - markup /contact/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup / og:site_name: The Impact Investment Platform
+  - markup / og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /legal/ og:site_name: The Impact Investment Platform
+  - markup /legal/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /partner-with-broker/ og:site_name: The Impact Investment Platform
+  - markup /partner-with-broker/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /partner-with-care-provider/ og:site_name: The Impact Investment Platform
+  - markup /partner-with-care-provider/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /partner-with-developer/ og:site_name: The Impact Investment Platform
+  - markup /partner-with-developer/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /partner-with-housing-association/ og:site_name: The Impact Investment Platform
+  - markup /partner-with-housing-association/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /partner-with-investor/ og:site_name: The Impact Investment Platform
+  - markup /partner-with-investor/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /partner-with-landlord/ og:site_name: The Impact Investment Platform
+  - markup /partner-with-landlord/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /partner-with-local-authority/ og:site_name: The Impact Investment Platform
+  - markup /partner-with-local-authority/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /partner-with-resident/ og:site_name: The Impact Investment Platform
+  - markup /partner-with-resident/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /partner-with-social-worker/ og:site_name: The Impact Investment Platform
+  - markup /partner-with-social-worker/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /partner-with-support-provider/ og:site_name: The Impact Investment Platform
+  - markup /partner-with-support-provider/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /partners/ og:site_name: The Impact Investment Platform
+  - markup /partners/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /platform/ og:site_name: The Impact Investment Platform
+  - markup /platform/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /register/broker/ og:site_name: The Impact Investment Platform
+  - markup /register/broker/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /register/care-provider/ og:site_name: The Impact Investment Platform
+  - markup /register/care-provider/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /register/developer/ og:site_name: The Impact Investment Platform
+  - markup /register/developer/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /register/housing-association/ og:site_name: The Impact Investment Platform
+  - markup /register/housing-association/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /register/ og:site_name: The Impact Investment Platform
+  - markup /register/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /register/investor/ og:site_name: The Impact Investment Platform
+  - markup /register/investor/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /register/landlord/ og:site_name: The Impact Investment Platform
+  - markup /register/landlord/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /register/local-authority/ og:site_name: The Impact Investment Platform
+  - markup /register/local-authority/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /register/resident/ og:site_name: The Impact Investment Platform
+  - markup /register/resident/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /register/social-worker/ og:site_name: The Impact Investment Platform
+  - markup /register/social-worker/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /register/support-provider/ og:site_name: The Impact Investment Platform
+  - markup /register/support-provider/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /solutions/ og:site_name: The Impact Investment Platform
+  - markup /solutions/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - markup /the-problem/ og:site_name: The Impact Investment Platform
+  - markup /the-problem/ og:site_name reads ["The Impact Investment Platform"], not 'Impact Investment Group'.
+  - /about/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /contact/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - / og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /legal/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /partner-with-broker/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /partner-with-care-provider/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /partner-with-developer/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /partner-with-housing-association/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /partner-with-investor/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /partner-with-landlord/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /partner-with-local-authority/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /partner-with-resident/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /partner-with-social-worker/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /partner-with-support-provider/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /partners/ title: expected ["Our Partners [em dash] Impact Investment Group"] (the old value with the name swapped), read ["Partners [em dash] Impact Investment Group"].
+  - /partners/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /platform/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /register/broker/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /register/care-provider/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /register/developer/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /register/housing-association/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /register/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /register/investor/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /register/landlord/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /register/local-authority/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /register/resident/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /register/social-worker/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /register/support-provider/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /solutions/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - /the-problem/ og:site_name: expected ["Impact Investment Group"] (the old value with the name swapped), read ["The Impact Investment Platform"].
+  - src: src/routes/__root.tsx: The Impact Investment Platform still names the platform.
+  - live /about/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /about/ @ 390 og:site_name: The Impact Investment Platform
+  - live /contact/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /contact/ @ 390 og:site_name: The Impact Investment Platform
+  - live / @ 1280 og:site_name: The Impact Investment Platform
+  - live / @ 390 og:site_name: The Impact Investment Platform
+  - live /legal/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /legal/ @ 390 og:site_name: The Impact Investment Platform
+  - live /partner-with-broker/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /partner-with-broker/ @ 390 og:site_name: The Impact Investment Platform
+  - live /partner-with-care-provider/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /partner-with-care-provider/ @ 390 og:site_name: The Impact Investment Platform
+  - live /partner-with-developer/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /partner-with-developer/ @ 390 og:site_name: The Impact Investment Platform
+  - live /partner-with-housing-association/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /partner-with-housing-association/ @ 390 og:site_name: The Impact Investment Platform
+  - live /partner-with-investor/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /partner-with-investor/ @ 390 og:site_name: The Impact Investment Platform
+  - live /partner-with-landlord/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /partner-with-landlord/ @ 390 og:site_name: The Impact Investment Platform
+  - live /partner-with-local-authority/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /partner-with-local-authority/ @ 390 og:site_name: The Impact Investment Platform
+  - live /partner-with-resident/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /partner-with-resident/ @ 390 og:site_name: The Impact Investment Platform
+  - live /partner-with-social-worker/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /partner-with-social-worker/ @ 390 og:site_name: The Impact Investment Platform
+  - live /partner-with-support-provider/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /partner-with-support-provider/ @ 390 og:site_name: The Impact Investment Platform
+  - live /partners/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /partners/ @ 390 og:site_name: The Impact Investment Platform
+  - live /platform/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /platform/ @ 390 og:site_name: The Impact Investment Platform
+  - live /register/broker/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /register/broker/ @ 390 og:site_name: The Impact Investment Platform
+  - live /register/care-provider/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /register/care-provider/ @ 390 og:site_name: The Impact Investment Platform
+  - live /register/developer/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /register/developer/ @ 390 og:site_name: The Impact Investment Platform
+  - live /register/housing-association/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /register/housing-association/ @ 390 og:site_name: The Impact Investment Platform
+  - live /register/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /register/ @ 390 og:site_name: The Impact Investment Platform
+  - live /register/investor/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /register/investor/ @ 390 og:site_name: The Impact Investment Platform
+  - live /register/landlord/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /register/landlord/ @ 390 og:site_name: The Impact Investment Platform
+  - live /register/local-authority/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /register/local-authority/ @ 390 og:site_name: The Impact Investment Platform
+  - live /register/resident/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /register/resident/ @ 390 og:site_name: The Impact Investment Platform
+  - live /register/social-worker/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /register/social-worker/ @ 390 og:site_name: The Impact Investment Platform
+  - live /register/support-provider/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /register/support-provider/ @ 390 og:site_name: The Impact Investment Platform
+  - live /solutions/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /solutions/ @ 390 og:site_name: The Impact Investment Platform
+  - live /the-problem/ @ 1280 og:site_name: The Impact Investment Platform
+  - live /the-problem/ @ 390 og:site_name: The Impact Investment Platform
+guard rc=1

@@ -1,0 +1,27 @@
+item5     platform @ 360         items=3 clones=0 track=320px animated=0 strings outside the viewport=0
+item6     platform @ 360         card=421px min-height=auto art=58x96 at (253,3712) opacity=1 inside padding=True text clashes=0
+item8     platform @ 360         scrolled to 1640: none; 11 text runs and 2 controls on screen; 0 clashes
+item5     platform @ 390         items=3 clones=0 track=350px animated=0 strings outside the viewport=0
+item6     platform @ 390         card=421px min-height=auto art=58x96 at (283,3683) opacity=1 inside padding=True text clashes=0
+item8     platform @ 390         scrolled to 1728: none; 13 text runs and 5 controls on screen; 0 clashes
+item5     platform @ 414         items=3 clones=0 track=374px animated=0 strings outside the viewport=0
+item6     platform @ 414         card=421px min-height=auto art=58x96 at (307,3695) opacity=1 inside padding=True text clashes=0
+item8     platform @ 414         scrolled to 1832: none; 12 text runs and 5 controls on screen; 0 clashes
+item5     platform @ 768         items=6 clones=3 track=3546px animated=1 strings outside the viewport=15
+item6     platform @ 768         card=340px min-height=340px art=169x280 at (594,3246) opacity=0.25 inside padding=False text clashes=0
+item8     platform @ 768         scrolled to 2088: none; 14 text runs and 8 controls on screen; 0 clashes
+item5     platform @ 667x375     items=3 clones=0 track=603px animated=0 strings outside the viewport=0
+item6     platform @ 667x375     card=396px min-height=auto art=58x96 at (548,3185) opacity=1 inside padding=True text clashes=0
+item8     platform @ 667x375     scrolled to 790: none; 4 text runs and 2 controls on screen; 0 clashes
+item12    platform @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item5     platform @ 1280        items=6 clones=3 track=3036px animated=1 strings outside the viewport=11
+item6     platform @ 1280        card=340px min-height=340px art=169x280 at (1066,2952) opacity=0.25 inside padding=False text clashes=0
+item8     platform @ 1280        scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=22); 14 text runs and 12 controls on screen; 0 clashes
+
+rule8     platform                   1280 differs on     28537 device px (worst  89 of 255), same-build noise     19504 px (worst  71),       41 moved beyond the noise outside the touched and animated boxes
+
+wave490   6 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 962 span type nodes, 0 under floor · 18 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+
+FAILED: 1
+  · rule8 platform: 41 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 2000 to 2380 and columns 252 to 1027
+rc=1
