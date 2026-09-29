@@ -79,6 +79,13 @@ const MARK = {
   "on-cream": "/images/brand/logo-mark.webp",
 } as const;
 
+/**
+ * What a screen reader says for the logo, on every mount: the bar's link, the
+ * phone menu and the footer (Callum, 28 Sep 2026, wave 502). The platform's
+ * brand link says the same words.
+ */
+export const LOGO_HOME_NAME = "Impact Investment Group, home";
+
 export type LogoVariant = keyof typeof LOCKUP;
 
 /** Where the lockup sits, which decides its height. See the sizing note. */
@@ -126,7 +133,7 @@ export function Logo({
         height={310}
         className={SIZE[size].className}
       />
-      <span className="sr-only">Impact Investment Group — home</span>
+      <span className="sr-only">{LOGO_HOME_NAME}</span>
     </span>
   );
 }

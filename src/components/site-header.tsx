@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
 
-import { Logo } from "@/components/logo";
+import { Logo, LOGO_HOME_NAME } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -274,7 +274,7 @@ export function SiteHeader() {
           <Link
             to="/"
             className="site-header__logo shrink-0 rounded-md"
-            aria-label="Impact Investment Platform — home"
+            aria-label={LOGO_HOME_NAME}
           >
             <Logo variant="on-cream" />
           </Link>
