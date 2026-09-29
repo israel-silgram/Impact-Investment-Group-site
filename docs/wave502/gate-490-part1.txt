@@ -1,0 +1,141 @@
+item2     home @ 360             section=1415px faces=1415 / 0  tail under the visible face=47.38px
+item2     home @ 360             swapped: section=1621px  tail=47.38px
+item3     home @ 360             strip mask=linear-gradient(90deg, rgb(0, 0, 0) calc(100% - 56px), r
+item3     home @ 360             slide 1 "Delivering Support" peeks 24.0px: darkest=0.6867 ground=0.8395 share=0.818
+item8     home @ 360             scrolled to 1640: none; 18 text runs and 3 controls on screen; 0 clashes
+drawer    home @ 360             open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
+item2     home @ 390             section=1355px faces=1355 / 0  tail under the visible face=47.37px
+item2     home @ 390             swapped: section=1566px  tail=47.38px
+item3     home @ 390             strip mask=linear-gradient(90deg, rgb(0, 0, 0) calc(100% - 56px), r
+item3     home @ 390             slide 1 "Delivering Support" peeks 24.0px: darkest=0.7004 ground=0.8413 share=0.833
+item8     home @ 390             scrolled to 1728: none; 17 text runs and 3 controls on screen; 0 clashes
+drawer    home @ 390             open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
+item2     home @ 414             section=1355px faces=1355 / 0  tail under the visible face=47.37px
+item2     home @ 414             swapped: section=1524px  tail=47.38px
+item3     home @ 414             strip mask=linear-gradient(90deg, rgb(0, 0, 0) calc(100% - 56px), r
+item3     home @ 414             slide 1 "Delivering Support" peeks 24.0px: darkest=0.7072 ground=0.8338 share=0.848
+item8     home @ 414             scrolled to 1832: none; 20 text runs and 4 controls on screen; 0 clashes
+drawer    home @ 414             open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
+item2     home @ 768             section=1128px faces=1128 / 1128  tail under the visible face=76.03px
+item2     home @ 768             swapped: section=1128px  tail=47.37px
+item8     home @ 768             scrolled to 2088: none; 49 text runs and 4 controls on screen; 0 clashes
+drawer    home @ 768             open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
+item2     home @ 667x375         section=1114px faces=1114 / 0  tail under the visible face=47.37px
+item2     home @ 667x375         swapped: section=1150px  tail=47.38px
+item3     home @ 667x375         strip mask=linear-gradient(90deg, rgb(0, 0, 0) calc(100% - 56px), r
+item3     home @ 667x375         slide 2 "Transforming Lives" peeks 12.0px: darkest=0.8356 ground=0.8872 share=0.942
+item8     home @ 667x375         scrolled to 790: none; 11 text runs and 6 controls on screen; 0 clashes
+drawer    home @ 667x375         open, Partners expanded: 29 runs read, 0 under their floor, smallest 12px, kinds={'name': 8, 'heading': 11, 'mono': 10}
+item12    home @ 1280            "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item2     home @ 1280            section=812px faces=812 / 812  tail under the visible face=121.67px
+item2     home @ 1280            swapped: section=812px  tail=50.87px
+item8     home @ 1280            scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=22); 47 text runs and 10 controls on screen; 0 clashes
+item9     about @ 360            8 cards, worst tail under any content=4px, worst tail under the last INK=12px, tallest 370px
+item9     about @ 360              director   370px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Israel Silgram"
+item9     about @ 360              director   338px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Maria Avallone"
+item9     about @ 360              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Dr Jonathan Elton"
+item9     about @ 360              director   370px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Callum Saxon"
+item9     about @ 360              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Shahab Jamali"
+item9     about @ 360              chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "01"
+item9     about @ 360              chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "02"
+item9     about @ 360              chain      294px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "03"
+item8     about @ 360            scrolled to 1640: none; 17 text runs and 2 controls on screen; 0 clashes
+item9     about @ 390            8 cards, worst tail under any content=4px, worst tail under the last INK=12px, tallest 370px
+item9     about @ 390              director   346px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Israel Silgram"
+item9     about @ 390              director   338px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Maria Avallone"
+item9     about @ 390              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Dr Jonathan Elton"
+item9     about @ 390              director   370px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Callum Saxon"
+item9     about @ 390              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Shahab Jamali"
+item9     about @ 390              chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "01"
+item9     about @ 390              chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "02"
+item9     about @ 390              chain      294px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "03"
+item8     about @ 390            scrolled to 1728: none; 17 text runs and 2 controls on screen; 0 clashes
+item9     about @ 414            8 cards, worst tail under any content=4px, worst tail under the last INK=12px, tallest 370px
+item9     about @ 414              director   346px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Israel Silgram"
+item9     about @ 414              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Maria Avallone"
+item9     about @ 414              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Dr Jonathan Elton"
+item9     about @ 414              director   370px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Callum Saxon"
+item9     about @ 414              director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Shahab Jamali"
+item9     about @ 414              chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "01"
+item9     about @ 414              chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "02"
+item9     about @ 414              chain      294px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "03"
+item8     about @ 414            scrolled to 1832: none; 20 text runs and 2 controls on screen; 0 clashes
+item9     about @ 768            8 cards, worst tail under any content=84px, worst tail under the last INK=84px, tallest 418px
+item9     about @ 768              director   394px min-height=356px    pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Israel Silgram"
+item9     about @ 768              director   394px min-height=356px    pad-bottom= 20 ink tail=  36.0 any tail=  36.0 "Maria Avallone"
+item9     about @ 768              director   394px min-height=356px    pad-bottom= 20 ink tail=  84.0 any tail=  84.0 "Dr Jonathan Elton"
+item9     about @ 768              director   418px min-height=356px    pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Callum Saxon"
+item9     about @ 768              director   418px min-height=356px    pad-bottom= 20 ink tail=  54.5 any tail=  54.5 "Shahab Jamali"
+item9     about @ 768              chain      362px min-height=0px      pad-bottom=104 ink tail=  55.6 any tail=-111.0 "01"
+item9     about @ 768              chain      362px min-height=0px      pad-bottom=104 ink tail=  55.6 any tail=-111.0 "02"
+item9     about @ 768              chain      362px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "03"
+item8     about @ 768            scrolled to 2088: none; 55 text runs and 6 controls on screen; 0 clashes
+item9     about @ 667x375        8 cards, worst tail under any content=60px, worst tail under the last INK=60px, tallest 370px
+item9     about @ 667x375          director   370px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Israel Silgram"
+item9     about @ 667x375          director   370px min-height=0px      pad-bottom= 20 ink tail=  36.0 any tail=  36.0 "Maria Avallone"
+item9     about @ 667x375          director   370px min-height=0px      pad-bottom= 20 ink tail=  60.0 any tail=  60.0 "Dr Jonathan Elton"
+item9     about @ 667x375          director   370px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Callum Saxon"
+item9     about @ 667x375          director   314px min-height=0px      pad-bottom= 20 ink tail=   4.0 any tail=   4.0 "Shahab Jamali"
+item9     about @ 667x375          chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "01"
+item9     about @ 667x375          chain      274px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "02"
+item9     about @ 667x375          chain      294px min-height=0px      pad-bottom=104 ink tail=  11.8 any tail=-111.0 "03"
+item8     about @ 667x375        scrolled to 790: none; 10 text runs and 2 controls on screen; 0 clashes
+item12    about @ 1280           "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item9     about @ 1280           8 cards, worst tail under any content=61px, worst tail under the last INK=61px, tallest 358px
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  19.6 any tail=  19.6 "Israel Silgram"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  44.4 any tail=  44.4 "Maria Avallone"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  61.2 any tail=  61.2 "Dr Jonathan Elton"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=   2.8 any tail=   2.8 "Callum Saxon"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  44.4 any tail=  44.4 "Shahab Jamali"
+item9     about @ 1280             chain      290px min-height=0px      pad-bottom=104 ink tail=  33.0 any tail=-111.0 "01"
+item9     about @ 1280             chain      290px min-height=0px      pad-bottom=104 ink tail=  33.0 any tail=-111.0 "02"
+item9     about @ 1280             chain      290px min-height=0px      pad-bottom=104 ink tail=  10.3 any tail=-111.0 "03"
+item8     about @ 1280           scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 37 text runs and 10 controls on screen; 0 clashes
+item5     platform @ 360         items=3 clones=0 track=320px animated=0 strings outside the viewport=0
+item6     platform @ 360         card=421px min-height=auto art=58x96 at (253,3712) opacity=1 inside padding=True text clashes=0
+item8     platform @ 360         scrolled to 1640: none; 11 text runs and 2 controls on screen; 0 clashes
+item5     platform @ 390         items=3 clones=0 track=350px animated=0 strings outside the viewport=0
+item6     platform @ 390         card=421px min-height=auto art=58x96 at (283,3683) opacity=1 inside padding=True text clashes=0
+item8     platform @ 390         scrolled to 1728: none; 13 text runs and 5 controls on screen; 0 clashes
+item5     platform @ 414         items=3 clones=0 track=374px animated=0 strings outside the viewport=0
+item6     platform @ 414         card=421px min-height=auto art=58x96 at (307,3695) opacity=1 inside padding=True text clashes=0
+item8     platform @ 414         scrolled to 1832: none; 12 text runs and 5 controls on screen; 0 clashes
+item5     platform @ 768         items=6 clones=3 track=3546px animated=1 strings outside the viewport=15
+item6     platform @ 768         card=340px min-height=340px art=169x280 at (594,3246) opacity=0.25 inside padding=False text clashes=0
+item8     platform @ 768         scrolled to 2088: none; 14 text runs and 8 controls on screen; 0 clashes
+item5     platform @ 667x375     items=3 clones=0 track=603px animated=0 strings outside the viewport=0
+item6     platform @ 667x375     card=396px min-height=auto art=58x96 at (548,3185) opacity=1 inside padding=True text clashes=0
+item8     platform @ 667x375     scrolled to 790: none; 4 text runs and 2 controls on screen; 0 clashes
+item12    platform @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item5     platform @ 1280        items=6 clones=3 track=3036px animated=1 strings outside the viewport=11
+item6     platform @ 1280        card=340px min-height=340px art=169x280 at (1066,2952) opacity=0.25 inside padding=False text clashes=0
+item8     platform @ 1280        scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 14 text runs and 12 controls on screen; 0 clashes
+item8     the-problem @ 360      scrolled to 1640: none; 11 text runs and 4 controls on screen; 0 clashes
+item8     the-problem @ 390      scrolled to 1728: none; 6 text runs and 4 controls on screen; 0 clashes
+item8     the-problem @ 414      scrolled to 1832: none; 2 text runs and 5 controls on screen; 0 clashes
+item8     the-problem @ 768      scrolled to 2088: none; 0 text runs and 16 controls on screen; 0 clashes
+item8     the-problem @ 667x375  scrolled to 790: none; 11 text runs and 2 controls on screen; 0 clashes
+item12    the-problem @ 1280     "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     the-problem @ 1280     scrolled to 1270: none; 0 text runs and 43 controls on screen; 0 clashes
+item10    solutions @ 360        9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 68px
+item8     solutions @ 360        scrolled to 1640: none; 27 text runs and 2 controls on screen; 0 clashes
+item10    solutions @ 390        9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 68px
+item8     solutions @ 390        scrolled to 1728: none; 27 text runs and 2 controls on screen; 0 clashes
+item10    solutions @ 414        9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 43px
+item8     solutions @ 414        scrolled to 1832: none; 27 text runs and 2 controls on screen; 0 clashes
+item10    solutions @ 768        9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 43px
+item8     solutions @ 768        scrolled to 2088: none; 20 text runs and 6 controls on screen; 0 clashes
+item10    solutions @ 667x375    9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 43px
+item8     solutions @ 667x375    scrolled to 790: none; 12 text runs and 2 controls on screen; 0 clashes
+item12    solutions @ 1280       "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item10    solutions @ 1280       9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 43px
+item8     solutions @ 1280       scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 34 text runs and 11 controls on screen; 0 clashes
+
+rule8     home                       1280 differs on     19453 device px (worst 230 of 255), same-build noise     22117 px (worst 228),        0 moved beyond the noise outside the touched and animated boxes
+rule8     about                      1280 differs on         0 device px (worst   0 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes
+rule8     platform                   1280 differs on     26420 device px (worst  79 of 255), same-build noise     26420 px (worst  79),        0 moved beyond the noise outside the touched and animated boxes
+rule8     the-problem                1280 differs on         0 device px (worst   0 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes
+rule8     solutions                  1280 differs on         0 device px (worst   0 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes
+
+wave490   30 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 4139 span type nodes, 0 under floor · 90 Verify readings, 0 under 44 · 48 cards, 0 with a tail over 32px · 54 pills, 0 splitting a verb · 4 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 145 runs in the open drawer, 0 under floor
+PASSED

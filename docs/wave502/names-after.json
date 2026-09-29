@@ -1,0 +1,932 @@
+{
+ "mode": "after",
+ "build": "C:\\Users\\Israel\\Documents\\repos\\iigs-uc502\\dist\\client",
+ "routes": {
+  "home @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "home @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "about @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "about @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "platform @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "platform @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "the-problem @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "the-problem @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "solutions @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "solutions @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "partners @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "partners @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "contact @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "contact @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "register @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "register @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "register-investor @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "register-investor @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "register-resident @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "register-resident @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "partner-with-investor @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "partner-with-investor @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "partner-with-local-authority @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "partner-with-local-authority @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "legal @ 1280": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ]
+  },
+  "legal @ 390": {
+   "mounts": [
+    {
+     "where": "bar",
+     "sr": "Impact Investment Group, home",
+     "aria": "Impact Investment Group, home",
+     "link": true,
+     "name": "Impact Investment Group, home"
+    },
+    {
+     "where": "footer",
+     "sr": "Impact Investment Group, home",
+     "aria": null,
+     "link": false
+    }
+   ],
+   "tree": [
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home",
+    "Impact Investment Group, home"
+   ],
+   "panel": {
+    "mounts": [
+     {
+      "where": "panel",
+      "sr": "Impact Investment Group, home",
+      "aria": null,
+      "link": false
+     }
+    ],
+    "tree": [
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home",
+     "Impact Investment Group, home"
+    ]
+   }
+  },
+  "404 @ 1280": {
+   "mounts": [],
+   "tree": []
+  },
+  "404 @ 390": {
+   "mounts": [],
+   "tree": []
+  }
+ },
+ "pixels": {
+  "about-1280-header.png": 0,
+  "about-390-header.png": 0,
+  "about-390-panel.png": 0,
+  "contact-1280-header.png": 0,
+  "contact-390-header.png": 0,
+  "contact-390-panel.png": 0,
+  "home-1280-header.png": 0,
+  "home-390-header.png": 0,
+  "home-390-panel.png": 0,
+  "legal-1280-header.png": 0,
+  "legal-390-header.png": 0,
+  "legal-390-panel.png": 0,
+  "partner-with-investor-1280-header.png": 0,
+  "partner-with-investor-390-header.png": 0,
+  "partner-with-investor-390-panel.png": 0,
+  "partner-with-local-authority-1280-header.png": 0,
+  "partner-with-local-authority-390-header.png": 0,
+  "partner-with-local-authority-390-panel.png": 0,
+  "partners-1280-header.png": 0,
+  "partners-390-header.png": 0,
+  "partners-390-panel.png": 0,
+  "platform-1280-header.png": 0,
+  "platform-390-header.png": 0,
+  "platform-390-panel.png": 0,
+  "register-1280-header.png": 0,
+  "register-390-header.png": 0,
+  "register-390-panel.png": 0,
+  "register-investor-1280-header.png": 0,
+  "register-investor-390-header.png": 0,
+  "register-investor-390-panel.png": 0,
+  "register-resident-1280-header.png": 0,
+  "register-resident-390-header.png": 0,
+  "register-resident-390-panel.png": 0,
+  "solutions-1280-header.png": 0,
+  "solutions-390-header.png": 0,
+  "solutions-390-panel.png": 0,
+  "the-problem-1280-header.png": 0,
+  "the-problem-390-header.png": 0,
+  "the-problem-390-panel.png": 0
+ },
+ "source": {
+  "name": [
+   "src/components/logo.tsx"
+  ],
+  "old": []
+ }
+}

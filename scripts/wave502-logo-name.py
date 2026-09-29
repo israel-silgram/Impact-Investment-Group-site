@@ -57,7 +57,7 @@ NAME = "Impact Investment Group, home"
 # The two names the base build carried: the bar link's aria-label and the
 # lockup's screen-reader span. Written with an escape so this file adds no
 # em dash to the tree.
-OLD = ["Impact Investment Platform — home", "Impact Investment Group — home"]
+OLD = ["Impact Investment Platform \u2014 home", "Impact Investment Group \u2014 home"]
 
 PROFILES = [("1280", 1280, 900, False), ("390", 390, 844, True)]
 
@@ -94,7 +94,7 @@ TAG = """
 
 
 # Every name this gate prints goes through ascii(), so the old name's em dash
-# is written as — and no log of this wave adds the character.
+# is written as \u2014 and no log of this wave adds the character.
 
 
 def ax_name(cdp, selector: str) -> str | None:

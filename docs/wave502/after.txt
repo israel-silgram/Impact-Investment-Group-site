@@ -1,0 +1,34 @@
+wave502   mode=after  build=C:\Users\Israel\Documents\repos\iigs-uc502\dist\client
+  home @ 1280                        bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  home @ 390                         bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  about @ 1280                       bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  about @ 390                        bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  platform @ 1280                    bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  platform @ 390                     bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  the-problem @ 1280                 bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  the-problem @ 390                  bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  solutions @ 1280                   bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  solutions @ 390                    bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  partners @ 1280                    bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  partners @ 390                     bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  contact @ 1280                     bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  contact @ 390                      bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  register @ 1280                    bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  register @ 390                     bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  register-investor @ 1280           bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  register-investor @ 390            bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  register-resident @ 1280           bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  register-resident @ 390            bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  partner-with-investor @ 1280       bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  partner-with-investor @ 390        bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  partner-with-local-authority @ 1280 bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  partner-with-local-authority @ 390 bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  legal @ 1280                       bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'
+  legal @ 390                        bar link: 'Impact Investment Group, home'; footer: 'Impact Investment Group, home'; panel: 'Impact Investment Group, home'
+  404 @ 1280                         no logo
+  404 @ 390                          no logo
+src: NAME in ['src/components/logo.tsx']; old name in []
+pixels: 39 shots paired with before, 0 differ
+wave502   65 lockup readings, 26 of them links, 130 tree names naming the brand beside home, 39 shots
+
+All assertions passed.
