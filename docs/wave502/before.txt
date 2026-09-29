@@ -1,0 +1,387 @@
+wave502   mode=before  build=base.local\client
+  home @ 1280                        bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  home @ 390                         bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  about @ 1280                       bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  about @ 390                        bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  platform @ 1280                    bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  platform @ 390                     bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  the-problem @ 1280                 bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  the-problem @ 390                  bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  solutions @ 1280                   bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  solutions @ 390                    bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  partners @ 1280                    bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  partners @ 390                     bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  contact @ 1280                     bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  contact @ 390                      bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  register @ 1280                    bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  register @ 390                     bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  register-investor @ 1280           bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  register-investor @ 390            bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  register-resident @ 1280           bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  register-resident @ 390            bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  partner-with-investor @ 1280       bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  partner-with-investor @ 390        bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  partner-with-local-authority @ 1280 bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  partner-with-local-authority @ 390 bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  legal @ 1280                       bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'
+  legal @ 390                        bar link: 'Impact Investment Platform \u2014 home'; footer: 'Impact Investment Group \u2014 home'; panel: 'Impact Investment Group \u2014 home'
+  404 @ 1280                         no logo
+  404 @ 390                          no logo
+src: NAME in []; old name in ['src/components/logo.tsx', 'src/components/site-header.tsx']
+wave502   65 lockup readings, 26 of them links, 130 tree names naming the brand beside home, 39 shots
+
+354 FAILURE(S) (recorded, not failed: before mode):
+  - src: nothing in src says 'Impact Investment Group, home'.
+  - src: src/components/logo.tsx still carries an old logo name.
+  - src: src/components/site-header.tsx still carries an old logo name.
+  - home @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - home @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - home @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - home @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - home @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - home @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - home @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - home @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - home @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - home @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - home @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - home @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - home @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - home @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - home @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - about @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - about @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - about @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - about @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - about @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - about @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - about @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - about @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - about @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - about @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - about @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - about @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - about @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - about @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - platform @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - platform @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - platform @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - platform @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - platform @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - platform @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - platform @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - platform @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - platform @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - platform @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - platform @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - platform @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - platform @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - platform @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - the-problem @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - the-problem @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - the-problem @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - the-problem @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - the-problem @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - the-problem @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - the-problem @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - the-problem @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - the-problem @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - the-problem @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - the-problem @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - the-problem @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - the-problem @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - the-problem @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - solutions @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - solutions @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - solutions @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - solutions @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - solutions @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - solutions @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - solutions @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - solutions @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - solutions @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - solutions @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - solutions @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - solutions @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - solutions @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - solutions @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - partners @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partners @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partners @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - partners @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - partners @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partners @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partners @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - partners @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - partners @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partners @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partners @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partners @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - partners @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partners @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - contact @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - contact @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - contact @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - contact @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - contact @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - contact @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - contact @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - contact @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - contact @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - contact @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - contact @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - contact @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - contact @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - contact @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - register @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - register @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - register @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - register @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - register @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - register @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - register-investor @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-investor @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-investor @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - register-investor @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - register-investor @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-investor @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-investor @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - register-investor @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - register-investor @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-investor @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-investor @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - register-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - register-resident @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-resident @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-resident @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - register-resident @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - register-resident @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-resident @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-resident @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - register-resident @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - register-resident @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-resident @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-resident @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - register-resident @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - register-resident @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - register-resident @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-investor @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-investor @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-investor @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - partner-with-investor @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-investor @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-investor @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-investor @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - partner-with-investor @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-investor @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-investor @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-investor @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - partner-with-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-investor @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-local-authority @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-local-authority @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-local-authority @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - partner-with-local-authority @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-local-authority @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-local-authority @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-local-authority @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - partner-with-local-authority @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-local-authority @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-local-authority @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-local-authority @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - partner-with-local-authority @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - partner-with-local-authority @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - partner-with-local-authority @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 1280 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - legal @ 1280 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - legal @ 1280 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - legal @ 1280: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - legal @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 1280: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 390 bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - legal @ 390 bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - legal @ 390 footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - legal @ 390: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - legal @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 390: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 390 menu open bar: the logo link is named 'Impact Investment Platform \u2014 home', not 'Impact Investment Group, home'.
+  - legal @ 390 menu open bar: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - legal @ 390 menu open panel: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - legal @ 390 menu open footer: the lockup's screen-reader text reads 'Impact Investment Group \u2014 home', not 'Impact Investment Group, home'.
+  - legal @ 390 menu open: the accessibility tree carries 'Impact Investment Platform \u2014 home'.
+  - legal @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
+  - legal @ 390 menu open: the accessibility tree carries 'Impact Investment Group \u2014 home'.
