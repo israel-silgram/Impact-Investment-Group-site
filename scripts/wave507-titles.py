@@ -80,7 +80,7 @@ def plain(value) -> str:
     dash the titles already carry is written as a word and no log of this
     wave adds the character."""
     text = json.dumps(value, ensure_ascii=False) if not isinstance(value, str) else value
-    return text.replace("—", "[em dash]").replace("–", "[en dash]")
+    return text.replace("\u2014", "[em dash]").replace("\u2013", "[en dash]")
 
 
 class Head(HTMLParser):
