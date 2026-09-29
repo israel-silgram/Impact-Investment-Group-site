@@ -23,11 +23,11 @@ the guard script (the escapes below) and adds evidence; everything after it is t
 
 | Mount | Is it a link? | Before | After |
 |---|---|---|---|
-| The header bar, `site-header.tsx` | **yes**, the only link wrapping the logo | "Impact Investment Platform — home" (its `aria-label`) | "Impact Investment Group, home" |
-| The phone menu panel, `site-header.tsx` | no | "Impact Investment Group — home" (sr-only span) | "Impact Investment Group, home" |
-| The footer, `site-footer.tsx` | no | "Impact Investment Group — home" (sr-only span) | "Impact Investment Group, home" |
+| The header bar, `site-header.tsx` | **yes**, the only link wrapping the logo | "Impact Investment Platform [em dash] home" (its `aria-label`) | "Impact Investment Group, home" |
+| The phone menu panel, `site-header.tsx` | no | "Impact Investment Group [em dash] home" (sr-only span) | "Impact Investment Group, home" |
+| The footer, `site-footer.tsx` | no | "Impact Investment Group [em dash] home" (sr-only span) | "Impact Investment Group, home" |
 
-(`—` stands for the em dash the old names carried; this report does not print it.)
+("[em dash]" stands for the character the old names carried; this report does not print it.)
 **The image `alt` does not form the name:** the `<img>` is `alt=""` and `aria-hidden`, and
 it stays so. The link's name came from its `aria-label`, which overrode the sr-only span;
 both now read the same constant.
@@ -44,10 +44,10 @@ regions (the count-up, the marquee, the portal sunburst), which rule 8 masks.
 
 ## 2. What the brief got wrong
 
-1. **The old name** was "Impact Investment Platform — home" (an em dash, no "The"),
+1. **The old name** was "Impact Investment Platform [em dash] home" (an em dash, no "The"),
    not "The Impact Investment Platform, home".
 2. **There is one logo link, not several.** The phone menu and the footer lockups are not
-   links; each carried an sr-only "Impact Investment Group — home", which a screen
+   links; each carried an sr-only "Impact Investment Group [em dash] home", which a screen
    reader reads as text. Changing only the link's `aria-label` would have left those two
    saying different words with an em dash, so the span changed with it through the one
    constant. `src/content` has no logo name in it.
