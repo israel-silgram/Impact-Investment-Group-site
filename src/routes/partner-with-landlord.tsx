@@ -7,9 +7,9 @@ export const Route = createFileRoute("/partner-with-landlord")({
   component: () => <PartnerPage profile={profile} />,
   head: () => ({
     meta: [
-      { title: "Partner with a Landlord — The Impact Investment Platform" },
+      { title: "Partner with a Landlord — Impact Investment Group" },
       { name: "description", content: profile.summary },
-      { property: "og:title", content: "Partner with a Landlord — The Impact Investment Platform" },
+      { property: "og:title", content: "Partner with a Landlord — Impact Investment Group" },
       { property: "og:description", content: profile.summary },
       { property: "og:url", content: profile.path },
     ],

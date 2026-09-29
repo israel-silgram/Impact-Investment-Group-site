@@ -7,11 +7,11 @@ export const Route = createFileRoute("/partner-with-developer")({
   component: () => <PartnerPage profile={profile} />,
   head: () => ({
     meta: [
-      { title: "Partner with a Developer — The Impact Investment Platform" },
+      { title: "Partner with a Developer — Impact Investment Group" },
       { name: "description", content: profile.summary },
       {
         property: "og:title",
-        content: "Partner with a Developer — The Impact Investment Platform",
+        content: "Partner with a Developer — Impact Investment Group",
       },
       { property: "og:description", content: profile.summary },
       { property: "og:url", content: profile.path },

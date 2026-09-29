@@ -6,7 +6,7 @@ export const Route = createFileRoute("/partners")({
   component: PartnersPage,
   head: () => ({
     meta: [
-      { title: "Our Partners — Impact Investment Platform" },
+      { title: "Our Partners — Impact Investment Group" },
       {
         name: "description",
         content:

@@ -63,14 +63,14 @@ export const Route = createFileRoute("/contact")({
   validateSearch: (search) => searchSchema.parse(search),
   head: () => ({
     meta: [
-      { title: "Contact — The Impact Investment Platform" },
+      { title: "Contact — Impact Investment Group" },
       {
         name: "description",
         // Interpolated, not typed out. This description carried its own copy of
         // the general address and went stale the day the mailbox changed.
         content: `Tell us what you need and a person replies within one working day. Email ${contactDetails.email} or call ${contactDetails.phone}.`,
       },
-      { property: "og:title", content: "Contact — The Impact Investment Platform" },
+      { property: "og:title", content: "Contact — Impact Investment Group" },
       {
         property: "og:description",
         content: "Choose the right enquiry route and speak directly with the team.",

@@ -61,13 +61,13 @@ export const Route = createFileRoute("/platform")({
   component: ServicesPage,
   head: () => ({
     meta: [
-      { title: "Our Services — The Impact Investment Platform" },
+      { title: "Our Services — Impact Investment Group" },
       {
         name: "description",
         content:
           "Find it, price it, prove it. We source UK residential property, price every home against named public data, and follow it into managed supported housing.",
       },
-      { property: "og:title", content: "Our Services — The Impact Investment Platform" },
+      { property: "og:title", content: "Our Services — Impact Investment Group" },
       {
         property: "og:description",
         content:

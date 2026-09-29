@@ -53,9 +53,9 @@ export const Route = createFileRoute("/the-problem")({
   component: TheProblemPage,
   head: () => ({
     meta: [
-      { title: "The Problem — The Impact Investment Platform" },
+      { title: "The Problem — Impact Investment Group" },
       { name: "description", content: problemHero.description },
-      { property: "og:title", content: "The Problem — The Impact Investment Platform" },
+      { property: "og:title", content: "The Problem — Impact Investment Group" },
       { property: "og:description", content: problemHero.description },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/the-problem" },

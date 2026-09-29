@@ -108,12 +108,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Impact Investment Platform" },
+      { title: "Impact Investment Group" },
       {
         name: "description",
         content: siteDescription,
       },
-      { property: "og:site_name", content: "The Impact Investment Platform" },
+      { property: "og:site_name", content: "Impact Investment Group" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       /* Follows the HEADER ground, which is what sits under the browser's

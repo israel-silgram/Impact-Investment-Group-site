@@ -32,7 +32,7 @@ export const Route = createFileRoute("/register/$role")({
     if (!role) return {};
     // A pipe, not an em dash. The rest of the site's titles use an em
     // dash and these two deliberately do not: this wave authors none.
-    const title = `${role.h1} | The Impact Investment Platform`;
+    const title = `${role.h1} | Impact Investment Group`;
     const path = `/register/${role.id}`;
     return {
       meta: [

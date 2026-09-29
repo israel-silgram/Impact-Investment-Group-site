@@ -32,7 +32,7 @@ export const Route = createFileRoute("/")({
   component: HomePage,
   head: () => ({
     meta: [
-      { title: "The Impact Investment Platform — Social Impact Property & Supported Housing" },
+      { title: "Impact Investment Group — Social Impact Property & Supported Housing" },
       {
         name: "description",
         content:
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:title",
-        content: "The Impact Investment Platform — Social Impact Property & Supported Housing",
+        content: "Impact Investment Group — Social Impact Property & Supported Housing",
       },
       {
         property: "og:description",

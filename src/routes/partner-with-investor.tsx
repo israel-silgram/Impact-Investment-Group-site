@@ -12,9 +12,9 @@ export const Route = createFileRoute("/partner-with-investor")({
 function partnerHead(label: string, description: string, path: string) {
   return {
     meta: [
-      { title: `Partner with ${label} — The Impact Investment Platform` },
+      { title: `Partner with ${label} — Impact Investment Group` },
       { name: "description", content: description },
-      { property: "og:title", content: `Partner with ${label} — The Impact Investment Platform` },
+      { property: "og:title", content: `Partner with ${label} — Impact Investment Group` },
       { property: "og:description", content: description },
       { property: "og:type", content: "article" },
       { property: "og:url", content: path },

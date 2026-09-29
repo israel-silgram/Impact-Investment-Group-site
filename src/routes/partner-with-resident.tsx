@@ -7,11 +7,11 @@ export const Route = createFileRoute("/partner-with-resident")({
   component: () => <PartnerPage profile={profile} />,
   head: () => ({
     meta: [
-      { title: "Housing for Residents, Individuals & Families — The Impact Investment Platform" },
+      { title: "Housing for Residents, Individuals & Families — Impact Investment Group" },
       { name: "description", content: profile.summary },
       {
         property: "og:title",
-        content: "Housing for Residents, Individuals & Families — The Impact Investment Platform",
+        content: "Housing for Residents, Individuals & Families — Impact Investment Group",
       },
       { property: "og:description", content: profile.summary },
       { property: "og:url", content: profile.path },

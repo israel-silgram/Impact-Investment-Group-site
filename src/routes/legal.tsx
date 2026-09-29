@@ -47,11 +47,11 @@ import { trustRegistrations } from "@/content/site";
  */
 
 /*
- * ⚠ TITLED AFTER THE COMPANY, NOT AFTER THE PRODUCT, AND ALONE ON THE SITE IN
- * THAT. Every other page ends "The Impact Investment Platform". This is the
- * one page whose whole job is to establish that the legal entity is Impact
- * Investment Group UK Limited, and titling it after the platform reintroduces
- * exactly the company-versus-platform ambiguity the review raised. The
+ * ⚠ TITLED AFTER THE REGISTERED COMPANY, AND ALONE ON THE SITE IN THAT. Every
+ * other page ends "Impact Investment Group" (wave 507; they ended "The Impact
+ * Investment Platform" before it). This is the one page whose whole job is to
+ * establish that the legal entity is Impact Investment Group UK Limited, so it
+ * carries the full registered name rather than the trading one. The
  * separator is a middot rather than the dash the other titles use because this
  * project's canon forbids the em dash in anything newly written.
  */
