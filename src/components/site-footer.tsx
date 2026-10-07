@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { ArrowUpRight, LifeBuoy, Mail, Phone, Clock } from "lucide-react";
 
 import { Logo } from "@/components/logo";
@@ -43,12 +43,17 @@ import {
  * together.
  */
 export function SiteFooter() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const registering = /^\/register(\/|$)/.test(pathname);
+
   return (
     <footer className="relative isolate">
       {/*
        * THE ARCH. A dome across the top of the footer, so the register funnel
        * and the footer read as one block rising out of the page rather than as
-       * two more stacked bands.
+       * two more stacked bands. On the register pages the funnel is not
+       * rendered (wave 567, below), so there the dome sits directly above the
+       * columns.
        *
        * ⚠ A CURVED DIVIDER HAS TWO COLOURS AND THEY ARE NOT FREE: ITS
        * BACKGROUND MUST BE THE COLOUR OF THE SECTION ABOVE IT AND ITS SHAPE
@@ -144,7 +149,10 @@ export function SiteFooter() {
        */}
       <div className="bg-page text-ink-muted">
         {/*
-         * THE FUNNEL. One copy, at the top of the footer, on every page.
+         * THE FUNNEL. One copy, at the top of the footer, on every page BUT
+         * `/register` and everything under `/register/`. Wave 567, Callum,
+         * 7 Oct 2026: it is not rendered there because "the user is already
+         * registering on that page". Everywhere else it is exactly as it was.
          *
          * No rule above it and one below: nothing separates it from the page's
          * last section, and the rule underneath groups it with the footer
@@ -154,48 +162,50 @@ export function SiteFooter() {
          * cap once broke "Delivering / Support." across two lines. A beat can
          * never split; the line either fits or wraps at a full stop.
          */}
-        <section aria-labelledby="funnel-heading" className="border-b border-rule">
-          <div className="mx-auto w-full max-w-[1440px] px-5 pb-8 pt-1 text-center sm:px-8">
-            <h2 id="funnel-heading" className="sr-only">
-              Register your interest
-            </h2>
-            <PreReleaseBadge className="justify-center" />
-            <p className="mt-3">
-              {closingBeats.map((beat, i) => (
-                <span
-                  key={beat}
-                  aria-hidden="true"
-                  className={
-                    "heading-tight inline-block whitespace-nowrap font-heading text-[clamp(1.25rem,2.4vw,1.875rem)] font-extrabold leading-[1.2] tracking-[-0.02em] " +
-                    (i === 1 ? "text-orange-700" : "text-ink") +
-                    (i < 2 ? " mr-2" : "")
-                  }
-                >
-                  {beat}
-                </span>
-              ))}
-            </p>
-            <p className="mx-auto mt-2.5 max-w-[58ch] text-[13.5px] max-lg:text-[15px] leading-relaxed text-ink-muted">
-              {/* orange-700 is the one orange that carries text on the cream.
+        {registering ? null : (
+          <section aria-labelledby="funnel-heading" className="border-b border-rule">
+            <div className="mx-auto w-full max-w-[1440px] px-5 pb-8 pt-1 text-center sm:px-8">
+              <h2 id="funnel-heading" className="sr-only">
+                Register your interest
+              </h2>
+              <PreReleaseBadge className="justify-center" />
+              <p className="mt-3">
+                {closingBeats.map((beat, i) => (
+                  <span
+                    key={beat}
+                    aria-hidden="true"
+                    className={
+                      "heading-tight inline-block whitespace-nowrap font-heading text-[clamp(1.25rem,2.4vw,1.875rem)] font-extrabold leading-[1.2] tracking-[-0.02em] " +
+                      (i === 1 ? "text-orange-700" : "text-ink") +
+                      (i < 2 ? " mr-2" : "")
+                    }
+                  >
+                    {beat}
+                  </span>
+                ))}
+              </p>
+              <p className="mx-auto mt-2.5 max-w-[58ch] text-[13.5px] max-lg:text-[15px] leading-relaxed text-ink-muted">
+                {/* orange-700 is the one orange that carries text on the cream.
                   5.78:1 since wave 295, where it was 4.1:1 and this 13.5px
                   line only passed by being called emphasis. It passes now on
                   its own terms. */}
-              <strong className="font-bold text-orange-700">30+ years</strong> across property,
-              housing, care and support — not an estate agency, a{" "}
-              <strong className="font-bold text-ink">national network</strong>.
-            </p>
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-              <Button variant="primary" asChild>
-                <Link to={registerRoute.to}>{registerRoute.label}</Link>
-              </Button>
-              <Button variant="secondary" asChild withArrow={false}>
-                <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
-                  Become a Partner
-                </Link>
-              </Button>
+                <strong className="font-bold text-orange-700">30+ years</strong> across property,
+                housing, care and support — not an estate agency, a{" "}
+                <strong className="font-bold text-ink">national network</strong>.
+              </p>
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                <Button variant="primary" asChild>
+                  <Link to={registerRoute.to}>{registerRoute.label}</Link>
+                </Button>
+                <Button variant="secondary" asChild withArrow={false}>
+                  <Link to="/contact" search={{ enquiry: "partner", type: "partner" }}>
+                    Become a Partner
+                  </Link>
+                </Button>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* The commissioning-councils carousel used to sit here as a band
           above these columns. It now runs between Our Mission and the
