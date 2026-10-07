@@ -14,7 +14,7 @@ export type Seg = string | { t: string; em: "ink" | "accent" };
 
 export const servicesHero = {
   eyebrow: "Our services",
-  title: "Find it, price it, prove it.",
+  title: "Find it, price it, match it.",
   lead: "One platform, from search to supported home.",
   summary: [
     "We source UK residential property, price every home against ",
@@ -64,13 +64,13 @@ export const steps = [
 ];
 
 /**
- * ── FIND IT · PRICE IT · PROVE IT ─────────────────────────────────────────
+ * ── FIND IT · PRICE IT · MATCH IT ─────────────────────────────────────────
  *
  * This section used to be SIX things: three tools in a row, and inside the
  * third one, three analysts. A reader met six items and had to work out how
  * they related to each other before any of it meant anything.
  *
- * Petra, Peter and Pippa already are find / price / prove, so the two lists
+ * Petra, Peter and Pippa already are find / price / match, so the two lists
  * collapsed into one. Three steps, three faces, and the tool each one works in
  * named on a chip beside it. Roughly 120 words became 45.
  *
@@ -82,7 +82,7 @@ export const steps = [
  * that separation.
  */
 export const toolsEyebrow = "The platform, live";
-export const toolsHeading = "Find it. Price it. Prove it.";
+export const toolsHeading = "Find it. Price it. Match it.";
 export const toolsLead = "Three analysts working together on every deal.";
 
 export interface WorkflowStep {
@@ -119,8 +119,8 @@ export const workflow: WorkflowStep[] = [
   {
     id: "pippa",
     portrait: "/images/ai-team/pippa.webp",
-    claim: "Pippa proves it.",
-    body: "Pippa scores the social impact of every home and makes the result easy to understand.",
+    claim: "Pippa matches it.",
+    body: "Pippa checks every home against the demand in its area and scores its social impact in plain terms.",
     chip: "Impact score",
     accent: "teal",
     // was: "Scores the social impact of every home the platform offers."
@@ -179,22 +179,28 @@ export const differenceStory = [
     id: "solution",
     number: "03",
     eyebrow: "Our sustainable solution",
-    title: "Five-year leases create room to adapt responsibly.",
-    body: "Our five-year structure creates a clear point to review political, funding and economic change, while protecting the stability residents need from their home.",
+    title: "Five-year-plus leases, renewed on evidence.",
+    body: "Our leases run for five years or more on full repairing and insuring or internal repairing terms, with CPI-linked rent and renewal at the end of the term: a clear point to review demand, funding and policy while residents keep the stability of their home.",
     points: [
-      "Check the evidence of demand before renewing",
-      "Respond to change without locking in avoidable risk",
-      "Use what we have learnt to make each renewal decision",
+      "Full repairing and insuring (FRI) or internal repairing terms",
+      "Rent linked to CPI for the life of the lease",
+      "Renewal at the end of the term, decided on the evidence of demand",
     ],
     tone: "teal" as const,
   },
 ];
 
+/**
+ * `strip` is the whole line the comparison strip prints for that side, verbatim.
+ * Wave 567, Callum, 7 Oct 2026 (R567-2): the legacy side names no number of
+ * years, and ours says five years plus and the terms it runs on.
+ */
 export const leaseComparison = [
   {
     id: "legacy",
     label: "Typical legacy model",
-    term: "25 years",
+    term: "One long fixed term",
+    strip: "One long fixed term · the legacy model",
     title: "One fixed commitment",
     detail:
       "The original assumptions can remain in place long after demand, policy or operating conditions have moved on.",
@@ -203,10 +209,11 @@ export const leaseComparison = [
   {
     id: "ours",
     label: "Our model",
-    term: "5 years",
-    title: "A planned review window",
+    term: "5 years+",
+    strip: "5 years+ · FRI or internal repairing · CPI-linked · renewable",
+    title: "Renewed on evidence",
     detail:
-      "The lease can be reviewed against current demand, performance and risk before the next commitment is made.",
+      "Five years or more on FRI or internal repairing terms, CPI-linked, with renewal at the end of the term reviewed against current demand, performance and risk.",
     tone: "teal" as const,
   },
 ];

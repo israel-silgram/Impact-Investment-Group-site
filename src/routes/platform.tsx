@@ -41,9 +41,9 @@ import { SIZES_HALF_FROM_TABLET, intrinsic, variantSrcSet } from "@/lib/responsi
  * paragraph per step and a paragraph per tool; this runs a line each, with the
  * words worth seeing carried in bold ink or bold orange.
  *
- *   1 · Find it, price it, prove it   cream   hero + the product screenshot
+ *   1 · Find it, price it, match it   cream   hero + the product screenshot
  *   2 · Four steps, nothing hidden    navy    the journey
- *   3 · Find it. Price it. Prove it.   cream   Petra, Peter, Pippa
+ *   3 · Find it. Price it. Match it.   cream   Petra, Peter, Pippa
  *   4 · Built differently             navy    trust, demand, integration
  *   5 · Every figure, sourced         cream   close
  *
@@ -65,13 +65,13 @@ export const Route = createFileRoute("/platform")({
       {
         name: "description",
         content:
-          "Find it, price it, prove it. We source UK residential property, price every home against named public data, and follow it into managed supported housing.",
+          "Find it, price it, match it. We source UK residential property, price every home against named public data, and follow it into managed supported housing.",
       },
       { property: "og:title", content: "Our Services — Impact Investment Group" },
       {
         property: "og:description",
         content:
-          "The Property Finder, the Demand Map and an AI team that finds, prices and proves every home — one workflow, every figure sourced.",
+          "The Property Finder, the Demand Map and an AI team that finds, prices and matches every home — one workflow, every figure sourced.",
       },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "/platform" },
@@ -218,9 +218,9 @@ function Summary({
 }
 
 const DIFFERENCE_VISUAL = {
-  past: { value: "25", unit: "years fixed", tone: "text-orange-700" },
+  past: { value: "FIXED", unit: "one long term, no review point", tone: "text-orange-700" },
   lessons: { value: "REVIEW", unit: "before risk rolls forward", tone: "text-ink" },
-  solution: { value: "5", unit: "year review window", tone: "text-teal-600" },
+  solution: { value: "5+", unit: "year leases, renewed on evidence", tone: "text-teal-600" },
 } as const;
 
 function DifferenceStory() {
@@ -366,9 +366,13 @@ function DifferenceStory() {
                       className={cn(
                         "font-heading font-extrabold leading-[0.78] tracking-[-0.075em]",
                         activeVisual.tone,
-                        activeChapter.id === "lessons"
-                          ? "text-[clamp(2.5rem,7vw,4.5rem)]"
-                          : "text-[clamp(6rem,14vw,9rem)]",
+                        /* By the value's shape, not by chapter (wave 567):
+                           one or two digits with an optional plus take the
+                           figure size, and a word takes the smaller one, so
+                           it stays inside the 250px column at 390. */
+                        /^\d{1,2}\+?$/.test(activeVisual.value)
+                          ? "text-[clamp(6rem,14vw,9rem)]"
+                          : "text-[clamp(2.5rem,7vw,4.5rem)]",
                       )}
                     >
                       {activeVisual.value}
@@ -388,13 +392,9 @@ function DifferenceStory() {
                 teal sibling two lines down was stepped to 600 in wave 412 and
                 this one was missed. */}
             <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-rule pt-4 text-[11px] max-lg:text-[12px] text-ink-muted">
-              <span className="font-semibold text-orange-700">
-                {leaseComparison[0]!.term} · fixed legacy commitment
-              </span>
+              <span className="font-semibold text-orange-700">{leaseComparison[0]!.strip}</span>
               <ArrowRight aria-hidden="true" className="size-3.5 text-ink" />
-              <span className="font-semibold text-teal-600">
-                {leaseComparison[1]!.term} · planned review window
-              </span>
+              <span className="font-semibold text-teal-600">{leaseComparison[1]!.strip}</span>
             </div>
           </div>
         </div>
@@ -498,7 +498,7 @@ const PORTAL_ART = {
 const PORTAL_LABEL = {
   petra: "Enter · Find",
   peter: "Enter · Price",
-  pippa: "Enter · Prove",
+  pippa: "Enter · Match",
 } as const;
 
 const PORTAL_ACTION = {
@@ -669,7 +669,7 @@ function MissionControl() {
             <div className="absolute inset-[34%] grid place-items-center rounded-full border border-teal-600/50 bg-[radial-gradient(circle,var(--color-tint-teal),var(--color-page)_68%)] text-center shadow-[var(--shadow-glow-teal)]">
               <span>
                 <strong className="block font-heading text-ink">One workflow</strong>
-                <small className="max-lg:text-[13px] text-ink-muted">Find · Price · Prove</small>
+                <small className="max-lg:text-[13px] text-ink-muted">Find · Price · Match</small>
               </span>
             </div>
             {workflow.map((step, index) => {
@@ -1082,12 +1082,12 @@ function ServicesPage() {
       </Band>
 
       {/*
-       * ── 3 · Find it. Price it. Prove it. ── cream ──────────────────────
+       * ── 3 · Find it. Price it. Match it. ── cream ──────────────────────
        *
        * This was three tools in a row with three analysts nested inside the
        * third one — six items, and a reader had to work out the relationship
        * before any of it meant anything. Petra, Peter and Pippa ARE find,
-       * price and prove, so the two lists became one: three steps, three
+       * price and match, so the two lists became one: three steps, three
        * characters, and the tool each works in on a chip.
        *
        * THE PODIUM. Each character stands on top of their card and breaks out
