@@ -20,9 +20,10 @@ WHAT THIS READS AND ASSERTS, in `--mode after` (the default):
      never had one), exactly one in every other page.
   2. THE MARKUP of /platform: the `description` and `og:description` meta read
      exactly the approved strings.
-  3. THE HYDRATED PAGE at 1280 and 390: /register, /register/investor and
-     /register/resident carry no #funnel-heading and still carry a footer; /
-     and /platform carry one.
+  3. THE HYDRATED PAGE at 1280 and 390: /register, /register/ (the slash
+     form the prerender writes), /register/investor and /register/resident
+     carry no #funnel-heading and still carry a footer; / and /platform carry
+     one.
   4. THE HYDRATED /platform at 1280 and 390: the hero title, the portal
      doorway's label and accessible name, the workflow disc's small line, the
      three upper-cased claims in the comic strip, Pippa's body in the
@@ -122,6 +123,9 @@ CHAPTERS = ["past", "lessons", "solution"]
 # The funnel is read on these hydrated routes: (path, slug, funnels expected).
 FUNNEL_ROUTES = [
     ("/register", "register", 0),
+    # The trailing-slash form, which is the path the prerender writes and a
+    # visitor arriving on register/index.html is on.
+    ("/register/", "register-slash", 0),
     ("/register/investor", "register-investor", 0),
     ("/register/resident", "register-resident", 0),
     ("/", "home", 1),
