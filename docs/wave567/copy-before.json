@@ -1,0 +1,315 @@
+{
+ "mode": "before",
+ "build": "C:\\Users\\Israel\\AppData\\Local\\Temp\\w567-base\\client",
+ "funnel_markup": {
+  "404.html": 0,
+  "about/index.html": 1,
+  "contact/index.html": 1,
+  "index.html": 1,
+  "legal/index.html": 1,
+  "partner-with-broker/index.html": 1,
+  "partner-with-care-provider/index.html": 1,
+  "partner-with-developer/index.html": 1,
+  "partner-with-housing-association/index.html": 1,
+  "partner-with-investor/index.html": 1,
+  "partner-with-landlord/index.html": 1,
+  "partner-with-local-authority/index.html": 1,
+  "partner-with-resident/index.html": 1,
+  "partner-with-social-worker/index.html": 1,
+  "partner-with-support-provider/index.html": 1,
+  "partners/index.html": 1,
+  "platform/index.html": 1,
+  "register/broker/index.html": 1,
+  "register/care-provider/index.html": 1,
+  "register/developer/index.html": 1,
+  "register/housing-association/index.html": 1,
+  "register/index.html": 1,
+  "register/investor/index.html": 1,
+  "register/landlord/index.html": 1,
+  "register/local-authority/index.html": 1,
+  "register/resident/index.html": 1,
+  "register/social-worker/index.html": 1,
+  "register/support-provider/index.html": 1,
+  "solutions/index.html": 1,
+  "the-problem/index.html": 1
+ },
+ "live": {
+  "/register @ 1280": {
+   "funnel": 1,
+   "footer": 1
+  },
+  "/register @ 390": {
+   "funnel": 1,
+   "footer": 1
+  },
+  "/register/investor @ 1280": {
+   "funnel": 1,
+   "footer": 1
+  },
+  "/register/investor @ 390": {
+   "funnel": 1,
+   "footer": 1
+  },
+  "/register/resident @ 1280": {
+   "funnel": 1,
+   "footer": 1
+  },
+  "/register/resident @ 390": {
+   "funnel": 1,
+   "footer": 1
+  },
+  "/ @ 1280": {
+   "funnel": 1,
+   "footer": 1
+  },
+  "/ @ 390": {
+   "funnel": 1,
+   "footer": 1
+  },
+  "/platform @ 1280": {
+   "funnel": 1,
+   "footer": 1,
+   "platform": {
+    "hero": "Find it, price it, prove it.",
+    "description": [
+     "Find it, price it, prove it. We source UK residential property, price every home against named public data, and follow it into managed supported housing."
+    ],
+    "og": [
+     "The Property Finder, the Demand Map and an AI team that finds, prices and proves every home \u2014 one workflow, every figure sourced."
+    ],
+    "doorNames": [
+     "Meet Petra \u2014 Enter \u00b7 Find",
+     "Meet Peter \u2014 Enter \u00b7 Price",
+     "Meet Pippa \u2014 Enter \u00b7 Prove"
+    ],
+    "doorLabels": [
+     "Enter \u00b7 Find",
+     "Enter \u00b7 Price",
+     "Enter \u00b7 Prove"
+    ],
+    "disc": "Find \u00b7 Price \u00b7 Prove",
+    "claims": [
+     "PETRA FINDS IT.",
+     "PETER PRICES IT."
+    ],
+    "claimsOld": true,
+    "proveWords": [
+     "PROVES",
+     "Prove",
+     "prove"
+    ],
+    "pippaPanel": "Impact scoreHi, I\u2019m Pippa.Pippa scores the social impact of every home and makes the result easy to understand.Tool online \u00b7 Make the outcome visible"
+   },
+   "differ": {
+    "past": {
+     "words": "HOW WE DIFFER\n\nLonger is not always stronger.\n\nThe sector has learnt that a long lease alone cannot make supported housing sustainable. It also takes evidence, clear accountability and the freedom to respond when circumstances change.\n\nCHOOSE A CHAPTER\n\n01\nTHE PAST FAILURES\nWhat failed\n02\nTHE LESSONS LEARNT\nWhat we learnt\n03\nOUR SUSTAINABLE SOLUTION\nWhat we built\n\nTHE PAST FAILURES\n\nLong leases were treated as proof of security.\n\nLong commitments could outlast the demand, funding and working assumptions behind them. When circumstances changed, there was little room to respond.\n\nHomes secured before local demand was properly evidenced\nHousing, care and asset management working separately\nRisk carried forward instead of reviewed as conditions changed\n\n25\n\nYEARS FIXED\n\n25 years \u00b7 fixed legacy commitment\n5 years \u00b7 planned review window\n\nAgility\n\nWe can respond when commissioning, funding or local demand changes.\n\nRisk mitigation\n\nWe review the evidence and performance before carrying risk forward.\n\nLong-term resilience\n\nEach renewal is a fresh, informed decision\u2014not an assumption made decades earlier.\n\n1.34m\nhouseholds on local-authority housing registers\ngov.uk \u00b7 at 31 March 2025\n134,210\nhouseholds in temporary accommodation\ngov.uk \u00b7 at 31 December 2025\n\u00a32.7bn\ncouncil spend on temporary accommodation\ngov.uk \u00b7 2024\u201325\n\nUpdated 2 June 2026",
+     "eyebrow": "The past failures",
+     "title": "Long leases were treated as proof of security.",
+     "body": "Long commitments could outlast the demand, funding and working assumptions behind them. When circumstances changed, there was little room to respond.",
+     "points": [
+      "Homes secured before local demand was properly evidenced",
+      "Housing, care and asset management working separately",
+      "Risk carried forward instead of reviewed as conditions changed"
+     ],
+     "value": "25",
+     "unit": "years fixed",
+     "strip": [
+      "25 years \u00b7 fixed legacy commitment",
+      "5 years \u00b7 planned review window"
+     ],
+     "card": [
+      822.5625,
+      1166.984375
+     ],
+     "glyphs": [
+      925.28125,
+      1064.25
+     ],
+     "fontPx": 144,
+     "selected": "01The past failuresWhat failed"
+    },
+    "lessons": {
+     "words": "HOW WE DIFFER\n\nLonger is not always stronger.\n\nThe sector has learnt that a long lease alone cannot make supported housing sustainable. It also takes evidence, clear accountability and the freedom to respond when circumstances change.\n\nCHOOSE A CHAPTER\n\n01\nTHE PAST FAILURES\nWhat failed\n02\nTHE LESSONS LEARNT\nWhat we learnt\n03\nOUR SUSTAINABLE SOLUTION\nWhat we built\n\nTHE LESSONS LEARNT\n\nA lease only works when the model around it works.\n\nLocal need, public funding, regulation and people's circumstances all change. A sustainable model needs regular reviews and shared responsibility.\n\nStart with evidence of need, not simply an available property\nKeep the investor, leaseholder, provider and care team connected\nReview the model regularly instead of relying on old assumptions\n\nREVIEW\n\nBEFORE RISK ROLLS FORWARD\n\n25 years \u00b7 fixed legacy commitment\n5 years \u00b7 planned review window\n\nAgility\n\nWe can respond when commissioning, funding or local demand changes.\n\nRisk mitigation\n\nWe review the evidence and performance before carrying risk forward.\n\nLong-term resilience\n\nEach renewal is a fresh, informed decision\u2014not an assumption made decades earlier.\n\n1.34m\nhouseholds on local-authority housing registers\ngov.uk \u00b7 at 31 March 2025\n134,210\nhouseholds in temporary accommodation\ngov.uk \u00b7 at 31 December 2025\n\u00a32.7bn\ncouncil spend on temporary accommodation\ngov.uk \u00b7 2024\u201325\n\nUpdated 2 June 2026",
+     "eyebrow": "The lessons learnt",
+     "title": "A lease only works when the model around it works.",
+     "body": "Local need, public funding, regulation and people's circumstances all change. A sustainable model needs regular reviews and shared responsibility.",
+     "points": [
+      "Start with evidence of need, not simply an available property",
+      "Keep the investor, leaseholder, provider and care team connected",
+      "Review the model regularly instead of relying on old assumptions"
+     ],
+     "value": "REVIEW",
+     "unit": "before risk rolls forward",
+     "strip": [
+      "25 years \u00b7 fixed legacy commitment",
+      "5 years \u00b7 planned review window"
+     ],
+     "card": [
+      822.5625,
+      1166.984375
+     ],
+     "glyphs": [
+      882.265625,
+      1107.265625
+     ],
+     "fontPx": 72,
+     "selected": "02The lessons learntWhat we learnt"
+    },
+    "solution": {
+     "words": "HOW WE DIFFER\n\nLonger is not always stronger.\n\nThe sector has learnt that a long lease alone cannot make supported housing sustainable. It also takes evidence, clear accountability and the freedom to respond when circumstances change.\n\nCHOOSE A CHAPTER\n\n01\nTHE PAST FAILURES\nWhat failed\n02\nTHE LESSONS LEARNT\nWhat we learnt\n03\nOUR SUSTAINABLE SOLUTION\nWhat we built\n\nOUR SUSTAINABLE SOLUTION\n\nFive-year leases create room to adapt responsibly.\n\nOur five-year structure creates a clear point to review political, funding and economic change, while protecting the stability residents need from their home.\n\nCheck the evidence of demand before renewing\nRespond to change without locking in avoidable risk\nUse what we have learnt to make each renewal decision\n\n5\n\nYEAR REVIEW WINDOW\n\n25 years \u00b7 fixed legacy commitment\n5 years \u00b7 planned review window\n\nAgility\n\nWe can respond when commissioning, funding or local demand changes.\n\nRisk mitigation\n\nWe review the evidence and performance before carrying risk forward.\n\nLong-term resilience\n\nEach renewal is a fresh, informed decision\u2014not an assumption made decades earlier.\n\n1.34m\nhouseholds on local-authority housing registers\ngov.uk \u00b7 at 31 March 2025\n134,210\nhouseholds in temporary accommodation\ngov.uk \u00b7 at 31 December 2025\n\u00a32.7bn\ncouncil spend on temporary accommodation\ngov.uk \u00b7 2024\u201325\n\nUpdated 2 June 2026",
+     "eyebrow": "Our sustainable solution",
+     "title": "Five-year leases create room to adapt responsibly.",
+     "body": "Our five-year structure creates a clear point to review political, funding and economic change, while protecting the stability residents need from their home.",
+     "points": [
+      "Check the evidence of demand before renewing",
+      "Respond to change without locking in avoidable risk",
+      "Use what we have learnt to make each renewal decision"
+     ],
+     "value": "5",
+     "unit": "year review window",
+     "strip": [
+      "25 years \u00b7 fixed legacy commitment",
+      "5 years \u00b7 planned review window"
+     ],
+     "card": [
+      822.5625,
+      1166.984375
+     ],
+     "glyphs": [
+      960.78125,
+      1028.75
+     ],
+     "fontPx": 144,
+     "selected": "03Our sustainable solutionWhat we built"
+    }
+   }
+  },
+  "/platform @ 390": {
+   "funnel": 1,
+   "footer": 1,
+   "platform": {
+    "hero": "Find it, price it, prove it.",
+    "description": [
+     "Find it, price it, prove it. We source UK residential property, price every home against named public data, and follow it into managed supported housing."
+    ],
+    "og": [
+     "The Property Finder, the Demand Map and an AI team that finds, prices and proves every home \u2014 one workflow, every figure sourced."
+    ],
+    "doorNames": [
+     "Meet Petra \u2014 Enter \u00b7 Find",
+     "Meet Peter \u2014 Enter \u00b7 Price",
+     "Meet Pippa \u2014 Enter \u00b7 Prove"
+    ],
+    "doorLabels": [
+     "Enter \u00b7 Find",
+     "Enter \u00b7 Price",
+     "Enter \u00b7 Prove"
+    ],
+    "disc": "Find \u00b7 Price \u00b7 Prove",
+    "claims": [
+     "PETRA FINDS IT.",
+     "PETER PRICES IT."
+    ],
+    "claimsOld": true,
+    "proveWords": [
+     "PROVES",
+     "Prove",
+     "prove"
+    ],
+    "pippaPanel": "Impact scoreHi, I\u2019m Pippa.Pippa scores the social impact of every home and makes the result easy to understand.Tool online \u00b7 Make the outcome visible"
+   },
+   "differ": {
+    "past": {
+     "words": "HOW WE DIFFER\n\nLonger is not always stronger.\n\nThe sector has learnt that a long lease alone cannot make supported housing sustainable. It also takes evidence, clear accountability and the freedom to respond when circumstances change.\n\nCHOOSE A CHAPTER\n\n01\nTHE PAST FAILURES\nWhat failed\n02\nTHE LESSONS LEARNT\nWhat we learnt\n03\nOUR SUSTAINABLE SOLUTION\nWhat we built\n\nTHE PAST FAILURES\n\nLong leases were treated as proof of security.\n\nLong commitments could outlast the demand, funding and working assumptions behind them. When circumstances changed, there was little room to respond.\n\nHomes secured before local demand was properly evidenced\nHousing, care and asset management working separately\nRisk carried forward instead of reviewed as conditions changed\n\n25\n\nYEARS FIXED\n\n25 years \u00b7 fixed legacy commitment\n5 years \u00b7 planned review window\n\nAgility\n\nWe can respond when commissioning, funding or local demand changes.\n\nRisk mitigation\n\nWe review the evidence and performance before carrying risk forward.\n\nLong-term resilience\n\nEach renewal is a fresh, informed decision\u2014not an assumption made decades earlier.\n\n1.34m\nhouseholds on local-authority housing registers\ngov.uk \u00b7 at 31 March 2025\n134,210\nhouseholds in temporary accommodation\ngov.uk \u00b7 at 31 December 2025\n\u00a32.7bn\ncouncil spend on temporary accommodation\ngov.uk \u00b7 2024\u201325\n\nUpdated 2 June 2026",
+     "eyebrow": "The past failures",
+     "title": "Long leases were treated as proof of security.",
+     "body": "Long commitments could outlast the demand, funding and working assumptions behind them. When circumstances changed, there was little room to respond.",
+     "points": [
+      "Homes secured before local demand was properly evidenced",
+      "Housing, care and asset management working separately",
+      "Risk carried forward instead of reviewed as conditions changed"
+     ],
+     "value": "25",
+     "unit": "years fixed",
+     "strip": [
+      "25 years \u00b7 fixed legacy commitment",
+      "5 years \u00b7 planned review window"
+     ],
+     "card": [
+      41,
+      349
+     ],
+     "glyphs": [
+      148.671875,
+      241.3125
+     ],
+     "fontPx": 96,
+     "selected": "01The past failuresWhat failed"
+    },
+    "lessons": {
+     "words": "HOW WE DIFFER\n\nLonger is not always stronger.\n\nThe sector has learnt that a long lease alone cannot make supported housing sustainable. It also takes evidence, clear accountability and the freedom to respond when circumstances change.\n\nCHOOSE A CHAPTER\n\n01\nTHE PAST FAILURES\nWhat failed\n02\nTHE LESSONS LEARNT\nWhat we learnt\n03\nOUR SUSTAINABLE SOLUTION\nWhat we built\n\nTHE LESSONS LEARNT\n\nA lease only works when the model around it works.\n\nLocal need, public funding, regulation and people's circumstances all change. A sustainable model needs regular reviews and shared responsibility.\n\nStart with evidence of need, not simply an available property\nKeep the investor, leaseholder, provider and care team connected\nReview the model regularly instead of relying on old assumptions\n\nREVIEW\n\nBEFORE RISK ROLLS FORWARD\n\n25 years \u00b7 fixed legacy commitment\n5 years \u00b7 planned review window\n\nAgility\n\nWe can respond when commissioning, funding or local demand changes.\n\nRisk mitigation\n\nWe review the evidence and performance before carrying risk forward.\n\nLong-term resilience\n\nEach renewal is a fresh, informed decision\u2014not an assumption made decades earlier.\n\n1.34m\nhouseholds on local-authority housing registers\ngov.uk \u00b7 at 31 March 2025\n134,210\nhouseholds in temporary accommodation\ngov.uk \u00b7 at 31 December 2025\n\u00a32.7bn\ncouncil spend on temporary accommodation\ngov.uk \u00b7 2024\u201325\n\nUpdated 2 June 2026",
+     "eyebrow": "The lessons learnt",
+     "title": "A lease only works when the model around it works.",
+     "body": "Local need, public funding, regulation and people's circumstances all change. A sustainable model needs regular reviews and shared responsibility.",
+     "points": [
+      "Start with evidence of need, not simply an available property",
+      "Keep the investor, leaseholder, provider and care team connected",
+      "Review the model regularly instead of relying on old assumptions"
+     ],
+     "value": "REVIEW",
+     "unit": "before risk rolls forward",
+     "strip": [
+      "25 years \u00b7 fixed legacy commitment",
+      "5 years \u00b7 planned review window"
+     ],
+     "card": [
+      41,
+      349
+     ],
+     "glyphs": [
+      132.484375,
+      257.484375
+     ],
+     "fontPx": 40,
+     "selected": "02The lessons learntWhat we learnt"
+    },
+    "solution": {
+     "words": "HOW WE DIFFER\n\nLonger is not always stronger.\n\nThe sector has learnt that a long lease alone cannot make supported housing sustainable. It also takes evidence, clear accountability and the freedom to respond when circumstances change.\n\nCHOOSE A CHAPTER\n\n01\nTHE PAST FAILURES\nWhat failed\n02\nTHE LESSONS LEARNT\nWhat we learnt\n03\nOUR SUSTAINABLE SOLUTION\nWhat we built\n\nOUR SUSTAINABLE SOLUTION\n\nFive-year leases create room to adapt responsibly.\n\nOur five-year structure creates a clear point to review political, funding and economic change, while protecting the stability residents need from their home.\n\nCheck the evidence of demand before renewing\nRespond to change without locking in avoidable risk\nUse what we have learnt to make each renewal decision\n\n5\n\nYEAR REVIEW WINDOW\n\n25 years \u00b7 fixed legacy commitment\n5 years \u00b7 planned review window\n\nAgility\n\nWe can respond when commissioning, funding or local demand changes.\n\nRisk mitigation\n\nWe review the evidence and performance before carrying risk forward.\n\nLong-term resilience\n\nEach renewal is a fresh, informed decision\u2014not an assumption made decades earlier.\n\n1.34m\nhouseholds on local-authority housing registers\ngov.uk \u00b7 at 31 March 2025\n134,210\nhouseholds in temporary accommodation\ngov.uk \u00b7 at 31 December 2025\n\u00a32.7bn\ncouncil spend on temporary accommodation\ngov.uk \u00b7 2024\u201325\n\nUpdated 2 June 2026",
+     "eyebrow": "Our sustainable solution",
+     "title": "Five-year leases create room to adapt responsibly.",
+     "body": "Our five-year structure creates a clear point to review political, funding and economic change, while protecting the stability residents need from their home.",
+     "points": [
+      "Check the evidence of demand before renewing",
+      "Respond to change without locking in avoidable risk",
+      "Use what we have learnt to make each renewal decision"
+     ],
+     "value": "5",
+     "unit": "year review window",
+     "strip": [
+      "25 years \u00b7 fixed legacy commitment",
+      "5 years \u00b7 planned review window"
+     ],
+     "card": [
+      41,
+      349
+     ],
+     "glyphs": [
+      172.34375,
+      217.65625
+     ],
+     "fontPx": 96,
+     "selected": "03Our sustainable solutionWhat we built"
+    }
+   }
+  }
+ },
+ "platform_markup": {
+  "description": [
+   "Find it, price it, prove it. We source UK residential property, price every home against named public data, and follow it into managed supported housing."
+  ],
+  "og:description": [
+   "The Property Finder, the Demand Map and an AI team that finds, prices and proves every home \u2014 one workflow, every figure sourced."
+  ]
+ },
+ "source": []
+}

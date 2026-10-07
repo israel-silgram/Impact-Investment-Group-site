@@ -1,0 +1,77 @@
+
+item1     councils  @ 390   cold   slow 4G: styled at 1474ms, timed entry at 1505ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  4 decoded=  0 pending= 0; whole strip decoded   0 of  36; every tile on screen decoded by +3000ms; distinct requests 18 at the timed entry, 18 at the reading
+item1     FINDING   councils cold @ 390: 4 of 4 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +3000ms
+item1     data      @ 390   cold   slow 4G: styled at 1416ms, timed entry at 1439ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  0 pending= 0; whole strip decoded   0 of   5; every tile on screen decoded by +2500ms; distinct requests 5 at the timed entry, 5 at the reading
+item1     FINDING   data cold @ 390: 5 of 5 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +2500ms
+item1     councils  @ 390   loaded slow 4G: styled at 5388ms, timed entry at 5401ms (hydrated at 4914ms; earlier entries cut short: none); at +1500ms on screen=  4 decoded=  4 pending= 0; whole strip decoded  36 of  36; every tile on screen decoded by +1500ms; distinct requests 18 at the timed entry, 18 at the reading
+item1     data      @ 390   loaded slow 4G: styled at 5454ms, timed entry at 5474ms (hydrated at 4984ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  5 pending= 0; whole strip decoded   5 of   5; every tile on screen decoded by +1500ms; distinct requests 5 at the timed entry, 5 at the reading
+item1     councils  @ 360   cold   slow 4G: styled at 1460ms, timed entry at 1485ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  3 decoded=  0 pending= 0; whole strip decoded   0 of  36; every tile on screen decoded by +2250ms; distinct requests 18 at the timed entry, 18 at the reading
+item1     FINDING   councils cold @ 360: 3 of 3 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +2250ms
+item1     data      @ 360   cold   slow 4G: styled at 1499ms, timed entry at 1530ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  2 pending= 0; whole strip decoded   2 of   5; every tile on screen decoded by +1750ms; distinct requests 5 at the timed entry, 5 at the reading
+item1     FINDING   data cold @ 360: 3 of 5 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +1750ms
+item1     councils  @ 360   loaded slow 4G: styled at 4977ms, timed entry at 5000ms (hydrated at 4297ms; earlier entries cut short: none); at +1500ms on screen=  3 decoded=  3 pending= 0; whole strip decoded  36 of  36; every tile on screen decoded by +1500ms; distinct requests 18 at the timed entry, 18 at the reading
+item1     data      @ 360   loaded slow 4G: styled at 4984ms, timed entry at 5001ms (hydrated at 4288ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  5 pending= 0; whole strip decoded   5 of   5; every tile on screen decoded by +1500ms; distinct requests 5 at the timed entry, 5 at the reading
+item1     councils  @ 1280  cold   slow 4G: styled at 1371ms, timed entry at 1423ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  9 decoded=  0 pending= 0; whole strip decoded   0 of  36; every tile on screen decoded by +over 16500ms; distinct requests 18 at the timed entry, 18 at the reading
+item1     FINDING   councils cold @ 1280: 9 of 9 on screen had not decoded 1500ms after they were seen on a cold slow 4G load; every one had by +over 16500ms
+item1     data      @ 1280  cold   slow 4G: styled at 1353ms, timed entry at 1386ms (hydrated at 0ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  5 pending= 0; whole strip decoded   5 of   5; every tile on screen decoded by +1500ms; distinct requests 0 at the timed entry, 5 at the reading
+item1     councils  @ 1280  loaded slow 4G: styled at 4550ms, timed entry at 4578ms (hydrated at 4185ms; earlier entries cut short: none); at +1500ms on screen=  9 decoded=  9 pending= 0; whole strip decoded  36 of  36; every tile on screen decoded by +1500ms; distinct requests 18 at the timed entry, 18 at the reading
+item1     data      @ 1280  loaded slow 4G: styled at 4642ms, timed entry at 4700ms (hydrated at 4127ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  5 pending= 0; whole strip decoded   5 of   5; every tile on screen decoded by +1500ms; distinct requests 5 at the timed entry, 5 at the reading
+
+item7     capture   rendered=348px natural=389px src=platform-finder-960.webp trigger=True 348x187.41
+item7     dialog    name="Real product UI [em dash] the Property Finder. F" close=44x44 image=1600px scrollable=1600>390
+item7     axe       open state: 0 serious or critical []
+item7     named     nodes whose accessible name is the caption, by role: {'dialog': 1, 'heading': 1, 'StaticText': 1, 'InlineTextBox': 1}
+item7     escape    closed
+item7     control   closed
+
+item2     reduced   before=1355px  at 50ms=1566px  at 750ms=1566px  still moving by 0.00px
+item2     reduced   the section's height changed by 211px across the swap
+
+item13    /register/investor   667x300 step 1 field "email" 150 to 206, header ends 56, bar starts 223, viewport 300: fully visible, clear of the bar
+item13    /register/investor   667x300 step 2 field "preferred_regions" 96 to 176, header ends 56, bar starts 223, viewport 300: fully visible, clear of the bar
+item13    /register/resident   667x300 step 1 field "email" 150 to 206, header ends 56, bar starts 223, viewport 300: fully visible, clear of the bar
+item13    /register/resident   667x300 step 2 field "who_for" 96 to 176, header ends 56, bar starts 223, viewport 300: fully visible, clear of the bar
+
+item11    register-investor    @ 360   three real viewports at scrollY 0, 1821 and 3642: worst run of nothing inside the card = 0px
+item11    register-resident    @ 360   three real viewports at scrollY 0, 1880 and 3761: worst run of nothing inside the card = 0px
+item11    register-investor    @ 390   three real viewports at scrollY 0, 1743 and 3486: worst run of nothing inside the card = 0px
+item11    register-resident    @ 390   three real viewports at scrollY 0, 1774 and 3547: worst run of nothing inside the card = 0px
+item11    register-investor    @ 414   three real viewports at scrollY 0, 1668 and 3335: worst run of nothing inside the card = 0px
+item11    register-resident    @ 414   three real viewports at scrollY 0, 1710 and 3420: worst run of nothing inside the card = 0px
+
+item3     snap      @ 360  swipe left                     rests on slide 1 at 0.00px from start (scrollLeft 296 of 592)
+item3     snap      @ 360  swipe left                     rests on slide 2 at 0.00px from start (scrollLeft 592 of 592)
+item3     snap      @ 360  swipe right                    rests on slide 1 at 0.00px from start (scrollLeft 296 of 592)
+item3     snap      @ 360  scrollTo 37px short of slide 1 rests on slide 1 at 0.00px from start (scrollLeft 296 of 592)
+item3     snap      @ 390  swipe left                     rests on slide 1 at 0.00px from start (scrollLeft 326 of 652)
+item3     snap      @ 390  swipe left                     rests on slide 2 at 0.00px from start (scrollLeft 652 of 652)
+item3     snap      @ 390  swipe right                    rests on slide 1 at 0.00px from start (scrollLeft 326 of 652)
+item3     snap      @ 390  scrollTo 37px short of slide 1 rests on slide 1 at 0.00px from start (scrollLeft 326 of 652)
+item3     snap      @ 414  swipe left                     rests on slide 1 at 0.00px from start (scrollLeft 350 of 700)
+item3     snap      @ 414  swipe left                     rests on slide 2 at 0.00px from start (scrollLeft 700 of 700)
+item3     snap      @ 414  swipe right                    rests on slide 1 at 0.00px from start (scrollLeft 350 of 700)
+item3     snap      @ 414  scrollTo 37px short of slide 1 rests on slide 1 at 0.00px from start (scrollLeft 350 of 700)
+item3     snap      @ 667  swipe left                     rests on slide 1 at 0.50px from start (scrollLeft 296 of 591)
+item3     snap      @ 667  swipe left                     rests on slide 2 at 0.00px from start (scrollLeft 591 of 591)
+item3     snap      @ 667  swipe right                    rests on slide 1 at 0.50px from start (scrollLeft 296 of 591)
+item3     snap      @ 667  scrollTo 37px short of slide 1 rests on slide 1 at 0.50px from start (scrollLeft 296 of 591)
+
+item3     mask on   @ 390 4x CPU, three runs of four touch swipes across the strip and a page scroll: 1307 frames, mean 16.73ms, p95 16.70ms, 5 over 25ms; the strip reached scrollLeft [652, 652, 652] and the page scrollY [900, 900, 900]
+item3     mask off  @ 390 4x CPU, three runs of four touch swipes across the strip and a page scroll: 1309 frames, mean 16.96ms, p95 16.80ms, 12 over 25ms; the strip reached scrollLeft [652, 652, 652] and the page scrollY [900, 900, 900]
+
+item3     clip      @ 360  slide 0 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 360  slide 1 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 360  slide 2 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 390  slide 0 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 390  slide 1 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 390  slide 2 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 414  slide 0 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 414  slide 1 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 414  slide 2 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 667  slide 0 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 667  slide 1 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+item3     clip      @ 667  slide 2 snapped: 0 device px differ with the caption's clip lifted, against 0 between two shots of the same state
+
+
+wave490   0 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 0 span type nodes, 0 under floor · 0 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+PASSED

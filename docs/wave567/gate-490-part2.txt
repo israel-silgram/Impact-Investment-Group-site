@@ -1,0 +1,82 @@
+item8     register @ 360         scrolled to 1640: none; 5 text runs and 5 controls on screen; 0 clashes
+item8     register @ 390         scrolled to 1728: none; 1 text runs and 8 controls on screen; 0 clashes
+item8     register @ 414         scrolled to 1832: none; 0 text runs and 10 controls on screen; 0 clashes
+item8     register @ 768         scrolled to 2088: none; 0 text runs and 23 controls on screen; 0 clashes
+item8     register @ 667x375     scrolled to 790: none; 9 text runs and 6 controls on screen; 0 clashes
+item12    register @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     register @ 1280        scrolled to 937: none; 3 text runs and 42 controls on screen; 0 clashes
+item11    register-investor @ 360 panel=1314px step=1272px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1156  41 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1123 before button
+item8     register-investor @ 360 scrolled to 1640: none; 4 text runs and 5 controls on screen; 0 clashes
+item11    register-investor @ 390 panel=1274px step=1232px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1116  39 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1083 before button
+item8     register-investor @ 390 scrolled to 1728: none; 1 text runs and 8 controls on screen; 0 clashes
+item8     register-investor @ 390 register bar on screen=False, back-to-top present=False
+item11    register-investor @ 414 panel=1248px step=1206px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1090  38 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1057 before button
+item8     register-investor @ 414 scrolled to 1832: none; 0 text runs and 11 controls on screen; 0 clashes
+item11    register-investor @ 768 panel=989px step=931px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=831  35 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.6px at y=681 before "Read the Privacy Policy"
+item8     register-investor @ 768 scrolled to 2088: none; 0 text runs and 25 controls on screen; 0 clashes
+item11    register-investor @ 667x375 panel=989px step=931px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=831  35 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.6px at y=681 before "Read the Privacy Policy"
+item8     register-investor @ 667x375 scrolled to 790: none; 13 text runs and 8 controls on screen; 0 clashes
+item12    register-investor @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item11    register-investor @ 1280 panel=933px step=851px (min 0px) bar=52px (controls 52px) sticky-or-static, read static at flow y=776  33 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=36.0px at y=230 before "Email address"
+item8     register-investor @ 1280 scrolled to 1303: none; 3 text runs and 42 controls on screen; 0 clashes
+item11    register-resident @ 360 panel=1314px step=1272px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1156  41 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1123 before button
+item8     register-resident @ 360 scrolled to 1640: none; 15 text runs and 6 controls on screen; 0 clashes
+item11    register-resident @ 390 panel=1274px step=1232px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1116  39 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1083 before button
+item8     register-resident @ 390 scrolled to 1728: none; 7 text runs and 8 controls on screen; 0 clashes
+item11    register-resident @ 414 panel=1248px step=1206px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=1090  38 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.0px at y=1057 before button
+item8     register-resident @ 414 scrolled to 1832: none; 1 text runs and 10 controls on screen; 0 clashes
+item11    register-resident @ 768 panel=989px step=931px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=831  35 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.6px at y=681 before "Read the Privacy Policy"
+item8     register-resident @ 768 scrolled to 2088: none; 0 text runs and 25 controls on screen; 0 clashes
+item11    register-resident @ 667x375 panel=989px step=931px (min 0px) bar=77px (controls 52px) sticky-or-static, read static at flow y=831  35 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=46.6px at y=681 before "Read the Privacy Policy"
+item8     register-resident @ 667x375 scrolled to 790: none; 10 text runs and 11 controls on screen; 0 clashes
+item12    register-resident @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item11    register-resident @ 1280 panel=933px step=851px (min 0px) bar=52px (controls 52px) sticky-or-static, read static at flow y=776  33 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=36.0px at y=230 before "Email address"
+item8     register-resident @ 1280 scrolled to 1283: none; 6 text runs and 43 controls on screen; 0 clashes
+item8     partner-with-investor @ 360 scrolled to 1640: none; 11 text runs and 2 controls on screen; 0 clashes
+item8     partner-with-investor @ 390 scrolled to 1728: none; 12 text runs and 3 controls on screen; 0 clashes
+item8     partner-with-investor @ 414 scrolled to 1832: none; 21 text runs and 5 controls on screen; 0 clashes
+item8     partner-with-investor @ 768 scrolled to 2088: none; 25 text runs and 5 controls on screen; 0 clashes
+item8     partner-with-investor @ 667x375 scrolled to 790: none; 16 text runs and 2 controls on screen; 0 clashes
+item12    partner-with-investor @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     partner-with-investor @ 1280 scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=22); 25 text runs and 12 controls on screen; 0 clashes
+item8     partner-with-local-authority @ 360 scrolled to 1640: none; 16 text runs and 2 controls on screen; 0 clashes
+item8     partner-with-local-authority @ 390 scrolled to 1728: none; 15 text runs and 2 controls on screen; 0 clashes
+item8     partner-with-local-authority @ 414 scrolled to 1832: none; 16 text runs and 4 controls on screen; 0 clashes
+item8     partner-with-local-authority @ 768 scrolled to 2088: none; 29 text runs and 5 controls on screen; 0 clashes
+item8     partner-with-local-authority @ 667x375 scrolled to 790: none; 13 text runs and 2 controls on screen; 0 clashes
+item12    partner-with-local-authority @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     partner-with-local-authority @ 1280 scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=22); 28 text runs and 12 controls on screen; 0 clashes
+item8     legal @ 360            scrolled to 1640: none; 21 text runs and 4 controls on screen; 0 clashes
+item8     legal @ 390            scrolled to 1728: none; 22 text runs and 4 controls on screen; 0 clashes
+item8     legal @ 414            scrolled to 1832: none; 25 text runs and 5 controls on screen; 0 clashes
+item8     legal @ 768            scrolled to 2088: none; 9 text runs and 11 controls on screen; 0 clashes
+item8     legal @ 667x375        scrolled to 790: none; 8 text runs and 3 controls on screen; 0 clashes
+item12    legal @ 1280           "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     legal @ 1280           scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 11 text runs and 40 controls on screen; 0 clashes
+rule2     404 @ 360              293px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
+rule2     404 @ 360              280px of ground at the last row (one-screen, centred) of div, from y=520: the centring of a box a screen tall, read and not failed
+item8     404 @ 360              scrolled to 0: none; 5 text runs and 1 controls on screen; 0 clashes
+rule2     404 @ 390              315px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
+rule2     404 @ 390              302px of ground at the last row (one-screen, centred) of div, from y=542: the centring of a box a screen tall, read and not failed
+item8     404 @ 390              scrolled to 0: none; 5 text runs and 1 controls on screen; 0 clashes
+rule2     404 @ 414              341px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
+rule2     404 @ 414              328px of ground at the last row (one-screen, centred) of div, from y=568: the centring of a box a screen tall, read and not failed
+item8     404 @ 414              scrolled to 0: none; 5 text runs and 1 controls on screen; 0 clashes
+rule2     404 @ 768              417px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
+rule2     404 @ 768              404px of ground at the last row (one-screen, centred) of div, from y=620: the centring of a box a screen tall, read and not failed
+item8     404 @ 768              scrolled to 0: none; 4 text runs and 1 controls on screen; 0 clashes
+item8     404 @ 667x375          scrolled to 0: none; 4 text runs and 1 controls on screen; 0 clashes
+rule2     404 @ 1280             357px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
+rule2     404 @ 1280             344px of ground at the last row (one-screen, centred) of div, from y=556: the centring of a box a screen tall, read and not failed
+item8     404 @ 1280             scrolled to 0: none; 4 text runs and 1 controls on screen; 0 clashes
+
+rule8     register                   1280 differs on    261885 device px (worst 253 of 255), same-build noise         0 px (worst   1),        0 moved beyond the noise outside the touched and animated boxes (page height 2059 -> 1837 device px)
+rule8     register-investor          1280 differs on    261634 device px (worst 253 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 2426 -> 2203 device px)
+rule8     register-resident          1280 differs on    261697 device px (worst 253 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 2406 -> 2183 device px)
+rule8     partner-with-investor      1280 differs on         0 device px (worst   0 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes
+rule8     partner-with-local-authority 1280 differs on         0 device px (worst   0 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes
+rule8     legal                      1280 differs on         0 device px (worst   0 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes
+rule8     404                        1280 differs on         0 device px (worst   0 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes
+
+wave490   42 shots · 0 empty runs over 96px (edges and last rows counted; 10 one-screen centring runs read, not failed) · 3642 span type nodes, 0 under floor · 126 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+PASSED

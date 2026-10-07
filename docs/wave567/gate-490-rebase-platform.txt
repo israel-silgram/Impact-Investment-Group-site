@@ -1,0 +1,7 @@
+item12    platform @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item5     platform @ 1280        items=6 clones=3 track=3036px animated=1 strings outside the viewport=11
+item6     platform @ 1280        card=340px min-height=340px art=169x280 at (1066,2952) opacity=0.25 inside padding=False text clashes=0
+item8     platform @ 1280        scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 14 text runs and 12 controls on screen; 0 clashes
+
+wave490   1 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 173 span type nodes, 0 under floor · 3 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+PASSED

@@ -1,0 +1,117 @@
+wave507   mode=after  build=C:\Users\Israel\Documents\repos\iigs-uc567\dist\client
+  /404.html                          title ["Page not found"]
+  /about/                            title ["About Us [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["About Us [em dash] Impact Investment Group"]
+  /contact/                          title ["Contact [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Contact [em dash] Impact Investment Group"]
+  /                                  title ["Impact Investment Group [em dash] Social Impact Property & Supported Housing"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Impact Investment Group [em dash] Social Impact Property & Supported Housing"]
+  /legal/                            title ["Legal and company information · Impact Investment Group UK Limited"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Legal and company information · Impact Investment Group UK Limited"]
+  /partner-with-broker/              title ["Partner with a Broker [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Broker [em dash] Impact Investment Group"]
+  /partner-with-care-provider/       title ["Partner with a Care Provider [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Care Provider [em dash] Impact Investment Group"]
+  /partner-with-developer/           title ["Partner with a Developer [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Developer [em dash] Impact Investment Group"]
+  /partner-with-housing-association/ title ["Partner with a Housing Association [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Housing Association [em dash] Impact Investment Group"]
+  /partner-with-investor/            title ["Partner with Property Investor [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with Property Investor [em dash] Impact Investment Group"]
+  /partner-with-landlord/            title ["Partner with a Landlord [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Landlord [em dash] Impact Investment Group"]
+  /partner-with-local-authority/     title ["Partner with a Local Authority [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Local Authority [em dash] Impact Investment Group"]
+  /partner-with-resident/            title ["Housing for Residents, Individuals & Families [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Housing for Residents, Individuals & Families [em dash] Impact Investment Group"]
+  /partner-with-social-worker/       title ["Partner with a Social Worker [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Social Worker [em dash] Impact Investment Group"]
+  /partner-with-support-provider/    title ["Partner with a Support Provider [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Support Provider [em dash] Impact Investment Group"]
+  /partners/                         title ["Our Partners [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+  /platform/                         title ["Our Services [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Our Services [em dash] Impact Investment Group"]
+  /register/broker/                  title ["Both sides of your deal, on one platform | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Both sides of your deal, on one platform | Impact Investment Group"]
+  /register/care-provider/           title ["Stop losing referrals because the building is not there | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Stop losing referrals because the building is not there | Impact Investment Group"]
+  /register/developer/               title ["Know where the demand is before you commit to the site | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Know where the demand is before you commit to the site | Impact Investment Group"]
+  /register/housing-association/     title ["Stock, partners and demand, in one view | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Stock, partners and demand, in one view | Impact Investment Group"]
+  /register/                         title ["Register to join the waitlist | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Register to join the waitlist | Impact Investment Group"]
+  /register/investor/                title ["Tell us the deal you want to see, and see it first | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Tell us the deal you want to see, and see it first | Impact Investment Group"]
+  /register/landlord/                title ["Tell us what you own, and we will bring the demand to you | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Tell us what you own, and we will bring the demand to you | Impact Investment Group"]
+  /register/local-authority/         title ["Tell us where the pressure is, and we will go and find the homes | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Tell us where the pressure is, and we will go and find the homes | Impact Investment Group"]
+  /register/resident/                title ["Tell us what you need, and where | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Tell us what you need, and where | Impact Investment Group"]
+  /register/social-worker/           title ["One place to look, instead of ringing round | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["One place to look, instead of ringing round | Impact Investment Group"]
+  /register/support-provider/        title ["The commission comes first and the building never does | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["The commission comes first and the building never does | Impact Investment Group"]
+  /solutions/                        title ["The Solution [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["The Solution [em dash] Impact Investment Group"]
+  /the-problem/                      title ["The Problem [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["The Problem [em dash] Impact Investment Group"]
+src: NEW in 21 route files; old name in 0 metadata strings
+pixels: 60 full-page shots paired with before (header, main, footer each read), 24 differ
+wave507   30 pages, 174 live readings, 60 shots
+
+24 FAILURE(S):
+  - pixels: platform-1280.png differs from its before shot: {'whole': 7706880, 'header': 7706880, 'main': 7706880, 'footer': 7706880, 'sha_before': 'bbd8323d460461d5e03c7d7d6a885b80bb548fe475deb47d1f3e589d4a5e14cd', 'sha_after': '0692bc4db2ea12cb4f536e8e240d5890e64645c291ee63be464b9a8bb679e336'}.
+  - pixels: platform-390.png differs from its before shot: {'whole': 4112940, 'header': 4112940, 'main': 4112940, 'footer': 4112940, 'sha_before': 'b780e8e95d60bdc5405e9660a55933bf02adcb7245b0734573a24220f4bbf85c', 'sha_after': '8621a17ecbc329e986b042d8f7a1b87196e6c1e82e7464e874cf346d78aa5a83'}.
+  - pixels: register-1280.png differs from its before shot: {'whole': 2635520, 'header': 2635520, 'main': 2635520, 'footer': 2635520, 'sha_before': '0b791dd4dbc315cb52a44e9d7a27b69646295d53d1a5906071c9863d51cbcf3e', 'sha_after': '121e678b6e052ea5b6fef7840e30140a309ce0d7e21cb7a3ce5cdec6ced4d150'}.
+  - pixels: register-390.png differs from its before shot: {'whole': 1820910, 'header': 1820910, 'main': 1820910, 'footer': 1820910, 'sha_before': '4877db25772a6faf718b127c9ccd76dfebb80413b16d732985ffc5915861c08e', 'sha_after': '342fefa9b6e95db9c5032704d9179057a6e36752c0a5a9b26f80c008b46b2b8b'}.
+  - pixels: register-broker-1280.png differs from its before shot: {'whole': 2764800, 'header': 2764800, 'main': 2764800, 'footer': 2764800, 'sha_before': '1c8979a176fc268180f126f631e7b35e18ae35eede8025e732e3c5575a85b0d3', 'sha_after': '333d11e58a31906317d84a1a7a716adeaf5da39476c531d7a641083b8f757841'}.
+  - pixels: register-broker-390.png differs from its before shot: {'whole': 1723020, 'header': 1723020, 'main': 1723020, 'footer': 1723020, 'sha_before': '06b88b5988d38d657ef568c332562257599dd734eb7c25d764cfa96c87680830', 'sha_after': 'de82af6025ca2806b31762ba6d8421e013d012a75c3db02d5a9b1c939a241ad4'}.
+  - pixels: register-care-provider-1280.png differs from its before shot: {'whole': 2764800, 'header': 2764800, 'main': 2764800, 'footer': 2764800, 'sha_before': '1c8628cc1476f171f0feeb68e75eec55cc36ac4fa10cfa9de14c846d2532bfc1', 'sha_after': '2cc15d8fc870adb6b5a8d02ff64fb230206afd6a493a4abc7db5a9bb5d7c5b06'}.
+  - pixels: register-care-provider-390.png differs from its before shot: {'whole': 1723020, 'header': 1723020, 'main': 1723020, 'footer': 1723020, 'sha_before': 'c5fa4808cfb83830c21b4d6207d3231a8556ca07d7daf0701d25b23aba43d54a', 'sha_after': 'd9f92a4ea0dd422283ecef53563616cacaf28827464d9d0a00231efbca7cf3c4'}.
+  - pixels: register-developer-1280.png differs from its before shot: {'whole': 2764800, 'header': 2764800, 'main': 2764800, 'footer': 2764800, 'sha_before': 'f840f64658d074b69c1b6050ebde8024e5020668fecd0810c8ab4f9e9eb71216', 'sha_after': '8a26fc4cd1129003b8c978654597e3d22b11c615be2073f196d434107ddec54b'}.
+  - pixels: register-developer-390.png differs from its before shot: {'whole': 1723020, 'header': 1723020, 'main': 1723020, 'footer': 1723020, 'sha_before': '886f5c445070df9f833b5846d2cd8ca5896a8c3e0c3908c89403b9174e524a06', 'sha_after': '365318e2b10630114535b3d6703e654b8210322a15ecfc07b609d877c63a3cfd'}.
+  - pixels: register-housing-association-1280.png differs from its before shot: {'whole': 2764800, 'header': 2764800, 'main': 2764800, 'footer': 2764800, 'sha_before': 'e13d4f24dac56cb904b0e282049454ff2ff413a0d0f58b7d3d2e308a4248af7a', 'sha_after': 'cdfe42c4c881248f4c460b9438f1630ebc20a85ae1f147955a73c1f61ac92086'}.
+  - pixels: register-housing-association-390.png differs from its before shot: {'whole': 1723020, 'header': 1723020, 'main': 1723020, 'footer': 1723020, 'sha_before': 'e6b3fad3b1e84f466394a1ae843af7d87cd71bf29322f5ec0bf6f463bbb18a18', 'sha_after': '15b22db5ff5fd6af3b173f53e5c885b0af4aae2219bbb8c549af498f9a0c98f8'}.
+  - pixels: register-investor-1280.png differs from its before shot: {'whole': 3105280, 'header': 3105280, 'main': 3105280, 'footer': 3105280, 'sha_before': 'df8ed46b5da9ab999325a202a24c7649783a96cbb748f870d17f33d0f4af0fea', 'sha_after': '301a55a7fc7d6ddf261e255aba17f5030d302667dc469bd310b73f51583fcd28'}.
+  - pixels: register-investor-390.png differs from its before shot: {'whole': 1823640, 'header': 1823640, 'main': 1823640, 'footer': 1823640, 'sha_before': '178c4802f8c8f2f56f0dfe834d6ccd92c46be65d01721b48710c9c07ea1d40f2', 'sha_after': 'e41fe4194f1b30314c5f6f213f9809d515d2192604285270e16c35634bff8ca2'}.
+  - pixels: register-landlord-1280.png differs from its before shot: {'whole': 2764800, 'header': 2764800, 'main': 2764800, 'footer': 2764800, 'sha_before': 'e31e1da7e293daa4e8f85df9f6efcea453b1bb6836e568ce4cfbc00986059c66', 'sha_after': '8b3547fad397d12757816172bc98bdd599ff6df2cc3b638641025b47a139db5b'}.
+  - pixels: register-landlord-390.png differs from its before shot: {'whole': 1723020, 'header': 1723020, 'main': 1723020, 'footer': 1723020, 'sha_before': '5f064aa8c50373676f482f02b3c0a5fd3af92fd77b92451ce44bacbbe5d94094', 'sha_after': '78c48767d97b0869103f582fb4df2e702627a889a5515d02298f5e1deca0246d'}.
+  - pixels: register-local-authority-1280.png differs from its before shot: {'whole': 2764800, 'header': 2764800, 'main': 2764800, 'footer': 2764800, 'sha_before': '7a544f000c6fb8967a483e4ebf600494d298526458f00d681247b8c091f73a77', 'sha_after': '608683deb9d9ea56958cb6b1b5e22d069956007a564fb3f9969cf29f8bbb239a'}.
+  - pixels: register-local-authority-390.png differs from its before shot: {'whole': 1723020, 'header': 1723020, 'main': 1723020, 'footer': 1723020, 'sha_before': '638dbe295c8f54a6b7108879062cbefef8ec77b24009ea7efc087fe1184cb662', 'sha_after': '133d57826734f3883766cc68139fa4e079caf1a743b3b714d4120d50b2949be3'}.
+  - pixels: register-resident-1280.png differs from its before shot: {'whole': 3079680, 'header': 3079680, 'main': 3079680, 'footer': 3079680, 'sha_before': 'eccc9d3656cf2987a9d288ad75206b72e6e1f63613fa82954bddbb4326fe3be4', 'sha_after': 'f8b1fbb9b1548fa35e5007ed0e6cbea5435e4ae063ba90af7cff0a421bcf9377'}.
+  - pixels: register-resident-390.png differs from its before shot: {'whole': 1847430, 'header': 1847430, 'main': 1847430, 'footer': 1847430, 'sha_before': '2e3878cd13c38a39046e89df769ec137f361c0d20fe2be6eb1c131ab4488fd8d', 'sha_after': 'f1a390f722d158847d97c4f04ca9ba4d5717e8c90cd69b498289e83937b203a4'}.
+  - pixels: register-social-worker-1280.png differs from its before shot: {'whole': 2764800, 'header': 2764800, 'main': 2764800, 'footer': 2764800, 'sha_before': 'd1f3a51fe575c4ae439d710893d6d53c9f5da2a4b0370eb5492543357ad3b253', 'sha_after': '725fcd0874b8b6ee14773ffac7469e341c72a242370353cf4dd9ced7e1301a2c'}.
+  - pixels: register-social-worker-390.png differs from its before shot: {'whole': 1723020, 'header': 1723020, 'main': 1723020, 'footer': 1723020, 'sha_before': '7171bcecac1ddee5bbe13d34a55a1eb218b995a41c3452b4b5d065e215b88772', 'sha_after': '6b344f4dae1b4341a02591a8d145745ae9edcc2cd695d83de492e9bce9ff3888'}.
+  - pixels: register-support-provider-1280.png differs from its before shot: {'whole': 2764800, 'header': 2764800, 'main': 2764800, 'footer': 2764800, 'sha_before': 'a5edc780ceb7985612adfbd688ad3dd7dce45e8073e1c0d40ef4c63d3233ec50', 'sha_after': '784f0f525acd5552a366403c17bd8b7c67db0367d388dd82f3c6f330109d096f'}.
+  - pixels: register-support-provider-390.png differs from its before shot: {'whole': 1723020, 'header': 1723020, 'main': 1723020, 'footer': 1723020, 'sha_before': '80c804c984211cbe9377ddbd2000b347082a5d17e4fb4f9afdf76250dff51ef1', 'sha_after': '2a09bd5bd9332b9a4451c19c024bda5db6090cde5d9cfbf8002fa6e767a6623d'}.
