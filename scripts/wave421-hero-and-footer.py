@@ -194,6 +194,23 @@ FOOTER_PAIRS = [
     ("the legal notice", "footer p.max-w-\\[120ch\\]"),
 ]
 
+# Wave 567, 7 Oct 2026: the funnel is not rendered on /register or under it
+# (Callum: "the user is already registering on that page"), so on those routes
+# its four pairs are not read and the funnel must be absent. On every other
+# route with a footer all fifteen are still read, and a funnel pair that names
+# nothing there now FAILS rather than being listed. Without this the badge row
+# resolved on the register routes to a different teal line and measured that.
+FUNNEL_PAIRS = {
+    "the funnel headline, navy beats",
+    "the funnel headline, orange beat",
+    "the pre-release badge",
+    "the 30+ years line",
+}
+
+
+def without_funnel(path: str) -> bool:
+    return path == "/register" or path.startswith("/register/")
+
 
 # ---------------------------------------------------------------------------
 # A. THE VARIANT
@@ -817,7 +834,15 @@ def main() -> None:
 
                 pairs = list(HERO_PAIRS) if path == "/" else []
                 if path not in PAGES_WITHOUT_FOOTER:
-                    pairs += FOOTER_PAIRS
+                    if without_funnel(path):
+                        pairs += [pair for pair in FOOTER_PAIRS if pair[0] not in FUNNEL_PAIRS]
+                        if page.locator("#funnel-heading").count():
+                            failures.append(
+                                f"{where}: the register funnel is rendered on a register "
+                                f"route, where wave 567 took it out."
+                            )
+                    else:
+                        pairs += FOOTER_PAIRS
                 nodes = []
                 for label, selector in pairs:
                     node = page.evaluate(NODE_READ, selector)
@@ -830,6 +855,11 @@ def main() -> None:
                         # the page. The misses are listed and a pair that
                         # resolves on NO shot fails the run.
                         missing.append((where, label, selector))
+                        if label in FUNNEL_PAIRS:
+                            failures.append(
+                                f"{where}: the funnel pair {label!r} names nothing, and "
+                                f"only the register routes are without the funnel."
+                            )
                         continue
                     node["label"] = label
                     nodes.append(node)

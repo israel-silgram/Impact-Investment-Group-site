@@ -29,11 +29,16 @@ WHAT THIS READS AND ASSERTS, in `--mode after` (the default):
      workflow panel, the two meta values, and no "prove" or "proves" as a
      word anywhere in the page's text.
   5. HOW WE DIFFER at 1280 and 390, with each of the three chapters selected
-     in turn: the section's text never carries "25"; the strip reads the two
+     in turn: the story's text (the heading, the lead, the chapter card, the
+     strip and the three principles) never carries "25"; the strip reads the two
      approved sides; chapter 01's figure reads FIXED and chapter 03's reads
      5+, each with its caption; chapter 03's title, body and three points are
      the approved ones; and the figure's own box stays inside its card, which
-     is what the size-by-shape branch is for.
+     is what the size-by-shape branch is for. The band also holds the lane
+     of three published figures, whose sources are dated "31 March 2025", "31
+     December 2025" and "2024 to 25": those are the dates of gov.uk
+     publications and no figure may lose its date, so the lane is read apart
+     from the story and every "25" in it has to sit inside one of those dates.
   6. THE SOURCE: no triad string with "prove" is left in the two files that
      held them.
 
@@ -67,7 +72,7 @@ SHOTS = ROOT / "docs" / "screenshots" / "wave567"
 DATA = ROOT / "docs" / "wave567"
 
 PROFILES = [("1280", 1280, 900, False), ("390", 390, 844, True)]
-DASH = "—"
+DASH = "\u2014"
 
 DESCRIPTION = (
     "Find it, price it, match it. We source UK residential property, price every home "
@@ -125,6 +130,8 @@ FUNNEL_ROUTES = [
 SHOT_SLUGS = {"platform", "register", "register-investor"}
 
 TRIAD_RE = re.compile(r"prove it|prove\.|proves|Price · Prove|PRICE IT · PROVE", re.I)
+# The only "25"s the band may show: the dates on the three published figures.
+DATE_RE = re.compile(r"31 March 2025|31 December 2025|2024\u201325")
 WORD_RE = re.compile(r"\bproves?\b", re.I)
 
 STILL = (
@@ -205,6 +212,12 @@ DIFFER_READ = r"""
   const card = panel.querySelector('.rounded-2xl');
   const figure = card.querySelector('p');
   const strip = [...panel.querySelectorAll('.border-t span.font-semibold')].map(text);
+  const lane = section.querySelector('.demand-ticker');
+  const laneWords = lane ? lane.innerText : '';
+  // The story is the section less the lane of published figures.
+  const all = section.innerText;
+  const at = laneWords ? all.indexOf(laneWords) : -1;
+  const story = at < 0 ? null : all.slice(0, at) + all.slice(at + laneWords.length);
   const c = card.getBoundingClientRect();
   const f = figure.getBoundingClientRect();
   // The glyphs, not the paragraph's box: a range over the text node is what
@@ -213,7 +226,8 @@ DIFFER_READ = r"""
   range.selectNodeContents(figure);
   const g = range.getBoundingClientRect();
   return {
-    words: section.innerText,
+    words: story,
+    lane: laneWords,
     eyebrow: text(panel.querySelector('p.eyebrow')),
     title: text(panel.querySelector('h3')),
     body: text(panel.querySelector('h3 + p')),
@@ -325,8 +339,8 @@ def run(build: Path, mode: str) -> int:
             print(
                 f"  {'':<26} chapter {chapter:<8} figure {plain(row['value'])} at {row['fontPx']:.0f}px, "
                 f"glyphs {row['glyphs'][0]:.0f} to {row['glyphs'][1]:.0f} in a card {row['card'][0]:.0f} to "
-                f"{row['card'][1]:.0f}; caption {plain(row['unit'])}; \"25\" in the section: "
-                f"{'YES' if '25' in row['words'] else 'no'}"
+                f"{row['card'][1]:.0f}; caption {plain(row['unit'])}; \"25\" in the story: "
+                f"{'YES' if '25' in row['words'] else 'no'}; in the figures lane only in {plain(row.get('laneDates'))}"
             )
         if "platform" in reading:
             r = reading["platform"]
@@ -398,8 +412,14 @@ def read_platform(page, where, label, mode, reading, failures, counts, shoot) ->
         row = select(index)
         reading["differ"][chapter] = row
         there = f"live {where} chapter {chapter}"
+        if row["words"] is None:
+            failures.append(f"{there}: the lane of published figures could not be told from the story.")
+            row["words"] = ""
         if "25" in row["words"]:
-            failures.append(f"{there}: the section's text carries \"25\".")
+            failures.append(f"{there}: the story's text carries \"25\".")
+        if "25" in DATE_RE.sub("", row["lane"]):
+            failures.append(f"{there}: the figures lane carries a \"25\" outside a source date.")
+        row["laneDates"] = sorted(set(DATE_RE.findall(row["lane"])))
         if row["strip"] != STRIP:
             failures.append(f"{there}: the strip reads {plain(row['strip'])}.")
         if (row["value"], row["unit"]) != VISUAL[chapter]:

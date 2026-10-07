@@ -2096,6 +2096,10 @@ TOUCHED = {
     "about": ["article", "ol > li > div"],
     "solutions": ["span.rounded-full"],
 }
+# Wave 567, 7 Oct 2026: `before/platform-1280.png` was re-shot at that wave's
+# head, which reworded the page on purpose and made it 25px shorter; no box was
+# added above for it. The register routes lost the footer funnel in the same
+# wave and pair inside the footer, which the next line already declares.
 # Every route carries the footer, whose three Verify links item 12 touches.
 TOUCHED_EVERYWHERE = ["footer"]
 ANIMATED_MASKS = ["canvas", ".logo-marquee", ".tabular-nums"]

@@ -36,6 +36,14 @@ WHAT IT ASSERTS, in `--mode after` (the default):
 `--mode before` takes the same readings and the same shots and exits 0: run on
 the base build it is the red proof, and it prints every failure it would have
 raised.
+
+`--by-design slug=part+part,...` (wave 567, 7 Oct 2026) is for a later wave
+that changes a page on purpose. Rule 5 stays whole for every page not named.
+A named page is paired band by band, each band cut from its own shot at its
+own position, so a page that grew or shrank is still compared: the bands it
+names may differ, every band it does not name must still be equal in every
+pixel, and a named page on which nothing differs fails, because the flag is
+then out of date. Nothing is named by default.
 """
 
 from __future__ import annotations
@@ -216,6 +224,30 @@ def diff_count(before: Path, after: Path, band: dict | None) -> int | None:
     return int(moved.sum())
 
 
+def band_diff(before: Path, after: Path, was: dict | None, now: dict | None):
+    """One band, cut from each shot at that shot's own position."""
+    if was is None or now is None:
+        return "absent" if was is None and now is None else -1
+    a = np.asarray(Image.open(before).convert("RGBA")).astype(np.int16)
+    b = np.asarray(Image.open(after).convert("RGBA")).astype(np.int16)
+    a = a[max(was["y"], 0): was["y"] + was["h"]]
+    b = b[max(now["y"], 0): now["y"] + now["h"]]
+    if a.shape != b.shape:
+        return int(max(a.shape[0] * a.shape[1], b.shape[0] * b.shape[1]))
+    return int((np.abs(a - b).max(axis=2) > 0).sum())
+
+
+def parse_by_design(text: str) -> dict[str, set[str]]:
+    named: dict[str, set[str]] = {}
+    for item in filter(None, (part.strip() for part in text.split(","))):
+        slug, _, parts = item.partition("=")
+        bands = {b for b in parts.split("+") if b}
+        if not bands or bands - {"header", "main", "footer"}:
+            raise SystemExit(f"--by-design: {item!r} must be slug=main, slug=footer or slug=main+footer.")
+        named[slug] = bands
+    return named
+
+
 def pixel_sha(path: Path) -> str | None:
     """SHA-256 of the decoded RGBA pixels, so the record proves the pairs
     without the 84 MB of PNGs being committed."""
@@ -242,7 +274,8 @@ def source_check(failures: list[str]) -> dict:
     return found
 
 
-def run(build: Path, mode: str) -> int:
+def run(build: Path, mode: str, by_design: dict[str, set[str]] | None = None) -> int:
+    by_design = by_design or {}
     failures: list[str] = []
     record: dict = {"mode": mode, "build": str(build), "markup": {}, "live": {}, "pixels": {}}
     pages = sorted(build.rglob("*.html"))
@@ -322,8 +355,41 @@ def run(build: Path, mode: str) -> int:
         browser.close()
 
     if mode == "after":
+        before_regions = {}
+        if by_design and before_file.exists():
+            before_regions = json.loads(before_file.read_text(encoding="utf-8")).get("regions", {})
+        seen_by_design = set()
         for shot in sorted(shots.glob("*.png")):
             bands = record["regions"][shot.name]
+            slug = shot.stem.rsplit("-", 1)[0]
+            if slug in by_design:
+                # A page a later wave changed on purpose: band by band.
+                seen_by_design.add(slug)
+                allowed = by_design[slug]
+                was = before_regions.get(shot.name)
+                row = {"by_design": sorted(allowed)}
+                if was is None or not (SHOTS / "before" / shot.name).exists():
+                    failures.append(f"pixels: no before shot or before regions for {shot.name}.")
+                    record["pixels"][shot.name] = row
+                    continue
+                for part in ("header", "main", "footer"):
+                    row[part] = band_diff(SHOTS / "before" / shot.name, shot, was[part], bands[part])
+                row["height_before"], row["height_after"] = was["height"], bands["height"]
+                row["sha_before"] = pixel_sha(SHOTS / "before" / shot.name)
+                row["sha_after"] = pixel_sha(shot)
+                record["pixels"][shot.name] = row
+                for part in ("header", "main", "footer"):
+                    if part not in allowed and row[part] not in (0, "absent"):
+                        failures.append(
+                            f"pixels: {shot.name} is changed by design in {sorted(allowed)} only, "
+                            f"and its {part} differs in {row[part]} px."
+                        )
+                if not any(row[part] not in (0, "absent") for part in allowed):
+                    failures.append(
+                        f"pixels: {shot.name} is named as changed by design and nothing in "
+                        f"{sorted(allowed)} differs. Take it out of --by-design."
+                    )
+                continue
             row = {"whole": diff_count(SHOTS / "before" / shot.name, shot, None)}
             for part in ("header", "main", "footer"):
                 row[part] = diff_count(SHOTS / "before" / shot.name, shot, bands[part]) if bands[part] else "absent"
@@ -334,6 +400,8 @@ def run(build: Path, mode: str) -> int:
                 failures.append(f"pixels: no before shot for {shot.name}.")
             elif row["whole"]:
                 failures.append(f"pixels: {shot.name} differs from its before shot: {row}.")
+        for slug in sorted(set(by_design) - seen_by_design):
+            failures.append(f"--by-design names {slug!r}, which is not a page in this build.")
 
     DATA.mkdir(parents=True, exist_ok=True)
     out = DATA / f"titles-{mode}.json"
@@ -348,8 +416,15 @@ def run(build: Path, mode: str) -> int:
                 print(f"  {'':<34} {key} {plain(fields[key])}")
     print(f"src: NEW in {len(record['source']['new'])} route files; old name in {len(record['source']['old'])} metadata strings")
     if record["pixels"]:
-        moved = sum(1 for v in record["pixels"].values() if v["whole"])
-        print(f"pixels: {len(record['pixels'])} full-page shots paired with before (header, main, footer each read), {moved} differ")
+        strict = {k: v for k, v in record["pixels"].items() if "by_design" not in v}
+        moved = sum(1 for v in strict.values() if v["whole"])
+        print(f"pixels: {len(strict)} full-page shots paired with before (header, main, footer each read), {moved} differ")
+        for name, v in record["pixels"].items():
+            if "by_design" in v and "main" in v:
+                print(
+                    f"pixels: {name:<40} changed by design in {'+'.join(v['by_design'])}: header {v['header']}, "
+                    f"main {v['main']}, footer {v['footer']} px differ; page {v['height_before']} -> {v['height_after']} px tall"
+                )
     print(f"wave507   {counts['pages']} pages, {counts['fields']} live readings, {counts['shots']} shots")
     if failures:
         tail = " (recorded, not failed: before mode)" if mode == "before" else ""
@@ -366,11 +441,14 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--build", default=str(BUILD))
     parser.add_argument("--mode", choices=["before", "after"], default="after")
+    # Wave 567, 7 Oct 2026: the pages a later wave changes on purpose, and the
+    # bands of each that may differ. Empty by default, so rule 5 is whole.
+    parser.add_argument("--by-design", default="", help="slug=main+footer,slug=footer,...")
     args = parser.parse_args()
     build = Path(args.build)
     if not (build / "index.html").exists():
         raise SystemExit(f"No build at {build}. Run: STATIC_BUILD=true bun run build")
-    return run(build, args.mode)
+    return run(build, args.mode, parse_by_design(args.by_design))
 
 
 if __name__ == "__main__":

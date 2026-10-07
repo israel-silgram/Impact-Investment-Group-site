@@ -484,7 +484,13 @@ def run(build: Path, mode: str, profiles, routes, out_json: Path, shots: Path) -
 
 
 def pair(before_json: Path, after_json: Path, failures: list[str]) -> None:
-    """R493-6 at 1280: nothing outside the logo's own reach may differ."""
+    """R493-6 at 1280: nothing outside the logo's own reach may differ.
+
+    Wave 567, 7 Oct 2026: `before/platform-1280-footer.png` and
+    `before/register-1280-footer.png` were re-shot at that wave's head, which
+    took the funnel out of the register footer and made /platform 25px
+    shorter. Every other before shot is still wave 493's base.
+    """
     before = json.loads(before_json.read_text(encoding="utf-8"))["readings"]
     after = json.loads(after_json.read_text(encoding="utf-8"))["readings"]
     out = SHOTS / "before_after"
