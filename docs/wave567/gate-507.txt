@@ -1,3 +1,10 @@
+# The command this log is from, run on the head build 9ba7dd3 in dist/client, against the base
+# shots written by `python scripts/wave507-titles.py --build <base build of 26b308b> --mode before`:
+#
+#   python scripts/wave507-titles.py --by-design "platform=main+footer,register=footer,register-broker=footer,register-care-provider=footer,register-developer=footer,register-housing-association=footer,register-investor=footer,register-landlord=footer,register-local-authority=footer,register-resident=footer,register-social-worker=footer,register-support-provider=footer"
+#
+# Twelve pages are named: /platform for main and footer, and /register and the ten role pages for
+# the footer only. The other 18 pages (36 shots) are paired whole, as rule 5 has always paired them.
 wave507   mode=after  build=C:\Users\Israel\Documents\repos\iigs-uc567\dist\client
   /404.html                          title ["Page not found"]
   /about/                            title ["About Us [em dash] Impact Investment Group"]

@@ -1,8 +1,10 @@
-wave567   mode=before  build=C:\Users\Israel\AppData\Local\Temp\w567-base\client
+wave567   mode=before  build=C:\Users\Israel\AppData\Local\Temp\w567-basewt\dist\client
 markup: funnel-heading present once in 29 pages, absent from 1
   absent: 404.html
   /register @ 1280           funnel 1  footer 1
   /register @ 390            funnel 1  footer 1
+  /register/ @ 1280          funnel 1  footer 1
+  /register/ @ 390           funnel 1  footer 1
   /register/investor @ 1280  funnel 1  footer 1
   /register/investor @ 390   funnel 1  footer 1
   /register/resident @ 1280  funnel 1  footer 1
@@ -10,18 +12,18 @@ markup: funnel-heading present once in 29 pages, absent from 1
   / @ 1280                   funnel 1  footer 1
   / @ 390                    funnel 1  footer 1
   /platform @ 1280           funnel 1  footer 1
-                             chapter past     figure "25" at 144px, glyphs 925 to 1064 in a card 823 to 1167; caption "years fixed"; "25" in the section: YES
-                             chapter lessons  figure "REVIEW" at 72px, glyphs 882 to 1107 in a card 823 to 1167; caption "before risk rolls forward"; "25" in the section: YES
-                             chapter solution figure "5" at 144px, glyphs 961 to 1029 in a card 823 to 1167; caption "year review window"; "25" in the section: YES
+                             chapter past     figure "25" at 144px, glyphs 925 to 1064 in a card 823 to 1167; caption "years fixed"; "25" in the story: YES; in the figures lane only in ["2024\u201325", "31 December 2025", "31 March 2025"]
+                             chapter lessons  figure "REVIEW" at 72px, glyphs 882 to 1107 in a card 823 to 1167; caption "before risk rolls forward"; "25" in the story: YES; in the figures lane only in ["2024\u201325", "31 December 2025", "31 March 2025"]
+                             chapter solution figure "5" at 144px, glyphs 961 to 1029 in a card 823 to 1167; caption "year review window"; "25" in the story: YES; in the figures lane only in ["2024\u201325", "31 December 2025", "31 March 2025"]
                              hero "Find it, price it, prove it."; disc "Find \u00b7 Price \u00b7 Prove"; door ["Meet Pippa \u2014 Enter \u00b7 Prove"]
   /platform @ 390            funnel 1  footer 1
-                             chapter past     figure "25" at 96px, glyphs 149 to 241 in a card 41 to 349; caption "years fixed"; "25" in the section: YES
-                             chapter lessons  figure "REVIEW" at 40px, glyphs 132 to 257 in a card 41 to 349; caption "before risk rolls forward"; "25" in the section: YES
-                             chapter solution figure "5" at 96px, glyphs 172 to 218 in a card 41 to 349; caption "year review window"; "25" in the section: YES
+                             chapter past     figure "25" at 96px, glyphs 149 to 241 in a card 41 to 349; caption "years fixed"; "25" in the story: YES; in the figures lane only in ["2024\u201325", "31 December 2025", "31 March 2025"]
+                             chapter lessons  figure "REVIEW" at 40px, glyphs 132 to 257 in a card 41 to 349; caption "before risk rolls forward"; "25" in the story: YES; in the figures lane only in ["2024\u201325", "31 December 2025", "31 March 2025"]
+                             chapter solution figure "5" at 96px, glyphs 172 to 218 in a card 41 to 349; caption "year review window"; "25" in the story: YES; in the figures lane only in ["2024\u201325", "31 December 2025", "31 March 2025"]
                              hero "Find it, price it, prove it."; disc "Find \u00b7 Price \u00b7 Prove"; door ["Meet Pippa \u2014 Enter \u00b7 Prove"]
-wave567   10 hydrated funnel readings, 8 chapter readings, 6 shots in docs/screenshots/wave567
+wave567   12 hydrated funnel readings, 8 chapter readings, 6 shots in docs/screenshots/wave567
 
-59 FAILURE(S) (recorded, not failed: before mode):
+61 FAILURE(S) (recorded, not failed: before mode):
   - markup register/broker/index.html: funnel-heading 1 time(s), expected 0.
   - markup register/care-provider/index.html: funnel-heading 1 time(s), expected 0.
   - markup register/developer/index.html: funnel-heading 1 time(s), expected 0.
@@ -37,6 +39,8 @@ wave567   10 hydrated funnel readings, 8 chapter readings, 6 shots in docs/scree
   - markup /platform og:description: ["The Property Finder, the Demand Map and an AI team that finds, prices and proves every home \u2014 one workflow, every figure sourced."]
   - live /register @ 1280: 1 #funnel-heading, expected 0.
   - live /register @ 390: 1 #funnel-heading, expected 0.
+  - live /register/ @ 1280: 1 #funnel-heading, expected 0.
+  - live /register/ @ 390: 1 #funnel-heading, expected 0.
   - live /register/investor @ 1280: 1 #funnel-heading, expected 0.
   - live /register/investor @ 390: 1 #funnel-heading, expected 0.
   - live /register/resident @ 1280: 1 #funnel-heading, expected 0.
@@ -50,12 +54,12 @@ wave567   10 hydrated funnel readings, 8 chapter readings, 6 shots in docs/scree
   - live /platform @ 1280: the comic strip carries ["PETRA FINDS IT.", "PETER PRICES IT."] of ["PETRA FINDS IT.", "PETER PRICES IT.", "PIPPA MATCHES IT."].
   - live /platform @ 1280: the page's text still carries ["PROVES", "Prove", "prove"].
   - live /platform @ 1280: the workflow panel for Pippa reads "Impact scoreHi, I\u2019m Pippa.Pippa scores the social impact of every home and makes the result easy to understand.Tool online \u00b7 Make the outcome visible".
-  - live /platform @ 1280 chapter past: the section's text carries "25".
+  - live /platform @ 1280 chapter past: the story's text carries "25".
   - live /platform @ 1280 chapter past: the strip reads ["25 years \u00b7 fixed legacy commitment", "5 years \u00b7 planned review window"].
   - live /platform @ 1280 chapter past: the figure reads ["25", "years fixed"].
-  - live /platform @ 1280 chapter lessons: the section's text carries "25".
+  - live /platform @ 1280 chapter lessons: the story's text carries "25".
   - live /platform @ 1280 chapter lessons: the strip reads ["25 years \u00b7 fixed legacy commitment", "5 years \u00b7 planned review window"].
-  - live /platform @ 1280 chapter solution: the section's text carries "25".
+  - live /platform @ 1280 chapter solution: the story's text carries "25".
   - live /platform @ 1280 chapter solution: the strip reads ["25 years \u00b7 fixed legacy commitment", "5 years \u00b7 planned review window"].
   - live /platform @ 1280 chapter solution: the figure reads ["5", "year review window"].
   - live /platform @ 1280 chapter solution: title reads "Five-year leases create room to adapt responsibly.".
@@ -70,12 +74,12 @@ wave567   10 hydrated funnel readings, 8 chapter readings, 6 shots in docs/scree
   - live /platform @ 390: the comic strip carries ["PETRA FINDS IT.", "PETER PRICES IT."] of ["PETRA FINDS IT.", "PETER PRICES IT.", "PIPPA MATCHES IT."].
   - live /platform @ 390: the page's text still carries ["PROVES", "Prove", "prove"].
   - live /platform @ 390: the workflow panel for Pippa reads "Impact scoreHi, I\u2019m Pippa.Pippa scores the social impact of every home and makes the result easy to understand.Tool online \u00b7 Make the outcome visible".
-  - live /platform @ 390 chapter past: the section's text carries "25".
+  - live /platform @ 390 chapter past: the story's text carries "25".
   - live /platform @ 390 chapter past: the strip reads ["25 years \u00b7 fixed legacy commitment", "5 years \u00b7 planned review window"].
   - live /platform @ 390 chapter past: the figure reads ["25", "years fixed"].
-  - live /platform @ 390 chapter lessons: the section's text carries "25".
+  - live /platform @ 390 chapter lessons: the story's text carries "25".
   - live /platform @ 390 chapter lessons: the strip reads ["25 years \u00b7 fixed legacy commitment", "5 years \u00b7 planned review window"].
-  - live /platform @ 390 chapter solution: the section's text carries "25".
+  - live /platform @ 390 chapter solution: the story's text carries "25".
   - live /platform @ 390 chapter solution: the strip reads ["25 years \u00b7 fixed legacy commitment", "5 years \u00b7 planned review window"].
   - live /platform @ 390 chapter solution: the figure reads ["5", "year review window"].
   - live /platform @ 390 chapter solution: title reads "Five-year leases create room to adapt responsibly.".

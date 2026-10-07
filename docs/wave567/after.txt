@@ -3,6 +3,8 @@ markup: funnel-heading present once in 18 pages, absent from 12
   absent: 404.html, register/broker/index.html, register/care-provider/index.html, register/developer/index.html, register/housing-association/index.html, register/index.html, register/investor/index.html, register/landlord/index.html, register/local-authority/index.html, register/resident/index.html, register/social-worker/index.html, register/support-provider/index.html
   /register @ 1280           funnel 0  footer 1
   /register @ 390            funnel 0  footer 1
+  /register/ @ 1280          funnel 0  footer 1
+  /register/ @ 390           funnel 0  footer 1
   /register/investor @ 1280  funnel 0  footer 1
   /register/investor @ 390   funnel 0  footer 1
   /register/resident @ 1280  funnel 0  footer 1
@@ -19,6 +21,6 @@ markup: funnel-heading present once in 18 pages, absent from 12
                              chapter lessons  figure "REVIEW" at 40px, glyphs 132 to 257 in a card 41 to 349; caption "before risk rolls forward"; "25" in the story: no; in the figures lane only in ["2024\u201325", "31 December 2025", "31 March 2025"]
                              chapter solution figure "5+" at 96px, glyphs 153 to 237 in a card 41 to 349; caption "year leases, renewed on evidence"; "25" in the story: no; in the figures lane only in ["2024\u201325", "31 December 2025", "31 March 2025"]
                              hero "Find it, price it, match it."; disc "Find \u00b7 Price \u00b7 Match"; door ["Meet Pippa \u2014 Enter \u00b7 Match"]
-wave567   10 hydrated funnel readings, 9 chapter readings, 7 shots in docs/screenshots/wave567
+wave567   12 hydrated funnel readings, 9 chapter readings, 7 shots in docs/screenshots/wave567
 
 All assertions passed.

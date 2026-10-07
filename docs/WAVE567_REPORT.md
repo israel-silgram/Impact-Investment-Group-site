@@ -5,10 +5,11 @@ base `origin/main` `26b308b` (wave 507's head, which did not move). Claimed by e
 commit `d44b872`: `feat/wave56*` returned nothing on the site remote, and 56, 560, 562 and
 566 on the platform remote, with no `docs/WAVE567*` on the site's `origin/main` and no
 queue row 567, so 567 was free on both and nothing was renamed. **Source head `9ba7dd3`**;
-everything after it is the gates' expectations for the changed routes, the guard's escape
-fix, and `docs/`. Nothing was pushed to `main`.
+everything after it is the gates' expectations for the changed routes, three changes to
+the guard (section 1a), a `.gitignore` line, and `docs/`. No `src` file has changed since
+`9ba7dd3`. Nothing was pushed to `main`.
 
-**Every string in section 6 is a PROPOSAL until Callum says yes to it.**
+**Every string in section 7 is a PROPOSAL until Callum says yes to it.**
 
 ## 0. The three changes, in plain words
 
@@ -31,10 +32,44 @@ fix, and `docs/`. Nothing was pushed to `main`.
 | Item | What | Commit |
 |---|---|---|
 | The plan | `docs/WAVE567_PLAN.md`, before the first edit | `a7caab0` |
-| The guard | NEW `scripts/wave567-copy.py`, and its red run on the base build: **59 failures** (`docs/wave567/before.txt`) | `3dfecba` |
+| The guard | NEW `scripts/wave567-copy.py`. Its red run on the base build, by the guard as it now stands: **61 failures** (`docs/wave567/before.txt`, section 1a) | `3dfecba`, then `a40591a` and `3d59e92` |
 | W1 | `src/components/site-footer.tsx`: the funnel is not rendered on `/register` or under `/register/` | `d00875a` |
 | W2 and W3 | `src/content/services.ts` and `src/routes/platform.tsx`: the lease section and the triad. One commit, because both workstreams edit the same two files | `9ba7dd3` |
 | W4 | the gates' expectations for the changed routes, three re-based before shots, the logs, the shots, this report | the commits after `9ba7dd3` |
+
+## 1a. The guard changed after its first red run, and the red run was redone
+
+The first red run, committed at `3dfecba`, read 59 failures. The guard was then changed
+three times, and `before.txt` was left as the first version had written it, which the
+reviewer of `eb102a7` caught: it printed "'25' in the section" and "the section's text
+carries", which the committed guard cannot print. The three changes:
+
+1. **Narrowed** (`a40591a`). The first version failed on any "25" in the whole How we
+   differ band. The band also holds the lane of three published figures, whose source
+   dates carry "25" and must stay (section 3). The guard now reads the lane apart from
+   the story: the story may carry no "25" at all, and the lane may carry it only inside
+   "31 March 2025", "31 December 2025" and "2024 to 25". This is a narrower rule than
+   the first, not only an escape fix, and the earlier wording of this report was wrong
+   to call it that.
+2. **The dash as an escape** (`a40591a`). The `DASH` constant held the character
+   literally.
+3. **Widened** (`3d59e92`). `/register/`, with the trailing slash the prerender writes,
+   is read as well as `/register`: 12 hydrated funnel readings where there were 10.
+
+**The red run, redone.** `26b308b` was checked out into a detached worktree of its own
+under the temp directory and built there (`STATIC_BUILD=true bun run build`, then
+`pages-postbuild.mjs`, rc 0, 30 pages: `docs/wave567/build-base.txt`), and the COMMITTED
+guard was run against it with `--mode before`: **61 failures** (`before.txt`,
+`copy-before.json`). 13 in the markup (the 11 register pages carrying the funnel, and
+the two meta values); 8 hydrated funnels (four register routes at two widths); and 20 on
+the hydrated `/platform` at each width, 40 in all (the hero, the two meta values, the
+doorway's name and label, the disc, the comic strip, the "prove" words, Pippa's panel,
+and 11 failures across the three chapters). The 59 of the first run plus the two readings of `/register/`.
+The narrowing removed none on the base: there the story itself says 25 in every
+chapter, and the lane's "25"s are all inside the three dates, as the log prints. The
+source check reads this branch's source, not the base's, so it adds no failure to the
+red run. The head run was then repeated with the same guard: exit 0 (`after.txt`,
+`copy-after.json`).
 
 ## 2. W1: the register pages drop the funnel (R567-3)
 
@@ -51,9 +86,9 @@ absent from **12**: `register/index.html`, the ten `register/<role>/index.html`,
 1,039 byte static page `scripts/pages-postbuild.mjs` writes. It has no footer and so no
 funnel, at the base as much as at the head (base: 29 with, 1 without).
 
-**Hydrated, at 1280 and 390:** `/register`, `/register/investor` and `/register/resident`
-carry no `#funnel-heading` and one footer; `/` and `/platform` carry one of each
-(`docs/wave567/after.txt`, 10 readings).
+**Hydrated, at 1280 and 390:** `/register`, `/register/` (the slash form the prerender
+writes), `/register/investor` and `/register/resident` carry no `#funnel-heading` and one
+footer; `/` and `/platform` carry one of each (`docs/wave567/after.txt`, 12 readings).
 
 **The diff of the footer.** `git diff --stat 26b308b HEAD -- src/components/site-footer.tsx`:
 
@@ -168,6 +203,21 @@ lint gate on three formatting errors of its own at the base, and changing one li
 would have meant either reformatting an unrelated dead module or reporting a changed
 file with lint errors. A clean-up wave can delete the module.
 
+**It is dead, checked two ways at the reviewer's request (7 Oct 2026, 13:00 UK):**
+
+```
+$ rg -n 'content/platform' src
+(no output)
+$ rg -il 'proves it' dist/client
+(no output)
+```
+
+No file in `src` imports the module, and no file in the head build carries "proves it"
+in any case, so the string reaches no page, no script bundle and no prerendered
+document. `dist/client` was the build of `9ba7dd3`, and `git diff 9ba7dd3 HEAD -- src
+public package.json bun.lock vite.config.ts` is empty, so it was not stale. Both
+searches printed nothing, so the module is left as it is and no P17 is proposed.
+
 **`rg -n -i 'prove it|prove\.|proves|Price · Prove|PRICE IT · PROVE' src` does not print
 nothing.** It prints four lines, none of them rendered and three of them not the triad:
 
@@ -219,13 +269,15 @@ and in the hydrated page; and the page's text carries no "prove" or "proves" as 
 
 Source tree `9ba7dd3`, built with `STATIC_BUILD=true bun run build` then
 `pages-postbuild.mjs`: **rc 0, 36 prerender lines, 30 pages** (`docs/wave567/build.txt`).
-The base was built the same way first and kept apart (`build-base.txt`). Every gate ran
+The base was built the same way and kept apart (`build-base.txt` is the log of the
+rebuild in section 1a; the base shots the pairing gates read came from the first base
+build, of the same commit). Every gate ran
 in the foreground on that head build. Logs under `docs/wave567/`.
 
 | Gate | Exit | Numbers |
 |---|---|---|
-| `wave567-copy.py` on the head (`after.txt`) | **0** | funnel in 18 pages, absent from 12; 10 hydrated funnel readings; 6 chapter readings asserted, no "25" in the story; every PROPOSAL string that renders read back exactly |
-| The same on the base (`before.txt`) | red | **59 failures**: 11 pages with the funnel, the two meta values, 6 hydrated funnels, and 20 readings of `/platform` at each width. Its source check read this branch's source, so it adds none |
+| `wave567-copy.py` on the head (`after.txt`) | **0** | funnel in 18 pages, absent from 12; 12 hydrated funnel readings; 6 chapter readings asserted, no "25" in the story; every PROPOSAL string that renders read back exactly |
+| The same committed guard on the base, rebuilt (`before.txt`) | red | **61 failures**: 11 pages with the funnel, the two meta values, 8 hydrated funnels, and 20 readings of `/platform` at each width. Its source check read this branch's source, so it adds none (section 1a) |
 | `wave412-screenshots.py` | **0** | 28 shots, all assertions passed; 274 INCOMPLETE nodes, 274 measured, 0 unmeasured, 1 off screen (home @ 390, as before). Darkest raw home @ 1280 **23.07%**, ground **8.21%** (507: 23.06 and 8.17) |
 | `wave413-motion.py` | **0** | all assertions passed |
 | `wave414-mobile.py` | **0** | 70 shots; 5,958 targets, 0 under 44, 0 closer than 8px; 5,225 type nodes, 0 under floor; 660 headings, 0 breaking; 0 serious or critical axe; 0 overflow. Lockup darkest box header 0.865, footer 0.789 (507: the same). 60 fewer targets and 45 fewer type nodes than 507: the funnel on three register routes at five widths |
@@ -237,7 +289,7 @@ in the foreground on that head build. Logs under `docs/wave567/`.
 | `wave493-logo.py` | **0** | all assertions passed; 10 pairs at 1280, 0 px differ outside the logo's reach (below) |
 | `wave493-og.py --check` | **0** | the card is the script's output |
 | `wave502-logo-name.py` | **0** | 65 lockup readings, 26 links, 130 tree names; **39 shots paired with 502's before set, 0 differ** |
-| `wave507-titles.py --by-design ...` | **0** | 30 pages, 174 live readings, 60 shots; 36 paired whole at 0 px; 24 paired band by band (below) |
+| `wave507-titles.py --by-design ...` | **0** | 30 pages, 174 live readings, 60 shots; 36 paired whole at 0 px; 24 paired band by band (below). The exact command line, with the twelve named pages and their bands, is at the top of `gate-507.txt` |
 | `tsc --noEmit` | **0** | |
 | `eslint` on the three changed `src` files | **0** | 0 errors, 0 warnings (`lint.txt`) |
 | Hex added under `src` | | 0 |
@@ -294,7 +346,7 @@ at the source head and two at the final head, none of them new.
 `src/components/site-footer.tsx` shows the "30+ years" line as added because it moved
 two spaces right with the rest of the funnel (section 2); its words are unchanged. The
 third was the guard's own `DASH` constant, which the first commit of the guard held as a
-literal character; the commit that carries this report writes it as an escape, as wave
+literal character; `a40591a` writes it as an escape, as wave
 507's guard had to. 0 en dashes. This report prints neither character. Two raw logs
 quoted copy the site already ships, 10 and 4 in `gate-412.txt` and 1 in
 `gate-490-probes.txt`; they are written there as `[em dash]` and `[en dash]`.
@@ -362,8 +414,8 @@ are no longer printed on their own: the strip prints `strip`.
 
 ## 9. Left as found, for a later wave
 
-1. `src/content/platform.ts` is imported by nothing and still says "Pippa proves it"
-   (section 4). Delete the module, or change the line when it is formatted.
+1. `src/content/platform.ts` is imported by nothing and still says "Pippa proves it".
+   Both searches in section 4 print nothing: it is dead and can go in a clean-up wave.
 2. `src/content/home.ts:369`, the home page step "Prove the impact". Out of scope here;
    Callum may want it to follow.
 3. The eyebrows "Option 4 · Character portals" and "Option 2 · Platform mission
