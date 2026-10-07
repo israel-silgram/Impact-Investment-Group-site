@@ -1,0 +1,83 @@
+wave567   mode=before  build=C:\Users\Israel\AppData\Local\Temp\w567-base\client
+markup: funnel-heading present once in 29 pages, absent from 1
+  absent: 404.html
+  /register @ 1280           funnel 1  footer 1
+  /register @ 390            funnel 1  footer 1
+  /register/investor @ 1280  funnel 1  footer 1
+  /register/investor @ 390   funnel 1  footer 1
+  /register/resident @ 1280  funnel 1  footer 1
+  /register/resident @ 390   funnel 1  footer 1
+  / @ 1280                   funnel 1  footer 1
+  / @ 390                    funnel 1  footer 1
+  /platform @ 1280           funnel 1  footer 1
+                             chapter past     figure "25" at 144px, glyphs 925 to 1064 in a card 823 to 1167; caption "years fixed"; "25" in the section: YES
+                             chapter lessons  figure "REVIEW" at 72px, glyphs 882 to 1107 in a card 823 to 1167; caption "before risk rolls forward"; "25" in the section: YES
+                             chapter solution figure "5" at 144px, glyphs 961 to 1029 in a card 823 to 1167; caption "year review window"; "25" in the section: YES
+                             hero "Find it, price it, prove it."; disc "Find \u00b7 Price \u00b7 Prove"; door ["Meet Pippa \u2014 Enter \u00b7 Prove"]
+  /platform @ 390            funnel 1  footer 1
+                             chapter past     figure "25" at 96px, glyphs 149 to 241 in a card 41 to 349; caption "years fixed"; "25" in the section: YES
+                             chapter lessons  figure "REVIEW" at 40px, glyphs 132 to 257 in a card 41 to 349; caption "before risk rolls forward"; "25" in the section: YES
+                             chapter solution figure "5" at 96px, glyphs 172 to 218 in a card 41 to 349; caption "year review window"; "25" in the section: YES
+                             hero "Find it, price it, prove it."; disc "Find \u00b7 Price \u00b7 Prove"; door ["Meet Pippa \u2014 Enter \u00b7 Prove"]
+wave567   10 hydrated funnel readings, 8 chapter readings, 6 shots in docs/screenshots/wave567
+
+59 FAILURE(S) (recorded, not failed: before mode):
+  - markup register/broker/index.html: funnel-heading 1 time(s), expected 0.
+  - markup register/care-provider/index.html: funnel-heading 1 time(s), expected 0.
+  - markup register/developer/index.html: funnel-heading 1 time(s), expected 0.
+  - markup register/housing-association/index.html: funnel-heading 1 time(s), expected 0.
+  - markup register/index.html: funnel-heading 1 time(s), expected 0.
+  - markup register/investor/index.html: funnel-heading 1 time(s), expected 0.
+  - markup register/landlord/index.html: funnel-heading 1 time(s), expected 0.
+  - markup register/local-authority/index.html: funnel-heading 1 time(s), expected 0.
+  - markup register/resident/index.html: funnel-heading 1 time(s), expected 0.
+  - markup register/social-worker/index.html: funnel-heading 1 time(s), expected 0.
+  - markup register/support-provider/index.html: funnel-heading 1 time(s), expected 0.
+  - markup /platform description: ["Find it, price it, prove it. We source UK residential property, price every home against named public data, and follow it into managed supported housing."]
+  - markup /platform og:description: ["The Property Finder, the Demand Map and an AI team that finds, prices and proves every home \u2014 one workflow, every figure sourced."]
+  - live /register @ 1280: 1 #funnel-heading, expected 0.
+  - live /register @ 390: 1 #funnel-heading, expected 0.
+  - live /register/investor @ 1280: 1 #funnel-heading, expected 0.
+  - live /register/investor @ 390: 1 #funnel-heading, expected 0.
+  - live /register/resident @ 1280: 1 #funnel-heading, expected 0.
+  - live /register/resident @ 390: 1 #funnel-heading, expected 0.
+  - live /platform @ 1280: the hero title reads "Find it, price it, prove it.".
+  - live /platform @ 1280: description reads ["Find it, price it, prove it. We source UK residential property, price every home against named public data, and follow it into managed supported housing."].
+  - live /platform @ 1280: og:description reads ["The Property Finder, the Demand Map and an AI team that finds, prices and proves every home \u2014 one workflow, every figure sourced."].
+  - live /platform @ 1280: Pippa's doorway is named ["Meet Pippa \u2014 Enter \u00b7 Prove"].
+  - live /platform @ 1280: Pippa's doorway reads ["Enter \u00b7 Prove"].
+  - live /platform @ 1280: the workflow disc reads "Find \u00b7 Price \u00b7 Prove".
+  - live /platform @ 1280: the comic strip carries ["PETRA FINDS IT.", "PETER PRICES IT."] of ["PETRA FINDS IT.", "PETER PRICES IT.", "PIPPA MATCHES IT."].
+  - live /platform @ 1280: the page's text still carries ["PROVES", "Prove", "prove"].
+  - live /platform @ 1280: the workflow panel for Pippa reads "Impact scoreHi, I\u2019m Pippa.Pippa scores the social impact of every home and makes the result easy to understand.Tool online \u00b7 Make the outcome visible".
+  - live /platform @ 1280 chapter past: the section's text carries "25".
+  - live /platform @ 1280 chapter past: the strip reads ["25 years \u00b7 fixed legacy commitment", "5 years \u00b7 planned review window"].
+  - live /platform @ 1280 chapter past: the figure reads ["25", "years fixed"].
+  - live /platform @ 1280 chapter lessons: the section's text carries "25".
+  - live /platform @ 1280 chapter lessons: the strip reads ["25 years \u00b7 fixed legacy commitment", "5 years \u00b7 planned review window"].
+  - live /platform @ 1280 chapter solution: the section's text carries "25".
+  - live /platform @ 1280 chapter solution: the strip reads ["25 years \u00b7 fixed legacy commitment", "5 years \u00b7 planned review window"].
+  - live /platform @ 1280 chapter solution: the figure reads ["5", "year review window"].
+  - live /platform @ 1280 chapter solution: title reads "Five-year leases create room to adapt responsibly.".
+  - live /platform @ 1280 chapter solution: body reads "Our five-year structure creates a clear point to review political, funding and economic change, while protecting the stability residents need from their home.".
+  - live /platform @ 1280 chapter solution: points reads ["Check the evidence of demand before renewing", "Respond to change without locking in avoidable risk", "Use what we have learnt to make each renewal decision"].
+  - live /platform @ 390: the hero title reads "Find it, price it, prove it.".
+  - live /platform @ 390: description reads ["Find it, price it, prove it. We source UK residential property, price every home against named public data, and follow it into managed supported housing."].
+  - live /platform @ 390: og:description reads ["The Property Finder, the Demand Map and an AI team that finds, prices and proves every home \u2014 one workflow, every figure sourced."].
+  - live /platform @ 390: Pippa's doorway is named ["Meet Pippa \u2014 Enter \u00b7 Prove"].
+  - live /platform @ 390: Pippa's doorway reads ["Enter \u00b7 Prove"].
+  - live /platform @ 390: the workflow disc reads "Find \u00b7 Price \u00b7 Prove".
+  - live /platform @ 390: the comic strip carries ["PETRA FINDS IT.", "PETER PRICES IT."] of ["PETRA FINDS IT.", "PETER PRICES IT.", "PIPPA MATCHES IT."].
+  - live /platform @ 390: the page's text still carries ["PROVES", "Prove", "prove"].
+  - live /platform @ 390: the workflow panel for Pippa reads "Impact scoreHi, I\u2019m Pippa.Pippa scores the social impact of every home and makes the result easy to understand.Tool online \u00b7 Make the outcome visible".
+  - live /platform @ 390 chapter past: the section's text carries "25".
+  - live /platform @ 390 chapter past: the strip reads ["25 years \u00b7 fixed legacy commitment", "5 years \u00b7 planned review window"].
+  - live /platform @ 390 chapter past: the figure reads ["25", "years fixed"].
+  - live /platform @ 390 chapter lessons: the section's text carries "25".
+  - live /platform @ 390 chapter lessons: the strip reads ["25 years \u00b7 fixed legacy commitment", "5 years \u00b7 planned review window"].
+  - live /platform @ 390 chapter solution: the section's text carries "25".
+  - live /platform @ 390 chapter solution: the strip reads ["25 years \u00b7 fixed legacy commitment", "5 years \u00b7 planned review window"].
+  - live /platform @ 390 chapter solution: the figure reads ["5", "year review window"].
+  - live /platform @ 390 chapter solution: title reads "Five-year leases create room to adapt responsibly.".
+  - live /platform @ 390 chapter solution: body reads "Our five-year structure creates a clear point to review political, funding and economic change, while protecting the stability residents need from their home.".
+  - live /platform @ 390 chapter solution: points reads ["Check the evidence of demand before renewing", "Respond to change without locking in avoidable risk", "Use what we have learnt to make each renewal decision"].
