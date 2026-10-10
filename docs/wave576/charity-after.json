@@ -1,0 +1,346 @@
+{
+ "mode": "after",
+ "build": "C:\\Users\\Israel\\Documents\\repos\\iigs-uc576\\dist\\client",
+ "live": {
+  "/ lcp @ 1280": {
+   "tag": "IMG",
+   "url": "/images/hero-ground-street-960.webp",
+   "text": "",
+   "id": "",
+   "cls": "hero-ground-photo size-full object-cover object-[60%_45%]"
+  },
+  "/ @ 1280": {
+   "footer": {
+    "footers": 1,
+    "paragraphs": [
+     "Coming soon \u00b7 Register your interest",
+     "Providing Homes.Delivering Support.Transforming Lives.",
+     "30+ years across property, housing, care and support \u2014 not an estate agency, a national network.",
+     "If life is at risk, call 999.",
+     "We are building the UK's specialist property, care, AI and social impact platform \u2014 connecting investors, housing associations, landlords, providers and partners to create homes for families in temporary accommodation and vulnerable adults needing supported housing.",
+     "ICO Registered",
+     "Data protection \u00b7 ZB957755 \u00b7 Verify on register",
+     "PRS Member",
+     "Consumer redress \u00b7 PRS053648 \u00b7 Verify with the scheme",
+     "Provider: HF Resolution Ltd t/a PRS \u00b7 Scheme phone: 0333 321 9418",
+     "PI & PL Insured",
+     "Indemnity & liability \u00b7 FCA broker FRN 305402 \u00b7 Verify the broker on the FCA register",
+     "PI limit \u00a3100,000 \u00b7 PL limit \u00a310,000,000 \u00b7 Current insurance evidence available on request \u00b7 Underwritten by Victor Insurance / MS Amlin via Insurance-Desk Services",
+     "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+     "Not authorised or regulated by the FCA \u00b7 not a Collective Investment Scheme \u00b7 capital at risk \u00b7 sourcing, packaging and managed investment services, not advice \u00b7 take independent advice. Impact Investment Group UK Limited is registered in England and Wales, company number 16650494. Registered office: Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG. \u00a9 2026, an Impact Investment Group initiative."
+    ],
+    "pledge": [
+     {
+      "text": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+      "size": "13px",
+      "weight": "600",
+      "colour": "rgb(10, 44, 96)"
+     }
+    ]
+   },
+   "band": [
+    {
+     "family": "Barlow, \"Barlow fallback\", system-ui, sans-serif",
+     "weight": "700",
+     "size": "28px",
+     "band": "rgb(251, 246, 240)",
+     "alt": "rgb(251, 246, 240)",
+     "border": "1px",
+     "top": 1796.75,
+     "viewport": 900
+    }
+   ]
+  },
+  "/about @ 1280": {
+   "footer": {
+    "footers": 1,
+    "paragraphs": [
+     "Coming soon \u00b7 Register your interest",
+     "Providing Homes.Delivering Support.Transforming Lives.",
+     "30+ years across property, housing, care and support \u2014 not an estate agency, a national network.",
+     "If life is at risk, call 999.",
+     "We are building the UK's specialist property, care, AI and social impact platform \u2014 connecting investors, housing associations, landlords, providers and partners to create homes for families in temporary accommodation and vulnerable adults needing supported housing.",
+     "ICO Registered",
+     "Data protection \u00b7 ZB957755 \u00b7 Verify on register",
+     "PRS Member",
+     "Consumer redress \u00b7 PRS053648 \u00b7 Verify with the scheme",
+     "Provider: HF Resolution Ltd t/a PRS \u00b7 Scheme phone: 0333 321 9418",
+     "PI & PL Insured",
+     "Indemnity & liability \u00b7 FCA broker FRN 305402 \u00b7 Verify the broker on the FCA register",
+     "PI limit \u00a3100,000 \u00b7 PL limit \u00a310,000,000 \u00b7 Current insurance evidence available on request \u00b7 Underwritten by Victor Insurance / MS Amlin via Insurance-Desk Services",
+     "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+     "Not authorised or regulated by the FCA \u00b7 not a Collective Investment Scheme \u00b7 capital at risk \u00b7 sourcing, packaging and managed investment services, not advice \u00b7 take independent advice. Impact Investment Group UK Limited is registered in England and Wales, company number 16650494. Registered office: Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG. \u00a9 2026, an Impact Investment Group initiative."
+    ],
+    "pledge": [
+     {
+      "text": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+      "size": "13px",
+      "weight": "600",
+      "colour": "rgb(10, 44, 96)"
+     }
+    ]
+   },
+   "summary": {
+    "lines": [
+     "We turn property investment into safe, suitable homes across the UK.",
+     "Connecting investors, landlords and developers with councils, housing associations and care providers.",
+     "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow."
+    ],
+    "third": true,
+    "all": 1
+   }
+  },
+  "/register @ 1280": {
+   "footer": {
+    "footers": 1,
+    "paragraphs": [
+     "If life is at risk, call 999.",
+     "We are building the UK's specialist property, care, AI and social impact platform \u2014 connecting investors, housing associations, landlords, providers and partners to create homes for families in temporary accommodation and vulnerable adults needing supported housing.",
+     "ICO Registered",
+     "Data protection \u00b7 ZB957755 \u00b7 Verify on register",
+     "PRS Member",
+     "Consumer redress \u00b7 PRS053648 \u00b7 Verify with the scheme",
+     "Provider: HF Resolution Ltd t/a PRS \u00b7 Scheme phone: 0333 321 9418",
+     "PI & PL Insured",
+     "Indemnity & liability \u00b7 FCA broker FRN 305402 \u00b7 Verify the broker on the FCA register",
+     "PI limit \u00a3100,000 \u00b7 PL limit \u00a310,000,000 \u00b7 Current insurance evidence available on request \u00b7 Underwritten by Victor Insurance / MS Amlin via Insurance-Desk Services",
+     "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+     "Not authorised or regulated by the FCA \u00b7 not a Collective Investment Scheme \u00b7 capital at risk \u00b7 sourcing, packaging and managed investment services, not advice \u00b7 take independent advice. Impact Investment Group UK Limited is registered in England and Wales, company number 16650494. Registered office: Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG. \u00a9 2026, an Impact Investment Group initiative."
+    ],
+    "pledge": [
+     {
+      "text": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+      "size": "13px",
+      "weight": "600",
+      "colour": "rgb(10, 44, 96)"
+     }
+    ]
+   }
+  },
+  "/register/investor @ 1280": {
+   "footer": {
+    "footers": 1,
+    "paragraphs": [
+     "If life is at risk, call 999.",
+     "We are building the UK's specialist property, care, AI and social impact platform \u2014 connecting investors, housing associations, landlords, providers and partners to create homes for families in temporary accommodation and vulnerable adults needing supported housing.",
+     "ICO Registered",
+     "Data protection \u00b7 ZB957755 \u00b7 Verify on register",
+     "PRS Member",
+     "Consumer redress \u00b7 PRS053648 \u00b7 Verify with the scheme",
+     "Provider: HF Resolution Ltd t/a PRS \u00b7 Scheme phone: 0333 321 9418",
+     "PI & PL Insured",
+     "Indemnity & liability \u00b7 FCA broker FRN 305402 \u00b7 Verify the broker on the FCA register",
+     "PI limit \u00a3100,000 \u00b7 PL limit \u00a310,000,000 \u00b7 Current insurance evidence available on request \u00b7 Underwritten by Victor Insurance / MS Amlin via Insurance-Desk Services",
+     "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+     "Not authorised or regulated by the FCA \u00b7 not a Collective Investment Scheme \u00b7 capital at risk \u00b7 sourcing, packaging and managed investment services, not advice \u00b7 take independent advice. Impact Investment Group UK Limited is registered in England and Wales, company number 16650494. Registered office: Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG. \u00a9 2026, an Impact Investment Group initiative."
+    ],
+    "pledge": [
+     {
+      "text": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+      "size": "13px",
+      "weight": "600",
+      "colour": "rgb(10, 44, 96)"
+     }
+    ]
+   }
+  },
+  "/ lcp @ 390": {
+   "tag": "IMG",
+   "url": "/images/hero-homes-400.webp",
+   "text": "",
+   "id": "",
+   "cls": "aspect-[5/4] w-full rounded-xl border border-rule object-cover"
+  },
+  "/ @ 390": {
+   "footer": {
+    "footers": 1,
+    "paragraphs": [
+     "Coming soon \u00b7 Register your interest",
+     "Providing Homes.Delivering Support.Transforming Lives.",
+     "30+ years across property, housing, care and support \u2014 not an estate agency, a national network.",
+     "If life is at risk, call 999.",
+     "We are building the UK's specialist property, care, AI and social impact platform \u2014 connecting investors, housing associations, landlords, providers and partners to create homes for families in temporary accommodation and vulnerable adults needing supported housing.",
+     "ICO Registered",
+     "Data protection \u00b7 ZB957755 \u00b7 Verify on register",
+     "PRS Member",
+     "Consumer redress \u00b7 PRS053648 \u00b7 Verify with the scheme",
+     "Provider: HF Resolution Ltd t/a PRS \u00b7 Scheme phone: 0333 321 9418",
+     "PI & PL Insured",
+     "Indemnity & liability \u00b7 FCA broker FRN 305402 \u00b7 Verify the broker on the FCA register",
+     "PI limit \u00a3100,000 \u00b7 PL limit \u00a310,000,000 \u00b7 Current insurance evidence available on request \u00b7 Underwritten by Victor Insurance / MS Amlin via Insurance-Desk Services",
+     "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+     "Not authorised or regulated by the FCA \u00b7 not a Collective Investment Scheme \u00b7 capital at risk \u00b7 sourcing, packaging and managed investment services, not advice \u00b7 take independent advice. Impact Investment Group UK Limited is registered in England and Wales, company number 16650494. Registered office: Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG. \u00a9 2026, an Impact Investment Group initiative."
+    ],
+    "pledge": [
+     {
+      "text": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+      "size": "15px",
+      "weight": "600",
+      "colour": "rgb(10, 44, 96)"
+     }
+    ]
+   },
+   "band": [
+    {
+     "family": "Barlow, \"Barlow fallback\", system-ui, sans-serif",
+     "weight": "700",
+     "size": "20px",
+     "band": "rgb(251, 246, 240)",
+     "alt": "rgb(251, 246, 240)",
+     "border": "1px",
+     "top": 2901.921875,
+     "viewport": 844
+    }
+   ]
+  },
+  "/about @ 390": {
+   "footer": {
+    "footers": 1,
+    "paragraphs": [
+     "Coming soon \u00b7 Register your interest",
+     "Providing Homes.Delivering Support.Transforming Lives.",
+     "30+ years across property, housing, care and support \u2014 not an estate agency, a national network.",
+     "If life is at risk, call 999.",
+     "We are building the UK's specialist property, care, AI and social impact platform \u2014 connecting investors, housing associations, landlords, providers and partners to create homes for families in temporary accommodation and vulnerable adults needing supported housing.",
+     "ICO Registered",
+     "Data protection \u00b7 ZB957755 \u00b7 Verify on register",
+     "PRS Member",
+     "Consumer redress \u00b7 PRS053648 \u00b7 Verify with the scheme",
+     "Provider: HF Resolution Ltd t/a PRS \u00b7 Scheme phone: 0333 321 9418",
+     "PI & PL Insured",
+     "Indemnity & liability \u00b7 FCA broker FRN 305402 \u00b7 Verify the broker on the FCA register",
+     "PI limit \u00a3100,000 \u00b7 PL limit \u00a310,000,000 \u00b7 Current insurance evidence available on request \u00b7 Underwritten by Victor Insurance / MS Amlin via Insurance-Desk Services",
+     "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+     "Not authorised or regulated by the FCA \u00b7 not a Collective Investment Scheme \u00b7 capital at risk \u00b7 sourcing, packaging and managed investment services, not advice \u00b7 take independent advice. Impact Investment Group UK Limited is registered in England and Wales, company number 16650494. Registered office: Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG. \u00a9 2026, an Impact Investment Group initiative."
+    ],
+    "pledge": [
+     {
+      "text": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+      "size": "15px",
+      "weight": "600",
+      "colour": "rgb(10, 44, 96)"
+     }
+    ]
+   },
+   "summary": {
+    "lines": [
+     "We turn property investment into safe, suitable homes across the UK.",
+     "Connecting investors, landlords and developers with councils, housing associations and care providers.",
+     "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow."
+    ],
+    "third": true,
+    "all": 1
+   }
+  },
+  "/register @ 390": {
+   "footer": {
+    "footers": 1,
+    "paragraphs": [
+     "If life is at risk, call 999.",
+     "We are building the UK's specialist property, care, AI and social impact platform \u2014 connecting investors, housing associations, landlords, providers and partners to create homes for families in temporary accommodation and vulnerable adults needing supported housing.",
+     "ICO Registered",
+     "Data protection \u00b7 ZB957755 \u00b7 Verify on register",
+     "PRS Member",
+     "Consumer redress \u00b7 PRS053648 \u00b7 Verify with the scheme",
+     "Provider: HF Resolution Ltd t/a PRS \u00b7 Scheme phone: 0333 321 9418",
+     "PI & PL Insured",
+     "Indemnity & liability \u00b7 FCA broker FRN 305402 \u00b7 Verify the broker on the FCA register",
+     "PI limit \u00a3100,000 \u00b7 PL limit \u00a310,000,000 \u00b7 Current insurance evidence available on request \u00b7 Underwritten by Victor Insurance / MS Amlin via Insurance-Desk Services",
+     "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+     "Not authorised or regulated by the FCA \u00b7 not a Collective Investment Scheme \u00b7 capital at risk \u00b7 sourcing, packaging and managed investment services, not advice \u00b7 take independent advice. Impact Investment Group UK Limited is registered in England and Wales, company number 16650494. Registered office: Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG. \u00a9 2026, an Impact Investment Group initiative."
+    ],
+    "pledge": [
+     {
+      "text": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+      "size": "15px",
+      "weight": "600",
+      "colour": "rgb(10, 44, 96)"
+     }
+    ]
+   }
+  },
+  "/register/investor @ 390": {
+   "footer": {
+    "footers": 1,
+    "paragraphs": [
+     "If life is at risk, call 999.",
+     "We are building the UK's specialist property, care, AI and social impact platform \u2014 connecting investors, housing associations, landlords, providers and partners to create homes for families in temporary accommodation and vulnerable adults needing supported housing.",
+     "ICO Registered",
+     "Data protection \u00b7 ZB957755 \u00b7 Verify on register",
+     "PRS Member",
+     "Consumer redress \u00b7 PRS053648 \u00b7 Verify with the scheme",
+     "Provider: HF Resolution Ltd t/a PRS \u00b7 Scheme phone: 0333 321 9418",
+     "PI & PL Insured",
+     "Indemnity & liability \u00b7 FCA broker FRN 305402 \u00b7 Verify the broker on the FCA register",
+     "PI limit \u00a3100,000 \u00b7 PL limit \u00a310,000,000 \u00b7 Current insurance evidence available on request \u00b7 Underwritten by Victor Insurance / MS Amlin via Insurance-Desk Services",
+     "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+     "Not authorised or regulated by the FCA \u00b7 not a Collective Investment Scheme \u00b7 capital at risk \u00b7 sourcing, packaging and managed investment services, not advice \u00b7 take independent advice. Impact Investment Group UK Limited is registered in England and Wales, company number 16650494. Registered office: Renewal Trust Business Centre, 3 Hawksworth Street, Nottingham NG3 2EG. \u00a9 2026, an Impact Investment Group initiative."
+    ],
+    "pledge": [
+     {
+      "text": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+      "size": "15px",
+      "weight": "600",
+      "colour": "rgb(10, 44, 96)"
+     }
+    ]
+   }
+  }
+ },
+ "constant": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
+ "source_named": [
+  "src/content/charity.ts"
+ ],
+ "importers": [
+  "src/components/site-footer.tsx",
+  "src/content/about.ts",
+  "src/routes/index.tsx"
+ ],
+ "footer_count": {
+  "404.html": 0,
+  "about/index.html": 1,
+  "contact/index.html": 1,
+  "index.html": 1,
+  "legal/index.html": 1,
+  "partner-with-broker/index.html": 1,
+  "partner-with-care-provider/index.html": 1,
+  "partner-with-developer/index.html": 1,
+  "partner-with-housing-association/index.html": 1,
+  "partner-with-investor/index.html": 1,
+  "partner-with-landlord/index.html": 1,
+  "partner-with-local-authority/index.html": 1,
+  "partner-with-resident/index.html": 1,
+  "partner-with-social-worker/index.html": 1,
+  "partner-with-support-provider/index.html": 1,
+  "partners/index.html": 1,
+  "platform/index.html": 1,
+  "register/broker/index.html": 1,
+  "register/care-provider/index.html": 1,
+  "register/developer/index.html": 1,
+  "register/housing-association/index.html": 1,
+  "register/index.html": 1,
+  "register/investor/index.html": 1,
+  "register/landlord/index.html": 1,
+  "register/local-authority/index.html": 1,
+  "register/resident/index.html": 1,
+  "register/social-worker/index.html": 1,
+  "register/support-provider/index.html": 1,
+  "solutions/index.html": 1,
+  "the-problem/index.html": 1
+ },
+ "pages_with_footer_sentence": 29,
+ "totals": {
+  "index.html": 2,
+  "about/index.html": 2
+ },
+ "preloads": [
+  "<link rel=\"preload\" as=\"font\" type=\"font/woff2\" href=\"/assets/barlow-latin-700-normal-A9pxMQ4z.woff2\" crossorigin=\"anonymous\"/>",
+  "<link rel=\"preload\" as=\"font\" type=\"font/woff2\" href=\"/assets/barlow-latin-800-normal-s1sAMnoV.woff2\" crossorigin=\"anonymous\"/>",
+  "<link rel=\"preload\" as=\"font\" type=\"font/woff2\" href=\"/assets/inter-latin-wght-normal-Dx4kXJAl.woff2\" crossorigin=\"anonymous\"/>",
+  "<link rel=\"preload\" as=\"image\" imageSrcSet=\"/images/brand/logo-lockup-400.webp 400w, /images/brand/logo-lockup-640.webp 640w, /images/brand/logo-lockup-960.webp 960w, /images/brand/logo-lockup-1440.webp 1440w, /images/brand/logo-lockup.webp 2006w\" imageSizes=\"(min-width: 1440px) 285px, (min-width: 1280px) 233px, (min-width: 640px) 285px, 220px\" fetchPriority=\"high\"/>",
+  "<link rel=\"preload\" as=\"image\" imageSrcSet=\"/images/brand/logo-lockup-400.webp 400w, /images/brand/logo-lockup-640.webp 640w, /images/brand/logo-lockup-960.webp 960w, /images/brand/logo-lockup-1440.webp 1440w, /images/brand/logo-lockup.webp 2006w\" imageSizes=\"285px\" fetchPriority=\"high\"/>",
+  "<link rel=\"preload\" as=\"image\" imageSrcSet=\"/images/hero-homes-400.webp 400w, /images/hero-homes-640.webp 640w, /images/hero-homes-960.webp 960w, /images/hero-homes.webp 1280w\" imageSizes=\"(min-width: 768px) 30vw, 88vw\" fetchPriority=\"high\"/>",
+  "<link rel=\"preload\" as=\"image\" imageSrcSet=\"/images/hero-lives-400.webp 400w, /images/hero-lives-640.webp 640w, /images/hero-lives-960.webp 960w, /images/hero-lives.webp 1280w\" imageSizes=\"(min-width: 768px) 30vw, 88vw\" fetchPriority=\"high\"/>",
+  "<link rel=\"preload\" as=\"image\" imageSrcSet=\"/images/hero-support-400.webp 400w, /images/hero-support-640.webp 640w, /images/hero-support-960.webp 960w, /images/hero-support.webp 1280w\" imageSizes=\"(min-width: 768px) 30vw, 88vw\" fetchPriority=\"high\"/>"
+ ]
+}

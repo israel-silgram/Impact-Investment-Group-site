@@ -1,0 +1,36 @@
+wave576   arm=a1  (source and markup mutated in memory, static checks only)
+  - constant: charityPledge reads "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow".
+  - markup about/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup contact/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup legal/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-broker/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-care-provider/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-developer/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-housing-association/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-investor/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-landlord/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-local-authority/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-resident/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-social-worker/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-support-provider/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partners/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup platform/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/broker/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/care-provider/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/developer/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/housing-association/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/investor/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/landlord/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/local-authority/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/resident/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/social-worker/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/support-provider/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup solutions/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup the-problem/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup index.html: the sentence is 0 time(s) in all, expected 2.
+  - markup about/index.html: the sentence is 0 time(s) in all, expected 2.
+  - markup: 0 occurrences across the other pages, expected one each.
+
+33 FAILURE(S) from arm a1.

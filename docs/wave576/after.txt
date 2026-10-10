@@ -1,0 +1,19 @@
+wave576   mode=after  build=C:\Users\Israel\Documents\repos\iigs-uc576\dist\client
+markup: the sentence is once in the footer of 29 pages; totals {'index.html': 2, 'about/index.html': 2}
+  / lcp @ 1280               {"tag": "IMG", "url": "/images/hero-ground-street-960.webp", "text": "", "id": "", "cls": "hero-ground-photo size-full object-cover object-[60%_45%]"}
+  / @ 1280                   footers 1  pledge paragraphs 1
+                             band Barlow 700 28px, ground rgb(251, 246, 240), top 1797px of a 900px viewport
+  /about @ 1280              footers 1  pledge paragraphs 1
+                             summary lines 3, third is the sentence: True
+  /register @ 1280           footers 1  pledge paragraphs 1
+  /register/investor @ 1280  footers 1  pledge paragraphs 1
+  / lcp @ 390                {"tag": "IMG", "url": "/images/hero-homes-400.webp", "text": "", "id": "", "cls": "aspect-[5/4] w-full rounded-xl border border-rule object-cover"}
+  / @ 390                    footers 1  pledge paragraphs 1
+                             band Barlow 700 20px, ground rgb(251, 246, 240), top 2902px of a 844px viewport
+  /about @ 390               footers 1  pledge paragraphs 1
+                             summary lines 3, third is the sentence: True
+  /register @ 390            footers 1  pledge paragraphs 1
+  /register/investor @ 390   footers 1  pledge paragraphs 1
+wave576   12 hydrated readings, 6 shots in docs/screenshots/wave576
+
+All assertions passed.

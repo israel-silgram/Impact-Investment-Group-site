@@ -1,0 +1,5 @@
+wave576   arm=a2  (source and markup mutated in memory, static checks only)
+  - source: 'Metro World Child' is held by ['src/components/site-footer.tsx', 'src/content/charity.ts'], expected only ['src/content/charity.ts'].
+  - source: src/components/site-footer.tsx holds the sentence itself, not the constant.
+
+2 FAILURE(S) from arm a2.

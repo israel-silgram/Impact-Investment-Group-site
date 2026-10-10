@@ -1,0 +1,61 @@
+wave576   mode=before  build=C:\Users\Israel\AppData\Local\Temp\iigs-w576-base\dist\client
+markup: the sentence is once in the footer of 0 pages; totals {'index.html': 0, 'about/index.html': 0}
+  / lcp @ 1280               {"tag": "IMG", "url": "/images/hero-ground-street-960.webp", "text": "", "id": "", "cls": "hero-ground-photo size-full object-cover object-[60%_45%]"}
+  / @ 1280                   footers 1  pledge paragraphs 0
+  /about @ 1280              footers 1  pledge paragraphs 0
+                             summary lines 2, third is the sentence: False
+  /register @ 1280           footers 1  pledge paragraphs 0
+  /register/investor @ 1280  footers 1  pledge paragraphs 0
+  / lcp @ 390                {"tag": "IMG", "url": "/images/hero-homes-400.webp", "text": "", "id": "", "cls": "aspect-[5/4] w-full rounded-xl border border-rule object-cover"}
+  / @ 390                    footers 1  pledge paragraphs 0
+  /about @ 390               footers 1  pledge paragraphs 0
+                             summary lines 2, third is the sentence: False
+  /register @ 390            footers 1  pledge paragraphs 0
+  /register/investor @ 390   footers 1  pledge paragraphs 0
+wave576   12 hydrated readings, 6 shots in docs/screenshots/wave576
+
+44 FAILURE(S) (recorded, not failed: before mode):
+  - markup about/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup contact/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup legal/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-broker/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-care-provider/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-developer/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-housing-association/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-investor/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-landlord/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-local-authority/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-resident/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-social-worker/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partner-with-support-provider/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup partners/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup platform/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/broker/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/care-provider/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/developer/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/housing-association/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/investor/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/landlord/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/local-authority/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/resident/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/social-worker/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup register/support-provider/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup solutions/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup the-problem/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup index.html: the sentence is 0 time(s) in all, expected 2.
+  - markup about/index.html: the sentence is 0 time(s) in all, expected 2.
+  - markup: 0 occurrences across the other pages, expected one each.
+  - live / @ 1280: the footer's pledge paragraphs read [].
+  - live / @ 1280: 0 home band paragraph(s) read the sentence, expected 1.
+  - live /about @ 1280: the footer's pledge paragraphs read [].
+  - live /about @ 1280: the summary's third line reads [].
+  - live /register @ 1280: the footer's pledge paragraphs read [].
+  - live /register/investor @ 1280: the footer's pledge paragraphs read [].
+  - live / @ 390: the footer's pledge paragraphs read [].
+  - live / @ 390: 0 home band paragraph(s) read the sentence, expected 1.
+  - live /about @ 390: the footer's pledge paragraphs read [].
+  - live /about @ 390: the summary's third line reads [].
+  - live /register @ 390: the footer's pledge paragraphs read [].
+  - live /register/investor @ 390: the footer's pledge paragraphs read [].
