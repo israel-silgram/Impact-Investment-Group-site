@@ -1,8 +1,8 @@
 # Wave 576 plan: the site says ten per cent goes to Metro World Child UK
 
 Base `origin/main` `73fcf6f` (wave 567's head). Branch
-`feat/wave576-the-site-says-ten-percent-goes-to-metro-world-child`. Claimed by an empty
-commit before the first edit; no other `feat/wave576*` on the site or platform remote, no
+`feat/wave576-the-site-says-ten-percent-goes-to-metro-world-child`. Claimed by commit
+`b51d4c5` (which carries this plan; it is not empty) before the first edit of `src`; no other `feat/wave576*` on the site or platform remote, no
 `docs/WAVE576*` on the site's `origin/main`, no queue row 576.
 
 Callum's sentence ships verbatim, from one constant, in `src/content/charity.ts`. It is

@@ -1,0 +1,5 @@
+# Z1: element captures of main, the base against the head (same pages the full-page tiling put one level apart). Output of the control script, 0 = equal in every pixel.
+/partner-with-broker 390 (4352, 390, 4) (4352, 390, 4) 0
+/partner-with-housing-association 1280 (3779, 1280, 4) (3779, 1280, 4) 0
+/partner-with-support-provider 1280 (3852, 1280, 4) (3852, 1280, 4) 0
+/partner-with-investor 390 (4252, 390, 4) (4252, 390, 4) 0
