@@ -12,7 +12,7 @@ markup: the sentence is once in the footer of 0 pages; totals {'index.html': 0, 
                              summary lines 2, third is the sentence: False
   /register @ 390            footers 1  pledge paragraphs 0
   /register/investor @ 390   footers 1  pledge paragraphs 0
-wave576   12 hydrated readings, 6 shots in docs/screenshots/wave576
+wave576   12 hydrated readings, 0 bands paired, 6 shots in docs/screenshots/wave576
 
 44 FAILURE(S) (recorded, not failed: before mode):
   - markup about/index.html: the sentence is in the footer 0 time(s), expected 1.

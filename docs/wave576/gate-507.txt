@@ -1,0 +1,157 @@
+# The command this log is from, run on the head build in dist/client, against the base shots from
+# python scripts/wave507-titles.py --build <base build of 73fcf6f> --mode before :
+#
+#   python scripts/wave507-titles.py --band-noise 1 --by-design "about=main+footer,contact=footer,home=main+footer,legal=footer,partner-with-broker=footer,partner-with-care-provider=footer,partner-with-developer=footer,partner-with-housing-association=footer,partner-with-investor=footer,partner-with-landlord=footer,partner-with-local-authority=footer,partner-with-resident=footer,partner-with-social-worker=footer,partner-with-support-provider=footer,partners=footer,platform=footer,register=footer,register-broker=footer,register-care-provider=footer,register-developer=footer,register-housing-association=footer,register-investor=footer,register-landlord=footer,register-local-authority=footer,register-resident=footer,register-social-worker=footer,register-support-provider=footer,solutions=footer,the-problem=footer"
+#
+wave507   mode=after  build=C:\Users\Israel\Documents\repos\iigs-uc576\dist\client
+  /404.html                          title ["Page not found"]
+  /about/                            title ["About Us [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["About Us [em dash] Impact Investment Group"]
+  /contact/                          title ["Contact [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Contact [em dash] Impact Investment Group"]
+  /                                  title ["Impact Investment Group [em dash] Social Impact Property & Supported Housing"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Impact Investment Group [em dash] Social Impact Property & Supported Housing"]
+  /legal/                            title ["Legal and company information · Impact Investment Group UK Limited"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Legal and company information · Impact Investment Group UK Limited"]
+  /partner-with-broker/              title ["Partner with a Broker [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Broker [em dash] Impact Investment Group"]
+  /partner-with-care-provider/       title ["Partner with a Care Provider [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Care Provider [em dash] Impact Investment Group"]
+  /partner-with-developer/           title ["Partner with a Developer [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Developer [em dash] Impact Investment Group"]
+  /partner-with-housing-association/ title ["Partner with a Housing Association [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Housing Association [em dash] Impact Investment Group"]
+  /partner-with-investor/            title ["Partner with Property Investor [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with Property Investor [em dash] Impact Investment Group"]
+  /partner-with-landlord/            title ["Partner with a Landlord [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Landlord [em dash] Impact Investment Group"]
+  /partner-with-local-authority/     title ["Partner with a Local Authority [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Local Authority [em dash] Impact Investment Group"]
+  /partner-with-resident/            title ["Housing for Residents, Individuals & Families [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Housing for Residents, Individuals & Families [em dash] Impact Investment Group"]
+  /partner-with-social-worker/       title ["Partner with a Social Worker [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Social Worker [em dash] Impact Investment Group"]
+  /partner-with-support-provider/    title ["Partner with a Support Provider [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Partner with a Support Provider [em dash] Impact Investment Group"]
+  /partners/                         title ["Our Partners [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+  /platform/                         title ["Our Services [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Our Services [em dash] Impact Investment Group"]
+  /register/broker/                  title ["Both sides of your deal, on one platform | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Both sides of your deal, on one platform | Impact Investment Group"]
+  /register/care-provider/           title ["Stop losing referrals because the building is not there | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Stop losing referrals because the building is not there | Impact Investment Group"]
+  /register/developer/               title ["Know where the demand is before you commit to the site | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Know where the demand is before you commit to the site | Impact Investment Group"]
+  /register/housing-association/     title ["Stock, partners and demand, in one view | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Stock, partners and demand, in one view | Impact Investment Group"]
+  /register/                         title ["Register to join the waitlist | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Register to join the waitlist | Impact Investment Group"]
+  /register/investor/                title ["Tell us the deal you want to see, and see it first | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Tell us the deal you want to see, and see it first | Impact Investment Group"]
+  /register/landlord/                title ["Tell us what you own, and we will bring the demand to you | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Tell us what you own, and we will bring the demand to you | Impact Investment Group"]
+  /register/local-authority/         title ["Tell us where the pressure is, and we will go and find the homes | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Tell us where the pressure is, and we will go and find the homes | Impact Investment Group"]
+  /register/resident/                title ["Tell us what you need, and where | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["Tell us what you need, and where | Impact Investment Group"]
+  /register/social-worker/           title ["One place to look, instead of ringing round | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["One place to look, instead of ringing round | Impact Investment Group"]
+  /register/support-provider/        title ["The commission comes first and the building never does | Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["The commission comes first and the building never does | Impact Investment Group"]
+  /solutions/                        title ["The Solution [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["The Solution [em dash] Impact Investment Group"]
+  /the-problem/                      title ["The Problem [em dash] Impact Investment Group"]
+                                     og:site_name ["Impact Investment Group"]
+                                     og:title ["The Problem [em dash] Impact Investment Group"]
+src: NEW in 21 route files; old name in 0 metadata strings
+pixels: 2 full-page shots paired with before (header, main, footer each read), 0 differ
+pixels: about-1280.png                           changed by design in footer+main: header 0, main 3511040, footer 1140480 px differ; page 3608 -> 3706 px tall
+pixels: about-390.png                            changed by design in footer+main: header 0, main 2244450, footer 1142310 px differ; page 8563 -> 8740 px tall
+pixels: contact-1280.png                         changed by design in footer: header 0, main 0, footer 1139200 px differ; page 2873 -> 2906 px tall
+pixels: contact-390.png                          changed by design in footer: header 0, main 0, footer 1142310 px differ; page 5604 -> 5689 px tall
+pixels: home-1280.png                            changed by design in footer+main: header 0, main 4395520, footer 1140480 px differ; page 4194 -> 4397 px tall
+pixels: home-390.png                             changed by design in footer+main: header 0, main 2370810, footer 1142310 px differ; page 8794 -> 9064 px tall
+pixels: legal-1280.png                           changed by design in footer: header 0, main 0, footer 1140480 px differ; page 3000 -> 3033 px tall
+pixels: legal-390.png                            changed by design in footer: header 0, main 0, footer 1142310 px differ; page 6463 -> 6548 px tall
+pixels: partner-with-broker-1280.png             changed by design in footer: header 0, main 0, footer 1139200 px differ; page 4796 -> 4829 px tall
+pixels: partner-with-broker-390.png              changed by design in footer: header 0, main 0, footer 1142310 px differ; page 7252 -> 7337 px tall
+pixels: partner-with-care-provider-1280.png      changed by design in footer: header 0, main 0, footer 1140480 px differ; page 4861 -> 4894 px tall
+pixels: partner-with-care-provider-390.png       changed by design in footer: header 0, main 0, footer 1142310 px differ; page 7199 -> 7284 px tall
+pixels: partner-with-developer-1280.png          changed by design in footer: header 0, main 0, footer 1139200 px differ; page 4732 -> 4765 px tall
+pixels: partner-with-developer-390.png           changed by design in footer: header 0, main 0, footer 1142310 px differ; page 7202 -> 7287 px tall
+pixels: partner-with-housing-association-1280.png changed by design in footer: header 0, main 0, footer 1139200 px differ; page 4708 -> 4741 px tall
+pixels: partner-with-housing-association-390.png changed by design in footer: header 0, main 0, footer 1142310 px differ; page 7046 -> 7131 px tall
+pixels: partner-with-investor-1280.png           changed by design in footer: header 0, main 0, footer 1140480 px differ; page 4537 -> 4570 px tall
+pixels: partner-with-investor-390.png            changed by design in footer: header 0, main 0, footer 1142310 px differ; page 7151 -> 7236 px tall
+pixels: partner-with-landlord-1280.png           changed by design in footer: header 0, main 0, footer 1140480 px differ; page 4665 -> 4698 px tall
+pixels: partner-with-landlord-390.png            changed by design in footer: header 0, main 0, footer 1142310 px differ; page 7178 -> 7263 px tall
+pixels: partner-with-local-authority-1280.png    changed by design in footer: header 0, main 0, footer 1139200 px differ; page 4810 -> 4843 px tall
+pixels: partner-with-local-authority-390.png     changed by design in footer: header 0, main 0, footer 1142310 px differ; page 7359 -> 7444 px tall
+pixels: partner-with-resident-1280.png           changed by design in footer: header 0, main 0, footer 1140480 px differ; page 5104 -> 5137 px tall
+pixels: partner-with-resident-390.png            changed by design in footer: header 0, main 0, footer 1142310 px differ; page 7760 -> 7845 px tall
+pixels: partner-with-social-worker-1280.png      changed by design in footer: header 0, main 0, footer 1140480 px differ; page 4676 -> 4709 px tall
+pixels: partner-with-social-worker-390.png       changed by design in footer: header 0, main 0, footer 1142310 px differ; page 6921 -> 7006 px tall
+pixels: partner-with-support-provider-1280.png   changed by design in footer: header 0, main 0, footer 1140480 px differ; page 4781 -> 4814 px tall
+pixels: partner-with-support-provider-390.png    changed by design in footer: header 0, main 0, footer 1142310 px differ; page 7148 -> 7233 px tall
+pixels: partners-1280.png                        changed by design in footer: header 0, main 0, footer 1140480 px differ; page 3041 -> 3074 px tall
+pixels: partners-390.png                         changed by design in footer: header 0, main 0, footer 1142310 px differ; page 6121 -> 6206 px tall
+pixels: platform-1280.png                        changed by design in footer: header 0, main 0, footer 1140480 px differ; page 5996 -> 6029 px tall
+pixels: platform-390.png                         changed by design in footer: header 0, main 0, footer 1142310 px differ; page 10544 -> 10629 px tall
+pixels: register-1280.png                        changed by design in footer: header 0, main 0, footer 855040 px differ; page 1837 -> 1870 px tall
+pixels: register-390.png                         changed by design in footer: header 0, main 0, footer 1006980 px differ; page 4322 -> 4407 px tall
+pixels: register-broker-1280.png                 changed by design in footer: header 0, main 0, footer 855040 px differ; page 1937 -> 1970 px tall
+pixels: register-broker-390.png                  changed by design in footer: header 0, main 0, footer 1006980 px differ; page 4071 -> 4156 px tall
+pixels: register-care-provider-1280.png          changed by design in footer: header 0, main 0, footer 855040 px differ; page 1937 -> 1970 px tall
+pixels: register-care-provider-390.png           changed by design in footer: header 0, main 0, footer 1006980 px differ; page 4071 -> 4156 px tall
+pixels: register-developer-1280.png              changed by design in footer: header 0, main 0, footer 855040 px differ; page 1937 -> 1970 px tall
+pixels: register-developer-390.png               changed by design in footer: header 0, main 0, footer 1006980 px differ; page 4071 -> 4156 px tall
+pixels: register-housing-association-1280.png    changed by design in footer: header 0, main 0, footer 855040 px differ; page 1937 -> 1970 px tall
+pixels: register-housing-association-390.png     changed by design in footer: header 0, main 0, footer 1006980 px differ; page 4071 -> 4156 px tall
+pixels: register-investor-1280.png               changed by design in footer: header 0, main 0, footer 855040 px differ; page 2203 -> 2236 px tall
+pixels: register-investor-390.png                changed by design in footer: header 0, main 0, footer 1007370 px differ; page 4330 -> 4415 px tall
+pixels: register-landlord-1280.png               changed by design in footer: header 0, main 0, footer 855040 px differ; page 1937 -> 1970 px tall
+pixels: register-landlord-390.png                changed by design in footer: header 0, main 0, footer 1006980 px differ; page 4071 -> 4156 px tall
+pixels: register-local-authority-1280.png        changed by design in footer: header 0, main 0, footer 855040 px differ; page 1937 -> 1970 px tall
+pixels: register-local-authority-390.png         changed by design in footer: header 0, main 0, footer 1006980 px differ; page 4071 -> 4156 px tall
+pixels: register-resident-1280.png               changed by design in footer: header 0, main 0, footer 855040 px differ; page 2183 -> 2216 px tall
+pixels: register-resident-390.png                changed by design in footer: header 0, main 0, footer 1007370 px differ; page 4391 -> 4476 px tall
+pixels: register-social-worker-1280.png          changed by design in footer: header 0, main 0, footer 855040 px differ; page 1937 -> 1970 px tall
+pixels: register-social-worker-390.png           changed by design in footer: header 0, main 0, footer 1006980 px differ; page 4071 -> 4156 px tall
+pixels: register-support-provider-1280.png       changed by design in footer: header 0, main 0, footer 855040 px differ; page 1937 -> 1970 px tall
+pixels: register-support-provider-390.png        changed by design in footer: header 0, main 0, footer 1006980 px differ; page 4071 -> 4156 px tall
+pixels: solutions-1280.png                       changed by design in footer: header 0, main 0, footer 1140480 px differ; page 3649 -> 3683 px tall
+pixels: solutions-390.png                        changed by design in footer: header 0, main 0, footer 1142310 px differ; page 5967 -> 6052 px tall
+pixels: the-problem-1280.png                     changed by design in footer: header 0, main 0, footer 1140480 px differ; page 2170 -> 2204 px tall
+pixels: the-problem-390.png                      changed by design in footer: header 0, main 0, footer 1142310 px differ; page 4833 -> 4918 px tall
+wave507   30 pages, 174 live readings, 60 shots
+
+All assertions passed.
+rc=0

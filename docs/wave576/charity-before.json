@@ -254,5 +254,95 @@
   "<link rel=\"preload\" as=\"image\" imageSrcSet=\"/images/hero-homes-400.webp 400w, /images/hero-homes-640.webp 640w, /images/hero-homes-960.webp 960w, /images/hero-homes.webp 1280w\" imageSizes=\"(min-width: 768px) 30vw, 88vw\" fetchPriority=\"high\"/>",
   "<link rel=\"preload\" as=\"image\" imageSrcSet=\"/images/hero-lives-400.webp 400w, /images/hero-lives-640.webp 640w, /images/hero-lives-960.webp 960w, /images/hero-lives.webp 1280w\" imageSizes=\"(min-width: 768px) 30vw, 88vw\" fetchPriority=\"high\"/>",
   "<link rel=\"preload\" as=\"image\" imageSrcSet=\"/images/hero-support-400.webp 400w, /images/hero-support-640.webp 640w, /images/hero-support-960.webp 960w, /images/hero-support.webp 1280w\" imageSizes=\"(min-width: 768px) 30vw, 88vw\" fetchPriority=\"high\"/>"
- ]
+ ],
+ "bands": {
+  "/ @ 1280": [
+   {
+    "i": 0,
+    "tag": "SECTION",
+    "h": 863,
+    "pledge": false,
+    "summary": false,
+    "file": "home-1280-00.png"
+   },
+   {
+    "i": 1,
+    "tag": "SECTION",
+    "h": 812,
+    "pledge": false,
+    "summary": false,
+    "file": "home-1280-01.png"
+   },
+   {
+    "i": 2,
+    "tag": "SECTION",
+    "h": 343,
+    "pledge": false,
+    "summary": false,
+    "file": "home-1280-02.png"
+   },
+   {
+    "i": 3,
+    "tag": "SECTION",
+    "h": 1245,
+    "pledge": false,
+    "summary": false,
+    "file": "home-1280-03.png"
+   }
+  ],
+  "/about @ 1280": [
+   {
+    "i": 0,
+    "tag": "MAIN",
+    "h": 2678,
+    "pledge": false,
+    "summary": true,
+    "file": "about-1280-00.png"
+   }
+  ],
+  "/ @ 390": [
+   {
+    "i": 0,
+    "tag": "SECTION",
+    "h": 1450,
+    "pledge": false,
+    "summary": false,
+    "file": "home-390-00.png"
+   },
+   {
+    "i": 1,
+    "tag": "SECTION",
+    "h": 1355,
+    "pledge": false,
+    "summary": false,
+    "file": "home-390-01.png"
+   },
+   {
+    "i": 2,
+    "tag": "SECTION",
+    "h": 742,
+    "pledge": false,
+    "summary": false,
+    "file": "home-390-02.png"
+   },
+   {
+    "i": 3,
+    "tag": "SECTION",
+    "h": 2346,
+    "pledge": false,
+    "summary": false,
+    "file": "home-390-03.png"
+   }
+  ],
+  "/about @ 390": [
+   {
+    "i": 0,
+    "tag": "MAIN",
+    "h": 5663,
+    "pledge": false,
+    "summary": true,
+    "file": "about-390-00.png"
+   }
+  ]
+ }
 }

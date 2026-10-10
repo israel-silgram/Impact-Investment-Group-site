@@ -49,7 +49,97 @@
      "top": 1796.75,
      "viewport": 900
     }
-   ]
+   ],
+   "bands": {
+    "rows": [
+     {
+      "child": 0,
+      "tag": "SECTION",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       863,
+       863
+      ]
+     },
+     {
+      "child": 1,
+      "tag": "SECTION",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       812,
+       812
+      ]
+     },
+     {
+      "child": 2,
+      "tag": "SECTION",
+      "strict": 18911,
+      "beyond_noise": 13604,
+      "height": [
+       343,
+       343
+      ]
+     },
+     {
+      "child": 3,
+      "tag": "SECTION",
+      "strict": 71789,
+      "beyond_noise": 26940,
+      "height": [
+       1245,
+       1245
+      ]
+     }
+    ],
+    "extra_height": 170
+   },
+   "bands_hidden": {
+    "rows": [
+     {
+      "child": 0,
+      "tag": "SECTION",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       863,
+       863
+      ]
+     },
+     {
+      "child": 1,
+      "tag": "SECTION",
+      "strict": 4,
+      "beyond_noise": 0,
+      "height": [
+       812,
+       812
+      ]
+     },
+     {
+      "child": 2,
+      "tag": "SECTION",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       343,
+       343
+      ]
+     },
+     {
+      "child": 3,
+      "tag": "SECTION",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       1245,
+       1245
+      ]
+     }
+    ],
+    "extra_height": 0
+   }
   },
   "/about @ 1280": {
    "footer": {
@@ -88,6 +178,36 @@
     ],
     "third": true,
     "all": 1
+   },
+   "bands": {
+    "rows": [
+     {
+      "child": 0,
+      "tag": "MAIN",
+      "strict": 3512320,
+      "beyond_noise": 3512320,
+      "height": [
+       2678,
+       2743
+      ]
+     }
+    ],
+    "extra_height": null
+   },
+   "bands_hidden": {
+    "rows": [
+     {
+      "child": 0,
+      "tag": "MAIN",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       2678,
+       2678
+      ]
+     }
+    ],
+    "extra_height": null
    }
   },
   "/register @ 1280": {
@@ -191,7 +311,97 @@
      "top": 2901.921875,
      "viewport": 844
     }
-   ]
+   ],
+   "bands": {
+    "rows": [
+     {
+      "child": 0,
+      "tag": "SECTION",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       1450,
+       1450
+      ]
+     },
+     {
+      "child": 1,
+      "tag": "SECTION",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       1355,
+       1355
+      ]
+     },
+     {
+      "child": 2,
+      "tag": "SECTION",
+      "strict": 144,
+      "beyond_noise": 30,
+      "height": [
+       742,
+       742
+      ]
+     },
+     {
+      "child": 3,
+      "tag": "SECTION",
+      "strict": 220,
+      "beyond_noise": 98,
+      "height": [
+       2346,
+       2346
+      ]
+     }
+    ],
+    "extra_height": 185
+   },
+   "bands_hidden": {
+    "rows": [
+     {
+      "child": 0,
+      "tag": "SECTION",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       1450,
+       1450
+      ]
+     },
+     {
+      "child": 1,
+      "tag": "SECTION",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       1355,
+       1355
+      ]
+     },
+     {
+      "child": 2,
+      "tag": "SECTION",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       742,
+       742
+      ]
+     },
+     {
+      "child": 3,
+      "tag": "SECTION",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       2346,
+       2346
+      ]
+     }
+    ],
+    "extra_height": 0
+   }
   },
   "/about @ 390": {
    "footer": {
@@ -230,6 +440,36 @@
     ],
     "third": true,
     "all": 1
+   },
+   "bands": {
+    "rows": [
+     {
+      "child": 0,
+      "tag": "MAIN",
+      "strict": 2244450,
+      "beyond_noise": 2244450,
+      "height": [
+       5663,
+       5755
+      ]
+     }
+    ],
+    "extra_height": null
+   },
+   "bands_hidden": {
+    "rows": [
+     {
+      "child": 0,
+      "tag": "MAIN",
+      "strict": 0,
+      "beyond_noise": 0,
+      "height": [
+       5663,
+       5663
+      ]
+     }
+    ],
+    "extra_height": null
    }
   },
   "/register @ 390": {
@@ -342,5 +582,111 @@
   "<link rel=\"preload\" as=\"image\" imageSrcSet=\"/images/hero-homes-400.webp 400w, /images/hero-homes-640.webp 640w, /images/hero-homes-960.webp 960w, /images/hero-homes.webp 1280w\" imageSizes=\"(min-width: 768px) 30vw, 88vw\" fetchPriority=\"high\"/>",
   "<link rel=\"preload\" as=\"image\" imageSrcSet=\"/images/hero-lives-400.webp 400w, /images/hero-lives-640.webp 640w, /images/hero-lives-960.webp 960w, /images/hero-lives.webp 1280w\" imageSizes=\"(min-width: 768px) 30vw, 88vw\" fetchPriority=\"high\"/>",
   "<link rel=\"preload\" as=\"image\" imageSrcSet=\"/images/hero-support-400.webp 400w, /images/hero-support-640.webp 640w, /images/hero-support-960.webp 960w, /images/hero-support.webp 1280w\" imageSizes=\"(min-width: 768px) 30vw, 88vw\" fetchPriority=\"high\"/>"
- ]
+ ],
+ "bands": {
+  "/ @ 1280": [
+   {
+    "i": 0,
+    "tag": "SECTION",
+    "h": 863,
+    "pledge": false,
+    "summary": false,
+    "file": "home-1280-00.png"
+   },
+   {
+    "i": 1,
+    "tag": "SECTION",
+    "h": 812,
+    "pledge": false,
+    "summary": false,
+    "file": "home-1280-01.png"
+   },
+   {
+    "i": 2,
+    "tag": "DIV",
+    "h": 170,
+    "pledge": true,
+    "summary": false,
+    "file": "home-1280-02.png"
+   },
+   {
+    "i": 3,
+    "tag": "SECTION",
+    "h": 343,
+    "pledge": false,
+    "summary": false,
+    "file": "home-1280-03.png"
+   },
+   {
+    "i": 4,
+    "tag": "SECTION",
+    "h": 1245,
+    "pledge": false,
+    "summary": false,
+    "file": "home-1280-04.png"
+   }
+  ],
+  "/about @ 1280": [
+   {
+    "i": 0,
+    "tag": "MAIN",
+    "h": 2743,
+    "pledge": true,
+    "summary": true,
+    "file": "about-1280-00.png"
+   }
+  ],
+  "/ @ 390": [
+   {
+    "i": 0,
+    "tag": "SECTION",
+    "h": 1450,
+    "pledge": false,
+    "summary": false,
+    "file": "home-390-00.png"
+   },
+   {
+    "i": 1,
+    "tag": "SECTION",
+    "h": 1355,
+    "pledge": false,
+    "summary": false,
+    "file": "home-390-01.png"
+   },
+   {
+    "i": 2,
+    "tag": "DIV",
+    "h": 185,
+    "pledge": true,
+    "summary": false,
+    "file": "home-390-02.png"
+   },
+   {
+    "i": 3,
+    "tag": "SECTION",
+    "h": 742,
+    "pledge": false,
+    "summary": false,
+    "file": "home-390-03.png"
+   },
+   {
+    "i": 4,
+    "tag": "SECTION",
+    "h": 2346,
+    "pledge": false,
+    "summary": false,
+    "file": "home-390-04.png"
+   }
+  ],
+  "/about @ 390": [
+   {
+    "i": 0,
+    "tag": "MAIN",
+    "h": 5755,
+    "pledge": true,
+    "summary": true,
+    "file": "about-390-00.png"
+   }
+  ]
+ }
 }

@@ -1,0 +1,4 @@
+
+71 referenced images, 40 too small or already at the smallest step, 0 variants written, 0 dropped for being no smaller than their source, 0.0MB saved on this run against serving the source at every step.
+24 referenced sources carry an alpha channel and every variant of them still does.
+Every referenced image has the variants it should have.

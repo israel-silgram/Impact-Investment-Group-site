@@ -22,7 +22,19 @@ WHAT THIS READS AND ASSERTS, in `--mode after` (the default):
      `/register/investor`: one footer `<p>` equals the constant; on `/` the
      band reads it in Barlow 700, on the computed `--color-page-alt`, below the
      first viewport; on `/about` the summary's third line equals it.
-  5. THE HOME PAGE'S LCP ELEMENT and `<link rel="preload">` tags equal the base
+  5. EVERY OTHER BAND of `main` on `/` and `/about`, at both widths, is cut out
+     as its own screenshot on the base (`--mode before`) and on the head with
+     the wave's one element hidden (the cream band on `/`, the pledge line on
+     `/about`), and paired child by child: no band differs
+     by more than three levels of a channel in any pixel (the count of any
+     difference at all is printed beside it). The head is also cut as it ships, and that pairing is reported, not
+     asserted, except that on `/about` the child holding the Who We Are
+     summary must differ and be taller. Why the unhidden pairing cannot be
+     asserted: the new band's height is not a whole number of pixels, so every
+     band below it lands on a fractional offset and the council logos and the
+     map's canvas resample (0 px with the element hidden, thousands without,
+     in bands that did not change).
+  6. THE HOME PAGE'S LCP ELEMENT and `<link rel="preload">` tags equal the base
      build's, as `--mode before` recorded them on the base.
 
 `--mode before` takes the same readings and shots and exits 0: run on the base
@@ -43,8 +55,11 @@ import importlib.util
 import json
 import re
 import sys
+import tempfile
 from pathlib import Path
 
+import numpy as np
+from PIL import Image
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -71,6 +86,13 @@ ROUTES = [
     ("/register", "register"),
     ("/register/investor", "register-investor"),
 ]
+BANDS = Path(tempfile.gettempdir()) / "wave576-bands"
+BAND_ROUTES = [("/", "home"), ("/about", "about")]
+# The step per channel that is not counted: the mission band holds a running
+# animation, and a load of its own differs from another by a handful of pixels
+# at three levels or fewer. Both counts are recorded; only the count above this
+# is asserted.
+NOISE = 3
 STILL = (
     "*, *::before, *::after { animation: none !important; transition: none !important; "
     "caret-color: transparent !important; }"
@@ -245,6 +267,85 @@ LCP_READ = r"""
 """
 
 
+BANDS_READ = r"""
+(sentence) => {
+  const text = (el) => el.textContent.replace(/\s+/g, ' ').trim();
+  const kids = [...document.querySelector('main').children];
+  kids.forEach((k, i) => k.setAttribute('data-w576', String(i)));
+  return kids.map((k, i) => ({
+    i, tag: k.tagName, h: Math.round(k.getBoundingClientRect().height),
+    pledge: text(k).includes(sentence.slice(0, 20)),
+    summary: !!k.querySelector('#about-heading'),
+  }));
+}
+"""
+
+
+HIDE = r"""
+(sentence) => {
+  const text = (el) => el.textContent.replace(/\s+/g, ' ').trim();
+  const hit = [...document.querySelectorAll('main p')].filter((p) => text(p) === sentence);
+  const home = location.pathname === '/';
+  hit.forEach((p) => { (home ? p.parentElement.parentElement : p).style.display = 'none'; });
+  return hit.length;
+}
+"""
+
+
+def read_bands(page, slug: str, label: str, folder_name: str) -> list[dict]:
+    """Cut each direct child of main out as a PNG under the temp folder."""
+    kids = page.evaluate(BANDS_READ, SENTENCE)
+    folder = BANDS / folder_name
+    folder.mkdir(parents=True, exist_ok=True)
+    for kid in kids:
+        if kid["h"] == 0:
+            kid["file"] = None
+            continue
+        W490.to_top(page)
+        shot = folder / f"{slug}-{label}-{kid['i']:02d}.png"
+        page.locator(f'[data-w576="{kid["i"]}"]').screenshot(
+            path=str(shot), animations="disabled", caret="hide"
+        )
+        kid["file"] = shot.name
+    return kids
+
+
+def pair_bands(
+    slug: str, label: str, was: list[dict], now: list[dict], failures: list[str], folder: str, assert_equal: bool
+) -> dict:
+    where = f"{slug} @ {label} ({'hidden' if assert_equal else 'as shipped'})"
+    # The head's extra child on / is the home band; drop it before pairing.
+    extra = [k for k in now if k["pledge"] and slug == "home"]
+    kept = [k for k in now if k not in extra]
+    if slug == "home" and len(extra) != 1:
+        failures.append(f"bands {where}: {len(extra)} extra children carry the pledge, expected 1.")
+    if len(kept) != len(was):
+        failures.append(f"bands {where}: {len(kept)} children now against {len(was)} on the base.")
+        return {}
+    rows, differing = [], []
+    for old, new in zip(was, kept):
+        a = np.asarray(Image.open(BANDS / "before" / old["file"]).convert("RGBA")).astype(np.int16)
+        b = np.asarray(Image.open(BANDS / folder / new["file"]).convert("RGBA")).astype(np.int16)
+        if a.shape != b.shape:
+            strict = beyond = int(max(a.shape[0] * a.shape[1], b.shape[0] * b.shape[1]))
+        else:
+            delta = np.abs(a - b).max(axis=2)
+            strict, beyond = int((delta > 0).sum()), int((delta > NOISE).sum())
+        rows.append({"child": old["i"], "tag": old["tag"], "strict": strict, "beyond_noise": beyond,
+                     "height": [old["h"], new["h"]]})
+        if beyond:
+            differing.append(new)
+            if assert_equal:
+                failures.append(f"bands {where}: child {old['i']} differs in {beyond} px by more than {NOISE} levels.")
+    if not assert_equal and slug == "about":
+        grown = [(o, n) for o, n in zip(was, kept) if n["summary"]]
+        if [k["i"] for k in differing if k["summary"]] != [k["i"] for k in kept if k["summary"]]:
+            failures.append(f"bands {where}: the child holding the summary did not differ.")
+        if not grown or not all(n["h"] > o["h"] for o, n in grown):
+            failures.append(f"bands {where}: the child holding the summary is not taller.")
+    return {"rows": rows, "extra_height": extra[0]["h"] if extra else None}
+
+
 def preloads_of(html: str) -> list[str]:
     return sorted(re.findall(r"<link\b[^>]*rel=\"preload\"[^>]*>", html))
 
@@ -263,7 +364,7 @@ def run(build: Path, mode: str, arm: str | None) -> int:
     DATA.mkdir(parents=True, exist_ok=True)
     SHOTS.mkdir(parents=True, exist_ok=True)
     record["preloads"] = preloads_of(pages["index.html"])
-    counts = {"shots": 0, "readings": 0}
+    counts = {"shots": 0, "readings": 0, "bands": 0}
     lcp_file = DATA / "lcp-before.json"
     base_lcp = json.loads(lcp_file.read_text(encoding="utf-8")) if lcp_file.exists() else None
 
@@ -349,6 +450,33 @@ def run(build: Path, mode: str, arm: str | None) -> int:
                     if not summary["third"]:
                         failures.append(f"live {where}: the summary's third line reads {plain(summary['lines'][2:3])}.")
                     shoot(page, f"about-{label}-{mode}.png")
+                if slug in ("home", "about"):
+                    bands = read_bands(page, slug, label, mode)
+                    record.setdefault("bands", {})[where] = bands
+                    if mode == "after":
+                        base_bands = json.loads(lcp_file.read_text(encoding="utf-8")).get("bands", {}).get(where)
+                        if base_bands is None:
+                            failures.append(f"bands {where}: no base record.")
+                        else:
+                            reading["bands"] = pair_bands(slug, label, base_bands, bands, failures, "after", False)
+                            # A fresh load of its own, so the hero's own motion has run for
+                            # the same time as it had when the base was cut.
+                            ctx2 = browser.new_context(
+                                viewport={"width": width, "height": height}, device_scale_factor=1,
+                                is_mobile=touch, has_touch=touch, reduced_motion="reduce",
+                            )
+                            page2 = ctx2.new_page()
+                            page2.goto(base + path, wait_until="networkidle")
+                            W490.settle(page2)
+                            page2.add_style_tag(content=STILL)
+                            W490.to_top(page2)
+                            if page2.evaluate(HIDE, SENTENCE) != 1:
+                                failures.append(f"bands {where}: could not hide the wave's element.")
+                            page2.wait_for_timeout(200)
+                            hidden = read_bands(page2, slug, label, "hidden")
+                            ctx2.close()
+                            reading["bands_hidden"] = pair_bands(slug, label, base_bands, hidden, failures, "hidden", True)
+                            counts["bands"] += len(reading["bands_hidden"].get("rows", []))
                 if slug == "register":
                     shoot(page, f"footer-{label}-{mode}.png", page.locator("footer").first)
                 record["live"][where] = reading
@@ -372,9 +500,17 @@ def run(build: Path, mode: str, arm: str | None) -> int:
                 print(f"  {'':<26} band {b['family'].split(',')[0]} {b['weight']} {b['size']}, ground {b['band']}, top {b['top']:.0f}px of a {b['viewport']}px viewport")
         if "summary" in reading:
             print(f"  {'':<26} summary lines {len(reading['summary']['lines'])}, third is the sentence: {reading['summary']['third']}")
+        for key, what in (("bands_hidden", "hidden"), ("bands", "as shipped, not asserted")):
+            if reading.get(key, {}).get("rows"):
+                rows = reading[key]["rows"]
+                print(
+                    f"  {'':<26} bands paired {len(rows)} ({what}): px differing "
+                    f"{[r['strict'] for r in rows]} (beyond {NOISE} levels {[r['beyond_noise'] for r in rows]}), heights {[r['height'][0] for r in rows]} to {[r['height'][1] for r in rows]}"
+                    + (f"; the extra band is {reading[key]['extra_height']}px tall" if reading[key].get("extra_height") else "")
+                )
         if "lcp" in where:
             print(f"  {where:<26} {plain(reading)}")
-    print(f"wave576   {counts['readings']} hydrated readings, {counts['shots']} shots in {SHOTS.relative_to(ROOT).as_posix()}")
+    print(f"wave576   {counts['readings']} hydrated readings, {counts['bands']} bands paired, {counts['shots']} shots in {SHOTS.relative_to(ROOT).as_posix()}")
     if failures:
         tail = " (recorded, not failed: before mode)" if mode == "before" else ""
         print(f"\n{len(failures)} FAILURE(S){tail}:")

@@ -1,0 +1,6 @@
+base 1: timing    /                          LCP= 9612ms  CLS=0.0002  INP=   0
+head 1: timing    /                          LCP= 9572ms  CLS=0.0002  INP=   0
+base 2: timing    /                          LCP= 9592ms  CLS=0.0002  INP=   0
+head 2: timing    /                          LCP= 9612ms  CLS=0.0002  INP=   0
+base 3: timing    /                          LCP= 9628ms  CLS=0.0002  INP=   0
+head 3: timing    /                          LCP= 9552ms  CLS=0.0002  INP=   0
