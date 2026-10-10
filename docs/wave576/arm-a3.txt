@@ -1,0 +1,4 @@
+wave576   arm=a3  (source and markup mutated in memory, static checks only)
+  - source: charityPledge is read by ['src/components/site-footer.tsx', 'src/content/about.ts'], expected ['src/components/site-footer.tsx', 'src/content/about.ts', 'src/routes/index.tsx'].
+
+1 FAILURE(S) from arm a3.

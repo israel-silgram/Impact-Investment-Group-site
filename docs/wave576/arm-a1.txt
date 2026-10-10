@@ -29,8 +29,35 @@ wave576   arm=a1  (source and markup mutated in memory, static checks only)
   - markup register/support-provider/index.html: the sentence is in the footer 0 time(s), expected 1.
   - markup solutions/index.html: the sentence is in the footer 0 time(s), expected 1.
   - markup the-problem/index.html: the sentence is in the footer 0 time(s), expected 1.
+  - markup: the sentence is in the footer of 0 pages, the base had 29 footered.
   - markup index.html: the sentence is 0 time(s) in all, expected 2.
   - markup about/index.html: the sentence is 0 time(s) in all, expected 2.
-  - markup: 0 occurrences across the other pages, expected one each.
+  - markup contact/index.html: 0 occurrences in all, expected 1.
+  - markup legal/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-broker/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-care-provider/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-developer/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-housing-association/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-investor/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-landlord/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-local-authority/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-resident/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-social-worker/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-support-provider/index.html: 0 occurrences in all, expected 1.
+  - markup partners/index.html: 0 occurrences in all, expected 1.
+  - markup platform/index.html: 0 occurrences in all, expected 1.
+  - markup register/broker/index.html: 0 occurrences in all, expected 1.
+  - markup register/care-provider/index.html: 0 occurrences in all, expected 1.
+  - markup register/developer/index.html: 0 occurrences in all, expected 1.
+  - markup register/housing-association/index.html: 0 occurrences in all, expected 1.
+  - markup register/index.html: 0 occurrences in all, expected 1.
+  - markup register/investor/index.html: 0 occurrences in all, expected 1.
+  - markup register/landlord/index.html: 0 occurrences in all, expected 1.
+  - markup register/local-authority/index.html: 0 occurrences in all, expected 1.
+  - markup register/resident/index.html: 0 occurrences in all, expected 1.
+  - markup register/social-worker/index.html: 0 occurrences in all, expected 1.
+  - markup register/support-provider/index.html: 0 occurrences in all, expected 1.
+  - markup solutions/index.html: 0 occurrences in all, expected 1.
+  - markup the-problem/index.html: 0 occurrences in all, expected 1.
 
-33 FAILURE(S) from arm a1.
+60 FAILURE(S) from arm a1.

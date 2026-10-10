@@ -93,7 +93,7 @@ dist/client/assets/contact-BZxr77oe.js                                    53.65 
 dist/client/assets/routes-D7bUOJpL.js                                    449.06 kB │ gzip: 125.48 kB
 dist/client/assets/index-38l7Leez.js                                     503.23 kB │ gzip: 150.70 kB
 
-[32m✓ built in 1.57s[39m
+[32m✓ built in 2.96s[39m
 [33m[plugin builtin:vite-reporter] 
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
@@ -157,7 +157,7 @@ dist/server/assets/server-DubD_93L.js                             56.40 kB │ g
 dist/server/assets/router-tsJ0NayJ.js                            108.19 kB │ gzip:  29.99 kB
 dist/server/assets/routes-BSb4P1UU.js                            653.87 kB │ gzip: 139.07 kB
 
-[32m✓ built in 723ms[39m
+[32m✓ built in 676ms[39m
 [33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
 [prerender] Prerendering pages...
 [prerender] Concurrency: 8
@@ -199,40 +199,40 @@ dist/server/assets/routes-BSb4P1UU.js                            653.87 kB │ g
 [prerender] Crawling: /contact?enquiry=support&amp;type=support
 [prerender] Prerendered 36 pages:
 [prerender] - /
-[prerender] - /the-problem
 [prerender] - /solutions
-[prerender] - /platform
-[prerender] - /about
-[prerender] - /legal
-[prerender] - /register
 [prerender] - /contact
+[prerender] - /about
+[prerender] - /the-problem
+[prerender] - /platform
+[prerender] - /register
+[prerender] - /legal
 [prerender] - /register/investor
 [prerender] - /register/landlord
-[prerender] - /register/housing-association
-[prerender] - /register/local-authority
 [prerender] - /register/developer
+[prerender] - /register/local-authority
 [prerender] - /register/care-provider
+[prerender] - /register/housing-association
 [prerender] - /register/social-worker
 [prerender] - /register/support-provider
 [prerender] - /register/broker
-[prerender] - /partner-with-broker
 [prerender] - /register/resident
+[prerender] - /partner-with-broker
 [prerender] - /partner-with-care-provider
-[prerender] - /partner-with-developer
 [prerender] - /partner-with-housing-association
+[prerender] - /partner-with-developer
 [prerender] - /partner-with-investor
 [prerender] - /partner-with-landlord
-[prerender] - /partner-with-local-authority
-[prerender] - /partner-with-social-worker
-[prerender] - /contact?enquiry=waitlist&amp;type=waitlist
-[prerender] - /contact?enquiry=partner&amp;type=partner
 [prerender] - /partner-with-resident
+[prerender] - /partner-with-local-authority
+[prerender] - /contact?enquiry=waitlist&amp;type=waitlist
+[prerender] - /partner-with-social-worker
 [prerender] - /partner-with-support-provider
+[prerender] - /contact?enquiry=partner&amp;type=partner
 [prerender] - /partners
 [prerender] - /register/
-[prerender] - /contact?enquiry=demo&amp;type=demo
 [prerender] - /contact?enquiry=investor&amp;type=investor
-[prerender] - /contact?enquiry=media&amp;type=media
+[prerender] - /contact?enquiry=demo&amp;type=demo
 [prerender] - /contact?enquiry=support&amp;type=support
+[prerender] - /contact?enquiry=media&amp;type=media
 pages-postbuild: trimmed 565 characters of duplicated tail from dist\client\contact\index.html
 pages-postbuild: base="/", patched 0 file(s), trimmed a duplicated document tail from 1 file(s)

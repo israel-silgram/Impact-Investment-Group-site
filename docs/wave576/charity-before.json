@@ -199,14 +199,42 @@
    }
   }
  },
- "constant": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
- "source_named": [
-  "src/content/charity.ts"
- ],
- "importers": [
-  "src/components/site-footer.tsx",
-  "src/content/about.ts",
-  "src/routes/index.tsx"
+ "commit": "73fcf6f55c3cd3a1796664637f5eff200d979acb",
+ "src_root": "C:\\Users\\Israel\\AppData\\Local\\Temp\\iigs-w576-base",
+ "constant": null,
+ "source_named": [],
+ "importers": [],
+ "pages": [
+  "404.html",
+  "about/index.html",
+  "contact/index.html",
+  "index.html",
+  "legal/index.html",
+  "partner-with-broker/index.html",
+  "partner-with-care-provider/index.html",
+  "partner-with-developer/index.html",
+  "partner-with-housing-association/index.html",
+  "partner-with-investor/index.html",
+  "partner-with-landlord/index.html",
+  "partner-with-local-authority/index.html",
+  "partner-with-resident/index.html",
+  "partner-with-social-worker/index.html",
+  "partner-with-support-provider/index.html",
+  "partners/index.html",
+  "platform/index.html",
+  "register/broker/index.html",
+  "register/care-provider/index.html",
+  "register/developer/index.html",
+  "register/housing-association/index.html",
+  "register/index.html",
+  "register/investor/index.html",
+  "register/landlord/index.html",
+  "register/local-authority/index.html",
+  "register/resident/index.html",
+  "register/social-worker/index.html",
+  "register/support-provider/index.html",
+  "solutions/index.html",
+  "the-problem/index.html"
  ],
  "footer_count": {
   "404.html": 0,

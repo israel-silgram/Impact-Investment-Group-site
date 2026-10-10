@@ -14,7 +14,10 @@ markup: the sentence is once in the footer of 0 pages; totals {'index.html': 0, 
   /register/investor @ 390   footers 1  pledge paragraphs 0
 wave576   12 hydrated readings, 0 bands paired, 6 shots in docs/screenshots/wave576
 
-44 FAILURE(S) (recorded, not failed: before mode):
+73 FAILURE(S) (recorded, not failed: before mode):
+  - constant: charityPledge reads null.
+  - source: 'Metro World Child' is held by [], expected only ['src/content/charity.ts'].
+  - source: charityPledge is read by [], expected ['src/components/site-footer.tsx', 'src/content/about.ts', 'src/routes/index.tsx'].
   - markup about/index.html: the sentence is in the footer 0 time(s), expected 1.
   - markup contact/index.html: the sentence is in the footer 0 time(s), expected 1.
   - markup index.html: the sentence is in the footer 0 time(s), expected 1.
@@ -46,7 +49,33 @@ wave576   12 hydrated readings, 0 bands paired, 6 shots in docs/screenshots/wave
   - markup the-problem/index.html: the sentence is in the footer 0 time(s), expected 1.
   - markup index.html: the sentence is 0 time(s) in all, expected 2.
   - markup about/index.html: the sentence is 0 time(s) in all, expected 2.
-  - markup: 0 occurrences across the other pages, expected one each.
+  - markup contact/index.html: 0 occurrences in all, expected 1.
+  - markup legal/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-broker/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-care-provider/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-developer/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-housing-association/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-investor/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-landlord/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-local-authority/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-resident/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-social-worker/index.html: 0 occurrences in all, expected 1.
+  - markup partner-with-support-provider/index.html: 0 occurrences in all, expected 1.
+  - markup partners/index.html: 0 occurrences in all, expected 1.
+  - markup platform/index.html: 0 occurrences in all, expected 1.
+  - markup register/broker/index.html: 0 occurrences in all, expected 1.
+  - markup register/care-provider/index.html: 0 occurrences in all, expected 1.
+  - markup register/developer/index.html: 0 occurrences in all, expected 1.
+  - markup register/housing-association/index.html: 0 occurrences in all, expected 1.
+  - markup register/index.html: 0 occurrences in all, expected 1.
+  - markup register/investor/index.html: 0 occurrences in all, expected 1.
+  - markup register/landlord/index.html: 0 occurrences in all, expected 1.
+  - markup register/local-authority/index.html: 0 occurrences in all, expected 1.
+  - markup register/resident/index.html: 0 occurrences in all, expected 1.
+  - markup register/social-worker/index.html: 0 occurrences in all, expected 1.
+  - markup register/support-provider/index.html: 0 occurrences in all, expected 1.
+  - markup solutions/index.html: 0 occurrences in all, expected 1.
+  - markup the-problem/index.html: 0 occurrences in all, expected 1.
   - live / @ 1280: the footer's pledge paragraphs read [].
   - live / @ 1280: 0 home band paragraph(s) read the sentence, expected 1.
   - live /about @ 1280: the footer's pledge paragraphs read [].
