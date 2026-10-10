@@ -145,9 +145,10 @@ item8     contact @ 667x375      scrolled to 790: none; 4 text runs and 6 contro
 item12    contact @ 1280         "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
 item8     contact @ 1280         scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 11 text runs and 40 controls on screen; 0 clashes
 
-rule8     home                       1280 differs on     24247 device px (worst 255 of 255), same-build noise     22207 px (worst 255),        0 moved beyond the noise outside the touched and animated boxes
+rule8     home                       1280 differs on     31705 device px (worst 255 of 255), same-build noise     22722 px (worst 247),        0 moved beyond the noise outside the touched and animated boxes
 rule8     about                      1280 differs on         0 device px (worst   0 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes
-rule8     platform                   1280 differs on    165044 device px (worst 243 of 255), same-build noise     44372 px (worst  92),        0 moved beyond the noise outside the touched and animated boxes (page height 5921 -> 5954 device px)
+rule8     platform                   pseudo-element masks: button::before spin 236x390
+rule8     platform                   1280 differs on     96445 device px (worst 243 of 255), same-build noise     60459 px (worst  82),        0 moved beyond the noise outside the touched and animated boxes (page height 5921 -> 5954 device px)
 rule8     the-problem                1280 differs on     21692 device px (worst 243 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 2170 -> 2204 device px)
 rule8     solutions                  1280 differs on     21692 device px (worst 243 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 3649 -> 3683 device px)
 rule8     partners                   1280 differs on     21878 device px (worst 243 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 3041 -> 3074 device px)

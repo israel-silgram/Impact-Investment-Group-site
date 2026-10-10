@@ -2108,6 +2108,9 @@ TOUCHED = {
 # Every route carries the footer, whose three Verify links item 12 touches.
 TOUCHED_EVERYWHERE = ["footer"]
 ANIMATED_MASKS = ["canvas", ".logo-marquee", ".tabular-nums"]
+# Wave 576: the largest box, in CSS px squared, that a pseudo-element animation
+# may mask on any route. The platform portals' rings are the one case today.
+PSEUDO_MASK_MAX_AREA = 150_000
 
 # ⚠ AND THE REST OF THE ANIMATED BOXES ARE FOUND, NOT LISTED.
 #
@@ -2124,9 +2127,13 @@ ANIMATED_MASKS = ["canvas", ".logo-marquee", ".tabular-nums"]
 # ::before and ::after, which it did not. The platform portals' turning rings
 # are `before:animate-spin` (platform.tsx), a pseudo-element's animation that
 # `getComputedStyle(el)` does not report, so the ring's box was never masked and
-# rule 8 passed or failed on /platform with the machine's load: on the base
-# build, with no change to the page, 0 and 162 px beyond the noise on two runs.
-# The mask is the owning element's box, as for every other running animation.
+# rule 8 passed or failed on /platform with the machine's load: on a run of the
+# base build against a before shot taken at the head, 162 px beyond the noise
+# (0 on the run before it), and 14,437 to 26,101 px on eight runs of the head.
+# The mask is the owning element's box, as for every other running animation,
+# and so it hides more than the ring: every pseudo-element mask is therefore
+# printed on the rule 8 line with its box, and one larger than
+# PSEUDO_MASK_MAX_AREA fails the run (a stated bound on what this can hide).
 RUNNING = """
 () => {
   const out = [];
@@ -2141,7 +2148,10 @@ RUNNING = """
       if (r.width < 2 || r.height < 2) continue;
       out.push({ x: r.left + scrollX, y: r.top + scrollY,
                  r: r.right + scrollX, b: r.bottom + scrollY,
-                 sel: 'running:' + s.animationName });
+                 sel: 'running:' + s.animationName,
+                 pseudo: pseudo,
+                 label: el.tagName.toLowerCase() + (pseudo || '') + ' ' + s.animationName
+                        + ' ' + Math.round(r.width) + 'x' + Math.round(r.height) });
     }
   });
   return out;
@@ -2801,7 +2811,18 @@ def main() -> None:
                 page.evaluate(HIDE_FLOATERS, False)
                 selectors = TOUCHED.get(slug, []) + TOUCHED_EVERYWHERE
                 touched = page.evaluate(BOXES, selectors)
-                masks = page.evaluate(BOXES, ANIMATED_MASKS) + page.evaluate(RUNNING)
+                running = page.evaluate(RUNNING)
+                masks = page.evaluate(BOXES, ANIMATED_MASKS) + running
+                pseudo = [m for m in running if m.get("pseudo")]
+                if pseudo:
+                    print(f"rule8     {slug:<26} pseudo-element masks: "
+                          + "; ".join(sorted({m["label"] for m in pseudo})))
+                for m in pseudo:
+                    area = (m["r"] - m["x"]) * (m["b"] - m["y"])
+                    if area > PSEUDO_MASK_MAX_AREA:
+                        failures.append(
+                            f"rule8 {slug}: a pseudo-element animation masks {m['label']}, "
+                            f"{area:,.0f} px squared, over the {PSEUDO_MASK_MAX_AREA:,} bound")
                 pair_1280(slug, OUT / "before" / f"{slug}-1280.png",
                           OUT / f"{slug}-1280.png", control_dir / f"{slug}-1280.png",
                           touched, masks, failures)

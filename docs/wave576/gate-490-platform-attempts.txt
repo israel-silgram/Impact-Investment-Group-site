@@ -1,5 +1,9 @@
 # /platform rule 8 at 1280, every attempt, in the order made (the rule8 line of each run).
-# Runs 1 to 6 (rerun, base-build control and full-try) are the gate BEFORE it learned pseudo-element animations; the taught and committed-before runs are after.
+# Before the gate learned pseudo-element animations: ten runs. rerun1 and rerun2 pair the head with 567's before shot (page height
+# 5921 -> 5954); base-control1 and base-control2 pair the BASE build with a before shot taken at the head (5954 -> 5921); full-try1 to
+# full-try6 pair the head with a before shot taken at the head (no height change).
+# After it: six runs. taught-try1 to taught-try3 pair the head with the before shot taken at the head; committed-before-try1 to 3 pair the
+# head with 567's committed before shot (5921 -> 5954). The head's eight pre-fix runs read 14,437 to 26,101 px beyond the noise.
 ## gate-490-platform-rerun1
 rule8 platform 1280 differs on 144317 device px (worst 243 of 255), same-build noise 19484 px (worst 68), 25572 moved beyond the noise outside the touched and animated boxes (page height 5921 -> 5954 device px)
 ## gate-490-platform-rerun2
