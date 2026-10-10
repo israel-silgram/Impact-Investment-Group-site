@@ -2100,6 +2100,11 @@ TOUCHED = {
 # head, which reworded the page on purpose and made it 25px shorter; no box was
 # added above for it. The register routes lost the footer funnel in the same
 # wave and pair inside the footer, which the next line already declares.
+# Wave 576, 10 Oct 2026: `before/home-1280.png` and `before/about-1280.png` were
+# re-shot at that wave's head by `--mode before`, because the cream band under
+# the mission and the pledge line in the Who We Are summary move every band
+# below them; no box was added above. Every other route's pledge line is in
+# the footer, which the next line already declares.
 # Every route carries the footer, whose three Verify links item 12 touches.
 TOUCHED_EVERYWHERE = ["footer"]
 ANIMATED_MASKS = ["canvas", ".logo-marquee", ".tabular-nums"]

@@ -490,6 +490,10 @@ def pair(before_json: Path, after_json: Path, failures: list[str]) -> None:
     `before/register-1280-footer.png` were re-shot at that wave's head, which
     took the funnel out of the register footer and made /platform 25px
     shorter. Every other before shot is still wave 493's base.
+
+    Wave 576, 10 Oct 2026: the five 1280 footer shots (home, platform, about,
+    partners, register) were re-shot at that wave's head, which added the
+    charity pledge line to every footer. The five headers are still 493's.
     """
     before = json.loads(before_json.read_text(encoding="utf-8"))["readings"]
     after = json.loads(after_json.read_text(encoding="utf-8"))["readings"]
