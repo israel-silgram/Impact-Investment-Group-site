@@ -4,6 +4,7 @@ import { ArrowUpRight, LifeBuoy, Mail, Phone, Clock } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
+import { charityPledge } from "@/content/charity";
 import { partnerProfiles } from "@/content/partners";
 import { legalLinks } from "@/content/legal";
 import {
@@ -501,6 +502,13 @@ export function SiteFooter() {
               )}
             </ul>
           </nav>
+
+          {/* Wave 576 (10 Oct 2026): the charity pledge sits with the company's
+              legal identity, a step above the 11px notice, on every route
+              including the register pages. ink on the footer ground. */}
+          <p className="mx-auto mt-3 max-w-[120ch] text-balance text-center text-[13px] max-lg:text-[15px] font-semibold leading-relaxed text-ink">
+            {charityPledge}
+          </p>
 
           {/* ink-muted, 6.20:1 on the cream. This is the same decision wave
               298 made through the remap (`text-mist` resolving to slate-ink)

@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { IconCircle } from "@/components/ui/icon-circle";
 import { PreReleaseBadge } from "@/components/ui/pre-release-badge";
 import { Reveal } from "@/components/ui/reveal";
+import { charityPledge } from "@/content/charity";
 import { closingCopy, demandMapCopy } from "@/content/home";
 import { registerRoute } from "@/content/site";
 import {
@@ -76,6 +77,17 @@ function HomePage() {
 
       {/* 2 · Our mission | The problem, flipping to Our solution */}
       <MissionSolution />
+
+      {/* Wave 576 (10 Oct 2026): the pledge follows the need the mission opens
+          with. Cream with a top rule so it does not weld to the white council
+          panel below it. The sentence alone. */}
+      <div className="border-t border-rule bg-page-alt">
+        <div className="mx-auto w-full max-w-[1440px] px-5 py-10 sm:px-8 lg:py-12">
+          <p className="mx-auto max-w-[48ch] text-balance text-center font-heading text-[clamp(1.25rem,2.4vw,1.75rem)] font-bold leading-[1.3] text-ink">
+            {charityPledge}
+          </p>
+        </div>
+      </div>
 
       {/* Commissioning councils — a band, not a numbered section. It sits
           between the mission panel and the demand map because that is the

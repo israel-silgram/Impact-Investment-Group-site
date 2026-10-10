@@ -1,3 +1,4 @@
+import { charityPledge } from "@/content/charity";
 import { closingBeats, closingStrapline } from "@/content/site";
 
 /** Copy for /about. Edit here — never inside JSX. */
@@ -599,6 +600,8 @@ export const summaries: Record<string, Seg[][]> = {
    * cleared AA as large text, which the first line is and the smaller ones
    * are not. Wave 295 took it to 5.78:1 and the rule survives as a
    * typographic one. The copy order below is still the right order.
+   *
+   * Wave 576 (10 Oct 2026): the third line is the charity pledge, from its one constant.
    */
   whoWeAre: [
     [
@@ -613,6 +616,7 @@ export const summaries: Record<string, Seg[][]> = {
       { t: "councils, housing associations and care providers", em: "ink" },
       ".",
     ],
+    [charityPledge],
   ],
   whyWeExist: [
     [
