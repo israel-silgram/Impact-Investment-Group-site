@@ -2114,20 +2114,30 @@ ANIMATED_MASKS = ["canvas", ".logo-marquee", ".tabular-nums"]
 # shots of the SAME build is not evidence about a change, so the boxes are
 # collected off `getComputedStyle` at capture time and excluded with the three
 # named above.
+#
+# Wave 576, 10 Oct 2026: the walk reads the element's own animation AND its
+# ::before and ::after, which it did not. The platform portals' turning rings
+# are `before:animate-spin` (platform.tsx), a pseudo-element's animation that
+# `getComputedStyle(el)` does not report, so the ring's box was never masked and
+# rule 8 passed or failed on /platform with the machine's load: on the base
+# build, with no change to the page, 0 and 162 px beyond the noise on two runs.
+# The mask is the owning element's box, as for every other running animation.
 RUNNING = """
 () => {
   const out = [];
   document.querySelectorAll('body *').forEach((el) => {
-    const s = getComputedStyle(el);
-    if (!s.animationName || s.animationName === 'none') return;
-    if (s.animationPlayState === 'paused') return;
-    if (!(parseFloat(s.animationDuration) > 0)) return;
-    if (s.animationIterationCount === '1' && s.animationFillMode === 'both') return;
-    const r = el.getBoundingClientRect();
-    if (r.width < 2 || r.height < 2) return;
-    out.push({ x: r.left + scrollX, y: r.top + scrollY,
-               r: r.right + scrollX, b: r.bottom + scrollY,
-               sel: 'running:' + s.animationName });
+    for (const pseudo of [null, '::before', '::after']) {
+      const s = getComputedStyle(el, pseudo);
+      if (!s.animationName || s.animationName === 'none') continue;
+      if (s.animationPlayState === 'paused') continue;
+      if (!(parseFloat(s.animationDuration) > 0)) continue;
+      if (s.animationIterationCount === '1' && s.animationFillMode === 'both') continue;
+      const r = el.getBoundingClientRect();
+      if (r.width < 2 || r.height < 2) continue;
+      out.push({ x: r.left + scrollX, y: r.top + scrollY,
+                 r: r.right + scrollX, b: r.bottom + scrollY,
+                 sel: 'running:' + s.animationName });
+    }
   });
   return out;
 }

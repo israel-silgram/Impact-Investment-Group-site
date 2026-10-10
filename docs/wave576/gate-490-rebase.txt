@@ -1,0 +1,18 @@
+item12    home @ 1280            "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item2     home @ 1280            section=812px faces=812 / 812  tail under the visible face=121.67px
+item2     home @ 1280            swapped: section=812px  tail=50.87px
+item8     home @ 1280            scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 47 text runs and 10 controls on screen; 0 clashes
+item12    about @ 1280           "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item9     about @ 1280           8 cards, worst tail under any content=61px, worst tail under the last INK=61px, tallest 358px
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  19.6 any tail=  19.6 "Israel Silgram"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  44.4 any tail=  44.4 "Maria Avallone"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  61.2 any tail=  61.2 "Dr Jonathan Elton"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=   2.8 any tail=   2.8 "Callum Saxon"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  44.4 any tail=  44.4 "Shahab Jamali"
+item9     about @ 1280             chain      290px min-height=0px      pad-bottom=104 ink tail=  33.0 any tail=-111.0 "01"
+item9     about @ 1280             chain      290px min-height=0px      pad-bottom=104 ink tail=  33.0 any tail=-111.0 "02"
+item9     about @ 1280             chain      290px min-height=0px      pad-bottom=104 ink tail=  10.3 any tail=-111.0 "03"
+item8     about @ 1280           scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 44 text runs and 11 controls on screen; 0 clashes
+
+wave490   2 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 321 span type nodes, 0 under floor · 6 Verify readings, 0 under 44 · 8 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+PASSED

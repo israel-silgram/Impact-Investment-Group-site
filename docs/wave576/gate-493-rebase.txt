@@ -1,0 +1,8 @@
+readings written to C:\Users\Israel\AppData\Local\Temp\w576-493\measure-before.json
+  home @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  platform @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  about @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  partners @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  register @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+
+All assertions passed.

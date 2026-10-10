@@ -1,0 +1,66 @@
+item12    home @ 1280            "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item2     home @ 1280            section=812px faces=812 / 812  tail under the visible face=121.67px
+item2     home @ 1280            swapped: section=812px  tail=50.87px
+item8     home @ 1280            scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 47 text runs and 10 controls on screen; 0 clashes
+item12    about @ 1280           "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item9     about @ 1280           8 cards, worst tail under any content=61px, worst tail under the last INK=61px, tallest 358px
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  19.6 any tail=  19.6 "Israel Silgram"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  44.4 any tail=  44.4 "Maria Avallone"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  61.2 any tail=  61.2 "Dr Jonathan Elton"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=   2.8 any tail=   2.8 "Callum Saxon"
+item9     about @ 1280             director   358px min-height=356px    pad-bottom= 20 ink tail=  44.4 any tail=  44.4 "Shahab Jamali"
+item9     about @ 1280             chain      290px min-height=0px      pad-bottom=104 ink tail=  33.0 any tail=-111.0 "01"
+item9     about @ 1280             chain      290px min-height=0px      pad-bottom=104 ink tail=  33.0 any tail=-111.0 "02"
+item9     about @ 1280             chain      290px min-height=0px      pad-bottom=104 ink tail=  10.3 any tail=-111.0 "03"
+item8     about @ 1280           scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 44 text runs and 11 controls on screen; 0 clashes
+item12    platform @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item5     platform @ 1280        items=6 clones=3 track=3036px animated=1 strings outside the viewport=11
+item6     platform @ 1280        card=340px min-height=340px art=169x280 at (1066,2952) opacity=0.25 inside padding=False text clashes=0
+item8     platform @ 1280        scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 14 text runs and 12 controls on screen; 0 clashes
+item12    the-problem @ 1280     "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     the-problem @ 1280     scrolled to 1304: none; 0 text runs and 43 controls on screen; 0 clashes
+item12    solutions @ 1280       "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item10    solutions @ 1280       9 pills, 0 with a split verb, 0 with the verb beside a wrapped role, tallest 43px
+item8     solutions @ 1280       scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 34 text runs and 11 controls on screen; 0 clashes
+item12    partners @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     partners @ 1280        scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 8 text runs and 38 controls on screen; 0 clashes
+item12    contact @ 1280         "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     contact @ 1280         scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 11 text runs and 40 controls on screen; 0 clashes
+item12    register @ 1280        "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     register @ 1280        scrolled to 970: none; 3 text runs and 41 controls on screen; 0 clashes
+item12    register-investor @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item11    register-investor @ 1280 panel=933px step=851px (min 0px) bar=52px (controls 52px) sticky-or-static, read static at flow y=776  33 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=36.0px at y=230 before "Email address"
+item8     register-investor @ 1280 scrolled to 1336: none; 2 text runs and 42 controls on screen; 0 clashes
+item12    register-resident @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item11    register-resident @ 1280 panel=933px step=851px (min 0px) bar=52px (controls 52px) sticky-or-static, read static at flow y=776  33 leaf ink boxes  tail under the last ink=15.0px  widest gap between two inks=36.0px at y=230 before "Email address"
+item8     register-resident @ 1280 scrolled to 1316: none; 4 text runs and 43 controls on screen; 0 clashes
+item12    partner-with-investor @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     partner-with-investor @ 1280 scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 25 text runs and 12 controls on screen; 0 clashes
+item12    partner-with-local-authority @ 1280 "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     partner-with-local-authority @ 1280 scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 28 text runs and 12 controls on screen; 0 clashes
+item12    legal @ 1280           "Verify the broker on the FCA regis" stands on its own line at 208.25x15.13, under 44 on the desktop control too
+item8     legal @ 1280           scrolled to 1840: button.back-to-top(44x44 at right=20 bottom=23); 11 text runs and 40 controls on screen; 0 clashes
+rule2     404 @ 1280             357px of ground at the top edge (one-screen, centred) of div, from y=0: the centring of a box a screen tall, read and not failed
+rule2     404 @ 1280             344px of ground at the last row (one-screen, centred) of div, from y=556: the centring of a box a screen tall, read and not failed
+item8     404 @ 1280             scrolled to 0: none; 4 text runs and 1 controls on screen; 0 clashes
+
+rule8     home                       1280 differs on   1498624 device px (worst 253 of 255), same-build noise     30018 px (worst 255),   912655 moved beyond the noise outside the touched and animated boxes (page height 4010 -> 4212 device px)
+rule8     about                      1280 differs on   1669756 device px (worst 255 of 255), same-build noise         0 px (worst   0),  1115462 moved beyond the noise outside the touched and animated boxes (page height 3608 -> 3706 device px)
+rule8     platform                   1280 differs on     50394 device px (worst 243 of 255), same-build noise    122503 px (worst  92),        0 moved beyond the noise outside the touched and animated boxes (page height 5921 -> 5954 device px)
+rule8     the-problem                1280 differs on     21692 device px (worst 243 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 2170 -> 2204 device px)
+rule8     solutions                  1280 differs on     21692 device px (worst 243 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 3649 -> 3683 device px)
+rule8     partners                   1280 differs on     21878 device px (worst 243 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 3041 -> 3074 device px)
+rule8     contact                    1280 differs on     21345 device px (worst 243 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 2873 -> 2906 device px)
+rule8     register                   1280 differs on    269477 device px (worst 253 of 255), same-build noise        12 px (worst   3),        0 moved beyond the noise outside the touched and animated boxes (page height 2059 -> 1870 device px)
+rule8     register-investor          1280 differs on    269623 device px (worst 253 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 2426 -> 2236 device px)
+rule8     register-resident          1280 differs on    269692 device px (worst 253 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 2406 -> 2216 device px)
+rule8     partner-with-investor      1280 differs on     22225 device px (worst 243 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 4537 -> 4570 device px)
+rule8     partner-with-local-authority 1280 differs on     21878 device px (worst 243 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 4810 -> 4843 device px)
+rule8     legal                      1280 differs on     22225 device px (worst 243 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes (page height 3000 -> 3033 device px)
+rule8     404                        1280 differs on         0 device px (worst   0 of 255), same-build noise         0 px (worst   0),        0 moved beyond the noise outside the touched and animated boxes
+
+wave490   14 shots · 0 empty runs over 96px (edges and last rows counted; 2 one-screen centring runs read, not failed) · 1638 span type nodes, 0 under floor · 42 Verify readings, 0 under 44 · 8 cards, 0 with a tail over 32px · 9 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+
+FAILED: 2
+  · rule8 home: 912655 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 1750 to 3318 and columns 0 to 1279
+  · rule8 about: 1115462 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 377 to 2812 and columns 0 to 1279
