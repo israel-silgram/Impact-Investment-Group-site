@@ -1,0 +1,35 @@
+# Z7: the 390 residual on / as shipped. Run: python <scratch>/w576_z7b.py (element captures of the council and map bands, the base against the head, and the head against itself).
+# Band tops: base council 2860.922, head council 3045.922 (185 exactly); base map 3603.313, head map 3788.313 (185 exactly).
+council rect [3045.921875, 742.390625]
+map rect [3788.3125, 2346.34375]
+council base vs head1 differ 144 >3: 30 max 10 box (67, 184, 322, 708)
+council head1 vs head2 differ 0 >3: 0 max 0 box None
+map base vs head1 differ 35838 >3: 27929 max 254 box (0, 203, 389, 2058)
+map head1 vs head2 differ 0 >3: 0 max 0 box None
+----
+[(60, 180), (60, 440), (60, 500), (160, 500), (180, 180), (180, 440), (180, 500), (200, 180), (200, 440), (200, 500), (300, 500), (320, 180), (320, 440)] 13
+(60, 180) []
+(60, 440) []
+(60, 500) []
+(160, 500) []
+(180, 180) []
+(180, 440) []
+==== masks
+council canvas 0 boxes; differing px inside 0 outside 144
+council .tabular-nums 0 boxes; differing px inside 0 outside 144
+council .logo-marquee 1 boxes; differing px inside 144 outside 0
+council img 36 boxes; differing px inside 144 outside 0
+council svg 0 boxes; differing px inside 0 outside 144
+map canvas 1 boxes; differing px inside 0 outside 35838
+map .tabular-nums 0 boxes; differing px inside 0 outside 35838
+map .logo-marquee 0 boxes; differing px inside 0 outside 35838
+map img 5 boxes; differing px inside 12832 outside 23006
+map svg 9 boxes; differing px inside 15 outside 35823
+==== who
+[(203, 212), (460, 466), (783, 789), (967, 971), (1610, 1611), (1962, 2058)] [67, 11, 11, 15, 2, 35732]
+(203, 212) ['SPAN block font-heading text-[22px] font-extr | 193,000+', 'SPAN block font-heading text-[22px] font-extr | 634,000+']
+(460, 466) ['rect [object SVGAnimatedString] | ', 'H3 heading-tight text-[14.5px] font-bold te | Demand-Led Intelligence', 'P mt-1 max-w-[62ch] text-[12.5px] max-lg:t | View areas where local authori']
+(783, 789) ['path [object SVGAnimatedString] | ', 'path [object SVGAnimatedString] | ', 'H3 heading-tight text-[14.5px] font-bold te | Deliver Measurable Impact', 'P mt-1 max-w-[62ch] text-[12.5px] max-lg:t | Each property opportunity can ']
+(967, 971) ['circle [object SVGAnimatedString] | ']
+(1610, 1611) []
+(1962, 2058) ['IMG h-full w-auto max-w-[10.5rem] object-con | ', 'IMG h-full w-auto max-w-[10.5rem] object-con | ', 'IMG h-full w-auto max-w-[10.5rem] object-con | ', 'IMG h-full w-auto max-w-[10.5rem] object-con | ']
