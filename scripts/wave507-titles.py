@@ -39,8 +39,12 @@ raised.
 
 `--by-design slug=part+part,...` (wave 567, 7 Oct 2026) is for a later wave
 that changes a page on purpose. Rule 5 stays whole for every page not named.
-A named page is paired band by band, each band cut from its own shot at its
-own position, so a page that grew or shrank is still compared: the bands it
+A named page is paired band by band, each band cut from its own ELEMENT capture
+(wave 576, 10 Oct 2026: a full-page capture of a taller page tiles differently
+and lands a card's shadow one level off in a band that did not change, which the
+first draft of this wave papered over with a noise floor; the element capture
+of the same band on the same build is equal to the pixel), so a page that grew
+or shrank is still compared: the bands it
 names may differ, every band it does not name must still be equal in every
 pixel, and a named page on which nothing differs fails, because the flag is
 then out of date. Nothing is named by default.
@@ -224,23 +228,19 @@ def diff_count(before: Path, after: Path, band: dict | None) -> int | None:
     return int(moved.sum())
 
 
-def band_diff(before: Path, after: Path, was: dict | None, now: dict | None, floor: int = 0):
-    """One band, cut from each shot at that shot's own position.
+def band_diff(before: Path, after: Path, was: dict | None, now: dict | None):
+    """One band, from the element capture of that band in each build.
 
-    `floor` (wave 576, 10 Oct 2026) is the largest per-channel step that is
-    not counted. It is 0 unless a run names `--band-noise`, and it is read
-    only on the pages `--by-design` names: a full-page capture of a taller
-    page tiles differently, and a card's drop shadow can land one level off
-    in one channel in a band that did not change."""
+    `before` and `after` are the paths of the two band captures."""
     if was is None or now is None:
         return "absent" if was is None and now is None else -1
+    if not before.exists() or not after.exists():
+        return -1
     a = np.asarray(Image.open(before).convert("RGBA")).astype(np.int16)
     b = np.asarray(Image.open(after).convert("RGBA")).astype(np.int16)
-    a = a[max(was["y"], 0): was["y"] + was["h"]]
-    b = b[max(now["y"], 0): now["y"] + now["h"]]
     if a.shape != b.shape:
         return int(max(a.shape[0] * a.shape[1], b.shape[0] * b.shape[1]))
-    return int((np.abs(a - b).max(axis=2) > floor).sum())
+    return int((np.abs(a - b).max(axis=2) > 0).sum())
 
 
 def parse_by_design(text: str) -> dict[str, set[str]]:
@@ -280,9 +280,7 @@ def source_check(failures: list[str]) -> dict:
     return found
 
 
-def run(
-    build: Path, mode: str, by_design: dict[str, set[str]] | None = None, band_noise: int = 0
-) -> int:
+def run(build: Path, mode: str, by_design: dict[str, set[str]] | None = None) -> int:
     by_design = by_design or {}
     failures: list[str] = []
     record: dict = {"mode": mode, "build": str(build), "markup": {}, "live": {}, "pixels": {}}
@@ -357,6 +355,20 @@ def run(
                     failures.append(f"live {where}: the tab reads {plain(live['title'])}, the markup {plain(markup['title'])}.")
                 shot = shots / f"{slug}-{label}.png"
                 page.screenshot(path=str(shot), full_page=True, animations="disabled", caret="hide")
+                # Wave 576: each band as an element capture too, with the sticky
+                # header hidden (not removed) while main and footer are taken so it
+                # is never drawn over them. Read only by --by-design.
+                band_dir = shots / "bands"
+                band_dir.mkdir(exist_ok=True)
+                for part in ("header", "main", "footer"):
+                    target = page.locator(part).first
+                    if not target.count():
+                        continue
+                    if part != "header":
+                        page.evaluate("document.querySelector('header') && (document.querySelector('header').style.visibility = 'hidden')")
+                    target.screenshot(path=str(band_dir / f"{slug}-{label}-{part}.png"), animations="disabled", caret="hide")
+                    page.evaluate("document.querySelector('header') && (document.querySelector('header').style.visibility = '')")
+                W490.to_top(page)
                 counts["shots"] += 1
                 record.setdefault("regions", {})[shot.name] = regions(page)
                 ctx.close()
@@ -382,12 +394,11 @@ def run(
                     continue
                 for part in ("header", "main", "footer"):
                     row[part] = band_diff(
-                        SHOTS / "before" / shot.name, shot, was[part], bands[part], band_noise
+                        SHOTS / "before" / "bands" / f"{shot.stem}-{part}.png",
+                        shots / "bands" / f"{shot.stem}-{part}.png",
+                        was[part],
+                        bands[part],
                     )
-                    if band_noise:
-                        row[f"{part}_all_levels"] = band_diff(
-                            SHOTS / "before" / shot.name, shot, was[part], bands[part]
-                        )
                 row["height_before"], row["height_after"] = was["height"], bands["height"]
                 row["sha_before"] = pixel_sha(SHOTS / "before" / shot.name)
                 row["sha_after"] = pixel_sha(shot)
@@ -439,6 +450,16 @@ def run(
                     f"pixels: {name:<40} changed by design in {'+'.join(v['by_design'])}: header {v['header']}, "
                     f"main {v['main']}, footer {v['footer']} px differ; page {v['height_before']} -> {v['height_after']} px tall"
                 )
+        named = {k: v for k, v in record["pixels"].items() if "by_design" in v and "main" in v}
+        if named:
+            # Wave 576: the band figures, counted from the record this run wrote.
+            for part in ("header", "main", "footer"):
+                zero = sorted(k for k, v in named.items() if v[part] in (0, "absent"))
+                print(f"bands: {part}: {len(zero)} of {len(named)} named shots equal in every pixel; "
+                      f"{len(named) - len(zero)} differ")
+            pages = sorted({k.rsplit("-", 1)[0] for k in named})
+            print(f"bands: {len(pages)} named pages, {len(named)} shots, "
+                  f"{len(strict)} shots of unnamed pages paired whole ({len(strict) + len(named)} in all)")
     print(f"wave507   {counts['pages']} pages, {counts['fields']} live readings, {counts['shots']} shots")
     if failures:
         tail = " (recorded, not failed: before mode)" if mode == "before" else ""
@@ -458,14 +479,11 @@ def main() -> int:
     # Wave 567, 7 Oct 2026: the pages a later wave changes on purpose, and the
     # bands of each that may differ. Empty by default, so rule 5 is whole.
     parser.add_argument("--by-design", default="", help="slug=main+footer,slug=footer,...")
-    # Wave 576, 10 Oct 2026: the per-channel step the by-design pages' bands may
-    # differ by without counting. Default 0: strict.
-    parser.add_argument("--band-noise", type=int, default=0)
     args = parser.parse_args()
     build = Path(args.build)
     if not (build / "index.html").exists():
         raise SystemExit(f"No build at {build}. Run: STATIC_BUILD=true bun run build")
-    return run(build, args.mode, parse_by_design(args.by_design), args.band_noise)
+    return run(build, args.mode, parse_by_design(args.by_design))
 
 
 if __name__ == "__main__":
