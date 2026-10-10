@@ -1,0 +1,11 @@
+home: base footer shot 859px, head 892px, differ 80074 px in rows [(12, 13), (85, 99), (254, 305), (315, 519), (570, 635), (769, 858)]; footer top base 3151.969 head 3321.75 (fraction 0.969 -> 0.750), height 857.547 -> 890.672
+platform: base footer shot 859px, head 892px, differ 27075 px in rows [(768, 858)]; footer top base 5063.531 head 5063.531 (fraction 0.531 -> 0.531), height 857.547 -> 890.672
+about: base footer shot 859px, head 891px, differ 66161 px in rows [(41, 70), (254, 431), (443, 519), (535, 544), (643, 670), (747, 755)] ...; footer top base 2750.469 head 2815.25 (fraction 0.469 -> 0.250), height 857.547 -> 890.672
+partners: base footer shot 858px, head 892px, differ 52841 px in rows [(254, 305), (315, 431), (444, 519), (768, 857)]; footer top base 2183.453 head 2183.453 (fraction 0.453 -> 0.453), height 857.547 -> 890.672
+register: base footer shot 636px, head 670px, differ 22231 px in rows [(561, 635)]; footer top base 1201.844 head 1201.844 (fraction 0.844 -> 0.844), height 635.141 -> 668.266
+---- split by column and by row band (logo column = x 0 to 339; legal band = last 120 rows of the head shot's base)
+home: logo column above the legal band 28779; rest above the legal band 24451; legal band 26844
+platform: logo column above the legal band 0; rest above the legal band 0; legal band 27075
+about: logo column above the legal band 26723; rest above the legal band 11869; legal band 27569
+partners: logo column above the legal band 26289; rest above the legal band 0; legal band 26552
+register: logo column above the legal band 0; rest above the legal band 0; legal band 22231
