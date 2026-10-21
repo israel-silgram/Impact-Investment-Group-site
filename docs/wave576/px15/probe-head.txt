@@ -1,0 +1,14 @@
+$ python docs/wave576/px15/probe.py --label head --shots docs/screenshots/wave576/px15   (kept build)
+head     /                    @ 1280  {"size": "15px", "weight": "600", "lineHeight": "24.375px", "colour": "rgb(10, 44, 96)", "lines": 1, "box": [46, 1187, 24.38], "footer": 893.92, "clash": []}
+head     /register/investor   @ 1280  {"size": "15px", "weight": "600", "lineHeight": "24.375px", "colour": "rgb(10, 44, 96)", "lines": 1, "box": [46, 1187, 24.38], "footer": 671.52, "clash": []}
+head     /                    @ 390   {"size": "15px", "weight": "600", "lineHeight": "24.375px", "colour": "rgb(10, 44, 96)", "lines": 3, "box": [20, 350, 73.13], "footer": 2929.13, "clash": []}
+head     /register/investor   @ 390   {"size": "15px", "weight": "600", "lineHeight": "24.375px", "colour": "rgb(10, 44, 96)", "lines": 3, "box": [20, 350, 73.13], "footer": 2582.63, "clash": []}
+rc=0
+
+Looked at, all four (21 Oct 2026): the pledge is 15px semibold ink, centred
+between the legal links and the small print, with nothing over it (clash [] on
+all four). One line at 1280 (1,187px wide, 24.38px tall); THREE lines at 390,
+as at the control (probe-control.txt), where it was already 15px: not the
+"one or two" the brief expected, unchanged by this pass, and not changed (it
+would take another footer class). The home footer's first 220px is the home
+page's own CTA band, which sits inside <footer>.
