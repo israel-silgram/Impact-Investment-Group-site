@@ -159,3 +159,119 @@ change (the sentence, its constant, the three placements, the brief's classes) d
 | Z12 | Vault lines unshown | Landing-Queue row 576 updated to the new head and tree, and the 507 decision; nothing else in the vault |
 | Z13 | Two contradictions | `b51d4c5` carries the plan and is not empty (the plan and this report now say so); the attempts log header counts ten runs before the fix and six after |
 
+## 7. The 15 px pass (21 Oct 2026, R576-1)
+
+Callum, 12 Oct 2026, R576-1: the site footer line is 15 px, the house minimum ("Body never below 15px"), not
+the brief's 13 px. This supersedes the 13px-at-1280 noted in section 3 and in Z11. Callum's sentence
+(`charityPledge`, 9 Oct 2026) is not touched: `git diff 16fd5a1b HEAD -- src/content/charity.ts` is empty.
+No other user-facing string changed. Logs under `docs/wave576/px15/`; `gates-notes.txt` there says which
+logs were superseded and why.
+
+**The change**, commit `76ba6bbe22030a3536ca2cf473c661962d8a373f`, in `src/components/site-footer.tsx`
+only (4 insertions, 2 deletions, the class and its Wave 576 comment):
+
+- before: `mx-auto mt-3 max-w-[120ch] text-balance text-center text-[13px] max-lg:text-[15px] font-semibold leading-relaxed text-ink`
+- after: `mx-auto mt-3 max-w-[120ch] text-balance text-center text-[15px] font-semibold leading-relaxed text-ink`
+
+Hydrated (`probe-control.txt`, `probe-head.txt`): at 1280 13px to 15px, one line both, 21.13 to 24.38px
+tall, the footer 3.25px taller (home 890.67 to 893.92, register investor 668.27 to 671.52); at 390 15px
+and three lines both, unchanged. No text overlaps the line at either width. All 29 footered pages of the
+build carry the new class and none the old.
+
+**The gates' own changes** (same commit): `wave576-charity.py` read the pledge's size and asserted
+nothing about it; it now pins `15px` at 1280 and 390 on all four routes, with a dated comment. Run on the
+16fd5a1 build it fails at exactly the four 1280 readings (`gate-576-pin-red.txt`). `wave493-logo.py`: its
+five 1280 footer befores re-shot at this head by its own `--mode before --profiles 1280 --scratch`, with a
+dated comment in `pair`; before that, 493 failed on those five alone (23,688 to 25,199 px,
+`gate-493-strict-red.txt`), and every differing pixel was at or below the pledge's top, 0 px above it on
+all five (`gate-493-rows.txt`). No other gate pinned 13px: 490 classes a 600-weight run as a heading and
+gives it no type floor; 507 and 412 read pixels and shares. 490 and 507 needed no re-base. No tolerance was
+changed and no assertion removed.
+
+### Gates
+
+Each read the head build (`build-attempts.txt` attempt 6) after `node scripts/pages-postbuild.mjs
+dist/client`, as the deploy does. The `src` the gates read is that of `76ba6bb`; nothing under `src` or
+`scripts` changed after it. The log commit is the one that holds the log.
+
+| Gate | Command | Log, commit | Result, read off the output |
+|---|---|---|---|
+| control build | `STATIC_BUILD=true npm run build` on 16fd5a1 | `build-control.txt`, `a70149f` | rc 0 |
+| control lint | `npm run lint` on 16fd5a1 | `lint-control.txt`, `a70149f` | **rc 1**: 28,505 problems; 28,058 are prettier "Delete CR" (this checkout's system `core.autocrlf=true`, a CRLF tree over an LF index), 432 errors and 15 warnings in 30 files, none in the footer |
+| build | `STATIC_BUILD=true npm run build` | `build.txt`, `build-kept.txt`, `32b3144` | rc 0 on all six attempts |
+| lint | `npm run lint` | `lint.txt`, `32b3144` | **rc 1**, as at the control: 28,507 problems, and the only difference is two more "Delete CR" on the two comment lines added. The footer read as LF through `eslint --stdin`: rc 0 |
+| guard | `python scripts/wave576-charity.py` | `gate-576.txt`, `76138f3` | **0**: 29 footered pages, 12 hydrated readings, the pledge `15px` at all 8, 10 bands paired, LCP and preloads equal the base |
+| arms | `--arm a1`, `--arm a2`, `--arm a3` | `arm-a1.txt` to `arm-a3.txt`, `76138f3` | **1, 1, 1** (60, 2 and 1 failures); then the guard again, `gate-576-restored.txt`: **0** |
+| 493 | `python scripts/wave493-logo.py` | `gate-493.txt`, `76138f3` | **0**: header and footer pairings 0 px on all five |
+| 490 part 1 | `python scripts/wave490-phone.py --pages home,about,platform,the-problem,solutions,partners,contact --no-probes` | `gate-490-part1.txt`, `76138f3` | **0**: rule 8 0 beyond the noise on all seven |
+| 490 part 2 | `python scripts/wave490-phone.py --pages register,register-investor,register-resident,partner-with-investor,partner-with-local-authority,legal,404 --no-probes` | `gate-490-part2.txt`, `76138f3` | **0**: rule 8 0 beyond the noise on all seven |
+| 490 probes | `python scripts/wave490-phone.py --pages none` | `gate-490-probes.txt`, `76138f3` | **0** |
+| 507 before | `python scripts/wave507-titles.py --build <73fcf6f build> --mode before` | `gate-507-before.txt`, `76138f3` | 0 (records, never fails); 30 pages, 60 shots |
+| 507 | `python scripts/wave507-titles.py --by-design "<the list at the top of gate-507.txt, unchanged from wave 576>"` | `gate-507.txt`, `76138f3` | **0**: header 58 of 58 equal, main 54 of 58 (the 4 are `/` and `/about`), footer 58 of 58 differ, the two 404 shots paired whole |
+| 412 | `python scripts/wave412-screenshots.py` | `gate-412.txt`, `76138f3` | **0**: home @ 1280 raw **22.25%**, ground **7.96%**; `/register/investor` @ 1280 raw **4.18%**; 274 INCOMPLETE, 274 measured; ceiling 23.70% as set in the script |
+| sweeps | `python docs/wave576/px15/sweeps.py` | `sweeps.txt`, `648e0dd` | **0** of each: U+2014, U+2013, `C:\Users` path, key shape, postcode outside ZZ, email outside example domains |
+
+**NOT RUN: none** of the gates this pass names. Not run because this pass did not ask for them: 413,
+414, 415, 421, 443, 502, 567 and `tsc`.
+
+The 507 base was built from `git archive 73fcf6f` in a temporary folder with `bun install
+--frozen-lockfile`. That folder is not a git checkout, so no worktree was added (`build-base-attempts.txt`).
+
+### Found, and not changed (outside this pass)
+
+1. **`/contact`'s prerendered file differs from build to build.** `crawlLinks` follows the six
+   `?enquiry=` links and `autoSubfolderIndex` writes every variant to `contact/index.html`. Which
+   variant lands varies with the build: "Media" on the control, "Support" on head attempts 2 to 5 and on
+   base attempts 1 to 3. Twice the file came out with a duplicated document tail (565 and 795 characters
+   after the first `</html>`). On attempt 1 the hydrated page threw `Invariant failed` and rendered
+   blank, and 490's rule 8 read 970,206 px. That failure belonged to the build, not to the edit: rebuilt,
+   whole and holding the control's variant, every page equals the control's once the pledge class is put
+   back (29 of 29). `pages-postbuild.mjs` already trims a duplicated tail, so the deploy repairs that
+   case, but not the choice of variant. A gate pairing `/contact`'s main against a before shot will
+   differ when the variants differ. `contact-check.py` reads both. `vite.config.ts` was not touched; this
+   is for a later wave.
+2. **The pledge is three lines at 390, not one or two.** It was already three on the control, where it
+   was 15px; this pass does not change it.
+3. **The gates need `pages-postbuild.mjs` after the build.** Without it there is no `404.html`, and 490
+   part 2 fails on `/404` (`gate-490-part2-no-404.txt`).
+
+### Shots
+
+`docs/screenshots/wave576/px15/`: `footer-home-1280.png`, `footer-home-390.png`,
+`footer-register-investor-1280.png`, `footer-register-investor-390.png` (commit `a47ad79`). Each is cut
+from a full-page shot at the footer's document box, with the sticky header hidden. The first 220px of the
+home footer is the home page's CTA band, which sits inside `<footer>`. I looked at all four: the line is
+15px, one line at 1280 and three at 390, with nothing overlapping it. The guard's own
+`home-`, `about-` and `footer-1280-after.png` were re-shot with it; its 390 shots came out byte-identical.
+
+### Tooling
+
+`bun` was not on the PATH. `npm install -g bun` installed bun 1.4.3, and `bun install --frozen-lockfile`
+installed 463 packages, rc 0. **No substitution.** Node v24.15.0, Python 3.12.8, Playwright's Chromium
+already present.
+
+### The real stat
+
+After the last commit before this section, `3fdb24993a6fda9a02ee56ffa27a9275dc7b6abf`: `git diff
+--shortstat origin/main HEAD` reads **124 files changed, 12380 insertions(+), 17 deletions(-)**, so the
+path count is **124**. This pass alone (`16fd5a1b..3fdb249`): 54 files, 3,919 insertions, 10 deletions.
+The commit that adds this section changes only `docs/WAVE576_REPORT.md`, a path already counted, so the
+count stays 124 at the push head; it adds 116 lines, which makes 124 files changed, 12496 insertions(+), 17 deletions(-) there.
+
+Commits, in order: `50404eb` the start · `a70149f` tooling and the control · `76ba6bb` the change, the pin,
+the 493 re-base · `32b3144` build and lint · `76138f3` the gates · `a47ad79` the shots · `648e0dd` the
+sweeps · `3fdb249` the lint logs compacted at self-review · then this section.
+
+## Row
+
+Landing-Queue row, for the chair to paste:
+
+| 576 | SITE | Wave 576 with the 15 px pass (R576-1, 12 Oct 2026): the footer pledge at 15px at every width; the guard pins it; 493's five 1280 footer befores re-based | 576 guard 0, arms 1/1/1 then 0; 493 0; 490 0/0/0; 507 by design 0; 412 0 (home 22.25% / 7.96%, register investor 4.18%); build 0; lint 1 as at the control | ready: gated head `3fdb24993a6fda9a02ee56ffa27a9275dc7b6abf`, tree `1612725ee661dfb460a1f5eaa43b0ccd342570cd`; the push head is the one docs commit on it adding section 7 (src and scripts identical) | a fast-forward push of the site's main from `73fcf6f` | |
+
+History-Ledger line:
+
+`21 Oct 2026 · SITE 576 · the 15 px pass: the footer pledge at 15px at every width by R576-1, the guard pins it, 493's five 1280 footers re-based; every footer gate 0, nothing NOT RUN; /contact's prerender varies from build to build (found, not changed) · ready on 3fdb249`
+
+Live-State line:
+
+`SITE 576: ready, gated head 3fdb24993a6fda9a02ee56ffa27a9275dc7b6abf (tree 1612725ee661dfb460a1f5eaa43b0ccd342570cd) plus the report commit; origin/main 73fcf6f; awaiting the chair's review and fast-forward push`
