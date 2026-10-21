@@ -1,0 +1,13 @@
+Tooling for the 15 px pass (21 Oct 2026).
+
+$ bun --version
+bun: command not found
+$ npm install -g bun
+added 2 packages in 26s
+$ bun --version
+1.4.3
+$ bun install --frozen-lockfile    (log: install.txt)
+463 packages installed, rc=0
+node v24.15.0, Python 3.12.8. No substitution: bun was used, as the deploy uses it.
+Builds run as STATIC_BUILD=true npm run build, the deploy's static prerender
+(vite.config.ts line 12), which writes the dist/client the gates read.
