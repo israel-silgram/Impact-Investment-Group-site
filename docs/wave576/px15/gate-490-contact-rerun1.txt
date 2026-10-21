@@ -1,0 +1,15 @@
+$ python scripts/wave490-phone.py --pages contact --no-probes   (re-run 1 of /contact)
+item8     contact @ 360          scrolled to 0: none; 0 text runs and 0 controls on screen; 0 clashes
+item8     contact @ 390          scrolled to 0: none; 0 text runs and 0 controls on screen; 0 clashes
+item8     contact @ 414          scrolled to 0: none; 0 text runs and 0 controls on screen; 0 clashes
+item8     contact @ 768          scrolled to 0: none; 0 text runs and 0 controls on screen; 0 clashes
+item8     contact @ 667x375      scrolled to 0: none; 0 text runs and 0 controls on screen; 0 clashes
+item8     contact @ 1280         scrolled to 0: none; 0 text runs and 0 controls on screen; 0 clashes
+
+rule8     contact                    1280 differs on    970206 device px (worst 253 of 255), same-build noise         0 px (worst   0),   970206 moved beyond the noise outside the touched and animated boxes (page height 2873 -> 900 device px)
+
+wave490   6 shots · 0 empty runs over 96px (edges and last rows counted; 0 one-screen centring runs read, not failed) · 0 span type nodes, 0 under floor · 0 Verify readings, 0 under 44 · 0 cards, 0 with a tail over 32px · 0 pills, 0 splitting a verb · 0 peek readings, 0 under the ink floor · 0 fixed-layer clashes · 0 runs in the open drawer, 0 under floor
+
+FAILED: 1
+  · rule8 contact: 970206 device pixels moved at 1280 by more than this page's own run-to-run noise, outside every box this wave declared it touched, in rows 10 to 899 and columns 0 to 1279
+rc=1

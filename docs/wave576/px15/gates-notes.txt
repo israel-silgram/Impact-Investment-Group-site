@@ -1,0 +1,22 @@
+Wave 576, the 15 px pass (21 Oct 2026): what the gate logs in this folder are.
+
+Every gate read the kept head build (build-attempts.txt, attempt 6) after
+node scripts/pages-postbuild.mjs dist/client (postbuild.txt), as the deploy does.
+
+Superseded, kept so nothing is hidden:
+  gate-490-part1-attempt1-build.txt   part 1 on attempt 1, rc 1: /contact hydrated
+                                      blank ("Invariant failed"), rule 8 970,206 px,
+                                      page 2873 -> 900. The build, not the edit
+                                      (build-attempts.txt)
+  gate-490-contact-rerun1.txt         the same build, /contact alone, the same rc 1
+  gate-490-part2-no-404.txt           part 2 before the postbuild step, rc 1: /404
+                                      did not exist, 16,163 px
+  gate-576-pin-red.txt                the guard on the 16fd5a1 control build: the
+                                      new 15px pin red at the four 1280 readings
+  gate-493-strict-red.txt             493 before its re-base, rc 1
+
+The gate's per-run outputs (412, 490 and 493 shots, 493's measure-after.json,
+507's titles-*.json) were written by these runs and put back to HEAD, as wave 576
+left them: only re-based befores and the guard's own record and shots are
+committed. The guard's 1280 after shots and charity-after.json are its run in
+gate-576.txt; its 390 after shots came out byte-identical and are unchanged.

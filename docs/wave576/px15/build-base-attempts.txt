@@ -1,0 +1,10 @@
+Base builds of 73fcf6f (git archive into a temp folder, bun install --frozen-lockfile, STATIC_BUILD=true npm run build, node scripts/pages-postbuild.mjs dist/client), each checked with docs/wave576/px15/contact-check.py.
+attempt 1: contact/index.html: 55265 bytes; </html> 1 time(s); pressed ['Support']; after the first </html>: 0 chars (rc 0)
+attempt 2: build rc=0; contact/index.html: 55265 bytes; </html> 1 time(s); pressed ['Support']; after the first </html>: 0 chars (rc 0)
+attempt 3: build rc=0; contact/index.html: 55265 bytes; </html> 1 time(s); pressed ['Support']; after the first </html>: 0 chars (rc 0)
+attempt 4: build rc=0; contact/index.html: 55830 bytes; </html> 1 time(s); pressed ['Media']; after the first </html>: 0 chars (rc 0)
+kept: attempt 4
+Kept: attempt 4, the base 507's --mode before read (gate-507-before.txt). Its contact/index.html holds the same
+variant as the head's kept build (Media); 55,830 against the head's 56,069 bytes, the same 239-byte step as
+between the two builds' Support files (55,265 and 55,504), which is wave 576's pledge markup and this pass's class.
+The temp folder is not committed and not a git checkout (git archive, so no worktree was added).

@@ -1,6 +1,6 @@
 {
  "mode": "after",
- "build": "C:\\Users\\Israel\\Documents\\repos\\iigs-uc576\\dist\\client",
+ "build": "C:\\Users\\CSaxo\\iip-work\\s576\\dist\\client",
  "live": {
   "/ lcp @ 1280": {
    "tag": "IMG",
@@ -32,7 +32,7 @@
     "pledge": [
      {
       "text": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
-      "size": "13px",
+      "size": "15px",
       "weight": "600",
       "colour": "rgb(10, 44, 96)"
      }
@@ -164,7 +164,7 @@
     "pledge": [
      {
       "text": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
-      "size": "13px",
+      "size": "15px",
       "weight": "600",
       "colour": "rgb(10, 44, 96)"
      }
@@ -230,7 +230,7 @@
     "pledge": [
      {
       "text": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
-      "size": "13px",
+      "size": "15px",
       "weight": "600",
       "colour": "rgb(10, 44, 96)"
      }
@@ -257,7 +257,7 @@
     "pledge": [
      {
       "text": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
-      "size": "13px",
+      "size": "15px",
       "weight": "600",
       "colour": "rgb(10, 44, 96)"
      }
@@ -527,7 +527,7 @@
    }
   }
  },
- "src_root": "C:\\Users\\Israel\\Documents\\repos\\iigs-uc576",
+ "src_root": "C:\\Users\\CSaxo\\iip-work\\s576",
  "constant": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
  "source_named": [
   "src/content/charity.ts"
