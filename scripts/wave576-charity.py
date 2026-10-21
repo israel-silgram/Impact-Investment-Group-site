@@ -27,7 +27,8 @@ WHAT THIS READS AND ASSERTS, in `--mode after` (the default):
      and twice in all in `index.html` and `about/index.html` (footer plus the
      page's own placement).
   4. THE HYDRATED PAGE at 1280 and 390, on `/`, `/about`, `/register` and
-     `/register/investor`: one footer `<p>` equals the constant; on `/` the
+     `/register/investor`: one footer `<p>` equals the constant, at 15px at
+     both widths (R576-1, Callum, 12 Oct 2026; pinned 21 Oct 2026); on `/` the
      band reads it in Barlow 700, on the computed `--color-page-alt`, below the
      first viewport; on `/about` the summary's third line equals it.
   5. EVERY OTHER BAND of `main` on `/` and `/about`, at both widths, is cut out
@@ -92,6 +93,8 @@ SENTENCE = (
     "children today and change lives for tomorrow."
 )
 NAME = "Metro World Child"
+# R576-1, Callum, 12 Oct 2026: the footer line is 15px at 1280 and at 390.
+PLEDGE_SIZE = "15px"
 CHARITY = "src/content/charity.ts"
 IMPORTERS = {
     "src/components/site-footer.tsx",
@@ -501,6 +504,12 @@ def run(build: Path, mode: str, arm: str | None) -> int:
                     failures.append(f"live {where}: {foot['footers']} footer(s), expected 1.")
                 if [x["text"] for x in foot["pledge"]] != [SENTENCE]:
                     failures.append(f"live {where}: the footer's pledge paragraphs read {plain([x['text'] for x in foot['pledge']])}.")
+                # R576-1 (Callum, 12 Oct 2026; pinned 21 Oct 2026): the footer pledge
+                # is 15px at every width, the house minimum, not the brief's 13px.
+                # Until then this read the size and asserted nothing about it.
+                for x in foot["pledge"]:
+                    if x["size"] != PLEDGE_SIZE:
+                        failures.append(f"live {where}: the footer's pledge is {x['size']}, expected {PLEDGE_SIZE} (R576-1).")
 
                 if slug == "home":
                     band = page.evaluate(HOME_READ, SENTENCE)
@@ -568,7 +577,8 @@ def run(build: Path, mode: str, arm: str | None) -> int:
     for where, reading in record["live"].items():
         if "footer" in reading:
             f = reading["footer"]
-            print(f"  {where:<26} footers {f['footers']}  pledge paragraphs {len(f['pledge'])}")
+            print(f"  {where:<26} footers {f['footers']}  pledge paragraphs {len(f['pledge'])}  "
+                  f"size {[x['size'] for x in f['pledge']]}")
         if "band" in reading:
             for b in reading["band"]:
                 print(f"  {'':<26} band {b['family'].split(',')[0]} {b['weight']} {b['size']}, ground {b['band']}, top {b['top']:.0f}px of a {b['viewport']}px viewport")

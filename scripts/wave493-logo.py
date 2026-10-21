@@ -494,6 +494,13 @@ def pair(before_json: Path, after_json: Path, failures: list[str]) -> None:
     Wave 576, 10 Oct 2026: the five 1280 footer shots (home, platform, about,
     partners, register) were re-shot at that wave's head, which added the
     charity pledge line to every footer. The five headers are still 493's.
+
+    Wave 576's 15 px pass, 21 Oct 2026 (R576-1, Callum, 12 Oct 2026): the same
+    five 1280 footer shots were re-shot again, at that pass's head, by
+    `--mode before --profiles 1280 --scratch`, because the pledge went from
+    13px to 15px at 1280 and each footer grew 3px. Before the re-base every
+    differing pixel was at or below the pledge's top (0 px above it on all
+    five, docs/wave576/px15/gate-493-rows.txt). The five headers are still 493's.
     """
     before = json.loads(before_json.read_text(encoding="utf-8"))["readings"]
     after = json.loads(after_json.read_text(encoding="utf-8"))["readings"]

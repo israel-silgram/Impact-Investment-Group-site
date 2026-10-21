@@ -1,0 +1,6 @@
+$ python docs/wave576/px15/probe.py --label control   (dist/client built at 16fd5a1)
+control  /                    @ 1280  {"size": "13px", "weight": "600", "lineHeight": "21.125px", "colour": "rgb(10, 44, 96)", "lines": 1, "box": [125, 1029, 21.13], "footer": 890.67, "clash": []}
+control  /register/investor   @ 1280  {"size": "13px", "weight": "600", "lineHeight": "21.125px", "colour": "rgb(10, 44, 96)", "lines": 1, "box": [125, 1029, 21.13], "footer": 668.27, "clash": []}
+control  /                    @ 390   {"size": "15px", "weight": "600", "lineHeight": "24.375px", "colour": "rgb(10, 44, 96)", "lines": 3, "box": [20, 350, 73.13], "footer": 2929.13, "clash": []}
+control  /register/investor   @ 390   {"size": "15px", "weight": "600", "lineHeight": "24.375px", "colour": "rgb(10, 44, 96)", "lines": 3, "box": [20, 350, 73.13], "footer": 2582.63, "clash": []}
+rc=0

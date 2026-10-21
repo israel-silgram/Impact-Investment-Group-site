@@ -1,0 +1,7 @@
+$ python docs/wave576/px15/gate-493-rows.py   (after the strict red, before the re-base)
+home: before 892px, after 895px; differ 24015 px, first differing row 785; pledge in the head footer at rows 779.92 to 804.3 of 893.92; px differing above the pledge's top: 0
+platform: before 892px, after 895px; differ 24112 px, first differing row 785; pledge in the head footer at rows 779.92 to 804.3 of 893.92; px differing above the pledge's top: 0
+about: before 891px, after 895px; differ 23939 px, first differing row 785; pledge in the head footer at rows 779.92 to 804.3 of 893.92; px differing above the pledge's top: 0
+partners: before 892px, after 895px; differ 24112 px, first differing row 785; pledge in the head footer at rows 779.92 to 804.3 of 893.92; px differing above the pledge's top: 0
+register: before 670px, after 673px; differ 25213 px, first differing row 563; pledge in the head footer at rows 557.52 to 581.89 of 671.52; px differing above the pledge's top: 0
+rc=0

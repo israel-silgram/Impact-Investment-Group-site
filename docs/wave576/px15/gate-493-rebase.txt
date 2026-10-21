@@ -1,0 +1,11 @@
+$ python scripts/wave493-logo.py --mode before --profiles 1280 --routes home,platform,about,partners,register --scratch %TEMP%/s576-493   (on this head)
+readings written to %TEMP%\s576-493\measure-before.json
+  home @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  platform @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  about @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  partners @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+  register @ 1280: bar 232.2x36.0 (6.45) logo-lockup-400.webp gap 29.7 to 'About Us'; footer 283.9x44.0 (6.45) logo-lockup-400.webp
+
+All assertions passed.
+rc=0
+copied: the five 1280 footer shots from %TEMP%/s576-493/before into docs/screenshots/wave493/before/; headers untouched
