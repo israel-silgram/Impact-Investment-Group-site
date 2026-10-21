@@ -1,0 +1,14 @@
+Wave 576, the 15 px pass (21 Oct 2026, R576-1). The start, recorded before any edit.
+
+$ git rev-parse HEAD
+16fd5a1b65cd254873c0920dc98a0d22bea8ccbe
+$ git rev-parse HEAD^{tree}
+e8d542cd875753910118799426a5a128c63fc158
+$ git fetch origin
+(no output)
+$ git rev-parse origin/main
+73fcf6f55c3cd3a1796664637f5eff200d979acb
+$ git merge-base --is-ancestor origin/main HEAD; echo $?
+0
+
+origin/main has not moved from 73fcf6f5; no merge was needed.
