@@ -1,6 +1,6 @@
 {
  "mode": "after",
- "build": "C:\\Users\\CSaxo\\iip-work\\s576\\dist\\client",
+ "build": "dist/client",
  "live": {
   "/ lcp @ 1280": {
    "tag": "IMG",
@@ -527,7 +527,7 @@
    }
   }
  },
- "src_root": "C:\\Users\\CSaxo\\iip-work\\s576",
+ "src_root": ".",
  "constant": "10% of all profits made go to Metro World Child UK to bring hope and joy to children today and change lives for tomorrow.",
  "source_named": [
   "src/content/charity.ts"

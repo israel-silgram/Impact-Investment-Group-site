@@ -1,0 +1,7 @@
+sweeps over git diff --cached 16fd5a1b: 60350 added lines, 6532068 bytes
+  U+2014 em dash                   0
+  U+2013 en dash                   0
+  C:\Users path                    0
+  key shape                        0
+  postcode outside ZZ              0
+  email outside example domains    0

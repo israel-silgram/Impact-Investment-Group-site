@@ -19,7 +19,7 @@ item1     councils  @ 1280  loaded slow 4G: styled at 5069ms, timed entry at 508
 item1     data      @ 1280  loaded slow 4G: styled at 5063ms, timed entry at 5074ms (hydrated at 4177ms; earlier entries cut short: none); at +1500ms on screen=  5 decoded=  5 pending= 0; whole strip decoded   5 of   5; every tile on screen decoded by +1500ms; distinct requests 0 at the timed entry, 5 at the reading
 
 item7     capture   rendered=348px natural=389px src=platform-finder-960.webp trigger=True 348x187.41
-item7     dialog    name="Real product UI — the Property Finder. F" close=44x44 image=1600px scrollable=1600>390
+item7     dialog    name="Real product UI [em dash] the Property Finder. F" close=44x44 image=1600px scrollable=1600>390
 item7     axe       open state: 0 serious or critical []
 item7     named     nodes whose accessible name is the caption, by role: {'dialog': 1, 'heading': 1, 'StaticText': 1, 'InlineTextBox': 1}
 item7     escape    closed
