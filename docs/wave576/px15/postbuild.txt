@@ -1,0 +1,6 @@
+$ node scripts/pages-postbuild.mjs dist/client   (the deploy step after the build; BASE_PATH unset, so /)
+pages-postbuild: base="/", patched 0 file(s), trimmed a duplicated document tail from 0 file(s)
+rc=0
+added ['.nojekyll', '404.html']
+changed []
+removed []

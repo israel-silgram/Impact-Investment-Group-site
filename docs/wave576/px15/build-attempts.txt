@@ -1,0 +1,18 @@
+Builds of the head (the 15 px edit). Each: STATIC_BUILD=true npm run build, then
+python docs/wave576/px15/contact-check.py dist/client. The control build at 16fd5a1 read: 56088 bytes, one </html>, pressed ['Media'], 0 chars after.
+attempt 1 (build.txt): /contact hydrated blank, 'Invariant failed' twice (490 rule 8: 970,206 px, page 2873 -> 900); the file was not kept for the check
+attempt 2: contact/index.html: 56069 bytes; </html> 2 time(s); pressed ['Support']; after the first </html>: 565 chars (rc 1)
+attempt 3: build rc=0; contact/index.html: 55504 bytes; </html> 1 time(s); pressed ['Support']; after the first </html>: 0 chars (rc 0)
+attempt 4: build rc=0; contact/index.html: 56299 bytes; </html> 3 time(s); pressed ['Support']; after the first </html>: 795 chars (rc 1)
+attempt 5: build rc=0; contact/index.html: 55504 bytes; </html> 1 time(s); pressed ['Support']; after the first </html>: 0 chars (rc 0)
+attempt 6: build rc=0; contact/index.html: 56069 bytes; </html> 1 time(s); pressed ['Media']; after the first </html>: 0 chars (rc 0)
+kept: attempt 6
+kept build against the control build (16fd5a1), every .html, asset hashes and router timestamps normalised:
+  pages: control 29, kept 29, same list True
+  29 pages equal once the pledge class is put back, 0 differ; the new class appears 29 times in all
+Every page of the kept build against the control build: see above, 29 of 29 equal once the pledge class is put back.
+Then node scripts/pages-postbuild.mjs dist/client (postbuild.txt): added 404.html and .nojekyll, changed no file;
+it reports "trimmed a duplicated document tail from 0 file(s)", so the deploy already repairs the duplicated-tail case.
+Not repaired by anything: which ?enquiry= variant lands in contact/index.html (Media on the control and on attempt 6,
+Support on attempts 2, 3, 4 and 5). Pre-existing since the variants are crawled (crawlLinks plus autoSubfolderIndex,
+vite.config.ts unchanged in this pass), and out of this pass's scope.
