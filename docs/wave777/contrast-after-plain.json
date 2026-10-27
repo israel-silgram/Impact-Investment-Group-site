@@ -1,0 +1,715 @@
+{
+  "baseline": false,
+  "pairs": 62,
+  "rows": [
+    {
+      "fg": "--color-ink",
+      "bg": "--color-white",
+      "foreground": "#14366A",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 11.894427140633272,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink-muted",
+      "bg": "--color-white",
+      "foreground": "#4E5A6E",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 6.973121392925709,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-700",
+      "bg": "--color-white",
+      "foreground": "#BB441B",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 5.308883019181563,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-white",
+      "foreground": "#267977",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 5.142339264244065,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink",
+      "bg": "--color-page",
+      "foreground": "#14366A",
+      "background": "#FDFDFB",
+      "floor": 4.5,
+      "contrast": 11.678995363454463,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink-muted",
+      "bg": "--color-page",
+      "foreground": "#4E5A6E",
+      "background": "#FDFDFB",
+      "floor": 4.5,
+      "contrast": 6.846824269373647,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-700",
+      "bg": "--color-page",
+      "foreground": "#BB441B",
+      "background": "#FDFDFB",
+      "floor": 4.5,
+      "contrast": 5.212728568855022,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-page",
+      "foreground": "#267977",
+      "background": "#FDFDFB",
+      "floor": 4.5,
+      "contrast": 5.049201253186099,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink",
+      "bg": "--color-page-alt",
+      "foreground": "#14366A",
+      "background": "#FEF8F5",
+      "floor": 4.5,
+      "contrast": 11.305166588722335,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink-muted",
+      "bg": "--color-page-alt",
+      "foreground": "#4E5A6E",
+      "background": "#FEF8F5",
+      "floor": 4.5,
+      "contrast": 6.627666726470994,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-700",
+      "bg": "--color-page-alt",
+      "foreground": "#BB441B",
+      "background": "#FEF8F5",
+      "floor": 4.5,
+      "contrast": 5.04587620927588,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-page-alt",
+      "foreground": "#267977",
+      "background": "#FEF8F5",
+      "floor": 4.5,
+      "contrast": 4.887583180816543,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink",
+      "bg": "--color-cream-card",
+      "foreground": "#14366A",
+      "background": "#F8F0EC",
+      "floor": 4.5,
+      "contrast": 10.572759610036403,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink-muted",
+      "bg": "--color-cream-card",
+      "foreground": "#4E5A6E",
+      "background": "#F8F0EC",
+      "floor": 4.5,
+      "contrast": 6.198292305070231,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-700",
+      "bg": "--color-cream-card",
+      "foreground": "#BB441B",
+      "background": "#F8F0EC",
+      "floor": 4.5,
+      "contrast": 4.718978332959257,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-cream-card",
+      "foreground": "#267977",
+      "background": "#F8F0EC",
+      "floor": 4.5,
+      "contrast": 4.57094034300918,
+      "pass": true
+    },
+    {
+      "fg": "--color-white",
+      "bg": "--color-orange-600",
+      "foreground": "#FFFFFF",
+      "background": "#CC4A22",
+      "floor": 4.5,
+      "contrast": 4.595101299071435,
+      "pass": true
+    },
+    {
+      "fg": "--color-white",
+      "bg": "--primary",
+      "foreground": "#FFFFFF",
+      "background": "#CC4A22",
+      "floor": 4.5,
+      "contrast": 4.595101299071435,
+      "pass": true
+    },
+    {
+      "fg": "--color-white",
+      "bg": "--sidebar-primary",
+      "foreground": "#FFFFFF",
+      "background": "#CC4A22",
+      "floor": 4.5,
+      "contrast": 4.595101299071435,
+      "pass": true
+    },
+    {
+      "fg": "--color-white",
+      "bg": "--color-navy-950",
+      "foreground": "#FFFFFF",
+      "background": "#14366A",
+      "floor": 4.5,
+      "contrast": 11.894427140633272,
+      "pass": true
+    },
+    {
+      "fg": "--color-white",
+      "bg": "--color-navy-800",
+      "foreground": "#FFFFFF",
+      "background": "#14366A",
+      "floor": 4.5,
+      "contrast": 11.894427140633272,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-400",
+      "bg": "--color-navy-950",
+      "foreground": "#70CECC",
+      "background": "#14366A",
+      "floor": 4.5,
+      "contrast": 6.450969889363784,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-500",
+      "bg": "--color-page",
+      "foreground": "#E15E31",
+      "background": "#FDFDFB",
+      "floor": 3,
+      "contrast": 3.5265696620425455,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-500",
+      "bg": "--color-page-alt",
+      "foreground": "#E15E31",
+      "background": "#FEF8F5",
+      "floor": 3,
+      "contrast": 3.4136889582883385,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-500",
+      "bg": "--color-cream-card",
+      "foreground": "#E15E31",
+      "background": "#F8F0EC",
+      "floor": 3,
+      "contrast": 3.192532587305923,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-500",
+      "bg": "--color-navy-950",
+      "foreground": "#E15E31",
+      "background": "#14366A",
+      "floor": 3,
+      "contrast": 3.3117154863432168,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink-soft",
+      "bg": "--color-white",
+      "foreground": "#647289",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 4.872368220863523,
+      "pass": true
+    },
+    {
+      "fg": "--color-ink-soft",
+      "bg": "--color-page",
+      "foreground": "#647289",
+      "background": "#FDFDFB",
+      "floor": 4.5,
+      "contrast": 4.784119923364237,
+      "pass": true
+    },
+    {
+      "fg": "--color-destructive-on-light",
+      "bg": "--color-page-alt",
+      "foreground": "#C92A2A",
+      "background": "#FEF8F5",
+      "floor": 4.5,
+      "contrast": 5.186854332120119,
+      "pass": true
+    },
+    {
+      "fg": "--color-page",
+      "bg": "--color-orange-600",
+      "foreground": "#FDFDFB",
+      "background": "#CC4A22",
+      "floor": 4.5,
+      "contrast": 4.511874858027137,
+      "pass": true
+    },
+    {
+      "fg": "--color-white",
+      "bg": "--color-teal-600",
+      "foreground": "#FFFFFF",
+      "background": "#267977",
+      "floor": 4.5,
+      "contrast": 5.142339264244065,
+      "pass": true
+    },
+    {
+      "fg": "--color-page",
+      "bg": "--color-teal-600",
+      "foreground": "#FDFDFB",
+      "background": "#267977",
+      "floor": 4.5,
+      "contrast": 5.049201253186099,
+      "pass": true
+    },
+    {
+      "fg": "--accent-foreground",
+      "bg": "--accent",
+      "foreground": "#FFFFFF",
+      "background": "#267977",
+      "floor": 4.5,
+      "contrast": 5.142339264244065,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--secondary",
+      "foreground": "#267977",
+      "background": "#EBF6F6",
+      "floor": 4.5,
+      "contrast": 4.663735526372188,
+      "pass": true
+    },
+    {
+      "fg": "--secondary-foreground",
+      "bg": "--secondary",
+      "foreground": "#267977",
+      "background": "#EBF6F6",
+      "floor": 4.5,
+      "contrast": 4.663735526372188,
+      "pass": true
+    },
+    {
+      "fg": "--sidebar-accent-foreground",
+      "bg": "--sidebar-accent",
+      "foreground": "#267977",
+      "background": "#EBF6F6",
+      "floor": 4.5,
+      "contrast": 4.663735526372188,
+      "pass": true
+    },
+    {
+      "fg": "--color-destructive-on-light",
+      "bg": "--color-white",
+      "foreground": "#C92A2A",
+      "background": "#FFFFFF",
+      "floor": 4.5,
+      "contrast": 5.457209361605109,
+      "pass": true
+    },
+    {
+      "fg": "--color-destructive-on-light",
+      "bg": "--color-page",
+      "foreground": "#C92A2A",
+      "background": "#FDFDFB",
+      "floor": 4.5,
+      "contrast": 5.358368425651902,
+      "pass": true
+    },
+    {
+      "fg": "--color-destructive-on-light",
+      "bg": "--color-cream-card",
+      "foreground": "#C92A2A",
+      "background": "#F8F0EC",
+      "floor": 4.5,
+      "contrast": 4.850823166152006,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-500",
+      "bg": "--color-white",
+      "foreground": "#E15E31",
+      "background": "#FFFFFF",
+      "floor": 3,
+      "contrast": 3.59162107665446,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-500",
+      "bg": "--color-navy-800",
+      "foreground": "#E15E31",
+      "background": "#14366A",
+      "floor": 3,
+      "contrast": 3.3117154863432168,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-500",
+      "bg": "--color-white",
+      "foreground": "#258D8A",
+      "background": "#FFFFFF",
+      "floor": 3,
+      "contrast": 3.995730937244687,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-500",
+      "bg": "--color-page",
+      "foreground": "#258D8A",
+      "background": "#FDFDFB",
+      "floor": 3,
+      "contrast": 3.923360287800098,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-500",
+      "bg": "--color-page-alt",
+      "foreground": "#258D8A",
+      "background": "#FEF8F5",
+      "floor": 3,
+      "contrast": 3.797778855187286,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-500",
+      "bg": "--color-cream-card",
+      "foreground": "#258D8A",
+      "background": "#F8F0EC",
+      "floor": 3,
+      "contrast": 3.551739160396783,
+      "pass": true
+    },
+    {
+      "fg": "--primary-foreground",
+      "bg": "--color-orange-700",
+      "foreground": "#FFFFFF",
+      "background": "#BB441B",
+      "floor": 4.5,
+      "contrast": 5.308883019181563,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-tint-teal over --color-white",
+      "foreground": "#267977",
+      "background": "#E5EFEF",
+      "floor": 3,
+      "contrast": 4.389256531671245,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-tint-teal over --color-page",
+      "foreground": "#267977",
+      "background": "#E3EDEB",
+      "floor": 3,
+      "contrast": 4.304746494808572,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-tint-teal over --color-page-alt",
+      "foreground": "#267977",
+      "background": "#E4E9E6",
+      "floor": 3,
+      "contrast": 4.186597719979299,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-tint-teal over --color-cream-card",
+      "foreground": "#267977",
+      "background": "#DFE2DE",
+      "floor": 3,
+      "contrast": 3.9353398927160566,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": ".group:hover .icon-tone-teal over --color-white",
+      "foreground": "#267977",
+      "background": "#D8E7E7",
+      "floor": 3,
+      "contrast": 4.041402595368668,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": ".group:hover .icon-tone-teal over --color-page",
+      "foreground": "#267977",
+      "background": "#D6E5E3",
+      "floor": 3,
+      "contrast": 3.961110419438904,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": ".group:hover .icon-tone-teal over --color-page-alt",
+      "foreground": "#267977",
+      "background": "#D7E1DE",
+      "floor": 3,
+      "contrast": 3.848008886081131,
+      "pass": true
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": ".group:hover .icon-tone-teal over --color-cream-card",
+      "foreground": "#267977",
+      "background": "#D2DBD7",
+      "floor": 3,
+      "contrast": 3.6373955002348186,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-600",
+      "bg": "--color-tint-orange over --color-white",
+      "foreground": "#CC4A22",
+      "background": "#FBECE6",
+      "floor": 3,
+      "contrast": 3.9917560119698723,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-600",
+      "bg": "--color-tint-orange over --color-page",
+      "foreground": "#CC4A22",
+      "background": "#FAEAE3",
+      "floor": 3,
+      "contrast": 3.9262156816450267,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-600",
+      "bg": "--color-tint-orange over --color-page-alt",
+      "foreground": "#CC4A22",
+      "background": "#FBE6DD",
+      "floor": 3,
+      "contrast": 3.8215188991985647,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-600",
+      "bg": "--color-tint-orange over --color-cream-card",
+      "foreground": "#CC4A22",
+      "background": "#F5DED6",
+      "floor": 3,
+      "contrast": 3.567114516499752,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-600",
+      "bg": ".group:hover .icon-tone-orange over --color-white",
+      "foreground": "#CC4A22",
+      "background": "#FAE2DA",
+      "floor": 3,
+      "contrast": 3.7101575106901716,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-600",
+      "bg": ".group:hover .icon-tone-orange over --color-page",
+      "foreground": "#CC4A22",
+      "background": "#F8E0D7",
+      "floor": 3,
+      "contrast": 3.63993572229421,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-600",
+      "bg": ".group:hover .icon-tone-orange over --color-page-alt",
+      "foreground": "#CC4A22",
+      "background": "#F9DCD2",
+      "floor": 3,
+      "contrast": 3.54388563915478,
+      "pass": true
+    },
+    {
+      "fg": "--color-orange-600",
+      "bg": ".group:hover .icon-tone-orange over --color-cream-card",
+      "foreground": "#CC4A22",
+      "background": "#F4D6CA",
+      "floor": 3,
+      "contrast": 3.351820021902081,
+      "pass": true
+    }
+  ],
+  "info": [
+    {
+      "fg": "--color-ink-soft",
+      "bg": "--color-page-alt",
+      "foreground": "#647289",
+      "background": "#FEF8F5",
+      "floor": null,
+      "contrast": 4.630986744228029,
+      "pass": null
+    },
+    {
+      "fg": "--color-ink-soft",
+      "bg": "--color-cream-card",
+      "foreground": "#647289",
+      "background": "#F8F0EC",
+      "floor": null,
+      "contrast": 4.330967546540295,
+      "pass": null
+    },
+    {
+      "fg": "--color-teal-400",
+      "bg": "--color-white",
+      "foreground": "#70CECC",
+      "background": "#FFFFFF",
+      "floor": null,
+      "contrast": 1.8438199750776296,
+      "pass": null
+    },
+    {
+      "fg": "--color-teal-400",
+      "bg": "--color-page",
+      "foreground": "#70CECC",
+      "background": "#FDFDFB",
+      "floor": null,
+      "contrast": 1.8104247212051836,
+      "pass": null
+    },
+    {
+      "fg": "--color-teal-400",
+      "bg": "--color-page-alt",
+      "foreground": "#70CECC",
+      "background": "#FEF8F5",
+      "floor": null,
+      "contrast": 1.7524754854866151,
+      "pass": null
+    },
+    {
+      "fg": "--color-teal-400",
+      "bg": "--color-cream-card",
+      "foreground": "#70CECC",
+      "background": "#F8F0EC",
+      "floor": null,
+      "contrast": 1.6389410881406428,
+      "pass": null
+    },
+    {
+      "fg": "--color-orange-600",
+      "bg": "--color-white",
+      "foreground": "#CC4A22",
+      "background": "#FFFFFF",
+      "floor": null,
+      "contrast": 4.595101299071435,
+      "pass": null
+    },
+    {
+      "fg": "--color-orange-600",
+      "bg": "--color-page",
+      "foreground": "#CC4A22",
+      "background": "#FDFDFB",
+      "floor": null,
+      "contrast": 4.511874858027137,
+      "pass": null
+    },
+    {
+      "fg": "--color-orange-600",
+      "bg": "--color-page-alt",
+      "foreground": "#CC4A22",
+      "background": "#FEF8F5",
+      "floor": null,
+      "contrast": 4.36745587356561,
+      "pass": null
+    },
+    {
+      "fg": "--color-orange-600",
+      "bg": "--color-cream-card",
+      "foreground": "#CC4A22",
+      "background": "#F8F0EC",
+      "floor": null,
+      "contrast": 4.0845095643893,
+      "pass": null
+    },
+    {
+      "fg": "--color-white",
+      "bg": "--color-orange-500",
+      "foreground": "#FFFFFF",
+      "background": "#E15E31",
+      "floor": null,
+      "contrast": 3.59162107665446,
+      "pass": null
+    },
+    {
+      "fg": "--color-teal-500",
+      "bg": "--color-orange-500",
+      "foreground": "#258D8A",
+      "background": "#E15E31",
+      "floor": null,
+      "contrast": 1.1125146144221454,
+      "pass": null
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-tint-teal over --color-white",
+      "foreground": "#267977",
+      "background": "#E5EFEF",
+      "floor": null,
+      "contrast": 4.389256531671245,
+      "pass": null
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-tint-teal over --color-page",
+      "foreground": "#267977",
+      "background": "#E3EDEB",
+      "floor": null,
+      "contrast": 4.304746494808572,
+      "pass": null
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-tint-teal over --color-page-alt",
+      "foreground": "#267977",
+      "background": "#E4E9E6",
+      "floor": null,
+      "contrast": 4.186597719979299,
+      "pass": null
+    },
+    {
+      "fg": "--color-teal-600",
+      "bg": "--color-tint-teal over --color-cream-card",
+      "foreground": "#267977",
+      "background": "#DFE2DE",
+      "floor": null,
+      "contrast": 3.9353398927160566,
+      "pass": null
+    }
+  ],
+  "unresolved": [],
+  "sourceHits": [],
+  "hoverHits": [],
+  "buildHits": null,
+  "failures": []
+}

@@ -1,5 +1,9 @@
-head=ef47670e01cea6ec50e1fbdd1c282c3a359196b8 srcdiff=e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+head=40ccbc02855f86c6f25328d6c3d3610aba4224f6 dirty=0
 build rc=0
-contrast rc=0
+contrast plain rc=0
+contrast --build rc=0
+head-after=40ccbc02855f86c6f25328d6c3d3610aba4224f6 dirty-after=0
+the screenshot gate's first launch failed: the shared Python Playwright was reinstalled as 1.60.0 at 09:06:25Z (it wants chromium_headless_shell-1223; /opt/pw-browsers holds 1243). Re-run with a private venv holding playwright 1.63.0, the version whose build 1243 is installed:
+head=40ccbc02855f86c6f25328d6c3d3610aba4224f6 dirty=0
 shots rc=1
-head-after=ef47670e01cea6ec50e1fbdd1c282c3a359196b8 srcdiff-after=e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+head-after=40ccbc02855f86c6f25328d6c3d3610aba4224f6 dirty-after=0

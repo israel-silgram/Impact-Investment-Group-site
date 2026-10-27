@@ -1,6 +1,6 @@
 {
   "baseline": false,
-  "pairs": 61,
+  "pairs": 62,
   "rows": [
     {
       "fg": "--color-ink",
@@ -374,37 +374,46 @@
     {
       "fg": "--color-teal-500",
       "bg": "--color-white",
-      "foreground": "#319693",
+      "foreground": "#258D8A",
       "background": "#FFFFFF",
       "floor": 3,
-      "contrast": 3.550626656610768,
+      "contrast": 3.995730937244687,
       "pass": true
     },
     {
       "fg": "--color-teal-500",
       "bg": "--color-page",
-      "foreground": "#319693",
+      "foreground": "#258D8A",
       "background": "#FDFDFB",
       "floor": 3,
-      "contrast": 3.4863177326341748,
+      "contrast": 3.923360287800098,
       "pass": true
     },
     {
       "fg": "--color-teal-500",
       "bg": "--color-page-alt",
-      "foreground": "#319693",
+      "foreground": "#258D8A",
       "background": "#FEF8F5",
       "floor": 3,
-      "contrast": 3.3747254384548544,
+      "contrast": 3.797778855187286,
       "pass": true
     },
     {
       "fg": "--color-teal-500",
       "bg": "--color-cream-card",
-      "foreground": "#319693",
+      "foreground": "#258D8A",
       "background": "#F8F0EC",
       "floor": 3,
-      "contrast": 3.1560933251749903,
+      "contrast": 3.551739160396783,
+      "pass": true
+    },
+    {
+      "fg": "--primary-foreground",
+      "bg": "--color-orange-700",
+      "foreground": "#FFFFFF",
+      "background": "#BB441B",
+      "floor": 4.5,
+      "contrast": 5.308883019181563,
       "pass": true
     },
     {
@@ -653,6 +662,15 @@
       "pass": null
     },
     {
+      "fg": "--color-teal-500",
+      "bg": "--color-orange-500",
+      "foreground": "#258D8A",
+      "background": "#E15E31",
+      "floor": null,
+      "contrast": 1.1125146144221454,
+      "pass": null
+    },
+    {
       "fg": "--color-teal-600",
       "bg": "--color-tint-teal over --color-white",
       "foreground": "#267977",
@@ -691,6 +709,7 @@
   ],
   "unresolved": [],
   "sourceHits": [],
+  "hoverHits": [],
   "buildHits": [],
   "failures": []
 }
