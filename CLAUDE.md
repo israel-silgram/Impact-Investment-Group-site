@@ -107,7 +107,7 @@ The wave 295 ruling holds: where a pairing fails, THE SURFACE MOVES, never the o
 --color-orange-700: #BB441B   (--brand-primary-ink) every orange WORD on a light
                               ground. 5.31:1 on white, 4.72:1 on the cream card
 --color-teal-400:   #70CECC   (--brand-teal-on-ink) ON NAVY ONLY. 1.84:1 on white
---color-teal-500:   #319693   (--brand-teal) graphics only: 3.55:1 on white
+--color-teal-500:   #258D8A   (--brand-teal) graphics only: 4.00:1 on white
 --color-teal-600:   #267977   (--brand-teal-ink) the teal of the light site: eyebrows,
                               figures, icon glyphs, the focus ring, the secondary button
 --color-teal-700/800: #267977 the same teal-ink, named so neither falls back to
@@ -132,7 +132,7 @@ a figure in an `info` row of that output is measured but not asserted.
 | `ink-muted` `#4e5a6e` | 6.97:1 | 6.85:1 | 6.63:1 | 6.20:1 | **PASS**: the default for body on the band and the cream card |
 | `ink-soft` `#647289` | 4.87:1 | 4.78:1 | 4.63:1 (info) | 4.33:1 (info) | White cards, rules and small caps. **FAILS on the cream card for body copy** |
 | `teal-600` `#267977` | 5.14:1 | 5.05:1 | 4.89:1 | 4.57:1 | **PASS**: eyebrows, figures, icon glyphs, the focus ring |
-| `teal-500` `#319693` | 3.55:1 | 3.49:1 | 3.37:1 | 3.16:1 | Graphics only (3:1). **FAIL** for text everywhere |
+| `teal-500` `#258D8A` | 4.00:1 | 3.92:1 | 3.80:1 | 3.55:1 | Graphics only (3:1). **FAIL** for text everywhere |
 | `teal-400` `#70CECC` | 1.84:1 (info) | 1.81:1 (info) | 1.75:1 (info) | 1.64:1 (info) | **FAIL.** It is the on-navy teal and belongs inside an island |
 | `orange-700` `#BB441B` | 5.31:1 | 5.21:1 | 5.05:1 | 4.72:1 | **PASS**: the one orange that carries a word |
 | `orange-600` `#CC4A22` | 4.60:1 (info) | 4.51:1 (info) | 4.37:1 (info) | 4.08:1 (info) | Fills under a white label. Never orange text: that is `orange-700` |
@@ -217,7 +217,8 @@ island. WCAG 2.2 wants 3:1 of a focus indicator (SC 1.4.11 and 2.4.11); teal-400
 Wave 412b found two failures that every row above would have called a pass, because the
 ground under the text was not the ground the class named: `/about`'s sourced-figure
 ledger sat on a band carrying a photograph at 10%, where the cream renders
-rgb(225, 221, 212) and teal-600 is **3.87:1**, not 4.67:1; and the register routes
+rgb(225, 221, 212) and teal-600 (then `#17796f`) was **3.87:1**, not the 4.67:1 the flat
+cream of that day gave it; and the register routes
 carried a 14% teal bloom over the cream, where the pre-release badge read **4.09:1**.
 If text sits on a photograph, a tint, a gradient or anything translucent, the pair is
 **measured off the rendered pixels**, and the surface moves until it passes. The gate
@@ -362,7 +363,7 @@ duotones, colour overlays, visible AI artefacts.
   human icons, teal for data icons. **One accent per glyph, never two.**
 - **Stat figure**: 44px/800, teal-600 on a light ground or teal-400 inside an island,
   13px uppercase label at +0.12em tracking.
-- **Header**: white at 92% with `backdrop-filter: blur`, a permanent 1px `border-rule`
+- **Header**: the page colour (`--color-page`) at 92% with `backdrop-filter: blur`, a permanent 1px `border-rule`
   underneath, navy nav labels, the active route in orange-700 over an orange-500
   underline, and the register pill in orange-600.
 - **Hover**: 200ms ease-out. Cards lift 2px and the shadow deepens to
