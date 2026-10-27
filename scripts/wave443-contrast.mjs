@@ -118,6 +118,9 @@ checks.push(
   ["--color-orange-500", "--color-white", 3],
   ["--color-orange-500", "--color-navy-800", 3],
   ...LIGHT.map((ground) => ["--color-teal-500", ground, 3]),
+  // The hover of the 404 and error pages' buttons (`__root.tsx`): a solid
+  // step, because `bg-primary/90` over white was 3.96:1.
+  ["--primary-foreground", "--color-orange-700", 4.5],
 );
 /* The icon plates: a glyph is a graphic and answers to 3:1 (SC 1.4.11). */
 const PLATES = [
@@ -137,6 +140,8 @@ const INFO = [
   ...LIGHT.map((ground) => ["--color-teal-400", ground]),
   ...LIGHT.map((ground) => ["--color-orange-600", ground]),
   ["--color-white", "--color-orange-500"],
+  // The luminance gap between the teal fill and the orange (wave 442 kept one).
+  ["--color-teal-500", "--color-orange-500"],
   // Teal TEXT on the icon plate's tint: why that text sits on --secondary.
   ...LIGHT.map((ground) => ["--color-teal-600", { plate: "--color-tint-teal", over: ground }]),
 ];
@@ -180,7 +185,7 @@ const expected = {
   "--brand-primary-soft": "#FFF0EB",
   "--brand-primary-light": "#F07E56",
   "--brand-primary-on-ink": "#FFA181",
-  "--brand-teal": "#319693",
+  "--brand-teal": "#258D8A",
   "--brand-teal-ink": "#267977",
   "--brand-teal-soft": "#EBF6F6",
   "--brand-teal-on-ink": "#70CECC",
@@ -225,16 +230,16 @@ if (!baseline)
    beds; the older names are wave 443's. */
 const retired =
   /#(?:c15f3c|ae4e30|f0a886|9a4429|f27216|bf4b1b|ffefb2|00112b|041c3d|0a2a52|143c6b|2fbaaa|1e9e8f|17796f|ff6b00|25d1c2|ff7a29|0a2c60|208a87|1a706e|66c4c2|fbf6f0|f5ede4)\b|rgba?\(\s*(?:255[, ]+107[, ]+0|37[, ]+209[, ]+194|0[, ]+17[, ]+43|10[, ]+44[, ]+96|32[, ]+138[, ]+135|26[, ]+112[, ]+110|102[, ]+196[, ]+194|251[, ]+246[, ]+240|245[, ]+237[, ]+228)\s*[,/)]/gi;
-function scan(dir) {
+function scan(dir, pattern = retired) {
   const hits = [];
   for (const entry of readdirSync(dir)) {
     const path = join(dir, entry);
-    if (statSync(path).isDirectory()) hits.push(...scan(path));
+    if (statSync(path).isDirectory()) hits.push(...scan(path, pattern));
     else if (/\.(?:css|tsx?|jsx?|html|svg)$/.test(entry)) {
       const source = readFileSync(path, "utf8")
         .replace(/\/\*[\s\S]*?\*\//g, "")
         .replace(/\/\/[^\n]*/g, "");
-      const matches = [...source.matchAll(retired)].map((m) => m[0]);
+      const matches = [...source.matchAll(pattern)].map((m) => m[0]);
       if (matches.length) hits.push({ file: path, values: [...new Set(matches)] });
     }
   }
@@ -242,12 +247,28 @@ function scan(dir) {
 }
 const sourceHits = baseline ? [] : scan("src");
 if (sourceHits.length) failures.push("Retired colours remain in source");
+/* Wave 777: a page's orange button may not hover to a translucent fill. Over
+   white, `bg-primary/90` put the white label at 3.96:1; the hover is the solid
+   ink step, checked above. Pages only: the unused library variants keep theirs. */
+const translucentHover = /hover:bg-(?:primary|orange-\d{3})\/\d+/g;
+const hoverHits = baseline ? [] : scan("src/routes", translucentHover);
+if (hoverHits.length) failures.push("A page's orange fill hovers to a translucent step");
 const buildIndex = process.argv.indexOf("--build");
 const buildHits = buildIndex >= 0 ? scan(process.argv[buildIndex + 1]) : null;
 if (buildHits?.length) failures.push("Retired colours remain in built text assets");
 console.log(
   JSON.stringify(
-    { baseline, pairs: rows.length, rows, info, unresolved, sourceHits, buildHits, failures },
+    {
+      baseline,
+      pairs: rows.length,
+      rows,
+      info,
+      unresolved,
+      sourceHits,
+      hoverHits,
+      buildHits,
+      failures,
+    },
     null,
     2,
   ),
