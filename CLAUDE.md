@@ -27,8 +27,11 @@ Do not confuse the two.
 
 ## 2. Brand system — authoritative
 
-Derived by sampling pixels from two approved mock-ups. These values are final unless
-Callum says otherwise. Nothing in the codebase should use a hard-coded colour.
+First derived by sampling pixels from two approved mock-ups. Since wave 443 the values are
+the platform's Brand Kit v4 (`iip-frontend/iip-web/src/index.css`), and since wave 777 they
+carry its lifted navy and teal. The `:root` block of `src/styles.css` holds them and
+`scripts/wave443-contrast.mjs` pins each one to the platform's value: the site follows the
+platform, never the reverse. Nothing in the codebase should use a hard-coded colour.
 
 > **THE SITE IS LIGHT. Updated 19 September 2026, wave 412, revised by the
 > 412b fix pass the same day.**
@@ -68,76 +71,84 @@ should be reaching for, and a component that reaches for one of them is correct 
 light ground without knowing which navy or slate sits behind it:
 
 ```
---color-page       #ffffff   THE PAGE GROUND
---color-page-alt   #f7f1e6   the cream alternating band (same value as --color-mist-bg)
---color-header     rgb(255 255 255 / 0.92)   the sticky bar, blurred
---color-ink        #00112b   navy-900 as type: headings and body on white
---color-ink-muted  #4e5a6e   body copy on the cream
---color-ink-soft   #647289   small caps, captions, body on a white card
+--color-page       #FDFDFB   THE PAGE GROUND (--bg-canvas)
+--color-page-alt   #FEF8F5   the alternating band (--bg-tint, same value as --color-mist-bg)
+--color-header     the page at 92%   the sticky bar, blurred
+--color-ink        #14366A   the navy as type: headings and body on white (--brand-ink)
+--color-ink-muted  #4e5a6e   body copy on the band and the cream card (--color-slate-ink)
+--color-ink-soft   #647289   small caps, captions, body on a white card (--brand-slate)
 --color-rule       slate at 20%   the hairline that rules the whole site
 --color-tint-orange  orange-500 at 12%   the plate behind a HUMAN icon glyph
 --color-tint-teal    teal-600 at 12%     the plate behind a DATA icon glyph
+--secondary        #EBF6F6   the teal bed under teal TEXT (--brand-teal-soft)
 ```
 
 Tailwind emits `bg-page`, `bg-page-alt`, `text-ink`, `text-ink-muted`, `text-ink-soft`,
-`border-rule`, `bg-tint-orange` and `bg-tint-teal` from these.
+`border-rule`, `bg-tint-orange`, `bg-tint-teal` and `bg-secondary` from these. Teal text
+never sits on `bg-tint-teal`: there it is 4.39:1 over white and 3.94:1 over the cream card.
+It sits on `bg-secondary`, where it is 4.66:1 over any ground because the bed is opaque.
 
-The navy scale is unchanged and still correct. It is now the INK and the two islands,
-not the ground:
+The navy scale is one value: every `navy-*` name is `--brand-ink`. It is the INK and the
+two islands, not the ground:
 
 ```
---color-navy-950: #000b1c    --color-navy-900: #00112b   (ink)
---color-navy-800: #041c3d    --color-navy-700: #0a2a52    --color-navy-600: #143c6b
+--color-navy-950 / 900 / 800 / 700 / 600: var(--brand-ink)   #14366A since wave 777
 ```
 
 **One orange, three steps of it, and the step is decided by the JOB not by taste.**
 The wave 295 ruling holds: where a pairing fails, THE SURFACE MOVES, never the orange.
 
 ```
---color-orange-500: #c15f3c   fills, rules, chip borders, icon glyphs, and a
-                              headline word at 26px and above
---color-orange-600: #ae4e30   the fill of any text-bearing control. White on it
-                              is 5.34:1, so a button label passes at any size
---color-orange-700: #9a4429   every orange WORD on a light ground. 6.50:1 on
-                              white, 5.78:1 on the cream
---color-teal-400:   #2fbaaa   ON NAVY ONLY. 2.41:1 on white
---color-teal-500:   #1e9e8f   ON NAVY ONLY
---color-teal-600:   #17796f   the teal of the light site: eyebrows, figures,
-                              icon glyphs, the focus ring, the secondary button
---color-cream-card: #efe6d6   a card that has to separate from the cream
+--color-orange-500: #E15E31   (--brand-primary) fills, rules, chip borders, icon
+                              glyphs, and a headline word at 26px and above
+--color-orange-600: #CC4A22   (--brand-primary-fill) the fill of any text-bearing
+                              control. White on it is 4.60:1 and `text-page` 4.51:1,
+                              so a label passes at any size
+--color-orange-700: #BB441B   (--brand-primary-ink) every orange WORD on a light
+                              ground. 5.31:1 on white, 4.72:1 on the cream card
+--color-teal-400:   #70CECC   (--brand-teal-on-ink) ON NAVY ONLY. 1.84:1 on white
+--color-teal-500:   #319693   (--brand-teal) graphics only: 3.55:1 on white
+--color-teal-600:   #267977   (--brand-teal-ink) the teal of the light site: eyebrows,
+                              figures, icon glyphs, the focus ring, the secondary button
+--color-teal-700/800: #267977 the same teal-ink, named so neither falls back to
+                              Tailwind's default teal
+--color-cream-card: #F8F0EC   (--bg-cream) a card that has to separate from the band
 ```
 
-⚠️ **THERE IS STILL ONE ORANGE AND IT IS `#c15f3c`.** 600 and 700 are steps of it,
-not new oranges, and both were already in the file before this wave. Do not add a
-lighter one for text; that is the exact thing wave 295 existed to end.
+⚠️ **THERE IS STILL ONE ORANGE AND IT IS `#E15E31`.** 600 and 700 are the platform's
+fill and ink steps of it (R541-1), not new oranges. Do not add a lighter one for text;
+that is the exact thing wave 295 existed to end.
 
 ### Working on the light grounds: read before building anything
 
-Two grounds, and the cream is the binding one because it is darker. Every figure below
-was measured in wave 412, not carried forward.
+Four light grounds: white, the page (`--bg-canvas`), the band (`--bg-tint`) and the cream
+card (`--bg-cream`), which is the binding one because it is the darkest. Every figure
+below is copied from `node scripts/wave443-contrast.mjs` at wave 777, not carried forward;
+a figure in an `info` row of that output is measured but not asserted.
 
-| Colour | on white `#ffffff` | on cream `#f7f1e6` | Verdict |
-|---|---|---|---|
-| `ink` `#00112b` | 18.83:1 | 16.75:1 | **PASS**: the default for headings and for body on white |
-| `ink-muted` `#4e5a6e` | 6.97:1 | 6.20:1 | **PASS**: the default for body on the cream |
-| `ink-soft` `#647289` | 4.87:1 | 4.33:1 | White cards, rules and small caps. **FAILS on the cream for body copy** |
-| `teal-600` `#17796f` | 5.25:1 | 4.67:1 | **PASS**: eyebrows, figures, icon glyphs, the focus ring |
-| `teal-500` `#1e9e8f` | 3.31:1 | 2.95:1 | **FAIL** for text on either |
-| `teal-400` `#2fbaaa` | 2.41:1 | 2.14:1 | **FAIL.** It is the on-navy teal and belongs inside an island |
-| `orange-700` `#9a4429` | 6.50:1 | 5.78:1 | **PASS**: the one orange that carries a word |
-| `orange-600` `#ae4e30` | 5.34:1 | 4.75:1 | Fills. Passes as text on white, fails on the cream |
-| `orange-500` `#c15f3c` | 4.23:1 | 3.76:1 | **NEVER small text.** Rules, chips, glyphs, and a headline at 26px and above |
-| `destructive` `#c92a2a` | 5.46:1 | 4.85:1 | **PASS**: validation errors on either ground |
+| Colour | white `#FFFFFF` | page `#FDFDFB` | band `#FEF8F5` | cream card `#F8F0EC` | Verdict |
+|---|---|---|---|---|---|
+| `ink` `#14366A` | 11.89:1 | 11.68:1 | 11.31:1 | 10.57:1 | **PASS**: the default for headings and for body on white |
+| `ink-muted` `#4e5a6e` | 6.97:1 | 6.85:1 | 6.63:1 | 6.20:1 | **PASS**: the default for body on the band and the cream card |
+| `ink-soft` `#647289` | 4.87:1 | 4.78:1 | 4.63:1 (info) | 4.33:1 (info) | White cards, rules and small caps. **FAILS on the cream card for body copy** |
+| `teal-600` `#267977` | 5.14:1 | 5.05:1 | 4.89:1 | 4.57:1 | **PASS**: eyebrows, figures, icon glyphs, the focus ring |
+| `teal-500` `#319693` | 3.55:1 | 3.49:1 | 3.37:1 | 3.16:1 | Graphics only (3:1). **FAIL** for text everywhere |
+| `teal-400` `#70CECC` | 1.84:1 (info) | 1.81:1 (info) | 1.75:1 (info) | 1.64:1 (info) | **FAIL.** It is the on-navy teal and belongs inside an island |
+| `orange-700` `#BB441B` | 5.31:1 | 5.21:1 | 5.05:1 | 4.72:1 | **PASS**: the one orange that carries a word |
+| `orange-600` `#CC4A22` | 4.60:1 (info) | 4.51:1 (info) | 4.37:1 (info) | 4.08:1 (info) | Fills under a white label. Never orange text: that is `orange-700` |
+| `orange-500` `#E15E31` | 3.59:1 | 3.53:1 | 3.41:1 | 3.19:1 | **NEVER small text.** Rules, chips, glyphs, and a headline at 26px and above |
+| `destructive` `#c92a2a` | 5.46:1 | 5.36:1 | 5.19:1 | 4.85:1 | **PASS**: validation errors on every ground |
 
 So on any light ground: headings are `ink`, body is `ink` on white and `ink-muted` on
-the cream, eyebrows and figures are `teal-600`, an orange word is `orange-700`, and
+the band, eyebrows and figures are `teal-600`, an orange word is `orange-700`, and
 `orange-500` survives as a rule, a chip border, an icon glyph and a large headline word.
 Icon plates are a 12% tint of the glyph's own colour with no ring. Cards are white on the
 cream, or white with a rule and `--shadow-card` on white. **The logo uses its `on-cream`
 variant everywhere on the site**, including in the header.
 
-`--primary` in the `:root` shadcn layer is `#ae4e30` and follows `orange-600`, with
-white `--primary-foreground`, so the library components and the brand button agree.
+`--primary` in the `:root` shadcn layer is `#CC4A22` (`--brand-primary-fill`) and follows
+`orange-600`, with white `--primary-foreground`, so the library components and the brand
+button agree.
 
 ### What each colour is for
 
@@ -174,30 +185,33 @@ counts them on every page at both widths and fails at two.
 
 ### Hard accessibility rules (measured, not guessed)
 
-Re-measured in wave 412 against the grounds the site actually has.
+Re-measured in wave 777 by `scripts/wave443-contrast.mjs` against the grounds the site
+actually has; the plates are composited over each ground from the stylesheet's own mix.
 
 | Combination | Ratio | Rule |
 |---|---|---|
-| ink on white | 18.83:1 | Default heading and body text |
-| ink on cream | 16.75:1 | Default heading text on a cream band |
-| ink-muted on cream | 6.20:1 | Default body text on a cream band |
-| ink-soft on white | 4.87:1 | Body on a white card. **Not on the cream**, where it is 4.33:1 |
-| teal-600 on white | 5.25:1 | Eyebrows, figures, icon glyphs, the focus ring |
-| teal-600 on cream | 4.67:1 | The same, on the band |
-| orange-700 on cream | 5.78:1 | Every orange word, at any size |
-| orange-500 on white | 4.23:1 | **Large text and graphics only.** 3:1 floor, not 4.5:1 |
-| White on orange-600 | 5.34:1 | Button labels, at any size |
-| White on teal-600 | 5.25:1 | A label on a filled teal plate |
-| White on orange-500 | 4.23:1 | **NEVER small.** This is why buttons fill with 600 |
-| orange-600 glyph on the 12% orange tint | 4.60:1 white / 4.11:1 cream | Human icon plates |
-| teal-600 glyph on the 12% teal tint | 4.46:1 white / 3.97:1 cream | Data icon plates |
-| White on navy-950 (inside an island) | 19.73:1 | Body text on an island |
-| orange-500 on navy-950 (inside an island) | 4.67:1 | An orange word on an island |
-| teal-400 on navy-950 (inside an island) | 8.20:1 | The focus ring and data type on an island |
+| ink on white | 11.89:1 | Default heading and body text |
+| ink on the band | 11.31:1 | Default heading text on the band |
+| ink-muted on the band | 6.63:1 | Default body text on the band (6.20:1 on the cream card) |
+| ink-soft on white | 4.87:1 | Body on a white card. **Not on the cream card**, where it is 4.33:1 |
+| teal-600 on white | 5.14:1 | Eyebrows, figures, icon glyphs, the focus ring |
+| teal-600 on the band | 4.89:1 | The same, on the band (4.57:1 on the cream card) |
+| teal-600 on the teal bed (`--secondary`) | 4.66:1 | Teal text on a teal surface: the success panels, the active rail pill, the secondary button's hover |
+| orange-700 on the band | 5.05:1 | Every orange word, at any size (4.72:1 on the cream card) |
+| orange-500 on white | 3.59:1 | **Large text and graphics only.** 3:1 floor, not 4.5:1 |
+| White on orange-600 | 4.60:1 | Button labels, at any size |
+| `text-page` on orange-600 | 4.51:1 | Type on a filled orange tile |
+| White on teal-600 | 5.14:1 | A label on a filled teal plate |
+| White on orange-500 | 3.59:1 | **NEVER small.** This is why buttons fill with 600 |
+| orange-600 glyph on the 12% orange tint | 3.99:1 white / 3.82:1 band / 3.57:1 cream card | Human icon plates (18% on hover: 3.71 / 3.54 / 3.35) |
+| teal-600 glyph on the 12% teal tint | 4.39:1 white / 4.19:1 band / 3.94:1 cream card | Data icon plates (18% on hover: 4.04 / 3.85 / 3.64) |
+| White on navy-950 (inside an island) | 11.89:1 | Body text on an island |
+| orange-500 on navy-950 (inside an island) | 3.31:1 | **Large text and graphics only** on an island |
+| teal-400 on navy-950 (inside an island) | 6.45:1 | The focus ring and data type on an island |
 
 **The focus ring is `teal-600` everywhere on the light site** and `teal-400` inside an
 island. WCAG 2.2 wants 3:1 of a focus indicator (SC 1.4.11 and 2.4.11); teal-400 is
-2.41:1 on white, so it cannot be the site ring any more.
+1.84:1 on white, so it cannot be the site ring.
 
 ⚠ **THE TABLE ABOVE IS THE FLAT CREAM AND THE FLAT WHITE, AND SOME BANDS ARE NEITHER.**
 Wave 412b found two failures that every row above would have called a pass, because the
@@ -213,9 +227,10 @@ does this now for every node axe returns as INCOMPLETE.
 fails on a single serious or critical colour-contrast violation. **It also measures every
 node axe returns as INCOMPLETE off the screenshot's own pixels and fails on any one of
 them under its floor**, which is the check wave 412b added and the reason the two
-failures above were found. `origin/main` carried between 5 and 15 violations per page;
-this branch carries none, and 278 incomplete nodes across the 28 shots, all measured and
-all above their floors.
+failures above were found. Before wave 412 `origin/main` carried between 5 and 15
+violations per page; at wave 777 it carries none, and 274 incomplete nodes across the 28
+shots, 273 measured above their floors and one that the wave 777 environment could not
+read off its pixels (`docs/WAVE777_REPORT.md`).
 
 ### Section rhythm
 
@@ -255,16 +270,17 @@ Eyebrow   12px / 600 / +0.14em tracking / UPPERCASE / teal         (Inter)
 Headline emphasis = colouring one phrase orange. Never a second typeface, never underlines.
 Body never below 15px. Line length capped at 68 characters.
 
-**The colour proportion target documented in `styles.css` is correct — keep it:**
-navy 70% · white/neutral 20% · teal 7% · orange 3%. Orange marks the one action a page
-exists to get. Teal marks data, verification and secondary actions.
+**The colour proportion target documented in `styles.css` is correct, keep it:**
+white and cream 75 to 80% · navy 10 to 15%, as ink and islands · teal 5% · orange 3%.
+Orange marks the one action a page exists to get. Teal marks data, verification and
+secondary actions.
 
 ### Icon system
 
 **Lucide icons only. No emoji anywhere on this site, ever. No AI-generated icon images.**
 
 Spec: 24px icon centred in a 60px circle. Stroke 1.6px, rounded caps and joins. Ring is
-1.5px at `rgba(255,255,255,0.28)` on navy, `rgba(0,17,43,0.18)` on cream. Icon stroke is
+1.5px at `rgba(255,255,255,0.28)` on navy, the navy (`--brand-ink`) at 18% on cream. Icon stroke is
 white on navy / navy-800 on cream, with **exactly one** detail element in the accent colour
 — orange for human icons, teal for data icons. Never two accents. Never filled shapes.
 
@@ -336,7 +352,7 @@ duotones, colour overlays, visible AI artefacts.
 - **Primary button** — orange-600 fill, white 16px semibold, fully rounded pill, 13px/26px
   padding, optional right arrow.
 - **Secondary button**: transparent, 1px teal-600 border, teal-600 label, filling to the
-  12% teal tint on hover. Only beside a primary.
+  teal bed (`bg-secondary`, 4.66:1) on hover. Only beside a primary.
 - **Data button**: teal-600 fill with a white label. Platform, demo and map actions only.
 - **Card on white**: white fill, 1px `border-rule`, `--shadow-card`, 16px radius,
   20 to 24px padding. The `panel` utility is exactly this.
