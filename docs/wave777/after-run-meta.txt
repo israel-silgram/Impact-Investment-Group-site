@@ -1,0 +1,5 @@
+head=ef47670e01cea6ec50e1fbdd1c282c3a359196b8 srcdiff=e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+build rc=0
+contrast rc=0
+shots rc=1
+head-after=ef47670e01cea6ec50e1fbdd1c282c3a359196b8 srcdiff-after=e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
