@@ -1,4 +1,10 @@
-/** Site colour gate. Resolves the real CSS declarations, not a copied palette. */
+/** Site colour gate. Resolves the real CSS declarations, not a copied palette.
+ *
+ * Wave 777 widened it from the 29 flat pairs of wave 443: the translucent icon
+ * plates (at rest and on hover) are composited over each light ground, the
+ * teal bed under teal text is checked, and a few pairs that are measured but
+ * deliberately not a job are printed as `info` rows with no floor, so that
+ * every ratio CLAUDE.md section 2 states is read off this script's output. */
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';
@@ -20,6 +26,33 @@ function value(name, seen = new Set()) {
   if (!/^#[\da-f]{6}$/i.test(definition)) throw new Error(`Unresolved colour: ${name} = ${definition}`);
   return definition.toUpperCase();
 }
+/* A translucent plate. `color-mix(in oklab, var(--x) N%, transparent)` is --x
+   at alpha N/100 (the transparent end has no colour to mix), and the browser
+   composites that over the ground in sRGB. The definition is read from the
+   stylesheet: a custom property by name, or the background-color of the rule
+   whose selector list starts at the beginning of a line with `selector,`. */
+function tintDefinition(source) {
+  if (source.startsWith('--')) {
+    const definition = declarations.get(source);
+    if (!definition) throw new Error(`Missing tint: ${source}`);
+    return definition;
+  }
+  const escaped = source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const rule = css.match(new RegExp(`^${escaped},[^{]*\\{\\s*background-color:\\s*([^;]+);`, 'm'));
+  if (!rule) throw new Error(`Missing plate rule: ${source}`);
+  return rule[1].trim();
+}
+const channels = (hex) => hex.slice(1).match(/../g).map((v) => parseInt(v, 16));
+function plate(source, groundName) {
+  const definition = tintDefinition(source);
+  const mix = definition.match(/^color-mix\(in oklab, var\((--[\w-]+)\) (\d+(?:\.\d+)?)%, transparent\)$/);
+  if (!mix) throw new Error(`Not a translucent tint: ${source} = ${definition}`);
+  const alpha = Number(mix[2]) / 100;
+  const ink = channels(value(mix[1]));
+  const ground = channels(value(groundName));
+  return `#${ink.map((c, i) => Math.round(c * alpha + ground[i] * (1 - alpha))
+    .toString(16).padStart(2, '0')).join('').toUpperCase()}`;
+}
 const luminance = (hex) => {
   const channels = hex.slice(1).match(/../g).map((v) => parseInt(v, 16) / 255)
     .map((v) => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
@@ -27,8 +60,9 @@ const luminance = (hex) => {
 };
 const ratio = (a, b) => (Math.max(luminance(a), luminance(b)) + 0.05)
   / (Math.min(luminance(a), luminance(b)) + 0.05);
+const LIGHT = ['--color-white', '--color-page', '--color-page-alt', '--color-cream-card'];
 const checks = [];
-for (const ground of ['--color-white', '--color-page', '--color-page-alt', '--color-cream-card']) {
+for (const ground of LIGHT) {
   for (const ink of ['--color-ink', '--color-ink-muted', '--color-orange-700', '--color-teal-600']) {
     checks.push([ink, ground, 4.5]);
   }
@@ -47,24 +81,75 @@ checks.push(
   ['--color-ink-soft', '--color-white', 4.5],
   ['--color-ink-soft', '--color-page', 4.5],
   ['--color-destructive-on-light', '--color-page-alt', 4.5],
+  // Wave 777.
+  ['--color-page', '--color-orange-600', 4.5], // `text-page` on a filled orange tile
+  ['--color-white', '--color-teal-600', 4.5], // a label on the data button or a teal disc
+  ['--color-page', '--color-teal-600', 4.5],
+  ['--accent-foreground', '--accent', 4.5],
+  ['--color-teal-600', '--secondary', 4.5], // teal text on the teal bed
+  ['--secondary-foreground', '--secondary', 4.5],
+  ['--sidebar-accent-foreground', '--sidebar-accent', 4.5],
+  ['--color-destructive-on-light', '--color-white', 4.5],
+  ['--color-destructive-on-light', '--color-page', 4.5],
+  ['--color-destructive-on-light', '--color-cream-card', 4.5],
+  ['--color-orange-500', '--color-white', 3],
+  ['--color-orange-500', '--color-navy-800', 3],
+  ...LIGHT.map((ground) => ['--color-teal-500', ground, 3]),
 );
-const rows = checks.map(([fg, bg, floor]) => {
-  const foreground = value(fg); const background = value(bg);
-  const contrast = ratio(foreground, background);
-  return { fg, bg, foreground, background, floor, contrast, pass: contrast >= floor };
-});
+/* The icon plates: a glyph is a graphic and answers to 3:1 (SC 1.4.11). */
+const PLATES = [
+  ['--color-teal-600', '--color-tint-teal'],
+  ['--color-teal-600', '.group:hover .icon-tone-teal'],
+  ['--color-orange-600', '--color-tint-orange'],
+  ['--color-orange-600', '.group:hover .icon-tone-orange'],
+];
+for (const [glyph, source] of PLATES) {
+  for (const ground of LIGHT) checks.push([glyph, { plate: source, over: ground }, 3]);
+}
+/* Measured and printed, never asserted: each says why a colour is NOT used
+   for a job, and CLAUDE.md quotes them. */
+const INFO = [
+  ['--color-ink-soft', '--color-page-alt'],
+  ['--color-ink-soft', '--color-cream-card'],
+  ...LIGHT.map((ground) => ['--color-teal-400', ground]),
+  ...LIGHT.map((ground) => ['--color-orange-600', ground]),
+  ['--color-white', '--color-orange-500'],
+  // Teal TEXT on the icon plate's tint: why that text sits on --secondary.
+  ...LIGHT.map((ground) => ['--color-teal-600', { plate: '--color-tint-teal', over: ground }]),
+];
+const describe = (bg) => (typeof bg === 'string' ? bg : `${bg.plate} over ${bg.over}`);
+const resolve = (bg) => (typeof bg === 'string' ? value(bg) : plate(bg.plate, bg.over));
+const unresolved = [];
+const measure = ([fg, bg, floor]) => {
+  try {
+    const foreground = value(fg); const background = resolve(bg);
+    const contrast = ratio(foreground, background);
+    return [{ fg, bg: describe(bg), foreground, background, floor, contrast, pass: floor == null ? null : contrast >= floor }];
+  } catch (error) {
+    // A baseline stylesheet predates some of these names; anything else is a defect.
+    if (!baseline) throw error;
+    unresolved.push(`${fg} on ${describe(bg)}: ${error.message}`);
+    return [];
+  }
+};
+const rows = checks.flatMap(measure);
+const info = INFO.map(([fg, bg]) => [fg, bg, null]).flatMap(measure);
 const failures = rows.filter((row) => !row.pass).map((row) => `${row.fg} on ${row.bg}: ${row.contrast.toFixed(3)}`);
+/* The platform's values (web `src/index.css`), with wave 777's lift of the
+   navy and the teal. `--dv-track` is the site's own. */
 const expected = {
-  '--brand-primary': '#E15E31', '--brand-primary-ink': '#BB441B', '--brand-primary-soft': '#FFF0EB',
-  '--brand-primary-light': '#F07E56', '--brand-primary-on-ink': '#FFA181', '--brand-teal': '#208A87',
-  '--brand-teal-ink': '#1A706E', '--brand-teal-soft': '#EBF6F6', '--brand-teal-on-ink': '#66C4C2',
-  '--brand-ink': '#0A2C60', '--brand-slate': '#647289', '--bg-canvas': '#FDFDFB',
-  '--bg-tint': '#FBF6F0', '--bg-cream': '#F5EDE4', '--dv-track': '#F3EAE0',
+  '--brand-primary': '#E15E31', '--brand-primary-ink': '#BB441B', '--brand-primary-fill': '#CC4A22',
+  '--brand-primary-soft': '#FFF0EB', '--brand-primary-light': '#F07E56', '--brand-primary-on-ink': '#FFA181',
+  '--brand-teal': '#319693', '--brand-teal-ink': '#267977', '--brand-teal-soft': '#EBF6F6',
+  '--brand-teal-on-ink': '#70CECC', '--brand-ink': '#14366A', '--brand-slate': '#647289',
+  '--bg-canvas': '#FDFDFB', '--bg-tint': '#FEF8F5', '--bg-cream': '#F8F0EC', '--dv-track': '#F3EAE0',
 };
 if (!baseline) for (const [name, hex] of Object.entries(expected)) {
   if (value(name) !== hex) failures.push(`Platform v4 parity failed: ${name}`);
 }
-const retired = /#(?:c15f3c|ae4e30|f0a886|9a4429|f27216|bf4b1b|ffefb2|00112b|041c3d|0a2a52|143c6b|2fbaaa|1e9e8f|17796f|ff6b00|25d1c2|ff7a29)\b|rgba?\(\s*(?:255[, ]+107[, ]+0|37[, ]+209[, ]+194|0[, ]+17[, ]+43)\s*[,/)]/ig;
+/* Wave 777 retired the v4 navy, the three v4 teals and the two R523-1-era warm
+   beds; the older names are wave 443's. */
+const retired = /#(?:c15f3c|ae4e30|f0a886|9a4429|f27216|bf4b1b|ffefb2|00112b|041c3d|0a2a52|143c6b|2fbaaa|1e9e8f|17796f|ff6b00|25d1c2|ff7a29|0a2c60|208a87|1a706e|66c4c2|fbf6f0|f5ede4)\b|rgba?\(\s*(?:255[, ]+107[, ]+0|37[, ]+209[, ]+194|0[, ]+17[, ]+43|10[, ]+44[, ]+96|32[, ]+138[, ]+135|26[, ]+112[, ]+110|102[, ]+196[, ]+194|251[, ]+246[, ]+240|245[, ]+237[, ]+228)\s*[,/)]/ig;
 function scan(dir) {
   const hits = [];
   for (const entry of readdirSync(dir)) {
@@ -83,5 +168,5 @@ if (sourceHits.length) failures.push('Retired colours remain in source');
 const buildIndex = process.argv.indexOf('--build');
 const buildHits = buildIndex >= 0 ? scan(process.argv[buildIndex + 1]) : null;
 if (buildHits?.length) failures.push('Retired colours remain in built text assets');
-console.log(JSON.stringify({ baseline, pairs: rows.length, rows, sourceHits, buildHits, failures }, null, 2));
+console.log(JSON.stringify({ baseline, pairs: rows.length, rows, info, unresolved, sourceHits, buildHits, failures }, null, 2));
 if (failures.length && !baseline) process.exitCode = 1;
