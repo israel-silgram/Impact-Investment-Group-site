@@ -61,7 +61,7 @@ Every orange value is unchanged. Values stay six-digit hex for the demand map's 
 
 ## Preview captures
 
-Before (base `7d8212e`) and after (final tree), 28 PNGs each at 1280 and 390, were kept outside the repo for Tommy's preview (`/home/claude/iip-work/preview/site/before/` and `after/` in the cloud session) and published in the wave 777 preview artifact. The tracked `docs/screenshots/wave412` evidence is unchanged.
+Before (base `7d8212e`) and after (final tree), 28 PNGs each at 1280 and 390, were kept outside the repo, in the cloud session's scratch folders, for Tommy's preview and published in the wave 777 preview artifact. The tracked `docs/screenshots/wave412` evidence is unchanged.
 
 ## Findings, not changed in this wave
 
