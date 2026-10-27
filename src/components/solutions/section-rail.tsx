@@ -54,7 +54,7 @@ export function SectionRail({
                 className={cn(
                   "min-h-11 cursor-pointer rounded-full border px-4 font-heading text-xs font-semibold uppercase tracking-[0.08em] transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600",
                   isActive
-                    ? "border-teal-600 bg-tint-teal text-teal-600"
+                    ? "border-teal-600 bg-secondary text-teal-600"
                     : "border-rule text-ink-muted hover:border-rule hover:text-ink-muted",
                 )}
               >

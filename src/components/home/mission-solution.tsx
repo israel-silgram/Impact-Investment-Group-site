@@ -197,7 +197,7 @@ function FlipBar({
     <button
       type="button"
       onClick={onFlip}
-      className="group flex w-full cursor-pointer items-center justify-between gap-4 rounded-[var(--radius-panel)] bg-linear-to-r from-orange-600 to-orange-500 max-lg:to-orange-600 px-6 py-4 text-left transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+      className="group flex w-full cursor-pointer items-center justify-between gap-4 rounded-[var(--radius-panel)] bg-linear-to-r from-orange-600 to-orange-600 lg:from-orange-700 px-6 py-4 text-left transition-transform duration-200 hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
     >
       {/* ⚠ WAVE 490: BELOW `lg` THE GRADIENT STOPS AT ORANGE-600, AND THAT IS
           A FAILING PAIR THIS WAVE FOUND RATHER THAN CAUSED.
@@ -213,12 +213,18 @@ function FlipBar({
           Wave 295's ruling decides the fix: where a pairing fails, THE SURFACE
           MOVES, never the orange. So below `lg` the gradient ends at
           orange-600, which `CLAUDE.md` names as the fill of any text-bearing
-          control and where white is 5.31:1. Above `lg` nothing changes,
-          because rule 8 of this wave is that the desktop does not move and
-          the 1280 reading of this bar passes.
+          control. Above `lg` nothing changed in wave 490, because rule 8 of
+          that wave was that the desktop does not move and the 1280 reading of
+          this bar passed.
 
-          The desktop gradient is still a text-bearing control filled partly
-          with orange-500. It is proposal 9 in `docs/WAVE490_REPORT.md`.
+          WAVE 777: THE DESKTOP RUNS 700 TO 600 NOW, and the same rule decided
+          it. orange-600 became the platform's fill step, #CC4A22, where white
+          is 4.60:1 (`text-page` 4.51:1), and the 600-to-500 run then read
+          4.30:1 under the 10px label and the 12.5px line at 1280. The left end
+          is the colour it always was (#BB441B, now named orange-700) and the
+          run ends on the fill rather than on orange-500, so no text on this
+          bar sits on orange-500 any more. That closes proposal 9 in
+          `docs/WAVE490_REPORT.md`. Below `lg` it is still flat orange-600.
 
           ⚠ ALL THREE LINES ARE SOLID WHITE, AND THEY HAVE TO BE.
           They used to be white at 78%, 100% and 88% over an orange-600 to

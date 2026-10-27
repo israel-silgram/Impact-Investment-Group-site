@@ -45,7 +45,7 @@ export function SuccessState({ role }: { role: RegisterRoleContent }) {
     <div
       ref={panel}
       tabIndex={-1}
-      className="rounded-[var(--radius-panel)] border border-teal-600 bg-tint-teal p-6 sm:p-8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+      className="rounded-[var(--radius-panel)] border border-teal-600 bg-secondary p-6 sm:p-8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
     >
       <div role="status">
         <span className="grid size-11 place-items-center rounded-full border border-teal-600">

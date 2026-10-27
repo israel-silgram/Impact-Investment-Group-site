@@ -42,11 +42,16 @@ const buttonVariants = cva(
            teal-400 label and a teal-950 fill on hover, all three of which were
            chosen against navy: on white the label is 2.41:1 and the hover
            fill is a black hole in the middle of a light page. It is now
-           teal-600 throughout (5.25:1 on white, 4.67:1 on the cream) filling
+           teal-600 throughout (5.14:1 on white, 4.89:1 on the band at wave
+           777's values) filling
            to the 12% teal tint, which is the same tint the data icon plates
-           use, so a secondary action and a data icon read as one family. */
+           use, so a secondary action and a data icon read as one family.
+           WAVE 777: the hover fills to `bg-secondary`, the platform's pale
+           teal bed, instead. Under the lifted teal the label on the 12% tint
+           is 4.39:1 over white and 4.18:1 over the band; on the bed it is
+           4.66:1 over any ground, because the bed is opaque. */
         secondary:
-          "rounded-full border border-teal-600 bg-transparent px-6 text-teal-600 hover:bg-tint-teal hover:text-teal-600",
+          "rounded-full border border-teal-600 bg-transparent px-6 text-teal-600 hover:bg-secondary hover:text-teal-600",
         ghost: "nav-underline rounded-none bg-transparent px-1 text-ink hover:text-teal-600",
         // shadcn-internal variants, retained for library components
         default: "rounded-md bg-primary px-4 text-primary-foreground hover:bg-primary/90",

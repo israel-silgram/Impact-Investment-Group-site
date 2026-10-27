@@ -128,21 +128,27 @@
 }
 
 :root {
-  /* Brand Kit v4, platform commit 101a18d5. One value per colour role. */
+  /* Brand Kit v4 as the platform declares it (web `src/index.css`), with
+     wave 777's lift of the navy and the teal (OKLCH lightness up, hue and
+     chroma held). One value per colour role. Six-digit hex on purpose: the
+     demand map's canvas parses --brand-ink and --brand-teal-on-ink as #RRGGBB.
+     The orange values did not move (T777-1). */
   --brand-primary: #E15E31;
   --brand-primary-ink: #BB441B;
+  /* The fill under a white label (R541-1): white on it 4.60:1. */
+  --brand-primary-fill: #CC4A22;
   --brand-primary-soft: #FFF0EB;
   --brand-primary-light: #F07E56;
   --brand-primary-on-ink: #FFA181;
-  --brand-teal: #208A87;
-  --brand-teal-ink: #1A706E;
+  --brand-teal: #319693;
+  --brand-teal-ink: #267977;
   --brand-teal-soft: #EBF6F6;
-  --brand-teal-on-ink: #66C4C2;
-  --brand-ink: #0A2C60;
+  --brand-teal-on-ink: #70CECC;
+  --brand-ink: #14366A;
   --brand-slate: #647289;
   --bg-canvas: #FDFDFB;
-  --bg-tint: #FBF6F0;
-  --bg-cream: #F5EDE4;
+  --bg-tint: #FEF8F5;
+  --bg-cream: #F8F0EC;
   --dv-track: #F3EAE0;
 }
 
@@ -154,15 +160,20 @@
   --color-navy-700: var(--brand-ink);
   --color-navy-600: var(--brand-ink);
 
-  /* Bright orange is for graphics. White button labels and orange text use
-     the ink step: 5.31:1 on white, 4.58:1 on the deepest warm paper. */
+  /* Bright orange is for graphics. A fill under a white label is the fill
+     step (white on it 4.60:1); orange text is the ink step (5.31:1 on white,
+     4.72:1 on the deepest warm paper). The three jobs of R541-1. */
   --color-orange-500: var(--brand-primary);
-  --color-orange-600: var(--brand-primary-ink);
+  --color-orange-600: var(--brand-primary-fill);
   --color-orange-700: var(--brand-primary-ink);
 
   --color-teal-400: var(--brand-teal-on-ink);
   --color-teal-500: var(--brand-teal);
   --color-teal-600: var(--brand-teal-ink);
+  /* Wave 777: named so `text-teal-700` and `text-teal-800` stop falling back
+     to Tailwind's default teal, which is not a brand colour. */
+  --color-teal-700: var(--brand-teal-ink);
+  --color-teal-800: var(--brand-teal-ink);
   --color-teal-950: var(--brand-ink);
 
   --color-white: #ffffff;
@@ -242,7 +253,7 @@
  * are in docs/WAVE412_REPORT.md. */
 :root {
   --background: #ffffff;
-  --foreground: var(--brand-ink); /* 13.62:1 on white */
+  --foreground: var(--brand-ink); /* 11.89:1 on white */
   --card: #ffffff;
   --card-foreground: var(--brand-ink);
   --popover: #ffffff;
@@ -250,18 +261,23 @@
   /* WAVE 412: follows --color-orange-600, not 500. On the dark site the
      primary fill was 500 with NAVY ink on it, because white on 500 is only
      4.23:1. On a white page a 500 fill is also a weak edge against the
-     ground. In v4, 600 with white on it is 5.31:1, the same pairing the
-     brand `primary` button already used, so the library components and the
-     brand button now agree instead of differing by one step. */
-  --primary: var(--brand-primary-ink);
-  --primary-foreground: #ffffff; /* 5.31:1 */
-  /* The teal tint plate with teal-600 on it. */
-  --secondary: color-mix(in oklab, var(--brand-teal-ink) 12%, #ffffff);
+     ground. Since wave 777, 600 is the platform's fill step with white on it
+     at 4.60:1, the same pairing the brand `primary` button uses, so the
+     library components and the brand button agree instead of differing by
+     one step. */
+  --primary: var(--brand-primary-fill);
+  --primary-foreground: #ffffff; /* 4.60:1 */
+  /* The bed for teal-600 TEXT: the platform's pale teal bed, opaque, 4.66:1.
+     WAVE 777: it was the 12% teal mix the icon plates use, and under the
+     lifted teal that is 4.37:1. The plates keep their tint; they are glyphs
+     and answer to 3:1. The success panels, the active rail pill and the
+     secondary button's hover sit on this. */
+  --secondary: var(--brand-teal-soft);
   --secondary-foreground: var(--brand-teal-ink);
   --muted: var(--bg-tint); /* the cream */
   --muted-foreground: #4e5a6e; /* 6.20:1 on the cream, 6.97:1 on white */
   --accent: var(--brand-teal-ink);
-  --accent-foreground: #ffffff; /* 5.85:1 */
+  --accent-foreground: #ffffff; /* 5.14:1 */
   /* ERROR AND VALIDATION TEXT. Deliberately not a brand orange, so a failed
      field never reads as the call to action, and picked for the DARK ground
      because that is where the forms live: 4.57:1 on the register form's panel
@@ -297,9 +313,9 @@
   --chart-5: var(--brand-slate);
   --sidebar: var(--bg-tint);
   --sidebar-foreground: var(--brand-ink);
-  --sidebar-primary: var(--brand-primary-ink);
+  --sidebar-primary: var(--brand-primary-fill);
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: color-mix(in oklab, var(--brand-teal-ink) 12%, #ffffff);
+  --sidebar-accent: var(--brand-teal-soft);
   --sidebar-accent-foreground: var(--brand-teal-ink);
   --sidebar-border: color-mix(in oklab, var(--brand-slate) 20%, transparent);
   --sidebar-ring: var(--brand-ink);

@@ -183,7 +183,7 @@ export function EnquiryForm({
 
   if (sent) {
     return (
-      <div className="rounded-[var(--radius-panel)] border border-teal-600 bg-tint-teal p-8">
+      <div className="rounded-[var(--radius-panel)] border border-teal-600 bg-secondary p-8">
         <span className="grid size-11 place-items-center rounded-full border border-teal-600">
           {/* Affirmation, not a tick — the copy already says "received".
               WAVE 413: and it DRAWS ITSELF, over 400ms, when the panel
