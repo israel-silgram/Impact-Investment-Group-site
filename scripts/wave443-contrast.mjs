@@ -147,6 +147,21 @@ const expected = {
 if (!baseline) for (const [name, hex] of Object.entries(expected)) {
   if (value(name) !== hex) failures.push(`Platform v4 parity failed: ${name}`);
 }
+/* Wave 777: each utility does the platform's job for its colour. The three
+   orange jobs are R541-1's; teal-700 and teal-800 must exist, or Tailwind's
+   default teal paints them. */
+const jobs = {
+  '--color-orange-500': '--brand-primary', '--color-orange-600': '--brand-primary-fill',
+  '--color-orange-700': '--brand-primary-ink', '--primary': '--brand-primary-fill',
+  '--sidebar-primary': '--brand-primary-fill', '--color-teal-400': '--brand-teal-on-ink',
+  '--color-teal-500': '--brand-teal', '--color-teal-600': '--brand-teal-ink',
+  '--color-teal-700': '--brand-teal-ink', '--color-teal-800': '--brand-teal-ink',
+  '--secondary': '--brand-teal-soft', '--color-ink': '--brand-ink', '--color-navy-950': '--brand-ink',
+  '--color-page': '--bg-canvas', '--color-page-alt': '--bg-tint', '--color-cream-card': '--bg-cream',
+};
+if (!baseline) for (const [utility, job] of Object.entries(jobs)) {
+  if (value(utility) !== value(job)) failures.push(`Job mapping failed: ${utility} is not ${job}`);
+}
 /* Wave 777 retired the v4 navy, the three v4 teals and the two R523-1-era warm
    beds; the older names are wave 443's. */
 const retired = /#(?:c15f3c|ae4e30|f0a886|9a4429|f27216|bf4b1b|ffefb2|00112b|041c3d|0a2a52|143c6b|2fbaaa|1e9e8f|17796f|ff6b00|25d1c2|ff7a29|0a2c60|208a87|1a706e|66c4c2|fbf6f0|f5ede4)\b|rgba?\(\s*(?:255[, ]+107[, ]+0|37[, ]+209[, ]+194|0[, ]+17[, ]+43|10[, ]+44[, ]+96|32[, ]+138[, ]+135|26[, ]+112[, ]+110|102[, ]+196[, ]+194|251[, ]+246[, ]+240|245[, ]+237[, ]+228)\s*[,/)]/ig;
